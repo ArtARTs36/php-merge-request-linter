@@ -4,32 +4,25 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\Str\Str;
 
 class DescriptionContainsAllLinksOfDomainsRule extends AbstractDescriptionLinksRule implements Rule
 {
     public function lint(MergeRequest $request): array
     {
-        $uris = $request->description->findUris();
+        $hosts = [];
 
-        $matched = false;
+        foreach ($request->description->findUris() as $uri) {
+            $hosts[(string) $uri] = true;
+        }
 
-        foreach ($uris as $uri) {
-            $host = parse_url($uri, PHP_URL_HOST);
-
-            if ($this->domains->has($host)) {
-                $matched = true;
-            } else {
-                $matched = false;
-
-                break;
+        foreach ($this->domains as $domain) {
+            if (! array_key_exists($domain, $hosts)) {
+                return $this->definitionToNotes();
             }
         }
 
-        if ($matched) {
-            return [];
-        }
-
-        return $this->definitionToNotes();
+        return [];
     }
 
     public function getDefinition(): string
