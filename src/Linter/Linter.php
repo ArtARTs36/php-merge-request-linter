@@ -28,7 +28,7 @@ class Linter
 
                 break;
             } catch (\Throwable $e) {
-                $notes[] = new ExceptionNote($e);
+                $notes[] = new ExceptionNote($e, $e::class);
             }
         }
 
