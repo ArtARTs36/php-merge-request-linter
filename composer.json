@@ -18,6 +18,11 @@
             "ArtARTs36\\MergeRequestLinter\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "ArtARTs36\\MergeRequestLinter\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "ArtARTs36",
