@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Linter;
 
+use ArtARTs36\MergeRequestLinter\Note\Notes;
+
 class LintResult
 {
     public const STATE_CI_NOT_DETECTED = 0;
@@ -13,7 +15,7 @@ class LintResult
 
     public function __construct(
         public int $state,
-        public LintErrors $errors,
+        public Notes $errors,
         public float $duration,
     ) {
         //
@@ -21,7 +23,7 @@ class LintResult
 
     public static function withoutErrors(int $state, float $duration): self
     {
-        return new self($state, new LintErrors([]), $duration);
+        return new self($state, new Notes([]), $duration);
     }
 
     public function getState(): string
