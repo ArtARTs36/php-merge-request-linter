@@ -19,11 +19,10 @@ class GitlabCi extends AbstractCiSystem
 
     public function getMergeRequest(): MergeRequest
     {
+        [$projectId, $requestId] = [$this->getProjectId(), $this->getMergeRequestId()];
+
         try {
-            $request = $this->createClient()->mergeRequests()->show(
-                $this->getProjectId(),
-                $this->getMergeRequestId(),
-            );
+            $request = $this->createClient()->mergeRequests()->show($projectId, $requestId);
         } catch (\Throwable $e) {
             throw new InvalidCredentialsException(previous: $e);
         }

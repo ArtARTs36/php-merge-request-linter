@@ -23,7 +23,7 @@ abstract class AbstractEnvironment implements Environment
     {
         $value = $this->get($key);
 
-        if ($value === null) {
+        if ($value === false) {
             throw new EnvironmentDataKeyNotFound($key);
         }
 
