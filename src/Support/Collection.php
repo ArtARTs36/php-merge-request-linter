@@ -37,4 +37,9 @@ class Collection implements \Countable, \IteratorAggregate
     {
         return implode($sep, $this->items);
     }
+
+    public function diff(self $that): Collection
+    {
+        return new static(array_diff($this->items, $that->items));
+    }
 }

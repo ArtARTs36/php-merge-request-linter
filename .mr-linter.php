@@ -2,14 +2,18 @@
 
 use ArtARTs36\MergeRequestLinter\Ci\Credentials\GitlabCredentials;
 use ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi;
-use ArtARTs36\MergeRequestLinter\Rule\HasLabelsRule;
+use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsOfRule;
+use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule;
 use ArtARTs36\MergeRequestLinter\Rule\NotEmptyDescriptionRule;
 use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithRule;
 
 return [
     'rules' => [
         new NotEmptyDescriptionRule(),
-        new HasLabelsRule(['Feature']),
+        new HasAnyLabelsRule(),
+        HasAnyLabelsOfRule::make([
+            'Feature',
+        ]),
         TitleStartsWithRule::make([
             '[Feature]',
             '[Bug]',
