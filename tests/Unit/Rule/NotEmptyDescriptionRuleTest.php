@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\NotEmptyDescriptionRule;
+use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class NotEmptyDescriptionRuleTest extends TestCase
@@ -30,6 +30,6 @@ final class NotEmptyDescriptionRuleTest extends TestCase
      */
     public function testLint(MergeRequest $request, bool $hasNotes): void
     {
-        self::assertEquals($hasNotes, count((new NotEmptyDescriptionRule())->lint($request)) > 0);
+        self::assertEquals($hasNotes, count((new DescriptionNotEmptyRule())->lint($request)) > 0);
     }
 }
