@@ -8,6 +8,20 @@ class Rules implements \IteratorAggregate
 {
     protected array $rules = [];
 
+    /**
+     * @param iterable<Rule> $rules
+     */
+    public static function make(iterable $rules): self
+    {
+        $instance = new self();
+
+        foreach ($rules as $rule) {
+            $instance->add($rule);
+        }
+
+        return $instance;
+    }
+
     public function add(Rule $rule): self
     {
         $this->rules[$rule::class] = $rule;
