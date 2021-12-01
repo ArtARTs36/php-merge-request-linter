@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Ci\Credentials\GitlabCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\Map;
@@ -11,7 +12,7 @@ use Gitlab\Client;
 
 class GitlabCi extends AbstractCiSystem
 {
-    public function __construct(protected GitlabCredentials $credentials)
+    public function __construct(protected GitlabCredentials $credentials, protected Environment $environment)
     {
         //
     }
@@ -37,17 +38,17 @@ class GitlabCi extends AbstractCiSystem
 
     protected function getProjectId(): int
     {
-        return (int) $this->env('CI_MERGE_REQUEST_PROJECT_ID');
+        return $this->environment->getInt('CI_MERGE_REQUEST_PROJECT_ID');
     }
 
     protected function getGitlabServerUrl(): string
     {
-        return $this->env('CI_SERVER_URL');
+        return $this->environment->getString('CI_SERVER_URL');
     }
 
     protected function getMergeRequestId(): int
     {
-        return (int) $this->env('CI_MERGE_REQUEST_IID');
+        return $this->environment->getInt('CI_MERGE_REQUEST_IID');
     }
 
     protected function createClient(): Client

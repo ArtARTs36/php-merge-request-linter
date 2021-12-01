@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 use OndraM\CiDetector\CiDetector;
@@ -14,8 +15,10 @@ class SystemFactory
         CiDetector::CI_GITLAB => GitlabCi::class,
     ];
 
-    public function __construct(protected Map $credentials)
-    {
+    public function __construct(
+        protected Map $credentials,
+        protected Environment $environment,
+    ) {
         //
     }
 
@@ -27,6 +30,6 @@ class SystemFactory
             throw new CiNotSupported();
         }
 
-        return new $targetClass($this->credentials->get($targetClass));
+        return new $targetClass($this->credentials->get($targetClass), $this->environment);
     }
 }
