@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Configuration;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\Map;
+use JetBrains\PhpStorm\ArrayShape;
 
 class Config
 {
@@ -13,8 +14,13 @@ class Config
         //
     }
 
-    public static function fromArray(array $config): self
-    {
+    public static function fromArray(
+        #[ArrayShape([
+            'rules' => 'array',
+            'credentials' => 'array',
+        ])]
+        array $config
+    ): self {
         return new self(
             Rules::make($config['rules']),
             new Map($config['credentials']),
