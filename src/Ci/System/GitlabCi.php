@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Ci\Credentials\GitlabCredentials;
-use ArtARTs36\MergeRequestLinter\Request\Labels;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Support\Map;
 use ArtARTs36\Str\Str;
 use Gitlab\Client;
 
@@ -25,7 +25,7 @@ class GitlabCi extends AbstractCiSystem
         return new MergeRequest(
             Str::make($request['title']),
             Str::make($request['description']),
-            Labels::fromList($request['labels']),
+            Map::fromList($request['labels']),
             $request['has_conflicts'] ?? false,
         );
     }

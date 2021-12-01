@@ -1,15 +1,16 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Request;
+namespace ArtARTs36\MergeRequestLinter\Support;
 
-class Labels implements \IteratorAggregate
+/**
+ * @template T
+ */
+class Map extends Collection
 {
-    public function __construct(protected array $items)
-    {
-        //
-    }
-
-    public static function fromList(array $list): self
+    /**
+     * @param list<T> $list
+     */
+    public static function fromList(iterable $list): self
     {
         $items = [];
 
@@ -23,11 +24,6 @@ class Labels implements \IteratorAggregate
     public function has(string $label): bool
     {
         return array_key_exists($label, $this->items);
-    }
-
-    public function getIterator(): iterable
-    {
-        return new \ArrayIterator($this->items);
     }
 
     public function isEmpty(): bool
