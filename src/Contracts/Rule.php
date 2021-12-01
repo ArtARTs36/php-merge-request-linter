@@ -11,8 +11,13 @@ interface Rule
 {
     /**
      * @return array<LintNote>
-     *@throws StopLintException
+     * @throws StopLintException
      * @throws LintException
      */
     public function lint(MergeRequest $request): array;
+
+    /**
+     * Get rule definition
+     */
+    public function getDefinition(): string;
 }

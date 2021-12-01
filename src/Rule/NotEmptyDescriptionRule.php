@@ -18,4 +18,9 @@ class NotEmptyDescriptionRule implements Rule
 
         return $errors;
     }
+
+    public function getDefinition(): string
+    {
+        return 'Description must filled';
+    }
 }

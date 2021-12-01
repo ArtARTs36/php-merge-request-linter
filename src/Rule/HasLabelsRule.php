@@ -24,4 +24,9 @@ class HasLabelsRule implements Rule
 
         return [];
     }
+
+    public function getDefinition(): string
+    {
+        return "Merge must have labels: [". implode(',', $this->labels) . "]";
+    }
 }
