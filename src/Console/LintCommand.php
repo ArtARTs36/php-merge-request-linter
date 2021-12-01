@@ -27,12 +27,14 @@ class LintCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = (new ConfigLoader())->load(getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
+        $config = (new ConfigLoader())->load($path = getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
         $linter = new Linter($config->getRules());
 
         $result = $this->runnerFactory->create($config)->run($linter);
 
         $style = new SymfonyStyle($input, $output);
+
+        $style->info('Config path: '. $path);
 
         if ($result->isFail()) {
             $style->error('Detected notes');
