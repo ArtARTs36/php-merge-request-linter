@@ -12,7 +12,7 @@ class CallableRule extends SimpleRule implements Rule
         parent::__construct($definition);
     }
 
-    protected function doLint(MergeRequest $request): bool|array
+    protected function doLint(MergeRequest $request): bool|array|null
     {
         $callback = $this->callback;
 

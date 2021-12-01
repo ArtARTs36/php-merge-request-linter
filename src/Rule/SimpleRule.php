@@ -12,9 +12,9 @@ abstract class SimpleRule implements Rule
     use DefinitionToNotes;
 
     /**
-     * @return bool|array<Note>
+     * @return bool|null|array<Note>
      */
-    abstract protected function doLint(MergeRequest $request): bool|array;
+    abstract protected function doLint(MergeRequest $request): bool|array|null;
 
     public function __construct(protected string $definition)
     {
