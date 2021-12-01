@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Linter\LintError;
+use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 class NotEmptyDescriptionRule implements Rule
@@ -13,7 +13,7 @@ class NotEmptyDescriptionRule implements Rule
         $errors = [];
 
         if ($request->description->isEmpty()) {
-            $errors[] = new LintError('Description must filled');
+            $errors[] = new LintNote('Description must filled');
         }
 
         return $errors;

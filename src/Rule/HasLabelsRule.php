@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Linter\LintError;
+use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 class HasLabelsRule implements Rule
@@ -19,7 +19,7 @@ class HasLabelsRule implements Rule
     public function lint(MergeRequest $request): array
     {
         if ((count($this->labels) === 0 && $request->labels->isEmpty()) || $request->labels->isEmpty()) {
-            return [new LintError('Required labels')];
+            return [new LintNote('Required labels')];
         }
 
         return [];

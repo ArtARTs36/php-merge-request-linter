@@ -4,13 +4,13 @@ namespace ArtARTs36\MergeRequestLinter\Contracts;
 
 use ArtARTs36\MergeRequestLinter\Exception\LintException;
 use ArtARTs36\MergeRequestLinter\Exception\StopLintException;
-use ArtARTs36\MergeRequestLinter\Linter\LintError;
+use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 interface Rule
 {
     /**
-     * @return array<LintError>
+     * @return array<LintNote>
      *@throws StopLintException
      * @throws LintException
      */

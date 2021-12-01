@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Linter\LintError;
+use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 class TitleStartsWithRule implements Rule
@@ -16,9 +16,9 @@ class TitleStartsWithRule implements Rule
         //
     }
 
-    public static function make(string $prefix): self
+    public static function make(array|string $prefix): self
     {
-        return new self([$prefix]);
+        return new self((array) $prefix);
     }
 
     public function lint(MergeRequest $request): array
@@ -38,7 +38,7 @@ class TitleStartsWithRule implements Rule
         }
 
         return [
-            new LintError('Title need starts with of one: ' . implode(',', $this->prefixes)),
+            new LintNote('Title need starts with of one: ' . implode(',', $this->prefixes)),
         ];
     }
 }
