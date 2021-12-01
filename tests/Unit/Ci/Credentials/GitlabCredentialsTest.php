@@ -15,7 +15,7 @@ final class GitlabCredentialsTest extends TestCase
     {
         $credentials = GitlabCredentials::fromHttpToken('1234');
 
-        self::assertEquals('1234', $credentials->token);
+        self::assertEquals('1234', $credentials->getToken());
         self::assertEquals(Client::AUTH_HTTP_TOKEN, $credentials->method);
     }
 }
