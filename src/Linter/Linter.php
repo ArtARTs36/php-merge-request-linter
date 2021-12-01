@@ -18,20 +18,20 @@ class Linter
 
     public function run(MergeRequest $request): Notes
     {
-        $errors = [];
+        $notes = [];
 
         foreach ($this->rules as $rule) {
             try {
-                array_push($errors, ...$rule->lint($request));
+                array_push($notes, ...$rule->lint($request));
             } catch (StopLintException $e) {
-                $errors[] = new LintNote('Lint stopped. Reason: '. $e->getMessage());
+                $notes[] = new LintNote('Lint stopped. Reason: '. $e->getMessage());
 
                 break;
             } catch (\Throwable $e) {
-                $errors[] = new ExceptionNote($e);
+                $notes[] = new ExceptionNote($e);
             }
         }
 
-        return new Notes($errors);
+        return new Notes($notes);
     }
 }
