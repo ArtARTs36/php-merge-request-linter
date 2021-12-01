@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 interface Rule
 {
     /**
+     * Lint merge request by specifics rules
      * @return array<LintNote>
      * @throws StopLintException
      * @throws LintException

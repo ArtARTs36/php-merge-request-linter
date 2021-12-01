@@ -14,7 +14,7 @@ class DescriptionContainsLinkRule implements Rule
 
     public function lint(MergeRequest $request): array
     {
-
+        return [];
     }
 
     public function getDefinition(): string
