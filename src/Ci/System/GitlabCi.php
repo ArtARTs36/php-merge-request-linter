@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci;
+namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Credentials\GitlabCredentials;
 use ArtARTs36\MergeRequestLinter\Request\Labels;
@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Str;
 use Gitlab\Client;
 
-class GitlabCi extends AbstractIntegration implements CiSystem
+class GitlabCi extends AbstractCiSystem
 {
     public function __construct(protected GitlabCredentials $credentials)
     {

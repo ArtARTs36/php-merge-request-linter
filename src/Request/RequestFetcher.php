@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Request;
 
-use ArtARTs36\MergeRequestLinter\Ci\GitlabCi;
+use ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use OndraM\CiDetector\Ci\CiInterface;
 use OndraM\CiDetector\CiDetector;
