@@ -54,7 +54,7 @@ class GitlabCi extends AbstractCiSystem
     {
         $client = new Client();
         $client->setUrl($this->getGitlabServerUrl());
-        $client->authenticate($this->credentials->token, $this->credentials->method);
+        $client->authenticate($this->credentials->getToken(), $this->credentials->method);
 
         return $client;
     }

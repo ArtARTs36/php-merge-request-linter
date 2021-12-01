@@ -2,12 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\Credentials;
 
+use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use Gitlab\Client;
 
-class GitlabCredentials
+class GitlabCredentials implements RemoteCredentials
 {
     protected function __construct(
-        public string $token,
+        protected string $token,
         public string $method,
     ) {
         //
@@ -21,5 +22,10 @@ class GitlabCredentials
     public static function fromOAuthToken(string $token): self
     {
         return new self($token, Client::AUTH_OAUTH_TOKEN);
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
     }
 }
