@@ -26,7 +26,7 @@ class HasAnyLabelsOfRule implements Rule
 
     public function lint(MergeRequest $request): array
     {
-        return $this->labels->diff($request->labels)->isEmpty() ? [] : $this->definitionToNotes();
+        return $this->labels->diff($request->labels)->equalsCount($this->labels) ? $this->definitionToNotes() : [];
     }
 
     public function getDefinition(): string

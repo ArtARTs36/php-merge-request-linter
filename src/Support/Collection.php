@@ -42,4 +42,9 @@ class Collection implements \Countable, \IteratorAggregate
     {
         return new static(array_diff($this->items, $that->items));
     }
+
+    public function equalsCount(self $that): bool
+    {
+        return $this->count() === $that->count();
+    }
 }
