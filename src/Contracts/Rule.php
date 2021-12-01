@@ -6,6 +6,9 @@ use ArtARTs36\MergeRequestLinter\Exception\LintException;
 use ArtARTs36\MergeRequestLinter\Exception\StopLintException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
+/**
+ * Rule for lint merge request
+ */
 interface Rule
 {
     /**

@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Contracts;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
+/**
+ * Continuous Integration System
+ */
 interface CiSystem
 {
     /**

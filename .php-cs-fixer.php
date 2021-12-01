@@ -11,7 +11,7 @@ return (new \PhpCsFixer\Config())
     ->setRules([
         '@PSR12' => true,
         'PhpCsFixerGoodFixers/interface_method_php_doc_summary' => true,
-        #'PhpCsFixerGoodFixers/interface_php_doc_summary' => true,
+        'PhpCsFixerGoodFixers/interface_php_doc_summary' => true,
         'PhpCsFixerGoodFixers/disable_function'                 => true,
         'no_unused_imports' => true,
     ])
