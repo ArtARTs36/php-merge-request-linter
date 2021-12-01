@@ -38,6 +38,9 @@
     "scripts": {
         "lint": [
             "php-cs-fixer fix --dry-run --verbose --diff --ansi"
+        ],
+        "test": [
+            "./vendor/bin/phpunit -v --coverage-text --colors=always --configuration phpunit.xml"
         ]
     }
 }
