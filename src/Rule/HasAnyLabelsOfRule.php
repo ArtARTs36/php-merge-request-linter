@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
-use ArtARTs36\MergeRequestLinter\Support\Map;
 
 class HasAnyLabelsOfRule extends AbstractLabelsRule
 {
