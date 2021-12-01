@@ -47,6 +47,6 @@ class LintCommand extends Command
 
         $style->info('Duration: '. $result->duration);
 
-        return $result->isFail() ? 1 : 0;
+        return $result->isFail() ? self::FAILURE : self::SUCCESS;
     }
 }
