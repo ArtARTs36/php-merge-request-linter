@@ -3,6 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Console;
 
 use ArtARTs36\MergeRequestLinter\Ci\System\SystemFactory;
+use ArtARTs36\MergeRequestLinter\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintError;
 use ArtARTs36\MergeRequestLinter\Linter\LinterRunner;
@@ -25,12 +27,8 @@ class LintCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $linter = new Linter();
-
-        $configPath = getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php';
-        $config = require $configPath;
-
-        $linter->addRule(...$config['rules']);
+        $config = (new ConfigLoader())->load(getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
+        $linter = new Linter($config->getRules());
 
         $result = $this->getLinterRunner($config)->run($linter);
 
@@ -48,12 +46,12 @@ class LintCommand extends Command
         return $result->isFail() ? 1 : 0;
     }
 
-    protected function getLinterRunner(array $config): LinterRunner
+    protected function getLinterRunner(Config $config): LinterRunner
     {
         return new LinterRunner(
             new CiDetector(),
             new RequestFetcher(
-                new SystemFactory(new Map($config['credentials'])),
+                new SystemFactory($config->getCredentials()),
             ),
         );
     }

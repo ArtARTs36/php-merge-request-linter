@@ -14,7 +14,7 @@ class InstallCommand extends Command
     {
         $dir = getcwd();
 
-        copy(__DIR__ . '/../../.mr-linter.php', $dir . '/amr-linter.php');
+        copy(__DIR__ . '/../../.mr-linter.php', $dir . '/mr-linter.php');
 
         return self::SUCCESS;
     }

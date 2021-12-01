@@ -2,27 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Linter;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\StopLintException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 
 class Linter
 {
-    protected Rules $rules;
-
-    public function __construct(?Rules $rules = null)
+    public function __construct(protected Rules $rules)
     {
-        $this->rules = $rules ?? new Rules();
-    }
-
-    public function addRule(Rule ...$rules): self
-    {
-        foreach ($rules as $rule) {
-            $this->rules->add($rule);
-        }
-
-        return $this;
+        //
     }
 
     public function run(MergeRequest $request): LintErrors

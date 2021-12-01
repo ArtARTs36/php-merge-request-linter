@@ -6,14 +6,20 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 
 class Rules implements \IteratorAggregate
 {
-    protected array $rules = [];
+    /**
+     * @param array<string, Rule> $rules
+     */
+    public function __construct(protected array $rules)
+    {
+        //
+    }
 
     /**
      * @param iterable<Rule> $rules
      */
     public static function make(iterable $rules): self
     {
-        $instance = new self();
+        $instance = new self([]);
 
         foreach ($rules as $rule) {
             $instance->add($rule);
@@ -24,7 +30,7 @@ class Rules implements \IteratorAggregate
 
     public function add(Rule $rule): self
     {
-        $this->rules[$rule::class] = $rule;
+        $this->rules[] = $rule;
 
         return $this;
     }
