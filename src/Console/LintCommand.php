@@ -2,15 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\SystemFactory;
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintError;
-use ArtARTs36\MergeRequestLinter\Linter\LinterRunner;
-use ArtARTs36\MergeRequestLinter\Request\RequestFetcher;
-use ArtARTs36\MergeRequestLinter\Support\Map;
-use OndraM\CiDetector\CiDetector;
+use ArtARTs36\MergeRequestLinter\Linter\RunnerFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,8 +16,12 @@ class LintCommand extends Command
 {
     protected static $defaultName = 'lint';
 
-    public function __construct(string $name = null)
+    protected LinterRunnerFactory $runnerFactory;
+
+    public function __construct(?LinterRunnerFactory $runnerFactory = null, string $name = null)
     {
+        $this->runnerFactory = $runnerFactory ?? new RunnerFactory();
+
         parent::__construct($name);
     }
 
@@ -30,7 +30,7 @@ class LintCommand extends Command
         $config = (new ConfigLoader())->load(getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
         $linter = new Linter($config->getRules());
 
-        $result = $this->getLinterRunner($config)->run($linter);
+        $result = $this->runnerFactory->create($config)->run($linter);
 
         $style = new SymfonyStyle($input, $output);
 
@@ -44,15 +44,5 @@ class LintCommand extends Command
         $style->info('Duration: '. $result->duration);
 
         return $result->isFail() ? 1 : 0;
-    }
-
-    protected function getLinterRunner(Config $config): LinterRunner
-    {
-        return new LinterRunner(
-            new CiDetector(),
-            new RequestFetcher(
-                new SystemFactory($config->getCredentials()),
-            ),
-        );
     }
 }
