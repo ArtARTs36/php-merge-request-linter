@@ -1,13 +1,16 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Linter;
+namespace ArtARTs36\MergeRequestLinter\Linter\Runner;
 
+use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
+use ArtARTs36\MergeRequestLinter\Linter\Linter;
+use ArtARTs36\MergeRequestLinter\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Request\RequestFetcher;
 use ArtARTs36\MergeRequestLinter\Support\Timer;
 use OndraM\CiDetector\CiDetectorInterface;
 use OndraM\CiDetector\Exception\CiNotDetectedException;
 
-class LinterRunner
+class Runner implements LinterRunner
 {
     public function __construct(
         protected CiDetectorInterface $ciDetector,

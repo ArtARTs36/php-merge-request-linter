@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintError;
-use ArtARTs36\MergeRequestLinter\Linter\RunnerFactory;
+use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
