@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class NotEmptyDescriptionRuleTest extends TestCase
+final class DescriptionNotEmptyRuleTest extends TestCase
 {
     public function providerForTestLint(): array
     {
