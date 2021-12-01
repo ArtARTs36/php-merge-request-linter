@@ -2,27 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
-class HasAnyLabelsOfRule implements Rule
+class HasAnyLabelsOfRule extends AbstractLabelsRule
 {
     use DefinitionToNotes;
-
-    public function __construct(protected Map $labels)
-    {
-        //
-    }
-
-    /**
-     * @param array<string> $labels
-     */
-    public static function make(array $labels): self
-    {
-        return new self(Map::fromList($labels));
-    }
 
     public function lint(MergeRequest $request): array
     {
