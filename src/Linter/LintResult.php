@@ -20,7 +20,7 @@ class LintResult
         return new self(true, new Notes([$note]), $duration);
     }
 
-    public static function bad(Note $note, float $duration): self
+    public static function fail(Note $note, float $duration): self
     {
         return new self(false, new Notes([$note]), $duration);
     }

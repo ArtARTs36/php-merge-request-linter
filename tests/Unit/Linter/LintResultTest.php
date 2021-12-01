@@ -12,7 +12,7 @@ final class LintResultTest extends TestCase
     {
         return [
             [
-                LintResult::bad(new EmptyNote(), 0.12),
+                LintResult::fail(new EmptyNote(), 0.12),
                 true,
             ],
         ];
