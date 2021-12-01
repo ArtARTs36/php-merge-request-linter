@@ -5,7 +5,7 @@ use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\LintCommand;
 use Symfony\Component\Console\Application;
 
-require 'vendor/autoload.php';
+include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
 
 $application = new Application();
 $application->add(new LintCommand());

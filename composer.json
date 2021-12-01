@@ -1,5 +1,5 @@
 {
-    "name": "artarts36/ci-merge-request-linter",
+    "name": "artarts36/merge-request-linter",
     "description": "MR Linter",
     "type": "library",
     "require": {
@@ -30,5 +30,8 @@
             "name": "ArtARTs36",
             "email": "temicska99@mail.ru"
         }
+    ],
+    "bin": [
+        "bin/mr-linter"
     ]
 }
