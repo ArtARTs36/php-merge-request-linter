@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Credentials;
+namespace ArtARTs36\MergeRequestLinter\Ci\Credentials;
 
 use Gitlab\Client;
 
