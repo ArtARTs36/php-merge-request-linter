@@ -38,12 +38,12 @@ class TitleStartsWithRule implements Rule
         }
 
         return [
-            new LintNote('Title must starts with of one: ' . implode(',', $this->prefixes)),
+            new LintNote($this->getDefinition()),
         ];
     }
 
     public function getDefinition(): string
     {
-        return 'Title must starts with of one: ' . implode(',', $this->prefixes);
+        return 'Title must starts with of one: [' . implode(',', $this->prefixes) . ']';
     }
 }
