@@ -2,11 +2,20 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration;
 
+use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
+
 class ConfigLoader
 {
+    /**
+     * @throws ConfigInvalidException
+     */
     public function load(string $path): Config
     {
-        $config = require $path;
+        try {
+            $config = require $path;
+        } catch (\Throwable $e) {
+            throw new ConfigInvalidException(previous: $e);
+        }
 
         if (is_array($config)) {
             return Config::fromArray($config);
@@ -16,6 +25,6 @@ class ConfigLoader
             return $config;
         }
 
-        throw new \RuntimeException();
+        throw new ConfigInvalidException();
     }
 }
