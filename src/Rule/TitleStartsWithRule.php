@@ -18,6 +18,9 @@ class TitleStartsWithRule implements Rule
         //
     }
 
+    /**
+     * @param array<string>|string $prefix
+     */
     public static function make(array|string $prefix): self
     {
         return new self((array) $prefix);
