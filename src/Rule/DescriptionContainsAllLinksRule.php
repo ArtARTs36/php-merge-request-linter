@@ -3,12 +3,14 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
 class DescriptionContainsAllLinksRule implements Rule
 {
+    use DefinitionToNotes;
+
     public function __construct(protected Map $domains)
     {
         //
@@ -41,7 +43,7 @@ class DescriptionContainsAllLinksRule implements Rule
             return [];
         }
 
-        return [new LintNote($this->getDefinition())];
+        return $this->definitionToNotes();
     }
 
     public function getDefinition(): string

@@ -3,11 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
 class HasLabelsRule implements Rule
 {
+    use DefinitionToNotes;
+
     /**
      * @param array<string> $labels
      */
@@ -19,7 +21,7 @@ class HasLabelsRule implements Rule
     public function lint(MergeRequest $request): array
     {
         if ((count($this->labels) === 0 && $request->labels->isEmpty()) || $request->labels->isEmpty()) {
-            return [new LintNote('Required labels')];
+            return $this->definitionToNotes();
         }
 
         return [];

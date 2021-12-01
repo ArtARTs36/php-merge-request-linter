@@ -3,11 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
 class TitleStartsWithRule implements Rule
 {
+    use DefinitionToNotes;
+
     /**
      * @param array<string> $prefixes
      */
@@ -37,9 +39,7 @@ class TitleStartsWithRule implements Rule
             return [];
         }
 
-        return [
-            new LintNote($this->getDefinition()),
-        ];
+        return $this->definitionToNotes();
     }
 
     public function getDefinition(): string
