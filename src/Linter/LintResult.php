@@ -9,7 +9,7 @@ class LintResult
 {
     public function __construct(
         public bool $state,
-        public Notes $errors,
+        public Notes $notes,
         public float $duration,
     ) {
         //

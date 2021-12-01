@@ -10,7 +10,11 @@ return [
     'rules' => [
         new NotEmptyDescriptionRule(),
         new HasLabelsRule(['Feature']),
-        TitleStartsWithRule::make('Task-'),
+        TitleStartsWithRule::make([
+            '[Feature]',
+            '[Bug]',
+            '[Docs]',
+        ]),
     ],
     'credentials' => [
         GitlabCi::class => GitlabCredentials::fromHttpToken(getenv('GITLAB_HTTP_TOKEN')),

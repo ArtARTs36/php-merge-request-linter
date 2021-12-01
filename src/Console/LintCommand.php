@@ -41,7 +41,7 @@ class LintCommand extends Command
         }
 
         /** @var LintNote $error */
-        foreach ($result->errors as $error) {
+        foreach ($result->notes as $error) {
             $style->error($error->getDescription());
         }
 
