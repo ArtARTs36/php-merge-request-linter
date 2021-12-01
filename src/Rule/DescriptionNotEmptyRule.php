@@ -12,13 +12,7 @@ class DescriptionNotEmptyRule implements Rule
 
     public function lint(MergeRequest $request): array
     {
-        $errors = [];
-
-        if ($request->description->isEmpty()) {
-            $errors[] = $this->definitionToNotes();
-        }
-
-        return $errors;
+        return $request->description->isEmpty() ? $this->definitionToNotes() : [];
     }
 
     public function getDefinition(): string
