@@ -3,10 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Request;
 
 use ArtARTs36\MergeRequestLinter\Ci\System\SystemFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use OndraM\CiDetector\Ci\CiInterface;
 
-class RequestFetcher
+class RequestFetcher implements MergeRequestFetcher
 {
     public function __construct(protected SystemFactory $systems)
     {

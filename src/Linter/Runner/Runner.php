@@ -3,13 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Linter\Runner;
 
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
+use ArtARTs36\MergeRequestLinter\Contracts\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Note\LintNote;
-use ArtARTs36\MergeRequestLinter\Request\RequestFetcher;
 use ArtARTs36\MergeRequestLinter\Support\Timer;
 use OndraM\CiDetector\CiDetectorInterface;
 use OndraM\CiDetector\Exception\CiNotDetectedException;
@@ -18,7 +18,7 @@ class Runner implements LinterRunner
 {
     public function __construct(
         protected CiDetectorInterface $ciDetector,
-        protected RequestFetcher $fetcher,
+        protected MergeRequestFetcher $fetcher,
     ) {
         //
     }
