@@ -15,6 +15,10 @@ final class LintResultTest extends TestCase
                 LintResult::fail(new EmptyNote(), 0.12),
                 true,
             ],
+            [
+                LintResult::success(new EmptyNote(), 0.13),
+                false,
+            ],
         ];
     }
 

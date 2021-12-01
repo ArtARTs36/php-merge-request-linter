@@ -15,7 +15,7 @@ class LintResult
         //
     }
 
-    public static function good(Note $note, float $duration): self
+    public static function success(Note $note, float $duration): self
     {
         return new self(true, new Notes([$note]), $duration);
     }

@@ -31,7 +31,7 @@ class Runner implements LinterRunner
             $ci = $this->ciDetector->detect();
 
             if ($ci->isPullRequest()->no()) {
-                return LintResult::good(new LintNote('Currently is not merge request'), $timer->finish());
+                return LintResult::success(new LintNote('Currently is not merge request'), $timer->finish());
             }
 
             $notes = $linter->run($this->fetcher->fetch($ci));
