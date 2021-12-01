@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
-class DescriptionContainsAnyLinkRule implements Rule
+class DescriptionContainsAnyLinkOfDomainsRule implements Rule
 {
     use DefinitionToNotes;
 
