@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Linter;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 
 class Linter

@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+
 class Rules implements \IteratorAggregate
 {
     protected array $rules = [];
