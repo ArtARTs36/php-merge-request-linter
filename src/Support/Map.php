@@ -25,14 +25,4 @@ class Map extends Collection
     {
         return array_key_exists($label, $this->items);
     }
-
-    public function isEmpty(): bool
-    {
-        return $this->count() === 0;
-    }
-
-    public function count(): int
-    {
-        return count($this->items);
-    }
 }

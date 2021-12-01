@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Support;
 /**
  * @template T
  */
-class Collection implements \IteratorAggregate
+class Collection implements \Countable, \IteratorAggregate
 {
     /**
      * @param array<T> $items
@@ -13,6 +13,16 @@ class Collection implements \IteratorAggregate
     public function __construct(protected array $items)
     {
         //
+    }
+
+    public function count(): int
+    {
+        return count($this->items);
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->count() === 0;
     }
 
     /**
