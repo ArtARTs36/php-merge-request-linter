@@ -1,8 +1,15 @@
 <?php
 
+use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
+use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
+use ArtARTs36\MergeRequestLinter\Console\LintCommand;
+use Symfony\Component\Console\Application;
+
 require 'vendor/autoload.php';
 
-$application = new \Symfony\Component\Console\Application();
-$application->add(new \ArtARTs36\MergeRequestLinter\Console\LintCommand());
+$application = new Application();
+$application->add(new LintCommand());
+$application->add(new InstallCommand());
+$application->add(new DumpCommand());
 
 $application->run();
