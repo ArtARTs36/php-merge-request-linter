@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use ArtARTs36\Str\Str;
 
 class DescriptionContainsAllLinksOfDomainsRule extends AbstractDescriptionLinksRule implements Rule
 {
