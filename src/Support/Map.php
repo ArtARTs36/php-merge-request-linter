@@ -29,8 +29,8 @@ class Map extends Collection
         return $this->items[$id] ?? null;
     }
 
-    public function has(string $label): bool
+    public function has(string $id): bool
     {
-        return array_key_exists($label, $this->items);
+        return array_key_exists($id, $this->items);
     }
 }
