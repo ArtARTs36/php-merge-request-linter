@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Linter;
 
 use ArtARTs36\MergeRequestLinter\Request\RequestFetcher;
+use ArtARTs36\MergeRequestLinter\Support\Timer;
 use OndraM\CiDetector\CiDetectorInterface;
 use OndraM\CiDetector\Exception\CiNotDetectedException;
 
@@ -17,7 +18,7 @@ class LinterRunner
 
     public function run(Linter $linter): LintResult
     {
-        $timer = $this->createTimer();
+        $timer = Timer::start();
 
         try {
             $ci = $this->ciDetector->detect();
@@ -36,22 +37,5 @@ class LinterRunner
         } catch (CiNotDetectedException) {
             return LintResult::withoutErrors(LintResult::STATE_CI_NOT_DETECTED, $timer->finish());
         }
-    }
-
-    protected function createTimer(): object
-    {
-        return new class {
-            protected float $started;
-
-            public function __construct()
-            {
-                $this->started = microtime(true);
-            }
-
-            public function finish(): float
-            {
-                return microtime(true) - $this->started;
-            }
-        };
     }
 }
