@@ -31,4 +31,9 @@ class LintResult
             self::STATE_CURRENT_NOT_MERGE_REQUEST => 'Currently is not merge request',
         ][$this->state];
     }
+
+    public function isFail(): bool
+    {
+        return $this->state === self::STATE_ERRORS;
+    }
 }

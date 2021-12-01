@@ -21,6 +21,14 @@ class Map extends Collection
         return new self($items);
     }
 
+    /**
+     * @return T|null
+     */
+    public function get(string $id)
+    {
+        return $this->items[$id] ?? null;
+    }
+
     public function has(string $label): bool
     {
         return array_key_exists($label, $this->items);

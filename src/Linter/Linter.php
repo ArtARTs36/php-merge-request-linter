@@ -16,9 +16,11 @@ class Linter
         $this->rules = $rules ?? new Rules();
     }
 
-    public function addRule(Rule $rule): self
+    public function addRule(Rule ...$rules): self
     {
-        $this->rules->add($rule);
+        foreach ($rules as $rule) {
+            $this->rules->add($rule);
+        }
 
         return $this;
     }
