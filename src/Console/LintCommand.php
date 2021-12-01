@@ -34,7 +34,11 @@ class LintCommand extends Command
 
         $style = new SymfonyStyle($input, $output);
 
-        $style->comment($result->getState());
+        if ($result->isFail()) {
+            $style->error('Detected notes');
+        } else {
+            $style->info('All good!');
+        }
 
         /** @var LintNote $error */
         foreach ($result->errors as $error) {

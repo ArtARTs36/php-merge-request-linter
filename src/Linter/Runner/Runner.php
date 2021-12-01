@@ -7,6 +7,8 @@ use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Request\RequestFetcher;
 use ArtARTs36\MergeRequestLinter\Support\Timer;
 use OndraM\CiDetector\CiDetectorInterface;
@@ -29,22 +31,16 @@ class Runner implements LinterRunner
             $ci = $this->ciDetector->detect();
 
             if ($ci->isPullRequest()->no()) {
-                return LintResult::withoutErrors(LintResult::STATE_CURRENT_NOT_MERGE_REQUEST, $timer->finish());
+                return LintResult::good(new LintNote('Currently is not merge request'), $timer->finish());
             }
 
-            $errors = $linter->run($this->fetcher->fetch($ci));
+            $notes = $linter->run($this->fetcher->fetch($ci));
 
-            return new LintResult(
-                $errors->isEmpty() ? LintResult::STATE_OK : LintResult::STATE_ERRORS,
-                $errors,
-                $timer->finish()
-            );
-        } catch (CiNotDetectedException) {
-            return LintResult::withoutErrors(LintResult::STATE_CI_NOT_DETECTED, $timer->finish());
-        } catch (CiNotSupported) {
-            return LintResult::withoutErrors(LintResult::STATE_CI_NOT_SUPPORTED, $timer->finish());
-        } catch (InvalidCredentialsException) {
-            return LintResult::withoutErrors(LintResult::STATE_INVALID_CREDENTIALS, $timer->finish());
+            return new LintResult($notes->isEmpty(), $notes, $timer->finish());
+        } catch (CiNotDetectedException | CiNotSupported $e) {
+            return LintResult::bad(new ExceptionNote($e), $timer->finish());
+        } catch (InvalidCredentialsException $e) {
+            return LintResult::bad(ExceptionNote::withMessage($e->getPrevious(), 'Invalid credentials'), $timer->finish());
         }
     }
 }
