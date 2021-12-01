@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Ci\Credentials\GitlabCredentials;
+use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 use ArtARTs36\Str\Str;
@@ -17,10 +18,14 @@ class GitlabCi extends AbstractCiSystem
 
     public function getMergeRequest(): MergeRequest
     {
-        $request = $this->createClient()->mergeRequests()->show(
-            $this->getProjectId(),
-            $this->getMergeRequestId(),
-        );
+        try {
+            $request = $this->createClient()->mergeRequests()->show(
+                $this->getProjectId(),
+                $this->getMergeRequestId(),
+            );
+        } catch (\Throwable $e) {
+            throw new InvalidCredentialsException(previous: $e);
+        }
 
         return new MergeRequest(
             Str::make($request['title']),
