@@ -3,19 +3,19 @@
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Ci\Credentials\GitlabCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
-use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 use ArtARTs36\Str\Str;
 use Gitlab\Client;
 
-class GitlabCi extends AbstractCiSystem
+class GitlabCi implements CiSystem
 {
-    public function __construct(protected RemoteCredentials $credentials, protected Environment $environment)
+    public function __construct(protected GitlabCredentials $credentials, protected Environment $environment)
     {
-        parent::__construct($this->credentials, $this->environment);
+        //
     }
 
     public function getMergeRequest(): MergeRequest

@@ -10,7 +10,7 @@ use OndraM\CiDetector\CiDetector;
 
 class SystemFactory
 {
-    /** @var array<string, class-string<AbstractCiSystem>> */
+    /** @var array<string, class-string<CiSystem>> */
     protected array $ciMap = [
         CiDetector::CI_GITLAB => GitlabCi::class,
     ];
