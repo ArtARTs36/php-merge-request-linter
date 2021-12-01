@@ -20,7 +20,7 @@ final class LintResultTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsFail
-     * @covers \ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyNote::getDescription
+     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::isFail
      */
     public function testIsFail(LintResult $result, bool $expected): void
     {
