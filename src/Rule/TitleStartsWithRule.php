@@ -38,11 +38,7 @@ class TitleStartsWithRule implements Rule
             }
         }
 
-        if ($starts) {
-            return [];
-        }
-
-        return $this->definitionToNotes();
+        return $starts ? [] : $this->definitionToNotes();
     }
 
     public function getDefinition(): string
