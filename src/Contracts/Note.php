@@ -11,4 +11,9 @@ interface Note
      * Get note description
      */
     public function getDescription(): string;
+
+    /**
+     * Get note description
+     */
+    public function __toString(): string;
 }

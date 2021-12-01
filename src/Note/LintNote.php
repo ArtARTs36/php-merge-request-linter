@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Note;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 
-final class LintNote implements Note
+final class LintNote extends AbstractNote implements Note
 {
     public function __construct(
         protected string $description,

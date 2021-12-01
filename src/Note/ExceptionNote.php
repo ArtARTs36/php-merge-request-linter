@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Note;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\Str\Facade\Str;
 
-final class ExceptionNote implements Note
+final class ExceptionNote extends AbstractNote implements Note
 {
     public function __construct(
         protected \Throwable $exception,

@@ -47,4 +47,12 @@ class Collection implements \Countable, \IteratorAggregate
     {
         return $this->count() === $that->count();
     }
+
+    /**
+     * @return T|null
+     */
+    public function first()
+    {
+        return $this->items[array_key_first($this->items)] ?? null;
+    }
 }
