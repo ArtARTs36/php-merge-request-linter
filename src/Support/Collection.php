@@ -32,4 +32,9 @@ class Collection implements \Countable, \IteratorAggregate
     {
         return new \ArrayIterator($this->items);
     }
+
+    public function implode(string $sep): string
+    {
+        return implode($sep, $this->items);
+    }
 }
