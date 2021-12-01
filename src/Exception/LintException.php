@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Exception;
 
-abstract class MrLinterException extends \Exception
+abstract class LintException extends \Exception
 {
     //
 }

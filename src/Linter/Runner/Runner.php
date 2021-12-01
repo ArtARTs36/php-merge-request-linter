@@ -3,6 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Linter\Runner;
 
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
+use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
+use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Request\RequestFetcher;
@@ -39,6 +41,10 @@ class Runner implements LinterRunner
             );
         } catch (CiNotDetectedException) {
             return LintResult::withoutErrors(LintResult::STATE_CI_NOT_DETECTED, $timer->finish());
+        } catch (CiNotSupported) {
+            return LintResult::withoutErrors(LintResult::STATE_CI_NOT_SUPPORTED, $timer->finish());
+        } catch (InvalidCredentialsException) {
+            return LintResult::withoutErrors(LintResult::STATE_INVALID_CREDENTIALS, $timer->finish());
         }
     }
 }
