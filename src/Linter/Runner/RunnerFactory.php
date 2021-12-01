@@ -7,7 +7,6 @@ use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
-use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Request\RequestFetcher;
 use OndraM\CiDetector\CiDetector;
 
