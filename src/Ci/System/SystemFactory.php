@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Support\Map;
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 
 class SystemFactory implements CiSystemFactory
 {
