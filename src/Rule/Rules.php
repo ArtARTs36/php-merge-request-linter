@@ -4,6 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 
+/**
+ * @template-implements \IteratorAggregate<Rule>
+ */
 class Rules implements \IteratorAggregate
 {
     /**

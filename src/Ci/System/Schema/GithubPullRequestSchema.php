@@ -8,6 +8,9 @@ class GithubPullRequestSchema
 {
     protected const MERGEABLE_STATE_CONFLICTING = 'CONFLICTING';
 
+    /**
+     * @param array<string, mixed> $pullRequest
+     */
     public function createMergeRequest(array $pullRequest): MergeRequest
     {
         return MergeRequest::fromArray([

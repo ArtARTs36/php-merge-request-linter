@@ -57,11 +57,17 @@ class GithubActions implements CiSystem
         return $this->schema->createMergeRequest($this->fetchPullRequestData($request));
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function fetchPullRequestData(RequestInterface $request): array
     {
         return json_decode($this->client->sendRequest($request)->getBody()->getContents(), true)['data']['repository']['pullRequest'] ?? [];
     }
 
+    /**
+     * @return array<string>
+     */
     protected function extractOwnerAndRepo(): array
     {
         return \ArtARTs36\Str\Facade\Str::explode($this->environment->getString('GITHUB_REPOSITORY'), '/');

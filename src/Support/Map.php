@@ -3,12 +3,15 @@
 namespace ArtARTs36\MergeRequestLinter\Support;
 
 /**
- * @template T
+ * @template K of array-key
+ * @template V
+ * @template-extends Collection<K, V>
  */
 class Map extends Collection
 {
     /**
-     * @param list<T> $list
+     * @param list<V> $list
+     * @return Map<K, V>
      */
     public static function fromList(iterable $list): self
     {
@@ -22,7 +25,7 @@ class Map extends Collection
     }
 
     /**
-     * @return T|null
+     * @return V|null
      */
     public function get(string $id)
     {

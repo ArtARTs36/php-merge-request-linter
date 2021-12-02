@@ -6,6 +6,9 @@ use ArtARTs36\MergeRequestLinter\Support\Map;
 
 class MapEnvironment extends AbstractEnvironment
 {
+    /**
+     * @param Map<string, mixed> $map
+     */
     public function __construct(protected Map $map)
     {
         //

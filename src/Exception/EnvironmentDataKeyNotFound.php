@@ -6,7 +6,7 @@ use Throwable;
 
 class EnvironmentDataKeyNotFound extends \RuntimeException
 {
-    public function __construct(protected string $dataKey, $code = 0, Throwable $previous = null)
+    public function __construct(protected string $dataKey, int $code = 0, Throwable $previous = null)
     {
         $message = "'$dataKey' of Environment not found";
 

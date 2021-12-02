@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Ci\System;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Support\Map;
@@ -18,6 +19,9 @@ class SystemFactory implements CiSystemFactory
         'github' => GithubActions::class,
     ];
 
+    /**
+     * @param Map<class-string<CiSystem>, RemoteCredentials> $credentials
+     */
     public function __construct(
         protected Map $credentials,
         protected Environment $environment,

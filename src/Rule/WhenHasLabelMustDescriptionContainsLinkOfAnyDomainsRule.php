@@ -9,12 +9,15 @@ class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule implements Rule
 {
     public function __construct(
         protected DescriptionContainsLinkOfAnyDomainsRule $domainsRule,
-        protected $label,
+        protected string $label,
     ) {
         //
     }
 
-    public static function make(string $label, array $domains): self
+    /**
+     * @param iterable<string> $domains
+     */
+    public static function make(string $label, iterable $domains): self
     {
         return new self(DescriptionContainsLinkOfAnyDomainsRule::make($domains), $label);
     }

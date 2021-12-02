@@ -8,6 +8,9 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class MergeRequest
 {
+    /**
+     * @param Map<string, string> $labels
+     */
     public function __construct(
         public Str $title,
         public Str $description,

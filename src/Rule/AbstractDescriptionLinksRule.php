@@ -10,12 +10,18 @@ abstract class AbstractDescriptionLinksRule implements Rule
 {
     use DefinitionToNotes;
 
+    /**
+     * @param Map<string, string> $domains
+     */
     final public function __construct(protected Map $domains)
     {
         //
     }
 
-    public static function make(array $domains): static
+    /**
+     * @param iterable<string> $domains
+     */
+    public static function make(iterable $domains): static
     {
         return new static(Map::fromList($domains));
     }

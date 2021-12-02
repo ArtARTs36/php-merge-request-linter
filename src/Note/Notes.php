@@ -6,8 +6,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Support\Collection;
 
 /**
- * @template T
- * @extends Collection<Note>
+ * @template-extends Collection<int, Note>
  */
 class Notes extends Collection
 {
