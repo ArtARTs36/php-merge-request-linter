@@ -23,7 +23,7 @@ Add new script into your composer.json (section **scripts**):
 
 ```json
     "mr-lint": [
-        "php ./bin/mr-linter lint"
+        "./bin/mr-linter lint"
     ]
 ```
 
