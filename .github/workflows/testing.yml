@@ -30,6 +30,9 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
 
+      - name: MR Lint
+        run: composer mr-lint
+
       - name: Lint
         run: composer lint
 

@@ -44,6 +44,9 @@
         ],
         "stat-analyse": [
             "./vendor/bin/phpstan analyse -l 8 src"
+        ],
+        "mr-lint": [
+            "php ./bin/mr-linter lint"
         ]
     }
 }
