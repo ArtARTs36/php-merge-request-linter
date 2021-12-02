@@ -51,7 +51,9 @@ class GithubActions implements CiSystem
         ]);
 
         $request = (new Request('POST', $graphqlUrl))
-            ->withBody(new Stream(fopen('data://text/plain,' . $query, 'r')))
+            ->withBody(new Stream(
+                fopen('data://text/plain,' . $query, 'r') ?: throw new \RuntimeException('Stream not constructed')
+            ))
             ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken());
 
         return $this->schema->createMergeRequest($this->fetchPullRequestData($request));

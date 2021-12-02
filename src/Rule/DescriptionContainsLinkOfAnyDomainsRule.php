@@ -14,6 +14,10 @@ class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRu
         foreach ($uris as $uri) {
             $host = parse_url($uri, PHP_URL_HOST);
 
+            if ($host === false || $host === null) {
+                continue;
+            }
+
             if ($this->domains->has($host)) {
                 return [];
             }
