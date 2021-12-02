@@ -16,10 +16,11 @@ final class RunnerFactoryTest extends TestCase
      */
     public function testCreate(): void
     {
-        self::assertInstanceOf(Runner::class, (new RunnerFactory(new NullEnvironment(), new NullClient()))->create(
+        self::assertInstanceOf(Runner::class, (new RunnerFactory(new NullEnvironment()))->create(
             Config::fromArray([
                 'rules' => [],
                 'credentials' => [],
+                'http_client' => new NullClient(),
             ]),
         ));
     }

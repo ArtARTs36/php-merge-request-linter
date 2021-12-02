@@ -27,4 +27,5 @@ return [
         GitlabCi::class => new Token(getenv('GITLAB_HTTP_TOKEN')),
         GithubActions::class => new Token(getenv('GITHUB_HTTP_TOKEN')),
     ],
+    'http_client' => fn () => new \GuzzleHttp\Client(),
 ];

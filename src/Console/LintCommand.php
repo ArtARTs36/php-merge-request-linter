@@ -8,7 +8,6 @@ use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
 use ArtARTs36\MergeRequestLinter\Note\LintNote;
-use GuzzleHttp\Client;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,7 +21,7 @@ class LintCommand extends Command
 
     public function __construct(?LinterRunnerFactory $runnerFactory = null, string $name = null)
     {
-        $this->runnerFactory = $runnerFactory ?? new RunnerFactory(new LocalEnvironment(), new Client());
+        $this->runnerFactory = $runnerFactory ?? new RunnerFactory(new LocalEnvironment());
 
         parent::__construct($name);
     }
