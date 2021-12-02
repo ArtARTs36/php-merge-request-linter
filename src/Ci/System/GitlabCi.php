@@ -38,12 +38,7 @@ class GitlabCi implements CiSystem
             throw new InvalidCredentialsException(previous: $e);
         }
 
-        return new MergeRequest(
-            Str::make($request['title']),
-            Str::make($request['description']),
-            Map::fromList($request['labels']),
-            $request['has_conflicts'] ?? false,
-        );
+        return MergeRequest::fromArray($request);
     }
 
     protected function getProjectId(): int
