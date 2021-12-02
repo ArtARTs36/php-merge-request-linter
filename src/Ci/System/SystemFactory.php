@@ -2,14 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
+use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
-use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
-use ArtARTs36\MergeRequestLinter\Support\Map;
-use Psr\Http\Client\ClientInterface;
 
 class SystemFactory implements CiSystemFactory
 {
@@ -19,13 +17,9 @@ class SystemFactory implements CiSystemFactory
         'github' => GithubActions::class,
     ];
 
-    /**
-     * @param Map<class-string<CiSystem>, RemoteCredentials> $credentials
-     */
     public function __construct(
-        protected Map $credentials,
+        protected Config $config,
         protected Environment $environment,
-        protected ClientInterface $client
     ) {
         //
     }
@@ -49,10 +43,14 @@ class SystemFactory implements CiSystemFactory
             throw new CiNotSupported();
         }
 
-        if (! $this->credentials->has($targetClass)) {
+        if (! $this->config->getCredentials()->has($targetClass)) {
             throw InvalidCredentialsException::fromCiName($ciName);
         }
 
-        return new $targetClass($this->credentials->get($targetClass), $this->environment, $this->client);
+        return new $targetClass(
+            $this->config->getCredentials()->get($targetClass),
+            $this->environment,
+            $this->config->getHttpClientFactory()($ciName, $this->environment, $targetClass)
+        );
     }
 }

@@ -17,8 +17,6 @@ class RunnerFactory implements LinterRunnerFactory
 
     public function create(Config $config): LinterRunner
     {
-        return new Runner(
-            new SystemFactory($config->getCredentials(), $this->environment, $config->getHttpClientFactory()()),
-        );
+        return new Runner(new SystemFactory($config, $this->environment));
     }
 }
