@@ -36,26 +36,6 @@ class SystemFactory
             throw InvalidCredentialsException::fromCiName($ciName);
         }
 
-        $credentialsClass = $this->getRequiredCredentialsClass($targetClass);
-
-        if (! is_a($this->credentials->get($targetClass), $credentialsClass, true)) {
-            throw InvalidCredentialsException::fromCiName($ciName);
-        }
-
         return new $targetClass($this->credentials->get($targetClass), $this->environment);
-    }
-
-    protected function getRequiredCredentialsClass(string $systemClass): string
-    {
-        $reflection = new \ReflectionClass($systemClass);
-        $constructor = $reflection->getConstructor();
-
-        foreach ($constructor->getParameters() as $parameter) {
-            if ($parameter?->getName() === 'credentials') {
-                return $parameter->getType()->getName();
-            }
-        }
-
-        throw new \RuntimeException('Cannot be constructed Ci System');
     }
 }

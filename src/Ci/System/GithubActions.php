@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Ci\Credentials\OnlyToken;
 use ArtARTs36\MergeRequestLinter\Ci\System\Schema\GithubPullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Str;
@@ -18,7 +18,7 @@ class GithubActions implements CiSystem
     protected GithubPullRequestSchema $schema;
 
     public function __construct(
-        protected OnlyToken $credentials,
+        protected RemoteCredentials $credentials,
         protected Environment $environment,
     ) {
         $this->schema = new GithubPullRequestSchema();

@@ -1,6 +1,6 @@
 <?php
 
-use ArtARTs36\MergeRequestLinter\Ci\Credentials\OnlyToken;
+use ArtARTs36\MergeRequestLinter\Ci\Credentials\Token;
 use ArtARTs36\MergeRequestLinter\Ci\System\GithubActions;
 use ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsOfRule;
@@ -22,7 +22,7 @@ return [
         ]),
     ],
     'credentials' => [
-        GitlabCi::class => new OnlyToken(getenv('GITLAB_HTTP_TOKEN')),
-        GithubActions::class => new OnlyToken(getenv('GITHUB_HTTP_TOKEN')),
+        GitlabCi::class => new Token(getenv('GITLAB_HTTP_TOKEN')),
+        GithubActions::class => new Token(getenv('GITHUB_HTTP_TOKEN')),
     ],
 ];
