@@ -9,9 +9,17 @@ This package provides tool for validate merge requests
 * Run `./vendor/bin/mr-linter install`. In root directory added file `.mr-linter.php`
 * Configure `.mr-linter.php`
 
+## Available Commands
+
+| Command  | Description  |
+| ------------ | ------------ |
+| mr-linter install  | Install this tool  |
+| mr-linter dump  | Print current rules  |
+| mr-linter lint  | Run lint to current merge request  |
+
 ## Usage
 
-Add into your composer.json new script (section **scripts**):
+Add new script into your composer.json (section **scripts**):
 
 ```json
     "mr-lint": [
