@@ -3,10 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsAnyLinkOfDomainsRule;
+use ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinkOfAnyDomainsRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class DescriptionContainsAnyLinkOfDomainsRuleTest extends TestCase
+final class DescriptionContainsLinkOfAnyDomainsRuleTest extends TestCase
 {
     public function providerForLint(): array
     {
@@ -28,13 +28,13 @@ final class DescriptionContainsAnyLinkOfDomainsRuleTest extends TestCase
 
     /**
      * @dataProvider providerForLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsAnyLinkOfDomainsRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinkOfAnyDomainsRule::lint
      */
     public function testLint(MergeRequest $request, array $domains, bool $hasNotes): void
     {
         self::assertEquals(
             $hasNotes,
-            count(DescriptionContainsAnyLinkOfDomainsRule::make($domains)->lint($request)) > 0,
+            count(DescriptionContainsLinkOfAnyDomainsRule::make($domains)->lint($request)) > 0,
         );
     }
 }

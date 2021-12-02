@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
-class DescriptionContainsAnyLinkOfDomainsRule extends AbstractDescriptionLinksRule implements Rule
+class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRule implements Rule
 {
     public function lint(MergeRequest $request): array
     {
