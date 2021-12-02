@@ -11,6 +11,8 @@ class InstallCommand extends Command
 {
     protected static $defaultName = 'install';
 
+    protected static $defaultDescription = 'Install this tool';
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $dir = getcwd();

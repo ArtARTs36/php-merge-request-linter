@@ -12,6 +12,8 @@ class DumpCommand extends Command
 {
     protected static $defaultName = 'dump';
 
+    protected static $defaultDescription = 'Print current rules';
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $config = (new ConfigLoader())->load($path = getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');

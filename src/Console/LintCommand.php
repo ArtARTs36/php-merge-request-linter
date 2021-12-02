@@ -17,6 +17,8 @@ class LintCommand extends Command
 {
     protected static $defaultName = 'lint';
 
+    protected static $defaultDescription = 'Run lint to current merge request';
+
     protected LinterRunnerFactory $runnerFactory;
 
     public function __construct(?LinterRunnerFactory $runnerFactory = null, string $name = null)
