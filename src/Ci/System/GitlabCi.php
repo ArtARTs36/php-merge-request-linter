@@ -18,6 +18,16 @@ class GitlabCi implements CiSystem
         //
     }
 
+    public static function is(Environment $environment): bool
+    {
+        return $environment->has('GITLAB_CI');
+    }
+
+    public function isMergeRequest(): bool
+    {
+        return $this->environment->has('CI_MERGE_REQUEST_IID');
+    }
+
     public function getMergeRequest(): MergeRequest
     {
         [$projectId, $requestId] = [$this->getProjectId(), $this->getMergeRequestId()];

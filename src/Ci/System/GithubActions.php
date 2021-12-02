@@ -24,6 +24,20 @@ class GithubActions implements CiSystem
         $this->schema = new GithubPullRequestSchema();
     }
 
+    public static function is(Environment $environment): bool
+    {
+        return $environment->has('GITHUB_ACTIONS');
+    }
+
+    public function isMergeRequest(): bool
+    {
+        try {
+            return $this->getMergeRequestId() >= 0;
+        } catch (EnvironmentDataKeyNotFound) {
+            return false;
+        }
+    }
+
     public function getMergeRequest(): MergeRequest
     {
         $graphqlUrl = $this->environment->getString('GITHUB_GRAPHQL_URL');

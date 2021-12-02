@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
+use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use JetBrains\PhpStorm\ArrayShape;
-use OndraM\CiDetector\Ci\CiInterface;
-use OndraM\CiDetector\Env;
-use OndraM\CiDetector\TrinaryLogic;
 
-final class MockCi implements CiInterface
+final class MockCi implements CiSystem
 {
     /**
      * @param array<string, bool|string> $values
@@ -21,58 +21,18 @@ final class MockCi implements CiInterface
         //
     }
 
-    public static function isDetected(Env $env): bool
+    public static function is(Environment $environment): bool
     {
         return true;
     }
 
-    public function getCiName(): string
+    public function isMergeRequest(): bool
     {
-        return 'MockCi';
+       return $this->values['is_pull_request'];
     }
 
-    public function describe(): array
+    public function getMergeRequest(): MergeRequest
     {
-        return $this->values;
-    }
-
-    public function getBuildNumber(): string
-    {
-        // TODO: Implement getBuildNumber() method.
-    }
-
-    public function getBuildUrl(): string
-    {
-        // TODO: Implement getBuildUrl() method.
-    }
-
-    public function getCommit(): string
-    {
-        // TODO: Implement getCommit() method.
-    }
-
-    public function getBranch(): string
-    {
-        // TODO: Implement getBranch() method.
-    }
-
-    public function getTargetBranch(): string
-    {
-        // TODO: Implement getTargetBranch() method.
-    }
-
-    public function getRepositoryName(): string
-    {
-        // TODO: Implement getRepositoryName() method.
-    }
-
-    public function getRepositoryUrl(): string
-    {
-        // TODO: Implement getRepositoryUrl() method.
-    }
-
-    public function isPullRequest(): TrinaryLogic
-    {
-        return TrinaryLogic::createFromBoolean($this->values['is_pull_request'] ?? false);
+        return MergeRequest::fromArray([]);
     }
 }

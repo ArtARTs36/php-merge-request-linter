@@ -10,6 +10,11 @@ use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
 interface Environment
 {
     /**
+     * Check has key in environment
+     */
+    public function has(string $key): bool;
+
+    /**
      * Get string value of Environment
      * @throws EnvironmentDataKeyNotFound
      */

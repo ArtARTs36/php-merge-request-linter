@@ -3,18 +3,18 @@
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Support\Map;
-use OndraM\CiDetector\CiDetector;
 
-class SystemFactory
+class SystemFactory implements CiSystemFactory
 {
     /** @var array<string, class-string<CiSystem>> */
     protected array $ciMap = [
-        CiDetector::CI_GITLAB => GitlabCi::class,
-        CiDetector::CI_GITHUB_ACTIONS => GithubActions::class,
+        'gitlab' => GitlabCi::class,
+        'github' => GithubActions::class,
     ];
 
     public function __construct(
@@ -22,6 +22,17 @@ class SystemFactory
         protected Environment $environment,
     ) {
         //
+    }
+
+    public function createCurrently(): CiSystem
+    {
+        foreach ($this->ciMap as $name => $ciClass) {
+            if ($ciClass::is($this->environment)) {
+                return $this->create($name);
+            }
+        }
+
+        throw new CiNotSupported();
     }
 
     public function create(string $ciName): CiSystem

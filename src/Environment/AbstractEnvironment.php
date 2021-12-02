@@ -19,6 +19,11 @@ abstract class AbstractEnvironment implements Environment
         return (string) $this->doGet($key);
     }
 
+    public function has(string $key): bool
+    {
+        return $this->get($key) !== false;
+    }
+
     protected function doGet(string $key): mixed
     {
         $value = $this->get($key);
