@@ -6,7 +6,7 @@ use ArtARTs36\Str\Str;
 
 class RulesPageBuilder
 {
-    protected string $namespace = '\\ArtARTs36\MergeRequestLinter\\Rule\\';
+    protected string $namespace = 'ArtARTs36\MergeRequestLinter\\Rule\\';
 
     protected string $dir = __DIR__ . '/../../src/Rule/';
 
