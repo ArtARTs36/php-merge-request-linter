@@ -24,6 +24,6 @@ class DescriptionContainsAnyLinkOfDomainsRule extends AbstractDescriptionLinksRu
 
     public function getDefinition(): string
     {
-        return "Merge Request must contains all links of domains: [" . $this->domains->implode(', ') . "]";
+        return "Merge Request must contains any links of domains: [" . $this->domains->implode(', ') . "]";
     }
 }
