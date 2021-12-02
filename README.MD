@@ -22,7 +22,7 @@ Add into your composer.json new script (section **scripts**):
 ### ➜ Usage with Gitlab CI
 
 1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
-2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "GITHUB_HTTP_TOKEN" with your personal access token
+2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "GITLAB_HTTP_TOKEN" with your personal access token
 3. Add new step into **.gitlab-ci.yml**:
    ```yml
    mr-lint:
