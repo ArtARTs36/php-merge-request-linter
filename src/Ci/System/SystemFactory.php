@@ -14,6 +14,7 @@ class SystemFactory
     /** @var array<string, class-string<CiSystem>> */
     protected array $ciMap = [
         CiDetector::CI_GITLAB => GitlabCi::class,
+        CiDetector::CI_GITHUB_ACTIONS => GithubActions::class,
     ];
 
     public function __construct(
