@@ -26,6 +26,6 @@ class WhenHasLabelMustTitleStartsWithRule implements Rule
 
     public function getDefinition(): string
     {
-        return "When there is a label \"$this->label\", the name must start with \"$this->titlePrefix\"";
+        return "When there is a label \"$this->label\", the title must start with \"$this->titlePrefix\"";
     }
 }
