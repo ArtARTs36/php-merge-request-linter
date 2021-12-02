@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use Gitlab\Client;
+use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
 
 class GitlabCi implements CiSystem
@@ -35,7 +35,13 @@ class GitlabCi implements CiSystem
         [$projectId, $requestId] = [$this->getProjectId(), $this->getMergeRequestId()];
 
         try {
-            $request = $this->createClient()->mergeRequests()->show($projectId, $requestId);
+            $request = new Request('GET', $this->getGitlabServerUrl() . "/api/v4/projects/$projectId/merge_requests/$requestId", [
+                'PRIVATE-TOKEN' => [
+                    $this->credentials->getToken(),
+                ],
+            ]);
+
+            $request = json_decode($this->client->sendRequest($request)->getBody()->getContents(), true);
         } catch (\Throwable $e) {
             throw new InvalidCredentialsException(previous: $e);
         }
@@ -56,14 +62,5 @@ class GitlabCi implements CiSystem
     protected function getMergeRequestId(): int
     {
         return $this->environment->getInt('CI_MERGE_REQUEST_IID');
-    }
-
-    protected function createClient(): Client
-    {
-        $client = new Client();
-        $client->setUrl($this->getGitlabServerUrl());
-        $client->authenticate($this->credentials->getToken(), Client::AUTH_HTTP_TOKEN);
-
-        return $client;
     }
 }
