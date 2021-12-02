@@ -33,4 +33,9 @@ class Map extends Collection
     {
         return array_key_exists($id, $this->items);
     }
+
+    public function missing(string $id): bool
+    {
+        return ! $this->has($id);
+    }
 }
