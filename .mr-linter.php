@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsOfRule;
 use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule;
 use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule;
+use ArtARTs36\MergeRequestLinter\Rule\WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule;
 
 return [
     'rules' => [
@@ -20,6 +21,7 @@ return [
             '[Bug]',
             '[Docs]',
         ]),
+        WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule::make('aa', ['bb']),
     ],
     'credentials' => [
         GitlabCi::class => new Token(getenv('GITLAB_HTTP_TOKEN')),

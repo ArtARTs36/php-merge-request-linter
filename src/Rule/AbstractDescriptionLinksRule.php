@@ -15,7 +15,7 @@ abstract class AbstractDescriptionLinksRule implements Rule
         //
     }
 
-    public static function make(array $domains): self
+    public static function make(array $domains): static
     {
         return new static(Map::fromList($domains));
     }
