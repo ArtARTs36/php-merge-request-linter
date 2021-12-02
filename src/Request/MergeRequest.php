@@ -18,7 +18,7 @@ class MergeRequest
     }
 
     /**
-     * @param array<string, Str|Map|bool|string[]> $request
+     * @param array<string, mixed> $request
      */
     public static function fromArray(
         #[ArrayShape([

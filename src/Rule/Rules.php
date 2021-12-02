@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 class Rules implements \IteratorAggregate
 {
     /**
-     * @param array<string, Rule> $rules
+     * @param array<Rule> $rules
      */
     public function __construct(protected array $rules)
     {

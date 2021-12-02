@@ -10,7 +10,7 @@ class Collection implements \Countable, \IteratorAggregate
     /**
      * @param array<T> $items
      */
-    public function __construct(protected array $items)
+    final public function __construct(protected array $items)
     {
         //
     }

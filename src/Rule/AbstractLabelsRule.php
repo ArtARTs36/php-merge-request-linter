@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Support\Map;
 
 abstract class AbstractLabelsRule implements Rule
 {
-    public function __construct(protected Map $labels)
+    final public function __construct(protected Map $labels)
     {
         //
     }

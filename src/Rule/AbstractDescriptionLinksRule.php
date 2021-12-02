@@ -10,7 +10,7 @@ abstract class AbstractDescriptionLinksRule implements Rule
 {
     use DefinitionToNotes;
 
-    public function __construct(protected Map $domains)
+    final public function __construct(protected Map $domains)
     {
         //
     }
