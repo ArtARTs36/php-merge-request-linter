@@ -8,3 +8,4 @@
 ## Supported CI Systems
 
 * GitLab CI
+* Github Actions
