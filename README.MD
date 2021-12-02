@@ -1,6 +1,8 @@
 # Merge Request Linter
 
-[Show rules](docs/rules.md)
+This package provides tool for validate merge requests
+
+[Show validation rules](docs/rules.md)
 
 ## Installation
 * Run: `composer require --dev artarts36/merge-request-linter`
