@@ -34,12 +34,13 @@ mr-lint:
 
 ### ➜ Usage with Github Actions
 
-Add new step into **.github/workflows/workflow-name.yml**:
-
-```yml
-- name: MR Lint
-  run: composer mr-lint
-```
+1. Generate token on [New personal access token](https://github.com/settings/tokens/new)
+2. Open https://github.com/{owner}/{repo}/settings/secrets/actions/new. Add new secret "GITHUB_HTTP_TOKEN" with your personal access token
+3. Add new step into **.github/workflows/workflow-name.yml**:
+    ```yml
+    - name: MR Lint
+      run: composer mr-lint
+    ```
 
 ## Supported CI Systems
 
