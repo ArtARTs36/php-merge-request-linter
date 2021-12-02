@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsOfRule;
 use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule;
 use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
-use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithRule;
+use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule;
 
 return [
     'rules' => [
@@ -15,7 +15,7 @@ return [
         HasAnyLabelsOfRule::make([
             'Feature',
         ]),
-        TitleStartsWithRule::make([
+        TitleStartsWithAnyPrefixRule::make([
             '[Feature]',
             '[Bug]',
             '[Docs]',

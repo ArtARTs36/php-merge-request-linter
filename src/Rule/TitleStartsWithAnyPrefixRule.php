@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
-class TitleStartsWithRule implements Rule
+class TitleStartsWithAnyPrefixRule implements Rule
 {
     use DefinitionToNotes;
 
