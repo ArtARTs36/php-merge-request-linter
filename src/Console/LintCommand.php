@@ -4,10 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Console;
 
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
-use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -45,9 +45,9 @@ class LintCommand extends Command
             $style->info('All good!');
         }
 
-        /** @var LintNote $error */
-        foreach ($result->notes as $error) {
-            $style->error($error->getDescription());
+        /** @var Note $note */
+        foreach ($result->notes as $note) {
+            $style->error($note->getDescription());
         }
 
         $style->info('Duration: '. $result->duration);
