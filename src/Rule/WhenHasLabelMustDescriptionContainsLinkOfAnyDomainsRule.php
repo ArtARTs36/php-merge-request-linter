@@ -6,6 +6,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
+/**
+ * When has label must description contains link of any {domains}.
+ */
 class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule implements Rule
 {
     public function __construct(

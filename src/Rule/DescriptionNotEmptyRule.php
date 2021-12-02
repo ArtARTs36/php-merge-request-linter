@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
+/**
+ * Description must fill.
+ */
 class DescriptionNotEmptyRule implements Rule
 {
     use DefinitionToNotes;
@@ -18,6 +21,6 @@ class DescriptionNotEmptyRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('Description must filled');
+        return new Definition('Description must fill');
     }
 }

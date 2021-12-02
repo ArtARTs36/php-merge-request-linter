@@ -6,6 +6,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
+/**
+ * Merge Request must contains links of any {domains}.
+ */
 class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRule implements Rule
 {
     public function lint(MergeRequest $request): array

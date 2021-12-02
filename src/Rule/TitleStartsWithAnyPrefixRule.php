@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
+/**
+ * Title must starts with any {prefixes}
+ */
 class TitleStartsWithAnyPrefixRule implements Rule
 {
     use DefinitionToNotes;
@@ -44,6 +47,6 @@ class TitleStartsWithAnyPrefixRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('Title must starts with of one: [' . implode(',', $this->prefixes) . ']');
+        return new Definition('Title must starts with any prefix of: [' . implode(',', $this->prefixes) . ']');
     }
 }

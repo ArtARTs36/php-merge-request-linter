@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
+/**
+ * Merge Request must have any labels.
+ */
 class HasAnyLabelsRule implements Rule
 {
     use DefinitionToNotes;
