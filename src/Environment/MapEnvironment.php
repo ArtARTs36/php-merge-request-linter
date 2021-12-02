@@ -13,6 +13,6 @@ class MapEnvironment extends AbstractEnvironment
 
     protected function get(string $key): mixed
     {
-        return $this->map->get($key);
+        return ($value = $this->map->get($key)) === null ? false : $value;
     }
 }
