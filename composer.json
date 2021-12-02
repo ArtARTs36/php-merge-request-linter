@@ -43,7 +43,7 @@
             "./vendor/bin/phpunit -v --coverage-text --colors=always --configuration phpunit.xml"
         ],
         "stat-analyse": [
-            "./vendor/bin/phpstan analyse -l 7 src"
+            "./vendor/bin/phpstan analyse -l 8 src"
         ]
     }
 }

@@ -37,7 +37,12 @@ class Runner implements LinterRunner
         } catch (CiNotSupported $e) {
             return LintResult::fail(new ExceptionNote($e), $timer->finish());
         } catch (InvalidCredentialsException $e) {
-            return LintResult::fail(ExceptionNote::withMessage($e->getPrevious(), 'Invalid credentials'), $timer->finish());
+            $previous = $e->getPrevious();
+
+            return LintResult::fail(ExceptionNote::withMessage(
+                $previous ?? $e,
+                'Invalid credentials'
+            ), $timer->finish());
         }
     }
 }
