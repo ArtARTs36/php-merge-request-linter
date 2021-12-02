@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
@@ -9,12 +10,20 @@ if (isset($_composer_autoload_path)) {
     require $_composer_autoload_path;
 }
 
+$loaded = false;
+
 foreach (['../../..', '../..', '..', 'vendor', '../vendor', '../../vendor'] as $path) {
     if (\is_file($autoload_file = __DIR__ . '/' . $path . '/autoload.php')) {
         require $autoload_file;
         $loaded = true;
         break;
     }
+}
+
+if ($loaded === false) {
+    fwrite(\STDERR, 'Composer autoload.php not found');
+
+    exit(1);
 }
 
 $application = new Application();
