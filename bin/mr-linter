@@ -4,6 +4,7 @@
 use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\LintCommand;
+use Composer\InstalledVersions;
 use Symfony\Component\Console\Application;
 
 if (isset($_composer_autoload_path)) {
@@ -26,7 +27,11 @@ if ($loaded === false) {
     exit(1);
 }
 
-$application = new Application();
+$application = new Application(
+        'Merge Request Linter',
+        InstalledVersions::getPrettyVersion('artarts36/merge-request-linter') ?? 'unknown')
+;
+
 $application->add(new LintCommand());
 $application->add(new InstallCommand());
 $application->add(new DumpCommand());
