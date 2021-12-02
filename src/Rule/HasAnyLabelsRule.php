@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
@@ -15,8 +16,8 @@ class HasAnyLabelsRule implements Rule
         return $request->labels->isEmpty() ? $this->definitionToNotes() : [];
     }
 
-    public function getDefinition(): string
+    public function getDefinition(): RuleDefinition
     {
-        return "Merge Request must have any labels";
+        return new Definition("Merge Request must have any labels");
     }
 }

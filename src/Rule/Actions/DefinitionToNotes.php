@@ -2,17 +2,18 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Actions;
 
-use ArtARTs36\MergeRequestLinter\Note\LintNote;
+use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Note\DefinitionNote;
 
 trait DefinitionToNotes
 {
-    abstract public function getDefinition(): string;
+    abstract public function getDefinition(): RuleDefinition;
 
     /**
-     * @return LintNote[]
+     * @return DefinitionNote[]
      */
     protected function definitionToNotes(): array
     {
-        return [new LintNote($this->getDefinition())];
+        return [new DefinitionNote($this->getDefinition())];
     }
 }

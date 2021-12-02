@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
+use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
@@ -14,8 +15,8 @@ class HasAllLabelsOfRule extends AbstractLabelsRule
         return $this->labels->diff($request->labels)->isEmpty() ? [] : $this->definitionToNotes();
     }
 
-    public function getDefinition(): string
+    public function getDefinition(): RuleDefinition
     {
-        return "Merge Request must have any labels of: [". $this->labels->implode(', ') . "]";
+        return new Definition("Merge Request must have any labels of: [". $this->labels->implode(', ') . "]");
     }
 }

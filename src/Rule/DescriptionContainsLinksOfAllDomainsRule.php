@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 class DescriptionContainsLinksOfAllDomainsRule extends AbstractDescriptionLinksRule implements Rule
@@ -24,8 +25,10 @@ class DescriptionContainsLinksOfAllDomainsRule extends AbstractDescriptionLinksR
         return [];
     }
 
-    public function getDefinition(): string
+    public function getDefinition(): RuleDefinition
     {
-        return "Merge Request must contains links of all domains: [" . $this->domains->implode(', ') . "]";
+        return new Definition(
+            "Merge Request must contains links of all domains: [" . $this->domains->implode(', ') . "]",
+        );
     }
 }

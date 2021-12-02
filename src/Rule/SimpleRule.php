@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
@@ -36,8 +37,8 @@ abstract class SimpleRule implements Rule
         return [];
     }
 
-    public function getDefinition(): string
+    public function getDefinition(): RuleDefinition
     {
-        return $this->definition;
+        return new Definition($this->definition);
     }
 }

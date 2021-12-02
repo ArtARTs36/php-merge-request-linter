@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
@@ -15,8 +16,8 @@ class DescriptionNotEmptyRule implements Rule
         return $request->description->isEmpty() ? $this->definitionToNotes() : [];
     }
 
-    public function getDefinition(): string
+    public function getDefinition(): RuleDefinition
     {
-        return 'Description must filled';
+        return new Definition('Description must filled');
     }
 }

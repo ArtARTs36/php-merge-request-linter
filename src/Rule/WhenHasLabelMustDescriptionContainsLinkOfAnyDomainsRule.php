@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule implements Rule
@@ -31,8 +32,10 @@ class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule implements Rule
         return $this->domainsRule->lint($request);
     }
 
-    public function getDefinition(): string
+    public function getDefinition(): RuleDefinition
     {
-        return "When there is a label \"$this->label\" -> " . $this->domainsRule->getDefinition();
+        return new Definition(
+            "When there is a label \"$this->label\" -> " . $this->domainsRule->getDefinition()->getDescription()
+        );
     }
 }

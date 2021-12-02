@@ -22,5 +22,5 @@ interface Rule
     /**
      * Get rule definition
      */
-    public function getDefinition(): string;
+    public function getDefinition(): RuleDefinition;
 }
