@@ -23,7 +23,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ArtARTs36\\MergeRequestLinter\\Tests\\": "tests/"
+            "ArtARTs36\\MergeRequestLinter\\Tests\\": "tests/",
+            "ArtARTs36\\MergeRequestLinter\\DocBuilder\\": "docs/Builder"
         }
     },
     "authors": [
