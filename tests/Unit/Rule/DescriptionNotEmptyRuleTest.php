@@ -30,6 +30,6 @@ final class DescriptionNotEmptyRuleTest extends TestCase
      */
     public function testLint(MergeRequest $request, bool $hasNotes): void
     {
-        self::assertEquals($hasNotes, count((new DescriptionNotEmptyRule())->lint($request)) > 0);
+        self::assertHasNotes($request, new DescriptionNotEmptyRule(), $hasNotes);
     }
 }

@@ -32,9 +32,6 @@ final class DescriptionContainsLinkOfAnyDomainsRuleTest extends TestCase
      */
     public function testLint(MergeRequest $request, array $domains, bool $hasNotes): void
     {
-        self::assertEquals(
-            $hasNotes,
-            count(DescriptionContainsLinkOfAnyDomainsRule::make($domains)->lint($request)) > 0,
-        );
+        self::assertHasNotes($request, DescriptionContainsLinkOfAnyDomainsRule::make($domains), $hasNotes);
     }
 }

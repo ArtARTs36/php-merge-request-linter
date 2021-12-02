@@ -36,9 +36,6 @@ final class CallableRuleTest extends TestCase
      */
     public function testLint(callable $callback, bool $hasNotes): void
     {
-        self::assertEquals(
-            $hasNotes,
-            count((new CallableRule($callback, ''))->lint($this->makeMergeRequest())),
-        );
+        self::assertHasNotes($this->makeMergeRequest(), new CallableRule($callback, ''), $hasNotes);
     }
 }

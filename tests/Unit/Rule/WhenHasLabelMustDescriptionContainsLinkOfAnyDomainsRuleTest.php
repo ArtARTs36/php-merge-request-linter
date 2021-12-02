@@ -41,7 +41,7 @@ final class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRuleTest extends 
      */
     public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
     {
-        $this->assertHasNotes(
+        self::assertHasNotes(
             $request,
             WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule::make(...$ruleParams),
             $hasNotes

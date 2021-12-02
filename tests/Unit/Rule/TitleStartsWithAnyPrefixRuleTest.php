@@ -32,6 +32,6 @@ final class TitleStartsWithAnyPrefixRuleTest extends TestCase
      */
     public function testLint(MergeRequest $request, array|string $prefixes, bool $hasNotes): void
     {
-        self::assertEquals($hasNotes, count(TitleStartsWithAnyPrefixRule::make($prefixes)->lint($request)) > 0);
+        self::assertHasNotes($request, TitleStartsWithAnyPrefixRule::make($prefixes), $hasNotes);
     }
 }

@@ -41,6 +41,6 @@ final class HasAnyLabelsOfRuleTest extends TestCase
      */
     public function testLint(MergeRequest $request, array $requestedLabels, bool $hasNotes): void
     {
-        self::assertEquals($hasNotes, count(HasAnyLabelsOfRule::make($requestedLabels)->lint($request)) > 0);
+        self::assertHasNotes($request, HasAnyLabelsOfRule::make($requestedLabels), $hasNotes);
     }
 }
