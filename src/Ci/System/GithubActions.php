@@ -9,9 +9,10 @@ use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Str;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Stream;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
 
 class GithubActions implements CiSystem
 {
@@ -20,6 +21,7 @@ class GithubActions implements CiSystem
     public function __construct(
         protected RemoteCredentials $credentials,
         protected Environment $environment,
+        protected ClientInterface $client,
     ) {
         $this->schema = new GithubPullRequestSchema();
     }
@@ -44,8 +46,6 @@ class GithubActions implements CiSystem
         [$repoOwner, $repoName] = $this->extractOwnerAndRepo();
         $requestId = $this->getMergeRequestId();
 
-        $client = new Client();
-
         $query = json_encode([
             'query' => $this->schema->createGraphqlForPullRequest($repoOwner, $repoName, $requestId),
         ]);
@@ -54,9 +54,12 @@ class GithubActions implements CiSystem
             ->withBody(new Stream(fopen('data://text/plain,' . $query, 'r')))
             ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken());
 
-        return $this->schema->createMergeRequest(
-            json_decode($client->sendRequest($request)->getBody()->getContents(), true)['data']['repository']['pullRequest'] ?? [],
-        );
+        return $this->schema->createMergeRequest($this->fetchPullRequestData($request));
+    }
+
+    protected function fetchPullRequestData(RequestInterface $request): array
+    {
+        return json_decode($this->client->sendRequest($request)->getBody()->getContents(), true)['data']['repository']['pullRequest'] ?? [];
     }
 
     protected function extractOwnerAndRepo(): array

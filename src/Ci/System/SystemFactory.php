@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Support\Map;
+use GuzzleHttp\ClientInterface;
 
 class SystemFactory implements CiSystemFactory
 {
@@ -20,6 +21,7 @@ class SystemFactory implements CiSystemFactory
     public function __construct(
         protected Map $credentials,
         protected Environment $environment,
+        protected ClientInterface $client
     ) {
         //
     }
@@ -47,6 +49,6 @@ class SystemFactory implements CiSystemFactory
             throw InvalidCredentialsException::fromCiName($ciName);
         }
 
-        return new $targetClass($this->credentials->get($targetClass), $this->environment);
+        return new $targetClass($this->credentials->get($targetClass), $this->environment, $this->client);
     }
 }

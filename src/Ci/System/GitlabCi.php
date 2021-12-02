@@ -8,11 +8,15 @@ use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use Gitlab\Client;
+use Psr\Http\Client\ClientInterface;
 
 class GitlabCi implements CiSystem
 {
-    public function __construct(protected RemoteCredentials $credentials, protected Environment $environment)
-    {
+    public function __construct(
+        protected RemoteCredentials $credentials,
+        protected Environment $environment,
+        protected ClientInterface $client,
+    ) {
         //
     }
 
