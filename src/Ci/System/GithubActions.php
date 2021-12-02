@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Ci\Credentials\OnlyToken;
+use ArtARTs36\MergeRequestLinter\Ci\System\Schema\GithubPullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
@@ -14,11 +15,13 @@ use GuzzleHttp\Psr7\Stream;
 
 class GithubActions implements CiSystem
 {
-    protected const MERGEABLE_STATE_CONFLICTING = 'CONFLICTING';
+    protected GithubPullRequestSchema $schema;
 
-    public function __construct(protected OnlyToken $credentials, protected Environment $environment)
-    {
-        //
+    public function __construct(
+        protected OnlyToken $credentials,
+        protected Environment $environment,
+    ) {
+        $this->schema = new GithubPullRequestSchema();
     }
 
     public function getMergeRequest(): MergeRequest
@@ -30,35 +33,16 @@ class GithubActions implements CiSystem
         $client = new Client();
 
         $query = json_encode([
-            'query' => $this->compileGraphqlRequest($repoOwner, $repoName, $requestId),
+            'query' => $this->schema->createGraphqlForPullRequest($repoOwner, $repoName, $requestId),
         ]);
 
         $request = (new Request('POST', $graphqlUrl))
             ->withBody(new Stream(fopen('data://text/plain,' . $query, 'r')))
             ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken());
 
-        $response = json_decode($client->sendRequest($request)->getBody()->getContents(), true)['data']['repository']['pullRequest'] ?? [];
-
-        return MergeRequest::fromArray([
-            'title' => $response['title'],
-            'description' => $response['bodyText'],
-            'labels' => $this->getLabelsOfPullRequest($response),
-            'has_conflicts' => $response['mergeable'] !== self::MERGEABLE_STATE_CONFLICTING,
-        ]);
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getLabelsOfPullRequest(array $request): array
-    {
-        $labels = [];
-
-        foreach ($request['labels']['nodes'] as $label) {
-            $labels[] = $label['name'];
-        }
-
-        return $labels;
+        return $this->schema->createMergeRequest(
+            json_decode($client->sendRequest($request)->getBody()->getContents(), true)['data']['repository']['pullRequest'] ?? [],
+        );
     }
 
     protected function extractOwnerAndRepo(): array
@@ -76,24 +60,5 @@ class GithubActions implements CiSystem
         }
 
         return $id->toInteger();
-    }
-
-    protected function compileGraphqlRequest(string $owner, string $repo, int $requestId): string
-    {
-        return "query { 
-  repository(owner: \"$owner\", name: \"$repo\") {
-    pullRequest(number: $requestId) {
-      title
-      bodyText
-      mergeable
-      labels(first: 100) {
-        totalCount
-        nodes {
-          name
-        }
-      }
-    }
-  }
-}";
     }
 }
