@@ -21,7 +21,7 @@ Add into your composer.json new script (section **scripts**):
 
 ### ➜ Usage with Gitlab CI
 
-Add into .gitlab-ci.yml new step:
+Add new step into **.gitlab-ci.yml**:
 
 ```yml
 mr-lint:
@@ -30,6 +30,15 @@ mr-lint:
     - merge_requests
   script:
     - composer mr-lint
+```
+
+### ➜ Usage with Github Actions
+
+Add new step into **.github/workflows/workflow-name.yml**:
+
+```yml
+- name: MR Lint
+  run: composer mr-lint
 ```
 
 ## Supported CI Systems
