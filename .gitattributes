@@ -4,3 +4,4 @@ tests               export-ignore
 README.MD           export-ignore
 phpunit.xml         export-ignore
 .github             export-ignore
+docs                export-ignore
