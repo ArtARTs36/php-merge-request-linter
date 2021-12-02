@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Ci\Credentials\GitlabCredentials;
+use ArtARTs36\MergeRequestLinter\Ci\Credentials\OnlyToken;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
@@ -13,7 +13,7 @@ use Gitlab\Client;
 
 class GitlabCi implements CiSystem
 {
-    public function __construct(protected GitlabCredentials $credentials, protected Environment $environment)
+    public function __construct(protected OnlyToken $credentials, protected Environment $environment)
     {
         //
     }
@@ -55,7 +55,7 @@ class GitlabCi implements CiSystem
     {
         $client = new Client();
         $client->setUrl($this->getGitlabServerUrl());
-        $client->authenticate($this->credentials->getToken(), $this->credentials->method);
+        $client->authenticate($this->credentials->getToken(), Client::AUTH_HTTP_TOKEN);
 
         return $client;
     }
