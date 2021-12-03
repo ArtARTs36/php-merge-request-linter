@@ -15,4 +15,9 @@ class Definition implements RuleDefinition
     {
         return $this->description;
     }
+
+    public function __toString(): string
+    {
+        return $this->description;
+    }
 }
