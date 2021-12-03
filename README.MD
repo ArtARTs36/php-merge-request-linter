@@ -55,3 +55,12 @@ Add new script into your composer.json (section **scripts**):
 
 * GitLab CI
 * Github Actions
+
+## Development Commands
+
+| Command  | Description  |
+| ------------ | ------------ |
+| composer test  | Run tests (via PHPUnit)  |
+| composer lint  | Run lint (via PHPCsFixer)  |
+| php docs/Builder/build_rules.php | Build rules doc page  |
+| ./dev/build/build.sh | Build phar of source |
