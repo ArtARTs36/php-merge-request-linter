@@ -50,6 +50,8 @@ Add new script into your composer.json (section **scripts**):
 3. Add new step into **.github/workflows/workflow-name.yml**:
     ```yml
     - name: MR Lint
+      env:
+        MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
       run: composer mr-lint
     ```
 
