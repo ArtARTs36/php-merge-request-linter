@@ -22,4 +22,4 @@ jobs:
         uses: fnkr/github-action-ghr@v1
         env:
           GHR_PATH: bin/build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_HTTP_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
