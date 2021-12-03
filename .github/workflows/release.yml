@@ -1,0 +1,34 @@
+on:
+  release:
+    types: [published]
+
+name: Release
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: composer
+        uses: docker://composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: install --no-interaction --no-dev --prefer-dist --optimize-autoloader
+
+      - name: build phar
+        run: NOT_UPDATE_AFTER_BUILD=1 ./dev/build/build.sh
+
+      - name: sign phar
+        uses: phpDocumentor/phar-ga@latest
+        env:
+          PASSPHRASE: ${{ secrets.PHAR_SIGN_PASSPHRASE }}
+          SECRET_KEY: ${{ secrets.PHAR_SIGN_SECRET_KEY }}
+        with:
+          args: gpg --command-fd 0 --pinentry-mode loopback -u temicska99@mail.ru --batch --detach-sign --output bin/build/mr-linter.phar.asc bin/build/mr-linter.phar
+
+      - name: release phar
+        uses: fnkr/github-action-ghr@v1
+        env:
+          GHR_PATH: bin/build
+          GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}

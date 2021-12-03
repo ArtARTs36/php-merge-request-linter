@@ -2,34 +2,36 @@
 
 namespace ArtARTs36\MergeRequestLinter\Linter;
 
+use ArtARTs36\MergeRequestLinter\Exception\StopLintException;
+use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Note\LintNote;
+use ArtARTs36\MergeRequestLinter\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 
 class Linter
 {
-    protected Rules $rules;
-
-    public function __construct(?Rules $rules = null)
+    public function __construct(protected Rules $rules)
     {
-        $this->rules = $rules ?? new Rules();
+        //
     }
 
-    public function addRule(Rule $rule): self
+    public function run(MergeRequest $request): Notes
     {
-        $this->rules->add($rule);
-
-        return $this;
-    }
-
-    public function run(MergeRequest $request): LintErrors
-    {
-        $errors = [];
+        $notes = [];
 
         foreach ($this->rules as $rule) {
-            array_push($errors, ...$rule->lint($request));
+            try {
+                array_push($notes, ...$rule->lint($request));
+            } catch (StopLintException $e) {
+                $notes[] = new LintNote('Lint stopped. Reason: '. $e->getMessage());
+
+                break;
+            } catch (\Throwable $e) {
+                $notes[] = new ExceptionNote($e, $e::class);
+            }
         }
 
-        return new LintErrors($errors);
+        return new Notes($notes);
     }
 }
