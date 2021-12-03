@@ -33,6 +33,7 @@ final class CallableRuleTest extends TestCase
     /**
      * @dataProvider providerForTestLint
      * @covers \ArtARTs36\MergeRequestLinter\Rule\CallableRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\CallableRule::__construct
      */
     public function testLint(callable $callback, bool $hasNotes): void
     {

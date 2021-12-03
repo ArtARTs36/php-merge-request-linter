@@ -42,6 +42,7 @@ final class WhenHasLabelMustTitleStartsWithRuleTest extends TestCase
     /**
      * @dataProvider providerForTestLint
      * @covers \ArtARTs36\MergeRequestLinter\Rule\WhenHasLabelMustTitleStartsWithRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\WhenHasLabelMustTitleStartsWithRule::__construct
      */
     public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
     {

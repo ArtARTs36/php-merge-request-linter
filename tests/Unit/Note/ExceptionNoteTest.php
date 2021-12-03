@@ -19,6 +19,8 @@ final class ExceptionNoteTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Note\ExceptionNote::withMessage
+     * @covers \ArtARTs36\MergeRequestLinter\Note\ExceptionNote::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Note\ExceptionNote::getDescription
      */
     public function testWithMessage(): void
     {

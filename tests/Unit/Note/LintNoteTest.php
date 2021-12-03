@@ -9,6 +9,7 @@ final class LintNoteTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Note\LintNote::getDescription
+     * @covers \ArtARTs36\MergeRequestLinter\Note\LintNote::__construct
      */
     public function testGetDescription(): void
     {
