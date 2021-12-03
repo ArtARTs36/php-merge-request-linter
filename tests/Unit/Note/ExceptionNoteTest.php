@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Note;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Note;
 
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
