@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Stream;
+use GuzzleHttp\Psr7\Utils as StreamBuilder;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 
@@ -51,9 +51,7 @@ class GithubActions implements CiSystem
         ]);
 
         $request = (new Request('POST', $graphqlUrl))
-            ->withBody(new Stream(
-                fopen('data://text/plain,' . $query, 'r') ?: throw new \RuntimeException('Stream not constructed')
-            ))
+            ->withBody(StreamBuilder::streamFor($query))
             ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken());
 
         return $this->schema->createMergeRequest($this->fetchPullRequestData($request));
