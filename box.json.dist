@@ -1,0 +1,12 @@
+{
+    "check-requirements": false,
+    "dump-autoload": true,
+    "compactors": [
+        "KevinGH\\Box\\Compactor\\Json",
+        "KevinGH\\Box\\Compactor\\Php"
+    ],
+    "files": [
+        "LICENSE"
+    ],
+    "git-commit": "git-commit"
+}

@@ -5,3 +5,5 @@ README.MD           export-ignore
 phpunit.xml         export-ignore
 .github             export-ignore
 docs                export-ignore
+build               export-ignore
+box.json.dist       export-ignore
