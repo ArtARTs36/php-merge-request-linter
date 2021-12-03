@@ -50,8 +50,6 @@ class GithubActions implements CiSystem
             'query' => $this->schema->createGraphqlForPullRequest($repoOwner, $repoName, $requestId),
         ]);
 
-        // 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
-
         $response = $this->client->sendRequest((new Request('POST', $graphqlUrl))
             ->withBody(StreamBuilder::streamFor($query))
             ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken()));
