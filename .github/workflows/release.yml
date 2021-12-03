@@ -20,6 +20,7 @@ jobs:
         run: NOT_UPDATE_AFTER_BUILD=1 ./dev/build/build.sh
 
       - name: sign phar
+        uses: phpDocumentor/phar-ga@latest
         env:
           PASSPHRASE: ${{ secrets.PHAR_SIGN_PASSPHRASE }}
           SECRET_KEY: ${{ secrets.PHAR_SIGN_SECRET_KEY }}
