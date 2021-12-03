@@ -13,7 +13,6 @@ use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
 use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestInterface;
 
 class GithubActions implements CiSystem
 {
@@ -59,7 +58,7 @@ class GithubActions implements CiSystem
 
         if ($response->getStatusCode() === 401) {
             throw InvalidCredentialsException::fromCiName('github');
-        } elseif($response->getStatusCode() !== 200) {
+        } elseif ($response->getStatusCode() !== 200) {
             throw new \RuntimeException('Github returns response with code '. $response->getStatusCode());
         }
 
