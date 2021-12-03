@@ -9,6 +9,7 @@ final class TokenTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Ci\Credentials\Token::getToken
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\Credentials\Token::__construct
      */
     public function testGetToken(): void
     {
