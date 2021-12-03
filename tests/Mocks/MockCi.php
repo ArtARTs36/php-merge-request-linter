@@ -16,7 +16,8 @@ final class MockCi implements CiSystem
         #[ArrayShape([
             'is_pull_request' => 'bool',
         ])]
-        private array $values
+        private array $values,
+        private ?MergeRequest $request = null,
     ) {
         //
     }
@@ -33,6 +34,6 @@ final class MockCi implements CiSystem
 
     public function getMergeRequest(): MergeRequest
     {
-        return MergeRequest::fromArray([]);
+        return $this->request ?? MergeRequest::fromArray([]);
     }
 }

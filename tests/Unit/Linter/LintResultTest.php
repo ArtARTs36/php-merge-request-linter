@@ -30,4 +30,26 @@ final class LintResultTest extends TestCase
     {
         self::assertEquals($expected, $result->isFail());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::fail
+     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::__construct
+     */
+    public function testFail(): void
+    {
+        $result = LintResult::fail(new EmptyNote(), 1.12);
+
+        self::assertFalse($result->state);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::success
+     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::__construct
+     */
+    public function testSuccess(): void
+    {
+        $result = LintResult::success(new EmptyNote(), 0.12);
+
+        self::assertTrue($result->state);
+    }
 }

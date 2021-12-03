@@ -16,6 +16,7 @@ final class LinterTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Linter\Linter::run
+     * @covers \ArtARTs36\MergeRequestLinter\Linter\Linter::__construct
      */
     public function testRunOnStopException(): void
     {
@@ -40,11 +41,12 @@ final class LinterTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Linter\Linter::run
+     * @covers \ArtARTs36\MergeRequestLinter\Linter\Linter::__construct
      */
     public function testRunOnException(): void
     {
         $linter = new Linter(new Rules([
-            new class implements Rule {
+            new class () implements Rule {
                 public function lint(MergeRequest $request): array
                 {
                     throw new \RuntimeException();
