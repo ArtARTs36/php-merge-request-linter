@@ -32,7 +32,7 @@ final class GitlabCiTest extends TestCase
         self::assertEquals($expected, GitlabCi::is($this->makeEnvironment($env)));
     }
 
-    protected function makeCi(array $env): GitlabCi
+    private function makeCi(array $env): GitlabCi
     {
         return new GitlabCi(new EmptyCredentials(), $this->makeEnvironment($env), new NullClient());
     }
