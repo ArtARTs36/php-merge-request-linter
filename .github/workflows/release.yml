@@ -16,7 +16,7 @@ jobs:
           args: install --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
       - name: build phar
-        run: ./dev/build/build.sh
+        run: NOT_UPDATE_AFTER_BUILD=1 ./dev/build/build.sh
 
       - name: release phar
         uses: fnkr/github-action-ghr@v1

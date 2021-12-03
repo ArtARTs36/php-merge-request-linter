@@ -11,4 +11,6 @@ cd ../../
 # Compile phar
 dev/build/vendor/bin/box compile
 
-composer update --no-interaction --no-progress -q
+if [ -z ${NOT_UPDATE_AFTER_BUILD} ]; then
+  composer update --no-interaction --no-progress -q;
+fi
