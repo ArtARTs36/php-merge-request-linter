@@ -9,6 +9,8 @@ This package provides tool for validate merge requests
 * Run `./vendor/bin/mr-linter install`. In root directory added file `.mr-linter.php`
 * Configure `.mr-linter.php`
 
+You can also download [PHAR](https://github.com/ArtARTs36/php-merge-request-linter/releases)
+
 ## Available Commands
 
 | Command  | Description  |
