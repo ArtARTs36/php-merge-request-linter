@@ -5,7 +5,6 @@ use ArtARTs36\MergeRequestLinter\Ci\System\GithubActions;
 use ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsOfRule;
-use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule;
 use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule;
 
