@@ -31,6 +31,8 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
 
       - name: MR Lint
+        env:
+          MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
         run: composer mr-lint
 
       - name: Lint
