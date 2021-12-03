@@ -1,5 +1,11 @@
 # Merge Request Linter
 
+![PHP Composer](https://github.com/ArtARTs36/php-merge-request-linter/workflows/PHP%20Composer/badge.svg?branch=master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<a href="https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg">
+<img src="https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg" alt="Total Downloads">
+</a>
+
 This package provides tool for validate merge requests
 
 [Show validation rules](docs/rules.md)
@@ -15,9 +21,9 @@ You can also download [PHAR](https://github.com/ArtARTs36/php-merge-request-lint
 
 | Command  | Description  |
 | ------------ | ------------ |
-| mr-linter install  | Install this tool  |
-| mr-linter dump  | Print current rules  |
-| mr-linter lint  | Run lint to current merge request  |
+| ./bin/mr-linter install  | Install this tool (copy configuration file to work directory)  |
+| ./bin/mr-linter dump  | Print current rules  |
+| ./bin/mr-linter lint  | Run lint to current merge request  |
 
 ## Usage
 
