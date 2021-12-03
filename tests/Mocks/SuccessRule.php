@@ -16,6 +16,6 @@ class SuccessRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('');
+        return new Definition('Success rule');
     }
 }

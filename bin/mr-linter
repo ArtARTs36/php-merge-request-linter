@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+use ArtARTs36\MergeRequestLinter\Configuration\PhpConfigLoader;
 use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\LintCommand;
@@ -28,8 +29,10 @@ if ($loaded === false) {
 
 $application = new Application('Merge Request Linter', '0.1.0');
 
-$application->add(new LintCommand());
-$application->add(new InstallCommand());
-$application->add(new DumpCommand());
+$configLoader = new PhpConfigLoader();
+
+$application->add(new LintCommand($configLoader));
+$application->add(new InstallCommand($configLoader));
+$application->add(new DumpCommand($configLoader));
 
 $application->run();
