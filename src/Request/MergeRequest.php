@@ -8,6 +8,13 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class MergeRequest
 {
+    public const REQUIRED_FIELDS = [
+        'title' => 'string',
+        'description' => 'string',
+        'labels' => 'array',
+        'has_conflicts' => 'bool',
+    ];
+
     /**
      * @param Map<string, string> $labels
      */
@@ -24,14 +31,15 @@ class MergeRequest
      * @param array<string, mixed> $request
      */
     public static function fromArray(
-        #[ArrayShape([
-            'title' => 'string',
-            'description' => 'string',
-            'labels' => 'array',
-            'has_conflicts' => 'bool',
-        ])]
+        #[ArrayShape(self::REQUIRED_FIELDS)]
         array $request
     ): self {
+        foreach (self::REQUIRED_FIELDS as $field => $_) {
+            if (! array_key_exists($field, $request)) {
+                throw new \RuntimeException('Given invalid Merge Request');
+            }
+        }
+
         return new self(
             Str::make($request['title']),
             Str::make($request['description']),
