@@ -55,4 +55,80 @@ final class ArrayCollectionTest extends TestCase
     {
         self::assertEquals($expected, (new ArrayCollection($items))->isEmpty());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::getIterator
+     */
+    public function testGetIterator(): void
+    {
+        self::assertEquals([1, 2], iterator_to_array(new ArrayCollection([1, 2])));
+    }
+
+    public function providerForTestFirst(): array
+    {
+        return [
+            [
+                [],
+                null,
+            ],
+            [
+                [1, 2],
+                1,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestFirst
+     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::first
+     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::__construct
+     */
+    public function testFirst(array $items, mixed $expected): void
+    {
+        self::assertEquals($expected, (new ArrayCollection($items))->first());
+    }
+
+    public function providerForTestEqualsCount(): array
+    {
+        return [
+            [
+                [1, 2],
+                [3, 4],
+                true,
+            ],
+            [
+                [1],
+                [],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestEqualsCount
+     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::equalsCount
+     */
+    public function testEqualsCount(array $one, array $two, bool $expected): void
+    {
+        self::assertEquals($expected, (new ArrayCollection($one))->equalsCount(new ArrayCollection($two)));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::implode
+     */
+    public function testImplode(): void
+    {
+        self::assertEquals('1,2', (new ArrayCollection([1, 2]))->implode(','));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::diff
+     */
+    public function testDiff(): void
+    {
+        self::assertEquals(
+            [1, 2],
+            iterator_to_array((new ArrayCollection([1, 2, 3, 4]))->diff(new ArrayCollection([3, 4])))
+        );
+    }
 }
