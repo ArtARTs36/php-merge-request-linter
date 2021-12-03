@@ -18,6 +18,13 @@ jobs:
       - name: build phar
         run: NOT_UPDATE_AFTER_BUILD=1 ./dev/build/build.sh
 
+      - name: sign phar
+        env:
+          PASSPHRASE: ${{ secrets.PHAR_SIGN_PASSPHRASE }}
+          SECRET_KEY: ${{ secrets.PHAR_SIGN_SECRET_KEY }}
+        with:
+          args: gpg --command-fd 0 --pinentry-mode loopback -u temicska99@mail.ru --batch --detach-sign --output bin/build/mr-linter.phar.asc bin/build/mr-linter.phar
+
       - name: release phar
         uses: fnkr/github-action-ghr@v1
         env:
