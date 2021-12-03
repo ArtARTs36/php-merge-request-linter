@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
-use ArtARTs36\MergeRequestLinter\Configuration\PhpConfigLoader;
+use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
@@ -22,7 +22,7 @@ class LintCommand extends Command
     protected LinterRunnerFactory $runnerFactory;
 
     public function __construct(
-        protected PhpConfigLoader $configLoader,
+        protected ConfigLoader $configLoader,
         ?LinterRunnerFactory      $runnerFactory = null,
         string                    $name = null
     ) {

@@ -22,6 +22,13 @@ final class MockCi implements CiSystem
         //
     }
 
+    public static function fromMergeRequest(MergeRequest $request): self
+    {
+        return new self([
+            'is_pull_request' => 'true',
+        ], $request);
+    }
+
     public static function is(Environment $environment): bool
     {
         return true;
