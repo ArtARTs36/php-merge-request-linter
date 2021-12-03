@@ -13,8 +13,8 @@ class SystemFactory implements CiSystemFactory
 {
     /** @var array<string, class-string<CiSystem>> */
     protected array $ciMap = [
-        'gitlab' => GitlabCi::class,
-        'github' => GithubActions::class,
+        GitlabCi::NAME => GitlabCi::class,
+        GithubActions::NAME => GithubActions::class,
     ];
 
     public function __construct(

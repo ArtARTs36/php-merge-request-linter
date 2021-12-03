@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Ci\System;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
@@ -13,6 +12,10 @@ use Psr\Http\Message\RequestInterface;
 
 class GitlabCi implements CiSystem
 {
+    use InteractsWithResponse;
+
+    public const NAME = 'Gitlab CI';
+
     public function __construct(
         protected RemoteCredentials $credentials,
         protected Environment $environment,
@@ -33,13 +36,11 @@ class GitlabCi implements CiSystem
 
     public function getMergeRequest(): MergeRequest
     {
-        try {
-            $request = json_decode($this->client->sendRequest($this->makeHttpRequestForFetchMergeRequest())->getBody()->getContents(), true);
-        } catch (\Throwable $e) {
-            throw new InvalidCredentialsException(previous: $e);
-        }
+        $response = $this->client->sendRequest($this->makeHttpRequestForFetchMergeRequest());
 
-        return MergeRequest::fromArray($request);
+        $this->validateResponse($response, self::NAME);
+
+        return MergeRequest::fromArray($this->responseToJsonArray($response));
     }
 
     protected function makeHttpRequestForFetchMergeRequest(): RequestInterface

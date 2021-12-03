@@ -7,7 +7,6 @@ use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
@@ -16,6 +15,10 @@ use Psr\Http\Client\ClientInterface;
 
 class GithubActions implements CiSystem
 {
+    use InteractsWithResponse;
+
+    public const NAME = 'Github Actions';
+
     protected GithubPullRequestSchema $schema;
 
     public function __construct(
@@ -54,14 +57,10 @@ class GithubActions implements CiSystem
             ->withBody(StreamBuilder::streamFor($query))
             ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken()));
 
-        if ($response->getStatusCode() === 401) {
-            throw InvalidCredentialsException::fromCiName('github');
-        } elseif ($response->getStatusCode() !== 200) {
-            throw new \RuntimeException('Github returns response with code '. $response->getStatusCode());
-        }
+        $this->validateResponse($response, self::NAME);
 
         return $this->schema->createMergeRequest(
-            json_decode($response->getBody()->getContents(), true)['data']['repository']['pullRequest'] ?? []
+            $this->responseToJsonArray($response)['data']['repository']['pullRequest']
         );
     }
 
