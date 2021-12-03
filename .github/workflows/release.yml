@@ -1,6 +1,7 @@
 on:
   release:
     types: [published]
+
 name: Release
 jobs:
   release:
@@ -22,8 +23,7 @@ jobs:
         env:
           PASSPHRASE: ${{ secrets.PHAR_SIGN_PASSPHRASE }}
           SECRET_KEY: ${{ secrets.PHAR_SIGN_SECRET_KEY }}
-        with:
-          args: gpg --command-fd 0 --pinentry-mode loopback -u temicska99@mail.ru --batch --detach-sign --output bin/build/mr-linter.phar.asc bin/build/mr-linter.phar
+        run: gpg --command-fd 0 --pinentry-mode loopback -u temicska99@mail.ru --batch --detach-sign --output bin/build/mr-linter.phar.asc bin/build/mr-linter.phar
 
       - name: release phar
         uses: fnkr/github-action-ghr@v1
