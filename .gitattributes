@@ -8,3 +8,4 @@ docs                export-ignore
 build               export-ignore
 box.json.dist       export-ignore
 dev                 export-ignore
+CHANGELOG.MD        export-ignore
