@@ -1,0 +1,25 @@
+on:
+  release:
+    types: [published]
+name: Release
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: composer
+        uses: docker://composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: install --no-interaction --no-dev --prefer-dist --optimize-autoloader
+
+      - name: build phar
+        run: ./dev/build/build.sh
+
+      - name: release phar
+        uses: fnkr/github-action-ghr@v1
+        env:
+          GHR_PATH: bin/build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_HTTP_TOKEN }}

@@ -8,5 +8,6 @@
     "files": [
         "LICENSE"
     ],
-    "git-commit": "git-commit"
+    "git-commit": "git-commit",
+    "output": "bin/build/mr-linter.phar"
 }
