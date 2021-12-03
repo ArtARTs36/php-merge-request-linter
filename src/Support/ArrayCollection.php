@@ -7,7 +7,7 @@ namespace ArtARTs36\MergeRequestLinter\Support;
  * @template V
  * @template-implements \IteratorAggregate<K, V>
  */
-class Collection implements \Countable, \IteratorAggregate
+class ArrayCollection implements \Countable, \IteratorAggregate
 {
     /**
      * @param array<K, V> $items
@@ -41,16 +41,16 @@ class Collection implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param Collection<K, V> $that
-     * @return Collection<K, V>
+     * @param ArrayCollection<K, V> $that
+     * @return ArrayCollection<K, V>
      */
-    public function diff(self $that): Collection
+    public function diff(self $that): ArrayCollection
     {
         return new static(array_diff($this->items, $that->items));
     }
 
     /**
-     * @param Collection<K, V> $that
+     * @param ArrayCollection<K, V> $that
      */
     public function equalsCount(self $that): bool
     {

@@ -5,9 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Support;
 /**
  * @template K of array-key
  * @template V
- * @template-extends Collection<K, V>
+ * @template-extends ArrayCollection<K, V>
  */
-class Map extends Collection
+class Map extends ArrayCollection
 {
     /**
      * @param list<V> $list
