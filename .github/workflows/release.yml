@@ -9,15 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: composer
-        uses: docker://composer
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: install --no-interaction --no-dev --prefer-dist --optimize-autoloader
+      - name: composer deps
+        run: composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
       - name: build phar
-        run: NOT_UPDATE_AFTER_BUILD=1 ./dev/build/build.sh
+        run: cd dev/build/ && composer install && cd ../../ && echo "y" | composer require guzzlehttp/guzzle && dev/build/vendor/bin/box compile && git checkout
 
       - name: sign phar
         uses: phpDocumentor/phar-ga@latest
