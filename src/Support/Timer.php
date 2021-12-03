@@ -4,7 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Support;
 
 class Timer
 {
-    protected float $finish;
+    protected ?float $finish;
+
+    protected ?float $duration;
 
     public function __construct(protected float $started)
     {
@@ -18,6 +20,8 @@ class Timer
 
     public function finish(): float
     {
-        return $this->finish = microtime(true) - $this->started;
+        $this->finish = microtime(true);
+
+        return $this->duration = $this->finish - $this->started;
     }
 }

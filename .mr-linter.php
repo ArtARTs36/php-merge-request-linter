@@ -15,11 +15,13 @@ return [
             'Feature',
             'Bug',
             'Docs',
+            'Tests',
         ]),
         TitleStartsWithAnyPrefixRule::make([
             '[Feature]',
             '[Bug]',
             '[Docs]',
+            '[Tests]',
         ]),
     ],
     'credentials' => [

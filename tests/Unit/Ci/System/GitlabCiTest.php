@@ -32,6 +32,30 @@ final class GitlabCiTest extends TestCase
         self::assertEquals($expected, GitlabCi::is($this->makeEnvironment($env)));
     }
 
+    public function providerForTestIsMergeRequest(): array
+    {
+        return [
+            [
+                [],
+                false,
+            ],
+            [
+                ['CI_MERGE_REQUEST_IID' => 1],
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForTestIsMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi::isMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi::__construct
+     */
+    public function testIsMergeRequest(array $env, bool $expected): void
+    {
+        self::assertEquals($expected, $this->makeCi($env)->isMergeRequest());
+    }
+
     private function makeCi(array $env): GitlabCi
     {
         return new GitlabCi(new EmptyCredentials(), $this->makeEnvironment($env), new NullClient());
