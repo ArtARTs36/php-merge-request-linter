@@ -30,7 +30,7 @@ Add new script into your composer.json (section **scripts**):
 ### ➜ Usage with Gitlab CI
 
 1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
-2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "GITLAB_HTTP_TOKEN" with your personal access token
+2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_GITLAB_HTTP_TOKEN" with your personal access token
 3. Add new step into **.gitlab-ci.yml**:
    ```yml
    mr-lint:
@@ -44,7 +44,7 @@ Add new script into your composer.json (section **scripts**):
 ### ➜ Usage with Github Actions
 
 1. Generate token on [page](https://github.com/settings/tokens/new)
-2. Open https://github.com/{owner}/{repo}/settings/secrets/actions/new. Add new secret "GITHUB_HTTP_TOKEN" with your personal access token
+2. Open https://github.com/{owner}/{repo}/settings/secrets/actions/new. Add new secret "MR_LINTER_GITHUB_HTTP_TOKEN" with your personal access token
 3. Add new step into **.github/workflows/workflow-name.yml**:
     ```yml
     - name: MR Lint

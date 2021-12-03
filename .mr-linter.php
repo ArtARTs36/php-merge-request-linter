@@ -24,8 +24,8 @@ return [
         ]),
     ],
     'credentials' => [
-        GitlabCi::class => new Token(getenv('GITLAB_HTTP_TOKEN')),
-        GithubActions::class => new Token(getenv('GITHUB_HTTP_TOKEN')),
+        GitlabCi::class => new Token(getenv('MR_LINTER_GITLAB_HTTP_TOKEN')),
+        GithubActions::class => new Token(getenv('MR_LINTER_GITHUB_HTTP_TOKEN')),
     ],
     'http_client' => fn (string $ciName, Environment $environment, string $ciSystemClass) => new \GuzzleHttp\Client(),
 ];
