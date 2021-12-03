@@ -49,6 +49,7 @@ final class GitlabCiTest extends TestCase
     /**
      * @dataProvider providerForTestIsMergeRequest
      * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi::isMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi::__construct
      */
     public function testIsMergeRequest(array $env, bool $expected): void
     {
