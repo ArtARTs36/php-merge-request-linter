@@ -29,4 +29,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals($expected, count($rule->lint($request)) > 0);
     }
+
+    protected function getPropertyValue(object $obj, string $prop): mixed
+    {
+        return (fn ($prop) => $this->$prop)->call($obj, $prop);
+    }
 }

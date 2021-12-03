@@ -9,7 +9,9 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 final class DefinitionNoteTest extends TestCase
 {
     /**
+     * @covers \ArtARTs36\MergeRequestLinter\Note\DefinitionNote::__toString
      * @covers \ArtARTs36\MergeRequestLinter\Note\DefinitionNote::getDescription
+     * @covers \ArtARTs36\MergeRequestLinter\Note\DefinitionNote::__construct
      */
     public function testGetDescription(): void
     {
