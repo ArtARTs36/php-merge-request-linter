@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
+use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
@@ -50,19 +51,21 @@ class GithubActions implements CiSystem
             'query' => $this->schema->createGraphqlForPullRequest($repoOwner, $repoName, $requestId),
         ]);
 
-        $request = (new Request('POST', $graphqlUrl))
+        // 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
+
+        $response = $this->client->sendRequest((new Request('POST', $graphqlUrl))
             ->withBody(StreamBuilder::streamFor($query))
-            ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken());
+            ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken()));
 
-        return $this->schema->createMergeRequest($this->fetchPullRequestData($request));
-    }
+        if ($response->getStatusCode() === 401) {
+            throw InvalidCredentialsException::fromCiName('github');
+        } elseif($response->getStatusCode() !== 200) {
+            throw new \RuntimeException('Github returns response with code '. $response->getStatusCode());
+        }
 
-    /**
-     * @return array<string, mixed>
-     */
-    protected function fetchPullRequestData(RequestInterface $request): array
-    {
-        return json_decode($this->client->sendRequest($request)->getBody()->getContents(), true)['data']['repository']['pullRequest'] ?? [];
+        return $this->schema->createMergeRequest(
+            json_decode($response->getBody()->getContents(), true)['data']['repository']['pullRequest'] ?? []
+        );
     }
 
     /**
