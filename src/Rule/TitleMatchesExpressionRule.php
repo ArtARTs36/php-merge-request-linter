@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
 /**
- * Title must matches expression: {regex}
+ * The title must match the expression: {regex}
  */
 class TitleMatchesExpressionRule implements Rule
 {
@@ -26,6 +26,6 @@ class TitleMatchesExpressionRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('Title must matches expression: ' . $this->regex);
+        return new Definition('The title must match the expression: ' . $this->regex);
     }
 }

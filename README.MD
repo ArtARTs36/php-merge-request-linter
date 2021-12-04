@@ -6,7 +6,7 @@
 <img src="https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg" alt="Total Downloads">
 </a>
 
-This package provides tool for validate merge requests
+This package provides tools for validating merge requests
 
 [Show validation rules](docs/rules.md)
 
@@ -69,5 +69,5 @@ Add new script into your composer.json (section **scripts**):
 | ------------ | ------------ |
 | composer test  | Run tests (via PHPUnit)  |
 | composer lint  | Run lint (via PHPCsFixer)  |
-| php docs/Builder/build_rules.php | Build rules doc page  |
-| ./dev/build/build.sh | Build phar of source |
+| composer doc-rules | Build rules doc page  |
+| composer build | Build PHAR of source |

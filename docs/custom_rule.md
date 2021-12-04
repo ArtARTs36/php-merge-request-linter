@@ -1,8 +1,8 @@
 # Creating custom rule
 
-You can create self rules for requests' validate.
+You can create self rules for requests' validation.
 
-You need to implement the interface [ArtARTs36\MergeRequestLinter\Contracts\Rule](../src/Contracts/Rule.php) and add to "rules" in `.mr-linter.php`.
+You need to implement the interface [ArtARTs36\MergeRequestLinter\Contracts\Rule](../src/Contracts/Rule.php) and add rule instance to "rules" in `.mr-linter.php`.
 ```php
 /**
  * Rule for lint merge request
@@ -10,8 +10,8 @@ You need to implement the interface [ArtARTs36\MergeRequestLinter\Contracts\Rule
 interface Rule
 {
     /**
-     * Lint merge request by specifics rules
-     * Returns empty array if notes not found.
+     * Lint "merge requests" by specific rules
+     * Returns empty array if notes are not found.
      * @return array<Note>
      * @throws StopLintException
      * @throws LintException
@@ -19,7 +19,7 @@ interface Rule
     public function lint(MergeRequest $request): array;
 
     /**
-     * Get rule definition
+     * Get rule definition.
      */
     public function getDefinition(): RuleDefinition;
 }

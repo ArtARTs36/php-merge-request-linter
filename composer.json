@@ -1,6 +1,6 @@
 {
     "name": "artarts36/merge-request-linter",
-    "description": "MR Linter",
+    "description": "MR Linter - tools for validating merge requests",
     "type": "library",
     "require": {
         "php": "^8.0",
@@ -49,6 +49,9 @@
         ],
         "mr-lint": [
             "./bin/mr-linter lint"
+        ],
+        "doc-rules": [
+            "php docs/Builder/build_rules.php"
         ]
     }
 }
