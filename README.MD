@@ -10,6 +10,8 @@ This package provides tool for validate merge requests
 
 [Show validation rules](docs/rules.md)
 
+[Creating custom rule](docs/custom_rule.md)
+
 ## Installation
 * Run: `composer require --dev artarts36/merge-request-linter`
 * Run `./vendor/bin/mr-linter install`. In root directory added file `.mr-linter.php`
@@ -21,9 +23,9 @@ You can also download [PHAR](https://github.com/ArtARTs36/php-merge-request-lint
 
 | Command  | Description  |
 | ------------ | ------------ |
-| ./bin/mr-linter install  | Install this tool (copy configuration file to work directory)  |
-| ./bin/mr-linter dump  | Print current rules  |
-| ./bin/mr-linter lint  | Run lint to current merge request  |
+| ./vendor/bin/mr-linter install  | Install this tool (copy configuration file to work directory)  |
+| ./vendor/bin/mr-linter dump  | Print current rules  |
+| ./vendor/bin/mr-linter lint  | Run lint to current merge request  |
 
 ## Usage
 
@@ -31,7 +33,7 @@ Add new script into your composer.json (section **scripts**):
 
 ```json
     "mr-lint": [
-        "./bin/mr-linter lint"
+        "./vendor/bin/mr-linter lint"
     ]
 ```
 
@@ -60,11 +62,6 @@ Add new script into your composer.json (section **scripts**):
         MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
       run: composer mr-lint
     ```
-
-## Supported CI Systems
-
-* GitLab CI
-* Github Actions
 
 ## Development Commands
 

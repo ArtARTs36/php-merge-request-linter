@@ -13,6 +13,7 @@ interface Rule
 {
     /**
      * Lint merge request by specifics rules
+     * Returns empty array if notes not found.
      * @return array<Note>
      * @throws StopLintException
      * @throws LintException
