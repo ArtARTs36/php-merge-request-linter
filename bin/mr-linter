@@ -27,7 +27,7 @@ if ($loaded === false) {
     exit(1);
 }
 
-$application = new Application('Merge Request Linter', '0.1.0');
+$application = new Application('Merge Request Linter', '0.1.1');
 
 $configLoader = new PhpConfigLoader();
 
