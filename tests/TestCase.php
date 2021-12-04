@@ -17,6 +17,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'description' => $data['description'] ?? '',
             'labels' => $data['labels'] ?? [],
             'has_conflicts' => false,
+            'source_branch' => $data['source_branch'] ?? '',
+            'target_branch' => $data['target_branch'] ?? '',
         ]);
     }
 

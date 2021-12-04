@@ -2,9 +2,8 @@
 
 ![PHP Composer](https://github.com/ArtARTs36/php-merge-request-linter/workflows/PHP%20Composer/badge.svg?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<a href="https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg">
-<img src="https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg" alt="Total Downloads">
-</a>
+![Latest Version](https://img.shields.io/packagist/v/artarts36/merge-request-linter)
+![Total Downloads](https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg)
 
 This package provides tools for validating merge requests
 
@@ -71,3 +70,7 @@ Add new script into your composer.json (section **scripts**):
 | composer lint  | Run lint (via PHPCsFixer)  |
 | composer doc-rules | Build rules doc page  |
 | composer build | Build PHAR of source |
+
+## Console output example
+
+![Example](docs/output_example.png)
