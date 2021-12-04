@@ -71,3 +71,7 @@ Add new script into your composer.json (section **scripts**):
 | composer lint  | Run lint (via PHPCsFixer)  |
 | composer doc-rules | Build rules doc page  |
 | composer build | Build PHAR of source |
+
+## Console output example
+
+![Example](docs/output_example.png)
