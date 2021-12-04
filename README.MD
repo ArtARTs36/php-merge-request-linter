@@ -70,4 +70,4 @@ Add new script into your composer.json (section **scripts**):
 | composer test  | Run tests (via PHPUnit)  |
 | composer lint  | Run lint (via PHPCsFixer)  |
 | composer doc-rules | Build rules doc page  |
-| ./dev/build/build.sh | Build phar of source |
+| composer build | Build phar of source |
