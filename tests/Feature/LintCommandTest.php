@@ -33,6 +33,8 @@ final class LintCommandTest extends TestCase
 
         $tester->execute([]);
 
+        $tester->assertCommandIsSuccessful();
+
         self::assertStringContainsString('All good!', $tester->getDisplay());
     }
 }
