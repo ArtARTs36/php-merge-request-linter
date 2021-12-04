@@ -7,13 +7,13 @@ use ArtARTs36\MergeRequestLinter\Exception\StopLintException;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 /**
- * Rule for lint merge request
+ * Rule for lint "merge request".
  */
 interface Rule
 {
     /**
-     * Lint merge request by specifics rules
-     * Returns empty array if notes not found.
+     * Lint "merge request" by specific rules.
+     * Returns empty array if notes are not found.
      * @return array<Note>
      * @throws StopLintException
      * @throws LintException
@@ -21,7 +21,7 @@ interface Rule
     public function lint(MergeRequest $request): array;
 
     /**
-     * Get rule definition
+     * Get rule definition.
      */
     public function getDefinition(): RuleDefinition;
 }
