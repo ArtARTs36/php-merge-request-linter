@@ -9,3 +9,10 @@ v0.1.0
 v0.1.1
 --------------------
 * [Feature] Add rule "Has link to Jira task"
+
+v0.1.2
+--------------------
+* [Feature] Add rule "Has link to YouTrack issue"
+* [Feature] Add rule "OnTargetBranchRule"
+* Add property "sourceBranch" to MergeRequest object
+* Add property "targetBranch" to MergeRequest object
