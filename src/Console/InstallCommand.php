@@ -13,6 +13,11 @@ class InstallCommand extends Command
 
     protected static $defaultDescription = 'Install this tool';
 
+    public function __construct(string $name = null)
+    {
+        parent::__construct($name);
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $dir = getcwd();

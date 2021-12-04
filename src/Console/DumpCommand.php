@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
-use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,9 +14,14 @@ class DumpCommand extends Command
 
     protected static $defaultDescription = 'Print current rules';
 
+    public function __construct(protected ConfigLoader $configLoader, string $name = null)
+    {
+        parent::__construct($name);
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = (new ConfigLoader())->load($path = getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
+        $config = $this->configLoader->load($path = getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
 
         $style = new SymfonyStyle($input, $output);
 

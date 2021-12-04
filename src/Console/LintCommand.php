@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
-use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
@@ -21,8 +21,11 @@ class LintCommand extends Command
 
     protected LinterRunnerFactory $runnerFactory;
 
-    public function __construct(?LinterRunnerFactory $runnerFactory = null, string $name = null)
-    {
+    public function __construct(
+        protected ConfigLoader $configLoader,
+        ?LinterRunnerFactory      $runnerFactory = null,
+        string                    $name = null
+    ) {
         $this->runnerFactory = $runnerFactory ?? new RunnerFactory(new LocalEnvironment());
 
         parent::__construct($name);
@@ -30,7 +33,7 @@ class LintCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = (new ConfigLoader())->load($path = getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
+        $config = $this->configLoader->load($path = getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
         $linter = new Linter($config->getRules());
 
         $result = $this->runnerFactory->create($config)->run($linter);

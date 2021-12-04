@@ -2,13 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration;
 
+use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 
-class ConfigLoader
+class PhpConfigLoader implements ConfigLoader
 {
-    /**
-     * @throws ConfigInvalidException
-     */
     public function load(string $path): Config
     {
         try {
