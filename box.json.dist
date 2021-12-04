@@ -6,7 +6,8 @@
         "KevinGH\\Box\\Compactor\\Php"
     ],
     "files": [
-        "LICENSE"
+        "LICENSE",
+        "stubs/.mr-linter.php"
     ],
     "git-commit": "git-commit",
     "output": "bin/build/mr-linter.phar"
