@@ -1,9 +1,14 @@
 <?php
 
 use ArtARTs36\MergeRequestLinter\DocBuilder\RulesPageBuilder;
+use ArtARTs36\MergeRequestLinter\DocBuilder\Saver;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-$builder = new RulesPageBuilder();
+$path = __DIR__ . '/../rules.md';
+[$builder, $saver] = [new RulesPageBuilder(), new Saver()];
 
-file_put_contents(__DIR__ . '/../rules.md', $builder->build());
+$updated = $saver->save($path, $builder->build());
+
+fputs(STDOUT, $updated ? 'Documentation page updated' : 'Documentation page is actually');
+fputs(STDOUT, "\n");

@@ -69,5 +69,5 @@ Add new script into your composer.json (section **scripts**):
 | ------------ | ------------ |
 | composer test  | Run tests (via PHPUnit)  |
 | composer lint  | Run lint (via PHPCsFixer)  |
-| php docs/Builder/build_rules.php | Build rules doc page  |
+| composer doc-rules | Build rules doc page  |
 | ./dev/build/build.sh | Build phar of source |

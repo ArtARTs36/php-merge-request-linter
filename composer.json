@@ -49,6 +49,9 @@
         ],
         "mr-lint": [
             "./bin/mr-linter lint"
+        ],
+        "doc-rules": [
+            "php docs/Builder/build_rules.php"
         ]
     }
 }
