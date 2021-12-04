@@ -18,6 +18,8 @@ class GithubPullRequestSchema
             'description' => $pullRequest['bodyText'],
             'labels' => array_map(fn (array $item) => $item['name'], $pullRequest['labels']['nodes']),
             'has_conflicts' => $pullRequest['mergeable'] !== self::MERGEABLE_STATE_CONFLICTING,
+            'source_branch' => $pullRequest['headRefName'],
+            'target_branch' => $pullRequest['baseRefName'],
         ]);
     }
 
@@ -29,6 +31,8 @@ class GithubPullRequestSchema
       title
       bodyText
       mergeable
+      baseRefName
+      headRefName
       labels(first: 100) {
         totalCount
         nodes {

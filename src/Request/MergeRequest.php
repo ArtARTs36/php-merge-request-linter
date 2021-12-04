@@ -13,6 +13,8 @@ class MergeRequest
         'description' => 'string',
         'labels' => 'array',
         'has_conflicts' => 'bool',
+        'source_branch' => 'string',
+        'target_branch' => 'string',
     ];
 
     /**
@@ -23,6 +25,8 @@ class MergeRequest
         public Str $description,
         public Map $labels,
         public bool $hasConflicts,
+        public Str $sourceBranch,
+        public Str $targetBranch,
     ) {
         //
     }
@@ -45,6 +49,8 @@ class MergeRequest
             Str::make($request['description']),
             Map::fromList($request['labels']),
             (bool) $request['has_conflicts'],
+            Str::make($request['source_branch']),
+            Str::make($request['target_branch']),
         );
     }
 }
