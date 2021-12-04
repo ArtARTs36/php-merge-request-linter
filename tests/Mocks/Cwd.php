@@ -24,9 +24,7 @@ class Cwd
 
     public function revert(): self
     {
-        $this->set($this->prevCwd);
-
-        return $this;
+        return $this->set($this->prevCwd);
     }
 
     private function update(): self
