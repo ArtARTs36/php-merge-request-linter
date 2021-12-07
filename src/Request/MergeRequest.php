@@ -15,6 +15,7 @@ class MergeRequest
         'has_conflicts' => 'bool',
         'source_branch' => 'string',
         'target_branch' => 'string',
+        'changed_files_count' => 'integer',
     ];
 
     /**
@@ -27,6 +28,7 @@ class MergeRequest
         public bool $hasConflicts,
         public Str $sourceBranch,
         public Str $targetBranch,
+        public int $changedFilesCount,
     ) {
         //
     }
@@ -51,6 +53,7 @@ class MergeRequest
             (bool) $request['has_conflicts'],
             Str::make($request['source_branch']),
             Str::make($request['target_branch']),
+            (int) $request['changed_files_count'],
         );
     }
 }

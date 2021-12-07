@@ -40,14 +40,19 @@ class GitlabCi implements CiSystem
 
         $this->validateResponse($response, self::NAME);
 
-        return MergeRequest::fromArray($this->responseToJsonArray($response));
+        $responseArray = $this->responseToJsonArray($response);
+        $responseArray['changed_files_count'] = count($responseArray['changes']);
+
+        unset($responseArray['changes']);
+
+        return MergeRequest::fromArray($responseArray);
     }
 
     protected function makeHttpRequestForFetchMergeRequest(): RequestInterface
     {
         [$projectId, $requestId] = [$this->getProjectId(), $this->getMergeRequestId()];
 
-        return new Request('GET', $this->getGitlabServerUrl() . "/api/v4/projects/$projectId/merge_requests/$requestId", [
+        return new Request('GET', $this->getGitlabServerUrl() . "/api/v4/projects/$projectId/merge_requests/$requestId/changes", [
             'PRIVATE-TOKEN' => [
                 $this->credentials->getToken(),
             ],

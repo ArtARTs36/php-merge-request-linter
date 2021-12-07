@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 /**
  * Continuous Integration System
+ * @internal
  */
 interface CiSystem
 {

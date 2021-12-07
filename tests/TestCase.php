@@ -19,6 +19,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'has_conflicts' => false,
             'source_branch' => $data['source_branch'] ?? '',
             'target_branch' => $data['target_branch'] ?? '',
+            'changed_files_count' => $data['changed_files_count'] ?? 1,
         ]);
     }
 

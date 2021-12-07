@@ -20,6 +20,7 @@ class GithubPullRequestSchema
             'has_conflicts' => $pullRequest['mergeable'] !== self::MERGEABLE_STATE_CONFLICTING,
             'source_branch' => $pullRequest['headRefName'],
             'target_branch' => $pullRequest['baseRefName'],
+            'changed_files_count' => $pullRequest['changedFiles'],
         ]);
     }
 
@@ -39,6 +40,7 @@ class GithubPullRequestSchema
           name
         }
       }
+      changedFiles
     }
   }
 }";
