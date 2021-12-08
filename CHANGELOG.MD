@@ -16,3 +16,8 @@ v0.1.2
 * [Feature] Add rule "OnTargetBranchRule"
 * Add property "sourceBranch" to MergeRequest object
 * Add property "targetBranch" to MergeRequest object
+
+v0.1.3
+--------------------
+* [Feature] Update exception hierarchy. Parent: MergeRequestLinterException
+* [Feature] Add ServerUnexpectedResponseException
