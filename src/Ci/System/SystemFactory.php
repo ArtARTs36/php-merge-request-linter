@@ -40,7 +40,7 @@ class SystemFactory implements CiSystemFactory
         $targetClass = $this->ciMap[$ciName] ?? null;
 
         if ($targetClass === null) {
-            throw new CiNotSupported();
+            throw CiNotSupported::fromCiName($ciName);
         }
 
         if (! $this->config->getCredentials()->has($targetClass)) {
