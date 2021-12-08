@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Exception;
 
-class CiNotSupported extends MergeRequestLinterException
+abstract class MergeRequestLinterException extends \RuntimeException
 {
     //
 }

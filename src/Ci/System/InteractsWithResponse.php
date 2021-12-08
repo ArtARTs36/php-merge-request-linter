@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Exception\ServerUnexpectedResponseException;
 use Psr\Http\Message\ResponseInterface;
 
 trait InteractsWithResponse
@@ -14,9 +15,13 @@ trait InteractsWithResponse
     protected function validateResponse(ResponseInterface $response, string $ciName): void
     {
         if ($response->getStatusCode() === 401 || $response->getStatusCode() === 403) {
-            throw InvalidCredentialsException::fromCiName($ciName);
+            throw InvalidCredentialsException::fromResponse($ciName, $response->getBody()->getContents());
         } elseif ($response->getStatusCode() !== 200) {
-            throw new \RuntimeException($ciName . ' returns response with code '. $response->getStatusCode());
+            throw ServerUnexpectedResponseException::create(
+                $ciName,
+                $response->getStatusCode(),
+                $response->getBody()->getContents()
+            );
         }
     }
 

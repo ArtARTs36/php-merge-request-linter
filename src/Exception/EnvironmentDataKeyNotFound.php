@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Exception;
 
 use Throwable;
 
-class EnvironmentDataKeyNotFound extends \RuntimeException
+class EnvironmentDataKeyNotFound extends MergeRequestLinterException
 {
     public function __construct(protected string $dataKey, int $code = 0, Throwable $previous = null)
     {
