@@ -12,11 +12,20 @@ This package provides tools for validating merge requests
 [Creating custom rule](docs/custom_rule.md)
 
 ## Installation
+
+### Installation as Composer Dependency
+
+You must have implementation of `psr/http-client-implementation`
+
 * Run: `composer require --dev artarts36/merge-request-linter`
-* Run `./vendor/bin/mr-linter install`. In root directory added file `.mr-linter.php`
+* Run `./vendor/bin/mr-linter install`. The file `.mr-linter.php` will be added to the root directory.
 * Configure `.mr-linter.php`
 
-You can also download [PHAR](https://github.com/ArtARTs36/php-merge-request-linter/releases)
+### Installation via PHAR
+
+* Download [PHAR](https://github.com/ArtARTs36/php-merge-request-linter/releases/latest/downloadmr-linter.phar)
+* Run `mr-linter.phar install`. The file `.mr-linter.php` will be added.
+* Configure `.mr-linter.php`
 
 ## Available Commands
 
