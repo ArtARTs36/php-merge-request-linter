@@ -5,7 +5,6 @@ Currently is available that rules:
 | # | Class | Description |
 | ------------ | ------------ | ------------ |
 | 1 | ArtARTs36\MergeRequestLinter\Rule\ChangedFilesLimitRule | Check count changed files on a {limit}. |
-| 1 | ArtARTs36\MergeRequestLinter\Rule\ChangedFilesLimitRule | Check count changed files on a {limit}. |
 | 2 | ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinkOfAnyDomainsRule | Merge Request must contain links of any {domains}. |
 | 3 | ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinksOfAllDomainsRule | Merge Request must contain links of all {domains}. |
 | 4 | ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule | Description must fill. |
