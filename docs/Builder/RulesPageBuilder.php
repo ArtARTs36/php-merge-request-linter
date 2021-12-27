@@ -32,7 +32,7 @@ class RulesPageBuilder
 
             if ($id === 1) {
                 $descriptions = $descriptions->append("| $id | $class | $comment |");
-            } {
+            } else {
                 $descriptions = $descriptions->appendLine("| $id | $class | $comment |");
             }
         }

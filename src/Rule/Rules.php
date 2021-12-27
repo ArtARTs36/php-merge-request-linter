@@ -39,9 +39,9 @@ class Rules implements \IteratorAggregate
     }
 
     /**
-     * @return iterable<Rule>
+     * @return \Traversable<Rule>
      */
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->rules);
     }

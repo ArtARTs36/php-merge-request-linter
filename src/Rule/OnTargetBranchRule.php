@@ -9,18 +9,19 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 /**
  * Apply another rule if the target branch equals {targetBranch}.
  */
-class OnTargetBranchRule implements Rule
+class OnTargetBranchRule extends AbstractDecorateRule
 {
-    public function __construct(protected string $targetBranch, protected Rule $decorateRule)
+    /**
+     * @param array<Rule>|Rule $decorateRule
+     */
+    public function __construct(protected string $targetBranch, array|Rule $decorateRule)
     {
-        //
+        parent::__construct(is_array($decorateRule) ? $decorateRule : [$decorateRule]);
     }
 
     public function lint(MergeRequest $request): array
     {
-        return $request->targetBranch->equals($this->targetBranch) ?
-            $this->decorateRule->lint($request) :
-            [];
+        return $request->targetBranch->equals($this->targetBranch) ? $this->runLintOnDecorateRules($request) : [];
     }
 
     public function getDefinition(): RuleDefinition

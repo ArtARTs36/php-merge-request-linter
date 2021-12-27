@@ -28,9 +28,9 @@ class ArrayCollection implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @return iterable<K, V>
+     * @return \Traversable<K, V>
      */
-    public function getIterator(): iterable
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->items);
     }
