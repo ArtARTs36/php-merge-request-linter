@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 class WhenHasLabelMustTitleStartsWithRule implements Rule
 {
     use DefinitionToNotes;
+    use HasName;
 
     public function __construct(protected string $label, protected string $titlePrefix)
     {

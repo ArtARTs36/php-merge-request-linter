@@ -12,6 +12,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 class HasAllLabelsOfRule extends AbstractLabelsRule
 {
     use DefinitionToNotes;
+    use HasName;
 
     public function lint(MergeRequest $request): array
     {

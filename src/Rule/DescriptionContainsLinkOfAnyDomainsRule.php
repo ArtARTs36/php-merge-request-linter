@@ -11,6 +11,8 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
  */
 class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRule implements Rule
 {
+    use HasName;
+
     public function lint(MergeRequest $request): array
     {
         $uris = $request->description->findUris();

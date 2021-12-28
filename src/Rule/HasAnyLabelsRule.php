@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 class HasAnyLabelsRule implements Rule
 {
     use DefinitionToNotes;
+    use HasName;
 
     public function lint(MergeRequest $request): array
     {

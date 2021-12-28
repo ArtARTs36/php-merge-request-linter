@@ -11,6 +11,8 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
  */
 class OnTargetBranchRule extends AbstractDecorateRule
 {
+    use HasName;
+
     /**
      * @param array<Rule>|Rule $decorateRule
      */

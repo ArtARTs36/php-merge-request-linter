@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 class ChangedFilesLimitRule implements Rule
 {
     use DefinitionToNotes;
+    use HasName;
 
     public function __construct(protected int $limit)
     {

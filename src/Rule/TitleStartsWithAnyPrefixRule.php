@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 class TitleStartsWithAnyPrefixRule implements Rule
 {
     use DefinitionToNotes;
+    use HasName;
 
     /**
      * @param array<string> $prefixes

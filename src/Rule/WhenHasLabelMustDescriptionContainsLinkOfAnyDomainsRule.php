@@ -11,6 +11,8 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
  */
 class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule implements Rule
 {
+    use HasName;
+
     public function __construct(
         protected DescriptionContainsLinkOfAnyDomainsRule $domainsRule,
         protected string $label,

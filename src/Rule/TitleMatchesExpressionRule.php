@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 class TitleMatchesExpressionRule implements Rule
 {
     use DefinitionToNotes;
+    use HasName;
 
     public function __construct(protected string $regex)
     {
