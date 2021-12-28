@@ -12,7 +12,6 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 class HasAnyLabelsOfRule extends AbstractLabelsRule
 {
     use DefinitionToNotes;
-    use HasName;
 
     public function lint(MergeRequest $request): array
     {
@@ -21,6 +20,6 @@ class HasAnyLabelsOfRule extends AbstractLabelsRule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition("Merge Request must have any labels of: [". $this->labels->implode(', ') . "]");
+        return $this->createDefinition("Merge Request must have any labels of: [". $this->labels->implode(', ') . "]");
     }
 }

@@ -11,8 +11,6 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
  */
 class OnTargetBranchRule extends AbstractDecorateRule
 {
-    use HasName;
-
     /**
      * @param array<Rule>|Rule $decorateRule
      */
@@ -28,6 +26,6 @@ class OnTargetBranchRule extends AbstractDecorateRule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('Apply another rule if the target branch equals: ' . $this->targetBranch);
+        return $this->createDefinition('Apply another rule if the target branch equals: ' . $this->targetBranch);
     }
 }

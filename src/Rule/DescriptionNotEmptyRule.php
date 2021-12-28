@@ -10,10 +10,9 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * Description must fill.
  */
-class DescriptionNotEmptyRule implements Rule
+class DescriptionNotEmptyRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
-    use HasName;
 
     public function lint(MergeRequest $request): array
     {
@@ -22,6 +21,6 @@ class DescriptionNotEmptyRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('Description must fill');
+        return $this->createDefinition('Description must fill');
     }
 }

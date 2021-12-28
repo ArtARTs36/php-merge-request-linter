@@ -2,10 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\Str\Str;
 
 class RuleName
 {
+    /**
+     * @param class-string<Rule> $class
+     */
     public static function fromClass(string $class): string
     {
         return Str::make($class)

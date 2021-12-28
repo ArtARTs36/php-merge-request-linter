@@ -10,10 +10,9 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * When has label must title starts with {prefix}.
  */
-class WhenHasLabelMustTitleStartsWithRule implements Rule
+class WhenHasLabelMustTitleStartsWithRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
-    use HasName;
 
     public function __construct(protected string $label, protected string $titlePrefix)
     {
@@ -31,6 +30,6 @@ class WhenHasLabelMustTitleStartsWithRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition("When there is a label \"$this->label\", the title must start with \"$this->titlePrefix\"");
+        return $this->createDefinition("When there is a label \"$this->label\", the title must start with \"$this->titlePrefix\"");
     }
 }

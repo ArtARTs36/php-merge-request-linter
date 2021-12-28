@@ -10,10 +10,9 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * Merge Request must have any labels.
  */
-class HasAnyLabelsRule implements Rule
+class HasAnyLabelsRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
-    use HasName;
 
     public function lint(MergeRequest $request): array
     {
@@ -22,6 +21,6 @@ class HasAnyLabelsRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition("Merge Request must have any labels");
+        return $this->createDefinition("Merge Request must have any labels");
     }
 }

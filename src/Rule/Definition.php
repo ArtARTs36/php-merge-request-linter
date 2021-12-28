@@ -6,9 +6,14 @@ use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 
 class Definition implements RuleDefinition
 {
-    public function __construct(protected string $description)
+    public function __construct(protected string $description, protected string $name = '')
     {
         //
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function getDescription(): string

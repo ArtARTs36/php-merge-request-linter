@@ -9,10 +9,8 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 /**
  * When has label must description contains link of any {domains}.
  */
-class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule implements Rule
+class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule extends AbstractRule implements Rule
 {
-    use HasName;
-
     public function __construct(
         protected DescriptionContainsLinkOfAnyDomainsRule $domainsRule,
         protected string $label,
@@ -39,8 +37,6 @@ class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition(
-            "When there is a label \"$this->label\" -> " . $this->domainsRule->getDefinition()->getDescription()
-        );
+        return $this->createDefinition("When there is a label \"$this->label\" -> " . $this->domainsRule->getDefinition()->getDescription());
     }
 }

@@ -10,10 +10,9 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * The title must match the expression: {regex}
  */
-class TitleMatchesExpressionRule implements Rule
+class TitleMatchesExpressionRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
-    use HasName;
 
     public function __construct(protected string $regex)
     {
@@ -27,6 +26,6 @@ class TitleMatchesExpressionRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('The title must match the expression: ' . $this->regex);
+        return $this->createDefinition('The title must match the expression: ' . $this->regex);
     }
 }

@@ -10,10 +10,9 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * Check count changed files on a {limit}.
  */
-class ChangedFilesLimitRule implements Rule
+class ChangedFilesLimitRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
-    use HasName;
 
     public function __construct(protected int $limit)
     {
@@ -27,6 +26,6 @@ class ChangedFilesLimitRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition("The merge request must contain no more than $this->limit changes.");
+        return $this->createDefinition("The merge request must contain no more than $this->limit changes.");
     }
 }

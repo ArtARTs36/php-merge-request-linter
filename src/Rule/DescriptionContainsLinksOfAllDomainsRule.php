@@ -11,8 +11,6 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
  */
 class DescriptionContainsLinksOfAllDomainsRule extends AbstractDescriptionLinksRule implements Rule
 {
-    use HasName;
-
     public function lint(MergeRequest $request): array
     {
         $hosts = [];
@@ -32,8 +30,6 @@ class DescriptionContainsLinksOfAllDomainsRule extends AbstractDescriptionLinksR
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition(
-            "Merge Request must contains link of all domains: [" . $this->domains->implode(', ') . "]",
-        );
+        return $this->createDefinition("Merge Request must contains link of all domains: [" . $this->domains->implode(', ') . "]");
     }
 }

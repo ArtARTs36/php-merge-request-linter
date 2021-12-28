@@ -10,10 +10,9 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * The title must starts with any {prefixes}
  */
-class TitleStartsWithAnyPrefixRule implements Rule
+class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
-    use HasName;
 
     /**
      * @param array<string> $prefixes
@@ -48,6 +47,6 @@ class TitleStartsWithAnyPrefixRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('The title must starts with any prefix of: [' . implode(',', $this->prefixes) . ']');
+        return $this->createDefinition('The title must starts with any prefix of: [' . implode(',', $this->prefixes) . ']');
     }
 }

@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
-abstract class AbstractLabelsRule implements Rule
+abstract class AbstractLabelsRule extends AbstractRule implements Rule
 {
     /**
      * @param Map<string, string> $labels
