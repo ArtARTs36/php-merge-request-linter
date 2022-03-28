@@ -9,11 +9,17 @@ use Symfony\Component\Console\Application;
 
 $loaded = false;
 
-foreach ([$_composer_autoload_path ?? '../../..', '../..', '..', 'vendor', '../vendor', '../../vendor'] as $path) {
-    if (\is_file($autoload_file = __DIR__ . '/' . $path . '/autoload.php')) {
-        require $autoload_file;
-        $loaded = true;
-        break;
+if (isset($_composer_autoload_path)) {
+    $loaded = true;
+    
+    require $_composer_autoload_path;
+} else {
+    foreach ([$_composer_autoload_path ?? '../../..', '../..', '..', 'vendor', '../vendor', '../../vendor'] as $path) {
+        if (\is_file($autoload_file = __DIR__ . '/' . $path . '/autoload.php')) {
+            require $autoload_file;
+            $loaded = true;
+            break;
+        }
     }
 }
 
