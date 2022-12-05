@@ -9,3 +9,4 @@ build               export-ignore
 box.json.dist       export-ignore
 dev                 export-ignore
 CHANGELOG.MD        export-ignore
+Makefile            export-ignore
