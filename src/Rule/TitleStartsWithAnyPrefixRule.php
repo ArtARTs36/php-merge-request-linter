@@ -10,9 +10,11 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * The title must starts with any {prefixes}
  */
-class TitleStartsWithAnyPrefixRule implements Rule
+class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
+
+    public const NAME = '@mr-linter/title_must_starts_with_any_prefix';
 
     /**
      * @param array<string> $prefixes

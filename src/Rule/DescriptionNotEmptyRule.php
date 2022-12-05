@@ -10,9 +10,11 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * Description must fill.
  */
-class DescriptionNotEmptyRule implements Rule
+class DescriptionNotEmptyRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
+
+    public const NAME = '@mr-linter/description_not_empty';
 
     public function lint(MergeRequest $request): array
     {

@@ -9,8 +9,10 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 /**
  * When has label must description contains link of any {domains}.
  */
-class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule implements Rule
+class WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule extends AbstractRule implements Rule
 {
+    public const NAME = '@mr-linter/when_has_label_must_description_contains_link_of_any_domains';
+
     public function __construct(
         protected DescriptionContainsLinkOfAnyDomainsRule $domainsRule,
         protected string $label,

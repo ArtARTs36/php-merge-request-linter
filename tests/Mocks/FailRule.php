@@ -9,6 +9,11 @@ use ArtARTs36\MergeRequestLinter\Rule\Definition;
 
 final class FailRule implements Rule
 {
+    public static function getName(): string
+    {
+        return 'fail_rule';
+    }
+
     public function lint(MergeRequest $request): array
     {
         return [new EmptyNote()];

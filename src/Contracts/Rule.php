@@ -12,6 +12,11 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 interface Rule
 {
     /**
+     * Get rule name.
+     */
+    public static function getName(): string;
+
+    /**
      * Lint "merge request" by specific rules.
      * Returns empty array if notes are not found.
      * @return array<Note>

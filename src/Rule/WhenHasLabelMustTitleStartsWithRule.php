@@ -10,9 +10,11 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * When has label must title starts with {prefix}.
  */
-class WhenHasLabelMustTitleStartsWithRule implements Rule
+class WhenHasLabelMustTitleStartsWithRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
+
+    public const NAME = '@mr-linter/when_has_label_must_title_starts_with';
 
     public function __construct(protected string $label, protected string $titlePrefix)
     {
