@@ -73,12 +73,13 @@ Add new script into your composer.json (section **scripts**):
 
 ## Development Commands
 
-| Command  | Description  |
-| ------------ | ------------ |
-| composer test  | Run tests (via PHPUnit)  |
-| composer lint  | Run lint (via PHPCsFixer)  |
-| composer doc-rules | Build rules doc page  |
-| composer build | Build PHAR of source |
+| Command            | Description                           |
+|--------------------|---------------------------------------|
+| composer test      | Run tests (via PHPUnit)               |
+| composer lint      | Run lint (via PHPCsFixer)             |
+| composer doc-rules | Build rules doc page                  |
+| composer build     | Build PHAR of source                  |
+| make try           | Run MR-Linter on really merge-request |
 
 ## Console output example
 
