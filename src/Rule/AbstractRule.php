@@ -10,6 +10,6 @@ abstract class AbstractRule implements Rule
 
     public static function getName(): string
     {
-        return self::NAME;
+        return static::NAME;
     }
 }
