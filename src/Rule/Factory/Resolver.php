@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
 class Resolver
@@ -18,7 +19,7 @@ class Resolver
     }
 
     /**
-     * @param array<class-string<Rule>> $ruleClasses
+     * @param value-of<DefaultRules::RULES> $ruleClasses
      * @return static
      */
     public static function make(array $ruleClasses, RuleFactory $factory): self
