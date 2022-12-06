@@ -48,12 +48,21 @@ class LintCommand extends Command
             $style->info('All good!');
         }
 
+        $notes = [];
+
         /** @var Note $note */
         foreach ($result->notes as $note) {
-            $style->error($note->getDescription());
+            $notes[] = [$note->getDescription()];
         }
 
-        $style->info('Duration: '. $result->duration);
+        if (count($notes) > 0) {
+            $style->table(['Note'], $notes);
+        }
+
+        $style->table(['Metric', 'Value'], [
+            ['Notes', count($notes)],
+            ['Duration', $result->duration . 'ms'],
+        ]);
 
         return $result->isFail() ? self::FAILURE : self::SUCCESS;
     }
