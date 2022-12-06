@@ -10,9 +10,11 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * Check count changed files on a {limit}.
  */
-class ChangedFilesLimitRule implements Rule
+class ChangedFilesLimitRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
+
+    public const NAME = '@mr-linter/changed_files_limit';
 
     public function __construct(protected int $limit)
     {

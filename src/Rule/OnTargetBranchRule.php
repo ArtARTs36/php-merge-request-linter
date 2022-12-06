@@ -11,6 +11,8 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
  */
 class OnTargetBranchRule extends AbstractDecorateRule
 {
+    public const NAME = '@mr-linter/on_target_branch';
+
     /**
      * @param array<Rule>|Rule $decorateRule
      */

@@ -24,6 +24,11 @@ final class LinterTest extends TestCase
             new class () implements Rule {
                 use StopsLint;
 
+                public static function getName(): string
+                {
+                    return 'anonymous_rule';
+                }
+
                 public function lint(MergeRequest $request): array
                 {
                     $this->stop('Test-stop');
@@ -47,6 +52,11 @@ final class LinterTest extends TestCase
     {
         $linter = new Linter(new Rules([
             new class () implements Rule {
+                public static function getName(): string
+                {
+                    return 'anonymous_rule';
+                }
+
                 public function lint(MergeRequest $request): array
                 {
                     throw new \RuntimeException();

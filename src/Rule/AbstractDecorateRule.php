@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
-abstract class AbstractDecorateRule implements Rule
+abstract class AbstractDecorateRule extends AbstractRule implements Rule
 {
     /**
      * @param array<Rule> $decorateRules

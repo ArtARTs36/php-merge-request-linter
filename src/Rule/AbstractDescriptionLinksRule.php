@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
-abstract class AbstractDescriptionLinksRule implements Rule
+abstract class AbstractDescriptionLinksRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
 

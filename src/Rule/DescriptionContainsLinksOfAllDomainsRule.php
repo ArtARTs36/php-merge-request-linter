@@ -11,6 +11,8 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
  */
 class DescriptionContainsLinksOfAllDomainsRule extends AbstractDescriptionLinksRule implements Rule
 {
+    public const NAME = '@mr-linter/description_contains_links_of_all_domains';
+
     public function lint(MergeRequest $request): array
     {
         $hosts = [];

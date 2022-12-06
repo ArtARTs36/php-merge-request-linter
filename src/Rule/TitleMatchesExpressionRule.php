@@ -10,9 +10,11 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * The title must match the expression: {regex}
  */
-class TitleMatchesExpressionRule implements Rule
+class TitleMatchesExpressionRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
+
+    public const NAME = '@mr-linter/title_matches_expression';
 
     public function __construct(protected string $regex)
     {

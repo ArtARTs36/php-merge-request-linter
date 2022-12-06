@@ -9,6 +9,8 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
  */
 class HasLinkToYouTrackIssueRule extends SimpleRule
 {
+    public const NAME = '@mr-linter/youtrack/has_issue_link';
+
     public function __construct(protected string $domain, protected string $projectCode)
     {
         parent::__construct('The description must have a link to YouTrack on ' . $this->domain);

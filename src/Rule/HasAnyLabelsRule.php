@@ -10,9 +10,11 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 /**
  * Merge Request must have any labels.
  */
-class HasAnyLabelsRule implements Rule
+class HasAnyLabelsRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
+
+    public const NAME = '@mr-linter/has_any_labels';
 
     public function lint(MergeRequest $request): array
     {

@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
-abstract class SimpleRule implements Rule
+abstract class SimpleRule extends AbstractRule implements Rule
 {
     use DefinitionToNotes;
 

@@ -18,22 +18,24 @@ class RulesPageBuilder
         $id = 0;
 
         foreach ($files as $file) {
-            $name = pathinfo($file, PATHINFO_FILENAME);
-            $class = $this->namespace . $name;
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $class = $this->namespace . $filename;
             $comment = $this->getFirstDocCommentWhenNotAbstract($file);
 
             if ($comment === null) {
                 continue;
             }
 
+            $ruleName = $class::getName();
+
             $id++;
 
             $comment = trim(preg_replace('#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]?(.*)?#u', '$1', $comment));
 
             if ($id === 1) {
-                $descriptions = $descriptions->append("| $id | $class | $comment |");
+                $descriptions = $descriptions->append("| $id | $ruleName | $class | $comment |");
             } else {
-                $descriptions = $descriptions->appendLine("| $id | $class | $comment |");
+                $descriptions = $descriptions->appendLine("| $id | $ruleName | $class | $comment |");
             }
         }
 
@@ -42,8 +44,8 @@ class RulesPageBuilder
 
 Currently is available that rules:
 
-| # | Class | Description |
-| ------------ | ------------ | ------------ |
+| # | Name | Class | Description |
+| ------------ | ------------ | ------------ | ------------ |
 $descriptions
 HTML;
     }

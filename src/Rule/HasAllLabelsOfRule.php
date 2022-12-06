@@ -13,6 +13,8 @@ class HasAllLabelsOfRule extends AbstractLabelsRule
 {
     use DefinitionToNotes;
 
+    public const NAME = '@mr-linter/has_all_labels';
+
     public function lint(MergeRequest $request): array
     {
         return $this->labels->diff($request->labels)->isEmpty() ? [] : $this->definitionToNotes();
