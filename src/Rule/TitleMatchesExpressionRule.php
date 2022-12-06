@@ -12,9 +12,9 @@ use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
  */
 class TitleMatchesExpressionRule extends AbstractRule implements Rule
 {
-    public const NAME = '@mr-linter/title_matches_expression';
-
     use DefinitionToNotes;
+
+    public const NAME = '@mr-linter/title_matches_expression';
 
     public function __construct(protected string $regex)
     {
