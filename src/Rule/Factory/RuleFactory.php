@@ -31,7 +31,7 @@ class RuleFactory
     private function getConstructor(\ReflectionClass $reflector): RuleConstructor
     {
         if ($reflector->hasMethod(static::MAKE_METHOD)) {
-            return new StaticConstructor($reflector->getMethod(static::MAKE_METHOD));
+            return new StaticConstructor($reflector->getMethod(static::MAKE_METHOD), $reflector->getName());
         }
 
         return new NativeConstructor($reflector->getConstructor());

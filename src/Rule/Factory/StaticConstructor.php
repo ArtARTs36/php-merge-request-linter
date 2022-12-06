@@ -7,8 +7,12 @@ use ArtARTs36\MergeRequestLinter\Contracts\RuleConstructor;
 
 class StaticConstructor implements RuleConstructor
 {
+    /**
+     * @param class-string $class
+     */
     public function __construct(
         private \ReflectionMethod $constructor,
+        private string $class,
     ) {
         //
     }
@@ -23,9 +27,9 @@ class StaticConstructor implements RuleConstructor
 
     public function construct(array $args): Rule
     {
-        $class = $this->constructor->getDeclaringClass()->getName();
+        $class = $this->class;
         $method = $this->constructor->getName();
 
-        return $class::$method();
+        return call_user_func_array([$class, $method], $args);
     }
 }
