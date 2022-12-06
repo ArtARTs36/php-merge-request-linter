@@ -2,19 +2,16 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ArgResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\RuleConstructor;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 
 class RuleFactory
 {
     private const MAKE_METHOD = 'make';
 
-    /**
-     * @param array<string, ArgResolver> $argResolvers
-     */
     public function __construct(
-        private array $argResolvers,
+        private Builder $argBuilder,
     ) {
         //
     }
@@ -28,18 +25,7 @@ class RuleFactory
         $reflector = new \ReflectionClass($class);
         $constructor = $this->getConstructor($reflector);
 
-        return $constructor->construct($this->buildArgs($constructor, $params));
-    }
-
-    private function buildArgs(RuleConstructor $constructor, array $params): array
-    {
-        $args = [];
-
-        foreach ($constructor->params() as $paramName => $paramType) {
-            $args[$paramName] = $this->argResolvers[$paramType]->resolve($params[$paramName]);
-        }
-
-        return $args;
+        return $constructor->construct($this->argBuilder->build($constructor, $params));
     }
 
     private function getConstructor(\ReflectionClass $reflector): RuleConstructor

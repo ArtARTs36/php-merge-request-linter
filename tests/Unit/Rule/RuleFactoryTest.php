@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\AbstractRule;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ScalarResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
@@ -15,12 +16,12 @@ class RuleFactoryTest extends TestCase
 {
     public function testCreate(): void
     {
-        $factory = new RuleFactory([
+        $factory = new RuleFactory(new Builder([
             Map::class => new MapResolver(),
             'string' => new ScalarResolver(),
             'int' => new ScalarResolver(),
             'float' => new ScalarResolver(),
-        ]);
+        ]));
 
         $rule = $factory->create(TestRuleForRuleFactory::class, [
             'values' => [1, 2],
