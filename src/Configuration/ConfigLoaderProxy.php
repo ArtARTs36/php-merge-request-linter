@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 
 class ConfigLoaderProxy implements ConfigLoader
 {
-    private ?ConfigLoader $loader;
+    private ?ConfigLoader $loader = null;
 
     /**
      * @param \Closure(): ConfigLoader $factory
