@@ -15,16 +15,14 @@ class PathResolver
         //
     }
 
-    public function resolve(string $directory, ?string $userFormat = null): string
+    public function resolve(string $directory, ?string $userPath = null): string
     {
-        if ($userFormat !== null) {
-            $path = $this->buildPath($directory, $userFormat);
-
-            if ($this->files->exists($path)) {
+        if ($userPath !== null) {
+            if (! $this->files->exists($userPath)) {
                 throw new ConfigInvalidException('Config not found');
             }
 
-            return $path;
+            return realpath($userPath);
         }
 
         $paths = glob(sprintf('%s/%s.*', $directory, self::FILE_NAME));
@@ -35,10 +33,5 @@ class PathResolver
         }
 
         return $path;
-    }
-
-    private function buildPath(string $directory, string $format): string
-    {
-        return sprintf('%s/%s.%s', $directory, self::FILE_NAME, $format);
     }
 }

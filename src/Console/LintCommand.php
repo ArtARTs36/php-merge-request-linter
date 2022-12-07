@@ -3,12 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Console;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
-use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,6 +13,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class LintCommand extends Command
 {
+    use HasConfigFileOption;
+
     protected static $defaultName = 'lint';
 
     protected static $defaultDescription = 'Run lint to current merge request';
@@ -28,9 +27,14 @@ class LintCommand extends Command
         parent::__construct($name);
     }
 
+    protected function configure()
+    {
+        $this->addConfigFileOption();
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->config->resolve(getcwd());
+        $config = $this->config->resolve(getcwd(), $input->getOption('config'));
         $linter = new Linter($config->config->getRules());
 
         $result = $this->runnerFactory->create($config->config)->run($linter);

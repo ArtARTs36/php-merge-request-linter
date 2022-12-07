@@ -10,6 +10,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class DumpCommand extends Command
 {
+    use HasConfigFileOption;
+
     protected static $defaultName = 'dump';
 
     protected static $defaultDescription = 'Print current rules';
@@ -19,9 +21,14 @@ class DumpCommand extends Command
         parent::__construct($name);
     }
 
+    protected function configure()
+    {
+        $this->addConfigFileOption();
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->config->resolve(getcwd());
+        $config = $this->config->resolve(getcwd(), $input->getOption('config'));
 
         $style = new SymfonyStyle($input, $output);
 
