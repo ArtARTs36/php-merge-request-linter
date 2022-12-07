@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Configuration\Resolver;
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
-use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
+use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 
 class PathResolver
 {
@@ -15,11 +15,14 @@ class PathResolver
         //
     }
 
+    /**
+     * @throws ConfigNotFound
+     */
     public function resolve(string $directory, ?string $userPath = null): string
     {
         if ($userPath !== null) {
             if (! $this->files->exists($userPath)) {
-                throw new ConfigInvalidException('Config not found');
+                throw ConfigNotFound::fromPath($userPath);
             }
 
             return realpath($userPath);
@@ -29,7 +32,7 @@ class PathResolver
         $path = current($paths);
 
         if ($path === false) {
-            throw new ConfigInvalidException('Config not found');
+            throw ConfigNotFound::fromDirectory($directory);
         }
 
         return $path;
