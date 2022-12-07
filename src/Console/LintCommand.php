@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
+use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
@@ -20,7 +21,7 @@ class LintCommand extends Command
     protected static $defaultDescription = 'Run lint to current merge request';
 
     public function __construct(
-        protected ConfigLoader $configLoader,
+        protected ConfigResolver $config,
         protected LinterRunnerFactory $runnerFactory,
         string                    $name = null
     ) {
@@ -29,14 +30,14 @@ class LintCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->configLoader->load($path = getcwd() . DIRECTORY_SEPARATOR . '.mr-linter.php');
-        $linter = new Linter($config->getRules());
+        $config = $this->config->resolve(getcwd());
+        $linter = new Linter($config->config->getRules());
 
-        $result = $this->runnerFactory->create($config)->run($linter);
+        $result = $this->runnerFactory->create($config->config)->run($linter);
 
         $style = new SymfonyStyle($input, $output);
 
-        $style->info('Config path: '. $path);
+        $style->info('Config path: '. $config->path);
 
         if ($result->isFail()) {
             $style->error('Detected notes');

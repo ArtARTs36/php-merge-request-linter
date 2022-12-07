@@ -6,6 +6,8 @@ use ArtARTs36\MergeRequestLinter\Configuration\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoaderProxy;
 use ArtARTs36\MergeRequestLinter\Configuration\JsonConfigLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\PhpConfigLoader;
+use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
@@ -43,24 +45,27 @@ if ($loaded === false) {
 
 $application = new Application('Merge Request Linter', '0.1.1');
 
+$filesystem = new LocalFileSystem();
 $environment = new LocalEnvironment();
 $runnerFactory = new RunnerFactory($environment);
 
 $configLoader = new CompositeLoader([
     'php' => new PhpConfigLoader(),
-    'json' => new ConfigLoaderProxy(static function () use ($environment) {
+    'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment) {
         return new JsonConfigLoader(
             Resolver::make(DefaultRules::RULES, new RuleFactory(new Builder(
                 DefaultResolvers::get(),
             ))),
-            new LocalFileSystem(),
+            $filesystem,
             [new EnvTransformer($environment)],
         );
     }),
 ]);
 
-$application->add(new LintCommand($configLoader, $runnerFactory));
+$configResolver = new ConfigResolver(new PathResolver($filesystem), $configLoader);
+
+$application->add(new LintCommand($configResolver, $runnerFactory));
 $application->add(new InstallCommand());
-$application->add(new DumpCommand($configLoader));
+$application->add(new DumpCommand($configResolver));
 
 $application->run();
