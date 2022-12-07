@@ -17,7 +17,7 @@ class GithubActions implements CiSystem
 {
     use InteractsWithResponse;
 
-    public const NAME = 'Github Actions';
+    public const NAME = 'github_actions';
 
     protected GithubPullRequestSchema $schema;
 
