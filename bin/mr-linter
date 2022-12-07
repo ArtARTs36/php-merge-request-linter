@@ -43,7 +43,7 @@ if ($loaded === false) {
 
 $application = new Application('Merge Request Linter', '0.1.1');
 
-$environment = new ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment();
+$environment = new LocalEnvironment();
 $runnerFactory = new RunnerFactory($environment);
 
 $configLoader = new CompositeLoader([
