@@ -19,15 +19,11 @@ class LintCommand extends Command
 
     protected static $defaultDescription = 'Run lint to current merge request';
 
-    protected LinterRunnerFactory $runnerFactory;
-
     public function __construct(
         protected ConfigLoader $configLoader,
-        ?LinterRunnerFactory      $runnerFactory = null,
+        protected LinterRunnerFactory $runnerFactory,
         string                    $name = null
     ) {
-        $this->runnerFactory = $runnerFactory ?? new RunnerFactory(new LocalEnvironment());
-
         parent::__construct($name);
     }
 
