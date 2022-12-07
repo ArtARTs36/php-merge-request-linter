@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Loader;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoaderProxy;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\Map;
@@ -12,7 +12,7 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 final class ConfigLoaderProxyTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Configuration\ConfigLoaderProxy::load
+     * @covers \ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy::load
      */
     public function testFactoryCallsCount(): void
     {

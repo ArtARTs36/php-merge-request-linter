@@ -1,7 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Configuration;
+namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
+use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 
 class ConfigLoaderProxy implements ConfigLoader

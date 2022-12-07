@@ -2,10 +2,10 @@
 <?php
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
-use ArtARTs36\MergeRequestLinter\Configuration\CompositeLoader;
-use ArtARTs36\MergeRequestLinter\Configuration\ConfigLoaderProxy;
-use ArtARTs36\MergeRequestLinter\Configuration\JsonConfigLoader;
-use ArtARTs36\MergeRequestLinter\Configuration\PhpConfigLoader;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\JsonConfigLoader;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\PhpConfigLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
