@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;

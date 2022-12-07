@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Resolver;
 
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 
-class ConfigResolver
+class ConfigResolver implements \ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver
 {
     public function __construct(
         private PathResolver $path,
