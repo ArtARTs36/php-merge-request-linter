@@ -27,7 +27,7 @@ class PhpConfigLoader implements ConfigLoader
             return $config;
         }
 
-        throw new ConfigInvalidException();
+        throw new ConfigInvalidException('PHP Config must be php array or ArtARTs36\MergeRequestLinter\Configuration\Config instance');
     }
 
     protected function createFromArray(array $config): Config
