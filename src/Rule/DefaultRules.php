@@ -23,5 +23,7 @@ final class DefaultRules
         WhenHasLabelMustTitleStartsWithRule::class,
     ];
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

@@ -21,7 +21,7 @@ final class ConfigLoaderProxyTest extends TestCase
         $proxy = new ConfigLoaderProxy(function () use (&$calls) {
             $calls++;
 
-            return new class implements ConfigLoader {
+            return new class () implements ConfigLoader {
                 public function load(string $path): Config
                 {
                     return new Config(new Rules([]), new Map([]), function () {

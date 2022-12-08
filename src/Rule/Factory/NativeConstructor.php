@@ -10,7 +10,6 @@ class NativeConstructor implements RuleConstructor
     public function __construct(
         private \ReflectionMethod $constructor,
     ) {
-
     }
 
     public function params(): array

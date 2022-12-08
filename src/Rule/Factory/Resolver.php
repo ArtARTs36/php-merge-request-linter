@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
-use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
 class Resolver
