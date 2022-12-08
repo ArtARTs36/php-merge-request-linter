@@ -2,6 +2,7 @@
 <?php
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
+use ArtARTs36\MergeRequestLinter\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\JsonConfigLoader;
@@ -20,6 +21,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
+use ArtARTs36\MergeRequestLinter\Support\Map;
 use Symfony\Component\Console\Application;
 
 $loaded = false;
@@ -62,6 +64,7 @@ $configLoader = new CompositeLoader([
             )),
             $filesystem,
             [new EnvTransformer($environment)],
+            new Map(DefaultSystems::MAP),
         );
     }),
 ]);
