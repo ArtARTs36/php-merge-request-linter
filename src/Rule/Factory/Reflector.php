@@ -15,7 +15,7 @@ class Reflector
         foreach ($method->getParameters() as $parameter) {
             $type = $parameter->getType();
 
-            if ($type === null) {
+            if (! $type instanceof \ReflectionNamedType) {
                 throw new \Exception(sprintf('Parameter %s::%s doesnt have type', $method->class, $method->getName()));
             }
 

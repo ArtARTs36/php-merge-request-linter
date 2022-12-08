@@ -46,6 +46,7 @@ class JsonConfigLoader implements ConfigLoader
     }
 
     /**
+     * @param array<string> $credentials
      * @return Map<string, RemoteCredentials>
      */
     private function mapCredentials(array $credentials): Map

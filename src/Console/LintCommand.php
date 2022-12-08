@@ -27,14 +27,14 @@ class LintCommand extends Command
         parent::__construct($name);
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addConfigFileOption();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->config->resolve(getcwd(), $input->getOption('config'));
+        $config = $this->resolveConfig($input);
         $linter = new Linter($config->config->getRules());
 
         $result = $this->runnerFactory->create($config->config)->run($linter);

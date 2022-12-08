@@ -21,14 +21,14 @@ class DumpCommand extends Command
         parent::__construct($name);
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addConfigFileOption();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->config->resolve(getcwd(), $input->getOption('config'));
+        $config = $this->resolveConfig($input);
 
         $style = new SymfonyStyle($input, $output);
 
