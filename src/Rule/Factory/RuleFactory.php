@@ -8,10 +8,9 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 
 class RuleFactory
 {
-    private const MAKE_METHOD = 'make';
-
     public function __construct(
         private Builder $argBuilder,
+        private ConstructorFinder $constructor,
     ) {
         //
     }
@@ -22,18 +21,8 @@ class RuleFactory
      */
     public function create(string $class, array $params): Rule
     {
-        $reflector = new \ReflectionClass($class);
-        $constructor = $this->getConstructor($reflector);
+        $constructor = $this->constructor->find($class);
 
         return $constructor->construct($this->argBuilder->build($constructor, $params));
-    }
-
-    private function getConstructor(\ReflectionClass $reflector): RuleConstructor
-    {
-        if ($reflector->hasMethod(static::MAKE_METHOD)) {
-            return new StaticConstructor($reflector->getMethod(static::MAKE_METHOD), $reflector->getName());
-        }
-
-        return new NativeConstructor($reflector->getConstructor());
     }
 }

@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Rule\AbstractRule;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\AsIsResolver;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -16,12 +17,15 @@ class RuleFactoryTest extends TestCase
 {
     public function testCreate(): void
     {
-        $factory = new RuleFactory(new Builder([
-            Map::class => new MapResolver(),
-            'string' => new AsIsResolver(),
-            'int' => new AsIsResolver(),
-            'float' => new AsIsResolver(),
-        ]));
+        $factory = new RuleFactory(
+            new Builder([
+                Map::class => new MapResolver(),
+                'string' => new AsIsResolver(),
+                'int' => new AsIsResolver(),
+                'float' => new AsIsResolver(),
+            ]),
+            new ConstructorFinder(),
+        );
 
         $rule = $factory->create(TestRuleForRuleFactory::class, [
             'values' => [1, 2],

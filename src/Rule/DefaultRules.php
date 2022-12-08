@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 
-class DefaultRules
+final class DefaultRules
 {
     /** @var array<class-string<Rule>> */
     public const RULES = [
@@ -22,4 +22,6 @@ class DefaultRules
         WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule::class,
         WhenHasLabelMustTitleStartsWithRule::class,
     ];
+
+    private function __construct() {}
 }

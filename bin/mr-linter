@@ -17,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
 use Symfony\Component\Console\Application;
@@ -53,9 +54,12 @@ $configLoader = new CompositeLoader([
     'php' => new PhpConfigLoader(),
     'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment) {
         return new JsonConfigLoader(
-            Resolver::make(DefaultRules::RULES, new RuleFactory(new Builder(
-                DefaultResolvers::get(),
-            ))),
+            Resolver::make(DefaultRules::RULES, new RuleFactory(
+                new Builder(
+                    DefaultResolvers::get(),
+                ),
+                new ConstructorFinder(),
+            )),
             $filesystem,
             [new EnvTransformer($environment)],
         );
