@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
@@ -33,16 +34,15 @@ class Resolver
     }
 
     /**
-     * @param string $ruleName
      * @param array<string, mixed> $params
-     * @throws \Exception
+     * @throws RuleNotFound
      */
     public function resolve(string $ruleName, array $params): Rule
     {
         $ruleClass = $this->nameClassRules->get($ruleName);
 
         if ($ruleClass === null) {
-            throw new \Exception(sprintf('Rule with %s cant resolved', $ruleName));
+            throw RuleNotFound::fromRuleName($ruleName);
         }
 
         return $this->factory->create($ruleClass, $params);
