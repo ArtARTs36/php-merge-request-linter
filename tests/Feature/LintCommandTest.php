@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Console\LintCommand;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
@@ -19,15 +18,12 @@ final class LintCommandTest extends TestCase
      */
     public function testExecuteAllGood(): void
     {
-        $tester = new CommandTester(new LintCommand(new MockConfigResolver(Config::fromArray([
-            'rules' => [
-                new SuccessRule(),
-            ],
-            'credentials' => [],
-            'http_client' => fn () => null,
-        ])), new MockRunnerFactory(
-            new MockCiSystemFactory(MockCi::fromMergeRequest($this->makeMergeRequest()))
-        )));
+        $tester = new CommandTester(
+            new LintCommand(
+                new MockConfigResolver($this->makeConfig([new SuccessRule()])),
+                new MockRunnerFactory(new MockCiSystemFactory(MockCi::fromMergeRequest($this->makeMergeRequest()))),
+            )
+        );
 
         $tester->execute([]);
 

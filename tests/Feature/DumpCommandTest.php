@@ -2,9 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConfigLoader;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConfigResolver;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -18,12 +16,8 @@ final class DumpCommandTest extends TestCase
      */
     public function testExecute(): void
     {
-        $tester = new CommandTester(new DumpCommand(new MockConfigResolver(Config::fromArray([
-            'rules' => [
-                new SuccessRule(),
-            ],
-            'credentials' => [],
-            'http_client' => fn () => null,
+        $tester = new CommandTester(new DumpCommand(new MockConfigResolver($this->makeConfig([
+            new SuccessRule(),
         ]))));
 
         $tester->execute([]);
