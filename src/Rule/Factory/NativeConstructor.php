@@ -20,6 +20,7 @@ class NativeConstructor implements RuleConstructor
 
     public function construct(array $args): Rule
     {
+        //@phpstan-ignore-next-line
         return $this->constructor->getDeclaringClass()->newInstanceArgs($args);
     }
 }

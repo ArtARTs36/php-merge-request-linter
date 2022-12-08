@@ -19,10 +19,9 @@ class Resolver
     }
 
     /**
-     * @param value-of<DefaultRules::RULES> $ruleClasses
-     * @return static
+     * @param iterable<class-string<Rule>> $ruleClasses
      */
-    public static function make(array $ruleClasses, RuleFactory $factory): self
+    public static function make(iterable $ruleClasses, RuleFactory $factory): self
     {
         $map = [];
 

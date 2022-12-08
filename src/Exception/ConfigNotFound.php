@@ -11,6 +11,6 @@ class ConfigNotFound extends ConfigException
 
     public static function fromDirectory(string $directory): self
     {
-        return new self(sprintf('Config in directory % not found', $directory));
+        return new self(sprintf('Config in directory %s not found', $directory));
     }
 }

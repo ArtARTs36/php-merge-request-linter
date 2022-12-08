@@ -30,6 +30,9 @@ class PhpConfigLoader implements ConfigLoader
         throw new ConfigInvalidException('PHP Config must be php array or ArtARTs36\MergeRequestLinter\Configuration\Config instance');
     }
 
+    /**
+     * @param array<mixed> $config
+     */
     protected function createFromArray(array $config): Config
     {
         if (isset($config['http_client'])) {

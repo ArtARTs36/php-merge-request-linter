@@ -6,13 +6,20 @@ class Reflector
 {
     /**
      * @return array<string, string|class-string>
+     * @throws \Exception
      */
     public static function mapMethodParamTypeOnParam(\ReflectionMethod $method): array
     {
         $params = [];
 
         foreach ($method->getParameters() as $parameter) {
-            $params[$parameter->getName()] = $parameter->getType()->getName();
+            $type = $parameter->getType();
+
+            if ($type === null) {
+                throw new \Exception(sprintf('Parameter %s::%s doesnt have type', $method->class, $method->getName()));
+            }
+
+            $params[$parameter->getName()] = $type->getName();
         }
 
         return $params;

@@ -12,15 +12,22 @@ class ConstructorFinder
     /**
      * @param class-string<Rule> $class
      * @throws \ReflectionException
+     * @throws \Exception
      */
     public function find(string $class): RuleConstructor
     {
         $reflector = new \ReflectionClass($class);
 
-        if ($reflector->hasMethod(static::MAKE_METHOD)) {
-            return new StaticConstructor($reflector->getMethod(static::MAKE_METHOD), $reflector->getName());
+        if ($reflector->hasMethod(self::MAKE_METHOD)) {
+            return new StaticConstructor($reflector->getMethod(self::MAKE_METHOD), $reflector->getName());
         }
 
-        return new NativeConstructor($reflector->getConstructor());
+        $constructor = $reflector->getConstructor();
+
+        if ($constructor === null) {
+            throw new \Exception(sprintf('Constructor for class %s not found', $class));
+        }
+
+        return new NativeConstructor($constructor);
     }
 }
