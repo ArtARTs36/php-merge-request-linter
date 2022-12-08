@@ -61,6 +61,7 @@ class LintCommand extends Command
         }
 
         $style->table(['Metric', 'Value'], [
+            ['Rules', $config->config->getRules()->count()],
             ['Notes', count($notes)],
             ['Duration', $result->duration . 'ms'],
         ]);
