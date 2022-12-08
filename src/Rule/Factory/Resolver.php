@@ -39,10 +39,12 @@ class Resolver
      */
     public function resolve(string $ruleName, array $params): Rule
     {
-        if ($this->nameClassRules->missing($ruleName)) {
+        $ruleClass = $this->nameClassRules->get($ruleName);
+
+        if ($ruleClass === null) {
             throw new \Exception(sprintf('Rule with %s cant resolved', $ruleName));
         }
 
-        return $this->factory->create($this->nameClassRules->get($ruleName), $params);
+        return $this->factory->create($ruleClass, $params);
     }
 }

@@ -30,6 +30,6 @@ class StaticConstructor implements RuleConstructor
         $class = $this->class;
         $method = $this->constructor->getName();
 
-        return call_user_func_array([$class, $method], $args);
+        return call_user_func_array($class::$method(...), $args);
     }
 }
