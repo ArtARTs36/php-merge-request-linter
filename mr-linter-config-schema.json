@@ -23,7 +23,7 @@
               "type": "array",
               "items": [
                 {
-                  "type": "string"
+                  "type": "string",
                 }
               ]
             }
@@ -197,6 +197,11 @@
       "type": "object",
       "properties": {
         "gitlab_ci": {
+          "description": "Token",
+          "type": "string"
+        },
+        "github_actions": {
+          "description": "Token",
           "type": "string"
         }
       }
