@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
+namespace ArtARTs36\MergeRequestLinter\Support;
 
 class Reflector
 {
