@@ -41,6 +41,11 @@ class JsonConfigLoader implements ConfigLoader
         }
 
         $data = json_decode($json, true);
+
+        if (! is_array($data)) {
+            throw new ConfigInvalidException('json invalid');
+        }
+
         $rules = new Rules([]);
 
         foreach ($data['rules'] as $ruleName => $ruleParams) {

@@ -25,7 +25,7 @@ class ConstructorFinder
         $constructor = $reflector->getConstructor();
 
         if ($constructor === null) {
-            throw new \Exception(sprintf('Constructor for class %s not found', $class));
+            return new EmptyConstructor($class);
         }
 
         return new NativeConstructor($constructor);

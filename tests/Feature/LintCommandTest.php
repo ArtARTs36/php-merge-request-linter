@@ -29,6 +29,6 @@ final class LintCommandTest extends TestCase
 
         $tester->assertCommandIsSuccessful();
 
-        self::assertStringContainsString('All good!', $tester->getDisplay());
+        self::assertStringContainsString('No notes', $tester->getDisplay());
     }
 }
