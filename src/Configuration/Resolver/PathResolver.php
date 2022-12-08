@@ -21,20 +21,31 @@ class PathResolver
     public function resolve(string $directory, ?string $userPath = null): string
     {
         if ($userPath !== null) {
-            if (! $this->files->exists($userPath)) {
-                throw ConfigNotFound::fromPath($userPath);
-            }
-
-            return realpath($userPath);
+            return $this->resolveUserPath($userPath);
         }
 
-        $paths = glob(sprintf('%s/%s.*', $directory, self::FILE_NAME));
-        $path = current($paths);
+        $path = $this->findConfigPath($directory);
 
         if ($path === false) {
             throw ConfigNotFound::fromDirectory($directory);
         }
 
         return $path;
+    }
+
+    private function resolveUserPath(string $userPath): string
+    {
+        if (! $this->files->exists($userPath)) {
+            throw ConfigNotFound::fromPath($userPath);
+        }
+
+        return realpath($userPath);
+    }
+
+    private function findConfigPath(string $directory): string|false
+    {
+        $paths = glob(sprintf('%s/%s.*', $directory, self::FILE_NAME));
+
+        return current($paths);
     }
 }
