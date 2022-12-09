@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\ChangedFilesLimitRule;
