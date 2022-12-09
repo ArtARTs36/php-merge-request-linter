@@ -75,7 +75,7 @@ Add new script into your composer.json (section **scripts**):
 
 Simple bash:
 ```shell
-docker run -v "$PWD/mr-linter.json:/app/mr-linter.json" artarts36/merge-request-linter lint
+docker run -v "$PWD/.mr-linter.json:/app/.mr-linter.json:ro" artarts36/merge-request-linter lint
 ```
 
 ## Development Commands
@@ -85,7 +85,6 @@ docker run -v "$PWD/mr-linter.json:/app/mr-linter.json" artarts36/merge-request-
 | composer test      | Run tests (via PHPUnit)               |
 | composer lint      | Run lint (via PHPCsFixer)             |
 | composer doc-rules | Build rules doc page                  |
-| composer build     | Build PHAR of source                  |
 | make try           | Run MR-Linter on really merge-request |
 
 ## Console output example

@@ -16,3 +16,7 @@ docker-pub-build:
 docker-pub-push:
 	docker login -u ${MR_LINTER_DOCKER_USER} -p ${MR_LINTER_DOCKER_PASSWORD}
 	docker push artarts36/merge-request-linter:${MR_LINTER_VERSION}
+
+# usage as `make docker-pub-run MR_LINTER_VERSION=0.2.0`
+docker-pub-run:
+	docker run -v "${PWD}/.mr-linter.json:/app/.mr-linter.json:ro" artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
