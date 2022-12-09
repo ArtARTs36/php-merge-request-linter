@@ -7,10 +7,12 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
+use ArtARTs36\MergeRequestLinter\Note\Notes;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class LintCommand extends Command
@@ -54,29 +56,38 @@ class LintCommand extends Command
 
         $notes = [];
 
-        /** @var Note $note */
-        foreach ($result->notes as $i => $note) {
-            $notes[] = [++$i, $note->getDescription()];
-        }
-
         $style->newLine(2);
 
-        if (count($notes) > 0) {
-            $style->table(['#', 'Note'], $notes);
-        }
+        $this->printNotes($style, $result->notes);
 
         $style->table(['Metric', 'Value'], [
             ['Rules', $config->config->getRules()->count()],
-            ['Notes', count($notes)],
-            ['Duration', $result->duration . 'ms'],
+            ['Notes', $result->notes->count()],
+            ['Duration', $result->duration . 's'],
         ]);
 
         if ($result->isFail()) {
-            $style->error(sprintf('Found %d notes', count($notes)));
+            $style->error(sprintf('Found %d notes', $result->notes->count()));
         } else {
             $style->success('No notes');
         }
 
         return $result->isFail() ? self::FAILURE : self::SUCCESS;
+    }
+
+    private function printNotes(StyleInterface $style, Notes $notes): void
+    {
+        if ($notes->isEmpty()) {
+            return;
+        }
+
+        $table = [];
+
+        /** @var Note $note */
+        foreach ($notes as $i => $note) {
+            $table[] = [++$i, $note->getDescription()];
+        }
+
+        $style->table(['#', 'Note'], $table);
     }
 }
