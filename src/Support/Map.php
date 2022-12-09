@@ -41,4 +41,22 @@ class Map extends ArrayCollection
     {
         return ! $this->has($id);
     }
+
+    /**
+     * @param Map<K, V> $that
+     */
+    public function equals(Map $that): bool
+    {
+        if (! $this->equalsCount($that)) {
+            return false;
+        }
+
+        foreach ($this as $key => $value) {
+            if (! $that->has($key) || $that->get($key) !== $value) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
