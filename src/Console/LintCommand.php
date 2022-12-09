@@ -54,8 +54,6 @@ class LintCommand extends Command
 
         $result = $this->runnerFactory->create($config->config)->run($linter);
 
-        $notes = [];
-
         $style->newLine(2);
 
         $this->printNotes($style, $result->notes);
