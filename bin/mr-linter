@@ -53,7 +53,7 @@ $environment = new LocalEnvironment();
 $runnerFactory = new RunnerFactory($environment);
 
 $configLoader = new CompositeLoader([
-    'php' => new PhpConfigLoader(),
+    'php' => new PhpConfigLoader($filesystem),
     'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment) {
         return new JsonConfigLoader(
             Resolver::make(DefaultRules::RULES, new RuleFactory(

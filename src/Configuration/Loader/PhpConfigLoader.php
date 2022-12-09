@@ -2,17 +2,29 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
+use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
+use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 use Psr\Http\Client\ClientInterface;
 
 class PhpConfigLoader implements ConfigLoader
 {
+    public function __construct(
+        private FileSystem $files,
+    ) {
+        //
+    }
+
     public function load(string $path): Config
     {
+        if (! $this->files->exists($path)) {
+            throw ConfigNotFound::fromPath($path);
+        }
+
         try {
             $config = require $path;
         } catch (\Throwable $e) {

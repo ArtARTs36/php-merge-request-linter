@@ -7,3 +7,7 @@ docker-build:
 
 docker-lint:
 	docker run artarts36/merge-request-linter lint
+
+# usage as `make docker-pub-build MR_LINTER_VERSION=0.2.0`
+docker-pub-build:
+	docker build -f ./dev/docker-pub/Dockerfile . -t artarts36/merge-request-linter --build-arg MR_LINTER_VERSION=${MR_LINTER_VERSION}
