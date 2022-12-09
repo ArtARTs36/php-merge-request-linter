@@ -6,4 +6,6 @@ RUN curl -L https://github.com/ArtARTs36/php-merge-request-linter/releases/downl
 
 RUN chmod +x /usr/bin/mr-linter
 
+WORKDIR /app/
+
 ENTRYPOINT ["/usr/bin/mr-linter"]
