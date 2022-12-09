@@ -71,6 +71,13 @@ Add new script into your composer.json (section **scripts**):
       run: composer mr-lint
     ```
 
+### Run in Docker
+
+Simple bash:
+```shell
+docker run -v "$PWD/mr-linter.json:/app/mr-linter.json" artarts36/merge-request-linter lint
+```
+
 ## Development Commands
 
 | Command            | Description                           |

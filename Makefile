@@ -10,4 +10,9 @@ docker-lint:
 
 # usage as `make docker-pub-build MR_LINTER_VERSION=0.2.0`
 docker-pub-build:
-	docker build -f ./dev/docker-pub/Dockerfile . -t artarts36/merge-request-linter --build-arg MR_LINTER_VERSION=${MR_LINTER_VERSION}
+	docker build -f ./dev/docker-pub/Dockerfile . -t artarts36/merge-request-linter:${MR_LINTER_VERSION} --build-arg MR_LINTER_VERSION=${MR_LINTER_VERSION}
+
+# usage as `MR_LINTER_DOCKER_USER=root MR_LINTER_DOCKER_PASSWORD=root make docker-pub-push MR_LINTER_VERSION=0.2.0`
+docker-pub-push:
+	docker login -u ${MR_LINTER_DOCKER_USER} -p ${MR_LINTER_DOCKER_PASSWORD}
+	docker push artarts36/merge-request-linter:${MR_LINTER_VERSION}
