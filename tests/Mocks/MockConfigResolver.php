@@ -14,7 +14,7 @@ final class MockConfigResolver implements ConfigResolver
         //
     }
 
-    public function resolve(string $directory, ?string $userFormat = null): ResolvedConfig
+    public function resolve(string $directory, ?string $userPath = null): ResolvedConfig
     {
         return new ResolvedConfig($this->config, $directory);
     }

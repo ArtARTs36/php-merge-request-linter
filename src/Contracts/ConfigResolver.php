@@ -12,5 +12,5 @@ interface ConfigResolver
     /**
      * Resolve config instance.
      */
-    public function resolve(string $directory, ?string $userFormat = null): ResolvedConfig;
+    public function resolve(string $directory, ?string $userPath = null): ResolvedConfig;
 }

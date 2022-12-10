@@ -13,9 +13,9 @@ class ConfigResolver implements \ArtARTs36\MergeRequestLinter\Contracts\ConfigRe
         //
     }
 
-    public function resolve(string $directory, ?string $userFormat = null): ResolvedConfig
+    public function resolve(string $directory, ?string $userPath = null): ResolvedConfig
     {
-        $path = $this->path->resolve($directory, $userFormat);
+        $path = $this->path->resolve($directory, $userPath);
 
         return new ResolvedConfig($this->loader->load($path), $path);
     }
