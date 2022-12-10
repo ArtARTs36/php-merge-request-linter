@@ -9,6 +9,11 @@ You need to implement the interface [ArtARTs36\MergeRequestLinter\Contracts\Rule
  */
 interface Rule
 {
+     /**
+     * Get rule name.
+     */
+    public static function getName(): string;
+
     /**
      * Lint "merge requests" by specific rules
      * Returns empty array if notes are not found.
@@ -38,6 +43,11 @@ use ArtARTs36\MergeRequestLinter\Rule\Definition;
 
 class ExampleRule implements Rule
 {
+    public static function getName(): string
+    {
+        return "@custom-rules/example_rule";
+    }
+
     public function lint(MergeRequest $request): array
     {
         if (! $request->title->startsWith('TASK-')) {
