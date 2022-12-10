@@ -46,11 +46,11 @@ class JsonConfigLoader implements ConfigLoader
             throw new ConfigInvalidException('json invalid');
         }
 
-        $rules = new Rules([]);
-
-        foreach ($data['rules'] as $ruleName => $ruleParams) {
-            $rules->add($this->ruleResolver->resolve($ruleName, $ruleParams ?? []));
+        if (! isset($data['rules']) || ! is_array($data['rules'])) {
+            throw ConfigInvalidException::fromKey('rules');
         }
+
+        $rules = $this->createRules($data['rules']);
 
         if (! class_exists('\GuzzleHttp\Client')) {
             throw new ConfigInvalidException('HTTP Client unavailable');
@@ -59,6 +59,20 @@ class JsonConfigLoader implements ConfigLoader
         return new Config($rules, $this->mapCredentials($data['credentials']), static function () {
             return new Client();
         });
+    }
+
+    /**
+     * @param array<string, array<string, mixed>> $rulesData
+     */
+    private function createRules(array $rulesData): Rules
+    {
+        $rules = new Rules([]);
+
+        foreach ($rulesData as $ruleName => $ruleParams) {
+            $rules->add($this->ruleResolver->resolve($ruleName, $ruleParams ?? []));
+        }
+
+        return $rules;
     }
 
     /**
