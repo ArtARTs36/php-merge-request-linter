@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Console\Interaction;
 
 use ArtARTs36\MergeRequestLinter\Contracts\LintEventSubscriber;
-use Symfony\Component\Console\Helper\ProgressBar;
+use ArtARTs36\MergeRequestLinter\Contracts\ProgressBar;
 
 class ProgressBarLintSubscriber implements LintEventSubscriber
 {
@@ -15,12 +15,12 @@ class ProgressBarLintSubscriber implements LintEventSubscriber
 
     public function success(string $ruleName): void
     {
-        $this->progressBar->advance();
+        $this->progressBar->add();
     }
 
     public function fail(string $ruleName): void
     {
-        $this->progressBar->advance();
+        $this->progressBar->add();
     }
 
     public function stopOn(string $ruleName): void

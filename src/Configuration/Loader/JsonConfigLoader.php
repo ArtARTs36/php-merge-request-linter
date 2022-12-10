@@ -62,20 +62,20 @@ class JsonConfigLoader implements ConfigLoader
     }
 
     /**
-     * @param array<string, array<string, mixed>> $rulesData
+     * @param array<string, mixed> $rulesData
      */
     private function createRules(array $rulesData): Rules
     {
         $rules = new Rules([]);
 
         foreach ($rulesData as $ruleName => $ruleParams) {
-            $rules->add($this->ruleResolver->resolve($ruleName, $ruleParams ?? []));
+            $rules->add($this->ruleResolver->resolve($ruleName, is_array($ruleParams) ? $ruleParams : []));
         }
 
         return $rules;
     }
 
-    /**
+    /**k
      * @param array<string> $credentials
      * @return Map<class-string<CiSystem>, RemoteCredentials>
      */

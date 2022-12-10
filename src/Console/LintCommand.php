@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Console;
 
 use ArtARTs36\MergeRequestLinter\Console\Interaction\ProgressBarLintSubscriber;
+use ArtARTs36\MergeRequestLinter\Console\Interaction\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
@@ -50,7 +51,10 @@ class LintCommand extends Command
 
         $progressBar = new ProgressBar($output, $config->config->getRules()->count());
 
-        $linter = new Linter($config->config->getRules(), new ProgressBarLintSubscriber($progressBar));
+        $linter = new Linter(
+            $config->config->getRules(),
+            new ProgressBarLintSubscriber(new SymfonyProgressBar($progressBar)),
+        );
 
         $result = $this->runnerFactory->create($config->config)->run($linter);
 
