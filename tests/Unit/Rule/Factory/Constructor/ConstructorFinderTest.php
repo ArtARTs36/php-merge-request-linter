@@ -64,14 +64,16 @@ class TestRuleForEmptyConstructor implements Rule
     }
 }
 
-class TestRuleForNativeConstructor extends TestRuleForEmptyConstructor {
+class TestRuleForNativeConstructor extends TestRuleForEmptyConstructor
+{
     public function __construct()
     {
         //
     }
 }
 
-class TestRuleForStaticConstructor extends TestRuleForEmptyConstructor {
+class TestRuleForStaticConstructor extends TestRuleForEmptyConstructor
+{
     public static function make(): self
     {
         return new self();
