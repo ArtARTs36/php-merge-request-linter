@@ -75,7 +75,7 @@ final class RunnerTest extends TestCase
 
         self::assertFalse($result->state);
         self::assertEquals(
-            'Invalid credentials :: ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException',
+            'Invalid credentials (exception ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException)',
             $result->notes->first()->getDescription()
         );
     }
