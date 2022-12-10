@@ -88,7 +88,7 @@ Add new script into your composer.json (section **scripts**):
       run: composer mr-lint
     ```
 
-### Run in Docker
+## Run in Docker
 
 Simple bash:
 ```shell
