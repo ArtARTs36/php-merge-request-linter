@@ -75,12 +75,13 @@ class JsonConfigLoader implements ConfigLoader
         return $rules;
     }
 
-    /**k
-     * @param array<string> $credentials
+    /**
+     * @param array<string, string> $credentials
      * @return Map<class-string<CiSystem>, RemoteCredentials>
      */
     private function mapCredentials(array $credentials): Map
     {
+        /** @var array<class-string<CiSystem>, RemoteCredentials> $mapped */
         $mapped = [];
 
         foreach ($credentials as $ci => $token) {
