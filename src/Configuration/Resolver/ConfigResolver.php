@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration\Resolver;
 
+use ArtARTs36\MergeRequestLinter\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 
 class ConfigResolver implements \ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver
@@ -13,9 +14,9 @@ class ConfigResolver implements \ArtARTs36\MergeRequestLinter\Contracts\ConfigRe
         //
     }
 
-    public function resolve(string $directory, ?string $userPath = null): ResolvedConfig
+    public function resolve(User $user): ResolvedConfig
     {
-        $path = $this->path->resolve($directory, $userPath);
+        $path = $this->path->resolve($user);
 
         return new ResolvedConfig($this->loader->load($path), $path);
     }

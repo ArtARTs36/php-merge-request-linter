@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Resolver;
 
 use ArtARTs36\FileSystem\Contracts\FileNotFound;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
+use ArtARTs36\MergeRequestLinter\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 
 class PathResolver
@@ -19,16 +20,16 @@ class PathResolver
     /**
      * @throws ConfigNotFound
      */
-    public function resolve(string $directory, ?string $userPath = null): string
+    public function resolve(User $user): string
     {
-        if ($userPath !== null) {
-            return $this->resolveUserPath($userPath);
+        if ($user->customPath !== null) {
+            return $this->resolveUserPath($user->customPath);
         }
 
-        $path = $this->findConfigPath($directory);
+        $path = $this->findConfigPath($user->workDirectory);
 
         if ($path === false) {
-            throw ConfigNotFound::fromDirectory($directory);
+            throw ConfigNotFound::fromDirectory($user->workDirectory);
         }
 
         return $path;
