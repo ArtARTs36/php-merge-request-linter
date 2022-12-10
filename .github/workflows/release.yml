@@ -33,4 +33,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
 
       - name: build and publish Docker Image
-        run: make docker-pub-build
+        run: make docker-pub-build && make docker-pub-push
