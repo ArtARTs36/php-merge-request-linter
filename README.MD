@@ -50,13 +50,30 @@ Add new script into your composer.json (section **scripts**):
 1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
 2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_GITLAB_HTTP_TOKEN" with your personal access token
 3. Add new step into **.gitlab-ci.yml**:
-   ```yml
+   ```yaml
    mr-lint:
      stage: lint
      only:
        - merge_requests
      script:
        - composer mr-lint
+   ```
+
+### ➜ Usage with Gitlab CI without installation
+
+[See example](https://gitlab.com/artem_ukrainsky/mr-linter-testing/)
+
+1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
+2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_GITLAB_HTTP_TOKEN" with your personal access token
+3. Add new step into **.gitlab-ci.yml**
+   ```yaml
+   mr-lint:
+     image: artarts36/merge-request-linter:0.3.0
+     stage: test
+     only:
+       - merge_requests
+     script:
+       - mr-linter lint
    ```
 
 ### ➜ Usage with Github Actions
@@ -84,6 +101,28 @@ docker run \
   -e MR_LINTER_GITHUB_HTTP_TOKEN=${TOKEN} \
   -v "${PWD}/.mr-linter.json:/app/.mr-linter.json:ro" \
   artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
+```
+
+## JSON Config
+
+[See JsonSchema](mr-linter-config-schema.json)
+
+```json
+{
+  "rules": {
+    "@mr-linter/changed_files_limit": {
+      "limit": 20
+    },
+    "@mr-linter/jira/has_issue_link": {
+      "domain": "jira.com",
+      "projectCode": "MYPROJECT"
+    },
+    "@mr-linter/description_not_empty": {}
+  },
+  "credentials": {
+    "github_actions": "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
+  }
+}
 ```
 
 ## Development Commands
