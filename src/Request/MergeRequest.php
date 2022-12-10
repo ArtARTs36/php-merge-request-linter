@@ -42,7 +42,7 @@ class MergeRequest
     ): self {
         foreach (self::REQUIRED_FIELDS as $field => $_) {
             if (! array_key_exists($field, $request)) {
-                throw new \RuntimeException('Given invalid Merge Request');
+                throw new \InvalidArgumentException('Given invalid Merge Request');
             }
         }
 
