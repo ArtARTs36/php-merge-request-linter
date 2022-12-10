@@ -10,10 +10,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
-      - name: Print env
-        run: echo $RELEASE_VERSION
+        run: echo "MR_LINTER_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: composer deps
         run: composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
@@ -36,4 +33,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
 
       - name: build and publish Docker Image
-        run: mak
+        run: make docker-pub-build
