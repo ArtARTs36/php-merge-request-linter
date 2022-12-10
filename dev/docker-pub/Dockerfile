@@ -6,6 +6,8 @@ RUN curl -L https://github.com/ArtARTs36/php-merge-request-linter/releases/downl
 
 RUN chmod +x /usr/bin/mr-linter
 
+COPY dev/docker-pub/entrypoint.sh /docker-entrypoint.sh
+
 WORKDIR /app/
 
-ENTRYPOINT ["/usr/bin/mr-linter"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
