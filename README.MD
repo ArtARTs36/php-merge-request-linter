@@ -4,12 +4,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Latest Version](https://img.shields.io/packagist/v/artarts36/merge-request-linter)
 ![Total Downloads](https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/artarts36/merge-request-linter)
 
 This package provides tools for validating merge requests
 
 [Show validation rules](docs/rules.md)
 
 [Creating custom rule](docs/custom_rule.md)
+
+[Docker Image](https://hub.docker.com/repository/docker/artarts36/merge-request-linter)
 
 ## Installation
 
