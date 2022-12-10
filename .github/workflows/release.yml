@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Set env
+      - name: set MR-Linter version
         run: echo "MR_LINTER_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: composer deps
@@ -33,4 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
 
       - name: build and publish Docker Image
+        env:
+          MR_LINTER_DOCKER_USER: ${{ secrets.MR_LINTER_DOCKER_USER }}
+          MR_LINTER_DOCKER_PASSWORD: ${{ secrets.MR_LINTER_DOCKER_PASSWORD }}
         run: make docker-pub-build && make docker-pub-push
