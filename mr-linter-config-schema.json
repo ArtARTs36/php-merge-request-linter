@@ -1,0 +1,214 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "object",
+      "properties": {
+        "@mr-linter/changed_files_limit": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "limit"
+          ]
+        },
+        "@mr-linter/description_contains_links_of_any_domains": {
+          "type": "object",
+          "properties": {
+            "domains": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string",
+                }
+              ]
+            }
+          },
+          "required": [
+            "domains"
+          ]
+        },
+        "@mr-linter/description_contains_links_of_all_domains": {
+          "type": "object",
+          "properties": {
+            "domains": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "domains"
+          ]
+        },
+        "@mr-linter/description_not_empty": {
+          "type": "object"
+        },
+        "@mr-linter/has_all_labels": {
+          "type": "object",
+          "properties": {
+            "labels": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "labels"
+          ]
+        },
+        "@mr-linter/has_any_labels": {
+          "type": "object",
+          "properties": {
+            "labels": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "labels"
+          ]
+        },
+        "@mr-linter/has_any_labels_of": {
+          "type": "object",
+          "properties": {
+            "labels": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "labels"
+          ]
+        },
+        "@mr-linter/jira/has_issue_link": {
+          "type": "object",
+          "properties": {
+            "domain": {
+              "type": "string"
+            },
+            "projectCode": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "domain",
+            "projectCode"
+          ]
+        },
+        "@mr-linter/youtrack/has_issue_link": {
+          "type": "object",
+          "properties": {
+            "domain": {
+              "type": "string"
+            },
+            "projectCode": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "domain",
+            "projectCode"
+          ]
+        },
+        "@mr-linter/title_matches_expression": {
+          "type": "object",
+          "properties": {
+            "regex": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "regex"
+          ]
+        },
+        "@mr-linter/title_must_starts_with_any_prefix": {
+          "type": "object",
+          "properties": {
+            "prefixes": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "prefixes"
+          ]
+        },
+        "@mr-linter/when_has_label_must_description_contains_link_of_any_domains": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "domains": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "label",
+            "domains"
+          ]
+        },
+        "@mr-linter/when_has_label_must_title_starts_with": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "titlePrefix": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "titlePrefix"
+          ]
+        }
+      }
+    },
+    "credentials": {
+      "type": "object",
+      "properties": {
+        "gitlab_ci": {
+          "description": "Token",
+          "type": "string"
+        },
+        "github_actions": {
+          "description": "Token",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "rules",
+    "credentials"
+  ]
+}

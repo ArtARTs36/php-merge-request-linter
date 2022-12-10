@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 /**
  * @template-implements \IteratorAggregate<Rule>
  */
-class Rules implements \IteratorAggregate
+class Rules implements \IteratorAggregate, \Countable
 {
     /**
      * @param array<Rule> $rules
@@ -44,5 +44,10 @@ class Rules implements \IteratorAggregate
     public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->rules);
+    }
+
+    public function count(): int
+    {
+        return count($this->rules);
     }
 }

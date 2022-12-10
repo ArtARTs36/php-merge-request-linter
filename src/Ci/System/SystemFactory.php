@@ -32,7 +32,7 @@ class SystemFactory implements CiSystemFactory
             }
         }
 
-        throw new CiNotSupported();
+        throw new CiNotSupported('CI not detected');
     }
 
     public function create(string $ciName): CiSystem

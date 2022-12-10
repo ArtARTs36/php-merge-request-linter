@@ -12,6 +12,7 @@ use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -30,7 +31,7 @@ final class RunnerTest extends TestCase
             }
         });
 
-        $result = $runner->run(new Linter(new Rules([])));
+        $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
 
         self::assertEquals(false, $result->state);
         self::assertInstanceOf(ExceptionNote::class, $result->notes->first());
@@ -51,7 +52,7 @@ final class RunnerTest extends TestCase
             }
         });
 
-        $result = $runner->run(new Linter(new Rules([])));
+        $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
 
         self::assertTrue($result->state);
         self::assertEquals('Currently is not merge request', $result->notes->first());
@@ -70,11 +71,11 @@ final class RunnerTest extends TestCase
             }
         });
 
-        $result = $runner->run((new Linter((new Rules([])))));
+        $result = $runner->run((new Linter(new Rules([]), new NullLintEventSubscriber())));
 
         self::assertFalse($result->state);
         self::assertEquals(
-            'Invalid credentials :: ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException',
+            'Invalid credentials (exception ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException)',
             $result->notes->first()->getDescription()
         );
     }
@@ -99,7 +100,7 @@ final class RunnerTest extends TestCase
 
         $result = $runner->run(new Linter(Rules::make([
             new SuccessRule(),
-        ])));
+        ]), new NullLintEventSubscriber()));
 
         self::assertTrue($result->state);
     }

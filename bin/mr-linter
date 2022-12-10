@@ -1,10 +1,27 @@
 #!/usr/bin/env php
 <?php
 
-use ArtARTs36\MergeRequestLinter\Configuration\PhpConfigLoader;
+use ArtARTs36\FileSystem\Local\LocalFileSystem;
+use ArtARTs36\MergeRequestLinter\Ci\System\DefaultSystems;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\JsonConfigLoader;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\PhpConfigLoader;
+use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
+use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\LintCommand;
+use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
+use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
+use ArtARTs36\MergeRequestLinter\Support\Map;
 use Symfony\Component\Console\Application;
 
 $loaded = false;
@@ -29,12 +46,33 @@ if ($loaded === false) {
     exit(1);
 }
 
-$application = new Application('Merge Request Linter', '0.1.1');
+$application = new Application('Merge Request Linter', '0.3.0');
 
-$configLoader = new PhpConfigLoader();
+$filesystem = new LocalFileSystem();
+$environment = new LocalEnvironment();
+$runnerFactory = new RunnerFactory($environment);
 
-$application->add(new LintCommand($configLoader));
+$configLoader = new CompositeLoader([
+    'php' => new PhpConfigLoader($filesystem),
+    'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment) {
+        return new JsonConfigLoader(
+            Resolver::make(DefaultRules::RULES, new RuleFactory(
+                new Builder(
+                    DefaultResolvers::get(),
+                ),
+                new ConstructorFinder(),
+            )),
+            $filesystem,
+            [new EnvTransformer($environment)],
+            new Map(DefaultSystems::MAP),
+        );
+    }),
+]);
+
+$configResolver = new ConfigResolver(new PathResolver($filesystem), $configLoader);
+
+$application->add(new LintCommand($configResolver, $runnerFactory));
 $application->add(new InstallCommand());
-$application->add(new DumpCommand($configLoader));
+$application->add(new DumpCommand($configResolver));
 
 $application->run();

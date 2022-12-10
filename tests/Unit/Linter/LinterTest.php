@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\StopsLint;
 use ArtARTs36\MergeRequestLinter\Rule\Definition;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class LinterTest extends TestCase
@@ -39,7 +40,7 @@ final class LinterTest extends TestCase
                     return new Definition('');
                 }
             },
-        ]));
+        ]), new NullLintEventSubscriber());
 
         self::assertEquals('Lint stopped. Reason: Test-stop', $linter->run($this->makeMergeRequest())->first());
     }
@@ -67,7 +68,7 @@ final class LinterTest extends TestCase
                     return new Definition('');
                 }
             },
-        ]));
+        ]), new NullLintEventSubscriber());
 
         $notes = $linter->run($this->makeMergeRequest());
 

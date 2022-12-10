@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Exception;
 
-class ConfigInvalidException extends MergeRequestLinterException
+class ConfigInvalidException extends ConfigException
 {
     public static function fromKey(string $key): self
     {

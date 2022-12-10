@@ -14,7 +14,7 @@ class GitlabCi implements CiSystem
 {
     use InteractsWithResponse;
 
-    public const NAME = 'Gitlab CI';
+    public const NAME = 'gitlab_ci';
 
     public function __construct(
         protected RemoteCredentials $credentials,

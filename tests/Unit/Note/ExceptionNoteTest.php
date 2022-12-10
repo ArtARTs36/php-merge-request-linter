@@ -26,6 +26,6 @@ final class ExceptionNoteTest extends TestCase
     {
         $note = ExceptionNote::withMessage(new \LogicException(), 'Test');
 
-        self::assertEquals('Test :: LogicException', $note->getDescription());
+        self::assertEquals('Test (exception LogicException)', $note->getDescription());
     }
 }

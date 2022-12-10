@@ -4,12 +4,15 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Latest Version](https://img.shields.io/packagist/v/artarts36/merge-request-linter)
 ![Total Downloads](https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/artarts36/merge-request-linter)
 
 This package provides tools for validating merge requests
 
 [Show validation rules](docs/rules.md)
 
 [Creating custom rule](docs/custom_rule.md)
+
+[Docker Image](https://hub.docker.com/repository/docker/artarts36/merge-request-linter)
 
 ## Installation
 
@@ -50,13 +53,30 @@ Add new script into your composer.json (section **scripts**):
 1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
 2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_GITLAB_HTTP_TOKEN" with your personal access token
 3. Add new step into **.gitlab-ci.yml**:
-   ```yml
+   ```yaml
    mr-lint:
      stage: lint
      only:
        - merge_requests
      script:
        - composer mr-lint
+   ```
+
+### ➜ Usage with Gitlab CI without installation
+
+[See example](https://gitlab.com/artem_ukrainsky/mr-linter-testing/)
+
+1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
+2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_GITLAB_HTTP_TOKEN" with your personal access token
+3. Add new step into **.gitlab-ci.yml**
+   ```yaml
+   mr-lint:
+     image: artarts36/merge-request-linter:0.3.0
+     stage: test
+     only:
+       - merge_requests
+     script:
+       - mr-linter lint
    ```
 
 ### ➜ Usage with Github Actions
@@ -71,6 +91,43 @@ Add new script into your composer.json (section **scripts**):
       run: composer mr-lint
     ```
 
+## Run in Docker
+
+Simple bash:
+```shell
+docker run \
+  -it \
+  -e GITHUB_ACTIONS=1 \
+  -e GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
+  -e GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
+  -e GITHUB_REF_NAME=${MR_ID}/merge \
+  -e MR_LINTER_GITHUB_HTTP_TOKEN=${TOKEN} \
+  -v "${PWD}/.mr-linter.json:/app/.mr-linter.json:ro" \
+  artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
+```
+
+## JSON Config
+
+[See JsonSchema](mr-linter-config-schema.json)
+
+```json
+{
+  "rules": {
+    "@mr-linter/changed_files_limit": {
+      "limit": 20
+    },
+    "@mr-linter/jira/has_issue_link": {
+      "domain": "jira.com",
+      "projectCode": "MYPROJECT"
+    },
+    "@mr-linter/description_not_empty": {}
+  },
+  "credentials": {
+    "github_actions": "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
+  }
+}
+```
+
 ## Development Commands
 
 | Command            | Description                           |
@@ -78,7 +135,6 @@ Add new script into your composer.json (section **scripts**):
 | composer test      | Run tests (via PHPUnit)               |
 | composer lint      | Run lint (via PHPCsFixer)             |
 | composer doc-rules | Build rules doc page                  |
-| composer build     | Build PHAR of source                  |
 | make try           | Run MR-Linter on really merge-request |
 
 ## Console output example
