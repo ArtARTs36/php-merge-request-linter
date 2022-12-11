@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Definition;
 
 final class FailRule implements Rule
 {
-    public static function getName(): string
+    public function getName(): string
     {
         return 'fail_rule';
     }

@@ -48,7 +48,7 @@ final class ConstructorFinderTest extends TestCase
 
 class TestRuleForEmptyConstructor implements Rule
 {
-    public static function getName(): string
+    public function getName(): string
     {
         // TODO: Implement getName() method.
     }

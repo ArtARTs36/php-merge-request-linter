@@ -16,9 +16,9 @@ class ConditionableRule implements Rule
         //
     }
 
-    public static function getName(): string
+    public function getName(): string
     {
-        return 'c';
+        return $this->rule->getName();
     }
 
     public function lint(MergeRequest $request): array

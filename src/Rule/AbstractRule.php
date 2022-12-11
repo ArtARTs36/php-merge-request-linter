@@ -8,7 +8,7 @@ abstract class AbstractRule implements Rule
 {
     public const NAME = '@mr-linter/abstract_rule';
 
-    public static function getName(): string
+    public function getName(): string
     {
         return static::NAME;
     }

@@ -14,7 +14,7 @@ interface Rule
     /**
      * Get rule name.
      */
-    public static function getName(): string;
+    public function getName(): string;
 
     /**
      * Lint "merge request" by specific rules.
