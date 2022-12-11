@@ -24,6 +24,9 @@ final class DefaultRules
         WhenHasLabelMustTitleStartsWithRule::NAME => WhenHasLabelMustTitleStartsWithRule::class,
     ];
 
+    /**
+     * @return Map<string, class-string<Rule>>
+     */
     public static function map(): Map
     {
         return new Map(self::RULES);

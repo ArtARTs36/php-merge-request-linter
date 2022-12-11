@@ -25,24 +25,6 @@ class Resolver
     }
 
     /**
-     * @param iterable<class-string<Rule>> $ruleClasses
-     */
-    public static function make(iterable $ruleClasses, RuleFactory $factory, OperatorFactory $operatorFactory): self
-    {
-        $map = [];
-
-        foreach ($ruleClasses as $class) {
-            $map[$class::getName()] = $class;
-        }
-
-        return new self(
-            new Map($map),
-            $factory,
-            $operatorFactory,
-        );
-    }
-
-    /**
      * @param array<string, mixed> $params
      * @throws RuleNotFound
      */
