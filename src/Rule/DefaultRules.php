@@ -20,7 +20,6 @@ final class DefaultRules
         HasLinkToYouTrackIssueRule::NAME => HasLinkToYouTrackIssueRule::class,
         TitleMatchesExpressionRule::NAME => TitleMatchesExpressionRule::class,
         TitleStartsWithAnyPrefixRule::NAME => TitleStartsWithAnyPrefixRule::class,
-        WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule::NAME => WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule::class,
         WhenHasLabelMustTitleStartsWithRule::NAME => WhenHasLabelMustTitleStartsWithRule::class,
     ];
 
