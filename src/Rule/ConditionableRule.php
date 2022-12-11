@@ -9,12 +9,9 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 class ConditionableRule implements Rule
 {
-    /**
-     * @param iterable<ConditionOperator> $operators
-     */
     public function __construct(
         private Rule $rule,
-        private iterable $operators,
+        private ConditionOperator $operator,
     ) {
         //
     }
@@ -26,7 +23,7 @@ class ConditionableRule implements Rule
 
     public function lint(MergeRequest $request): array
     {
-        if (! $this->evaluate($request)) {
+        if (! $this->operator->evaluate($request)) {
             return [];
         }
 
@@ -36,16 +33,5 @@ class ConditionableRule implements Rule
     public function getDefinition(): RuleDefinition
     {
         return $this->rule->getDefinition();
-    }
-
-    private function evaluate(MergeRequest $request): bool
-    {
-        foreach ($this->operators as $operator) {
-            if (! $operator->evaluate($request)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

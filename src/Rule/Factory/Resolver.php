@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\CompositeOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Rule\ConditionableRule;
@@ -54,7 +55,7 @@ class Resolver
             return $rule;
         }
 
-        return new ConditionableRule($rule, $this->resolveConditionOperators($params['when']));
+        return new ConditionableRule($rule, new CompositeOperator($this->resolveConditionOperators($params['when'])));
     }
 
     private function resolveConditionOperators(array $when): iterable
