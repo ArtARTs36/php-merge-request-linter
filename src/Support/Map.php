@@ -39,7 +39,7 @@ class Map extends ArrayCollection
 
     /**
      * @param V $value
-     * @return K|null
+     * @return string|null
      */
     public function search(mixed $value): ?string
     {

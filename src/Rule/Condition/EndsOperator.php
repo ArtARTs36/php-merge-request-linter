@@ -20,6 +20,8 @@ class EndsOperator implements ConditionOperator
 
     public function evaluate(MergeRequest $request): bool
     {
-        return Str::endsWith($this->propertyExtractor->scalar($request, $this->property), $this->ends);
+        $value = $this->propertyExtractor->scalar($request, $this->property);
+
+        return Str::endsWith("$value", $this->ends);
     }
 }

@@ -25,6 +25,6 @@ class ContainsOperator implements ConditionOperator
             return in_array($this->value, $val);
         }
 
-        return $val->has($this->value);
+        return $val->has("$this->value");
     }
 }

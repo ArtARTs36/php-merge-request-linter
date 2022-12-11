@@ -24,7 +24,7 @@ class OperatorFactory
     /**
      * @throws ConditionOperatorNotFound
      */
-    public function create(string $type, string $field, string $value): ConditionOperator
+    public function create(string $type, string $field, mixed $value): ConditionOperator
     {
         $class = $this->operatorByType->get($type);
 

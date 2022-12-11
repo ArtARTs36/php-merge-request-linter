@@ -100,10 +100,14 @@ class LintCommand extends Command
             ]
         ];
 
+        $counter = 0;
+
         /** @var Note $note */
         foreach ($notes as $i => $note) {
+            ++$counter;
+
             $table[] = [
-                new TableCell(++$i, $tableCellOptions[$note->getColor()->value]),
+                new TableCell("$counter", $tableCellOptions[$note->getColor()->value]),
                 new TableCell($note->getDescription(), $tableCellOptions[$note->getColor()->value]),
             ];
         }

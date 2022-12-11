@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 
+use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
 final class DefaultOperators
@@ -17,6 +18,9 @@ final class DefaultOperators
         LteOperator::SYMBOL => LteOperator::class,
     ];
 
+    /**
+     * @return Map<string, class-string<ConditionOperator>>
+     */
     public static function map(): Map
     {
         return new Map(self::MAP);

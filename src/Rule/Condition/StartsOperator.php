@@ -20,6 +20,8 @@ class StartsOperator implements ConditionOperator
 
     public function evaluate(MergeRequest $request): bool
     {
-        return Str::startsWith($this->propertyExtractor->scalar($request, $this->field), $this->starts);
+        $value = $this->propertyExtractor->scalar($request, $this->field);
+
+        return Str::startsWith("$value", $this->starts);
     }
 }

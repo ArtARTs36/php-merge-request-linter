@@ -20,7 +20,7 @@ class PropertyExtractor
             throw PropertyHasDifferentTypeException::make($property, $this->getType($val), 'int|float');
         }
 
-        return $val;
+        return (int) $val;
     }
 
     /**
@@ -43,6 +43,7 @@ class PropertyExtractor
 
     /**
      * @throws PropertyHasDifferentTypeException
+     * @return array<mixed>|Map<string, mixed>
      */
     public function iterable(object $object, string $property): array|Map
     {
