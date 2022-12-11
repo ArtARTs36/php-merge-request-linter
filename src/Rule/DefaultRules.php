@@ -3,25 +3,31 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Support\Map;
 
 final class DefaultRules
 {
     /** @var array<class-string<Rule>> */
     public const RULES = [
-        ChangedFilesLimitRule::class,
-        DescriptionContainsLinkOfAnyDomainsRule::class,
-        DescriptionContainsLinksOfAllDomainsRule::class,
-        DescriptionNotEmptyRule::class,
-        HasAllLabelsOfRule::class,
-        HasAnyLabelsRule::class,
-        HasAnyLabelsOfRule::class,
-        HasLinkToJiraTaskRule::class,
-        HasLinkToYouTrackIssueRule::class,
-        TitleMatchesExpressionRule::class,
-        TitleStartsWithAnyPrefixRule::class,
-        WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule::class,
-        WhenHasLabelMustTitleStartsWithRule::class,
+        ChangedFilesLimitRule::NAME => ChangedFilesLimitRule::class,
+        DescriptionContainsLinkOfAnyDomainsRule::NAME => DescriptionContainsLinkOfAnyDomainsRule::class,
+        DescriptionContainsLinksOfAllDomainsRule::NAME => DescriptionContainsLinksOfAllDomainsRule::class,
+        DescriptionNotEmptyRule::NAME => DescriptionNotEmptyRule::class,
+        HasAllLabelsOfRule::NAME => HasAllLabelsOfRule::class,
+        HasAnyLabelsRule::NAME => HasAnyLabelsRule::class,
+        HasAnyLabelsOfRule::NAME => HasAnyLabelsOfRule::class,
+        HasLinkToJiraTaskRule::NAME => HasLinkToJiraTaskRule::class,
+        HasLinkToYouTrackIssueRule::NAME => HasLinkToYouTrackIssueRule::class,
+        TitleMatchesExpressionRule::NAME => TitleMatchesExpressionRule::class,
+        TitleStartsWithAnyPrefixRule::NAME => TitleStartsWithAnyPrefixRule::class,
+        WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule::NAME => WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule::class,
+        WhenHasLabelMustTitleStartsWithRule::NAME => WhenHasLabelMustTitleStartsWithRule::class,
     ];
+
+    public static function map(): Map
+    {
+        return new Map(self::RULES);
+    }
 
     private function __construct()
     {

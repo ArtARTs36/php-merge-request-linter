@@ -58,17 +58,17 @@ $runnerFactory = new RunnerFactory($environment);
 $configLoader = new CompositeLoader([
     'php' => new PhpConfigLoader($filesystem),
     'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment) {
-        return new JsonConfigLoader(
-            Resolver::make(
-                    DefaultRules::RULES,
-                    new RuleFactory(
-                        new Builder(
-                            DefaultResolvers::get(),
-                        ),
-                        new ConstructorFinder(),
-                    ),
-                new OperatorFactory(DefaultOperators::map(), new PropertyExtractor()),
+        $ruleFactory = new RuleFactory(
+            new Builder(
+                DefaultResolvers::get(),
             ),
+            new ConstructorFinder(),
+        );
+
+        $operatorFactory = new OperatorFactory(DefaultOperators::map(), new PropertyExtractor());
+
+        return new JsonConfigLoader(
+            new Resolver(DefaultRules::map(), $ruleFactory, $operatorFactory),
             $filesystem,
             [new EnvTransformer($environment)],
             new Map(DefaultSystems::MAP),
