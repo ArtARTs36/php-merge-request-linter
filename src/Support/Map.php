@@ -37,6 +37,21 @@ class Map extends ArrayCollection
         return array_key_exists($id, $this->items);
     }
 
+    /**
+     * @param V $value
+     * @return K|null
+     */
+    public function search(mixed $value): ?string
+    {
+        foreach ($this as $key => $val) {
+            if ($val === $value) {
+                return $key;
+            }
+        }
+
+        return null;
+    }
+
     public function missing(string $id): bool
     {
         return ! $this->has($id);

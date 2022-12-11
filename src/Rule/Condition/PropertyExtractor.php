@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 
+use ArtARTs36\MergeRequestLinter\Support\Map;
 use ArtARTs36\Str\Str;
 
 class PropertyExtractor
@@ -14,6 +15,17 @@ class PropertyExtractor
         $val = $this->extract($object, $property);
 
         if (! is_scalar($val) && ! $val instanceof Str) {
+            throw new \Exception();
+        }
+
+        return $val;
+    }
+
+    public function iterable(object $object, string $property): array|Map
+    {
+        $val = $this->extract($object, $property);
+
+        if (! is_array($val) && ! $val instanceof Map) {
             throw new \Exception();
         }
 
