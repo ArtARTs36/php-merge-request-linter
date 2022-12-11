@@ -7,6 +7,17 @@ use ArtARTs36\Str\Str;
 
 class PropertyExtractor
 {
+    public function numeric(object $object, string $property): int|float
+    {
+        $val = $this->extract($object, $property);
+
+        if (! is_numeric($val)) {
+            throw new \Exception();
+        }
+
+        return $val;
+    }
+
     /**
      * @throws \Exception
      */
