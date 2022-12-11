@@ -11,6 +11,11 @@ class DefinitionNote extends AbstractNote
         //
     }
 
+    public function getColor(): NoteColor
+    {
+        return NoteColor::WHITE;
+    }
+
     public function getDescription(): string
     {
         return $this->definition->getDescription();

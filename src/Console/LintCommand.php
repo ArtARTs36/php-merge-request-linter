@@ -8,9 +8,13 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
+use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Note\NoteColor;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Helper\TableCell;
+use Symfony\Component\Console\Helper\TableCellStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
@@ -85,9 +89,23 @@ class LintCommand extends Command
 
         $table = [];
 
+        $tableCellOptions = [
+            NoteColor::RED->value => [
+                'style' => new TableCellStyle([
+                    'fg' => 'red',
+                ]),
+            ],
+            NoteColor::WHITE->value => [
+                'style' => new TableCellStyle([]),
+            ]
+        ];
+
         /** @var Note $note */
         foreach ($notes as $i => $note) {
-            $table[] = [++$i, $note->getDescription()];
+            $table[] = [
+                new TableCell(++$i, $tableCellOptions[$note->getColor()->value]),
+                new TableCell($note->getDescription(), $tableCellOptions[$note->getColor()->value]),
+            ];
         }
 
         $style->table(['#', 'Note'], $table);

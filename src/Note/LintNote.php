@@ -12,6 +12,11 @@ final class LintNote extends AbstractNote implements Note
         //
     }
 
+    public function getColor(): NoteColor
+    {
+        return NoteColor::WHITE;
+    }
+
     public function getDescription(): string
     {
         return $this->description;

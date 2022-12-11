@@ -23,6 +23,11 @@ final class ExceptionNote extends AbstractNote implements Note
         return new self($e, $message);
     }
 
+    public function getColor(): NoteColor
+    {
+        return NoteColor::RED;
+    }
+
     public function getDescription(): string
     {
         return sprintf('%s (exception %s)', $this->getMessage(), $this->exception::class);
