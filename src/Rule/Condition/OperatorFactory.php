@@ -8,17 +8,14 @@ use ArtARTs36\MergeRequestLinter\Support\Map;
 
 class OperatorFactory
 {
-    private PropertyExtractor $propertyExtractor;
-
     /**
      * @param Map<string, class-string<ConditionOperator>> $operatorByType
-     * @param PropertyExtractor|null $propertyExtractor
      */
     public function __construct(
         private readonly Map $operatorByType,
-        ?PropertyExtractor   $propertyExtractor,
+        private readonly PropertyExtractor   $propertyExtractor,
     ) {
-        $this->propertyExtractor = $propertyExtractor ?? new PropertyExtractor();
+        //
     }
 
     /**

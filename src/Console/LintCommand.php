@@ -8,7 +8,6 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Note\NoteColor;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use Symfony\Component\Console\Command\Command;

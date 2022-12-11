@@ -17,6 +17,6 @@ abstract class AbstractOperator implements ConditionOperator
 
     public function evaluate(MergeRequest $request): bool
     {
-       return $this->doEvaluate($request);
+        return $this->doEvaluate($request);
     }
 }
