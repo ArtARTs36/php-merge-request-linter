@@ -24,14 +24,6 @@ class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
         //
     }
 
-    /**
-     * @param array<string>|string $prefix
-     */
-    public static function make(array|string $prefix): self
-    {
-        return new self((array) $prefix);
-    }
-
     public function lint(MergeRequest $request): array
     {
         $starts = false;

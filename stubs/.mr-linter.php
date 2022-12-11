@@ -16,7 +16,7 @@ return [
         HasAnyLabelsOfRule::make([
             'Feature',
         ]),
-        TitleStartsWithAnyPrefixRule::make([
+        new TitleStartsWithAnyPrefixRule([
             '[Feature]',
             '[Bug]',
             '[Docs]',
