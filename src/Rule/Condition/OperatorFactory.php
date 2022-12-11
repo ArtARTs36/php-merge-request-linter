@@ -8,6 +8,7 @@ class OperatorFactory
 {
     private const MAP = [
         'equals' => EqualsOperator::class,
+        'starts' => StartsOperator::class,
     ];
 
     private PropertyExtractor $propertyExtractor;
