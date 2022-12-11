@@ -35,7 +35,7 @@ class Linter
 
                 break;
             } catch (\Throwable $e) {
-                $notes[] = new ExceptionNote($e, $e::class);
+                $notes[] = new ExceptionNote($e);
 
                 $this->eventSubscriber->fail($rule->getName());
             }
