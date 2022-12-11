@@ -8,6 +8,8 @@ use ArtARTs36\Str\Facade\Str;
 
 class StartsOperator implements ConditionOperator
 {
+    public const NAME = 'starts';
+
     public function __construct(
         private PropertyExtractor $propertyExtractor,
         private string $field,

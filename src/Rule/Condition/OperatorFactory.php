@@ -7,9 +7,10 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 class OperatorFactory
 {
     private const MAP = [
-        'equals' => EqualsOperator::class,
-        'starts' => StartsOperator::class,
-        'contains' => ContainsOperator::class,
+        EqualsOperator::NAME => EqualsOperator::class,
+        StartsOperator::NAME => StartsOperator::class,
+        ContainsOperator::NAME => ContainsOperator::class,
+        EndsOperator::NAME => EndsOperator::class,
     ];
 
     private PropertyExtractor $propertyExtractor;

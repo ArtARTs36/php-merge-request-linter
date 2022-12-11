@@ -7,6 +7,8 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 class ContainsOperator implements ConditionOperator
 {
+    public const NAME = 'contains';
+
     public function __construct(
         private PropertyExtractor $propertyExtractor,
         private string $property,
