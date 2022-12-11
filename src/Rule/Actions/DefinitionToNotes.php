@@ -3,17 +3,17 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Actions;
 
 use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Note\DefinitionNote;
+use ArtARTs36\MergeRequestLinter\Note\LintNote;
 
 trait DefinitionToNotes
 {
     abstract public function getDefinition(): RuleDefinition;
 
     /**
-     * @return DefinitionNote[]
+     * @return LintNote[]
      */
     protected function definitionToNotes(): array
     {
-        return [new DefinitionNote($this->getDefinition())];
+        return [new LintNote($this->getDefinition()->getDescription())];
     }
 }
