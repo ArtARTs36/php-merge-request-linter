@@ -17,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorFactory;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
@@ -68,7 +69,7 @@ $configLoader = new CompositeLoader([
         $operatorFactory = new OperatorFactory(DefaultOperators::map(), new PropertyExtractor());
 
         return new JsonConfigLoader(
-            new Resolver(DefaultRules::map(), $ruleFactory, $operatorFactory),
+            new Resolver(DefaultRules::map(), $ruleFactory, new OperatorResolver($operatorFactory)),
             $filesystem,
             [new EnvTransformer($environment)],
             new Map(DefaultSystems::MAP),
