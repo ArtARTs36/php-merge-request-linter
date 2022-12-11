@@ -38,9 +38,4 @@ class OperatorFactory
             $value,
         );
     }
-
-    public function createEqualsOperator(string $field, mixed $value): ConditionOperator
-    {
-        return new EqualsOperator($this->propertyExtractor, $field, $value);
-    }
 }

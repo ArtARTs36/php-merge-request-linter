@@ -6,9 +6,8 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\CompositeOperator;
-use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\EqualsOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorFactory;
-use ArtARTs36\MergeRequestLinter\Rule\Condition\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Rule\ConditionableRule;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 
@@ -56,7 +55,7 @@ class Resolver
 
         foreach ($when as $field => $op) {
             if (is_scalar($op)) {
-                $operators[] = $this->operatorFactory->createEqualsOperator($field, $op);
+                $operators[] = $this->operatorFactory->create(EqualsOperator::NAME, $field, $op);
 
                 continue;
             }
