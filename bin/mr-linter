@@ -15,6 +15,9 @@ use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\LintCommand;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorFactory;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
@@ -56,12 +59,16 @@ $configLoader = new CompositeLoader([
     'php' => new PhpConfigLoader($filesystem),
     'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment) {
         return new JsonConfigLoader(
-            Resolver::make(DefaultRules::RULES, new RuleFactory(
-                new Builder(
-                    DefaultResolvers::get(),
-                ),
-                new ConstructorFinder(),
-            )),
+            Resolver::make(
+                    DefaultRules::RULES,
+                    new RuleFactory(
+                        new Builder(
+                            DefaultResolvers::get(),
+                        ),
+                        new ConstructorFinder(),
+                    ),
+                new OperatorFactory(DefaultOperators::map(), new PropertyExtractor()),
+            ),
             $filesystem,
             [new EnvTransformer($environment)],
             new Map(DefaultSystems::MAP),

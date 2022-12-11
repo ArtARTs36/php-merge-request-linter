@@ -3,27 +3,26 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Support\Map;
 
 class OperatorFactory
 {
-    private const MAP = [
-        EqualsOperator::NAME => EqualsOperator::class,
-        StartsOperator::NAME => StartsOperator::class,
-        ContainsOperator::NAME => ContainsOperator::class,
-        EndsOperator::NAME => EndsOperator::class,
-    ];
-
     private PropertyExtractor $propertyExtractor;
 
+    /**
+     * @param Map<string, class-string<ConditionOperator>> $operatorByType
+     * @param PropertyExtractor|null $propertyExtractor
+     */
     public function __construct(
-        ?PropertyExtractor $propertyExtractor,
+        private readonly Map $operatorByType,
+        ?PropertyExtractor   $propertyExtractor,
     ) {
         $this->propertyExtractor = $propertyExtractor ?? new PropertyExtractor();
     }
 
     public function create(string $type, string $field, string $value): ConditionOperator
     {
-        $class = self::MAP[$type];
+        $class = $this->operatorByType->get($type);
 
         return new $class(
             $this->propertyExtractor,

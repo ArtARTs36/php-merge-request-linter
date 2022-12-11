@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\CompositeOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Rule\ConditionableRule;
@@ -26,7 +27,7 @@ class Resolver
     /**
      * @param iterable<class-string<Rule>> $ruleClasses
      */
-    public static function make(iterable $ruleClasses, RuleFactory $factory): self
+    public static function make(iterable $ruleClasses, RuleFactory $factory, OperatorFactory $operatorFactory): self
     {
         $map = [];
 
@@ -34,7 +35,11 @@ class Resolver
             $map[$class::getName()] = $class;
         }
 
-        return new self(new Map($map), $factory, new OperatorFactory(new PropertyExtractor()));
+        return new self(
+            new Map($map),
+            $factory,
+            $operatorFactory,
+        );
     }
 
     /**
