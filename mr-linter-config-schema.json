@@ -17,7 +17,7 @@
                 "labels": {
                   "type": "object",
                   "properties": {
-                    "contains":{
+                    "contains": {
                       "type": "string"
                     }
                   }
@@ -36,6 +36,73 @@
                     },
                     ">=": {
                       "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
                     }
                   }
                 }
@@ -56,6 +123,103 @@
                   "type": "string",
                 }
               ]
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [
@@ -72,6 +236,103 @@
                   "type": "string"
                 }
               ]
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [
@@ -79,7 +340,106 @@
           ]
         },
         "@mr-linter/description_not_empty": {
-          "type": "object"
+          "type": "object",
+          "properties": {
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
         "@mr-linter/has_all_labels": {
           "type": "object",
@@ -107,6 +467,103 @@
                   "type": "string"
                 }
               ]
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [
@@ -123,6 +580,103 @@
                   "type": "string"
                 }
               ]
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [
@@ -137,6 +691,103 @@
             },
             "projectCode": {
               "type": "string"
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [
@@ -152,6 +803,103 @@
             },
             "projectCode": {
               "type": "string"
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [
@@ -164,6 +912,103 @@
           "properties": {
             "regex": {
               "type": "string"
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [
@@ -180,45 +1025,107 @@
                   "type": "string"
                 }
               ]
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    },
+                    "equals": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "sourceBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetBranch": {
+                  "type": "object",
+                  "properties": {
+                    "starts": {
+                      "type": "string"
+                    },
+                    "ends": {
+                      "type": "string"
+                    },
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConflicts": {
+                  "type": "object",
+                  "properties": {
+                    "equals": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [
             "prefixes"
-          ]
-        },
-        "@mr-linter/when_has_label_must_description_contains_link_of_any_domains": {
-          "type": "object",
-          "properties": {
-            "label": {
-              "type": "string"
-            },
-            "domains": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "required": [
-            "label",
-            "domains"
-          ]
-        },
-        "@mr-linter/when_has_label_must_title_starts_with": {
-          "type": "object",
-          "properties": {
-            "label": {
-              "type": "string"
-            },
-            "titlePrefix": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "label",
-            "titlePrefix"
           ]
         }
       }
