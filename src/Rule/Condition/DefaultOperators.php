@@ -17,6 +17,10 @@ final class DefaultOperators
         GteOperator::SYMBOL => GteOperator::class,
         LteOperator::NAME => LteOperator::class,
         LteOperator::SYMBOL => LteOperator::class,
+        CountMinOperator::NAME => CountMinOperator::class,
+        CountMaxOperator::NAME => CountMaxOperator::class,
+        LengthMinOperator::NAME => LengthMinOperator::class,
+        LengthMaxOperator::NAME => LengthMaxOperator::class,
     ];
 
     /**

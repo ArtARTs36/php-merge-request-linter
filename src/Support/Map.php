@@ -9,6 +9,8 @@ namespace ArtARTs36\MergeRequestLinter\Support;
  */
 class Map extends ArrayCollection
 {
+    private ?int $count = null;
+
     /**
      * @param list<V> $list
      * @return Map<K, V>
@@ -16,9 +18,11 @@ class Map extends ArrayCollection
     public static function fromList(iterable $list): self
     {
         $items = [];
+        $count = 0;
 
         foreach ($list as $item) {
             $items[$item] = $item;
+            $count++;
         }
 
         return new self($items);
@@ -73,5 +77,14 @@ class Map extends ArrayCollection
         }
 
         return true;
+    }
+
+    public function count(): int
+    {
+        if ($this->count === null) {
+            $this->count = count($this->items);
+        }
+
+        return $this->count;
     }
 }
