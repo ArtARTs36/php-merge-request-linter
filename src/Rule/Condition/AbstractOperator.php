@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Exception\ComparedIncompatibilityTypesException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
+use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 abstract class AbstractOperator implements ConditionOperator
@@ -32,6 +33,15 @@ abstract class AbstractOperator implements ConditionOperator
                     $this->property,
                     $e->getRealPropertyType(),
                     $e->getExpectedPropertyType(),
+                ),
+                previous: $e,
+            );
+        } catch (PropertyNotExists $e) {
+            throw new PropertyNotExists(
+                sprintf(
+                    'Operator "%s": property request.%s not exists',
+                    static::NAME,
+                    $this->property,
                 ),
                 previous: $e,
             );

@@ -12,6 +12,7 @@ class PropertyExtractor
 {
     /**
      * @throws PropertyHasDifferentTypeException
+     * @throws PropertyNotExists
      */
     public function numeric(object $object, string $property): int|float
     {
@@ -30,6 +31,7 @@ class PropertyExtractor
 
     /**
      * @throws PropertyHasDifferentTypeException
+     * @throws PropertyNotExists
      */
     public function scalar(object $object, string $property): int|string|float|bool
     {
@@ -48,6 +50,7 @@ class PropertyExtractor
 
     /**
      * @throws PropertyHasDifferentTypeException
+     * @throws PropertyNotExists
      * @return array<mixed>|Map<string, mixed>
      */
     public function iterable(object $object, string $property): array|Map
@@ -66,7 +69,7 @@ class PropertyExtractor
     }
 
     /**
-     * @throws \Exception
+     * @throws PropertyNotExists
      */
     private function extract(object $object, string $property): mixed
     {
