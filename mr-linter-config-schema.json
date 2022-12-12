@@ -10,6 +10,36 @@
           "properties": {
             "limit": {
               "type": "integer"
+            },
+            "when": {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "object",
+                  "properties": {
+                    "contains":{
+                      "type": "string"
+                    }
+                  }
+                },
+                "changedFilesCount": {
+                  "type": "object",
+                  "properties": {
+                    "lte": {
+                      "type": "integer"
+                    },
+                    "<=": {
+                      "type": "integer"
+                    },
+                    "gte": {
+                      "type": "integer"
+                    },
+                    ">=": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
             }
           },
           "required": [

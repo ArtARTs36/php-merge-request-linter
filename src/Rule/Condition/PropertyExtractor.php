@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 use ArtARTs36\Str\Str;
+use ArtARTs36\Str\Facade\Str as StrFacade;
 
 class PropertyExtractor
 {
@@ -20,7 +21,11 @@ class PropertyExtractor
             throw PropertyHasDifferentTypeException::make($property, $this->getType($val), 'int|float');
         }
 
-        return (int) $val;
+        if (is_string($val)) {
+            return StrFacade::contains($val, '.') ? (float) $val : (int) $val;
+        }
+
+        return is_float($val) ? $val : (int) $val;
     }
 
     /**
