@@ -12,10 +12,10 @@ class GteOperator extends AbstractOperator implements ConditionOperator
 
     public function __construct(
         PropertyExtractor $propertyExtractor,
-        private string $property,
+        string $property,
         private int|float $value,
     ) {
-        parent::__construct($propertyExtractor);
+        parent::__construct($propertyExtractor, $property);
     }
 
     protected function doEvaluate(MergeRequest $request): bool
