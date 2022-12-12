@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 class EqualsOperator extends AbstractOperator implements ConditionOperator
 {
     public const NAME = 'equals';
+    public const SYMBOL = '=';
 
     public function __construct(
         PropertyExtractor $propertyExtractor,

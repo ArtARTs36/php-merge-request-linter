@@ -9,6 +9,7 @@ final class DefaultOperators
 {
     public const MAP = [
         EqualsOperator::NAME => EqualsOperator::class,
+        EqualsOperator::SYMBOL => EqualsOperator::class,
         StartsOperator::NAME => StartsOperator::class,
         ContainsOperator::NAME => ContainsOperator::class,
         EndsOperator::NAME => EndsOperator::class,
