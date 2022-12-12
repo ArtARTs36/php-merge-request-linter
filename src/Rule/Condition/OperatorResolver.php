@@ -21,12 +21,6 @@ class OperatorResolver
         $operators = [];
 
         foreach ($when as $field => $op) {
-            if (is_scalar($op)) {
-                $operators[] = $this->operatorFactory->create(EqualsOperator::NAME, $field, $op);
-
-                continue;
-            }
-
             foreach ($op as $operatorType => $value) {
                 $operators[] = $this->operatorFactory->create($operatorType, $field, $value);
             }
