@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Support\Map;
 use ArtARTs36\Str\Str;
 use ArtARTs36\Str\Facade\Str as StrFacade;
 
-class PropertyExtractor
+class PropertyExtractor implements \ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor
 {
     /**
      * @throws PropertyHasDifferentTypeException

@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Facade\Str;
+use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 
 class StartsOperator extends AbstractOperator implements ConditionOperator
 {

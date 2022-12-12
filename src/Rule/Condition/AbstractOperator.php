@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Exception\ComparedIncompatibilityTypesException
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 
 abstract class AbstractOperator implements ConditionOperator
 {
