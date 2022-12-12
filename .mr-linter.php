@@ -17,7 +17,7 @@ return [
             'Docs',
             'Tests',
         ]),
-        TitleStartsWithAnyPrefixRule::make([
+        new TitleStartsWithAnyPrefixRule([
             '[Feature]',
             '[Bug]',
             '[Docs]',
