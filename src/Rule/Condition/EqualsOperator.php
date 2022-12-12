@@ -5,19 +5,19 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
-class EqualsOperator implements ConditionOperator
+class EqualsOperator extends AbstractOperator implements ConditionOperator
 {
     public const NAME = 'equals';
 
     public function __construct(
-        private PropertyExtractor $propertyExtractor,
-        private readonly string $property,
+        PropertyExtractor $propertyExtractor,
+        string $property,
         private readonly mixed $equals,
     ) {
-        //
+        parent::__construct($propertyExtractor, $property);
     }
 
-    public function evaluate(MergeRequest $request): bool
+    protected function doEvaluate(MergeRequest $request): bool
     {
         return $this->propertyExtractor->scalar($request, $this->property) === $this->equals;
     }

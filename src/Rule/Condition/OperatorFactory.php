@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Support\Map;
 class OperatorFactory
 {
     /**
-     * @param Map<string, class-string<ConditionOperator>> $operatorByType
+     * @param Map<string, class-string<AbstractOperator>> $operatorByType
      */
     public function __construct(
         private readonly Map $operatorByType,

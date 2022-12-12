@@ -6,19 +6,19 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Facade\Str;
 
-class EndsOperator implements ConditionOperator
+class EndsOperator extends AbstractOperator implements ConditionOperator
 {
     public const NAME = 'ends';
 
     public function __construct(
-        private PropertyExtractor $propertyExtractor,
-        private string $property,
+        PropertyExtractor $propertyExtractor,
+        string $property,
         private mixed $ends,
     ) {
-        //
+        parent::__construct($propertyExtractor, $property);
     }
 
-    public function evaluate(MergeRequest $request): bool
+    protected function doEvaluate(MergeRequest $request): bool
     {
         $value = $this->propertyExtractor->scalar($request, $this->property);
 
