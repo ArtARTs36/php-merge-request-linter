@@ -28,9 +28,9 @@ final class LengthMaxOperatorTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Rule\Condition\LengthMaxOperator::evaluate
      * @dataProvider providerForEvaluate
      */
-    public function testEvaluate(string $propertyValue, int $min, bool $expected): void
+    public function testEvaluate(string $propertyValue, int $max, bool $expected): void
     {
-        $operator = new LengthMaxOperator(new MockPropertyExtractor($propertyValue), 'prop', $min);
+        $operator = new LengthMaxOperator(new MockPropertyExtractor($propertyValue), 'prop', $max);
 
         self::assertEquals($expected, $operator->evaluate($this->makeMergeRequest()));
     }
