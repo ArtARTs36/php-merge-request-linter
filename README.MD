@@ -118,9 +118,18 @@ docker run \
     },
     "@mr-linter/jira/has_issue_link": {
       "domain": "jira.com",
-      "projectCode": "MYPROJECT"
+      "projectCode": "MYPROJECT", 
+      "when": {
+         "title": {
+            "starts": "WIP-REQUEST"
+         }
+      }
     },
-    "@mr-linter/description_not_empty": {}
+    "@mr-linter/description_not_empty": {
+       "when": {
+          "targetBranch": "master"
+       }
+    }
   },
   "credentials": {
     "github_actions": "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
