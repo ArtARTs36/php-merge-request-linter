@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Condition;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\EqualsOperator;

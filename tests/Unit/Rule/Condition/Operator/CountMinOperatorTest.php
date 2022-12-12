@@ -1,13 +1,13 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Operator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Condition\Operator;
 
-use ArtARTs36\MergeRequestLinter\Rule\Condition\CountMaxOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\CountMinOperator;
 use ArtARTs36\MergeRequestLinter\Support\Map;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class CountMaxOperatorTest extends TestCase
+final class CountMinOperatorTest extends TestCase
 {
     public function providerForTestEvaluate(): array
     {
@@ -20,7 +20,7 @@ final class CountMaxOperatorTest extends TestCase
             [
                 [1],
                 10,
-                true,
+                false,
             ],
             [
                 [1],
@@ -35,7 +35,7 @@ final class CountMaxOperatorTest extends TestCase
             [
                 new Map([1]),
                 10,
-                true,
+                false,
             ],
             [
                 new Map([1]),
@@ -46,12 +46,12 @@ final class CountMaxOperatorTest extends TestCase
     }
 
     /**
-     * @covers CountMaxOperator::evaluate
+     * @covers CountMinOperator::evaluate
      * @dataProvider providerForTestEvaluate
      */
-    public function testEvaluate(array|Map $propertyValue, int $max, bool $expected): void
+    public function testEvaluate(array|Map $propertyValue, int $min, bool $expected): void
     {
-        $operator = new CountMaxOperator(new MockPropertyExtractor($propertyValue), 'prop', $max);
+        $operator = new CountMinOperator(new MockPropertyExtractor($propertyValue), 'prop', $min);
 
         self::assertEquals($expected, $operator->evaluate($this->makeMergeRequest()));
     }

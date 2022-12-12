@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Operator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Rule\Condition\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockPropertyExtractor;
