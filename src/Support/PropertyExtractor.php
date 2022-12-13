@@ -1,12 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
+namespace ArtARTs36\MergeRequestLinter\Support;
 
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
-use ArtARTs36\MergeRequestLinter\Support\Map;
-use ArtARTs36\Str\Str;
 use ArtARTs36\Str\Facade\Str as StrFacade;
+use ArtARTs36\Str\Str;
 
 class PropertyExtractor implements \ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor
 {

@@ -18,7 +18,6 @@ use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Rule\Condition\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
@@ -26,6 +25,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\PropertyExtractor;
 use Symfony\Component\Console\Application;
 
 $loaded = false;

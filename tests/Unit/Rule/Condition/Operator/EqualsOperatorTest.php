@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\EqualsOperator;
-use ArtARTs36\MergeRequestLinter\Rule\Condition\PropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class EqualsOperatorTest extends TestCase
