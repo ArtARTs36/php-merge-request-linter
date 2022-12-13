@@ -21,6 +21,7 @@ final class DefaultOperators
         CountMaxOperator::NAME => CountMaxOperator::class,
         LengthMinOperator::NAME => LengthMinOperator::class,
         LengthMaxOperator::NAME => LengthMaxOperator::class,
+        ContainsOperator::NAME => ContainsOperator::class,
     ];
 
     /**
