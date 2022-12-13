@@ -13,7 +13,7 @@ class OperatorResolver
     }
 
     /**
-     * @param array<string, array<string, scalar>|scalar> $when
+     * @param array<string, array<string, scalar>> $when
      * @return iterable<ConditionOperator>
      */
     public function resolve(array $when): iterable

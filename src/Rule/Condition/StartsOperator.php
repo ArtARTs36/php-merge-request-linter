@@ -14,6 +14,6 @@ class StartsOperator extends AbstractScalarOperator implements ConditionOperator
     {
         $value = $this->propertyExtractor->scalar($request, $this->property);
 
-        return Str::startsWith("$value", $this->value);
+        return Str::startsWith("$value", "$this->value");
     }
 }

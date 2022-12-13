@@ -14,6 +14,6 @@ class EndsOperator extends AbstractScalarOperator implements ConditionOperator
     {
         $value = $this->propertyExtractor->scalar($request, $this->property);
 
-        return Str::endsWith("$value", $this->value);
+        return Str::endsWith("$value", "$this->value");
     }
 }

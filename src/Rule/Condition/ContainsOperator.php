@@ -12,6 +12,6 @@ class ContainsOperator extends AbstractScalarOperator
     {
         $val = $this->getPropertyValue($request);
 
-        return str_contains("$val", $this->value);
+        return str_contains("$val", "$this->value");
     }
 }
