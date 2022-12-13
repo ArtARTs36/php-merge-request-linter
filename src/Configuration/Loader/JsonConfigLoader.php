@@ -4,23 +4,21 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\FileSystem\Contracts\FileNotFound;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 
-class JsonConfigLoader implements ConfigLoader
+class JsonConfigLoader extends AbstractArrayConfigLoader implements ConfigLoader
 {
     public function __construct(
         private FileSystem $files,
-        private CredentialMapper $credentialMapper,
-        private RulesMapper $rulesMapper,
+        CredentialMapper $credentialMapper,
+        RulesMapper $rulesMapper,
     ) {
-        //
+        parent::__construct($credentialMapper, $rulesMapper);
     }
 
-    public function load(string $path): Config
+    protected function loadConfigArray(string $path): array
     {
         try {
             $json = $this->files->getFileContent($path);
@@ -34,19 +32,6 @@ class JsonConfigLoader implements ConfigLoader
             throw new ConfigInvalidException('json invalid');
         }
 
-        if (! isset($data['rules']) || ! is_array($data['rules'])) {
-            throw ConfigInvalidException::fromKey('rules');
-        }
-
-        $rules = $this->rulesMapper->map($data['rules']);
-
-        if (! class_exists('\GuzzleHttp\Client')) {
-            throw new ConfigInvalidException('HTTP Client unavailable');
-        }
-
-        return new Config($rules, $this->credentialMapper->map($data['credentials']), new HttpClientConfig(
-            $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
-            $data['http_client']['params'] ?? [],
-        ));
+        return $data;
     }
 }
