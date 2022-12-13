@@ -11,7 +11,7 @@ final class DefaultOperators
         EqualsOperator::NAME => EqualsOperator::class,
         EqualsOperator::SYMBOL => EqualsOperator::class,
         StartsOperator::NAME => StartsOperator::class,
-        ContainsOperator::NAME => ContainsOperator::class,
+        IncludesOperator::NAME => IncludesOperator::class,
         EndsOperator::NAME => EndsOperator::class,
         GteOperator::NAME => GteOperator::class,
         GteOperator::SYMBOL => GteOperator::class,
