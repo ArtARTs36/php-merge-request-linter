@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
+use ArtARTs36\MergeRequestLinter\Ci\CiMergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
@@ -17,6 +18,6 @@ final class MockRunnerFactory implements LinterRunnerFactory
 
     public function create(Config $config): LinterRunner
     {
-        return new Runner($this->ciSystemFactory);
+        return new Runner(new CiMergeRequestFetcher($this->ciSystemFactory));
     }
 }

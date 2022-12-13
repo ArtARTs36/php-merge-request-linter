@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Linter\Runner;
 
+use ArtARTs36\MergeRequestLinter\Ci\CiMergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Ci\System\SystemFactory;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
@@ -18,6 +19,8 @@ class RunnerFactory implements LinterRunnerFactory
 
     public function create(Config $config): LinterRunner
     {
-        return new Runner(new SystemFactory($config, $this->environment, new HttpClientFactory()));
+        return new Runner(new CiMergeRequestFetcher(
+            new SystemFactory($config, $this->environment, new HttpClientFactory())),
+        );
     }
 }

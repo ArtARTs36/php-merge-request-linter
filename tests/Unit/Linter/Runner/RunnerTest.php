@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
+use ArtARTs36\MergeRequestLinter\Ci\CiMergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
@@ -24,12 +25,12 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnCiNotDetected(): void
     {
-        $runner = new Runner(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiMergeRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 throw new CiNotSupported();
             }
-        });
+        }));
 
         $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
 
@@ -43,14 +44,14 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnNotMergeRequest(): void
     {
-        $runner = new Runner(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiMergeRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 return new MockCi([
                     'is_pull_request' => false,
                 ]);
             }
-        });
+        }));
 
         $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
 
@@ -64,12 +65,12 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnInvalidCredentials(): void
     {
-        $runner = new Runner(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiMergeRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 throw new InvalidCredentialsException();
             }
-        });
+        }));
 
         $result = $runner->run((new Linter(new Rules([]), new NullLintEventSubscriber())));
 
@@ -86,7 +87,7 @@ final class RunnerTest extends TestCase
      */
     public function testRunSuccess(): void
     {
-        $runner = new Runner(new class ($this->makeMergeRequest()) implements CiSystemFactory {
+        $runner = new Runner(new CiMergeRequestFetcher(new class ($this->makeMergeRequest()) implements CiSystemFactory {
             public function __construct(private MergeRequest $request)
             {
                 //
@@ -96,7 +97,7 @@ final class RunnerTest extends TestCase
             {
                 return new MockCi(['is_pull_request' => true], $this->request);
             }
-        });
+        }));
 
         $result = $runner->run(new Linter(Rules::make([
             new SuccessRule(),
