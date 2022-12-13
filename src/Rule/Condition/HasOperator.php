@@ -6,9 +6,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 
-class IncludesOperator extends AbstractOperator implements ConditionOperator
+class HasOperator extends AbstractOperator implements ConditionOperator
 {
-    public const NAME = 'includes';
+    public const NAME = 'has';
 
     public function __construct(
         PropertyExtractor $propertyExtractor,
