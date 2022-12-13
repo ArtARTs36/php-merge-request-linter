@@ -4,13 +4,13 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\StopsLint;
 use ArtARTs36\MergeRequestLinter\Rule\Definition;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class LinterTest extends TestCase
