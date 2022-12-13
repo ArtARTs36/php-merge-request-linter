@@ -9,7 +9,6 @@ use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
-use GuzzleHttp\Client;
 
 class JsonConfigLoader implements ConfigLoader
 {
@@ -46,7 +45,7 @@ class JsonConfigLoader implements ConfigLoader
         }
 
         return new Config($rules, $this->credentialMapper->map($data['credentials']), new HttpClientConfig(
-            $data['http_client']['type'],
+            $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
             $data['http_client']['params'] ?? [],
         ));
     }

@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
@@ -47,20 +48,6 @@ class PhpConfigLoader implements ConfigLoader
      */
     protected function createFromArray(array $config): Config
     {
-        if (isset($config['http_client'])) {
-            if ($config['http_client'] instanceof ClientInterface) {
-                $httpClientFactory = \Closure::fromCallable(function () use ($config) {
-                    return $config['http_client'];
-                });
-            } elseif (is_callable($config['http_client'])) {
-                $httpClientFactory = \Closure::fromCallable($config['http_client']);
-            } else {
-                throw ConfigInvalidException::fromKey('http_client');
-            }
-        } else {
-            throw ConfigInvalidException::fromKey('http_client');
-        }
-
         if (! isset($config['rules']) || ! is_iterable($config['rules'])) {
             throw ConfigInvalidException::fromKey('rules');
         }
@@ -72,7 +59,10 @@ class PhpConfigLoader implements ConfigLoader
         return new Config(
             Rules::make($config['rules']),
             new Map($config['credentials']),
-            $httpClientFactory,
+            new HttpClientConfig(
+                $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
+                $data['http_client']['params'] ?? [],
+            ),
         );
     }
 }
