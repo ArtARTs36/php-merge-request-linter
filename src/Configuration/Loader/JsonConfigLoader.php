@@ -8,16 +8,14 @@ use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
-use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use GuzzleHttp\Client;
 
 class JsonConfigLoader implements ConfigLoader
 {
     public function __construct(
-        private Resolver   $ruleResolver,
         private FileSystem $files,
         private CredentialMapper $credentialMapper,
+        private RulesMapper $rulesMapper,
     ) {
         //
     }
@@ -40,7 +38,7 @@ class JsonConfigLoader implements ConfigLoader
             throw ConfigInvalidException::fromKey('rules');
         }
 
-        $rules = $this->createRules($data['rules']);
+        $rules = $this->rulesMapper->map($data['rules']);
 
         if (! class_exists('\GuzzleHttp\Client')) {
             throw new ConfigInvalidException('HTTP Client unavailable');
@@ -49,19 +47,5 @@ class JsonConfigLoader implements ConfigLoader
         return new Config($rules, $this->credentialMapper->map($data['credentials']), static function () {
             return new Client();
         });
-    }
-
-    /**
-     * @param array<string, mixed> $rulesData
-     */
-    private function createRules(array $rulesData): Rules
-    {
-        $rules = new Rules([]);
-
-        foreach ($rulesData as $ruleName => $ruleParams) {
-            $rules->add($this->ruleResolver->resolve($ruleName, is_array($ruleParams) ? $ruleParams : []));
-        }
-
-        return $rules;
     }
 }
