@@ -4,30 +4,20 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\FileSystem\Contracts\FileNotFound;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
-use ArtARTs36\MergeRequestLinter\Ci\Credentials\Token;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigValueTransformer;
-use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\Map;
 use GuzzleHttp\Client;
 
 class JsonConfigLoader implements ConfigLoader
 {
-    /**
-     * @param iterable<ConfigValueTransformer> $valueTransformers
-     * @param Map<string, class-string<CiSystem>> $ciSystemMap
-     */
     public function __construct(
         private Resolver   $ruleResolver,
         private FileSystem $files,
-        private iterable   $valueTransformers,
-        private Map $ciSystemMap,
+        private CredentialMapper $credentialMapper,
     ) {
         //
     }
@@ -56,7 +46,7 @@ class JsonConfigLoader implements ConfigLoader
             throw new ConfigInvalidException('HTTP Client unavailable');
         }
 
-        return new Config($rules, $this->mapCredentials($data['credentials']), static function () {
+        return new Config($rules, $this->credentialMapper->map($data['credentials']), static function () {
             return new Client();
         });
     }
@@ -73,27 +63,5 @@ class JsonConfigLoader implements ConfigLoader
         }
 
         return $rules;
-    }
-
-    /**
-     * @param array<string, string> $credentials
-     * @return Map<class-string<CiSystem>, RemoteCredentials>
-     */
-    private function mapCredentials(array $credentials): Map
-    {
-        /** @var array<class-string<CiSystem>, RemoteCredentials> $mapped */
-        $mapped = [];
-
-        foreach ($credentials as $ci => $token) {
-            foreach ($this->valueTransformers as $transformer) {
-                if ($transformer->supports($token)) {
-                    $mapped[$this->ciSystemMap->get($ci)] = new Token($transformer->transform($token));
-
-                    continue 2;
-                }
-            }
-        }
-
-        return new Map($mapped);
     }
 }

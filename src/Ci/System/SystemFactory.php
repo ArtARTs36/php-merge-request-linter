@@ -12,7 +12,7 @@ use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 class SystemFactory implements CiSystemFactory
 {
     /** @var array<string, class-string<CiSystem>> */
-    protected array $ciMap = [
+    public const CI_MAP = [
         GitlabCi::NAME => GitlabCi::class,
         GithubActions::NAME => GithubActions::class,
     ];
@@ -26,7 +26,7 @@ class SystemFactory implements CiSystemFactory
 
     public function createCurrently(): CiSystem
     {
-        foreach ($this->ciMap as $name => $ciClass) {
+        foreach (self::CI_MAP as $name => $ciClass) {
             if ($ciClass::is($this->environment)) {
                 return $this->create($name);
             }
@@ -37,7 +37,7 @@ class SystemFactory implements CiSystemFactory
 
     public function create(string $ciName): CiSystem
     {
-        $targetClass = $this->ciMap[$ciName] ?? null;
+        $targetClass = self::CI_MAP[$ciName] ?? null;
 
         if ($targetClass === null) {
             throw CiNotSupported::fromCiName($ciName);
@@ -48,6 +48,7 @@ class SystemFactory implements CiSystemFactory
         }
 
         return new $targetClass(
+            //@phpstan-ignore-next-line
             $this->config->getCredentials()->get($targetClass),
             $this->environment,
             $this->config->getHttpClientFactory()($ciName, $this->environment, $targetClass)

@@ -5,6 +5,7 @@ use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\CredentialMapper;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\JsonConfigLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\PhpConfigLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
@@ -71,8 +72,10 @@ $configLoader = new CompositeLoader([
         return new JsonConfigLoader(
             new Resolver(DefaultRules::map(), $ruleFactory, new OperatorResolver($operatorFactory)),
             $filesystem,
-            [new EnvTransformer($environment)],
-            new Map(DefaultSystems::MAP),
+            new CredentialMapper(
+                [new EnvTransformer($environment)],
+                new Map(DefaultSystems::MAP),
+            ),
         );
     }),
 ]);
