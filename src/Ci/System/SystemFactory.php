@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 
@@ -20,6 +21,7 @@ class SystemFactory implements CiSystemFactory
     public function __construct(
         protected Config $config,
         protected Environment $environment,
+        protected HttpClientFactory $httpClientFactory,
     ) {
         //
     }
@@ -51,7 +53,9 @@ class SystemFactory implements CiSystemFactory
             //@phpstan-ignore-next-line
             $this->config->getCredentials()->get($targetClass),
             $this->environment,
-            $this->config->getHttpClientFactory()($ciName, $this->environment, $targetClass)
+            $this->httpClientFactory->create(
+                $this->config->getHttpClient(),
+            ),
         );
     }
 }

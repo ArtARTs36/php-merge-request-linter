@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 use ArtARTs36\FileSystem\Contracts\FileNotFound;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
@@ -44,8 +45,9 @@ class JsonConfigLoader implements ConfigLoader
             throw new ConfigInvalidException('HTTP Client unavailable');
         }
 
-        return new Config($rules, $this->credentialMapper->map($data['credentials']), static function () {
-            return new Client();
-        });
+        return new Config($rules, $this->credentialMapper->map($data['credentials']), new HttpClientConfig(
+            $data['http_client']['type'],
+            $data['http_client']['params'] ?? [],
+        ));
     }
 }

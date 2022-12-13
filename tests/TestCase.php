@@ -3,13 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Tests;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\Map;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullClient;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -21,9 +21,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return new Config(
             Rules::make($rules),
             new Map([]),
-            function () {
-                return new NullClient();
-            },
+            new HttpClientConfig(HttpClientConfig::TYPE_NULL),
         );
     }
 

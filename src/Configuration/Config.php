@@ -15,8 +15,8 @@ class Config
      */
     public function __construct(
         protected Rules $rules,
-        protected Map $credentials,
-        protected \Closure $httpClientFactory,
+        protected Map   $credentials,
+        protected HttpClientConfig $httpClient,
     ) {
         //
     }
@@ -43,8 +43,8 @@ class Config
         return $this->credentials;
     }
 
-    public function getHttpClientFactory(): \Closure
+    public function getHttpClient(): HttpClientConfig
     {
-        return $this->httpClientFactory;
+        return $this->httpClient;
     }
 }

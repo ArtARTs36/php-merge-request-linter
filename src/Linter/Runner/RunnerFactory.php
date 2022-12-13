@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Support\HttpClientFactory;
 
 class RunnerFactory implements LinterRunnerFactory
 {
@@ -17,6 +18,6 @@ class RunnerFactory implements LinterRunnerFactory
 
     public function create(Config $config): LinterRunner
     {
-        return new Runner(new SystemFactory($config, $this->environment));
+        return new Runner(new SystemFactory($config, $this->environment, new HttpClientFactory()));
     }
 }
