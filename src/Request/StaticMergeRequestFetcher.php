@@ -1,9 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Linter;
+namespace ArtARTs36\MergeRequestLinter\Request;
 
 use ArtARTs36\MergeRequestLinter\Contracts\MergeRequestFetcher;
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
 class StaticMergeRequestFetcher implements MergeRequestFetcher
 {

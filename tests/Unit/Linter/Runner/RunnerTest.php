@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
-use ArtARTs36\MergeRequestLinter\Ci\CiMergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
@@ -11,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Request\CiMergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
