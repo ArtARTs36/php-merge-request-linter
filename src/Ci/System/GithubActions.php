@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Ci\System\Schema\GithubPullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
+use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
@@ -38,7 +38,7 @@ class GithubActions implements CiSystem
     {
         try {
             return $this->getMergeRequestId() >= 0;
-        } catch (EnvironmentDataKeyNotFound) {
+        } catch (EnvironmentVariableNotFound) {
             return false;
         }
     }
@@ -78,7 +78,7 @@ class GithubActions implements CiSystem
         $id = $ref->deleteWhenEnds('/merge');
 
         if (! $id->isDigit()) {
-            throw new EnvironmentDataKeyNotFound('GITHUB_REF_NAME');
+            throw new EnvironmentVariableNotFound('GITHUB_REF_NAME');
         }
 
         return $id->toInteger();
