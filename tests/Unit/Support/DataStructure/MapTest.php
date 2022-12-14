@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
