@@ -9,8 +9,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\Map;
-use Psr\Http\Client\ClientInterface;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class PhpConfigLoader implements ConfigLoader
 {
@@ -59,10 +58,18 @@ class PhpConfigLoader implements ConfigLoader
         return new Config(
             Rules::make($config['rules']),
             new Map($config['credentials']),
-            new HttpClientConfig(
-                $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
-                $data['http_client']['params'] ?? [],
-            ),
+            $this->makeHttpClientConfig($config),
+        );
+    }
+
+    /**
+     * @param array<mixed> $data
+     */
+    private function makeHttpClientConfig(array $data): HttpClientConfig
+    {
+        return new HttpClientConfig(
+            isset($data['http_client']['type']) ? $data['http_client']['type'] : HttpClientConfig::TYPE_DEFAULT,
+            isset($data['http_client']['params']) ? $data['http_client']['params'] : [],
         );
     }
 }

@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 class RuleFactoryTest extends TestCase

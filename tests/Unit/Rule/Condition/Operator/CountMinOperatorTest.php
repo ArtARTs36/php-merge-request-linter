@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Rule\Condition\CountMinOperator;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

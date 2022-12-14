@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
 
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class MapTest extends TestCase
@@ -25,7 +25,7 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestFromList
-     * @covers \ArtARTs36\MergeRequestLinter\Support\Map::fromList
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::fromList
      */
     public function testFromList(array $items, array $expected): void
     {
@@ -56,7 +56,7 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestGet
-     * @covers \ArtARTs36\MergeRequestLinter\Support\Map::get
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::get
      */
     public function testGet(array $items, string $id, mixed $value): void
     {
@@ -87,7 +87,7 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestHas
-     * @covers \ArtARTs36\MergeRequestLinter\Support\Map::has
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::has
      */
     public function testHas(array $items, string $id, bool $expected): void
     {
@@ -118,7 +118,7 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestMissing
-     * @covers \ArtARTs36\MergeRequestLinter\Support\Map::missing
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::missing
      */
     public function testMissing(array $items, string $id, bool $expected): void
     {

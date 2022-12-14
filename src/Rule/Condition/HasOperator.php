@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
-use ArtARTs36\MergeRequestLinter\Support\Set;
+use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 
 class HasOperator extends AbstractOperator implements ConditionOperator
 {

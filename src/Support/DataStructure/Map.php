@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support;
+namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 /**
  * @template K of array-key
@@ -9,6 +9,8 @@ namespace ArtARTs36\MergeRequestLinter\Support;
  */
 class Map extends ArrayCollection
 {
+    use CountProxy;
+
     private ?int $count = null;
 
     /**
@@ -77,14 +79,5 @@ class Map extends ArrayCollection
         }
 
         return true;
-    }
-
-    public function count(): int
-    {
-        if ($this->count === null) {
-            $this->count = count($this->items);
-        }
-
-        return $this->count;
     }
 }

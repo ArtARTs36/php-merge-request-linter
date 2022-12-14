@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Support;
 
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Facade\Str as StrFacade;
 use ArtARTs36\Str\Str;
 
@@ -50,7 +52,7 @@ class PropertyExtractor implements \ArtARTs36\MergeRequestLinter\Contracts\Prope
     /**
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
-     * @return array<mixed>|Set<string, bool>|Map<string, mixed>
+     * @return array<mixed>|Set<string>|Map<string, mixed>
      */
     public function iterable(object $object, string $property): array|Set|Map
     {

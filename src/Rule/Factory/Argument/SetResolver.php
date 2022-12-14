@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
 use ArtARTs36\MergeRequestLinter\Contracts\ArgResolver;
-use ArtARTs36\MergeRequestLinter\Support\Set;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 
 class SetResolver implements ArgResolver
 {

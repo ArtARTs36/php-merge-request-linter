@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
 use ArtARTs36\MergeRequestLinter\Contracts\ArgResolver;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class MapResolver implements ArgResolver
 {

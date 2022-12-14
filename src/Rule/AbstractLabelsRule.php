@@ -3,13 +3,12 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Support\Map;
-use ArtARTs36\MergeRequestLinter\Support\Set;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 
 abstract class AbstractLabelsRule extends AbstractRule implements Rule
 {
     /**
-     * @param Set<string, bool> $labels
+     * @param Set<string> $labels
      */
     final public function __construct(protected Set $labels)
     {

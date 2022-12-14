@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Environment;
 
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class MapEnvironment extends AbstractEnvironment
 {

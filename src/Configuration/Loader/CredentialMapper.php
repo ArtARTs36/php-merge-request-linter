@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Ci\System\SystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigValueTransformer;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class CredentialMapper
 {

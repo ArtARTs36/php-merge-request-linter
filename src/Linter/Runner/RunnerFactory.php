@@ -19,8 +19,10 @@ class RunnerFactory implements LinterRunnerFactory
 
     public function create(Config $config): LinterRunner
     {
-        return new Runner(new CiMergeRequestFetcher(
-            new SystemFactory($config, $this->environment, new HttpClientFactory())),
+        return new Runner(
+            new CiMergeRequestFetcher(
+                new SystemFactory($config, $this->environment, new HttpClientFactory()),
+            ),
         );
     }
 }

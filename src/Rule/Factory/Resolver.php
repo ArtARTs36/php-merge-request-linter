@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\CompositeOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Rule\ConditionableRule;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class Resolver
 {

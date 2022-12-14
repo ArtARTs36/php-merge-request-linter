@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 abstract class AbstractArrayConfigLoader implements ConfigLoader
 {
     /**
-     * @return array
+     * @return array<mixed>
      */
     abstract protected function loadConfigArray(string $path): array;
 

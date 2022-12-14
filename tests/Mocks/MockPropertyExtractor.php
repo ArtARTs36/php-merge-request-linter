@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
-use ArtARTs36\MergeRequestLinter\Support\Map;
-use ArtARTs36\MergeRequestLinter\Support\Set;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 
 final class MockPropertyExtractor implements PropertyExtractor
 {

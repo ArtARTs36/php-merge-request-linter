@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support;
+namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 /**
  * @template K of array-key
@@ -9,22 +9,14 @@ namespace ArtARTs36\MergeRequestLinter\Support;
  */
 class ArrayCollection implements \Countable, \IteratorAggregate
 {
+    use CountProxy;
+
     /**
      * @param array<K, V> $items
      */
     final public function __construct(protected array $items)
     {
         //
-    }
-
-    public function count(): int
-    {
-        return count($this->items);
-    }
-
-    public function isEmpty(): bool
-    {
-        return $this->count() === 0;
     }
 
     /**

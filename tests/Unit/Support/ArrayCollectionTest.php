@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
 
-use ArtARTs36\MergeRequestLinter\Support\ArrayCollection;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ArrayCollectionTest extends TestCase
@@ -26,7 +26,7 @@ final class ArrayCollectionTest extends TestCase
 
     /**
      * @dataProvider providerForTestCount
-     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::count
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection::count
      */
     public function testCount(array $items, int $expectedCount): void
     {
@@ -49,7 +49,7 @@ final class ArrayCollectionTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsEmpty
-     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::isEmpty
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection::isEmpty
      */
     public function testIsEmpty(array $items, bool $expected): void
     {
@@ -57,7 +57,7 @@ final class ArrayCollectionTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::getIterator
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection::getIterator
      */
     public function testGetIterator(): void
     {
@@ -80,8 +80,8 @@ final class ArrayCollectionTest extends TestCase
 
     /**
      * @dataProvider providerForTestFirst
-     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::first
-     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection::first
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection::__construct
      */
     public function testFirst(array $items, mixed $expected): void
     {
@@ -106,7 +106,7 @@ final class ArrayCollectionTest extends TestCase
 
     /**
      * @dataProvider providerForTestEqualsCount
-     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::equalsCount
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection::equalsCount
      */
     public function testEqualsCount(array $one, array $two, bool $expected): void
     {
@@ -114,7 +114,7 @@ final class ArrayCollectionTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::implode
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection::implode
      */
     public function testImplode(): void
     {
@@ -122,7 +122,7 @@ final class ArrayCollectionTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Support\ArrayCollection::diff
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayCollection::diff
      */
     public function testDiff(): void
     {

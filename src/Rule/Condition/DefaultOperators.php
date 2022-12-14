@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 final class DefaultOperators
 {

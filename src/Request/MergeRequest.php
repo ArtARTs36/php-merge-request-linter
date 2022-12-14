@@ -2,8 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Request;
 
-use ArtARTs36\MergeRequestLinter\Support\Map;
-use ArtARTs36\MergeRequestLinter\Support\Set;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 use JetBrains\PhpStorm\ArrayShape;
 

@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Value;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class EnvTransformerTest extends TestCase

@@ -26,7 +26,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\PropertyExtractor;
 use Symfony\Component\Console\Application;
 
