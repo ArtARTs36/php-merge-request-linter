@@ -46,7 +46,8 @@ final class CountMinOperatorTest extends TestCase
     }
 
     /**
-     * @covers CountMinOperator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Condition\CountMinOperator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Condition\CountMinOperator::doEvaluate
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(array|Map $propertyValue, int $min, bool $expected): void

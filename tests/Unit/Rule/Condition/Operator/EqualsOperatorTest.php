@@ -25,6 +25,8 @@ final class EqualsOperatorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Rule\Condition\EqualsOperator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Condition\EqualsOperator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Condition\EqualsOperator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(MergeRequest $request, string $property, string $equals, bool $expected): void

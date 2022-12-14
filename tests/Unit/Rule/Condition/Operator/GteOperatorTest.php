@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Rule\Condition\GteOperator;
-use ArtARTs36\MergeRequestLinter\Rule\Condition\LteOperator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

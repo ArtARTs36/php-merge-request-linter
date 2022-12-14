@@ -46,7 +46,8 @@ final class CountMaxOperatorTest extends TestCase
     }
 
     /**
-     * @covers CountMaxOperator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Condition\CountMaxOperator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Condition\CountMaxOperator::doEvaluate
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(array|Map $propertyValue, int $max, bool $expected): void
