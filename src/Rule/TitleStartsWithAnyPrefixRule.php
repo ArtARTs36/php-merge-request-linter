@@ -26,17 +26,7 @@ class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
 
     public function lint(MergeRequest $request): array
     {
-        $starts = false;
-
-        foreach ($this->prefixes as $prefix) {
-            if ($request->title->startsWith($prefix)) {
-                $starts = true;
-
-                break;
-            }
-        }
-
-        return $starts ? [] : $this->definitionToNotes();
+        return $request->title->startsWithAnyOf($this->prefixes) ? [] : $this->definitionToNotes();
     }
 
     public function getDefinition(): RuleDefinition
