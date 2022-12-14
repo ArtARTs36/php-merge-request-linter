@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\Set;
 
 final class MockPropertyExtractor implements PropertyExtractor
 {
@@ -23,7 +24,7 @@ final class MockPropertyExtractor implements PropertyExtractor
         return $this->value;
     }
 
-    public function iterable(object $object, string $property): array|Map
+    public function iterable(object $object, string $property): array|Set|Map
     {
         return $this->value;
     }

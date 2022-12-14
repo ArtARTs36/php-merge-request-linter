@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Request;
 
 use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\Set;
 use ArtARTs36\Str\Str;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -19,12 +20,12 @@ class MergeRequest
     ];
 
     /**
-     * @param Map<string, string> $labels
+     * @param Set<string> $labels
      */
     public function __construct(
         public Str $title,
         public Str $description,
-        public Map $labels,
+        public Set $labels,
         public bool $hasConflicts,
         public Str $sourceBranch,
         public Str $targetBranch,
@@ -49,7 +50,7 @@ class MergeRequest
         return new self(
             Str::make($request['title']),
             Str::make($request['description']),
-            Map::fromList($request['labels']),
+            Set::fromList($request['labels']),
             (bool) $request['has_conflicts'],
             Str::make($request['source_branch']),
             Str::make($request['target_branch']),

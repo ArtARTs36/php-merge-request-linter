@@ -4,13 +4,14 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\Set;
 
 abstract class AbstractLabelsRule extends AbstractRule implements Rule
 {
     /**
-     * @param Map<string, string> $labels
+     * @param Set<string, bool> $labels
      */
-    final public function __construct(protected Map $labels)
+    final public function __construct(protected Set $labels)
     {
         //
     }
@@ -20,6 +21,6 @@ abstract class AbstractLabelsRule extends AbstractRule implements Rule
      */
     public static function make(iterable $labels): self
     {
-        return new static(Map::fromList($labels));
+        return new static(Set::fromList($labels));
     }
 }

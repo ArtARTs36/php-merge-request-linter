@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
@@ -45,7 +46,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function assertHasNotes(MergeRequest $request, Rule $rule, bool $expected): void
     {
-        self::assertEquals($expected, count($rule->lint($request)) > 0);
+        $notes = $rule->lint($request);
+
+        self::assertEquals($expected, count($notes) > 0, sprintf(
+            'Given %d notes: %s',
+            count($notes),
+            implode(', ', array_map(function (Note $note) {
+                return $note->getDescription();
+            }, $notes)),
+        ));
     }
 
     protected function getPropertyValue(object $obj, string $prop): mixed

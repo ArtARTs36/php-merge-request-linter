@@ -19,6 +19,7 @@ class DefaultResolvers
             'float' => $asIsResolver,
             'array' => $asIsResolver,
             MapResolver::SUPPORT_TYPE => new MapResolver(),
+            SetResolver::SUPPORT_TYPE => new SetResolver(),
             'iterable' => $asIsResolver,
         ];
     }

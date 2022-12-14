@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\Set;
 
 class HasOperator extends AbstractOperator implements ConditionOperator
 {
@@ -26,6 +27,10 @@ class HasOperator extends AbstractOperator implements ConditionOperator
             return in_array($this->value, $val);
         }
 
-        return $val->has("$this->value");
+        if ($val instanceof Set) {
+            return $val->has($this->value);
+        }
+
+        return $val->search($this->value) !== null;
     }
 }
