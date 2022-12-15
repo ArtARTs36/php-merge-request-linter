@@ -74,6 +74,26 @@ class PropertyExtractor implements \ArtARTs36\MergeRequestLinter\Contracts\Prope
      */
     private function extract(object $object, string $property): mixed
     {
+        $properties = explode('.', $property);
+        $obj = $object;
+        $val = null;
+
+        foreach ($properties as $prop) {
+            $val = $this->doExtract($obj, $prop);
+
+            if (is_object($val)) {
+                $obj = $val;
+            }
+        }
+
+        return $val;
+    }
+
+    /**
+     * @throws PropertyNotExists
+     */
+    private function doExtract(object $object, string $property): mixed
+    {
         if (! property_exists($object, $property)) {
             throw PropertyNotExists::make($property);
         }
