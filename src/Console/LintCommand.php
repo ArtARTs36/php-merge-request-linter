@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Note;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Note\NoteColor;
+use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -89,14 +89,12 @@ class LintCommand extends Command
         $table = [];
 
         $tableCellOptions = [
-            NoteColor::RED->value => [
+            NoteSeverity::Fatal->value => [
                 'style' => new TableCellStyle([
                     'fg' => 'red',
                 ]),
             ],
-            NoteColor::WHITE->value => [
-                'style' => new TableCellStyle([]),
-            ]
+            NoteSeverity::Normal->value => [],
         ];
 
         $counter = 0;
@@ -106,8 +104,8 @@ class LintCommand extends Command
             ++$counter;
 
             $table[] = [
-                new TableCell("$counter", $tableCellOptions[$note->getColor()->value]),
-                new TableCell($note->getDescription(), $tableCellOptions[$note->getColor()->value]),
+                new TableCell("$counter", $tableCellOptions[$note->getSeverity()->value]),
+                new TableCell($note->getDescription(), $tableCellOptions[$note->getSeverity()->value]),
             ];
         }
 

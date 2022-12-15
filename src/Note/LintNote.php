@@ -12,9 +12,9 @@ final class LintNote extends AbstractNote implements Note
         //
     }
 
-    public function getColor(): NoteColor
+    public function getSeverity(): NoteSeverity
     {
-        return NoteColor::WHITE;
+        return NoteSeverity::Normal;
     }
 
     public function getDescription(): string

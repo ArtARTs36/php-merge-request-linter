@@ -2,25 +2,25 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts;
 
-use ArtARTs36\MergeRequestLinter\Note\NoteColor;
+use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
 
 /**
- * Note after linting
+ * Note after linting.
  */
 interface Note
 {
     /**
      * Get Note Color.
      */
-    public function getColor(): NoteColor;
+    public function getSeverity(): NoteSeverity;
 
     /**
-     * Get note description
+     * Get note description.
      */
     public function getDescription(): string;
 
     /**
-     * Get note description
+     * Get note description.
      */
     public function __toString(): string;
 }

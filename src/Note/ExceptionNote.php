@@ -23,9 +23,9 @@ final class ExceptionNote extends AbstractNote implements Note
         return new self($e, $message);
     }
 
-    public function getColor(): NoteColor
+    public function getSeverity(): NoteSeverity
     {
-        return NoteColor::RED;
+        return NoteSeverity::Fatal;
     }
 
     public function getDescription(): string
