@@ -22,6 +22,8 @@ final class DefaultOperators
         LengthMinOperator::NAME => LengthMinOperator::class,
         LengthMaxOperator::NAME => LengthMaxOperator::class,
         ContainsOperator::NAME => ContainsOperator::class,
+        NotEqualsOperator::NAME => NotEqualsOperator::class,
+        NotEqualsOperator::SYMBOL => NotEqualsOperator::class,
     ];
 
     /**
