@@ -21,6 +21,7 @@ class GithubPullRequestSchema
             'source_branch' => $pullRequest['headRefName'],
             'target_branch' => $pullRequest['baseRefName'],
             'changed_files_count' => $pullRequest['changedFiles'],
+            'author_login' => $pullRequest['author']['login'],
         ]);
     }
 
@@ -29,6 +30,9 @@ class GithubPullRequestSchema
         return "query { 
   repository(owner: \"$owner\", name: \"$repo\") {
     pullRequest(number: $requestId) {
+      author {
+        login
+      }
       title
       bodyText
       mergeable

@@ -42,6 +42,7 @@ class GitlabCi implements CiSystem
 
         $responseArray = $this->responseToJsonArray($response);
         $responseArray['changed_files_count'] = count($responseArray['changes']);
+        $responseArray['author_login'] = $responseArray['author']['username'];
 
         unset($responseArray['changes']);
 

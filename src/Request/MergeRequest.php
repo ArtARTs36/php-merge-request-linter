@@ -16,6 +16,7 @@ class MergeRequest
         'source_branch' => 'string',
         'target_branch' => 'string',
         'changed_files_count' => 'integer',
+        'author_login' => 'string',
     ];
 
     /**
@@ -29,6 +30,7 @@ class MergeRequest
         public Str $sourceBranch,
         public Str $targetBranch,
         public int $changedFilesCount,
+        public Author $author,
     ) {
         //
     }
@@ -54,6 +56,7 @@ class MergeRequest
             Str::make($request['source_branch']),
             Str::make($request['target_branch']),
             (int) $request['changed_files_count'],
+            new Author($request['author_login']),
         );
     }
 }
