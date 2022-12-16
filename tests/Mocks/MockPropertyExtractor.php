@@ -24,6 +24,11 @@ final class MockPropertyExtractor implements PropertyExtractor
         return $this->value;
     }
 
+    public function string(object $object, string $property): string
+    {
+        return $this->value;
+    }
+
     public function iterable(object $object, string $property): array|Set|Map
     {
         return $this->value;

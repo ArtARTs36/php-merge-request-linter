@@ -27,6 +27,13 @@ interface PropertyExtractor
     public function scalar(object $object, string $property): int|string|float|bool;
 
     /**
+     * Extract string property.
+     * @throws PropertyHasDifferentTypeException
+     * @throws PropertyNotExists
+     */
+    public function string(object $object, string $property): string;
+
+    /**
      * Extract iterable property.
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists

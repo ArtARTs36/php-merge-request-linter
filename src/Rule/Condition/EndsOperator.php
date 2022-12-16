@@ -6,14 +6,14 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\Str\Facade\Str;
 
-class EndsOperator extends AbstractScalarOperator implements ConditionOperator
+class EndsOperator extends AbstractStringOperator implements ConditionOperator
 {
     public const NAME = 'ends';
 
     protected function doEvaluate(MergeRequest $request): bool
     {
-        $value = $this->propertyExtractor->scalar($request, $this->property);
+        $value = $this->propertyExtractor->string($request, $this->property);
 
-        return Str::endsWith("$value", "$this->value");
+        return Str::endsWith($value, "$this->value");
     }
 }

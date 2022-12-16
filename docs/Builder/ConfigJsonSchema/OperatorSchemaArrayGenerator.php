@@ -2,10 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
+use ArtARTs36\MergeRequestLinter\Attribute\EvaluateSameType;
 use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;
+use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Support\Reflector;
+use ArtARTs36\Str\Str;
 
 class OperatorSchemaArrayGenerator
 {
@@ -17,11 +20,15 @@ class OperatorSchemaArrayGenerator
         ];
 
         $operatorParameterTypeMap = [];
+        /** @var array<class-string<ConditionOperator>, bool> $genericOperators */
+        $genericOperators = [];
 
         foreach (DefaultOperators::MAP as $operatorClass) {
+            $operatorReflector = new \ReflectionClass($operatorClass);
+
             $operatorParameterTypeMap[$operatorClass] = [];
 
-            $param = Reflector::findParamByName((new \ReflectionClass($operatorClass))->getConstructor(), 'value');
+            $param = Reflector::findParamByName($operatorReflector->getConstructor(), 'value');
 
             if ($param === null || ! $param->hasType()) {
                 continue;
@@ -32,6 +39,10 @@ class OperatorSchemaArrayGenerator
 
             foreach ($paramTypes as $paramType) {
                 $operatorParameterTypeMap[$operatorClass][] = $paramType->getName();
+            }
+
+            if (Reflector::hasAttribute($operatorReflector, EvaluateSameType::class)) {
+                $genericOperators[$operatorClass] = true;
             }
         }
 
@@ -46,6 +57,15 @@ class OperatorSchemaArrayGenerator
 
                 foreach ($operators as $operatorClass) {
                     $operatorName = $operatorClass::NAME;
+
+                    if (isset($genericOperators[$operatorClass])) {
+                        $opArray['properties'][$property->getName()]['properties'][$operatorName] = [
+                            'type' => $this->prepareTypeToPrimitive($property->getType()->getName()),
+                        ];
+
+                        continue;
+                    }
+
                     $opParamTypes = $operatorParameterTypeMap[$operatorClass];
 
                     if (count($opParamTypes) === 1) {
@@ -68,5 +88,14 @@ class OperatorSchemaArrayGenerator
         }
 
         return $opArray;
+    }
+
+    private function prepareTypeToPrimitive(string $type): string
+    {
+        if ($type === Str::class) {
+            return 'string';
+        }
+
+        return $type;
     }
 }

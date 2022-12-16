@@ -52,6 +52,25 @@ class PropertyExtractor implements \ArtARTs36\MergeRequestLinter\Contracts\Prope
     /**
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
+     */
+    public function string(object $object, string $property): string
+    {
+        $val = $this->extract($object, $property);
+
+        if (! is_string($val) && ! $val instanceof Str) {
+            throw PropertyHasDifferentTypeException::make(
+                $property,
+                $this->getType($val),
+                'string',
+            );
+        }
+
+        return $val;
+    }
+
+    /**
+     * @throws PropertyHasDifferentTypeException
+     * @throws PropertyNotExists
      * @return array<mixed>|Set<string>|Map<string, mixed>
      */
     public function iterable(object $object, string $property): array|Set|Map

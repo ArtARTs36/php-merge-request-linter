@@ -35,4 +35,9 @@ class Reflector
 
         return null;
     }
+
+    public static function hasAttribute(\ReflectionClass $reflector, string $attributeClass): bool
+    {
+        return count($reflector->getAttributes($attributeClass)) > 0;
+    }
 }
