@@ -24,4 +24,15 @@ class Reflector
 
         return $params;
     }
+
+    public static function findParamByName(\ReflectionMethod $method, string $name): ?\ReflectionParameter
+    {
+        foreach ($method->getParameters() as $parameter) {
+            if ($parameter->getName() === $name) {
+                return $parameter;
+            }
+        }
+
+        return null;
+    }
 }

@@ -2,6 +2,17 @@
 
 namespace ArtARTs36\MergeRequestLinter\Request;
 
+use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\CountMaxOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\CountMinOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\EndsOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\EqualsOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\GteOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\HasOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\LengthMaxOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\LteOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\StartsOperator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 use JetBrains\PhpStorm\ArrayShape;
@@ -23,12 +34,53 @@ class MergeRequest
      * @param Set<string> $labels
      */
     public function __construct(
+        #[SupportsConditionOperator([
+            EqualsOperator::class,
+            LengthMinOperator::class,
+            LengthMaxOperator::class,
+            StartsOperator::class,
+            EndsOperator::class,
+        ])]
         public Str $title,
+        #[SupportsConditionOperator([
+            EqualsOperator::class,
+            LengthMinOperator::class,
+            LengthMaxOperator::class,
+            StartsOperator::class,
+            EndsOperator::class,
+        ])]
         public Str $description,
+        #[SupportsConditionOperator([
+            CountMinOperator::class,
+            CountMaxOperator::class,
+            HasOperator::class,
+        ])]
         public Set $labels,
+        #[SupportsConditionOperator([
+            EqualsOperator::class,
+        ])]
         public bool $hasConflicts,
+        #[SupportsConditionOperator([
+            EqualsOperator::class,
+            LengthMinOperator::class,
+            LengthMaxOperator::class,
+            StartsOperator::class,
+            EndsOperator::class,
+        ])]
         public Str $sourceBranch,
+        #[SupportsConditionOperator([
+            EqualsOperator::class,
+            LengthMinOperator::class,
+            LengthMaxOperator::class,
+            StartsOperator::class,
+            EndsOperator::class,
+        ])]
         public Str $targetBranch,
+        #[SupportsConditionOperator([
+            EqualsOperator::class,
+            LteOperator::class,
+            GteOperator::class,
+        ])]
         public int $changedFilesCount,
         public Author $author,
     ) {

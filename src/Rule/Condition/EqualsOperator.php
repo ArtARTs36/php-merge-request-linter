@@ -12,15 +12,15 @@ class EqualsOperator extends AbstractOperator implements ConditionOperator
     public const SYMBOL = '=';
 
     public function __construct(
-        PropertyExtractor $propertyExtractor,
-        string $property,
-        private readonly mixed $equals,
+        PropertyExtractor      $propertyExtractor,
+        string                 $property,
+        private readonly int|float|string|bool $value,
     ) {
         parent::__construct($propertyExtractor, $property);
     }
 
     protected function doEvaluate(MergeRequest $request): bool
     {
-        return $this->propertyExtractor->scalar($request, $this->property) === $this->equals;
+        return $this->propertyExtractor->scalar($request, $this->property) === $this->value;
     }
 }
