@@ -33,7 +33,7 @@ class OperatorMetadataLoader
             $paramTypeNames = [];
 
             foreach ($paramTypes as $paramType) {
-                $paramTypeNames[] = $paramType->getName();
+                $paramTypeNames[] = JsonType::to($paramType->getName());
             }
 
             $evaluatesSameType = Reflector::hasAttribute($operatorReflector, EvaluatesSameType::class);

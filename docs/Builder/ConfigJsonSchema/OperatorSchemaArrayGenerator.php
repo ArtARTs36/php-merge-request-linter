@@ -64,7 +64,7 @@ class OperatorSchemaArrayGenerator
 
                     if ($operatorMeta->evaluatesSameType) {
                         $opArray['properties'][$propertyName]['properties'][$operatorMeta->name] = [
-                            'type' => $this->prepareTypeToPrimitive($property->getType()->getName()),
+                            'type' => JsonType::to($property->getType()->getName()),
                         ];
 
                         continue;
@@ -97,14 +97,5 @@ class OperatorSchemaArrayGenerator
     private function allowObjectScan(string $type): bool
     {
         return $type !== Set::class && $type !== Str::class;
-    }
-
-    private function prepareTypeToPrimitive(string $type): string
-    {
-        if ($type === Str::class) {
-            return 'string';
-        }
-
-        return $type;
     }
 }
