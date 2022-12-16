@@ -2,49 +2,26 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
-use ArtARTs36\MergeRequestLinter\Attribute\EvaluateSameType;
 use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
-use ArtARTs36\MergeRequestLinter\Support\Reflector;
 use ArtARTs36\Str\Str;
 
 class OperatorSchemaArrayGenerator
 {
-    public function generate()
+    public function __construct(
+        private OperatorMetadataLoader $operatorMetadataLoader = new OperatorMetadataLoader(),
+    ) {
+        //
+    }
+
+    public function generate(): array
     {
         $reflector = new \ReflectionClass(MergeRequest::class);
         $opArray = [
             'properties' => [],
         ];
 
-        $operatorParameterTypeMap = [];
-        /** @var array<class-string<ConditionOperator>, bool> $genericOperators */
-        $genericOperators = [];
-
-        foreach (DefaultOperators::MAP as $operatorClass) {
-            $operatorReflector = new \ReflectionClass($operatorClass);
-
-            $operatorParameterTypeMap[$operatorClass] = [];
-
-            $param = Reflector::findParamByName($operatorReflector->getConstructor(), 'value');
-
-            if ($param === null || ! $param->hasType()) {
-                continue;
-            }
-
-            $paramRawType = $param->getType();
-            $paramTypes = $paramRawType instanceof \ReflectionUnionType ? $paramRawType->getTypes() : [$paramRawType];
-
-            foreach ($paramTypes as $paramType) {
-                $operatorParameterTypeMap[$operatorClass][] = $paramType->getName();
-            }
-
-            if (Reflector::hasAttribute($operatorReflector, EvaluateSameType::class)) {
-                $genericOperators[$operatorClass] = true;
-            }
-        }
+        $operatorMetadata = $this->operatorMetadataLoader->load();
 
         foreach ($reflector->getProperties() as $property) {
             $opArray['properties'][$property->getName()] = [
@@ -56,20 +33,20 @@ class OperatorSchemaArrayGenerator
                 $operators = current($attribute->getArguments());
 
                 foreach ($operators as $operatorClass) {
-                    $operatorName = $operatorClass::NAME;
+                    $operatorMeta = $operatorMetadata[$operatorClass];
 
-                    if (isset($genericOperators[$operatorClass])) {
-                        $opArray['properties'][$property->getName()]['properties'][$operatorName] = [
+                    if ($operatorMeta->evaluatesSameType) {
+                        $opArray['properties'][$property->getName()]['properties'][$operatorMeta->name] = [
                             'type' => $this->prepareTypeToPrimitive($property->getType()->getName()),
                         ];
 
                         continue;
                     }
 
-                    $opParamTypes = $operatorParameterTypeMap[$operatorClass];
+                    $opParamTypes = $operatorMeta->allowValueTypes;
 
                     if (count($opParamTypes) === 1) {
-                        $opArray['properties'][$property->getName()]['properties'][$operatorName] = [
+                        $opArray['properties'][$property->getName()]['properties'][$operatorMeta->name] = [
                             'type' => $opParamTypes[0],
                         ];
                     } else {
@@ -81,7 +58,7 @@ class OperatorSchemaArrayGenerator
                             ];
                         }
 
-                        $opArray['properties'][$property->getName()]['properties'][$operatorName]['anyOf'] = $anyOf;
+                        $opArray['properties'][$property->getName()]['properties'][$operatorMeta->name]['anyOf'] = $anyOf;
                     }
                 }
             }

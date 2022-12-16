@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 
-use ArtARTs36\MergeRequestLinter\Attribute\EvaluateSameType;
+use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 
-#[EvaluateSameType]
+#[EvaluatesSameType]
 class EqualsOperator extends AbstractOperator implements ConditionOperator
 {
     public const NAME = 'equals';
