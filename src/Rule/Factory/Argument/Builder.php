@@ -25,7 +25,7 @@ class Builder
         $args = [];
 
         foreach ($constructor->params() as $paramName => $paramType) {
-            $args[$paramName] = $this->argResolvers[$paramType]->resolve($params[$paramName]);
+            $args[$paramName] = $this->argResolvers[$paramType->name]->resolve($params[$paramName]);
         }
 
         return $args;

@@ -2,30 +2,23 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
+use ArtARTs36\MergeRequestLinter\Support\ParameterType;
 use ArtARTs36\Str\Str;
 
 class JsonType
 {
+    private const MAP = [
+        Str::class => 'string',
+        'int' => 'integer',
+        'iterable' => 'array',
+        'float' => 'number',
+        'bool' => 'boolean',
+    ];
+
     public static function to(string $type): string
     {
-        if ($type === Str::class) {
-            return 'string';
-        }
-
-        if ($type === 'int') {
-            return 'integer';
-        }
-
-        if ($type === 'iterable') {
-            return 'array';
-        }
-
-        if ($type === 'float') {
-            return 'number';
-        }
-
-        if ($type === 'bool') {
-            return 'boolean';
+        if (isset(self::MAP[$type])) {
+            return self::MAP[$type];
         }
 
         return $type;

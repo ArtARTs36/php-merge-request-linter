@@ -2,10 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support;
 
+use ArtARTs36\MergeRequestLinter\Attribute\Generic;
+
 class Reflector
 {
     /**
-     * @return array<string, string|class-string>
+     * @return array<string, ParameterType>
      * @throws \Exception
      */
     public static function mapMethodParamTypeOnParam(\ReflectionMethod $method): array
@@ -19,7 +21,15 @@ class Reflector
                 throw new \Exception(sprintf('Parameter %s::%s doesnt have type', $method->class, $method->getName()));
             }
 
-            $params[$parameter->getName()] = $type->getName();
+            $genericAttributes = $parameter->getAttributes(Generic::class);
+            $generic = null;
+
+            if (count($genericAttributes) === 1) {
+                $genericAttr = current($genericAttributes);
+                $generic = current($genericAttr->getArguments());
+            }
+
+            $params[$parameter->getName()] = new ParameterType($type->getName(), $generic);
         }
 
         return $params;

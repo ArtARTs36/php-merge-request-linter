@@ -35,9 +35,19 @@ class RuleSchemaGenerator
             if (count($params) > 0) {
                 $ruleSchema['required'] = [];
                 foreach ($constructor->params() as $paramName => $paramType) {
-                    $ruleSchema['properties'][$paramName] = [
-                        'type' => JsonType::to($paramType),
+                    $typeSchema = [
+                        'type' => JsonType::to($paramType->name),
                     ];
+
+                    if ($paramType->isGeneric()) {
+                        $typeSchema['items'] = [
+                            [
+                                'type' => $paramType->generic,
+                            ],
+                        ];
+                    }
+
+                    $ruleSchema['properties'][$paramName] = $typeSchema;
 
                     $ruleSchema['required'][] = $paramName;
                 }
