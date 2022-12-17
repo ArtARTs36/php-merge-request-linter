@@ -50,4 +50,15 @@ class Reflector
     {
         return count($reflector->getAttributes($attributeClass)) > 0;
     }
+
+    public static function findPHPDcoSummary(\ReflectionClass $reflector): ?string
+    {
+        $comment = $reflector->getDocComment();
+
+        if ($comment === false) {
+            return null;
+        }
+
+        return trim(preg_replace('#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]?(.*)?#u', '$1', $comment));
+    }
 }

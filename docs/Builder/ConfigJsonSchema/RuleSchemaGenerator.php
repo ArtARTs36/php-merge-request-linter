@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 use ArtARTs36\MergeRequestLinter\Contracts\RuleConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Support\Reflector;
 
 class RuleSchemaGenerator
 {
@@ -22,6 +23,7 @@ class RuleSchemaGenerator
         foreach ($rules as $rule) {
             $ruleSchema = [
                 'type' => 'object',
+                'description' => Reflector::findPHPDcoSummary(new \ReflectionClass($rule)),
                 'properties' => [
                     'when' => [
                         '$ref' => '#/definitions/rule_conditions',
