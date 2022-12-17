@@ -30,6 +30,7 @@ class MergeRequest
         'target_branch' => 'string',
         'changed_files_count' => 'integer',
         'author_login' => 'string',
+        'is_draft' => 'bool',
     ];
 
     /**
@@ -90,6 +91,10 @@ class MergeRequest
         ])]
         public int $changedFilesCount,
         public Author $author,
+        #[SupportsConditionOperator([
+            EqualsOperator::class,
+        ])]
+        public bool $isDraft,
     ) {
         //
     }
@@ -116,6 +121,7 @@ class MergeRequest
             Str::make($request['target_branch']),
             (int) $request['changed_files_count'],
             new Author($request['author_login']),
+            $request['is_draft'],
         );
     }
 }

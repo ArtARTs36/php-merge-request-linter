@@ -345,6 +345,14 @@
                             "type": "string"
                         }
                     }
+                },
+                "isDraft": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "type": "boolean"
+                        }
+                    }
                 }
             }
         }

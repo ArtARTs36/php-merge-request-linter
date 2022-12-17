@@ -22,6 +22,7 @@ class GithubPullRequestSchema
             'target_branch' => $pullRequest['baseRefName'],
             'changed_files_count' => $pullRequest['changedFiles'],
             'author_login' => $pullRequest['author']['login'],
+            'is_draft' => $pullRequest['isDraft'] ?? false,
         ]);
     }
 
@@ -45,6 +46,7 @@ class GithubPullRequestSchema
         }
       }
       changedFiles
+      isDraft
     }
   }
 }";
