@@ -17,7 +17,10 @@ class Generator
             '$schema' => 'http://json-schema.org/draft-04/schema#',
             'type' => 'object',
             'properties' => [
-                'rules' => $this->ruleSchemaGenerator->generate(),
+                'rules' => [
+                    'type' => 'object',
+                    'properties' => $this->ruleSchemaGenerator->generate(),
+                ],
                 'credentials' => [
                     'type' => 'object',
                     'properties' => [
