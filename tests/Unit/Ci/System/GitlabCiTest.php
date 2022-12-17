@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi;
+use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyCredentials;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -25,7 +25,7 @@ final class GitlabCiTest extends TestCase
 
     /**
      * @dataProvider providerForTestIs
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi::is
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::is
      */
     public function testIs(array $env, bool $expected): void
     {
@@ -48,8 +48,8 @@ final class GitlabCiTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi::isMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GitlabCi::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::isMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::__construct
      */
     public function testIsMergeRequest(array $env, bool $expected): void
     {

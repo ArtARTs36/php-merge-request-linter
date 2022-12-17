@@ -1,8 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System;
+namespace ArtARTs36\MergeRequestLinter\Ci\System\Github;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\Schema\GithubPullRequestSchema;
+use ArtARTs36\MergeRequestLinter\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System\Schema;
+namespace ArtARTs36\MergeRequestLinter\Ci\System\Github;
 
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 

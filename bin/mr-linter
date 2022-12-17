@@ -74,7 +74,7 @@ $configLoader = new CompositeLoader([
             $filesystem,
             new CredentialMapper(
                 [new EnvTransformer($environment)],
-                new Map(DefaultSystems::MAP),
+                DefaultSystems::map(),
             ),
             new RulesMapper(
                 new Resolver(DefaultRules::map(), $ruleFactory, new OperatorResolver($operatorFactory)),

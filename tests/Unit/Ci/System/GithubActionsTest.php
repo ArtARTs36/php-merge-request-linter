@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\GithubActions;
+use ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyCredentials;
@@ -27,7 +27,7 @@ final class GithubActionsTest extends TestCase
 
     /**
      * @dataProvider providerForTestIs
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GithubActions::is
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions::is
      */
     public function testIs(array $env, bool $expected): void
     {
@@ -50,7 +50,7 @@ final class GithubActionsTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GithubActions::isMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions::isMergeRequest
      */
     public function testIsMergeRequest(array $env, bool $expected): void
     {
