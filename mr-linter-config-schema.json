@@ -212,6 +212,9 @@
                         },
                         "ends": {
                             "type": "string"
+                        },
+                        "contains": {
+                            "type": "string"
                         }
                     }
                 },
@@ -231,6 +234,9 @@
                             "type": "string"
                         },
                         "ends": {
+                            "type": "string"
+                        },
+                        "contains": {
                             "type": "string"
                         }
                     }
@@ -274,6 +280,9 @@
                         },
                         "ends": {
                             "type": "string"
+                        },
+                        "contains": {
+                            "type": "string"
                         }
                     }
                 },
@@ -293,6 +302,9 @@
                             "type": "string"
                         },
                         "ends": {
+                            "type": "string"
+                        },
+                        "contains": {
                             "type": "string"
                         }
                     }
@@ -327,6 +339,9 @@
                             "type": "string"
                         },
                         "ends": {
+                            "type": "string"
+                        },
+                        "contains": {
                             "type": "string"
                         }
                     }

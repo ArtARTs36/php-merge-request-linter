@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Request;
 
 use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\ContainsOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\EndsOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\EqualsOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\LengthMaxOperator;
@@ -18,6 +19,7 @@ class Author
             LengthMaxOperator::class,
             StartsOperator::class,
             EndsOperator::class,
+            ContainsOperator::class,
         ])]
         public string $login,
     ) {

@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Request;
 
 use ArtARTs36\MergeRequestLinter\Attribute\Generic;
 use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;
+use ArtARTs36\MergeRequestLinter\Rule\Condition\ContainsOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\CountMaxOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\CountMinOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\EndsOperator;
@@ -41,6 +42,7 @@ class MergeRequest
             LengthMaxOperator::class,
             StartsOperator::class,
             EndsOperator::class,
+            ContainsOperator::class,
         ])]
         public Str $title,
         #[SupportsConditionOperator([
@@ -49,6 +51,7 @@ class MergeRequest
             LengthMaxOperator::class,
             StartsOperator::class,
             EndsOperator::class,
+            ContainsOperator::class,
         ])]
         public Str $description,
         #[Generic(Generic::OF_STRING)]
@@ -68,6 +71,7 @@ class MergeRequest
             LengthMaxOperator::class,
             StartsOperator::class,
             EndsOperator::class,
+            ContainsOperator::class,
         ])]
         public Str $sourceBranch,
         #[SupportsConditionOperator([
@@ -76,6 +80,7 @@ class MergeRequest
             LengthMaxOperator::class,
             StartsOperator::class,
             EndsOperator::class,
+            ContainsOperator::class,
         ])]
         public Str $targetBranch,
         #[SupportsConditionOperator([

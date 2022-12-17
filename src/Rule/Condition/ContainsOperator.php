@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 
-class ContainsOperator extends AbstractScalarOperator
+class ContainsOperator extends AbstractStringOperator
 {
     public const NAME = 'contains';
 
