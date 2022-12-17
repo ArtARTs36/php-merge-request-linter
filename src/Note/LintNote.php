@@ -12,11 +12,6 @@ final class LintNote extends AbstractNote implements Note
         //
     }
 
-    public function getSeverity(): NoteSeverity
-    {
-        return NoteSeverity::Normal;
-    }
-
     public function getDescription(): string
     {
         return $this->description;

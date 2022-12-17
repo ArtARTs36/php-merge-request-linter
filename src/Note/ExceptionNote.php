@@ -7,6 +7,8 @@ use ArtARTs36\Str\Facade\Str;
 
 final class ExceptionNote extends AbstractNote implements Note
 {
+    protected const SEVERITY = NoteSeverity::Fatal;
+
     public function __construct(
         protected \Throwable $exception,
         protected string $message = '',
@@ -21,11 +23,6 @@ final class ExceptionNote extends AbstractNote implements Note
         }
 
         return new self($e, $message);
-    }
-
-    public function getSeverity(): NoteSeverity
-    {
-        return NoteSeverity::Fatal;
     }
 
     public function getDescription(): string
