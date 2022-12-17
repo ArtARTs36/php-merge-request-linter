@@ -4,8 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesSameType;
+use ArtARTs36\MergeRequestLinter\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Support\Reflector;
 
 class OperatorMetadataLoader
