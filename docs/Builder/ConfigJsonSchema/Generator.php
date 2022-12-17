@@ -16,10 +16,29 @@ class Generator
         return [
             '$schema' => 'http://json-schema.org/draft-04/schema#',
             'type' => 'object',
-            'properties' => $this->ruleSchemaGenerator->generate(),
+            'properties' => [
+                'rules' => $this->ruleSchemaGenerator->generate(),
+                'credentials' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'gitlab_ci' => [
+                            'description' => 'Token',
+                            'type' => 'string',
+                        ], 
+                        'github_actions' => [
+                            'description' => 'Token', 
+                            'type' => 'string',
+                        ],
+                    ],
+                ],
+            ],
             'definitions' => [
                 'rule_conditions' => $this->operatorSchemaArrayGenerator->generate(),
-            ]
+            ],
+            'required' => [
+                'rules',
+                'credentials',
+            ],
         ];
     }
 }
