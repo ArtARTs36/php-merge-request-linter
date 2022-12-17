@@ -53,6 +53,9 @@
         ],
         "doc-rules": [
             "php docs/Builder/build_rules.php"
+        ],
+        "build-config-json-schema": [
+            "php docs/Builder/build_config_json_schema.php"
         ]
     }
 }

@@ -1,1151 +1,341 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "properties": {
-    "rules": {
-      "type": "object",
-      "properties": {
-        "@mr-linter/changed_files_limit": {
-          "type": "object",
-          "properties": {
-            "limit": {
-              "type": "integer"
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "rules": {
+            "type": "object",
+            "properties": {
+                "@mr-linter/changed_files_limit": {
+                    "type": "object",
+                    "description": "Check count changed files on a {limit}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "limit": {
+                            "type": "integer"
+                        }
+                    },
+                    "required": [
+                        "limit"
+                    ]
                 },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
+                "@mr-linter/description_contains_links_of_any_domains": {
+                    "type": "object",
+                    "description": "Merge Request must contain links of any {domains}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "domains": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
                     },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
+                    "required": [
+                        "domains"
+                    ]
                 },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
+                "@mr-linter/description_contains_links_of_all_domains": {
+                    "type": "object",
+                    "description": "Merge Request must contain links of all {domains}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "domains": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
                     },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
+                    "required": [
+                        "domains"
+                    ]
                 },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
+                "@mr-linter/description_not_empty": {
+                    "type": "object",
+                    "description": "Description must fill.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        }
                     }
-                  }
                 },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
+                "@mr-linter/has_all_labels": {
+                    "type": "object",
+                    "description": "Merge Request must have all {labels}",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "labels": {
+                            "type": "array"
+                        }
                     },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
+                    "required": [
+                        "labels"
+                    ]
                 },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
+                "@mr-linter/has_any_labels": {
+                    "type": "object",
+                    "description": "Merge Request must have any labels.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        }
                     }
-                  }
                 },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
+                "@mr-linter/has_any_labels_of": {
+                    "type": "object",
+                    "description": "Merge Request must have any {labels}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "labels": {
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "labels"
+                    ]
+                },
+                "@mr-linter/jira/has_issue_link": {
+                    "type": "object",
+                    "description": "The description must have a link to Jira on a {domain} with {projectCode}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "domain": {
+                            "type": "string"
+                        },
+                        "projectCode": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "domain",
+                        "projectCode"
+                    ]
+                },
+                "@mr-linter/youtrack/has_issue_link": {
+                    "type": "object",
+                    "description": "The description must have a link to YouTrack issue on a {domain} with {projectCode}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "domain": {
+                            "type": "string"
+                        },
+                        "projectCode": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "domain",
+                        "projectCode"
+                    ]
+                },
+                "@mr-linter/title_matches_expression": {
+                    "type": "object",
+                    "description": "The title must match the expression: {regex}",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "regex": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "regex"
+                    ]
+                },
+                "@mr-linter/title_must_starts_with_any_prefix": {
+                    "type": "object",
+                    "description": "The title must starts with any {prefixes}",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "prefixes": {
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "prefixes"
+                    ]
                 }
-              }
             }
-          },
-          "required": [
-            "limit"
-          ]
         },
-        "@mr-linter/description_contains_links_of_any_domains": {
-          "type": "object",
-          "properties": {
-            "domains": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
+        "credentials": {
+            "type": "object",
+            "properties": {
+                "gitlab_ci": {
+                    "description": "Token",
+                    "type": "string"
+                },
+                "github_actions": {
+                    "description": "Token",
+                    "type": "string"
                 }
-              ]
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
             }
-          },
-          "required": [
-            "domains"
-          ]
-        },
-        "@mr-linter/description_contains_links_of_all_domains": {
-          "type": "object",
-          "properties": {
-            "domains": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": [
-            "domains"
-          ]
-        },
-        "@mr-linter/description_not_empty": {
-          "type": "object",
-          "properties": {
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "@mr-linter/has_all_labels": {
-          "type": "object",
-          "properties": {
-            "labels": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "required": [
-            "labels"
-          ]
-        },
-        "@mr-linter/has_any_labels": {
-          "type": "object",
-          "properties": {
-            "labels": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": [
-            "labels"
-          ]
-        },
-        "@mr-linter/has_any_labels_of": {
-          "type": "object",
-          "properties": {
-            "labels": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": [
-            "labels"
-          ]
-        },
-        "@mr-linter/jira/has_issue_link": {
-          "type": "object",
-          "properties": {
-            "domain": {
-              "type": "string"
-            },
-            "projectCode": {
-              "type": "string"
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": [
-            "domain",
-            "projectCode"
-          ]
-        },
-        "@mr-linter/youtrack/has_issue_link": {
-          "type": "object",
-          "properties": {
-            "domain": {
-              "type": "string"
-            },
-            "projectCode": {
-              "type": "string"
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": [
-            "domain",
-            "projectCode"
-          ]
-        },
-        "@mr-linter/title_matches_expression": {
-          "type": "object",
-          "properties": {
-            "regex": {
-              "type": "string"
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": [
-            "regex"
-          ]
-        },
-        "@mr-linter/title_must_starts_with_any_prefix": {
-          "type": "object",
-          "properties": {
-            "prefixes": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "when": {
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "object",
-                  "properties": {
-                    "contains": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "changedFilesCount": {
-                  "type": "object",
-                  "properties": {
-                    "lte": {
-                      "type": "integer"
-                    },
-                    "<=": {
-                      "type": "integer"
-                    },
-                    "gte": {
-                      "type": "integer"
-                    },
-                    ">=": {
-                      "type": "integer"
-                    },
-                    "equals": {
-                      "type": "integer"
-                    }
-                  }
-                },
-                "title": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "description": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "sourceBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "targetBranch": {
-                  "type": "object",
-                  "properties": {
-                    "starts": {
-                      "type": "string"
-                    },
-                    "ends": {
-                      "type": "string"
-                    },
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "hasConflicts": {
-                  "type": "object",
-                  "properties": {
-                    "equals": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "required": [
-            "prefixes"
-          ]
         }
-      }
     },
-    "credentials": {
-      "type": "object",
-      "properties": {
-        "gitlab_ci": {
-          "description": "Token",
-          "type": "string"
-        },
-        "github_actions": {
-          "description": "Token",
-          "type": "string"
+    "definitions": {
+        "rule_conditions": {
+            "properties": {
+                "title": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "type": "string"
+                        },
+                        "ends": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "description": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "type": "string"
+                        },
+                        "ends": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "labels": {
+                    "type": "object",
+                    "properties": {
+                        "countMin": {
+                            "type": "integer"
+                        },
+                        "countMax": {
+                            "type": "integer"
+                        },
+                        "has": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "hasConflicts": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "sourceBranch": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "type": "string"
+                        },
+                        "ends": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "targetBranch": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "type": "string"
+                        },
+                        "ends": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "changedFilesCount": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "type": "integer"
+                        },
+                        "lte": {
+                            "type": "integer"
+                        },
+                        "gte": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "author.login": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "type": "string"
+                        },
+                        "ends": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
-      }
-    }
-  },
-  "required": [
-    "rules",
-    "credentials"
-  ]
+    },
+    "required": [
+        "rules",
+        "credentials"
+    ]
 }
