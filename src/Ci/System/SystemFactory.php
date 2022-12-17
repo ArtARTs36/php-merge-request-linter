@@ -11,6 +11,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class SystemFactory implements CiSystemFactory
 {
@@ -20,17 +21,21 @@ class SystemFactory implements CiSystemFactory
         GithubActions::NAME => GithubActions::class,
     ];
 
+    /**
+     * @param Map<string, class-string<CiSystem>> $ciSystems
+     */
     public function __construct(
         protected Config $config,
         protected Environment $environment,
         protected HttpClientFactory $httpClientFactory,
+        protected Map $ciSystems,
     ) {
         //
     }
 
     public function createCurrently(): CiSystem
     {
-        foreach (self::CI_MAP as $name => $ciClass) {
+        foreach ($this->ciSystems as $name => $ciClass) {
             if ($ciClass::is($this->environment)) {
                 return $this->create($name);
             }

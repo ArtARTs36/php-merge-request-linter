@@ -56,11 +56,12 @@ $application = new Application('Merge Request Linter', '0.3.0');
 
 $filesystem = new LocalFileSystem();
 $environment = new LocalEnvironment();
-$runnerFactory = new RunnerFactory($environment);
+$ciSystemsMap = DefaultSystems::map();
+$runnerFactory = new RunnerFactory($environment, $ciSystemsMap);
 
 $configLoader = new CompositeLoader([
     'php' => new PhpConfigLoader($filesystem),
-    'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment) {
+    'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment, $ciSystemsMap) {
         $ruleFactory = new RuleFactory(
             new Builder(
                 DefaultResolvers::get(),
@@ -74,7 +75,7 @@ $configLoader = new CompositeLoader([
             $filesystem,
             new CredentialMapper(
                 [new EnvTransformer($environment)],
-                DefaultSystems::map(),
+                $ciSystemsMap,
             ),
             new RulesMapper(
                 new Resolver(DefaultRules::map(), $ruleFactory, new OperatorResolver($operatorFactory)),
