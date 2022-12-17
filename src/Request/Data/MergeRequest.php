@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Request;
+namespace ArtARTs36\MergeRequestLinter\Request\Data;
 
 use ArtARTs36\MergeRequestLinter\Attribute\Generic;
 use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinksOfAllDomainsRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

@@ -1,15 +1,16 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Request;
+namespace ArtARTs36\MergeRequestLinter\Request\Fetcher;
 
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Exception\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
-class CiMergeRequestFetcher implements MergeRequestFetcher
+class CiRequestFetcher implements MergeRequestFetcher
 {
     public function __construct(
-        private CiSystemFactory $systems,
+        private readonly CiSystemFactory $systems,
     ) {
         //
     }

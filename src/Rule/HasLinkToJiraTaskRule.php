@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 /**
  * The description must have a link to Jira on a {domain} with {projectCode}.

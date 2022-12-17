@@ -10,8 +10,8 @@ use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
-use ArtARTs36\MergeRequestLinter\Request\CiMergeRequestFetcher;
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
@@ -25,7 +25,7 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnCiNotDetected(): void
     {
-        $runner = new Runner(new CiMergeRequestFetcher(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 throw new CiNotSupported();
@@ -44,7 +44,7 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnNotMergeRequest(): void
     {
-        $runner = new Runner(new CiMergeRequestFetcher(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 return new MockCi([
@@ -65,7 +65,7 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnInvalidCredentials(): void
     {
-        $runner = new Runner(new CiMergeRequestFetcher(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 throw new InvalidCredentialsException();
@@ -87,7 +87,7 @@ final class RunnerTest extends TestCase
      */
     public function testRunSuccess(): void
     {
-        $runner = new Runner(new CiMergeRequestFetcher(new class ($this->makeMergeRequest()) implements CiSystemFactory {
+        $runner = new Runner(new CiRequestFetcher(new class ($this->makeMergeRequest()) implements CiSystemFactory {
             public function __construct(private MergeRequest $request)
             {
                 //

@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
-use ArtARTs36\MergeRequestLinter\Request\CiMergeRequestFetcher;
+use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 
 final class MockRunnerFactory implements LinterRunnerFactory
 {
@@ -18,6 +18,6 @@ final class MockRunnerFactory implements LinterRunnerFactory
 
     public function create(Config $config): LinterRunner
     {
-        return new Runner(new CiMergeRequestFetcher($this->ciSystemFactory));
+        return new Runner(new CiRequestFetcher($this->ciSystemFactory));
     }
 }

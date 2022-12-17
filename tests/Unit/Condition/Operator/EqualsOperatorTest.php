@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsOperator;
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

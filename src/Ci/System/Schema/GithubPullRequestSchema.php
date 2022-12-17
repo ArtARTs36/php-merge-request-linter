@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System\Schema;
 
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 class GithubPullRequestSchema
 {
