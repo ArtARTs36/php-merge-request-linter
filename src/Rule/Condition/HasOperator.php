@@ -2,11 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Condition;
 
+use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 
+#[EvaluatesGenericType]
 class HasOperator extends AbstractOperator implements ConditionOperator
 {
     public const NAME = 'has';

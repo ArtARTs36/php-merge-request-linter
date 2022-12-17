@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
+use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Rule\Condition\DefaultOperators;
@@ -36,12 +37,11 @@ class OperatorMetadataLoader
                 $paramTypeNames[] = JsonType::to($paramType->getName());
             }
 
-            $evaluatesSameType = Reflector::hasAttribute($operatorReflector, EvaluatesSameType::class);
-
             $operators[$operatorClass] = new OperatorMetadata(
                 $operatorClass::NAME,
                 $operatorClass,
-                $evaluatesSameType,
+                Reflector::hasAttribute($operatorReflector, EvaluatesSameType::class),
+                Reflector::hasAttribute($operatorReflector, EvaluatesGenericType::class),
                 $paramTypeNames,
             );
         }

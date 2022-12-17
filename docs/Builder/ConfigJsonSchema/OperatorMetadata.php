@@ -8,6 +8,7 @@ class OperatorMetadata
         public readonly string $name,
         public readonly string $class,
         public readonly bool $evaluatesSameType,
+        public readonly bool $evaluatesGenericType,
         public readonly array $allowValueTypes,
     ) {
         //

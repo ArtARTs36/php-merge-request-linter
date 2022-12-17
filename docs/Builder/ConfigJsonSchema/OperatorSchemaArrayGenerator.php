@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
+use ArtARTs36\MergeRequestLinter\Attribute\Generic;
 use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
@@ -65,6 +66,17 @@ class OperatorSchemaArrayGenerator
                     if ($operatorMeta->evaluatesSameType) {
                         $opArray['properties'][$propertyName]['properties'][$operatorMeta->name] = [
                             'type' => JsonType::to($property->getType()->getName()),
+                        ];
+
+                        continue;
+                    }
+
+                    if ($operatorMeta->evaluatesGenericType) {
+                        $genericAttr = $property->getAttributes(Generic::class);
+                        $genericType = current(current($genericAttr)->getArguments());
+
+                        $opArray['properties'][$propertyName]['properties'][$operatorMeta->name] = [
+                            'type' => JsonType::to($genericType),
                         ];
 
                         continue;
