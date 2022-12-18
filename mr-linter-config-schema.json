@@ -233,6 +233,10 @@
                         "!=": {
                             "description": "Check if value are not equal.",
                             "type": "string"
+                        },
+                        "equalsAnyOf": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array"
                         }
                     }
                 },
@@ -274,6 +278,10 @@
                         "!=": {
                             "description": "Check if value are not equal.",
                             "type": "string"
+                        },
+                        "equalsAnyOf": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array"
                         }
                     }
                 },
@@ -357,6 +365,10 @@
                         "!=": {
                             "description": "Check if value are not equal.",
                             "type": "string"
+                        },
+                        "equalsAnyOf": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array"
                         }
                     }
                 },
@@ -398,6 +410,10 @@
                         "!=": {
                             "description": "Check if value are not equal.",
                             "type": "string"
+                        },
+                        "equalsAnyOf": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array"
                         }
                     }
                 },
@@ -435,6 +451,10 @@
                         "!=": {
                             "description": "Check if value are not equal.",
                             "type": "integer"
+                        },
+                        "equalsAnyOf": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array"
                         }
                     }
                 },
@@ -468,6 +488,18 @@
                         "contains": {
                             "description": "Check if a string contains a substring.",
                             "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "equalsAnyOf": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array"
                         }
                     }
                 },

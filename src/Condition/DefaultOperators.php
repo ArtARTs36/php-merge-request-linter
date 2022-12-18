@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition;
 
+use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsAnyOfOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\ContainsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMaxOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMinOperator;
@@ -38,6 +39,7 @@ final class DefaultOperators
         NotEqualsOperator::NAME => NotEqualsOperator::class,
         NotEqualsOperator::SYMBOL => NotEqualsOperator::class,
         NotHasOperator::NAME => NotHasOperator::class,
+        EqualsAnyOfOperator::NAME => EqualsAnyOfOperator::class,
     ];
 
     /**

@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Request\Data;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsAnyOfOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\ContainsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMaxOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMinOperator;
@@ -47,6 +48,7 @@ class MergeRequest
             EndsOperator::class,
             ContainsOperator::class,
             NotEqualsOperator::class,
+            EqualsAnyOfOperator::class,
         ])]
         public Str $title,
         #[SupportsConditionOperator([
@@ -57,6 +59,7 @@ class MergeRequest
             EndsOperator::class,
             ContainsOperator::class,
             NotEqualsOperator::class,
+            EqualsAnyOfOperator::class,
         ])]
         public Str $description,
         #[Generic(Generic::OF_STRING)]
@@ -80,6 +83,7 @@ class MergeRequest
             EndsOperator::class,
             ContainsOperator::class,
             NotEqualsOperator::class,
+            EqualsAnyOfOperator::class,
         ])]
         public Str $sourceBranch,
         #[SupportsConditionOperator([
@@ -90,6 +94,7 @@ class MergeRequest
             EndsOperator::class,
             ContainsOperator::class,
             NotEqualsOperator::class,
+            EqualsAnyOfOperator::class,
         ])]
         public Str $targetBranch,
         #[SupportsConditionOperator([
@@ -97,6 +102,7 @@ class MergeRequest
             LteOperator::class,
             GteOperator::class,
             NotEqualsOperator::class,
+            EqualsAnyOfOperator::class,
         ])]
         public int $changedFilesCount,
         public Author $author,
