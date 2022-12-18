@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System\Gitlab;
 
+use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\Env\VarName;
 use ArtARTs36\MergeRequestLinter\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
@@ -27,12 +28,12 @@ class GitlabCi implements CiSystem
 
     public static function is(Environment $environment): bool
     {
-        return $environment->has('GITLAB_CI');
+        return $environment->has(VarName::Identity->value);
     }
 
     public function isMergeRequest(): bool
     {
-        return $this->environment->has('CI_MERGE_REQUEST_IID');
+        return $this->environment->has(VarName::RequestID->value);
     }
 
     public function getMergeRequest(): MergeRequest
@@ -64,16 +65,16 @@ class GitlabCi implements CiSystem
 
     protected function getProjectId(): int
     {
-        return $this->environment->getInt('CI_MERGE_REQUEST_PROJECT_ID');
+        return $this->environment->getInt(VarName::ProjectID->value);
     }
 
     protected function getGitlabServerUrl(): string
     {
-        return $this->environment->getString('CI_SERVER_URL');
+        return $this->environment->getString(VarName::ApiURL->value);
     }
 
     protected function getMergeRequestId(): int
     {
-        return $this->environment->getInt('CI_MERGE_REQUEST_IID');
+        return $this->environment->getInt(VarName::RequestID->value);
     }
 }
