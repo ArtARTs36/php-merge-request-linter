@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
-use ArtARTs36\MergeRequestLinter\Support\ParameterType;
 use ArtARTs36\Str\Str;
 
 class JsonType

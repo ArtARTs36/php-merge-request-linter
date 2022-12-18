@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Support\Reflector;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
 
 class OperatorMetadataLoader
 {

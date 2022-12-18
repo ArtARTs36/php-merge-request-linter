@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support;
+namespace ArtARTs36\MergeRequestLinter\Support\Reflector;
 
 class ParameterType
 {

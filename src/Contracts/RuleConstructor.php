@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts;
 
-use ArtARTs36\MergeRequestLinter\Support\ParameterType;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
 
 /**
  * Constructor for Rule.
