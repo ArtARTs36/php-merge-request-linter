@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayableWrapper;
+namespace ArtARTs36\MergeRequestLinter\Support\ArrayableWrapper;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Arrayable;
 

@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Arrayable;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayableWrapper\WrapperFactory;
+use ArtARTs36\MergeRequestLinter\Support\ArrayableWrapper\WrapperFactory;
 
 final class MockPropertyExtractor implements PropertyExtractor
 {
