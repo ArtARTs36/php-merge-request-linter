@@ -82,7 +82,7 @@ class Map extends ArrayCollection
     }
 
     /**
-     * @return Map<V, array<K>>
+     * @return Map<K, array<V>>
      */
     public function groupKeysByValue(): Map
     {
