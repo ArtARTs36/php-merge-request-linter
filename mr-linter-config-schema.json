@@ -199,24 +199,39 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "=": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "lengthMin": {
+                            "description": "Check the minimum string length.",
                             "type": "integer"
                         },
                         "lengthMax": {
+                            "description": "Check the maximum string length.",
                             "type": "integer"
                         },
                         "starts": {
+                            "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
                         "ends": {
+                            "description": "Check if a string contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
                             "type": "string"
                         }
                     }
@@ -225,24 +240,39 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "=": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "lengthMin": {
+                            "description": "Check the minimum string length.",
                             "type": "integer"
                         },
                         "lengthMax": {
+                            "description": "Check the maximum string length.",
                             "type": "integer"
                         },
                         "starts": {
+                            "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
                         "ends": {
+                            "description": "Check if a string contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
                             "type": "string"
                         }
                     }
@@ -251,15 +281,19 @@
                     "type": "object",
                     "properties": {
                         "countMin": {
+                            "description": "Check the minimum number of elements in a field.",
                             "type": "integer"
                         },
                         "countMax": {
+                            "description": "Check the maximum number of elements in a field.",
                             "type": "integer"
                         },
                         "has": {
+                            "description": "Check if an array contains some value.",
                             "type": "string"
                         },
-                        "not_has": {
+                        "notHas": {
+                            "description": "Check if an array not contains some value.",
                             "type": "string"
                         }
                     }
@@ -268,9 +302,19 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "description": "Check if value are equal.",
                             "type": "boolean"
                         },
                         "=": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
                             "type": "boolean"
                         }
                     }
@@ -279,24 +323,39 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "=": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "lengthMin": {
+                            "description": "Check the minimum string length.",
                             "type": "integer"
                         },
                         "lengthMax": {
+                            "description": "Check the maximum string length.",
                             "type": "integer"
                         },
                         "starts": {
+                            "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
                         "ends": {
+                            "description": "Check if a string contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
                             "type": "string"
                         }
                     }
@@ -305,24 +364,39 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "=": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "lengthMin": {
+                            "description": "Check the minimum string length.",
                             "type": "integer"
                         },
                         "lengthMax": {
+                            "description": "Check the maximum string length.",
                             "type": "integer"
                         },
                         "starts": {
+                            "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
                         "ends": {
+                            "description": "Check if a string contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
                             "type": "string"
                         }
                     }
@@ -331,21 +405,35 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "description": "Check if value are equal.",
                             "type": "integer"
                         },
                         "=": {
+                            "description": "Check if value are equal.",
                             "type": "integer"
                         },
                         "lte": {
+                            "description": "Check number is equal to or less than.",
                             "type": "integer"
                         },
                         "<=": {
+                            "description": "Check number is equal to or less than.",
                             "type": "integer"
                         },
                         "gte": {
+                            "description": "Check if a number is greater than or less than.",
                             "type": "integer"
                         },
                         ">=": {
+                            "description": "Check if a number is greater than or less than.",
+                            "type": "integer"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "integer"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
                             "type": "integer"
                         }
                     }
@@ -354,24 +442,31 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "=": {
+                            "description": "Check if value are equal.",
                             "type": "string"
                         },
                         "lengthMin": {
+                            "description": "Check the minimum string length.",
                             "type": "integer"
                         },
                         "lengthMax": {
+                            "description": "Check the maximum string length.",
                             "type": "integer"
                         },
                         "starts": {
+                            "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
                         "ends": {
+                            "description": "Check if a string contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
+                            "description": "Check if a string contains a substring.",
                             "type": "string"
                         }
                     }
@@ -380,9 +475,19 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "description": "Check if value are equal.",
                             "type": "boolean"
                         },
                         "=": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
                             "type": "boolean"
                         }
                     }

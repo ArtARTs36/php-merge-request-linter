@@ -13,6 +13,7 @@ class OperatorMetadata
         public readonly bool   $evaluatesSameType,
         public readonly bool   $evaluatesGenericType,
         public readonly array  $allowValueTypes,
+        public readonly string $description,
     ) {
         //
     }

@@ -4,6 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
+/**
+ * Check the minimum number of elements in a field.
+ */
 class CountMinOperator extends AbstractIntOperator
 {
     public const NAME = 'countMin';

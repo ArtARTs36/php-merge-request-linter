@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
+/**
+ * Check number is equal to or less than.
+ */
 #[EvaluatesSameType]
 class LteOperator extends AbstractOperator implements ConditionOperator
 {

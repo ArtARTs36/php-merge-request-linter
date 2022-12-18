@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\Str\Facade\Str;
 
+/**
+ * Check if a string contains a substring.
+ */
 class ContainsOperator extends AbstractStringOperator
 {
     public const NAME = 'contains';

@@ -45,6 +45,7 @@ class OperatorMetadataLoader
                 Reflector::hasAttribute($operatorReflector, EvaluatesSameType::class),
                 Reflector::hasAttribute($operatorReflector, EvaluatesGenericType::class),
                 $paramTypeNames,
+                Reflector::findPHPDocSummary($operatorReflector) ?? '',
             );
         }
 

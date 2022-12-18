@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
+/**
+ * Check if value are equal.
+ */
 #[EvaluatesSameType]
 class EqualsOperator extends AbstractOperator implements ConditionOperator
 {

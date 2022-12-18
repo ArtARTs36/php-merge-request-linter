@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\Str\Facade\Str;
 
+/**
+ * Check the minimum string length.
+ */
 class LengthMinOperator extends AbstractIntOperator
 {
     public const NAME = 'lengthMin';

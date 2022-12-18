@@ -65,6 +65,7 @@ class OperatorSchemaArrayGenerator
 
                     if ($operatorMeta->evaluatesSameType) {
                         $val = [
+                            'description' => $operatorMeta->description,
                             'type' => JsonType::to($property->getType()->getName()),
                         ];
 
@@ -80,6 +81,7 @@ class OperatorSchemaArrayGenerator
                         $genericType = current(current($genericAttr)->getArguments());
 
                         $val = [
+                            'description' => $operatorMeta->description,
                             'type' => JsonType::to($genericType),
                         ];
 
@@ -95,6 +97,7 @@ class OperatorSchemaArrayGenerator
                     if (count($opParamTypes) === 1) {
                         foreach ($operatorMeta->names as $operatorName) {
                             $opArray['properties'][$propertyName]['properties'][$operatorName] = [
+                                'description' => $operatorMeta->description,
                                 'type' => $opParamTypes[0],
                             ];
                         }

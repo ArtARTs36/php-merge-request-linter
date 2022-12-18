@@ -4,6 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
+/**
+ * Check the maximum number of elements in a field.
+ */
 class CountMaxOperator extends AbstractIntOperator
 {
     public const NAME = 'countMax';

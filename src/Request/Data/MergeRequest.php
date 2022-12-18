@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Operator\HasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMaxOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LteOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Operator\NotEqualsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\NotHasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\StartsOperator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
@@ -45,6 +46,7 @@ class MergeRequest
             StartsOperator::class,
             EndsOperator::class,
             ContainsOperator::class,
+            NotEqualsOperator::class,
         ])]
         public Str $title,
         #[SupportsConditionOperator([
@@ -54,6 +56,7 @@ class MergeRequest
             StartsOperator::class,
             EndsOperator::class,
             ContainsOperator::class,
+            NotEqualsOperator::class,
         ])]
         public Str $description,
         #[Generic(Generic::OF_STRING)]
@@ -66,6 +69,7 @@ class MergeRequest
         public Set $labels,
         #[SupportsConditionOperator([
             EqualsOperator::class,
+            NotEqualsOperator::class,
         ])]
         public bool $hasConflicts,
         #[SupportsConditionOperator([
@@ -75,6 +79,7 @@ class MergeRequest
             StartsOperator::class,
             EndsOperator::class,
             ContainsOperator::class,
+            NotEqualsOperator::class,
         ])]
         public Str $sourceBranch,
         #[SupportsConditionOperator([
@@ -84,17 +89,20 @@ class MergeRequest
             StartsOperator::class,
             EndsOperator::class,
             ContainsOperator::class,
+            NotEqualsOperator::class,
         ])]
         public Str $targetBranch,
         #[SupportsConditionOperator([
             EqualsOperator::class,
             LteOperator::class,
             GteOperator::class,
+            NotEqualsOperator::class,
         ])]
         public int $changedFilesCount,
         public Author $author,
         #[SupportsConditionOperator([
             EqualsOperator::class,
+            NotEqualsOperator::class,
         ])]
         public bool $isDraft,
     ) {

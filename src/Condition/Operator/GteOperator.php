@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
+/**
+ * Check if a number is greater than or less than.
+ */
 #[EvaluatesSameType]
 class GteOperator extends AbstractOperator implements ConditionOperator
 {
