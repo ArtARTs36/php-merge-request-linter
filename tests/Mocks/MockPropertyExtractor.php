@@ -30,7 +30,7 @@ final class MockPropertyExtractor implements PropertyExtractor
         return $this->value;
     }
 
-    public function iterable(object $object, string $property): Arrayable
+    public function arrayable(object $object, string $property): Arrayable
     {
         return $this->arrayableFactory->create($this->value);
     }

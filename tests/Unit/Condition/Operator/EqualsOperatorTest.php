@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsOperator;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Support\PropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\CallbackPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class EqualsOperatorTest extends TestCase
@@ -32,7 +32,7 @@ final class EqualsOperatorTest extends TestCase
     public function testEvaluate(MergeRequest $request, string $property, string $equals, bool $expected): void
     {
         $operator = new EqualsOperator(
-            new PropertyExtractor(),
+            new CallbackPropertyExtractor(),
             $property,
             $equals,
         );

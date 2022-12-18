@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Operator\AbstractOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Exception\ConditionOperatorNotFound;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Support\PropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\CallbackPropertyExtractor;
 
 class OperatorFactory
 {
@@ -14,8 +14,8 @@ class OperatorFactory
      * @param Map<string, class-string<AbstractOperator>> $operatorByType
      */
     public function __construct(
-        private readonly Map $operatorByType,
-        private readonly PropertyExtractor   $propertyExtractor,
+        private readonly Map                       $operatorByType,
+        private readonly CallbackPropertyExtractor $propertyExtractor,
     ) {
         //
     }

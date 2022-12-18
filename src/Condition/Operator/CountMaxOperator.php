@@ -10,6 +10,6 @@ class CountMaxOperator extends AbstractIntOperator
 
     protected function doEvaluate(MergeRequest $request): bool
     {
-        return count($this->propertyExtractor->iterable($request, $this->property)) <= $this->value;
+        return count($this->propertyExtractor->arrayable($request, $this->property)) <= $this->value;
     }
 }

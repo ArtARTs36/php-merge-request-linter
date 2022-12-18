@@ -27,7 +27,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Support\PropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\CallbackPropertyExtractor;
 use Symfony\Component\Console\Application;
 
 $loaded = false;
@@ -69,7 +69,7 @@ $configLoader = new CompositeLoader([
             new ConstructorFinder(),
         );
 
-        $operatorFactory = new OperatorFactory(DefaultOperators::map(), new PropertyExtractor());
+        $operatorFactory = new OperatorFactory(DefaultOperators::map(), new CallbackPropertyExtractor());
 
         return new JsonConfigLoader(
             $filesystem,

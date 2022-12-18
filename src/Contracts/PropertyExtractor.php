@@ -36,5 +36,5 @@ interface PropertyExtractor
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
      */
-    public function iterable(object $object, string $property): Arrayable;
+    public function arrayable(object $object, string $property): Arrayable;
 }

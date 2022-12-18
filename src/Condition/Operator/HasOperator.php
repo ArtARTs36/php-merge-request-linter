@@ -15,7 +15,7 @@ class HasOperator extends AbstractScalarOperator implements ConditionOperator
     {
         return $this
             ->propertyExtractor
-            ->iterable($request, $this->property)
+            ->arrayable($request, $this->property)
             ->has($this->value);
     }
 }

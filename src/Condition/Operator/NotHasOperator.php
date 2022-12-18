@@ -14,7 +14,7 @@ class NotHasOperator extends AbstractScalarOperator
     {
         return ! $this
             ->propertyExtractor
-            ->iterable($request, $this->property)
+            ->arrayable($request, $this->property)
             ->has($this->value);
     }
 }
