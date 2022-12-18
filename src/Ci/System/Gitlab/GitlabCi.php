@@ -43,7 +43,8 @@ class GitlabCi implements CiSystem
         $this->validateResponse($response, self::NAME);
 
         $responseArray = $this->responseToJsonArray($response);
-        $responseArray['changed_files_count'] = count($responseArray['changes']);
+
+        $responseArray['changed_files_count'] = $responseArray['changes_count'];
         $responseArray['author_login'] = $responseArray['author']['username'];
         $responseArray['is_draft'] = $responseArray['draft'] ?? false;
 

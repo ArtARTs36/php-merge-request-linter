@@ -2,6 +2,14 @@
 try:
 	GITHUB_ACTIONS=1 GITHUB_REPOSITORY=artarts36/php-merge-request-linter GITHUB_GRAPHQL_URL=https://api.github.com/graphql GITHUB_REF_NAME=${MR_ID}/merge MR_LINTER_GITHUB_HTTP_TOKEN=${TOKEN} ./bin/mr-linter lint
 
+# usage as `make try-gitlab MR_ID=1 TOKEN=aszbdg3htyhtgrfg5h5`
+try-gitlab:
+	GITLAB_CI=1 \
+	CI_MERGE_REQUEST_IID=${MR_ID} \
+	CI_MERGE_REQUEST_PROJECT_ID=41749211 \
+	CI_SERVER_URL=https://gitlab.com \
+ 	MR_LINTER_GITLAB_HTTP_TOKEN=${TOKEN} ./bin/mr-linter lint
+
 docker-build:
 	docker build . -t artarts36/merge-request-linter
 
