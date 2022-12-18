@@ -14,6 +14,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Operator\HasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMaxOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LteOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Operator\NotHasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\StartsOperator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
@@ -60,6 +61,7 @@ class MergeRequest
             CountMinOperator::class,
             CountMaxOperator::class,
             HasOperator::class,
+            NotHasOperator::class,
         ])]
         public Set $labels,
         #[SupportsConditionOperator([

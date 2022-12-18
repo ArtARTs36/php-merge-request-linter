@@ -258,6 +258,9 @@
                         },
                         "has": {
                             "type": "string"
+                        },
+                        "not_has": {
+                            "type": "string"
                         }
                     }
                 },
