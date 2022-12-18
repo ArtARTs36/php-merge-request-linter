@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support;
+namespace ArtARTs36\MergeRequestLinter\Support\Time;
 
 class Timer
 {
@@ -14,8 +14,8 @@ class Timer
         return new self(microtime(true));
     }
 
-    public function finish(): float
+    public function finish(): Duration
     {
-        return microtime(true) - $this->started;
+        return new Duration(microtime(true) - $this->started);
     }
 }

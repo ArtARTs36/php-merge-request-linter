@@ -11,7 +11,7 @@ use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Note\LintNote;
-use ArtARTs36\MergeRequestLinter\Support\Timer;
+use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 
 class Runner implements LinterRunner
 {
