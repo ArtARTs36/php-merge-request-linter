@@ -26,8 +26,6 @@ final class TimerTest extends TestCase
     {
         $timer = Timer::start();
 
-        $timer->finish();
-
-        self::assertGreaterThan($timer->finish(), $this->getPropertyValue($timer, 'started'));
+        self::assertGreaterThan($timer->finish()->seconds, $this->getPropertyValue($timer, 'started'));
     }
 }

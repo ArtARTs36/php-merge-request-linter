@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter;
 
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Support\Time\Duration;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyNote;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -12,11 +13,11 @@ final class LintResultTest extends TestCase
     {
         return [
             [
-                LintResult::fail(new EmptyNote(), 0.12),
+                LintResult::fail(new EmptyNote(), new Duration(0.12)),
                 true,
             ],
             [
-                LintResult::success(new EmptyNote(), 0.13),
+                LintResult::success(new EmptyNote(), new Duration(0.13)),
                 false,
             ],
         ];
@@ -37,7 +38,7 @@ final class LintResultTest extends TestCase
      */
     public function testFail(): void
     {
-        $result = LintResult::fail(new EmptyNote(), 1.12);
+        $result = LintResult::fail(new EmptyNote(), new Duration(0.12));
 
         self::assertFalse($result->state);
     }
@@ -48,7 +49,7 @@ final class LintResultTest extends TestCase
      */
     public function testSuccess(): void
     {
-        $result = LintResult::success(new EmptyNote(), 0.12);
+        $result = LintResult::success(new EmptyNote(), new Duration(0.12));
 
         self::assertTrue($result->state);
     }
