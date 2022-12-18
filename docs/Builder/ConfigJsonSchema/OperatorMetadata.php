@@ -6,13 +6,14 @@ class OperatorMetadata
 {
     /**
      * @param array<string> $names
+     * @param array<Parameter> $allowValues
      */
     public function __construct(
         public readonly array  $names,
         public readonly string $class,
         public readonly bool   $evaluatesSameType,
         public readonly bool   $evaluatesGenericType,
-        public readonly array  $allowValueTypes,
+        public readonly array  $allowValues,
         public readonly string $description,
     ) {
         //

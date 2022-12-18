@@ -92,14 +92,22 @@ class OperatorSchemaArrayGenerator
                         continue;
                     }
 
-                    $opParamTypes = $operatorMeta->allowValueTypes;
+                    $opParamTypes = $operatorMeta->allowValues;
 
                     if (count($opParamTypes) === 1) {
                         foreach ($operatorMeta->names as $operatorName) {
-                            $opArray['properties'][$propertyName]['properties'][$operatorName] = [
+                            $v = [
                                 'description' => $operatorMeta->description,
-                                'type' => $opParamTypes[0],
+                                'type' => $opParamTypes[0]->jsonType,
                             ];
+
+                            if ($opParamTypes[0]->isGeneric()) {
+                                $v['items'] = [
+                                    'type' => $opParamTypes[0]->generic,
+                                ];
+                            }
+
+                            $opArray['properties'][$propertyName]['properties'][$operatorName] = $v;
                         }
                     } else {
                         $anyOf = [];

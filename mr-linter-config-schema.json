@@ -246,7 +246,10 @@
                         },
                         "equalsAnyOf": {
                             "description": "Check if the field is equal to one of the values.",
-                            "type": "array"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 },
@@ -291,7 +294,10 @@
                         },
                         "equalsAnyOf": {
                             "description": "Check if the field is equal to one of the values.",
-                            "type": "array"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 },
@@ -378,7 +384,10 @@
                         },
                         "equalsAnyOf": {
                             "description": "Check if the field is equal to one of the values.",
-                            "type": "array"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 },
@@ -423,7 +432,10 @@
                         },
                         "equalsAnyOf": {
                             "description": "Check if the field is equal to one of the values.",
-                            "type": "array"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 },
@@ -464,7 +476,10 @@
                         },
                         "equalsAnyOf": {
                             "description": "Check if the field is equal to one of the values.",
-                            "type": "array"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 },
@@ -509,7 +524,10 @@
                         },
                         "equalsAnyOf": {
                             "description": "Check if the field is equal to one of the values.",
-                            "type": "array"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 },

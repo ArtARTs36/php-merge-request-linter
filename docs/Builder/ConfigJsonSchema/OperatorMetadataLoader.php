@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
 
 class OperatorMetadataLoader
@@ -32,11 +33,24 @@ class OperatorMetadataLoader
             $paramRawType = $param->getType();
             $paramTypes = $paramRawType instanceof \ReflectionUnionType ? $paramRawType->getTypes() : [$paramRawType];
 
-            /** @var array<string> $paramTypeNames */
+            /** @var array<Parameter> $paramTypeNames */
             $paramTypeNames = [];
 
+            $genericAttr = $param->getAttributes(Generic::class);
+            $genericAttrFirst = current($genericAttr);
+
+            $genericType = null;
+
+            if ($genericAttrFirst !== false) {
+                $genericType = current($genericAttrFirst->getArguments());
+            }
+
             foreach ($paramTypes as $paramType) {
-                $paramTypeNames[] = JsonType::to($paramType->getName());
+                $paramTypeNames[] = new Parameter(
+                    $paramType->getName(),
+                    JsonType::to($paramType->getName()),
+                    $genericType,
+                );
             }
 
             $operators[$operatorClass] = new OperatorMetadata(
