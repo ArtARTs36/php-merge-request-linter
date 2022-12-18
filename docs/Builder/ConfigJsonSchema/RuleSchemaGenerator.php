@@ -23,7 +23,7 @@ class RuleSchemaGenerator
         foreach ($rules as $rule) {
             $ruleSchema = [
                 'type' => 'object',
-                'description' => Reflector::findPHPDcoSummary(new \ReflectionClass($rule)),
+                'description' => Reflector::findPHPDocSummary(new \ReflectionClass($rule)),
                 'properties' => [
                     'when' => [
                         '$ref' => '#/definitions/rule_conditions',

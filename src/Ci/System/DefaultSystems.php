@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 final class DefaultSystems
 {
-    /** @var Map<string, class-string<CiSystem>> */
+    /** @var array<string, class-string<CiSystem>> */
     public const MAP = [
         GithubActions::NAME => GithubActions::class,
         GitlabCi::NAME => GitlabCi::class,

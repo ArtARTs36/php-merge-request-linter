@@ -18,9 +18,6 @@ class StaticConstructor implements RuleConstructor
         //
     }
 
-    /**
-     * @return array<string, string|class-string>
-     */
     public function params(): array
     {
         return Reflector::mapMethodParamTypeOnParam($this->constructor);

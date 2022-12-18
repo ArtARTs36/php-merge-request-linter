@@ -46,12 +46,19 @@ class Reflector
         return null;
     }
 
+    /**
+     * @param \ReflectionClass<object> $reflector
+     * @param class-string $attributeClass
+     */
     public static function hasAttribute(\ReflectionClass $reflector, string $attributeClass): bool
     {
         return count($reflector->getAttributes($attributeClass)) > 0;
     }
 
-    public static function findPHPDcoSummary(\ReflectionClass $reflector): ?string
+    /**
+     * @param \ReflectionClass<object> $reflector
+     */
+    public static function findPHPDocSummary(\ReflectionClass $reflector): ?string
     {
         $comment = $reflector->getDocComment();
 
@@ -59,6 +66,12 @@ class Reflector
             return null;
         }
 
-        return trim(preg_replace('#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]?(.*)?#u', '$1', $comment));
+        $cleaned = preg_replace('#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]?(.*)?#u', '$1', $comment);
+
+        if ($cleaned === null) {
+            return null;
+        }
+
+        return trim($cleaned);
     }
 }
