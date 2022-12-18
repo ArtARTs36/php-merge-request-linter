@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Support\HttpClientFactory;
+use ArtARTs36\MergeRequestLinter\Support\Http\ClientFactory;
 
 class RunnerFactory implements LinterRunnerFactory
 {
@@ -26,7 +26,7 @@ class RunnerFactory implements LinterRunnerFactory
     {
         return new Runner(
             new CiRequestFetcher(
-                new SystemFactory($config, $this->environment, new HttpClientFactory(), $this->ciSystems),
+                new SystemFactory($config, $this->environment, new ClientFactory(), $this->ciSystems),
             ),
         );
     }

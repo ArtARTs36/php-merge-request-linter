@@ -1,14 +1,15 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support;
+namespace ArtARTs36\MergeRequestLinter\Support\Http;
 
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Contracts\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\HttpClientTypeNotSupported;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullClient;
 use GuzzleHttp\Client;
 use Psr\Http\Client\ClientInterface;
 
-class HttpClientFactory implements \ArtARTs36\MergeRequestLinter\Contracts\HttpClientFactory
+class ClientFactory implements HttpClientFactory
 {
     public function create(HttpClientConfig $config): ClientInterface
     {
