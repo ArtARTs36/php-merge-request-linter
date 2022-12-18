@@ -37,6 +37,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'target_branch' => $data['target_branch'] ?? '',
             'changed_files_count' => $data['changed_files_count'] ?? 1,
             'author_login' => 'bot',
+            'is_draft' => $data['is_draft'] ?? false,
         ]);
     }
 
