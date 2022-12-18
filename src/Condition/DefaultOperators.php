@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMaxOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LteOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\NotEqualsOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Operator\NotHasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\StartsOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
@@ -36,6 +37,7 @@ final class DefaultOperators
         ContainsOperator::NAME => ContainsOperator::class,
         NotEqualsOperator::NAME => NotEqualsOperator::class,
         NotEqualsOperator::SYMBOL => NotEqualsOperator::class,
+        NotHasOperator::NAME => NotHasOperator::class,
     ];
 
     /**

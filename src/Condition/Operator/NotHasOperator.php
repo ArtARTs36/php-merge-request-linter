@@ -3,17 +3,16 @@
 namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesGenericType;
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 #[EvaluatesGenericType]
-class HasOperator extends AbstractScalarOperator implements ConditionOperator
+class NotHasOperator extends AbstractScalarOperator
 {
-    public const NAME = 'has';
+    public const NAME = 'not_has';
 
     protected function doEvaluate(MergeRequest $request): bool
     {
-        return $this
+        return ! $this
             ->propertyExtractor
             ->iterable($request, $this->property)
             ->has($this->value);
