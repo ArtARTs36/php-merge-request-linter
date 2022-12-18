@@ -2,6 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System\Github;
 
+use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\Repo;
+use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\RequestID;
+use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\VarName;
+use ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
@@ -19,25 +24,25 @@ class GithubActions implements CiSystem
 
     public const NAME = 'github_actions';
 
-    protected GithubPullRequestSchema $schema;
+    protected PullRequestSchema $schema;
 
     public function __construct(
         protected RemoteCredentials $credentials,
         protected Environment $environment,
         protected ClientInterface $client,
     ) {
-        $this->schema = new GithubPullRequestSchema();
+        $this->schema = new PullRequestSchema();
     }
 
     public static function is(Environment $environment): bool
     {
-        return $environment->has('GITHUB_ACTIONS');
+        return $environment->has(VarName::Identity->value);
     }
 
     public function isMergeRequest(): bool
     {
         try {
-            return $this->getMergeRequestId() >= 0;
+            return $this->getMergeRequestId()->value >= 0;
         } catch (EnvironmentVariableNotFound) {
             return false;
         }
@@ -45,12 +50,14 @@ class GithubActions implements CiSystem
 
     public function getMergeRequest(): MergeRequest
     {
-        $graphqlUrl = $this->environment->getString('GITHUB_GRAPHQL_URL');
-        [$repoOwner, $repoName] = $this->extractOwnerAndRepo();
-        $requestId = $this->getMergeRequestId();
+        $graphqlUrl = $this->environment->getString(VarName::GraphqlURL->value);
+        $repo = $this->extractEnvRepo();
+        $requestId = $this->getMergeRequestId()->value;
 
         $query = json_encode([
-            'query' => $this->schema->createGraphqlForPullRequest($repoOwner, $repoName, $requestId),
+            'query' => $this->schema->createGraphqlForPullRequest(
+                new PullRequestInput($repo->owner, $repo->name, $requestId),
+            ),
         ]);
 
         $response = $this->client->sendRequest((new Request('POST', $graphqlUrl))
@@ -64,23 +71,13 @@ class GithubActions implements CiSystem
         );
     }
 
-    /**
-     * @return array<string>
-     */
-    protected function extractOwnerAndRepo(): array
+    protected function extractEnvRepo(): Repo
     {
-        return \ArtARTs36\Str\Facade\Str::explode($this->environment->getString('GITHUB_REPOSITORY'), '/');
+        return Repo::createFromString($this->environment->getString(VarName::Repository->value));
     }
 
-    protected function getMergeRequestId(): int
+    protected function getMergeRequestId(): RequestID
     {
-        $ref = Str::make($this->environment->getString('GITHUB_REF_NAME'));
-        $id = $ref->deleteWhenEnds('/merge');
-
-        if (! $id->isDigit()) {
-            throw new EnvironmentVariableNotFound('GITHUB_REF_NAME');
-        }
-
-        return $id->toInteger();
+        return RequestID::createFromRef($this->environment->getString(VarName::RefName->value));
     }
 }

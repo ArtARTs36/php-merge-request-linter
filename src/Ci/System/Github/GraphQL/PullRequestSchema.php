@@ -1,10 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System\Github;
+namespace ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL;
 
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
-class GithubPullRequestSchema
+class PullRequestSchema
 {
     protected const MERGEABLE_STATE_CONFLICTING = 'CONFLICTING';
 
@@ -26,11 +26,11 @@ class GithubPullRequestSchema
         ]);
     }
 
-    public function createGraphqlForPullRequest(string $owner, string $repo, int $requestId): string
+    public function createGraphqlForPullRequest(PullRequestInput $input): string
     {
         return "query { 
-  repository(owner: \"$owner\", name: \"$repo\") {
-    pullRequest(number: $requestId) {
+  repository(owner: \"$input->owner\", name: \"$input->repository\") {
+    pullRequest(number: $input->requestId) {
       author {
         login
       }
