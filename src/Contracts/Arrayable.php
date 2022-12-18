@@ -16,4 +16,9 @@ interface Arrayable extends \Countable
      * Determine has value.
      */
     public function has(mixed $value): bool;
+
+    /**
+     * Determine has any value of {values}.
+     */
+    public function hasAny(array $values): bool;
 }

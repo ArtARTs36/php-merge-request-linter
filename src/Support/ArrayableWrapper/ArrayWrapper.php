@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Support\ArrayableWrapper;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Arrayable;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 
 class ArrayWrapper implements Arrayable
 {
@@ -23,5 +24,10 @@ class ArrayWrapper implements Arrayable
     public function has(mixed $value): bool
     {
         return in_array($value, $this->array);
+    }
+
+    public function hasAny(array $values): bool
+    {
+        return Set::fromList($this->array)->hasAny($values);
     }
 }

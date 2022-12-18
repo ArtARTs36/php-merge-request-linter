@@ -25,4 +25,9 @@ class SetWrapper implements Arrayable
     {
         return $this->set->has($value);
     }
+
+    public function hasAny(array $values): bool
+    {
+        return $this->set->hasAny($values);
+    }
 }

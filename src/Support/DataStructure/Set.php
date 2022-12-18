@@ -52,6 +52,20 @@ class Set implements \Countable, \IteratorAggregate
     }
 
     /**
+     * @param iterable<V> $values
+     */
+    public function hasAny(iterable $values): bool
+    {
+        foreach ($values as $value) {
+            if ($this->has($value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param Set<V> $that
      * @return Set<V>
      */

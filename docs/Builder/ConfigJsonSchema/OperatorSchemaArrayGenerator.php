@@ -80,6 +80,8 @@ class OperatorSchemaArrayGenerator
                         $genericAttr = $property->getAttributes(Generic::class);
                         $genericType = current(current($genericAttr)->getArguments());
 
+                        var_dump($operatorMeta->class);
+
                         $val = [
                             'description' => $operatorMeta->description,
                             'type' => JsonType::to($genericType),

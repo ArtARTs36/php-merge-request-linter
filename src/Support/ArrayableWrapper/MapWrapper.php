@@ -25,4 +25,15 @@ class MapWrapper implements Arrayable
     {
         return $this->map->search($value) !== null;
     }
+
+    public function hasAny(array $values): bool
+    {
+        foreach ($values as $val) {
+            if ($this->map->has($val)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -319,6 +319,13 @@
                         "notHas": {
                             "description": "Check if an array not contains some value.",
                             "type": "string"
+                        },
+                        "hasAny": {
+                            "description": "Check if an array contains some value of list.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 },

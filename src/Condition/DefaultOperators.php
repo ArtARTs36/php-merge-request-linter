@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMinOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\EndsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\GteOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Operator\HasAnyOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\HasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMaxOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMinOperator;
@@ -40,6 +41,7 @@ final class DefaultOperators
         NotEqualsOperator::SYMBOL => NotEqualsOperator::class,
         NotHasOperator::NAME => NotHasOperator::class,
         EqualsAnyOperator::NAME => EqualsAnyOperator::class,
+        HasAnyOperator::NAME => HasAnyOperator::class,
     ];
 
     /**
