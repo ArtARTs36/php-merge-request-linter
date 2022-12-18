@@ -2,8 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support;
 
-use ArtARTs36\MergeRequestLinter\Attribute\Generic;
-
 class Reflector
 {
     /**

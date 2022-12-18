@@ -2,8 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Request\Data;
 
-use ArtARTs36\MergeRequestLinter\Attribute\Generic;
-use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\ContainsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMaxOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMinOperator;
@@ -17,6 +16,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Operator\LteOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\NotHasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\StartsOperator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Support\Generic;
 use ArtARTs36\Str\Str;
 use JetBrains\PhpStorm\ArrayShape;
 

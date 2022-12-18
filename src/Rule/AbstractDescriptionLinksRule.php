@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
-use ArtARTs36\MergeRequestLinter\Attribute\Generic;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Support\Generic;
 
 abstract class AbstractDescriptionLinksRule extends AbstractRule implements Rule
 {

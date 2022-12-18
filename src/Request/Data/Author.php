@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Request\Data;
 
-use ArtARTs36\MergeRequestLinter\Attribute\SupportsConditionOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\ContainsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\EndsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsOperator;

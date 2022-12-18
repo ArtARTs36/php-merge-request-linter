@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 
-use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesGenericType;
+use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 #[EvaluatesGenericType]

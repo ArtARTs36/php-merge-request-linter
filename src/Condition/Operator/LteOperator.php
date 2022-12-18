@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 
-use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesSameType;
+use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;

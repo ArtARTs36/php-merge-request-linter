@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Attribute;
+namespace ArtARTs36\MergeRequestLinter\Condition\Attribute;
 
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 
