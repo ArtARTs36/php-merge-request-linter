@@ -9,9 +9,9 @@ use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 /**
  * Check if the field is equal to one of the values.
  */
-class EqualsAnyOfOperator extends AbstractOperator
+class EqualsAnyOperator extends AbstractOperator
 {
-    public const NAME = 'equalsAnyOf';
+    public const NAME = 'equalsAny';
 
     /**
      * @param array<scalar> $value

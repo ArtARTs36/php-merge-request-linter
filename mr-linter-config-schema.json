@@ -244,7 +244,7 @@
                             "description": "Check if value are not equal.",
                             "type": "string"
                         },
-                        "equalsAnyOf": {
+                        "equalsAny": {
                             "description": "Check if the field is equal to one of the values.",
                             "type": "array",
                             "items": {
@@ -292,7 +292,7 @@
                             "description": "Check if value are not equal.",
                             "type": "string"
                         },
-                        "equalsAnyOf": {
+                        "equalsAny": {
                             "description": "Check if the field is equal to one of the values.",
                             "type": "array",
                             "items": {
@@ -382,7 +382,7 @@
                             "description": "Check if value are not equal.",
                             "type": "string"
                         },
-                        "equalsAnyOf": {
+                        "equalsAny": {
                             "description": "Check if the field is equal to one of the values.",
                             "type": "array",
                             "items": {
@@ -430,7 +430,7 @@
                             "description": "Check if value are not equal.",
                             "type": "string"
                         },
-                        "equalsAnyOf": {
+                        "equalsAny": {
                             "description": "Check if the field is equal to one of the values.",
                             "type": "array",
                             "items": {
@@ -474,7 +474,7 @@
                             "description": "Check if value are not equal.",
                             "type": "integer"
                         },
-                        "equalsAnyOf": {
+                        "equalsAny": {
                             "description": "Check if the field is equal to one of the values.",
                             "type": "array",
                             "items": {
@@ -522,7 +522,7 @@
                             "description": "Check if value are not equal.",
                             "type": "string"
                         },
-                        "equalsAnyOf": {
+                        "equalsAny": {
                             "description": "Check if the field is equal to one of the values.",
                             "type": "array",
                             "items": {
