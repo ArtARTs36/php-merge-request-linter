@@ -80,4 +80,18 @@ class Map extends ArrayCollection
 
         return true;
     }
+
+    /**
+     * @return Map<V, array<K>>
+     */
+    public function groupKeysByValue(): Map
+    {
+        $groups = [];
+
+        foreach ($this->items as $key => $value) {
+            $groups[$value][] = $key;
+        }
+
+        return new Map($groups);
+    }
 }

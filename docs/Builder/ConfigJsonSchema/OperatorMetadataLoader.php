@@ -10,6 +10,8 @@ use ArtARTs36\MergeRequestLinter\Support\Reflector;
 
 class OperatorMetadataLoader
 {
+    private const OPERATOR_VALUE_FIELD = 'value';
+
     /**
      * @return array<class-string<ConditionOperator>, OperatorMetadata>>
      */
@@ -18,10 +20,10 @@ class OperatorMetadataLoader
         /** @var array<class-string<ConditionOperator>, OperatorMetadata> $operators */
         $operators = [];
 
-        foreach (DefaultOperators::MAP as $operatorClass) {
+        foreach (DefaultOperators::map()->groupKeysByValue() as $operatorClass => $operatorNames) {
             $operatorReflector = new \ReflectionClass($operatorClass);
 
-            $param = Reflector::findParamByName($operatorReflector->getConstructor(), 'value');
+            $param = Reflector::findParamByName($operatorReflector->getConstructor(), self::OPERATOR_VALUE_FIELD);
 
             if ($param === null || ! $param->hasType()) {
                 continue;
@@ -38,7 +40,7 @@ class OperatorMetadataLoader
             }
 
             $operators[$operatorClass] = new OperatorMetadata(
-                $operatorClass::NAME,
+                $operatorNames,
                 $operatorClass,
                 Reflector::hasAttribute($operatorReflector, EvaluatesSameType::class),
                 Reflector::hasAttribute($operatorReflector, EvaluatesGenericType::class),

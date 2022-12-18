@@ -201,6 +201,9 @@
                         "equals": {
                             "type": "string"
                         },
+                        "=": {
+                            "type": "string"
+                        },
                         "lengthMin": {
                             "type": "integer"
                         },
@@ -222,6 +225,9 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "type": "string"
+                        },
+                        "=": {
                             "type": "string"
                         },
                         "lengthMin": {
@@ -260,6 +266,9 @@
                     "properties": {
                         "equals": {
                             "type": "boolean"
+                        },
+                        "=": {
+                            "type": "boolean"
                         }
                     }
                 },
@@ -267,6 +276,9 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "type": "string"
+                        },
+                        "=": {
                             "type": "string"
                         },
                         "lengthMin": {
@@ -292,6 +304,9 @@
                         "equals": {
                             "type": "string"
                         },
+                        "=": {
+                            "type": "string"
+                        },
                         "lengthMin": {
                             "type": "integer"
                         },
@@ -315,10 +330,19 @@
                         "equals": {
                             "type": "integer"
                         },
+                        "=": {
+                            "type": "integer"
+                        },
                         "lte": {
                             "type": "integer"
                         },
+                        "<=": {
+                            "type": "integer"
+                        },
                         "gte": {
+                            "type": "integer"
+                        },
+                        ">=": {
                             "type": "integer"
                         }
                     }
@@ -327,6 +351,9 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "type": "string"
+                        },
+                        "=": {
                             "type": "string"
                         },
                         "lengthMin": {
@@ -350,6 +377,9 @@
                     "type": "object",
                     "properties": {
                         "equals": {
+                            "type": "boolean"
+                        },
+                        "=": {
                             "type": "boolean"
                         }
                     }

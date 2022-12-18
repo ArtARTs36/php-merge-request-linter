@@ -64,9 +64,13 @@ class OperatorSchemaArrayGenerator
                     $operatorMeta = $operatorMetadata[$operatorClass];
 
                     if ($operatorMeta->evaluatesSameType) {
-                        $opArray['properties'][$propertyName]['properties'][$operatorMeta->name] = [
+                        $val = [
                             'type' => JsonType::to($property->getType()->getName()),
                         ];
+
+                        foreach ($operatorMeta->names as $operatorName) {
+                            $opArray['properties'][$propertyName]['properties'][$operatorName] = $val;
+                        }
 
                         continue;
                     }
@@ -75,9 +79,13 @@ class OperatorSchemaArrayGenerator
                         $genericAttr = $property->getAttributes(Generic::class);
                         $genericType = current(current($genericAttr)->getArguments());
 
-                        $opArray['properties'][$propertyName]['properties'][$operatorMeta->name] = [
+                        $val = [
                             'type' => JsonType::to($genericType),
                         ];
+
+                        foreach ($operatorMeta->names as $operatorName) {
+                            $opArray['properties'][$propertyName]['properties'][$operatorName] = $val;
+                        }
 
                         continue;
                     }
@@ -85,9 +93,11 @@ class OperatorSchemaArrayGenerator
                     $opParamTypes = $operatorMeta->allowValueTypes;
 
                     if (count($opParamTypes) === 1) {
-                        $opArray['properties'][$propertyName]['properties'][$operatorMeta->name] = [
-                            'type' => $opParamTypes[0],
-                        ];
+                        foreach ($operatorMeta->names as $operatorName) {
+                            $opArray['properties'][$propertyName]['properties'][$operatorName] = [
+                                'type' => $opParamTypes[0],
+                            ];
+                        }
                     } else {
                         $anyOf = [];
 
@@ -97,7 +107,9 @@ class OperatorSchemaArrayGenerator
                             ];
                         }
 
-                        $opArray['properties'][$propertyName]['properties'][$operatorMeta->name]['anyOf'] = $anyOf;
+                        foreach ($operatorMeta->names as $operatorName) {
+                            $opArray['properties'][$propertyName]['properties'][$operatorName]['anyOf'] = $anyOf;
+                        }
                     }
                 }
             }
