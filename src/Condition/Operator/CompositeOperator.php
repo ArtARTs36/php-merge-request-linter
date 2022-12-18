@@ -15,10 +15,10 @@ class CompositeOperator implements ConditionOperator
         //
     }
 
-    public function evaluate(MergeRequest $request): bool
+    public function evaluate(object $subject): bool
     {
         foreach ($this->operators as $operator) {
-            if (! $operator->evaluate($request)) {
+            if (! $operator->evaluate($subject)) {
                 return false;
             }
         }

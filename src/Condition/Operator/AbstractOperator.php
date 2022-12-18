@@ -22,10 +22,10 @@ abstract class AbstractOperator implements ConditionOperator
         //
     }
 
-    public function evaluate(MergeRequest $request): bool
+    public function evaluate(object $subject): bool
     {
         try {
-            return $this->doEvaluate($request);
+            return $this->doEvaluate($subject);
         } catch (PropertyHasDifferentTypeException $e) {
             throw new ComparedIncompatibilityTypesException(
                 sprintf(
