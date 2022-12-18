@@ -77,7 +77,12 @@
                             "$ref": "#/definitions/rule_conditions"
                         },
                         "labels": {
-                            "type": "array"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
                         }
                     },
                     "required": [
@@ -101,7 +106,12 @@
                             "$ref": "#/definitions/rule_conditions"
                         },
                         "labels": {
-                            "type": "array"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
                         }
                     },
                     "required": [

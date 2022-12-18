@@ -20,7 +20,7 @@ class RuleSchemaGenerator
         $rules = DefaultRules::map();
         $schema = [];
 
-        foreach ($rules as $rule) {
+        foreach ($rules as $ruleName => $rule) {
             $ruleSchema = [
                 'type' => 'object',
                 'description' => Reflector::findPHPDocSummary(new \ReflectionClass($rule)),
@@ -55,7 +55,7 @@ class RuleSchemaGenerator
                 }
             }
 
-            $schema[$rule::NAME] = $ruleSchema;
+            $schema[$ruleName] = $ruleSchema;
         }
 
         return $schema;
