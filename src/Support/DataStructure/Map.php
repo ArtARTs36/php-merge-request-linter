@@ -11,8 +11,6 @@ class Map extends ArrayCollection
 {
     use CountProxy;
 
-    private ?int $count = null;
-
     /**
      * @param list<V> $list
      * @return Map<K, V>
