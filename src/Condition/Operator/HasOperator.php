@@ -6,7 +6,6 @@ use ArtARTs36\MergeRequestLinter\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 
 #[EvaluatesGenericType]
 class HasOperator extends AbstractOperator implements ConditionOperator
@@ -23,16 +22,9 @@ class HasOperator extends AbstractOperator implements ConditionOperator
 
     protected function doEvaluate(MergeRequest $request): bool
     {
-        $val = $this->propertyExtractor->iterable($request, $this->property);
-
-        if (is_array($val)) {
-            return in_array($this->value, $val);
-        }
-
-        if ($val instanceof Set) {
-            return $val->has($this->value);
-        }
-
-        return $val->search($this->value) !== null;
+        return $this
+            ->propertyExtractor
+            ->iterable($request, $this->property)
+            ->has($this->value);
     }
 }
