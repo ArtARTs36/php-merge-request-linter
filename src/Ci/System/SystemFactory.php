@@ -2,8 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions;
-use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
@@ -15,12 +13,6 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class SystemFactory implements CiSystemFactory
 {
-    /** @var array<string, class-string<CiSystem>> */
-    public const CI_MAP = [
-        GitlabCi::NAME => GitlabCi::class,
-        GithubActions::NAME => GithubActions::class,
-    ];
-
     /**
      * @param Map<string, class-string<CiSystem>> $ciSystems
      */
@@ -46,7 +38,7 @@ class SystemFactory implements CiSystemFactory
 
     public function create(string $ciName): CiSystem
     {
-        $targetClass = self::CI_MAP[$ciName] ?? null;
+        $targetClass = $this->ciSystems->get($ciName);
 
         if ($targetClass === null) {
             throw CiNotSupported::fromCiName($ciName);
@@ -57,7 +49,6 @@ class SystemFactory implements CiSystemFactory
         }
 
         return new $targetClass(
-            //@phpstan-ignore-next-line
             $this->config->getCredentials()->get($targetClass),
             $this->environment,
             $this->httpClientFactory->create(

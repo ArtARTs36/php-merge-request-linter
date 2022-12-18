@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\MergeRequestLinter\Ci\Credentials\Token;
-use ArtARTs36\MergeRequestLinter\Ci\System\SystemFactory;
+use ArtARTs36\MergeRequestLinter\Condition\DefaultOperators;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigValueTransformer;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
@@ -23,7 +23,7 @@ class CredentialMapper
     }
 
     /**
-     * @param array<key-of<SystemFactory::CI_MAP>, string> $credentials
+     * @param array<key-of<DefaultOperators::MAP>, string> $credentials
      * @return Map<class-string<CiSystem>, RemoteCredentials>
      */
     public function map(array $credentials): Map
