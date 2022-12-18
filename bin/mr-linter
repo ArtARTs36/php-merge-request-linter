@@ -15,6 +15,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\Loader\RulesMapper;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
+use ArtARTs36\MergeRequestLinter\Configuration\Value\FileTransformer;
 use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\LintCommand;
@@ -74,7 +75,10 @@ $configLoader = new CompositeLoader([
         return new JsonConfigLoader(
             $filesystem,
             new CredentialMapper(
-                [new EnvTransformer($environment)],
+                [
+                    new EnvTransformer($environment),
+                    new FileTransformer($filesystem),
+                ],
                 $ciSystemsMap,
             ),
             new RulesMapper(
