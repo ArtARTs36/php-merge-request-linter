@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
-use ArtARTs36\MergeRequestLinter\Support\Generic;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 use ArtARTs36\Str\Str;
 
 class OperatorSchemaArrayGenerator

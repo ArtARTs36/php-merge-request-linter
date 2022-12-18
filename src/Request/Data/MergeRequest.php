@@ -16,7 +16,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Operator\LteOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\NotHasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\StartsOperator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
-use ArtARTs36\MergeRequestLinter\Support\Generic;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 use ArtARTs36\Str\Str;
 use JetBrains\PhpStorm\ArrayShape;
 
