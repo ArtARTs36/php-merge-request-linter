@@ -28,6 +28,6 @@ class SetWrapper implements Arrayable
 
     public function hasAny(array $values): bool
     {
-        return $this->set->hasAny($values);
+        return $this->set->containsAny($values);
     }
 }

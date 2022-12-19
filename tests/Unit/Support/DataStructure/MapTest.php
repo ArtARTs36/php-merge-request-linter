@@ -124,4 +124,47 @@ final class MapTest extends TestCase
     {
         self::assertEquals($expected, (new Map($items))->missing($id));
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::diff
+     */
+    public function testDiff(): void
+    {
+        self::assertEquals(
+            ['one' => 1],
+            iterator_to_array((new Map(['one' => 1, 't' => 2]))->diff(new Map(['t' => 2])))
+        );
+    }
+
+    public function providerForTestFirst(): array
+    {
+        return [
+            [
+                new Map([
+                    'one' => 1,
+                ]),
+                1,
+            ],
+            [
+                new Map([
+                    'one' => 1,
+                    'two' => 2,
+                ]),
+                1,
+            ],
+            [
+                new Map([]),
+                null,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::first
+     * @dataProvider providerForTestFirst
+     */
+    public function testFirst(Map $map, mixed $expected): void
+    {
+        self::assertEquals($expected, $map->first());
+    }
 }

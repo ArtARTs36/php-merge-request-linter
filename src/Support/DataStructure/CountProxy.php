@@ -19,4 +19,9 @@ trait CountProxy
     {
         return $this->count() === 0;
     }
+
+    public function equalsCount(\Countable $that): bool
+    {
+        return $this->count() === $that->count();
+    }
 }

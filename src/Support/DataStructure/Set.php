@@ -6,20 +6,17 @@ use ArtARTs36\MergeRequestLinter\Support\ArrayKeyIterator;
 
 /**
  * @template V
- * @template-implements \IteratorAggregate<V>
+ * @template-implements Collection<int, V>
  */
-class Set implements \Countable, \IteratorAggregate
+class Set implements Collection
 {
     use CountProxy;
 
-    private ?int $count = null;
-
     /**
-     * @param array<V, bool> $items
+     * @param array<V, true> $items
      */
-    public function __construct(
-        private readonly array $items,
-    ) {
+    final public function __construct(protected array $items)
+    {
         //
     }
 
@@ -54,7 +51,7 @@ class Set implements \Countable, \IteratorAggregate
     /**
      * @param iterable<V> $values
      */
-    public function hasAny(iterable $values): bool
+    public function containsAny(iterable $values): bool
     {
         foreach ($values as $value) {
             if ($this->has($value)) {
@@ -81,14 +78,6 @@ class Set implements \Countable, \IteratorAggregate
         return new self($items);
     }
 
-    /**
-     * @param Set<V> $set
-     */
-    public function equalsCount(Set $set): bool
-    {
-        return $this->count() === $set->count;
-    }
-
     public function implode(string $separator): string
     {
         $items = $this->items;
@@ -105,6 +94,9 @@ class Set implements \Countable, \IteratorAggregate
         return $str;
     }
 
+    /**
+     * @return \Traversable<V>
+     */
     public function getIterator(): \Traversable
     {
         return new ArrayKeyIterator($this->items);

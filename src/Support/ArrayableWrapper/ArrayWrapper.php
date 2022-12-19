@@ -28,6 +28,6 @@ class ArrayWrapper implements Arrayable
 
     public function hasAny(array $values): bool
     {
-        return Set::fromList($this->array)->hasAny($values);
+        return Set::fromList($this->array)->containsAny($values);
     }
 }

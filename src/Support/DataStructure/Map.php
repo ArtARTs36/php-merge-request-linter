@@ -5,11 +5,20 @@ namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 /**
  * @template K of array-key
  * @template V
- * @template-extends ArrayCollection<K, V>
+ * @template-implements Collection<K, V>
  */
-class Map extends ArrayCollection
+class Map implements Collection
 {
     use CountProxy;
+
+    /**
+     * @param array<K, V> $items
+     */
+    public function __construct(protected array $items)
+    {
+        //
+    }
+
 
     /**
      * @param list<V> $list
@@ -25,7 +34,10 @@ class Map extends ArrayCollection
             $count++;
         }
 
-        return new self($items);
+        $map = new self($items);
+        $map->count = $count;
+
+        return $map;
     }
 
     /**
@@ -91,5 +103,52 @@ class Map extends ArrayCollection
         }
 
         return new Map($groups);
+    }
+
+    public function containsAny(iterable $values): bool
+    {
+        $valueMap = [];
+
+        foreach ($values as $value) {
+            $valueMap[$value] = true;
+        }
+
+        foreach ($this as $item) {
+            if (isset($valueMap[$item])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Map<K, V> $that
+     * @return Map<K, V>
+     */
+    public function diff(self $that): self
+    {
+        return new self(array_diff($this->items, $that->items));
+    }
+
+    /**
+     * @return \Traversable<K, V>
+     */
+    public function getIterator(): \Traversable
+    {
+        return new \ArrayIterator($this->items);
+    }
+
+    /**
+     * @return V|null
+     */
+    public function first()
+    {
+        return $this->items[array_key_first($this->items)] ?? null;
+    }
+
+    public function implode(string $sep): string
+    {
+        return implode($sep, $this->items);
     }
 }
