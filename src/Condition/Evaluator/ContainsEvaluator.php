@@ -14,6 +14,8 @@ class ContainsEvaluator extends StringEvaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return Str::contains($subject->scalar(), "$this->value");
+        $val = $subject->scalar();
+
+        return Str::contains("$val", "$this->value");
     }
 }

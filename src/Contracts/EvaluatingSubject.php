@@ -37,4 +37,9 @@ interface EvaluatingSubject
      * @throws PropertyNotExists
      */
     public function arrayable(): Arrayable;
+
+    /**
+     * Get property name.
+     */
+    public function propertyName(): string;
 }

@@ -3,15 +3,15 @@
 namespace ArtARTs36\MergeRequestLinter\Condition;
 
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionEvaluator;
 
 class CompositeOperator implements ConditionOperator
 {
     /**
-     * @param iterable<ConditionEvaluator> $operators
+     * @param iterable<ConditionOperator> $operators
      */
-    public function __construct(private iterable $operators)
-    {
+    public function __construct(
+        private readonly iterable $operators,
+    ) {
         //
     }
 

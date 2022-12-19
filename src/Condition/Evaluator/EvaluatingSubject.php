@@ -56,4 +56,9 @@ class EvaluatingSubject implements \ArtARTs36\MergeRequestLinter\Contracts\Evalu
     {
         return $this->propertyExtractor->arrayable($this->subject, $this->property);
     }
+
+    public function propertyName(): string
+    {
+        return $this->property;
+    }
 }
