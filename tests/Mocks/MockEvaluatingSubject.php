@@ -33,4 +33,9 @@ class MockEvaluatingSubject implements EvaluatingSubject
     {
         return new ArrayWrapper($this->value);
     }
+
+    public function propertyName(): string
+    {
+        return 'mock_property';
+    }
 }
