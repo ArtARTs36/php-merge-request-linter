@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 final class DefaultEvaluators
 {
+    /** @var array<string, class-string<ConditionEvaluator>> */
     public const MAP = [
         EqualsEvaluator::NAME => EqualsEvaluator::class,
         EqualsEvaluator::SYMBOL => EqualsEvaluator::class,

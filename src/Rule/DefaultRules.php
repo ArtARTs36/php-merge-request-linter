@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 final class DefaultRules
 {
-    /** @var array<class-string<Rule>> */
+    /** @var array<string, class-string<Rule>> */
     public const RULES = [
         ChangedFilesLimitRule::NAME => ChangedFilesLimitRule::class,
         DescriptionContainsLinkOfAnyDomainsRule::NAME => DescriptionContainsLinkOfAnyDomainsRule::class,
