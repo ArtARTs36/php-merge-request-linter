@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -21,12 +21,12 @@ final class LteEvaluatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteOperator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteEvaluator::doEvaluate
      * @dataProvider providerForEvaluate
      */
     public function testEvaluate(int|float $propertyValue, int|float $value, bool $expected): void
     {
-        $operator = new LteOperator($value);
+        $operator = new LteEvaluator($value);
 
         self::assertEquals($expected, $operator->evaluate(new MockEvaluatingSubject($propertyValue)));
     }

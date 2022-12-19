@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject;
 /**
  * Check if a string contains a prefix.
  */
-class StartsOperator extends StringEvaluator
+class StartsEvaluator extends StringEvaluator
 {
     public const NAME = 'starts';
 

@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject;
  * Check number is equal to or less than.
  */
 #[EvaluatesSameType]
-class LteOperator extends NumberEvaluator
+class LteEvaluator extends NumberEvaluator
 {
     public const NAME = 'lte';
     public const SYMBOL = '<=';

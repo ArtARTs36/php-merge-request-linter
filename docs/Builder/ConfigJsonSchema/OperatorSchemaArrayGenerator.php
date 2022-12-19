@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
-use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
@@ -57,7 +57,7 @@ class OperatorSchemaArrayGenerator
                 'properties' => [],
             ];
 
-            foreach ($property->getAttributes(SupportsConditionOperator::class) as $attribute) {
+            foreach ($property->getAttributes(SupportsConditionEvaluator::class) as $attribute) {
                 $operators = current($attribute->getArguments());
 
                 foreach ($operators as $operatorClass) {

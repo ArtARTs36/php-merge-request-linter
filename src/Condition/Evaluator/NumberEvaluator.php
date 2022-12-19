@@ -6,7 +6,7 @@ abstract class NumberEvaluator extends Evaluator
 {
     public function __construct(
         protected readonly int|float $value,
-    ){
+    ) {
         //
     }
 }

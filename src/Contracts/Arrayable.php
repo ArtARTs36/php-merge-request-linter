@@ -19,6 +19,7 @@ interface Arrayable extends \Countable
 
     /**
      * Determine has any value of {values}.
+     * @param array<mixed> $values
      */
     public function hasAny(array $values): bool;
 }

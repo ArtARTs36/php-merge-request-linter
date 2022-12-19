@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Contracts;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 
+/**
+ * Interface for evaluating Subject.
+ */
 interface EvaluatingSubject
 {
     /**

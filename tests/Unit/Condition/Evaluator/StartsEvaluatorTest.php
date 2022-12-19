@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -17,12 +17,12 @@ final class StartsEvaluatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsOperator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsEvaluator::doEvaluate
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(mixed $propertyValue, string $value, bool $expected): void
     {
-        $operator = new StartsOperator($value);
+        $operator = new StartsEvaluator($value);
 
         self::assertTrue($expected === $operator->evaluate(new MockEvaluatingSubject($propertyValue)));
     }

@@ -2,13 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Attribute;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Contracts\ConditionEvaluator;
 
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
-class SupportsConditionOperator
+class SupportsConditionEvaluator
 {
     /**
-     * @param array<class-string<ConditionOperator>> $operators
+     * @param array<class-string<ConditionEvaluator>> $operators
      */
     public function __construct(
         public array $operators,
