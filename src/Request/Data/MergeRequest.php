@@ -3,21 +3,21 @@
 namespace ArtARTs36\MergeRequestLinter\Request\Data;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsAnyOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\ContainsOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMaxOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\CountMinOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\EndsOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\GteOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\HasAnyOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\HasOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMaxOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMinOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\LteOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\NotEqualsOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\NotHasOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\StartsOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsAnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\ContainsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMinEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\GteEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasAnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotHasOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsOperator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 use ArtARTs36\Str\Str;
@@ -42,75 +42,75 @@ class MergeRequest
      */
     public function __construct(
         #[SupportsConditionOperator([
-            EqualsOperator::class,
+            EqualsEvaluator::class,
             LengthMinOperator::class,
-            LengthMaxOperator::class,
+            LengthMaxEvaluator::class,
             StartsOperator::class,
-            EndsOperator::class,
-            ContainsOperator::class,
-            NotEqualsOperator::class,
-            EqualsAnyOperator::class,
+            EndsEvaluator::class,
+            ContainsEvaluator::class,
+            NotEqualsEvaluator::class,
+            EqualsAnyEvaluator::class,
         ])]
         public Str $title,
         #[SupportsConditionOperator([
-            EqualsOperator::class,
+            EqualsEvaluator::class,
             LengthMinOperator::class,
-            LengthMaxOperator::class,
+            LengthMaxEvaluator::class,
             StartsOperator::class,
-            EndsOperator::class,
-            ContainsOperator::class,
-            NotEqualsOperator::class,
-            EqualsAnyOperator::class,
+            EndsEvaluator::class,
+            ContainsEvaluator::class,
+            NotEqualsEvaluator::class,
+            EqualsAnyEvaluator::class,
         ])]
         public Str $description,
         #[Generic(Generic::OF_STRING)]
         #[SupportsConditionOperator([
-            CountMinOperator::class,
-            CountMaxOperator::class,
-            HasOperator::class,
+            CountMinEvaluator::class,
+            CountMaxEvaluator::class,
+            HasEvaluator::class,
             NotHasOperator::class,
-            HasAnyOperator::class,
+            HasAnyEvaluator::class,
         ])]
         public Set $labels,
         #[SupportsConditionOperator([
-            EqualsOperator::class,
-            NotEqualsOperator::class,
+            EqualsEvaluator::class,
+            NotEqualsEvaluator::class,
         ])]
         public bool $hasConflicts,
         #[SupportsConditionOperator([
-            EqualsOperator::class,
+            EqualsEvaluator::class,
             LengthMinOperator::class,
-            LengthMaxOperator::class,
+            LengthMaxEvaluator::class,
             StartsOperator::class,
-            EndsOperator::class,
-            ContainsOperator::class,
-            NotEqualsOperator::class,
-            EqualsAnyOperator::class,
+            EndsEvaluator::class,
+            ContainsEvaluator::class,
+            NotEqualsEvaluator::class,
+            EqualsAnyEvaluator::class,
         ])]
         public Str $sourceBranch,
         #[SupportsConditionOperator([
-            EqualsOperator::class,
+            EqualsEvaluator::class,
             LengthMinOperator::class,
-            LengthMaxOperator::class,
+            LengthMaxEvaluator::class,
             StartsOperator::class,
-            EndsOperator::class,
-            ContainsOperator::class,
-            NotEqualsOperator::class,
-            EqualsAnyOperator::class,
+            EndsEvaluator::class,
+            ContainsEvaluator::class,
+            NotEqualsEvaluator::class,
+            EqualsAnyEvaluator::class,
         ])]
         public Str $targetBranch,
         #[SupportsConditionOperator([
-            EqualsOperator::class,
+            EqualsEvaluator::class,
             LteOperator::class,
-            GteOperator::class,
-            NotEqualsOperator::class,
-            EqualsAnyOperator::class,
+            GteEvaluator::class,
+            NotEqualsEvaluator::class,
+            EqualsAnyEvaluator::class,
         ])]
         public int $changedFilesCount,
         public Author $author,
         #[SupportsConditionOperator([
-            EqualsOperator::class,
-            NotEqualsOperator::class,
+            EqualsEvaluator::class,
+            NotEqualsEvaluator::class,
         ])]
         public bool $isDraft,
     ) {

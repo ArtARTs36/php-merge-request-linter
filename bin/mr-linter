@@ -3,7 +3,8 @@
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Ci\System\DefaultSystems;
-use ArtARTs36\MergeRequestLinter\Condition\DefaultOperators;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
@@ -27,7 +28,6 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\CallbackPropertyExtractor;
 use Symfony\Component\Console\Application;
 
@@ -70,7 +70,9 @@ $configLoader = new CompositeLoader([
             new ConstructorFinder(),
         );
 
-        $operatorFactory = new OperatorFactory(DefaultOperators::map(), new CallbackPropertyExtractor());
+        $operatorFactory = new OperatorFactory(new CallbackPropertyExtractor(), new EvaluatorFactory(
+            DefaultEvaluators::map(),
+        ));
 
         return new JsonConfigLoader(
             $filesystem,

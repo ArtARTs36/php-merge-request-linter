@@ -3,27 +3,27 @@
 namespace ArtARTs36\MergeRequestLinter\Request\Data;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsAnyOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\ContainsOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\EndsOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\EqualsOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMaxOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\LengthMinOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\NotEqualsOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\StartsOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsAnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\ContainsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsOperator;
 
 class Author
 {
     public function __construct(
         #[SupportsConditionOperator([
-            EqualsOperator::class,
+            EqualsEvaluator::class,
             LengthMinOperator::class,
-            LengthMaxOperator::class,
+            LengthMaxEvaluator::class,
             StartsOperator::class,
-            EndsOperator::class,
-            ContainsOperator::class,
-            NotEqualsOperator::class,
-            EqualsAnyOperator::class,
+            EndsEvaluator::class,
+            ContainsEvaluator::class,
+            NotEqualsEvaluator::class,
+            EqualsAnyEvaluator::class,
         ])]
         public string $login,
     ) {

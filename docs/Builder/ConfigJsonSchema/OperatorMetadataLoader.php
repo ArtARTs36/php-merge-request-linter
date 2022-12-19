@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesSameType;
-use ArtARTs36\MergeRequestLinter\Condition\DefaultOperators;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
@@ -21,7 +21,7 @@ class OperatorMetadataLoader
         /** @var array<class-string<ConditionOperator>, OperatorMetadata> $operators */
         $operators = [];
 
-        foreach (DefaultOperators::map()->groupKeysByValue() as $operatorClass => $operatorNames) {
+        foreach (DefaultEvaluators::map()->groupKeysByValue() as $operatorClass => $operatorNames) {
             $operatorReflector = new \ReflectionClass($operatorClass);
 
             $param = Reflector::findParamByName($operatorReflector->getConstructor(), self::OPERATOR_VALUE_FIELD);
