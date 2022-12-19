@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Arrayable;
 use ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Support\ArrayableWrapper\ArrayWrapper;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Collection;
 
 class MockEvaluatingSubject implements EvaluatingSubject
 {
@@ -29,9 +29,9 @@ class MockEvaluatingSubject implements EvaluatingSubject
         return $this->value;
     }
 
-    public function arrayable(): Arrayable
+    public function collection(): Collection
     {
-        return new ArrayWrapper($this->value);
+        return new Arrayee($this->value);
     }
 
     public function propertyName(): string

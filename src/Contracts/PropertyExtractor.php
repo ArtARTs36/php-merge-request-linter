@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Contracts;
 
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Collection;
 
 /**
  * Property Extractor.
@@ -35,6 +36,7 @@ interface PropertyExtractor
      * Extract iterable property.
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
+     * @return Collection<mixed, mixed>
      */
-    public function arrayable(object $object, string $property): Arrayable;
+    public function collection(object $object, string $property): Collection;
 }

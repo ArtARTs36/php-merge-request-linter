@@ -68,6 +68,11 @@ class Map implements Collection
         return null;
     }
 
+    public function contains(mixed $value): bool
+    {
+        return $this->search($value) === null;
+    }
+
     public function missing(string $id): bool
     {
         return ! $this->has($id);

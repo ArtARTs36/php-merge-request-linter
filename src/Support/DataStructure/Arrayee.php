@@ -30,11 +30,30 @@ class Arrayee implements Collection
     public function containsAny(iterable $values): bool
     {
         foreach ($values as $value) {
-            if (in_array($value, $this->items)) {
+            if ($this->contains($value)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    public function contains(mixed $value): bool
+    {
+        return in_array($value, $this->items);
+    }
+
+    /**
+     * @return V|null
+     */
+    public function first(): mixed
+    {
+        $item = current($this->items);
+
+        if ($item === false) {
+            return null;
+        }
+
+        return $item;
     }
 }

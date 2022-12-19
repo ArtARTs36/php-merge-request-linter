@@ -25,7 +25,7 @@ class HasAnyEvaluator extends Evaluator
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
         return $subject
-            ->arrayable()
-            ->hasAny($this->value);
+            ->collection()
+            ->containsAny($this->value);
     }
 }

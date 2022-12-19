@@ -2,15 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Arrayable;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
-use ArtARTs36\MergeRequestLinter\Support\ArrayableWrapper\WrapperFactory;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Collection;
 
 final class MockPropertyExtractor implements PropertyExtractor
 {
     public function __construct(
         private mixed $value,
-        private WrapperFactory $arrayableFactory = new WrapperFactory(),
     ) {
         //
     }
@@ -30,8 +29,12 @@ final class MockPropertyExtractor implements PropertyExtractor
         return $this->value;
     }
 
-    public function arrayable(object $object, string $property): Arrayable
+    public function collection(object $object, string $property): Collection
     {
-        return $this->arrayableFactory->create($this->value);
+        if (is_array($this->value)) {
+            return new Arrayee($this->value);
+        }
+
+        return $this->value;
     }
 }

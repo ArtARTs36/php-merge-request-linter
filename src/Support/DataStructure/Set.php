@@ -43,7 +43,7 @@ class Set implements Collection
     /**
      * @param V $value
      */
-    public function has(mixed $value): bool
+    public function contains(mixed $value): bool
     {
         return array_key_exists($value, $this->items);
     }
@@ -54,7 +54,7 @@ class Set implements Collection
     public function containsAny(iterable $values): bool
     {
         foreach ($values as $value) {
-            if ($this->has($value)) {
+            if ($this->contains($value)) {
                 return true;
             }
         }

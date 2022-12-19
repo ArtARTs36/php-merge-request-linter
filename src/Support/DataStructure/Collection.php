@@ -15,4 +15,10 @@ interface Collection extends \IteratorAggregate, \Countable
      * @param iterable<V> $values
      */
     public function containsAny(iterable $values): bool;
+
+    /**
+     * Check contains value.
+     * @param V $value
+     */
+    public function contains(mixed $value): bool;
 }

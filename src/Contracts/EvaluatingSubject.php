@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Contracts;
 
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Collection;
 
 /**
  * Interface for evaluating Subject.
@@ -35,8 +36,9 @@ interface EvaluatingSubject
      * Extract iterable property.
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
+     * @return Collection<mixed, mixed>
      */
-    public function arrayable(): Arrayable;
+    public function collection(): Collection;
 
     /**
      * Get property name.

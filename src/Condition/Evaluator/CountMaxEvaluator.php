@@ -13,6 +13,6 @@ class CountMaxEvaluator extends IntEvaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return count($subject->arrayable()) <= $this->value;
+        return count($subject->collection()) <= $this->value;
     }
 }

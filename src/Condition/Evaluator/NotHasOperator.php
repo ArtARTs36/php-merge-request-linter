@@ -15,6 +15,6 @@ class NotHasOperator extends ScalarEvaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return ! $subject->arrayable()->has($this->value);
+        return ! $subject->collection()->contains($this->value);
     }
 }

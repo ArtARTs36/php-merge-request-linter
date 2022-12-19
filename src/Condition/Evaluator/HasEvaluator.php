@@ -16,7 +16,7 @@ class HasEvaluator extends ScalarEvaluator
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
         return $subject
-            ->arrayable()
-            ->has($this->value);
+            ->collection()
+            ->contains($this->value);
     }
 }

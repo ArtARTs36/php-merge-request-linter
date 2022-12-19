@@ -24,7 +24,7 @@ class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRu
                 continue;
             }
 
-            if ($this->domains->has($host)) {
+            if ($this->domains->contains($host)) {
                 return [];
             }
         }

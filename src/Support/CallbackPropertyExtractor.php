@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Arrayable;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
-use ArtARTs36\MergeRequestLinter\Support\ArrayableWrapper\WrapperFactory;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Facade\Str as StrFacade;
@@ -14,12 +14,6 @@ use ArtARTs36\Str\Str;
 
 class CallbackPropertyExtractor implements PropertyExtractor
 {
-    public function __construct(
-        private readonly WrapperFactory $arrayableFactory = new WrapperFactory(),
-    ) {
-        //
-    }
-
     /**
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
@@ -81,7 +75,7 @@ class CallbackPropertyExtractor implements PropertyExtractor
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
      */
-    public function arrayable(object $object, string $property): Arrayable
+    public function collection(object $object, string $property): Collection
     {
         $val = $this->extract($object, $property);
 
@@ -93,7 +87,11 @@ class CallbackPropertyExtractor implements PropertyExtractor
             );
         }
 
-        return $this->arrayableFactory->create($val);
+        if (is_array($val)) {
+            return new Arrayee($val);
+        }
+
+        return $val;
     }
 
     /**
