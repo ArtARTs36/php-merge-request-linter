@@ -14,8 +14,9 @@ class Map implements Collection
     /**
      * @param array<K, V> $items
      */
-    public function __construct(protected array $items)
-    {
+    public function __construct(
+        private readonly array $items,
+    ) {
         //
     }
 

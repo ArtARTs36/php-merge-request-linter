@@ -36,7 +36,7 @@ interface EvaluatingSubject
      * Extract iterable property.
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
-     * @return Collection<mixed, mixed>
+     * @return Collection<int|string, mixed>
      */
     public function collection(): Collection;
 

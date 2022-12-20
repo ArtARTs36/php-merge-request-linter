@@ -36,7 +36,7 @@ interface PropertyExtractor
      * Extract iterable property.
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
-     * @return Collection<mixed, mixed>
+     * @return Collection<int|string, mixed>
      */
     public function collection(object $object, string $property): Collection;
 }

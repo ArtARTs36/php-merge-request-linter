@@ -2,13 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
+use IteratorAggregate;
+
 /**
  * Interface for Collections.
  * @template K of array-key
  * @template V
- * @template-extends \IteratorAggregate<K, V>
+ * @template-extends IteratorAggregate<K, V>
  */
-interface Collection extends \IteratorAggregate, \Countable
+interface Collection extends IteratorAggregate, \Countable
 {
     /**
      * Check contains any of {values}.

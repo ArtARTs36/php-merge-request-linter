@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Arrayable;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
