@@ -11,9 +11,9 @@ use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 interface ConditionOperator
 {
     /**
-     * Evaluate.
+     * Check conditions on subject.
      * @throws ComparedIncompatibilityTypesException
      * @throws PropertyNotExists
      */
-    public function evaluate(object $subject): bool;
+    public function check(object $subject): bool;
 }

@@ -23,7 +23,7 @@ class ConditionRule implements Rule
 
     public function lint(MergeRequest $request): array
     {
-        if (! $this->operator->evaluate($request)) {
+        if (! $this->operator->check($request)) {
             return [];
         }
 

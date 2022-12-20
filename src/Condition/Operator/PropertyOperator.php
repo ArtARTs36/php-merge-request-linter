@@ -17,7 +17,7 @@ class PropertyOperator implements ConditionOperator
         //
     }
 
-    public function evaluate(object $subject): bool
+    public function check(object $subject): bool
     {
         return $this->operator->evaluate(new EvaluatingSubject(
             $subject,
