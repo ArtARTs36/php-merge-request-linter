@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 class PropertyOperator implements ConditionOperator
 {
     public function __construct(
-        private readonly ConditionEvaluator $operator,
+        private readonly ConditionEvaluator $evaluator,
         private readonly PropertyExtractor  $propertyExtractor,
         private readonly string             $property,
     ) {
@@ -19,7 +19,7 @@ class PropertyOperator implements ConditionOperator
 
     public function check(object $subject): bool
     {
-        return $this->operator->evaluate(new EvaluatingSubject(
+        return $this->evaluator->evaluate(new EvaluatingSubject(
             $subject,
             $this->propertyExtractor,
             $this->property,
