@@ -5,20 +5,17 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
 
 /**
  * Description must fill.
  */
 class DescriptionNotEmptyRule extends AbstractRule implements Rule
 {
-    use DefinitionToNotes;
-
     public const NAME = '@mr-linter/description_not_empty';
 
-    public function lint(MergeRequest $request): array
+    protected function doLint(MergeRequest $request): bool
     {
-        return $request->description->isEmpty() ? $this->definitionToNotes() : [];
+        return $request->description->isNotEmpty();
     }
 
     public function getDefinition(): RuleDefinition

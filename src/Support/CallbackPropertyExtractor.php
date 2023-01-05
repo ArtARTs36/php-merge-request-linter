@@ -27,7 +27,9 @@ class CallbackPropertyExtractor implements PropertyExtractor
         }
 
         if (is_string($val)) {
-            return StrFacade::toNumber($val);
+            $number = StrFacade::toNumber($val);
+
+            return $number === null ? 0 : $number;
         }
 
         return is_float($val) ? $val : (int) $val;

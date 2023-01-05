@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\MergeRequestLinter\Ci\Credentials\Token;
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\ConfigValueTransformer;
 use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;

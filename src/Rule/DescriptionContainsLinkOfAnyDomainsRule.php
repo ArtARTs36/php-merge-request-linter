@@ -13,7 +13,7 @@ class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRu
 {
     public const NAME = '@mr-linter/description_contains_links_of_any_domains';
 
-    public function lint(MergeRequest $request): array
+    protected function doLint(MergeRequest $request): bool
     {
         $uris = $request->description->findUris();
 
@@ -25,11 +25,11 @@ class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRu
             }
 
             if ($this->domains->contains($host)) {
-                return [];
+                return true;
             }
         }
 
-        return $this->definitionToNotes();
+        return false;
     }
 
     public function getDefinition(): RuleDefinition
