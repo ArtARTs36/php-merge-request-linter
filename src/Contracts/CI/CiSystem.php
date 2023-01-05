@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\CI;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Exception\ServerUnexpectedResponseException;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;

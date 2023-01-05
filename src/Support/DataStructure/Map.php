@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Collection;
+
 /**
  * @template K of array-key
  * @template V

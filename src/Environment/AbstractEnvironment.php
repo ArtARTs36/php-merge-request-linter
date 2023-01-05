@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Environment;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 
 abstract class AbstractEnvironment implements Environment

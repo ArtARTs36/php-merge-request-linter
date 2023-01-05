@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Collection;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Collection;
 
 class EvaluatingSubject implements \ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject
 {

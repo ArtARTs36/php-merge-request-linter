@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Contracts;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 

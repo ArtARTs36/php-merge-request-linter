@@ -28,7 +28,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
-use ArtARTs36\MergeRequestLinter\Support\CallbackPropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\CallbackPropertyExtractor;
 use Symfony\Component\Console\Application;
 
 $loaded = false;

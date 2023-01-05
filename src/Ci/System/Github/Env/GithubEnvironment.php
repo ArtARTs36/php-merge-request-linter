@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System\Github\Env;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\Str\Str;
 

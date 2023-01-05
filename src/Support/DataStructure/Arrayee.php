@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Collection;
 use Traversable;
 
 /**

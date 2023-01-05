@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;

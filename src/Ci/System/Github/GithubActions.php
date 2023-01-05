@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use GuzzleHttp\Psr7\Request;

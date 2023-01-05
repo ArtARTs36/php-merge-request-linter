@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\Env;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 
 class GitlabEnvironment
 {

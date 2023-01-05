@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration\Value;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Environment;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 
 final class EnvTransformer extends StringFuncTransformer
 {

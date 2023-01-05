@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Operator;
 
-use ArtARTs36\MergeRequestLinter\Support\CallbackPropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\CallbackPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class PropertyExtractorTest extends TestCase
@@ -18,7 +18,7 @@ final class PropertyExtractorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Support\CallbackPropertyExtractor::numeric
+     * @covers \ArtARTs36\MergeRequestLinter\Support\Reflector\CallbackPropertyExtractor::numeric
      * @dataProvider providerForNumeric
      */
     public function testNumeric(string|int|float $rawValue, int|float $expected): void
