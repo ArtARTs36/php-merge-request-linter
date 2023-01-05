@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
@@ -64,7 +65,7 @@ class SystemFactory implements CiSystemFactory
         }
 
         if ($targetClass === GitlabCi::class) {
-            return new GitlabCi($credentials, $this->environment, $httpClient);
+            return new GitlabCi($credentials, new GitlabEnvironment($this->environment), $httpClient);
         }
 
         return new $targetClass(

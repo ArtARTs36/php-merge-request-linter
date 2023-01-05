@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
+use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
@@ -59,6 +60,10 @@ final class GithubActionsTest extends TestCase
 
     private function makeCi(array $env): GithubActions
     {
-        return new GithubActions(new EmptyCredentials(), new MapEnvironment(new Map($env)), new NullClient());
+        return new GithubActions(
+            new EmptyCredentials(),
+            new GithubEnvironment(new MapEnvironment(new Map($env))),
+            new NullClient(),
+        );
     }
 }
