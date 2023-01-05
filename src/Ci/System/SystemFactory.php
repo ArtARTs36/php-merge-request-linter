@@ -44,7 +44,7 @@ class SystemFactory implements CiSystemFactory
             throw CiNotSupported::fromCiName($ciName);
         }
 
-        if (! $this->config->getCredentials()->has($targetClass)) {
+        if ($this->config->getCredentials()->missing($targetClass)) {
             throw InvalidCredentialsException::fromCiName($ciName);
         }
 

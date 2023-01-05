@@ -2,8 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\System\Github;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\Repo;
-use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\RequestID;
+use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\VarName;
 use ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL\PullRequestSchema;
@@ -25,12 +24,15 @@ class GithubActions implements CiSystem
 
     protected PullRequestSchema $schema;
 
+    protected GithubEnvironment $env;
+
     public function __construct(
         protected RemoteCredentials $credentials,
-        protected Environment $environment,
+        Environment $environment,
         protected ClientInterface $client,
     ) {
         $this->schema = new PullRequestSchema();
+        $this->env = new GithubEnvironment($environment);
     }
 
     public static function is(Environment $environment): bool
@@ -41,7 +43,7 @@ class GithubActions implements CiSystem
     public function isMergeRequest(): bool
     {
         try {
-            return $this->getMergeRequestId()->value >= 0;
+            return $this->env->getMergeRequestId() >= 0;
         } catch (EnvironmentVariableNotFound) {
             return false;
         }
@@ -49,9 +51,9 @@ class GithubActions implements CiSystem
 
     public function getMergeRequest(): MergeRequest
     {
-        $graphqlUrl = $this->environment->getString(VarName::GraphqlURL->value);
-        $repo = $this->extractEnvRepo();
-        $requestId = $this->getMergeRequestId()->value;
+        $graphqlUrl = $this->env->getGraphqlURL();
+        $repo = $this->env->extractRepo();
+        $requestId = $this->env->getMergeRequestId();
 
         $query = json_encode([
             'query' => $this->schema->createGraphqlForPullRequest(
@@ -68,15 +70,5 @@ class GithubActions implements CiSystem
         return $this->schema->createMergeRequest(
             $this->responseToJsonArray($response)['data']['repository']['pullRequest']
         );
-    }
-
-    protected function extractEnvRepo(): Repo
-    {
-        return Repo::createFromString($this->environment->getString(VarName::Repository->value));
-    }
-
-    protected function getMergeRequestId(): RequestID
-    {
-        return RequestID::createFromRef($this->environment->getString(VarName::RefName->value));
     }
 }
