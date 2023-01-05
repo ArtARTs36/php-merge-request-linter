@@ -45,7 +45,7 @@ class TestRuleForRuleFactory extends AbstractRule
         //
     }
 
-    public function lint(MergeRequest $request): array
+    public function doLint(MergeRequest $request): bool
     {
         // TODO: Implement lint() method.
     }

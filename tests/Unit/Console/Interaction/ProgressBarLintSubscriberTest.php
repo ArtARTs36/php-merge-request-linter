@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Console\Interaction;
 
 use ArtARTs36\MergeRequestLinter\Console\Interaction\ProgressBarLintSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockProgressBar;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullPrinter;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ProgressBarLintSubscriberTest extends TestCase
@@ -75,7 +76,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     private function makeProgressBarLintSubscriber()
     {
         $bar = new MockProgressBar();
-        $subscriber = new ProgressBarLintSubscriber($bar);
+        $subscriber = new ProgressBarLintSubscriber($bar, new NullPrinter(), false);
 
         return new class ($bar, $subscriber) {
             public function __construct(

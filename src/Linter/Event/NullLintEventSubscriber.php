@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Linter\Event;
 
 use ArtARTs36\MergeRequestLinter\Contracts\LintEventSubscriber;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 class NullLintEventSubscriber implements LintEventSubscriber
 {
@@ -17,6 +18,11 @@ class NullLintEventSubscriber implements LintEventSubscriber
     }
 
     public function stopOn(string $ruleName): void
+    {
+        //
+    }
+
+    public function started(MergeRequest $request): void
     {
         //
     }

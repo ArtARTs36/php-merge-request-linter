@@ -101,4 +101,9 @@ class Set implements Collection
     {
         return new ArrayKeyIterator($this->items);
     }
+
+    public function __toString(): string
+    {
+        return "[" . $this->implode(', ') . "]";
+    }
 }

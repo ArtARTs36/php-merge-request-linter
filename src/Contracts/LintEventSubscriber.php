@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts;
 
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+
 /**
  * Subscriber for events from Linter.
  */
@@ -21,4 +23,9 @@ interface LintEventSubscriber
      * Emit 'stopOn' event.
      */
     public function stopOn(string $ruleName): void;
+
+    /**
+     * Emit 'started linter' event.
+     */
+    public function started(MergeRequest $request): void;
 }

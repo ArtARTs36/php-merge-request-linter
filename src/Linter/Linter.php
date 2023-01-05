@@ -21,6 +21,8 @@ class Linter
 
     public function run(MergeRequest $request): Notes
     {
+        $this->eventSubscriber->started($request);
+
         $notes = [];
 
         foreach ($this->rules as $rule) {
