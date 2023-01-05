@@ -2,32 +2,20 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration\Value;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigValueTransformer;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment;
-use ArtARTs36\Str\Facade\Str;
 
-class EnvTransformer implements ConfigValueTransformer
+final class EnvTransformer extends StringFuncTransformer
 {
-    private const EXPRESSION_LEFT = 'env(';
-    private const EXPRESSION_RIGHT = ')';
-    private const EXPRESSION_LEFT_OFFSET = 4;
-    private const EXPRESSION_RIGHT_OFFSET = -1;
+    protected const FUNC_NAME = 'env';
 
     public function __construct(
-        private Environment $environment,
+        private readonly Environment $environment,
     ) {
         //
     }
 
-    public function supports(string $value): bool
+    protected function doTransform(string $preparedValue): string
     {
-        return str_starts_with($value, self::EXPRESSION_LEFT) && str_ends_with($value, self::EXPRESSION_RIGHT);
-    }
-
-    public function transform(string $value): string
-    {
-        $key = Str::substring($value, self::EXPRESSION_LEFT_OFFSET, self::EXPRESSION_RIGHT_OFFSET);
-
-        return $this->environment->getString($key);
+        return $this->environment->getString($preparedValue);
     }
 }
