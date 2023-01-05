@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesGenericType;
-use ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject;
 
 /**
  * Check if an array not contains some value.

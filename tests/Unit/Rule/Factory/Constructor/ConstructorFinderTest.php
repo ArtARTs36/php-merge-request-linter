@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Factory;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Contracts\RuleConstructor;
-use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\EmptyConstructor;

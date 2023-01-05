@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Linter;
 
-use ArtARTs36\MergeRequestLinter\Contracts\LintEventSubscriber;
+use ArtARTs36\MergeRequestLinter\Contracts\Linter\LintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Exception\StopLintException;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Note\LintNote;

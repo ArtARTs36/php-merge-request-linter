@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Attribute;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionEvaluator;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionEvaluator;
 
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class SupportsConditionEvaluator

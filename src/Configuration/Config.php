@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration;
 
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 

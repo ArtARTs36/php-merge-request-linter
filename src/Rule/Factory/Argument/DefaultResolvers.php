@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ArgResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
 
 class DefaultResolvers
 {
     /**
-     * @return array<string, ArgResolver>
+     * @return array<string, ArgumentResolver>
      */
     public static function get(): array
     {

@@ -1,13 +1,13 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Contracts;
+namespace ArtARTs36\MergeRequestLinter\Contracts\Config;
 
 use ArtARTs36\MergeRequestLinter\Exception\ArgNotSupportedException;
 
 /**
  * Argument resolver.
  */
-interface ArgResolver
+interface ArgumentResolver
 {
     /**
      * Resolve argument.

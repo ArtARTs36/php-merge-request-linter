@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Interaction;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Printer;
+use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Output\OutputInterface;

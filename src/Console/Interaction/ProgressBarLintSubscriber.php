@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Interaction;
 
-use ArtARTs36\MergeRequestLinter\Contracts\LintEventSubscriber;
-use ArtARTs36\MergeRequestLinter\Contracts\Printer;
-use ArtARTs36\MergeRequestLinter\Contracts\ProgressBar;
+use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
+use ArtARTs36\MergeRequestLinter\Contracts\IO\ProgressBar;
+use ArtARTs36\MergeRequestLinter\Contracts\Linter\LintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 class ProgressBarLintSubscriber implements LintEventSubscriber

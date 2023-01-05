@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Contracts;
+namespace ArtARTs36\MergeRequestLinter\Contracts\CI;
 
 /**
  * Factory for CI Systems.

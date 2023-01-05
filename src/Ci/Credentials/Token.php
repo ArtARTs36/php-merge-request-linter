@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Ci\Credentials;
 
-use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 
 final class Token implements RemoteCredentials
 {

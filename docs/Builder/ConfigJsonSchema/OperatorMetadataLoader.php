@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesGenericType;
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
 

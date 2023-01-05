@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ArgResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
 
-class AsIsResolver implements ArgResolver
+class AsIsResolver implements ArgumentResolver
 {
     public function resolve(mixed $value): mixed
     {

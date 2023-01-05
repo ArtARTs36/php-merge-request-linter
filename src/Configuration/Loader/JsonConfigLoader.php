@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\FileSystem\Contracts\FileNotFound;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 

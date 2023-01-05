@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject;
 
 /**
  * Check the maximum number of elements in a field.

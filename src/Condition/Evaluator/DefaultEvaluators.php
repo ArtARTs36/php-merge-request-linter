@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionEvaluator;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 final class DefaultEvaluators

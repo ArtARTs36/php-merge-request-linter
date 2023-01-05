@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\EvaluatesSameType;
-use ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject;
 
 /**
  * Check if value are equal.

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Linter\Runner;
 
-use ArtARTs36\MergeRequestLinter\Contracts\LinterRunner;
+use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\CurrentlyNotMergeRequestException;

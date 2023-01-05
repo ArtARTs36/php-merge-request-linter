@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration\Value;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigValueTransformer;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigValueTransformer;
 use ArtARTs36\Str\Facade\Str;
 
 abstract class StringFuncTransformer implements ConfigValueTransformer

@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionEvaluator;
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;

@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Exception\ConditionEvaluatorNotFound;
 

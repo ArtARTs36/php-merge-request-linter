@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Note;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Note;
+use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
 
 final class LintNote extends AbstractNote implements Note
 {

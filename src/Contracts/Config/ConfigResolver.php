@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Contracts;
+namespace ArtARTs36\MergeRequestLinter\Contracts\Config;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ResolvedConfig;
 use ArtARTs36\MergeRequestLinter\Configuration\User;

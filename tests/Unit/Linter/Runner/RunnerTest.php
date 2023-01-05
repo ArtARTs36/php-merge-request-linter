@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;

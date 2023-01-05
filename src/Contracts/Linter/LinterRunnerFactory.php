@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Contracts;
+namespace ArtARTs36\MergeRequestLinter\Contracts\Linter;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 

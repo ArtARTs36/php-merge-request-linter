@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionOperator;
 
 class CompositeOperator implements ConditionOperator
 {

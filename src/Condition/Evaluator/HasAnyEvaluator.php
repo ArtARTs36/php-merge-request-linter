@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
-use ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject;
 
 /**
  * Check if an array contains some value of list.

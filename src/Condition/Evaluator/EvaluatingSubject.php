@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Collection;
 
-class EvaluatingSubject implements \ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject
+class EvaluatingSubject implements \ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject
 {
     public function __construct(
         public readonly object $subject,

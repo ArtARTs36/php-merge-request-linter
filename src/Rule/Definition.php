@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
-use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 
 class Definition implements RuleDefinition
 {

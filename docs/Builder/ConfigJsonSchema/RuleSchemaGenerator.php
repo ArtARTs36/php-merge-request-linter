@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
-use ArtARTs36\MergeRequestLinter\Contracts\RuleConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;

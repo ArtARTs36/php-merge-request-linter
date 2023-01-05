@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject;
 use ArtARTs36\Str\Facade\Str;
-use ArtARTs36\MergeRequestLinter\Contracts\EvaluatingSubject;
 
 /**
  * Check the maximum string length.

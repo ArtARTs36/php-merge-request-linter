@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Contracts;
+namespace ArtARTs36\MergeRequestLinter\Contracts\HTTP;
 
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use Psr\Http\Client\ClientInterface;
