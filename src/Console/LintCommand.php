@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
-use ArtARTs36\MergeRequestLinter\Console\Interaction\ConsolePrinter;
-use ArtARTs36\MergeRequestLinter\Console\Interaction\ProgressBarLintSubscriber;
-use ArtARTs36\MergeRequestLinter\Console\Interaction\SymfonyProgressBar;
+use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
+use ArtARTs36\MergeRequestLinter\IO\Console\ConsolePrinter;
+use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
@@ -59,7 +59,7 @@ class LintCommand extends Command
 
         $linter = new Linter(
             $config->config->getRules(),
-            new ProgressBarLintSubscriber(
+            new LintSubscriber(
                 new SymfonyProgressBar($progressBar),
                 new ConsolePrinter($style),
                 $input->getOption('debug'),

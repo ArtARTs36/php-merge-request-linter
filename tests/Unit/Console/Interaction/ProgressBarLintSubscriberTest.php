@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Console\Interaction;
 
-use ArtARTs36\MergeRequestLinter\Console\Interaction\ProgressBarLintSubscriber;
+use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockProgressBar;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullPrinter;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -20,7 +20,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\ProgressBarLintSubscriber::success
+     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber::success
      * @dataProvider providerForTestSuccess
      */
     public function testSuccess(int $runs, int $expectedProgress): void
@@ -46,7 +46,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\ProgressBarLintSubscriber::fail
+     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber::fail
      * @dataProvider providerForTestFail
      */
     public function testFail(int $runs, int $expectedProgress): void
@@ -62,7 +62,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\ProgressBarLintSubscriber::stopOn
+     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber::stopOn
      */
     public function testStopOn(): void
     {
@@ -76,12 +76,12 @@ final class ProgressBarLintSubscriberTest extends TestCase
     private function makeProgressBarLintSubscriber()
     {
         $bar = new MockProgressBar();
-        $subscriber = new ProgressBarLintSubscriber($bar, new NullPrinter(), false);
+        $subscriber = new LintSubscriber($bar, new NullPrinter(), false);
 
         return new class ($bar, $subscriber) {
             public function __construct(
                 public MockProgressBar $progressBar,
-                public ProgressBarLintSubscriber $subscriber,
+                public LintSubscriber  $subscriber,
             ) {
                 //
             }

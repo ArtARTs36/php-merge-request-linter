@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\IO\ProgressBar;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
-class ProgressBarLintSubscriber implements LintEventSubscriber
+class LintSubscriber implements LintEventSubscriber
 {
     public function __construct(
         private readonly ProgressBar $progressBar,
