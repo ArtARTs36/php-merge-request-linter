@@ -107,7 +107,7 @@ class LintCommand extends Command
         $counter = 0;
 
         /** @var Note $note */
-        foreach ($notes as $i => $note) {
+        foreach ($notes as $note) {
             ++$counter;
 
             $table[] = [

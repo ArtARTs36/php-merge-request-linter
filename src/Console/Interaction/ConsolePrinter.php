@@ -3,12 +3,14 @@
 namespace ArtARTs36\MergeRequestLinter\Console\Interaction;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Printer;
-use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableSeparator;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ConsolePrinter implements Printer
 {
     public function __construct(
-        private readonly StyleInterface $output,
+        private readonly OutputInterface $output,
     ) {
         //
     }
@@ -19,10 +21,34 @@ class ConsolePrinter implements Printer
 
         $this->buildProps($object, $props, '');
 
-        $this->output->table(
-            ['property', 'value'],
-            $props,
-        );
+        $props = $this->separateProps($props);
+
+        $table = (new Table($this->output))
+            ->setHeaders(['Property', 'Value'])
+            ->setRows($props);
+
+        $table->render();
+
+        $this->output->write("\n");
+    }
+
+    /**
+     * @param array<array{string, string}> $props
+     * @return array<array{string, string}|TableSeparator>
+     */
+    private function separateProps(array $props): array
+    {
+        $separated = [];
+
+        foreach ($props as $prop) {
+            $separated[] = $prop;
+
+            if (next($props) !== false) {
+                $separated[] = new TableSeparator();
+            }
+        }
+
+        return $separated;
     }
 
     /**
@@ -43,12 +69,8 @@ class ConsolePrinter implements Printer
                 $props[] = [$k, sprintf('"%s"', $value)];
             } elseif (is_scalar($value)) {
                 $props[] = [$k, $value];
-            } elseif(is_object($value)) {
-                if ($prefix === '') {
-                    $prefix = $key;
-                } else {
-                    $prefix .= '.' . $key;
-                }
+            } elseif (is_object($value)) {
+                $prefix = $k;
 
                 $this->buildProps($value, $props, $prefix);
             }

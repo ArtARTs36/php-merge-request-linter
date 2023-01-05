@@ -47,11 +47,16 @@ class SystemFactory implements CiSystemFactory
             throw CiNotSupported::fromCiName($ciName);
         }
 
-        if ($this->config->getCredentials()->missing($targetClass)) {
-            throw InvalidCredentialsException::fromCiName($ciName);
+        if (! method_exists($targetClass, '__construct')) {
+            return new $targetClass();
         }
 
         $credentials = $this->config->getCredentials()->get($targetClass);
+
+        if ($credentials === null) {
+            throw InvalidCredentialsException::fromCiName($ciName);
+        }
+
         $httpClient = $this->httpClientFactory->create($this->config->getHttpClient());
 
         if ($targetClass === GithubActions::class) {
@@ -62,22 +67,10 @@ class SystemFactory implements CiSystemFactory
             return new GitlabCi($credentials, $this->environment, $httpClient);
         }
 
-        return $this->construct($targetClass);
-    }
-
-    /**
-     * @param class-string<CiSystem> $class
-     */
-    protected function construct(string $class): CiSystem
-    {
-        if (method_exists($class, '__construct')) {
-            return call_user_func_array([$class, '__construct'], [
-                'credentials' => $this->config->getCredentials()->get($class),
-                'httpClient' => $this->httpClientFactory->create($this->config->getHttpClient()),
-                'environment' => $this->environment,
-            ]);
-        }
-
-        return new $class;
+        return new $targetClass(
+            credentials: $credentials,
+            httpClient: $this->httpClientFactory->create($this->config->getHttpClient()),
+            environment: $this->environment,
+        );
     }
 }
