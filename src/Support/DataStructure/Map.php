@@ -87,6 +87,7 @@ class Map implements Collection
             $groups[$value][] = $key;
         }
 
+        /** @phpstan-ignore-next-line */
         return new Map($groups);
     }
 

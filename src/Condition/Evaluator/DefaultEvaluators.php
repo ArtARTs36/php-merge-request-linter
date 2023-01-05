@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 final class DefaultEvaluators
 {
     /** @var array<string, class-string<ConditionEvaluator>> */
-    public const MAP = [
+    public static array $map = [
         EqualsEvaluator::NAME => EqualsEvaluator::class,
         EqualsEvaluator::SYMBOL => EqualsEvaluator::class,
         StartsEvaluator::NAME => StartsEvaluator::class,
@@ -35,7 +35,7 @@ final class DefaultEvaluators
      */
     public static function map(): Map
     {
-        return new Map(self::MAP);
+        return new Map(self::$map);
     }
 
     private function __construct()

@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 final class DefaultSystems
 {
     /** @var array<string, class-string<CiSystem>> */
-    public const MAP = [
+    public static array $map = [
         GithubActions::NAME => GithubActions::class,
         GitlabCi::NAME => GitlabCi::class,
     ];
@@ -20,7 +20,7 @@ final class DefaultSystems
      */
     public static function map(): Map
     {
-        return new Map(self::MAP);
+        return new Map(self::$map);
     }
 
     private function __construct()
