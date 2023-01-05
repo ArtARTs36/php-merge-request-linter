@@ -24,15 +24,12 @@ class GithubActions implements CiSystem
 
     protected PullRequestSchema $schema;
 
-    protected GithubEnvironment $env;
-
     public function __construct(
         protected RemoteCredentials $credentials,
-        Environment $environment,
+        protected GithubEnvironment $env,
         protected ClientInterface $client,
     ) {
         $this->schema = new PullRequestSchema();
-        $this->env = new GithubEnvironment($environment);
     }
 
     public static function is(Environment $environment): bool
