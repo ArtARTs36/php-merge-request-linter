@@ -20,27 +20,6 @@ class Map implements Collection
         //
     }
 
-
-    /**
-     * @param list<V> $list
-     * @return Map<K, V>
-     */
-    public static function fromList(iterable $list): self
-    {
-        $items = [];
-        $count = 0;
-
-        foreach ($list as $item) {
-            $items[$item] = $item;
-            $count++;
-        }
-
-        $map = new self($items);
-        $map->count = $count;
-
-        return $map;
-    }
-
     /**
      * @return V|null
      */
