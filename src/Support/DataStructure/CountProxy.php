@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 trait CountProxy
 {
-    private ?int $count = null;
+    protected ?int $count = null;
 
     public function count(): int
     {

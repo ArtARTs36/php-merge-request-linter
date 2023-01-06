@@ -18,7 +18,7 @@ class Arrayee implements Collection
      * @param array<K, V> $items
      */
     public function __construct(
-        private array $items,
+        protected array $items,
     ) {
         //
     }

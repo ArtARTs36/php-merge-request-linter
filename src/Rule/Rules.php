@@ -3,20 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 /**
- * @template-implements \IteratorAggregate<Rule>
+ * @template-extends Arrayee<int, Rule>
  */
-class Rules implements \IteratorAggregate, \Countable
+class Rules extends Arrayee
 {
-    /**
-     * @param array<Rule> $rules
-     */
-    public function __construct(protected array $rules)
-    {
-        //
-    }
-
     /**
      * @param iterable<Rule> $rules
      */
@@ -33,21 +26,10 @@ class Rules implements \IteratorAggregate, \Countable
 
     public function add(Rule $rule): self
     {
-        $this->rules[] = $rule;
+        $this->items[] = $rule;
+
+        $this->count++;
 
         return $this;
-    }
-
-    /**
-     * @return \Traversable<Rule>
-     */
-    public function getIterator(): \Traversable
-    {
-        return new \ArrayIterator($this->rules);
-    }
-
-    public function count(): int
-    {
-        return count($this->rules);
     }
 }
