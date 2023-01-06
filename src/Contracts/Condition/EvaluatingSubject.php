@@ -42,9 +42,4 @@ interface EvaluatingSubject
      * @return Arrayee<int|string, mixed>|Map<string, mixed>|Set<mixed>
      */
     public function collection(): Collection;
-
-    /**
-     * Get property name.
-     */
-    public function propertyName(): string;
 }

@@ -56,9 +56,4 @@ class EvaluatingSubject implements \ArtARTs36\MergeRequestLinter\Contracts\Condi
     {
         return $this->propertyExtractor->collection($this->subject, $this->property);
     }
-
-    public function propertyName(): string
-    {
-        return $this->property;
-    }
 }

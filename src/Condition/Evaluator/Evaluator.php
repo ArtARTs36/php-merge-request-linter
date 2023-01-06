@@ -23,7 +23,7 @@ abstract class Evaluator implements ConditionEvaluator
                 sprintf(
                     'Operator "%s": attempt compare incompatibility types on property request.%s(%s). Expected type: %s',
                     static::NAME,
-                    $subject->propertyName(),
+                    $e->getPropertyName(),
                     $e->getRealPropertyType(),
                     $e->getExpectedPropertyType(),
                 ),
@@ -34,8 +34,9 @@ abstract class Evaluator implements ConditionEvaluator
                 sprintf(
                     'Operator "%s": property request.%s not exists',
                     static::NAME,
-                    $subject->propertyName(),
+                    $e->getPropertyName(),
                 ),
+                $e->getPropertyName(),
                 previous: $e,
             );
         }

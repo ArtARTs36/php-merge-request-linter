@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Exception;
 class PropertyHasDifferentTypeException extends MergeRequestLinterException
 {
     public function __construct(
+        private readonly string $propertyName,
         private readonly string $realPropertyType,
         private readonly string $expectedPropertyType,
         string $message = "",
@@ -17,10 +18,16 @@ class PropertyHasDifferentTypeException extends MergeRequestLinterException
     public static function make(string $property, string $realType, string $expectedType): self
     {
         return new self(
+            $property,
             $realType,
             $expectedType,
             sprintf('Property "%s" has different type "%s". Expected: %s', $property, $realType, $expectedType),
         );
+    }
+
+    public function getPropertyName(): string
+    {
+        return $this->propertyName;
     }
 
     public function getRealPropertyType(): string
