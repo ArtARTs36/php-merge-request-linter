@@ -12,7 +12,7 @@ class EvaluatingSubject implements \ArtARTs36\MergeRequestLinter\Contracts\Condi
     public function __construct(
         public readonly object $subject,
         private readonly PropertyExtractor $propertyExtractor,
-        public readonly string $property,
+        private readonly string $property,
     ) {
         //
     }
