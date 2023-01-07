@@ -34,7 +34,7 @@ class Client implements GithubClient
             ->withBody(StreamBuilder::streamFor($query))
             ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken()));
 
-        $this->validateResponse($response, 'github');
+        $this->validateResponse($response, $input->graphqlUrl);
 
         return $this->pullRequestSchema->createPullRequest($this->responseToJsonArray($response));
     }

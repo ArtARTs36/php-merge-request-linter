@@ -32,7 +32,7 @@ class Client implements GitlabClient
 
         $resp = $this->client->sendRequest($request);
 
-        $this->validateResponse($resp, 'gitlab');
+        $this->validateResponse($resp, $url);
 
         $response = $this->responseToJsonArray($resp);
 

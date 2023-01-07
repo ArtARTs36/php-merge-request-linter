@@ -9,8 +9,8 @@ class InvalidCredentialsException extends \RuntimeException
         return new self("Given invalid credentials for $ciName");
     }
 
-    public static function fromResponse(string $ciName, string $response): self
+    public static function fromResponse(string $host, string $response): self
     {
-        return new self("Given invalid credentials for $ciName. Server returns: ". $response);
+        return new self("Given invalid credentials for $host. Server returns: ". $response);
     }
 }
