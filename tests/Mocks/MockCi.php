@@ -41,6 +41,6 @@ final class MockCi implements CiSystem
 
     public function getCurrentlyMergeRequest(): MergeRequest
     {
-        return $this->request ?? MergeRequest::fromArray([]);
+        return $this->request;
     }
 }

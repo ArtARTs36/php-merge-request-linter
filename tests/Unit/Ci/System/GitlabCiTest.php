@@ -2,10 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequest;
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyCredentials;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullClient;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GitlabCiTest extends TestCase
@@ -59,6 +60,11 @@ final class GitlabCiTest extends TestCase
 
     private function makeCi(array $env): GitlabCi
     {
-        return new GitlabCi(new EmptyCredentials(), new GitlabEnvironment($this->makeEnvironment($env)), new NullClient());
+        return new GitlabCi(new GitlabEnvironment($this->makeEnvironment($env)), new class () implements GitlabClient {
+            public function getMergeRequest(MergeRequestInput $input): MergeRequest
+            {
+                // TODO: Implement getMergeRequest() method.
+            }
+        });
     }
 }

@@ -8,9 +8,12 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
+use ArtARTs36\Str\Str;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -26,19 +29,19 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         );
     }
 
-    protected function makeMergeRequest(array $data = []): MergeRequest
+    protected function makeMergeRequest(array $request = []): MergeRequest
     {
-        return MergeRequest::fromArray([
-            'title' => $data['title'] ?? '',
-            'description' => $data['description'] ?? '',
-            'labels' => $data['labels'] ?? [],
-            'has_conflicts' => false,
-            'source_branch' => $data['source_branch'] ?? '',
-            'target_branch' => $data['target_branch'] ?? '',
-            'changed_files_count' => $data['changed_files_count'] ?? 1,
-            'author_login' => 'bot',
-            'is_draft' => $data['is_draft'] ?? false,
-        ]);
+        return new MergeRequest(
+            Str::make($request['title'] ?? ''),
+            Str::make($request['description'] ?? ''),
+            Set::fromList($request['labels'] ?? []),
+            (bool) ($request['has_conflicts'] ?? false),
+            Str::make($request['source_branch'] ?? ''),
+            Str::make($request['target_branch'] ?? ''),
+            (int) ($request['changed_files_count'] ?? 0),
+            new Author($request['author_login'] ?? ''),
+            $request['is_draft'] ?? false,
+        );
     }
 
     protected function makeEnvironment(array $env): Environment

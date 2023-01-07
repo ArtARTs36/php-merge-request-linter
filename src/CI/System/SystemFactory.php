@@ -71,7 +71,10 @@ class SystemFactory implements CiSystemFactory
         }
 
         if ($targetClass === GitlabCi::class) {
-            return new GitlabCi($credentials, new GitlabEnvironment($this->environment), $httpClient);
+            return new GitlabCi(new GitlabEnvironment($this->environment), new Gitlab\API\Client(
+                $credentials,
+                $httpClient,
+            ));
         }
 
         return new $targetClass(

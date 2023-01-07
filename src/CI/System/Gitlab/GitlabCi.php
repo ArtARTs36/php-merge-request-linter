@@ -2,17 +2,18 @@
 
 namespace ArtARTs36\MergeRequestLinter\CI\System\Gitlab;
 
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\VarName;
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
+use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
-use GuzzleHttp\Psr7\Request;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestInterface;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
+use ArtARTs36\Str\Str;
 
 class GitlabCi implements CiSystem
 {
@@ -21,9 +22,8 @@ class GitlabCi implements CiSystem
     public const NAME = 'gitlab_ci';
 
     public function __construct(
-        protected RemoteCredentials $credentials,
         protected GitlabEnvironment $environment,
-        protected ClientInterface $client,
+        protected GitlabClient $client,
     ) {
         //
     }
@@ -44,29 +44,24 @@ class GitlabCi implements CiSystem
 
     public function getCurrentlyMergeRequest(): MergeRequest
     {
-        $response = $this->client->sendRequest($this->makeHttpRequestForFetchMergeRequest());
+        $request = $this->client->getMergeRequest(
+            new MergeRequestInput(
+                $this->environment->getGitlabServerUrl(),
+                $this->environment->getProjectId(),
+                $this->environment->getMergeRequestId(),
+            ),
+        );
 
-        $this->validateResponse($response, self::NAME);
-
-        $responseArray = $this->responseToJsonArray($response);
-
-        $responseArray['changed_files_count'] = $responseArray['changes_count'];
-        $responseArray['author_login'] = $responseArray['author']['username'];
-        $responseArray['is_draft'] = $responseArray['draft'] ?? false;
-
-        unset($responseArray['changes']);
-
-        return MergeRequest::fromArray($responseArray);
-    }
-
-    protected function makeHttpRequestForFetchMergeRequest(): RequestInterface
-    {
-        [$projectId, $requestId] = [$this->environment->getProjectId(), $this->environment->getMergeRequestId()];
-
-        return new Request('GET', $this->environment->getGitlabServerUrl() . "/api/v4/projects/$projectId/merge_requests/$requestId/changes", [
-            'PRIVATE-TOKEN' => [
-                $this->credentials->getToken(),
-            ],
-        ]);
+        return new MergeRequest(
+            Str::make($request->title),
+            Str::make($request->description),
+            Set::fromList($request->labels),
+            $request->hasConflicts,
+            Str::make($request->sourceBranch),
+            Str::make($request->targetBranch),
+            $request->changedFilesCount,
+            new Author($request->authorLogin),
+            $request->isDraft,
+        );
     }
 }
