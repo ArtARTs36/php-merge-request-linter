@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Note;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
-use ArtARTs36\Str\Facade\Str;
 
 final class ExceptionNote extends AbstractNote implements Note
 {
@@ -11,20 +10,16 @@ final class ExceptionNote extends AbstractNote implements Note
 
     public function __construct(
         protected \Throwable $exception,
-        protected string $message = '',
     ) {
         //
     }
 
     public function getDescription(): string
     {
-        return sprintf('%s (exception %s)', $this->getMessage(), $this->exception::class);
-    }
+        if ($this->exception->getMessage() !== '') {
+            return sprintf('%s (exception %s)', $this->exception->getMessage(), $this->exception::class);
+        }
 
-    private function getMessage(): string
-    {
-        return Str::isNotEmpty($this->message) ?
-            $this->message :
-            $this->exception->getMessage();
+        return sprintf('Exception %s', $this->exception::class);
     }
 }
