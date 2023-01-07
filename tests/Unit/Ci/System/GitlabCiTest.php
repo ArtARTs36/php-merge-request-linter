@@ -27,11 +27,11 @@ final class GitlabCiTest extends TestCase
 
     /**
      * @dataProvider providerForTestIs
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::is
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::isCurrentlyWorking
      */
     public function testIs(array $env, bool $expected): void
     {
-        self::assertEquals($expected, GitlabCi::is($this->makeEnvironment($env)));
+        self::assertEquals($expected, $this->makeCi($env)->isCurrentlyWorking());
     }
 
     public function providerForTestIsMergeRequest(): array
@@ -50,12 +50,12 @@ final class GitlabCiTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::isMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::isCurrentlyMergeRequest
      * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::__construct
      */
     public function testIsMergeRequest(array $env, bool $expected): void
     {
-        self::assertEquals($expected, $this->makeCi($env)->isMergeRequest());
+        self::assertEquals($expected, $this->makeCi($env)->isCurrentlyMergeRequest());
     }
 
     private function makeCi(array $env): GitlabCi

@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use JetBrains\PhpStorm\ArrayShape;
 
@@ -29,12 +28,12 @@ final class MockCi implements CiSystem
         ], $request);
     }
 
-    public static function is(Environment $environment): bool
+    public function isCurrentlyWorking(): bool
     {
         return true;
     }
 
-    public function isMergeRequest(): bool
+    public function isCurrentlyMergeRequest(): bool
     {
        return $this->values['is_pull_request'];
     }

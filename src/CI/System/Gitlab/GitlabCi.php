@@ -4,11 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\CI\System\Gitlab;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\VarName;
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
@@ -28,12 +26,12 @@ class GitlabCi implements CiSystem
         //
     }
 
-    public static function is(Environment $environment): bool
+    public function isCurrentlyWorking(): bool
     {
-        return $environment->has(VarName::Identity->value);
+        return $this->environment->isWorking();
     }
 
-    public function isMergeRequest(): bool
+    public function isCurrentlyMergeRequest(): bool
     {
         try {
             return $this->environment->getMergeRequestId() >= 0;

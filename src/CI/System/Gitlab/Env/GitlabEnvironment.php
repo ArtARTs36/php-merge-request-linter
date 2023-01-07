@@ -12,6 +12,11 @@ class GitlabEnvironment
         //
     }
 
+    public function isWorking(): bool
+    {
+        return $this->environment->has(VarName::Identity->value);
+    }
+
     public function getProjectId(): int
     {
         return $this->environment->getInt(VarName::ProjectID->value);

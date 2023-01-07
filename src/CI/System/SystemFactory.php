@@ -34,8 +34,10 @@ class SystemFactory implements CiSystemFactory
     public function createCurrently(): CiSystem
     {
         foreach ($this->ciSystems as $name => $ciClass) {
-            if ($ciClass::is($this->environment)) {
-                return $this->create($name);
+            $ci = $this->create($name);
+
+            if ($ci->isCurrentlyWorking()) {
+                return $ci;
             }
         }
 

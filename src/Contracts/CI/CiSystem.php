@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Exception\ServerUnexpectedResponseException;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 /**
- * Continuous Integration System
+ * Continuous Integration System.
  * @internal
  */
 interface CiSystem
@@ -16,12 +16,12 @@ interface CiSystem
     /**
      * Is currently CiSystem
      */
-    public static function is(Environment $environment): bool;
+    public function isCurrentlyWorking(): bool;
 
     /**
      * Is Merge Request
      */
-    public function isMergeRequest(): bool;
+    public function isCurrentlyMergeRequest(): bool;
 
     /**
      * Get current merge request

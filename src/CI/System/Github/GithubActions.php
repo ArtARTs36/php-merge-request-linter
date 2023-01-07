@@ -3,12 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\VarName;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
@@ -28,12 +26,12 @@ class GithubActions implements CiSystem
         //
     }
 
-    public static function is(Environment $environment): bool
+    public function isCurrentlyWorking(): bool
     {
-        return $environment->has(VarName::Identity->value);
+        return $this->env->isWorking();
     }
 
-    public function isMergeRequest(): bool
+    public function isCurrentlyMergeRequest(): bool
     {
         try {
             return $this->env->getMergeRequestId() >= 0;

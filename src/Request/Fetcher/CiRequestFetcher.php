@@ -19,7 +19,7 @@ class CiRequestFetcher implements MergeRequestFetcher
     {
         $ci = $this->systems->createCurrently();
 
-        if (! $ci->isMergeRequest()) {
+        if (! $ci->isCurrentlyMergeRequest()) {
             throw new CurrentlyNotMergeRequestException();
         }
 

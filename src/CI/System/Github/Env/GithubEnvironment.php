@@ -17,6 +17,11 @@ class GithubEnvironment
         //
     }
 
+    public function isWorking(): bool
+    {
+        return $this->environment->has(VarName::Identity->value);
+    }
+
     public function getMergeRequestId(): int
     {
         $ref = $this->environment->getString(VarName::RefName->value);
