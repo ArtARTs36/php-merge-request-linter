@@ -92,7 +92,7 @@ class OperatorSchemaArrayGenerator
                         continue;
                     }
 
-                    $opParamTypes = $operatorMeta->allowValues;
+                    $opParamTypes = $operatorMeta->parameters;
 
                     if (count($opParamTypes) === 1) {
                         foreach ($operatorMeta->names as $operatorName) {
