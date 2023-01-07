@@ -62,6 +62,7 @@ class GitlabCi implements CiSystem
             $request->changedFilesCount,
             new Author($request->authorLogin),
             $request->isDraft,
+            $request->canMerge(),
         );
     }
 }

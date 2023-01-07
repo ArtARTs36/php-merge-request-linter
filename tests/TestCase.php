@@ -41,6 +41,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             (int) ($request['changed_files_count'] ?? 0),
             new Author($request['author_login'] ?? ''),
             $request['is_draft'] ?? false,
+            false,
         );
     }
 

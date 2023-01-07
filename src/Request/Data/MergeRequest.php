@@ -100,6 +100,11 @@ class MergeRequest
             NotEqualsEvaluator::class,
         ])]
         public bool $isDraft,
+        #[SupportsConditionEvaluator([
+            EqualsEvaluator::class,
+            NotEqualsEvaluator::class,
+        ])]
+        public bool $canMerge,
     ) {
         //
     }

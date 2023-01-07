@@ -558,6 +558,27 @@
                             "type": "boolean"
                         }
                     }
+                },
+                "canMerge": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        }
+                    }
                 }
             }
         }

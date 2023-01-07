@@ -65,6 +65,7 @@ class GithubActions implements CiSystem
             $pullRequest->changedFiles,
             new Author($pullRequest->authorLogin),
             $pullRequest->isDraft,
+            $pullRequest->canMerge(),
         );
     }
 }

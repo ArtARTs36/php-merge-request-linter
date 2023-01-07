@@ -43,9 +43,10 @@ class Client implements GitlabClient
             $response['has_conflicts'],
             $response['source_branch'],
             $response['target_branch'],
-            count($response['changed_files']),
+            count($response['changes']),
             $response['author']['username'],
             $response['draft'] ?? false,
+            $response['merge_status'],
         );
     }
 
