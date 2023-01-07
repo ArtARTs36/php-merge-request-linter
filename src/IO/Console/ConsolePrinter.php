@@ -15,6 +15,12 @@ class ConsolePrinter implements Printer
         //
     }
 
+    public function printTitle(string $title): void
+    {
+        $this->output->write($title, true);
+        $this->output->write("\n");
+    }
+
     public function printObject(object $object): void
     {
         $props = [];

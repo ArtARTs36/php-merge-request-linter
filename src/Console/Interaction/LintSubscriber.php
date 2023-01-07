@@ -38,6 +38,7 @@ class LintSubscriber implements LintEventSubscriber
             return;
         }
 
+        $this->printer->printTitle('Merge Request properties:');
         $this->printer->printObject($request);
     }
 }
