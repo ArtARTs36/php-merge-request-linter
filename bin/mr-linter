@@ -2,7 +2,7 @@
 <?php
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
-use ArtARTs36\MergeRequestLinter\Ci\System\DefaultSystems;
+use ArtARTs36\MergeRequestLinter\CI\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorFactory;
