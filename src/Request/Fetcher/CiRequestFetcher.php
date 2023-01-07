@@ -23,6 +23,6 @@ class CiRequestFetcher implements MergeRequestFetcher
             throw new CurrentlyNotMergeRequestException();
         }
 
-        return $ci->getMergeRequest();
+        return $ci->getCurrentlyMergeRequest();
     }
 }

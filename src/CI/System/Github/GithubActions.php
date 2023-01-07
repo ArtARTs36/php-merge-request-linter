@@ -4,17 +4,17 @@ namespace ArtARTs36\MergeRequestLinter\CI\System\Github;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\VarName;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequestInput;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Client;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
+use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Utils as StreamBuilder;
-use Psr\Http\Client\ClientInterface;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
+use ArtARTs36\Str\Str;
 
 class GithubActions implements CiSystem
 {
@@ -22,14 +22,11 @@ class GithubActions implements CiSystem
 
     public const NAME = 'github_actions';
 
-    protected PullRequestSchema $schema;
-
     public function __construct(
-        protected RemoteCredentials $credentials,
         protected GithubEnvironment $env,
-        protected ClientInterface $client,
+        protected GithubClient $client,
     ) {
-        $this->schema = new PullRequestSchema();
+        //
     }
 
     public static function is(Environment $environment): bool
@@ -46,26 +43,29 @@ class GithubActions implements CiSystem
         }
     }
 
-    public function getMergeRequest(): MergeRequest
+    public function getCurrentlyMergeRequest(): MergeRequest
     {
         $graphqlUrl = $this->env->getGraphqlURL();
         $repo = $this->env->extractRepo();
         $requestId = $this->env->getMergeRequestId();
 
-        $query = json_encode([
-            'query' => $this->schema->createGraphqlForPullRequest(
-                new PullRequestInput($repo->owner, $repo->name, $requestId),
-            ),
-        ]);
+        $pullRequest = $this->client->getPullRequest(new PullRequestInput(
+            $graphqlUrl,
+            $repo->owner,
+            $repo->name,
+            $requestId,
+        ));
 
-        $response = $this->client->sendRequest((new Request('POST', $graphqlUrl))
-            ->withBody(StreamBuilder::streamFor($query))
-            ->withHeader('Authorization', 'bearer ' . $this->credentials->getToken()));
-
-        $this->validateResponse($response, self::NAME);
-
-        return $this->schema->createMergeRequest(
-            $this->responseToJsonArray($response)['data']['repository']['pullRequest']
+        return new MergeRequest(
+            Str::make($pullRequest->title),
+            Str::make($pullRequest->bodyText),
+            Set::fromList($pullRequest->labels),
+            $pullRequest->hasConflicts(),
+            Str::make($pullRequest->headRefName),
+            Str::make($pullRequest->baseRefName),
+            $pullRequest->changedFiles,
+            new Author($pullRequest->authorLogin),
+            $pullRequest->isDraft,
         );
     }
 }

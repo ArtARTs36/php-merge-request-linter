@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\IO\Console;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Collection;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
@@ -71,6 +72,8 @@ class ConsolePrinter implements Printer
 
             if (is_bool($value)) {
                 $props[] = [$k, $value ? 'true' : 'false'];
+            } elseif ($value instanceof Collection) {
+                $props[] = [$k, $value];
             } elseif (is_string($value) || $value instanceof \Stringable) {
                 $props[] = [$k, sprintf('"%s"', $value)];
             } elseif (is_scalar($value)) {

@@ -39,7 +39,7 @@ final class MockCi implements CiSystem
        return $this->values['is_pull_request'];
     }
 
-    public function getMergeRequest(): MergeRequest
+    public function getCurrentlyMergeRequest(): MergeRequest
     {
         return $this->request ?? MergeRequest::fromArray([]);
     }

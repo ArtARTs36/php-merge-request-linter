@@ -4,10 +4,11 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyCredentials;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GithubActionsTest extends TestCase
@@ -61,9 +62,13 @@ final class GithubActionsTest extends TestCase
     private function makeCi(array $env): GithubActions
     {
         return new GithubActions(
-            new EmptyCredentials(),
             new GithubEnvironment(new MapEnvironment(new Map($env))),
-            new NullClient(),
+            new class () implements GithubClient {
+                public function getPullRequest(PullRequestInput $input): PullRequest
+                {
+                    // TODO: Implement getPullRequest() method.
+                }
+            },
         );
     }
 }

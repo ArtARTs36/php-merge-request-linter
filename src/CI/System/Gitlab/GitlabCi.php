@@ -42,7 +42,7 @@ class GitlabCi implements CiSystem
         }
     }
 
-    public function getMergeRequest(): MergeRequest
+    public function getCurrentlyMergeRequest(): MergeRequest
     {
         $response = $this->client->sendRequest($this->makeHttpRequestForFetchMergeRequest());
 

@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\CI\System;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Client;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
@@ -61,7 +63,11 @@ class SystemFactory implements CiSystemFactory
         $httpClient = $this->httpClientFactory->create($this->config->getHttpClient());
 
         if ($targetClass === GithubActions::class) {
-            return new GithubActions($credentials, new GithubEnvironment($this->environment), $httpClient);
+            return new GithubActions(new GithubEnvironment($this->environment), new Client(
+                $httpClient,
+                $credentials,
+                new PullRequestSchema(),
+            ));
         }
 
         if ($targetClass === GitlabCi::class) {

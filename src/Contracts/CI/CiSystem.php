@@ -28,5 +28,5 @@ interface CiSystem
      * @throws InvalidCredentialsException
      * @throws ServerUnexpectedResponseException
      */
-    public function getMergeRequest(): MergeRequest;
+    public function getCurrentlyMergeRequest(): MergeRequest;
 }
