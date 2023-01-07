@@ -16,15 +16,6 @@ final class ExceptionNote extends AbstractNote implements Note
         //
     }
 
-    public static function withMessage(\Throwable $e, string $message): self
-    {
-        if (Str::isEmpty($message)) {
-            throw new \InvalidArgumentException('$message is empty');
-        }
-
-        return new self($e, $message);
-    }
-
     public function getDescription(): string
     {
         return sprintf('%s (exception %s)', $this->getMessage(), $this->exception::class);

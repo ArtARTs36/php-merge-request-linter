@@ -31,13 +31,8 @@ class Runner implements LinterRunner
             return new LintResult($notes->isEmpty(), $notes, $timer->finish());
         } catch (CurrentlyNotMergeRequestException) {
             return LintResult::success(new LintNote('Currently is not merge request'), $timer->finish());
-        } catch (CiNotSupported $e) {
+        } catch (CiNotSupported|InvalidCredentialsException $e) {
             return LintResult::fail(new ExceptionNote($e), $timer->finish());
-        } catch (InvalidCredentialsException $e) {
-            return LintResult::fail(ExceptionNote::withMessage(
-                $e,
-                'Invalid credentials'
-            ), $timer->finish());
         }
     }
 }

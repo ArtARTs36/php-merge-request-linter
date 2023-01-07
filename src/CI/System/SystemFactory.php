@@ -34,7 +34,11 @@ class SystemFactory implements CiSystemFactory
     public function createCurrently(): CiSystem
     {
         foreach ($this->ciSystems as $name => $ciClass) {
-            $ci = $this->create($name);
+            try {
+                $ci = $this->create($name);
+            } catch (InvalidCredentialsException) {
+                continue;
+            }
 
             if ($ci->isCurrentlyWorking()) {
                 return $ci;
