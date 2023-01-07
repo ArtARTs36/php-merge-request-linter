@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\Credentials;
 
-use ArtARTs36\MergeRequestLinter\Ci\Credentials\Token;
+use ArtARTs36\MergeRequestLinter\CI\Credentials\Token;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class TokenTest extends TestCase

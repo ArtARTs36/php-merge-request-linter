@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System\Github\Env;
+namespace ArtARTs36\MergeRequestLinter\CI\System\Github\Env;
 
 class Repo
 {

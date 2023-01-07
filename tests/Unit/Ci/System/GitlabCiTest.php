@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\Env\GitlabEnvironment;
-use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi;
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyCredentials;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

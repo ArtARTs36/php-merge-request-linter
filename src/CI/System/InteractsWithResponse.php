@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System;
+namespace ArtARTs36\MergeRequestLinter\CI\System;
 
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Exception\ServerUnexpectedResponseException;

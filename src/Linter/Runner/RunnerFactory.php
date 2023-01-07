@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Linter\Runner;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\SystemFactory;
+use ArtARTs36\MergeRequestLinter\CI\System\SystemFactory;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;

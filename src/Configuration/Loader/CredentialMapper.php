@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
-use ArtARTs36\MergeRequestLinter\Ci\Credentials\Token;
+use ArtARTs36\MergeRequestLinter\CI\Credentials\Token;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigValueTransformer;

@@ -1,10 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System\Gitlab;
+namespace ArtARTs36\MergeRequestLinter\CI\System\Gitlab;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\Env\GitlabEnvironment;
-use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\Env\VarName;
-use ArtARTs36\MergeRequestLinter\Ci\System\InteractsWithResponse;
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\VarName;
+use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;

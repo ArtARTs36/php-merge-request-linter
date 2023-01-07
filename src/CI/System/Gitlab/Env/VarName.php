@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\Env;
+namespace ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env;
 
 enum VarName: string
 {

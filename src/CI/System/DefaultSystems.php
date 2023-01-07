@@ -1,9 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System;
+namespace ArtARTs36\MergeRequestLinter\CI\System;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions;
-use ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 

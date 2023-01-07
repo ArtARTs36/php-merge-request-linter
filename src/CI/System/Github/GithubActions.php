@@ -1,12 +1,12 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System\Github;
+namespace ArtARTs36\MergeRequestLinter\CI\System\Github;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\GithubEnvironment;
-use ArtARTs36\MergeRequestLinter\Ci\System\Github\Env\VarName;
-use ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL\PullRequestInput;
-use ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL\PullRequestSchema;
-use ArtARTs36\MergeRequestLinter\Ci\System\InteractsWithResponse;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\VarName;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;

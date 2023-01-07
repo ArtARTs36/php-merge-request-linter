@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\System\Github\GraphQL;
+namespace ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL;
 
 class PullRequestInput
 {

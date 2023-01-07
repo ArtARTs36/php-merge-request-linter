@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Ci\Credentials;
+namespace ArtARTs36\MergeRequestLinter\CI\Credentials;
 
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 
