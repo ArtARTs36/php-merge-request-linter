@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

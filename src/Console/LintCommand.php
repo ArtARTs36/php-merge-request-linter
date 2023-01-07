@@ -2,15 +2,19 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console;
 
-use ArtARTs36\MergeRequestLinter\Console\Interaction\ProgressBarLintSubscriber;
-use ArtARTs36\MergeRequestLinter\Console\Interaction\SymfonyProgressBar;
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
-use ArtARTs36\MergeRequestLinter\Contracts\LinterRunnerFactory;
-use ArtARTs36\MergeRequestLinter\Contracts\Note;
+use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
+use ArtARTs36\MergeRequestLinter\IO\Console\ConsolePrinter;
+use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
+use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Helper\TableCell;
+use Symfony\Component\Console\Helper\TableCellStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
@@ -35,6 +39,8 @@ class LintCommand extends Command
     protected function configure(): void
     {
         $this->addConfigFileOption();
+
+        $this->addOption('debug');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -53,7 +59,11 @@ class LintCommand extends Command
 
         $linter = new Linter(
             $config->config->getRules(),
-            new ProgressBarLintSubscriber(new SymfonyProgressBar($progressBar)),
+            new LintSubscriber(
+                new SymfonyProgressBar($progressBar),
+                new ConsolePrinter($style),
+                $input->getOption('debug'),
+            ),
         );
 
         $result = $this->runnerFactory->create($config->config)->run($linter);
@@ -65,7 +75,7 @@ class LintCommand extends Command
         $style->table(['Metric', 'Value'], [
             ['Rules', $config->config->getRules()->count()],
             ['Notes', $result->notes->count()],
-            ['Duration', $result->duration . 's'],
+            ['Duration', $result->duration],
         ]);
 
         if ($result->isFail()) {
@@ -85,9 +95,25 @@ class LintCommand extends Command
 
         $table = [];
 
+        $tableCellOptions = [
+            NoteSeverity::Fatal->value => [
+                'style' => new TableCellStyle([
+                    'fg' => 'red',
+                ]),
+            ],
+            NoteSeverity::Normal->value => [],
+        ];
+
+        $counter = 0;
+
         /** @var Note $note */
-        foreach ($notes as $i => $note) {
-            $table[] = [++$i, $note->getDescription()];
+        foreach ($notes as $note) {
+            ++$counter;
+
+            $table[] = [
+                new TableCell("$counter", $tableCellOptions[$note->getSeverity()->value]),
+                new TableCell($note->getDescription(), $tableCellOptions[$note->getSeverity()->value]),
+            ];
         }
 
         $style->table(['#', 'Note'], $table);

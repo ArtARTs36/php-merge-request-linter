@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration;
 
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class Config
 {
@@ -15,8 +15,8 @@ class Config
      */
     public function __construct(
         protected Rules $rules,
-        protected Map $credentials,
-        protected \Closure $httpClientFactory,
+        protected Map   $credentials,
+        protected HttpClientConfig $httpClient,
     ) {
         //
     }
@@ -43,8 +43,8 @@ class Config
         return $this->credentials;
     }
 
-    public function getHttpClientFactory(): \Closure
+    public function getHttpClient(): HttpClientConfig
     {
-        return $this->httpClientFactory;
+        return $this->httpClient;
     }
 }

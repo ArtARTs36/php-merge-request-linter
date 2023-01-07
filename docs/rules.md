@@ -13,8 +13,5 @@ Currently is available that rules:
 | 7 | @mr-linter/has_any_labels | ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule | Merge Request must have any labels. |
 | 8 | @mr-linter/jira/has_issue_link | ArtARTs36\MergeRequestLinter\Rule\HasLinkToJiraTaskRule | The description must have a link to Jira on a {domain} with {projectCode}. |
 | 9 | @mr-linter/youtrack/has_issue_link | ArtARTs36\MergeRequestLinter\Rule\HasLinkToYouTrackIssueRule | The description must have a link to YouTrack issue on a {domain} with {projectCode}. |
-| 10 | @mr-linter/on_target_branch | ArtARTs36\MergeRequestLinter\Rule\OnTargetBranchRule | Apply another rule if the target branch equals {targetBranch}. |
-| 11 | @mr-linter/title_matches_expression | ArtARTs36\MergeRequestLinter\Rule\TitleMatchesExpressionRule | The title must match the expression: {regex} |
-| 12 | @mr-linter/title_must_starts_with_any_prefix | ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule | The title must starts with any {prefixes} |
-| 13 | @mr-linter/when_has_label_must_description_contains_link_of_any_domains | ArtARTs36\MergeRequestLinter\Rule\WhenHasLabelMustDescriptionContainsLinkOfAnyDomainsRule | When has label must description contains link of any {domains}. |
-| 14 | @mr-linter/when_has_label_must_title_starts_with | ArtARTs36\MergeRequestLinter\Rule\WhenHasLabelMustTitleStartsWithRule | When has label must title starts with {prefix}. |
+| 10 | @mr-linter/title_matches_expression | ArtARTs36\MergeRequestLinter\Rule\TitleMatchesExpressionRule | The title must match the expression: {regex} |
+| 11 | @mr-linter/title_must_starts_with_any_prefix | ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule | The title must starts with any {prefixes} |

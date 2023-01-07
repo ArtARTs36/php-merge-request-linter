@@ -3,10 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Loader;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ConfigLoaderProxyTest extends TestCase
@@ -24,9 +25,7 @@ final class ConfigLoaderProxyTest extends TestCase
             return new class () implements ConfigLoader {
                 public function load(string $path): Config
                 {
-                    return new Config(new Rules([]), new Map([]), function () {
-                        //
-                    });
+                    return new Config(new Rules([]), new Map([]), new HttpClientConfig(HttpClientConfig::TYPE_NULL));
                 }
             };
         });

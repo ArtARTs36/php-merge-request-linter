@@ -2,22 +2,19 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
-use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 /**
  * Merge Request must have all {labels}
  */
 class HasAllLabelsOfRule extends AbstractLabelsRule
 {
-    use DefinitionToNotes;
-
     public const NAME = '@mr-linter/has_all_labels';
 
-    public function lint(MergeRequest $request): array
+    protected function doLint(MergeRequest $request): bool
     {
-        return $this->labels->diff($request->labels)->isEmpty() ? [] : $this->definitionToNotes();
+        return $this->labels->diff($request->labels)->isEmpty();
     }
 
     public function getDefinition(): RuleDefinition

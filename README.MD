@@ -118,9 +118,18 @@ docker run \
     },
     "@mr-linter/jira/has_issue_link": {
       "domain": "jira.com",
-      "projectCode": "MYPROJECT"
+      "projectCode": "MYPROJECT", 
+      "when": {
+         "title": {
+            "starts": "WIP-REQUEST"
+         }
+      }
     },
-    "@mr-linter/description_not_empty": {}
+    "@mr-linter/description_not_empty": {
+       "when": {
+          "targetBranch": "master"
+       }
+    }
   },
   "credentials": {
     "github_actions": "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
@@ -130,12 +139,13 @@ docker run \
 
 ## Development Commands
 
-| Command            | Description                           |
-|--------------------|---------------------------------------|
-| composer test      | Run tests (via PHPUnit)               |
-| composer lint      | Run lint (via PHPCsFixer)             |
-| composer doc-rules | Build rules doc page                  |
-| make try           | Run MR-Linter on really merge-request |
+| Command                           | Description                           |
+|-----------------------------------|---------------------------------------|
+| composer test                     | Run tests (via PHPUnit)               |
+| composer lint                     | Run lint (via PHPCsFixer)             |
+| composer doc-rules                | Build rules doc page                  |
+| make try                          | Run MR-Linter on really merge-request |
+| composer build-config-json-schema | Build JSON Schema for config          |
 
 ## Console output example
 

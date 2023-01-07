@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Contracts\RuleConstructor;
-use ArtARTs36\MergeRequestLinter\Support\Reflector;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
 
 class StaticConstructor implements RuleConstructor
 {
@@ -18,9 +18,6 @@ class StaticConstructor implements RuleConstructor
         //
     }
 
-    /**
-     * @return array<string, string|class-string>
-     */
     public function params(): array
     {
         return Reflector::mapMethodParamTypeOnParam($this->constructor);

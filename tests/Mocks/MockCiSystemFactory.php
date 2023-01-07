@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
 
 final class MockCiSystemFactory implements CiSystemFactory
 {

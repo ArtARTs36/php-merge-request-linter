@@ -2,11 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Ci\System\GithubActions;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Support\Map;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyCredentials;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullClient;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GithubActionsTest extends TestCase
@@ -27,11 +29,11 @@ final class GithubActionsTest extends TestCase
 
     /**
      * @dataProvider providerForTestIs
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GithubActions::is
+     * @covers \ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions::isCurrentlyWorking
      */
     public function testIs(array $env, bool $expected): void
     {
-        self::assertEquals($expected, GithubActions::is(new MapEnvironment(new Map($env))));
+        self::assertEquals($expected, $this->makeCi($env)->isCurrentlyWorking());
     }
 
     public function providerForTestIsMergeRequest(): array
@@ -50,15 +52,23 @@ final class GithubActionsTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\GithubActions::isMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions::isCurrentlyMergeRequest
      */
     public function testIsMergeRequest(array $env, bool $expected): void
     {
-        self::assertEquals($expected, $this->makeCi($env)->isMergeRequest());
+        self::assertEquals($expected, $this->makeCi($env)->isCurrentlyMergeRequest());
     }
 
     private function makeCi(array $env): GithubActions
     {
-        return new GithubActions(new EmptyCredentials(), new MapEnvironment(new Map($env)), new NullClient());
+        return new GithubActions(
+            new GithubEnvironment(new MapEnvironment(new Map($env))),
+            new class () implements GithubClient {
+                public function getPullRequest(PullRequestInput $input): PullRequest
+                {
+                    // TODO: Implement getPullRequest() method.
+                }
+            },
+        );
     }
 }

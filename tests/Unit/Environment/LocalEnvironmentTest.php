@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Environment;
 
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentDataKeyNotFound;
+use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class LocalEnvironmentTest extends TestCase
@@ -39,7 +39,7 @@ final class LocalEnvironmentTest extends TestCase
      */
     public function testGetStringOnNotFound(): void
     {
-        self::expectException(EnvironmentDataKeyNotFound::class);
+        self::expectException(EnvironmentVariableNotFound::class);
 
         (new LocalEnvironment())->getString('local_environment_test_var_not_found');
     }

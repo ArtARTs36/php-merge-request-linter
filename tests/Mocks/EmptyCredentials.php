@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Contracts\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 
 final class EmptyCredentials implements RemoteCredentials
 {

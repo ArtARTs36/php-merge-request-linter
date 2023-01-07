@@ -2,18 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Actions\DefinitionToNotes;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 /**
  * The title must starts with any {prefixes}
  */
 class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
 {
-    use DefinitionToNotes;
-
     public const NAME = '@mr-linter/title_must_starts_with_any_prefix';
 
     /**
@@ -24,27 +21,9 @@ class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
         //
     }
 
-    /**
-     * @param array<string>|string $prefix
-     */
-    public static function make(array|string $prefix): self
+    protected function doLint(MergeRequest $request): bool
     {
-        return new self((array) $prefix);
-    }
-
-    public function lint(MergeRequest $request): array
-    {
-        $starts = false;
-
-        foreach ($this->prefixes as $prefix) {
-            if ($request->title->startsWith($prefix)) {
-                $starts = true;
-
-                break;
-            }
-        }
-
-        return $starts ? [] : $this->definitionToNotes();
+        return $request->title->startsWithAnyOf($this->prefixes);
     }
 
     public function getDefinition(): RuleDefinition

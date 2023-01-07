@@ -2,13 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Note;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Note;
-use ArtARTs36\MergeRequestLinter\Support\ArrayCollection;
+use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 /**
- * @template-extends ArrayCollection<int, Note>
+ * @template-extends Arrayee<int, Note>
  */
-class Notes extends ArrayCollection
+class Notes extends Arrayee
 {
     //
 }

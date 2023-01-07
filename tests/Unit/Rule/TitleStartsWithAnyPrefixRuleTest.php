@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -13,14 +13,14 @@ final class TitleStartsWithAnyPrefixRuleTest extends TestCase
         return [
             [
                 $this->makeMergeRequest(),
-                'TASK-',
+                ['TASK-'],
                 true,
             ],
             [
                 $this->makeMergeRequest([
                     'title' => 'TASK-1234 test'
                 ]),
-                'TASK-',
+                ['TASK-'],
                 false,
             ],
         ];
@@ -31,8 +31,8 @@ final class TitleStartsWithAnyPrefixRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule::__construct
      */
-    public function testLint(MergeRequest $request, array|string $prefixes, bool $hasNotes): void
+    public function testLint(MergeRequest $request, array $prefixes, bool $hasNotes): void
     {
-        self::assertHasNotes($request, TitleStartsWithAnyPrefixRule::make($prefixes), $hasNotes);
+        self::assertHasNotes($request, new TitleStartsWithAnyPrefixRule($prefixes), $hasNotes);
     }
 }

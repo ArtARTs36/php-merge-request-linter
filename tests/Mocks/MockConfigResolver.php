@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ResolvedConfig;
 use ArtARTs36\MergeRequestLinter\Configuration\User;
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 
 final class MockConfigResolver implements ConfigResolver
 {

@@ -2,17 +2,18 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\CiSystemFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -24,12 +25,12 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnCiNotDetected(): void
     {
-        $runner = new Runner(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 throw new CiNotSupported();
             }
-        });
+        }));
 
         $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
 
@@ -43,14 +44,14 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnNotMergeRequest(): void
     {
-        $runner = new Runner(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 return new MockCi([
                     'is_pull_request' => false,
                 ]);
             }
-        });
+        }));
 
         $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
 
@@ -64,18 +65,18 @@ final class RunnerTest extends TestCase
      */
     public function testRunOnInvalidCredentials(): void
     {
-        $runner = new Runner(new class () implements CiSystemFactory {
+        $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
                 throw new InvalidCredentialsException();
             }
-        });
+        }));
 
         $result = $runner->run((new Linter(new Rules([]), new NullLintEventSubscriber())));
 
         self::assertFalse($result->state);
         self::assertEquals(
-            'Invalid credentials (exception ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException)',
+            'Exception ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException',
             $result->notes->first()->getDescription()
         );
     }
@@ -86,7 +87,7 @@ final class RunnerTest extends TestCase
      */
     public function testRunSuccess(): void
     {
-        $runner = new Runner(new class ($this->makeMergeRequest()) implements CiSystemFactory {
+        $runner = new Runner(new CiRequestFetcher(new class ($this->makeMergeRequest()) implements CiSystemFactory {
             public function __construct(private MergeRequest $request)
             {
                 //
@@ -96,7 +97,7 @@ final class RunnerTest extends TestCase
             {
                 return new MockCi(['is_pull_request' => true], $this->request);
             }
-        });
+        }));
 
         $result = $runner->run(new Linter(Rules::make([
             new SuccessRule(),

@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ArgResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
 
 class DefaultResolvers
 {
     /**
-     * @return array<string, ArgResolver>
+     * @return array<string, ArgumentResolver>
      */
     public static function get(): array
     {
@@ -19,6 +19,7 @@ class DefaultResolvers
             'float' => $asIsResolver,
             'array' => $asIsResolver,
             MapResolver::SUPPORT_TYPE => new MapResolver(),
+            SetResolver::SUPPORT_TYPE => new SetResolver(),
             'iterable' => $asIsResolver,
         ];
     }

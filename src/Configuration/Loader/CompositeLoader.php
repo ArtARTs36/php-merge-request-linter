@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Contracts\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Support\File;
 

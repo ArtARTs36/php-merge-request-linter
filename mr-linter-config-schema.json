@@ -1,214 +1,590 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "properties": {
-    "rules": {
-      "type": "object",
-      "properties": {
-        "@mr-linter/changed_files_limit": {
-          "type": "object",
-          "properties": {
-            "limit": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "limit"
-          ]
-        },
-        "@mr-linter/description_contains_links_of_any_domains": {
-          "type": "object",
-          "properties": {
-            "domains": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "rules": {
+            "type": "object",
+            "properties": {
+                "@mr-linter/changed_files_limit": {
+                    "type": "object",
+                    "description": "Check count changed files on a {limit}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "limit": {
+                            "type": "integer"
+                        }
+                    },
+                    "required": [
+                        "limit"
+                    ]
+                },
+                "@mr-linter/description_contains_links_of_any_domains": {
+                    "type": "object",
+                    "description": "Merge Request must contain links of any {domains}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "domains": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "domains"
+                    ]
+                },
+                "@mr-linter/description_contains_links_of_all_domains": {
+                    "type": "object",
+                    "description": "Merge Request must contain links of all {domains}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "domains": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "domains"
+                    ]
+                },
+                "@mr-linter/description_not_empty": {
+                    "type": "object",
+                    "description": "Description must fill.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        }
+                    }
+                },
+                "@mr-linter/has_all_labels": {
+                    "type": "object",
+                    "description": "Merge Request must have all {labels}",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "labels": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "labels"
+                    ]
+                },
+                "@mr-linter/has_any_labels": {
+                    "type": "object",
+                    "description": "Merge Request must have any labels.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        }
+                    }
+                },
+                "@mr-linter/has_any_labels_of": {
+                    "type": "object",
+                    "description": "Merge Request must have any {labels}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "labels": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "labels"
+                    ]
+                },
+                "@mr-linter/jira/has_issue_link": {
+                    "type": "object",
+                    "description": "The description must have a link to Jira on a {domain} with {projectCode}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "domain": {
+                            "type": "string"
+                        },
+                        "projectCode": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "domain",
+                        "projectCode"
+                    ]
+                },
+                "@mr-linter/youtrack/has_issue_link": {
+                    "type": "object",
+                    "description": "The description must have a link to YouTrack issue on a {domain} with {projectCode}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "domain": {
+                            "type": "string"
+                        },
+                        "projectCode": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "domain",
+                        "projectCode"
+                    ]
+                },
+                "@mr-linter/title_matches_expression": {
+                    "type": "object",
+                    "description": "The title must match the expression: {regex}",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "regex": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "regex"
+                    ]
+                },
+                "@mr-linter/title_must_starts_with_any_prefix": {
+                    "type": "object",
+                    "description": "The title must starts with any {prefixes}",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "prefixes": {
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "prefixes"
+                    ]
                 }
-              ]
             }
-          },
-          "required": [
-            "domains"
-          ]
         },
-        "@mr-linter/description_contains_links_of_all_domains": {
-          "type": "object",
-          "properties": {
-            "domains": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
+        "credentials": {
+            "type": "object",
+            "properties": {
+                "gitlab_ci": {
+                    "description": "Token",
+                    "type": "string"
+                },
+                "github_actions": {
+                    "description": "Token",
+                    "type": "string"
                 }
-              ]
             }
-          },
-          "required": [
-            "domains"
-          ]
-        },
-        "@mr-linter/description_not_empty": {
-          "type": "object"
-        },
-        "@mr-linter/has_all_labels": {
-          "type": "object",
-          "properties": {
-            "labels": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "required": [
-            "labels"
-          ]
-        },
-        "@mr-linter/has_any_labels": {
-          "type": "object",
-          "properties": {
-            "labels": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "required": [
-            "labels"
-          ]
-        },
-        "@mr-linter/has_any_labels_of": {
-          "type": "object",
-          "properties": {
-            "labels": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "required": [
-            "labels"
-          ]
-        },
-        "@mr-linter/jira/has_issue_link": {
-          "type": "object",
-          "properties": {
-            "domain": {
-              "type": "string"
-            },
-            "projectCode": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "domain",
-            "projectCode"
-          ]
-        },
-        "@mr-linter/youtrack/has_issue_link": {
-          "type": "object",
-          "properties": {
-            "domain": {
-              "type": "string"
-            },
-            "projectCode": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "domain",
-            "projectCode"
-          ]
-        },
-        "@mr-linter/title_matches_expression": {
-          "type": "object",
-          "properties": {
-            "regex": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "regex"
-          ]
-        },
-        "@mr-linter/title_must_starts_with_any_prefix": {
-          "type": "object",
-          "properties": {
-            "prefixes": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "required": [
-            "prefixes"
-          ]
-        },
-        "@mr-linter/when_has_label_must_description_contains_link_of_any_domains": {
-          "type": "object",
-          "properties": {
-            "label": {
-              "type": "string"
-            },
-            "domains": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "required": [
-            "label",
-            "domains"
-          ]
-        },
-        "@mr-linter/when_has_label_must_title_starts_with": {
-          "type": "object",
-          "properties": {
-            "label": {
-              "type": "string"
-            },
-            "titlePrefix": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "label",
-            "titlePrefix"
-          ]
         }
-      }
     },
-    "credentials": {
-      "type": "object",
-      "properties": {
-        "gitlab_ci": {
-          "description": "Token",
-          "type": "string"
-        },
-        "github_actions": {
-          "description": "Token",
-          "type": "string"
+    "definitions": {
+        "rule_conditions": {
+            "properties": {
+                "title": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "description": "Check the minimum string length.",
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "description": "Check the maximum string length.",
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "description": "Check if a string contains a prefix.",
+                            "type": "string"
+                        },
+                        "ends": {
+                            "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "equalsAny": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "description": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "description": "Check the minimum string length.",
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "description": "Check the maximum string length.",
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "description": "Check if a string contains a prefix.",
+                            "type": "string"
+                        },
+                        "ends": {
+                            "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "equalsAny": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "labels": {
+                    "type": "object",
+                    "properties": {
+                        "countMin": {
+                            "description": "Check the minimum number of elements in a field.",
+                            "type": "integer"
+                        },
+                        "countMax": {
+                            "description": "Check the maximum number of elements in a field.",
+                            "type": "integer"
+                        },
+                        "has": {
+                            "description": "Check if an array contains some value.",
+                            "type": "string"
+                        },
+                        "notHas": {
+                            "description": "Check if an array not contains some value.",
+                            "type": "string"
+                        },
+                        "hasAny": {
+                            "description": "Check if an array contains some value of list.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "hasConflicts": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "sourceBranch": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "description": "Check the minimum string length.",
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "description": "Check the maximum string length.",
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "description": "Check if a string contains a prefix.",
+                            "type": "string"
+                        },
+                        "ends": {
+                            "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "equalsAny": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "targetBranch": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "description": "Check the minimum string length.",
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "description": "Check the maximum string length.",
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "description": "Check if a string contains a prefix.",
+                            "type": "string"
+                        },
+                        "ends": {
+                            "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "equalsAny": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "changedFilesCount": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "integer"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "integer"
+                        },
+                        "lte": {
+                            "description": "Check number is equal to or less than.",
+                            "type": "integer"
+                        },
+                        "<=": {
+                            "description": "Check number is equal to or less than.",
+                            "type": "integer"
+                        },
+                        "gte": {
+                            "description": "Check if a number is greater than or less than.",
+                            "type": "integer"
+                        },
+                        ">=": {
+                            "description": "Check if a number is greater than or less than.",
+                            "type": "integer"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "integer"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "integer"
+                        },
+                        "equalsAny": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "author.login": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "string"
+                        },
+                        "lengthMin": {
+                            "description": "Check the minimum string length.",
+                            "type": "integer"
+                        },
+                        "lengthMax": {
+                            "description": "Check the maximum string length.",
+                            "type": "integer"
+                        },
+                        "starts": {
+                            "description": "Check if a string contains a prefix.",
+                            "type": "string"
+                        },
+                        "ends": {
+                            "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "contains": {
+                            "description": "Check if a string contains a substring.",
+                            "type": "string"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "string"
+                        },
+                        "equalsAny": {
+                            "description": "Check if the field is equal to one of the values.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "isDraft": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "canMerge": {
+                    "type": "object",
+                    "properties": {
+                        "equals": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "=": {
+                            "description": "Check if value are equal.",
+                            "type": "boolean"
+                        },
+                        "notEquals": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        },
+                        "!=": {
+                            "description": "Check if value are not equal.",
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
         }
-      }
-    }
-  },
-  "required": [
-    "rules",
-    "credentials"
-  ]
+    },
+    "required": [
+        "rules",
+        "credentials"
+    ]
 }

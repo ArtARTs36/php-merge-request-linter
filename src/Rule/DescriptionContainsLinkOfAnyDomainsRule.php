@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule;
-use ArtARTs36\MergeRequestLinter\Contracts\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 /**
  * Merge Request must contain links of any {domains}.
@@ -13,7 +13,7 @@ class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRu
 {
     public const NAME = '@mr-linter/description_contains_links_of_any_domains';
 
-    public function lint(MergeRequest $request): array
+    protected function doLint(MergeRequest $request): bool
     {
         $uris = $request->description->findUris();
 
@@ -24,12 +24,12 @@ class DescriptionContainsLinkOfAnyDomainsRule extends AbstractDescriptionLinksRu
                 continue;
             }
 
-            if ($this->domains->has($host)) {
-                return [];
+            if ($this->domains->contains($host)) {
+                return true;
             }
         }
 
-        return $this->definitionToNotes();
+        return false;
     }
 
     public function getDefinition(): RuleDefinition

@@ -26,7 +26,11 @@ class RulesPageBuilder
                 continue;
             }
 
-            $ruleName = $class::getName();
+            if (! defined("$class::NAME")) {
+                continue;
+            }
+
+            $ruleName = $class::NAME;
 
             $id++;
 

@@ -2,13 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
-use ArtARTs36\MergeRequestLinter\Contracts\ArgResolver;
-use ArtARTs36\MergeRequestLinter\Contracts\RuleConstructor;
+use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
 
 class Builder
 {
     /**
-     * @param array<string, ArgResolver> $argResolvers
+     * @param array<string, ArgumentResolver> $argResolvers
      */
     public function __construct(
         private array $argResolvers,
@@ -25,7 +25,7 @@ class Builder
         $args = [];
 
         foreach ($constructor->params() as $paramName => $paramType) {
-            $args[$paramName] = $this->argResolvers[$paramType]->resolve($params[$paramName]);
+            $args[$paramName] = $this->argResolvers[$paramType->name]->resolve($params[$paramName]);
         }
 
         return $args;
