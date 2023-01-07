@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\CI\System\Gitlab;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
-use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
@@ -15,8 +14,6 @@ use ArtARTs36\Str\Str;
 
 class GitlabCi implements CiSystem
 {
-    use InteractsWithResponse;
-
     public const NAME = 'gitlab_ci';
 
     public function __construct(
