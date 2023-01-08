@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
+namespace ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits;
 
 trait CountProxy
 {

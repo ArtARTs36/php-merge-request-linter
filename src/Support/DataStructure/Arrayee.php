@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Collection;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\ContainsAll;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\CountProxy;
 use Traversable;
 
 /**
