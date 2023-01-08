@@ -12,10 +12,19 @@ trait ContainsAll
             $valueMap[$v] = $k;
         }
 
+        $valuesCount = count($valueMap);
+        $founded = 0;
+
         foreach ($this->items as $item) {
-            unset($valueMap[$item]);
+            if (isset($valueMap[$item])) {
+                $founded++;
+            }
+
+            if ($founded === $valuesCount) {
+                return true;
+            }
         }
 
-        return count($valueMap) === 0;
+        return false;
     }
 }
