@@ -58,11 +58,17 @@ class Client implements GithubClient
 
         $this->validateResponse($response, $url);
 
-        $responseArray = $this->responseToJsonArray($response);
+        return $this->hydrateTags($this->responseToJsonArray($response));
+    }
 
+    /**
+     * @param array<array{name: string}> $response
+     */
+    private function hydrateTags(array $response): TagCollection
+    {
         $tags = [];
 
-        foreach ($responseArray as $resp) {
+        foreach ($response as $resp) {
             $name = Str::make($resp['name']);
 
             if ($name->startsWith('v')) {
