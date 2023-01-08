@@ -51,8 +51,8 @@ class PhpConfigLoader implements ConfigLoader
             throw ConfigInvalidException::fromKey('rules');
         }
 
-        if (! isset($config['credentials']) || ! is_array($config['credentials'])) {
-            throw ConfigInvalidException::fromKey('credentials');
+        if (empty($config['credentials']) || ! is_array($config['credentials'])) {
+            throw new ConfigInvalidException('Credentials must be filled');
         }
 
         return new Config(
