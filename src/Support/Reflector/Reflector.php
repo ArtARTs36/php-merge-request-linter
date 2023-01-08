@@ -33,6 +33,31 @@ class Reflector
         return $params;
     }
 
+    /**
+     * @param class-string $class
+     * @return array<string, ParameterType>
+     */
+    public static function mapPropertyTypes(string $class): array
+    {
+        $reflector = new \ReflectionClass($class);
+
+        $map = [];
+
+        foreach ($reflector->getProperties() as $property) {
+            $genericAttributes = $property->getAttributes(Generic::class);
+            $generic = null;
+
+            if (count($genericAttributes) === 1) {
+                $genericAttr = current($genericAttributes);
+                $generic = current($genericAttr->getArguments());
+            }
+
+            $map[$property->getName()] = new ParameterType($property->getType()->getName(), $generic);
+        }
+
+        return $map;
+    }
+
     public static function findParamByName(\ReflectionMethod $method, string $name): ?\ReflectionParameter
     {
         foreach ($method->getParameters() as $parameter) {

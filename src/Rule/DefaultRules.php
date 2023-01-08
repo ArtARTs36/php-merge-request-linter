@@ -20,7 +20,7 @@ final class DefaultRules
         HasLinkToYouTrackIssueRule::NAME => HasLinkToYouTrackIssueRule::class,
         TitleMatchesExpressionRule::NAME => TitleMatchesExpressionRule::class,
         TitleStartsWithAnyPrefixRule::NAME => TitleStartsWithAnyPrefixRule::class,
-        HasChangesInFilesRule::NAME => HasChangesInFilesRule::class,
+        HasChangesRule::NAME => HasChangesRule::class,
     ];
 
     /**

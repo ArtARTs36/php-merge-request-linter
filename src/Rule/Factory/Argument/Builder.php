@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
 
 class Builder
 {
@@ -25,7 +26,7 @@ class Builder
         $args = [];
 
         foreach ($constructor->params() as $paramName => $paramType) {
-            $args[$paramName] = $this->argResolvers[$paramType->name]->resolve($params[$paramName]);
+            $args[$paramName] = $this->argResolvers[$paramType->name]->resolve($paramType, $params[$paramName]);
         }
 
         return $args;

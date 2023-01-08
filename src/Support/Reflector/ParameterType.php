@@ -15,4 +15,9 @@ class ParameterType
     {
         return $this->generic !== null;
     }
+
+    public function isGenericOfObject(): bool
+    {
+        return $this->isGeneric() && class_exists($this->generic);
+    }
 }

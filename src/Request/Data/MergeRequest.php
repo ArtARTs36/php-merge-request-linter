@@ -18,7 +18,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotHasOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsEvaluator;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 use ArtARTs36\Str\Str;
@@ -27,7 +27,7 @@ class MergeRequest
 {
     /**
      * @param Set<string> $labels
-     * @param Arrayee<int, string> $changeFiles
+     * @param Map<string, Change> $changeFiles
      */
     public function __construct(
         #[SupportsConditionEvaluator([
@@ -107,14 +107,12 @@ class MergeRequest
             NotEqualsEvaluator::class,
         ])]
         public bool $canMerge,
+        #[Generic(Change::class)]
         #[SupportsConditionEvaluator([
             CountMinEvaluator::class,
             CountMaxEvaluator::class,
-            HasEvaluator::class,
-            NotHasOperator::class,
-            HasAnyEvaluator::class,
         ])]
-        public Arrayee $changeFiles,
+        public Map $changeFiles,
     ) {
         //
     }

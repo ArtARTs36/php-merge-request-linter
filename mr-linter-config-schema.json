@@ -186,24 +186,36 @@
                         "prefixes"
                     ]
                 },
-                "@mr-linter/has_changes_in_files": {
+                "@mr-linter/has_changes": {
                     "type": "object",
                     "description": "Merge Request must have changes in {files}.",
                     "properties": {
                         "when": {
                             "$ref": "#/definitions/rule_conditions"
                         },
-                        "files": {
+                        "changes": {
                             "type": "array",
-                            "items": [
-                                {
-                                    "type": "string"
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string"
+                                    },
+                                    "contains": {
+                                        "type": "string"
+                                    },
+                                    "containsRegex": {
+                                        "type": "string"
+                                    },
+                                    "updatedPhpConstant": {
+                                        "type": "string"
+                                    }
                                 }
-                            ]
+                            }
                         }
                     },
                     "required": [
-                        "files"
+                        "changes"
                     ]
                 }
             }
@@ -600,13 +612,18 @@
                         }
                     }
                 },
-                "changeFiles.items": {
+                "changeFiles": {
                     "type": "object",
-                    "properties": []
-                },
-                "changeFiles.count": {
-                    "type": "object",
-                    "properties": []
+                    "properties": {
+                        "countMin": {
+                            "description": "Check the minimum number of elements in a field.",
+                            "type": "integer"
+                        },
+                        "countMax": {
+                            "description": "Check the maximum number of elements in a field.",
+                            "type": "integer"
+                        }
+                    }
                 }
             }
         }
