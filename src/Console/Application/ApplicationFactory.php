@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorResolver;
+use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ArrayConfigLoaderFactory;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
@@ -49,9 +50,9 @@ class ApplicationFactory
 
         $configLoader = new CompositeLoader([
             'php' => new PhpConfigLoader($filesystem),
-            'json' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('json')),
-            'yaml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('yaml')),
-            'yml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('yaml')),
+            'json' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create(ConfigFormat::JSON)),
+            'yaml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create(ConfigFormat::YAML)),
+            'yml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create(ConfigFormat::YAML)),
         ]);
 
         $configResolver = new ConfigResolver(new PathResolver($filesystem), $configLoader);

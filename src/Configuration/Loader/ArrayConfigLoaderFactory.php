@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorResolver;
+use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\FileTransformer;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
@@ -24,7 +25,6 @@ class ArrayConfigLoaderFactory
     public const SUPPORT_FORMATS = [
         'json' => JsonConfigLoader::class,
         'yaml' => YamlConfigLoader::class,
-        'yml' => YamlConfigLoader::class,
     ];
 
     public function __construct(
@@ -34,12 +34,9 @@ class ArrayConfigLoaderFactory
         //
     }
 
-    /**
-     * @param string&key-of<self::SUPPORT_FORMATS> $format
-     */
-    public function create(string $format): AbstractArrayConfigLoader
+    public function create(ConfigFormat $format): AbstractArrayConfigLoader
     {
-        if (! array_key_exists($format, self::SUPPORT_FORMATS)) {
+        if (! array_key_exists($format->value, self::SUPPORT_FORMATS)) {
             throw new \InvalidArgumentException(sprintf(
                 'ConfigLoader for format "%s" not found. Expected one of: [%s]',
                 $format,
@@ -47,7 +44,7 @@ class ArrayConfigLoaderFactory
             ));
         }
 
-        $loaderClass = self::SUPPORT_FORMATS[$format];
+        $loaderClass = self::SUPPORT_FORMATS[$format->value];
 
         $ruleFactory = new RuleFactory(
             new Builder(
