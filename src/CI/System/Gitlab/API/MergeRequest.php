@@ -8,6 +8,7 @@ class MergeRequest
 
     /**
      * @param array<string> $labels
+     * @param array<Change> $changes
      */
     public function __construct(
         public readonly string $title,
@@ -20,6 +21,7 @@ class MergeRequest
         public readonly string $authorLogin,
         public readonly bool $isDraft,
         public readonly string $mergeStatus,
+        public readonly array $changes,
     ) {
         //
     }

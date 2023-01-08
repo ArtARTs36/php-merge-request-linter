@@ -11,7 +11,7 @@ enum ConfigFormat: string
     case YAML = 'yaml';
 
     /**
-     * @return Arrayee<string>
+     * @return Arrayee<int, string>
      */
     public static function list(): Arrayee
     {

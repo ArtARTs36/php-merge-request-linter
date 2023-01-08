@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Collection;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\ContainsAll;
 
 /**
  * @template K of array-key
@@ -12,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Collection;
 class Map implements Collection
 {
     use CountProxy;
+    use ContainsAll;
 
     /**
      * @param array<K, V> $items

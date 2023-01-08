@@ -83,6 +83,8 @@ class ConsolePrinter implements Printer
 
                 $this->buildProps($value, $props, $prefix);
             }
+
+            $prefix = '';
         }
     }
 }

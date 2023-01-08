@@ -185,6 +185,26 @@
                     "required": [
                         "prefixes"
                     ]
+                },
+                "@mr-linter/has_changes_in_files": {
+                    "type": "object",
+                    "description": "Merge Request must have changes in {files}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "files": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "files"
+                    ]
                 }
             }
         },
@@ -579,6 +599,14 @@
                             "type": "boolean"
                         }
                     }
+                },
+                "changeFiles.items": {
+                    "type": "object",
+                    "properties": []
+                },
+                "changeFiles.count": {
+                    "type": "object",
+                    "properties": []
                 }
             }
         }

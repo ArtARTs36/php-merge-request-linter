@@ -39,7 +39,7 @@ class ArrayConfigLoaderFactory
         if (! array_key_exists($format->value, self::SUPPORT_FORMATS)) {
             throw new \InvalidArgumentException(sprintf(
                 'ConfigLoader for format "%s" not found. Expected one of: [%s]',
-                $format,
+                $format->value,
                 implode(', ', array_keys(self::SUPPORT_FORMATS)),
             ));
         }

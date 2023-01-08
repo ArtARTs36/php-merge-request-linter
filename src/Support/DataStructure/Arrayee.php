@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Collection;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\ContainsAll;
 use Traversable;
 
 /**
@@ -13,6 +14,7 @@ use Traversable;
 class Arrayee implements Collection
 {
     use CountProxy;
+    use ContainsAll;
 
     /**
      * @param array<K, V> $items
@@ -61,5 +63,10 @@ class Arrayee implements Collection
     public function implode(string $sep): string
     {
         return implode($sep, $this->items);
+    }
+
+    public function __toString(): string
+    {
+        return "[" . $this->implode(', ') . "]";
     }
 }

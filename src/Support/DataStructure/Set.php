@@ -63,6 +63,17 @@ class Set implements Collection
         return false;
     }
 
+    public function containsAll(iterable $values): bool
+    {
+        foreach ($values as $value) {
+            if (! $this->contains($value)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @param Set<V> $that
      * @return Set<V>
@@ -101,6 +112,14 @@ class Set implements Collection
     public function getIterator(): \Traversable
     {
         return new ArrayKeyIterator($this->items);
+    }
+
+    /**
+     * @return V|null
+     */
+    public function first()
+    {
+        return array_key_first($this->items);
     }
 
     public function __toString(): string

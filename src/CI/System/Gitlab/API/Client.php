@@ -47,6 +47,12 @@ class Client implements GitlabClient
             $response['author']['username'],
             $response['draft'] ?? false,
             $response['merge_status'],
+            array_map(function (array $change) {
+                return new Change(
+                    $change['new_path'],
+                    $change['old_path'],
+                );
+            }, $response['changes']),
         );
     }
 

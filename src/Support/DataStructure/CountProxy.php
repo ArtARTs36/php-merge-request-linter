@@ -24,4 +24,9 @@ trait CountProxy
     {
         return $this->count() === $that->count();
     }
+
+    public function once(): bool
+    {
+        return $this->count() === 1;
+    }
 }

@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
@@ -61,6 +62,7 @@ class GithubActions implements CiSystem
             new Author($pullRequest->authorLogin),
             $pullRequest->isDraft,
             $pullRequest->canMerge(),
+            new Arrayee([]),
         );
     }
 }

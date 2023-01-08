@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\CI\System\Gitlab;
 
+use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\Change;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
@@ -9,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
@@ -58,6 +60,9 @@ class GitlabCi implements CiSystem
             new Author($request->authorLogin),
             $request->isDraft,
             $request->canMerge(),
+            new Arrayee(array_map(function (Change $change) {
+                return $change->newPath;
+            }, $request->changes)),
         );
     }
 }
