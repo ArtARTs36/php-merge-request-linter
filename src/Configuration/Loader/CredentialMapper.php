@@ -6,26 +6,26 @@ use ArtARTs36\MergeRequestLinter\CI\Credentials\Token;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigValueTransformer;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 class CredentialMapper
 {
     /**
      * @param iterable<ConfigValueTransformer> $valueTransformers
-     * @param Map<string, class-string<CiSystem>> $ciSystemMap
+     * @param ArrayMap<string, class-string<CiSystem>> $ciSystemMap
      */
     public function __construct(
         private iterable $valueTransformers,
-        private Map $ciSystemMap,
+        private ArrayMap $ciSystemMap,
     ) {
         //
     }
 
     /**
      * @param array<string, string> $credentials
-     * @return Map<class-string<CiSystem>, RemoteCredentials>
+     * @return ArrayMap<class-string<CiSystem>, RemoteCredentials>
      */
-    public function map(array $credentials): Map
+    public function map(array $credentials): ArrayMap
     {
         /** @var array<class-string<CiSystem>, RemoteCredentials> $mapped */
         $mapped = [];
@@ -43,6 +43,6 @@ class CredentialMapper
             }
         }
 
-        return new Map($mapped);
+        return new ArrayMap($mapped);
     }
 }

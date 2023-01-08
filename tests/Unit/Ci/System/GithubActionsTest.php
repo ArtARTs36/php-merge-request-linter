@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GithubActionsTest extends TestCase
@@ -64,7 +64,7 @@ final class GithubActionsTest extends TestCase
     private function makeCi(array $env): GithubActions
     {
         return new GithubActions(
-            new GithubEnvironment(new MapEnvironment(new Map($env))),
+            new GithubEnvironment(new MapEnvironment(new ArrayMap($env))),
             new class () implements GithubClient {
                 public function getPullRequest(PullRequestInput $input): PullRequest
                 {

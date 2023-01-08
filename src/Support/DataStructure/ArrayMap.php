@@ -2,15 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Collection;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\ContainsAll;
 
 /**
  * @template K of array-key
  * @template V
- * @template-implements Collection<K, V>
+ * @template-implements Map<K, V>
  */
-class Map implements Collection
+class ArrayMap implements Map
 {
     use CountProxy;
     use ContainsAll;
@@ -63,9 +63,9 @@ class Map implements Collection
     }
 
     /**
-     * @param Map<K, V> $that
+     * @param ArrayMap<K, V> $that
      */
-    public function equals(Map $that): bool
+    public function equals(ArrayMap $that): bool
     {
         if (! $this->equalsCount($that)) {
             return false;
@@ -81,9 +81,9 @@ class Map implements Collection
     }
 
     /**
-     * @return Map<K, array<V>>
+     * @return ArrayMap<K, array<V>>
      */
-    public function groupKeysByValue(): Map
+    public function groupKeysByValue(): ArrayMap
     {
         $groups = [];
 
@@ -92,7 +92,7 @@ class Map implements Collection
         }
 
         /** @phpstan-ignore-next-line */
-        return new Map($groups);
+        return new ArrayMap($groups);
     }
 
     public function containsAny(iterable $values): bool
@@ -113,8 +113,8 @@ class Map implements Collection
     }
 
     /**
-     * @param Map<K, V> $that
-     * @return Map<K, V>
+     * @param ArrayMap<K, V> $that
+     * @return ArrayMap<K, V>
      */
     public function diff(self $that): self
     {

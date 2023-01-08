@@ -29,4 +29,9 @@ interface Collection extends IteratorAggregate, \Countable
      * @param iterable<V> $values
      */
     public function containsAll(iterable $values): bool;
+
+    /**
+     * Check collection is empty.
+     */
+    public function isEmpty(): bool;
 }

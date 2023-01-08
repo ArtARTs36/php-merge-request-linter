@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 class PhpConfigLoader implements ConfigLoader
 {
@@ -51,13 +51,13 @@ class PhpConfigLoader implements ConfigLoader
             throw ConfigInvalidException::fromKey('rules');
         }
 
-        if (isset($config['credentials']) && ! is_array($config['credentials'])) {
+        if (empty($config['credentials']) || ! is_array($config['credentials'])) {
             throw new ConfigInvalidException('Credentials must be filled');
         }
 
         return new Config(
             Rules::make($config['rules']),
-            new Map($config['credentials'] ?? []),
+            new ArrayMap($config['credentials']),
             $this->makeHttpClientConfig($config),
         );
     }

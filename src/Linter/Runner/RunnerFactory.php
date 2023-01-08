@@ -9,15 +9,15 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\Http\ClientFactory;
 
 class RunnerFactory implements LinterRunnerFactory
 {
     /**
-     * @param Map<string, class-string<CiSystem>> $ciSystems
+     * @param ArrayMap<string, class-string<CiSystem>> $ciSystems
      */
-    public function __construct(protected Environment $environment, protected Map $ciSystems)
+    public function __construct(protected Environment $environment, protected ArrayMap $ciSystems)
     {
         //
     }

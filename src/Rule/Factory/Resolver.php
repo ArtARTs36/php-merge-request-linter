@@ -7,16 +7,16 @@ use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\ConditionRule;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 class Resolver
 {
     /**
-     * @param Map<string, class-string<Rule>> $nameClassRules
+     * @param ArrayMap<string, class-string<Rule>> $nameClassRules
      */
     public function __construct(
-        private Map $nameClassRules,
-        private RuleFactory $factory,
+        private ArrayMap         $nameClassRules,
+        private RuleFactory      $factory,
         private OperatorResolver $operatorResolver,
     ) {
         //

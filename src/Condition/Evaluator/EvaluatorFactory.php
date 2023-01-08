@@ -4,15 +4,15 @@ namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Exception\ConditionEvaluatorNotFound;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 class EvaluatorFactory
 {
     /**
-     * @param Map<string, class-string<Evaluator>> $evaluatorByType
+     * @param ArrayMap<string, class-string<Evaluator>> $evaluatorByType
      */
     public function __construct(
-        private readonly Map $evaluatorByType,
+        private readonly ArrayMap $evaluatorByType,
     ) {
         //
     }

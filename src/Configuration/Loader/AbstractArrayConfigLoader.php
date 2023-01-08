@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;
 
 abstract class AbstractArrayConfigLoader implements ConfigLoader
 {
@@ -35,7 +36,9 @@ abstract class AbstractArrayConfigLoader implements ConfigLoader
             throw new ConfigInvalidException('HTTP Client unavailable');
         }
 
-        $credentials = $this->credentialMapper->map($data['credentials']);
+        $credentials = new MapProxy(function () use ($data) {
+            return $this->credentialMapper->map($data['credentials']);
+        });
 
         return new Config($rules, $credentials, new HttpClientConfig(
             $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,

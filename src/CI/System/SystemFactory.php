@@ -11,11 +11,11 @@ use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class SystemFactory implements CiSystemFactory
 {
@@ -23,10 +23,10 @@ class SystemFactory implements CiSystemFactory
      * @param Map<string, class-string<CiSystem>> $ciSystems
      */
     public function __construct(
-        protected Config $config,
-        protected Environment $environment,
+        protected Config            $config,
+        protected Environment       $environment,
         protected HttpClientFactory $httpClientFactory,
-        protected Map $ciSystems,
+        protected Map          $ciSystems,
     ) {
         //
     }
