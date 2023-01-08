@@ -9,6 +9,10 @@ use ArtARTs36\Str\Facade\Str;
 
 class ToolInfo
 {
+    public const REPO_OWNER = 'artarts36';
+    public const REPO_NAME = 'php-merge-request-linter';
+    public const REPO_URI = 'https://github.com/ArtARTs36/php-merge-request-linter';
+
     public function __construct(
         private readonly GithubClient $github,
     ) {
@@ -17,7 +21,7 @@ class ToolInfo
 
     public function getLatestVersion(): ?Tag
     {
-        $versions = $this->github->getTags(new TagsInput('artarts36', 'php-merge-request-linter'));
+        $versions = $this->github->getTags(new TagsInput(self::REPO_OWNER, self::REPO_NAME));
 
         return $versions->sortByMajority()->first();
     }
