@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\CI\System\DefaultSystems;
+use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Console\Application\Application;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfo;
@@ -35,6 +36,7 @@ class InfoCommand extends Command
             sprintf('Repository: %s', ToolInfo::REPO_URI),
             sprintf('Current version: %s', Application::VERSION),
             fn () => sprintf('Latest version: %s', $toolInfo->getLatestVersion()?->digit() ?? 'undefined'),
+            sprintf('Supported config formats: [%s]', ConfigFormat::list()->implode(', ')),
             sprintf('Used as PHAR: %s', $toolInfo->usedAsPhar() ? 'true' : 'false'),
             sprintf('Supported CI Systems: %s', DefaultSystems::map()->keys()->implode(', ')),
             sprintf('Available rules: [%s]', DefaultRules::map()->keys()->implode(', ')),
