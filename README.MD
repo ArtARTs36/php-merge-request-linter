@@ -127,7 +127,9 @@ docker run \
     },
     "@mr-linter/description_not_empty": {
        "when": {
-          "targetBranch": "master"
+          "targetBranch": {
+             "equals": "master"
+          }
        }
     }
   },
@@ -135,6 +137,31 @@ docker run \
     "github_actions": "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
   }
 }
+```
+
+## YAML Config
+
+[See JsonSchema](mr-linter-config-schema.json)
+
+```yaml
+rules:
+  "@mr-linter/changed_files_limit":
+     limit: 20
+
+  "@mr-linter/jira/has_issue_link":
+     domain: "jira.com"
+     projectCode: "MYPROJECT"
+     when:
+       title:
+         starts: "WIP-REQUEST"
+
+  "@mr-linter/description_not_empty":
+    when:
+      targetBranch:
+        equals: "master"
+
+credentials:
+  github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
 ```
 
 ## Development Commands
