@@ -35,7 +35,13 @@ abstract class AbstractArrayConfigLoader implements ConfigLoader
             throw new ConfigInvalidException('HTTP Client unavailable');
         }
 
-        return new Config($rules, $this->credentialMapper->map($data['credentials']), new HttpClientConfig(
+        $credentials = $this->credentialMapper->map($data['credentials']);
+
+        if ($credentials->isEmpty()) {
+            throw new ConfigInvalidException('Credentials must be filled');
+        }
+
+        return new Config($rules, $credentials, new HttpClientConfig(
             $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
             $data['http_client']['params'] ?? [],
         ));
