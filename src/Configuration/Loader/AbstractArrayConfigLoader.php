@@ -37,10 +37,6 @@ abstract class AbstractArrayConfigLoader implements ConfigLoader
 
         $credentials = $this->credentialMapper->map($data['credentials']);
 
-        if ($credentials->isEmpty()) {
-            throw new ConfigInvalidException('Credentials must be filled');
-        }
-
         return new Config($rules, $credentials, new HttpClientConfig(
             $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
             $data['http_client']['params'] ?? [],

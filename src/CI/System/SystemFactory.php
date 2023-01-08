@@ -33,6 +33,10 @@ class SystemFactory implements CiSystemFactory
 
     public function createCurrently(): CiSystem
     {
+        if ($this->config->getCredentials()->isEmpty()) {
+            throw new InvalidCredentialsException('Credentials must be filled');
+        }
+
         foreach ($this->ciSystems as $name => $ciClass) {
             try {
                 $ci = $this->create($name);

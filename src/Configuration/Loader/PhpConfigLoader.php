@@ -51,13 +51,13 @@ class PhpConfigLoader implements ConfigLoader
             throw ConfigInvalidException::fromKey('rules');
         }
 
-        if (empty($config['credentials']) || ! is_array($config['credentials'])) {
+        if (isset($config['credentials']) && ! is_array($config['credentials'])) {
             throw new ConfigInvalidException('Credentials must be filled');
         }
 
         return new Config(
             Rules::make($config['rules']),
-            new Map($config['credentials']),
+            new Map($config['credentials'] ?? []),
             $this->makeHttpClientConfig($config),
         );
     }
