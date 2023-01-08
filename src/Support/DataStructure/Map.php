@@ -139,4 +139,12 @@ class Map implements Collection
     {
         return implode($sep, $this->items);
     }
+
+    /**
+     * @return Arrayee<int, K>
+     */
+    public function keys(): Arrayee
+    {
+        return new Arrayee(array_keys($this->items));
+    }
 }

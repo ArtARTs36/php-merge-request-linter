@@ -22,7 +22,7 @@ class InstallCommand extends Command
     {
         $dir = getcwd();
 
-        copy(__DIR__ . '/../../stubs/.mr-linter.php', $pathTo = $dir . '/.mr-linter.php');
+        copy(__DIR__ . '/../../../stubs/.mr-linter.php', $pathTo = $dir . '/.mr-linter.php');
 
         $style = new SymfonyStyle($input, $output);
 

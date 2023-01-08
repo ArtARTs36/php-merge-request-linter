@@ -6,6 +6,8 @@ use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagCollection;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
@@ -67,6 +69,11 @@ final class GithubActionsTest extends TestCase
                 public function getPullRequest(PullRequestInput $input): PullRequest
                 {
                     // TODO: Implement getPullRequest() method.
+                }
+
+                public function getTags(TagsInput $input): TagCollection
+                {
+                    // TODO: Implement getTags() method.
                 }
             },
         );

@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\CI\System\Github;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
-use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
@@ -15,8 +14,6 @@ use ArtARTs36\Str\Str;
 
 class GithubActions implements CiSystem
 {
-    use InteractsWithResponse;
-
     public const NAME = 'github_actions';
 
     public function __construct(

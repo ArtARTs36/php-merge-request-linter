@@ -57,4 +57,9 @@ class Arrayee implements Collection
 
         return $item;
     }
+
+    public function implode(string $sep): string
+    {
+        return implode($sep, $this->items);
+    }
 }

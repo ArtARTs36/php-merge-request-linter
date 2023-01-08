@@ -19,6 +19,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\FileTransformer;
 use ArtARTs36\MergeRequestLinter\Console\Command\DumpCommand;
+use ArtARTs36\MergeRequestLinter\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
@@ -30,6 +31,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\CallbackPropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 
 class ApplicationFactory
 {
@@ -77,6 +79,7 @@ class ApplicationFactory
         $application->add(new LintCommand($configResolver, $runnerFactory));
         $application->add(new InstallCommand());
         $application->add(new DumpCommand($configResolver));
+        $application->add(new InfoCommand(new ToolInfoFactory()));
 
         return $application;
     }

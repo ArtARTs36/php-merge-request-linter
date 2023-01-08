@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 final class DefaultEvaluators
 {
-    /** @var array<string, class-string<ConditionEvaluator>> */
+    /** @var array<string, class-string<Evaluator>> */
     public static array $map = [
         EqualsEvaluator::NAME => EqualsEvaluator::class,
         EqualsEvaluator::SYMBOL => EqualsEvaluator::class,
@@ -31,7 +31,7 @@ final class DefaultEvaluators
     ];
 
     /**
-     * @return Map<string, class-string<ConditionEvaluator>>
+     * @return Map<string, class-string<Evaluator>>
      */
     public static function map(): Map
     {
