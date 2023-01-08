@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorResolver;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\ArrayConfigLoaderFactory;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\CredentialMapper;
@@ -44,34 +45,13 @@ class ApplicationFactory
         $ciSystemsMap = DefaultSystems::map();
         $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap);
 
+        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment);
+
         $configLoader = new CompositeLoader([
             'php' => new PhpConfigLoader($filesystem),
-            'json' => new ConfigLoaderProxy(static function () use ($filesystem, $environment, $ciSystemsMap) {
-                $ruleFactory = new RuleFactory(
-                    new ConfigArgumentBuilder(
-                        DefaultResolvers::get(),
-                    ),
-                    new ConstructorFinder(),
-                );
-
-                $operatorFactory = new OperatorFactory(new CallbackPropertyExtractor(), new EvaluatorFactory(
-                    DefaultEvaluators::map(),
-                ));
-
-                return new JsonConfigLoader(
-                    $filesystem,
-                    new CredentialMapper(
-                        [
-                            new EnvTransformer($environment),
-                            new FileTransformer($filesystem),
-                        ],
-                        $ciSystemsMap,
-                    ),
-                    new RulesMapper(
-                        new Resolver(DefaultRules::map(), $ruleFactory, new OperatorResolver($operatorFactory)),
-                    ),
-                );
-            }),
+            'json' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('json')),
+            'yaml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('yaml')),
+            'yml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('yaml')),
         ]);
 
         $configResolver = new ConfigResolver(new PathResolver($filesystem), $configLoader);
