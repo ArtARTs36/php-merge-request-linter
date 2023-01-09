@@ -3,11 +3,15 @@
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Change\Change;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
+use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Diff;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
@@ -62,7 +66,24 @@ class GithubActions implements CiSystem
             new Author($pullRequest->authorLogin),
             $pullRequest->isDraft,
             $pullRequest->canMerge(),
-            new ArrayMap([]),
+            $this->mapChanges($pullRequest),
         );
+    }
+
+    /**
+     * @return Map<string, \ArtARTs36\MergeRequestLinter\Request\Data\Change>
+     */
+    private function mapChanges(PullRequest $request): Map
+    {
+        $changes = [];
+
+        foreach ($request->changes as $change) {
+            $changes[$change->filename] = new \ArtARTs36\MergeRequestLinter\Request\Data\Change(
+                $change->filename,
+                new Diff($change->diff),
+            );
+        }
+
+        return new ArrayMap($changes);
     }
 }

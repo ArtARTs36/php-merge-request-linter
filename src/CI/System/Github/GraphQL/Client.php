@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL;
 
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Change\Change;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Change\Status;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestSchema;
@@ -11,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Support\DiffMapper;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
@@ -25,6 +28,7 @@ class Client implements GithubClient
         private readonly ClientInterface $client,
         private readonly RemoteCredentials $credentials,
         private readonly PullRequestSchema $pullRequestSchema,
+        private readonly DiffMapper $diffMapper,
     ) {
         //
     }
@@ -44,7 +48,11 @@ class Client implements GithubClient
 
         $this->validateResponse($response, $input->graphqlUrl);
 
-        return $this->pullRequestSchema->createPullRequest($this->responseToJsonArray($response));
+        $pullRequest = $this->pullRequestSchema->createPullRequest($this->responseToJsonArray($response));
+
+        $pullRequest->changes = $this->getPullRequestFiles($input);
+
+        return $pullRequest;
     }
 
     public function getTags(TagsInput $input): TagCollection
@@ -59,6 +67,47 @@ class Client implements GithubClient
         $this->validateResponse($response, $url);
 
         return $this->hydrateTags($this->responseToJsonArray($response));
+    }
+
+    /**
+     * @return Change[]
+     */
+    private function getPullRequestFiles(PullRequestInput $input): array
+    {
+        $url = sprintf(
+            'https://api.github.com/repos/%s/%s/pulls/%d/files',
+            $input->owner,
+            $input->repository,
+            $input->requestId,
+        );
+
+        $request = new Request('GET', $url);
+        $request = $this->applyCredentials($request);
+
+        $response = $this->client->sendRequest($request);
+
+        $this->validateResponse($response, $url);
+
+        return $this->mapChanges($this->responseToJsonArray($response));
+    }
+
+    /**
+     * @param array<array{filename: string, patch: string, status: string} $response
+     * @return array<string, Change>
+     */
+    private function mapChanges(array $response): array
+    {
+        $changes = [];
+
+        foreach ($response as $respChange) {
+            $changes[] = new Change(
+                $respChange['filename'],
+                $this->diffMapper->map([$respChange['patch']]),
+                Status::from($respChange['status']),
+            );
+        }
+
+        return $changes;
     }
 
     /**

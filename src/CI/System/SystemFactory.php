@@ -16,6 +16,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Support\DiffMapper;
 
 class SystemFactory implements CiSystemFactory
 {
@@ -77,6 +78,7 @@ class SystemFactory implements CiSystemFactory
                 $httpClient,
                 $credentials,
                 new PullRequestSchema(),
+                new DiffMapper(),
             ));
         }
 
@@ -84,6 +86,7 @@ class SystemFactory implements CiSystemFactory
             return new GitlabCi(new GitlabEnvironment($this->environment), new Gitlab\API\Client(
                 $credentials,
                 $httpClient,
+                new DiffMapper(),
             ));
         }
 

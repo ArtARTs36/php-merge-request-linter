@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest;
 
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Change\Change;
+
 class PullRequest
 {
     private const MERGEABLE_STATE_CONFLICTING = 'CONFLICTING';
@@ -9,6 +11,7 @@ class PullRequest
 
     /**
      * @param array<string> $labels
+     * @param array<Change> $changes
      */
     public function __construct(
         public readonly string $title,
@@ -20,6 +23,7 @@ class PullRequest
         public readonly int $changedFiles,
         public readonly string $authorLogin,
         public readonly bool $isDraft,
+        public array $changes = [],
     ) {
         //
     }

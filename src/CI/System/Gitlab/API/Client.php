@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Line;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Type;
+use ArtARTs36\MergeRequestLinter\Support\DiffMapper;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
@@ -18,6 +19,7 @@ class Client implements GitlabClient
     public function __construct(
         private readonly RemoteCredentials $credentials,
         private readonly ClientInterface $client,
+        private readonly DiffMapper $diffMapper,
     ) {
         //
     }
@@ -63,43 +65,10 @@ class Client implements GitlabClient
         $changes = [];
 
         foreach ($response as $change) {
-            $changes[] = new Change($change['new_path'], $change['old_path'], $this->mapDiff($change));
+            $changes[] = new Change($change['new_path'], $change['old_path'], $this->diffMapper->map($change));
         }
 
         return $changes;
-    }
-
-    /**
-     * @param array<string> $response
-     * @return array<Line>
-     */
-    private function mapDiff(array $response): array
-    {
-        $diff = [];
-
-        foreach ($response as $respDiff) {
-            $respDiffStr = Str::make($respDiff)->trim();
-
-            /** @var Str $respLine */
-            foreach ($respDiffStr->lines() as $respLine) {
-                $type = Type::NOT_CHANGES;
-
-                if ($respLine->startsWith('+')) {
-                    $type = Type::NEW;
-                    $respLine = $respLine->cut(null, start: 1);
-                } elseif ($respLine->startsWith('-')) {
-                    $type = Type::OLD;
-                    $respLine = $respLine->cut(null, start: 1);
-                }
-
-                $diff[] = new Line(
-                    $type,
-                    $respLine,
-                );
-            }
-        }
-
-        return $diff;
     }
 
     /**

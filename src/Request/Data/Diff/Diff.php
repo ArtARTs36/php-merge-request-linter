@@ -35,4 +35,13 @@ class Diff extends Arrayee
 
         return false;
     }
+
+    public function __toString(): string
+    {
+        $json = json_encode(array_map(function (Line $line) {
+            return $line->content->cut(50);
+        }, $this->items));
+
+        return $json === false ? '' : $json;
+    }
 }
