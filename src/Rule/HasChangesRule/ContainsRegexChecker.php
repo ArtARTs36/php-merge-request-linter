@@ -14,7 +14,7 @@ class ContainsRegexChecker implements DiffChecker
             return [];
         }
 
-        $hasNeedChange = $change->diff->hasChangeByContentContains($needChange->containsRegex);
+        $hasNeedChange = $change->diff->hasChangeByContentContainsByRegex($needChange->containsRegex);
 
         return $hasNeedChange ?
             [] :

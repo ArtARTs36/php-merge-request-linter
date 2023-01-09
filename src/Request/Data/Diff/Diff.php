@@ -9,26 +9,21 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
  */
 class Diff extends Arrayee
 {
-    /**
-     * @return array<Line>
-     */
-    public function searchChangeByContentContains(string $content, bool $regex = false): array
-    {
-        $lines = [];
-
-        foreach ($this->items as $item) {
-            if ($item->hasChanges() && $item->content->contains($content, $regex)) {
-                $lines[] = $item;
-            }
-        }
-
-        return $lines;
-    }
-
     public function hasChangeByContentContains(string $content, bool $regex = false): bool
     {
         foreach ($this->items as $item) {
             if ($item->hasChanges() && $item->content->contains($content, $regex)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasChangeByContentContainsByRegex(string $content): bool
+    {
+        foreach ($this->items as $item) {
+            if ($item->hasChanges() && $item->content->match($content)->isNotEmpty()) {
                 return true;
             }
         }
