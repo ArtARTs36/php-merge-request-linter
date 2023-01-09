@@ -32,9 +32,9 @@ class HasChangesRule implements Rule
     }
 
     /**
-     * @param iterable<FileChange> $changes
+     * @param array<FileChange> $changes
      */
-    public static function make(#[Generic(FileChange::class)] iterable $changes): self
+    public static function make(#[Generic(FileChange::class)] array $changes): self
     {
         return new self(new Arrayee($changes), new CompositeChecker([
             new ContainsChecker(),
