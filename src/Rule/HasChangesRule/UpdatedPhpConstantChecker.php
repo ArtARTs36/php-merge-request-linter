@@ -14,7 +14,7 @@ class UpdatedPhpConstantChecker implements DiffChecker
             return [];
         }
 
-        return $change->diff->searchChangeByContentContains('const '. $needChange->updatedPhpConstant) ?
+        return $change->diff->hasChangeByContentContains('const '. $needChange->updatedPhpConstant) ?
             [] :
             [
                 new LintNote(

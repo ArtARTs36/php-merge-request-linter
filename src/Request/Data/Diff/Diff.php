@@ -27,6 +27,12 @@ class Diff extends Arrayee
 
     public function hasChangeByContentContains(string $content, bool $regex = false): bool
     {
-        return count($this->searchChangeByContentContains($content, $regex)) > 0;
+        foreach ($this->items as $item) {
+            if ($item->hasChanges() && $item->content->contains($content, $regex)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
