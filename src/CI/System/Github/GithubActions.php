@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Change\Change;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;

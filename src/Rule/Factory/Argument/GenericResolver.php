@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
-use ArtARTs36\Str\Support\Arr;
 
 class GenericResolver implements ArgumentResolver
 {

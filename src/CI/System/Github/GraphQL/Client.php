@@ -92,8 +92,8 @@ class Client implements GithubClient
     }
 
     /**
-     * @param array<array{filename: string, patch: string, status: string} $response
-     * @return array<string, Change>
+     * @param array<array{filename: string, patch: string, status: string}> $response
+     * @return array<Change>
      */
     private function mapChanges(array $response): array
     {

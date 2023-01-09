@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\CI\System\Gitlab;
 
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\Change;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
