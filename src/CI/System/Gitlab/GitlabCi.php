@@ -10,8 +10,8 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
+use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Diff;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
@@ -66,6 +66,9 @@ class GitlabCi implements CiSystem
         );
     }
 
+    /**
+     * @return Map<string, \ArtARTs36\MergeRequestLinter\Request\Data\Change>
+     */
     private function mapChanges(API\MergeRequest $request): Map
     {
         $changes = [];
@@ -73,6 +76,7 @@ class GitlabCi implements CiSystem
         foreach ($request->changes as $change) {
             $changes[$change->newPath] = new \ArtARTs36\MergeRequestLinter\Request\Data\Change(
                 $change->newPath,
+                new Diff($change->diff),
             );
         }
 

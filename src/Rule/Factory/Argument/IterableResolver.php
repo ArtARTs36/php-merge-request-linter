@@ -20,6 +20,7 @@ class IterableResolver implements ArgumentResolver
             $values = [];
 
             foreach ($value as $val) {
+                //@phpstan-ignore-next-line
                 $values[] = $this->arrayObjectConverter->convert($val, $type->generic);
             }
 

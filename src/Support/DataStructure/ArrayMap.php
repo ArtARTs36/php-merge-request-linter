@@ -153,6 +153,8 @@ class ArrayMap implements Map
 
     public function __toString(): string
     {
-        return json_encode($this->items);
+        $json = json_encode($this->items);
+
+        return $json === false ? '' : $json;
     }
 }

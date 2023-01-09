@@ -52,7 +52,13 @@ class Reflector
                 $generic = current($genericAttr->getArguments());
             }
 
-            $map[$property->getName()] = new ParameterType($property->getType()->getName(), $generic);
+            $type = $property->getType();
+
+            if (! $type instanceof \ReflectionNamedType) {
+                throw new \LogicException(sprintf('Property %s not has type', $property->getName()));
+            }
+
+            $map[$property->getName()] = new ParameterType($type->getName(), $generic);
         }
 
         return $map;

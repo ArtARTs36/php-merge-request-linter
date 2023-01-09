@@ -11,7 +11,6 @@ use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
@@ -43,7 +42,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             new Author($request['author_login'] ?? ''),
             $request['is_draft'] ?? false,
             false,
-            new Arrayee([]),
+            new ArrayMap([]),
         );
     }
 

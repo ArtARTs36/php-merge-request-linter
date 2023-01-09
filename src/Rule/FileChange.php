@@ -12,4 +12,9 @@ class FileChange
     ) {
         //
     }
+
+    public function hasConditions(): bool
+    {
+        return $this->contains !== null || $this->containsRegex !== null || $this->updatedPhpConstant !== null;
+    }
 }
