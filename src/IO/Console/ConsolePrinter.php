@@ -34,6 +34,8 @@ class ConsolePrinter implements Printer
             ->setHeaders(['Property', 'Value'])
             ->setRows($props);
 
+        $table->setColumnMaxWidth(1, 100);
+
         $table->render();
 
         $this->output->write("\n");

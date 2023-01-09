@@ -33,9 +33,7 @@ class Diff extends Arrayee
 
     public function __toString(): string
     {
-        $json = json_encode(array_map(function (Line $line) {
-            return $line->content->cut(50);
-        }, $this->items));
+        $json = json_encode($this->items);
 
         return $json === false ? '' : $json;
     }
