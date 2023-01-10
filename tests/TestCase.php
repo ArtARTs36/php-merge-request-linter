@@ -38,11 +38,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             (bool) ($request['has_conflicts'] ?? false),
             Str::make($request['source_branch'] ?? ''),
             Str::make($request['target_branch'] ?? ''),
-            (int) ($request['changed_files_count'] ?? 0),
             new Author($request['author_login'] ?? ''),
             $request['is_draft'] ?? false,
             false,
-            new ArrayMap([]),
+            new ArrayMap($request['changes'] ?? []),
         );
     }
 

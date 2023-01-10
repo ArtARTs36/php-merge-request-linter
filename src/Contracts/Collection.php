@@ -34,4 +34,9 @@ interface Collection extends IteratorAggregate, \Countable
      * Check collection is empty.
      */
     public function isEmpty(): bool;
+
+    /**
+     * Convert Collection to string.
+     */
+    public function __toString(): string;
 }

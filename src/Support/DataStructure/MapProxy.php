@@ -76,4 +76,9 @@ class MapProxy implements Map
     {
         return $this->retrieveMap()->keys();
     }
+
+    public function __toString(): string
+    {
+        return $this->retrieveMap()->__toString();
+    }
 }

@@ -13,14 +13,14 @@ final class ChangedFilesLimitRuleTest extends TestCase
         return [
             [
                 $this->makeMergeRequest([
-                    'changed_files_count' => 150,
+                    'changes' => array_fill(0, 150, 1),
                 ]),
                 50,
                 true,
             ],
             [
                 $this->makeMergeRequest([
-                    'changed_files_count' => 40,
+                    'changes' => array_fill(0, 40, 1),
                 ]),
                 50,
                 false,

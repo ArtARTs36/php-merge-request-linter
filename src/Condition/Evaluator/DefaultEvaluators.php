@@ -27,6 +27,8 @@ final class DefaultEvaluators
         NotHasOperator::NAME => NotHasOperator::class,
         EqualsAnyEvaluator::NAME => EqualsAnyEvaluator::class,
         HasAnyEvaluator::NAME => HasAnyEvaluator::class,
+        CountEqualsEvaluator::NAME => CountEqualsEvaluator::class,
+        CountNotEqualsEvaluator::NAME => CountNotEqualsEvaluator::class,
     ];
 
     /**

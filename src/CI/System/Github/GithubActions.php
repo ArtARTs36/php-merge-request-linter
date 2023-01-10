@@ -61,7 +61,6 @@ class GithubActions implements CiSystem
             $pullRequest->hasConflicts(),
             Str::make($pullRequest->headRefName),
             Str::make($pullRequest->baseRefName),
-            $pullRequest->changedFiles,
             new Author($pullRequest->authorLogin),
             $pullRequest->isDraft,
             $pullRequest->canMerge(),

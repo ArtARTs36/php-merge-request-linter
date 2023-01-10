@@ -344,6 +344,14 @@
                             "description": "Check the maximum number of elements in a field.",
                             "type": "integer"
                         },
+                        "countEquals": {
+                            "description": "Check count equals.",
+                            "type": "integer"
+                        },
+                        "countNotEquals": {
+                            "description": "Check count not equals.",
+                            "type": "integer"
+                        },
                         "has": {
                             "description": "Check if an array contains some value.",
                             "type": "string"
@@ -478,50 +486,6 @@
                         }
                     }
                 },
-                "changedFilesCount": {
-                    "type": "object",
-                    "properties": {
-                        "equals": {
-                            "description": "Check if value are equal.",
-                            "type": "integer"
-                        },
-                        "=": {
-                            "description": "Check if value are equal.",
-                            "type": "integer"
-                        },
-                        "lte": {
-                            "description": "Check number is equal to or less than.",
-                            "type": "integer"
-                        },
-                        "<=": {
-                            "description": "Check number is equal to or less than.",
-                            "type": "integer"
-                        },
-                        "gte": {
-                            "description": "Check if a number is greater than or less than.",
-                            "type": "integer"
-                        },
-                        ">=": {
-                            "description": "Check if a number is greater than or less than.",
-                            "type": "integer"
-                        },
-                        "notEquals": {
-                            "description": "Check if value are not equal.",
-                            "type": "integer"
-                        },
-                        "!=": {
-                            "description": "Check if value are not equal.",
-                            "type": "integer"
-                        },
-                        "equalsAny": {
-                            "description": "Check if the field is equal to one of the values.",
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
                 "author.login": {
                     "type": "object",
                     "properties": {
@@ -612,7 +576,7 @@
                         }
                     }
                 },
-c                "changes": {
+                "changes": {
                     "type": "object",
                     "properties": {
                         "countMin": {
@@ -621,6 +585,14 @@ c                "changes": {
                         },
                         "countMax": {
                             "description": "Check the maximum number of elements in a field.",
+                            "type": "integer"
+                        },
+                        "countEquals": {
+                            "description": "Check count equals.",
+                            "type": "integer"
+                        },
+                        "countNotEquals": {
+                            "description": "Check count not equals.",
                             "type": "integer"
                         }
                     }

@@ -18,7 +18,6 @@ class PullRequestSchema
             $pullRequest['mergeable'],
             $pullRequest['headRefName'],
             $pullRequest['baseRefName'],
-            $pullRequest['changedFiles'],
             $pullRequest['author']['login'],
             $pullRequest['isDraft'] ?? false,
         );
@@ -43,7 +42,6 @@ class PullRequestSchema
           name
         }
       }
-      changedFiles
       isDraft
     }
   }

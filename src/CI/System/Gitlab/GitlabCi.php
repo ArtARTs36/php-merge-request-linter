@@ -58,7 +58,6 @@ class GitlabCi implements CiSystem
             $request->hasConflicts,
             Str::make($request->sourceBranch),
             Str::make($request->targetBranch),
-            $request->changedFilesCount,
             new Author($request->authorLogin),
             $request->isDraft,
             $request->canMerge(),

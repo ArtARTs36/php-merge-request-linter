@@ -17,7 +17,6 @@ class MergeRequest
         public readonly bool $hasConflicts,
         public readonly string $sourceBranch,
         public readonly string $targetBranch,
-        public readonly int $changedFilesCount,
         public readonly string $authorLogin,
         public readonly bool $isDraft,
         public readonly string $mergeStatus,

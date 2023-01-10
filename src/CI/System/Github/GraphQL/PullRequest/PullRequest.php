@@ -20,7 +20,6 @@ class PullRequest
         public readonly string $mergeable,
         public readonly string $headRefName,
         public readonly string $baseRefName,
-        public readonly int $changedFiles,
         public readonly string $authorLogin,
         public readonly bool $isDraft,
         public array $changes = [],
