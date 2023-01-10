@@ -26,13 +26,21 @@ class UpdatedPhpConstantChecker implements DiffChecker
     private function hasConst(Change $change, string $const): bool
     {
         return
-            $change->diff->hasChangeByContentContainsByRegex(<<<REGEXP
-/const (\s+)?KKK(\s+)?=(.*)/
-REGEXP
-) ||
-            $change->diff->hasChangeByContentContainsByRegex(<<<REGEXP
+            $change->diff->hasChangeByContentContainsByRegex($this->regexForConst($const)) ||
+            $change->diff->hasChangeByContentContainsByRegex($this->regexForDefine($const));
+    }
+
+    private function regexForConst(string $const): string
+    {
+        return <<<REGEXP
+/const (\s+)?$const(\s+)?=(.*)/
+REGEXP;
+    }
+
+    private function regexForDefine(string $const): string
+    {
+        return <<<REGEXP
 /define\(('|")$const('|")/
-REGEXP
-);
+REGEXP;
     }
 }
