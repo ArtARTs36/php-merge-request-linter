@@ -71,4 +71,9 @@ class MapProxy implements Map
     {
         return $this->retrieveMap()->isEmpty();
     }
+
+    public function keys(): Arrayee
+    {
+        return $this->retrieveMap()->keys();
+    }
 }

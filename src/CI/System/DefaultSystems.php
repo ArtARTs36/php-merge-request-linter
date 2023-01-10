@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\CI\System;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 final class DefaultSystems
@@ -16,9 +17,9 @@ final class DefaultSystems
     ];
 
     /**
-     * @return ArrayMap<string, class-string<CiSystem>>
+     * @return Map<string, class-string<CiSystem>>
      */
-    public static function map(): ArrayMap
+    public static function map(): Map
     {
         return new ArrayMap(self::$map);
     }

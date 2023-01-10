@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Contracts\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Collection;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 /**
  * Interface for Collections.
@@ -17,4 +18,10 @@ interface Map extends Collection
      * @return V|null
      */
     public function get(string $id);
+
+    /**
+     * Get keys.
+     * @return Arrayee<int, K>
+     */
+    public function keys(): Arrayee;
 }
