@@ -15,9 +15,11 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Support\DiffMapper;
 use ArtARTs36\Str\Str;
+use GuzzleHttp\Promise\Utils;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
-use Psr\Http\Client\ClientInterface;
+use GuzzleHttp\ClientInterface as GuzzleClient;
+use Psr\Http\Client\ClientInterface as PsrHttpClient;
 use Psr\Http\Message\RequestInterface;
 
 class Client implements GithubClient
@@ -25,7 +27,7 @@ class Client implements GithubClient
     use InteractsWithResponse;
 
     public function __construct(
-        private readonly ClientInterface $client,
+        private readonly PsrHttpClient&GuzzleClient $client,
         private readonly RemoteCredentials $credentials,
         private readonly PullRequestSchema $pullRequestSchema,
         private readonly DiffMapper $diffMapper,
@@ -35,22 +37,24 @@ class Client implements GithubClient
 
     public function getPullRequest(PullRequestInput $input): PullRequest
     {
-        $query = json_encode([
-            'query' => $this->pullRequestSchema->createQuery($input),
-        ]);
+        $prRequest = $this->createGetPullRequest($input);
+        $changesRequest = $this->createGetPullRequestFilesRequest($input);
 
-        $request = (new Request('POST', $input->graphqlUrl))
-            ->withBody(StreamBuilder::streamFor($query));
+        $promises = [
+            'pullRequest' => $this->client->sendAsync($prRequest),
+            'changes' => $this->client->sendAsync($changesRequest),
+        ];
 
-        $request = $this->applyCredentials($request);
+        $responses = Utils::settle($promises)->wait();
 
-        $response = $this->client->sendRequest($request);
+        $this->validateResponse($responses['pullRequest']['value'], $prRequest->getUri());
+        $this->validateResponse($responses['changes']['value'], $changesRequest->getUri());
 
-        $this->validateResponse($response, $input->graphqlUrl);
+        $pullRequest = $this->pullRequestSchema->createPullRequest(
+            $this->responseToJsonArray($responses['pullRequest']['value']),
+        );
 
-        $pullRequest = $this->pullRequestSchema->createPullRequest($this->responseToJsonArray($response));
-
-        $pullRequest->changes = $this->getPullRequestFiles($input);
+        $pullRequest->changes = $this->mapChanges($this->responseToJsonArray($responses['changes']['value']));
 
         return $pullRequest;
     }
@@ -69,10 +73,19 @@ class Client implements GithubClient
         return $this->hydrateTags($this->responseToJsonArray($response));
     }
 
-    /**
-     * @return Change[]
-     */
-    private function getPullRequestFiles(PullRequestInput $input): array
+    private function createGetPullRequest(PullRequestInput $input): RequestInterface
+    {
+        $query = json_encode([
+            'query' => $this->pullRequestSchema->createQuery($input),
+        ]);
+
+        $request = (new Request('POST', $input->graphqlUrl))
+            ->withBody(StreamBuilder::streamFor($query));
+
+        return $this->applyCredentials($request);
+    }
+
+    private function createGetPullRequestFilesRequest(PullRequestInput $input): RequestInterface
     {
         $url = sprintf(
             'https://api.github.com/repos/%s/%s/pulls/%d/files',
@@ -82,13 +95,8 @@ class Client implements GithubClient
         );
 
         $request = new Request('GET', $url);
-        $request = $this->applyCredentials($request);
 
-        $response = $this->client->sendRequest($request);
-
-        $this->validateResponse($response, $url);
-
-        return $this->mapChanges($this->responseToJsonArray($response));
+        return $this->applyCredentials($request);
     }
 
     /**
