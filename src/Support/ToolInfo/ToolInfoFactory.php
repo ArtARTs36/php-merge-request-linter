@@ -12,7 +12,12 @@ class ToolInfoFactory
     public function create(): ToolInfo
     {
         return new ToolInfo(
-            new Client(new \GuzzleHttp\Client(), new Token(''), new PullRequestSchema(), new DiffMapper()),
+            new Client(
+                new \ArtARTs36\MergeRequestLinter\Support\Http\Client(new \GuzzleHttp\Client()),
+                new Token(''),
+                new PullRequestSchema(),
+                new DiffMapper(),
+            ),
         );
     }
 }

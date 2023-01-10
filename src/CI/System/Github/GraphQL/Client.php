@@ -15,22 +15,20 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Support\DiffMapper;
 use ArtARTs36\Str\Str;
-use GuzzleHttp\Promise\Utils;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
-use GuzzleHttp\ClientInterface as GuzzleClient;
-use Psr\Http\Client\ClientInterface as PsrHttpClient;
 use Psr\Http\Message\RequestInterface;
+use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client as HttpClient;
 
 class Client implements GithubClient
 {
     use InteractsWithResponse;
 
     public function __construct(
-        private readonly PsrHttpClient&GuzzleClient $client,
+        private readonly HttpClient        $client,
         private readonly RemoteCredentials $credentials,
         private readonly PullRequestSchema $pullRequestSchema,
-        private readonly DiffMapper $diffMapper,
+        private readonly DiffMapper        $diffMapper,
     ) {
         //
     }
@@ -40,21 +38,18 @@ class Client implements GithubClient
         $prRequest = $this->createGetPullRequest($input);
         $changesRequest = $this->createGetPullRequestFilesRequest($input);
 
-        $promises = [
-            'pullRequest' => $this->client->sendAsync($prRequest),
-            'changes' => $this->client->sendAsync($changesRequest),
+        $reqs = [
+            'pullRequest' => $prRequest,
+            'changes' => $changesRequest,
         ];
 
-        $responses = Utils::settle($promises)->wait();
-
-        $this->validateResponse($responses['pullRequest']['value'], $prRequest->getUri());
-        $this->validateResponse($responses['changes']['value'], $changesRequest->getUri());
+        $responses = $this->client->sendAsyncRequests($reqs);
 
         $pullRequest = $this->pullRequestSchema->createPullRequest(
-            $this->responseToJsonArray($responses['pullRequest']['value']),
+            $this->responseToJsonArray($responses['pullRequest']),
         );
 
-        $pullRequest->changes = $this->mapChanges($this->responseToJsonArray($responses['changes']['value']));
+        $pullRequest->changes = $this->mapChanges($this->responseToJsonArray($responses['changes']));
 
         return $pullRequest;
     }

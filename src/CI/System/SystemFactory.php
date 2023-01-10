@@ -80,7 +80,7 @@ class SystemFactory implements CiSystemFactory
             }
 
             return new GithubActions(new GithubEnvironment($this->environment), new Client(
-                $httpClient,
+                new \ArtARTs36\MergeRequestLinter\Support\Http\Client($httpClient),
                 $credentials,
                 new PullRequestSchema(),
                 new DiffMapper(),
