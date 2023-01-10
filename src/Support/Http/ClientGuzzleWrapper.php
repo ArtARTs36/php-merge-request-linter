@@ -2,8 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\Http;
 
-use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
+use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Exception\ServerUnexpectedResponseException;
 use GuzzleHttp\ClientInterface as GuzzleClient;
 use GuzzleHttp\Promise\Utils;
 use Psr\Http\Client\ClientInterface as PsrClient;
@@ -12,8 +13,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class ClientGuzzleWrapper implements Client
 {
-    use InteractsWithResponse;
-
     public function __construct(
         private readonly PsrClient&GuzzleClient $http,
     ) {
@@ -58,5 +57,20 @@ class ClientGuzzleWrapper implements Client
         }
 
         return $preparedResponses;
+    }
+
+    private function validateResponse(ResponseInterface $response, string $url): void
+    {
+        $host = URI::host($url);
+
+        if ($response->getStatusCode() === 401 || $response->getStatusCode() === 403) {
+            throw InvalidCredentialsException::fromResponse($host, $response->getBody()->getContents());
+        } elseif ($response->getStatusCode() !== 200) {
+            throw ServerUnexpectedResponseException::create(
+                $host,
+                $response->getStatusCode(),
+                $response->getBody()->getContents()
+            );
+        }
     }
 }

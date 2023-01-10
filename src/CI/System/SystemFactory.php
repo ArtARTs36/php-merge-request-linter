@@ -17,7 +17,6 @@ use ArtARTs36\MergeRequestLinter\Contracts\HTTP\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Support\DiffMapper;
-use GuzzleHttp\ClientInterface;
 
 class SystemFactory implements CiSystemFactory
 {
