@@ -7,7 +7,7 @@ use ArtARTs36\Str\Str;
 class Line
 {
     public function __construct(
-        private readonly Type $type,
+        public readonly Type $type,
         public readonly Str $content,
     ) {
         //

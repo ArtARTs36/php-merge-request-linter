@@ -13,12 +13,12 @@ use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Support\DiffMapper;
+use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client as HttpClient;
+use ArtARTs36\MergeRequestLinter\Request\Data\Diff\DiffMapper;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
 use Psr\Http\Message\RequestInterface;
-use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client as HttpClient;
 
 class Client implements GithubClient
 {

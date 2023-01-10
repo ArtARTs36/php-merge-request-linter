@@ -1,9 +1,7 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support;
+namespace ArtARTs36\MergeRequestLinter\Request\Data\Diff;
 
-use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Line;
-use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Type;
 use ArtARTs36\Str\Str;
 
 class DiffMapper
