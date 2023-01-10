@@ -14,12 +14,21 @@ class UpdatedPhpConstantChecker implements DiffChecker
             return [];
         }
 
-        return $change->diff->hasChangeByContentContains('const '. $needChange->updatedPhpConstant) ?
+        return $this->hasConst($change, $needChange->updatedPhpConstant) ?
             [] :
             [
                 new LintNote(
                     sprintf('Request must contain change php constant "%s" in file: %s', $needChange->updatedPhpConstant, $needChange->file),
                 ),
             ];
+    }
+
+    private function hasConst(Change $change, string $const): bool
+    {
+        return $change->diff->hasChangeByContentContains('const '. $const) ||
+            $change->diff->hasChangeByContentContainsByRegex(<<<REGEXP
+define\(('|")$const('|")
+REGEXP
+);
     }
 }
