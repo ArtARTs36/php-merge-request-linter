@@ -53,7 +53,7 @@ class HasChangesRule implements Rule
         $notes = [];
 
         foreach ($this->changes as $needChange) {
-            $requestChange = $request->changeFiles->get($needChange->file);
+            $requestChange = $request->changes->get($needChange->file);
 
             if ($requestChange === null) {
                 $notes[] = new LintNote(

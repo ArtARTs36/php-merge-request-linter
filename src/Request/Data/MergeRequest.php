@@ -27,7 +27,7 @@ class MergeRequest
 {
     /**
      * @param Set<string> $labels
-     * @param Map<string, Change> $changeFiles
+     * @param Map<string, Change> $changes
      */
     public function __construct(
         #[SupportsConditionEvaluator([
@@ -112,7 +112,7 @@ class MergeRequest
             CountMinEvaluator::class,
             CountMaxEvaluator::class,
         ])]
-        public Map $changeFiles,
+        public Map  $changes,
     ) {
         //
     }

@@ -612,7 +612,7 @@
                         }
                     }
                 },
-                "changeFiles": {
+c                "changes": {
                     "type": "object",
                     "properties": {
                         "countMin": {
