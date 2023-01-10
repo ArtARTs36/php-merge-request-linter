@@ -63,8 +63,6 @@ class Client implements GithubClient
 
         $response = $this->client->sendRequest($request);
 
-        $this->validateResponse($response, $url);
-
         return $this->hydrateTags($this->responseToJsonArray($response));
     }
 

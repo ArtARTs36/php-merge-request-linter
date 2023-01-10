@@ -75,12 +75,8 @@ class SystemFactory implements CiSystemFactory
         $httpClient = $this->httpClientFactory->create($this->config->getHttpClient());
 
         if ($targetClass === GithubActions::class) {
-            if (! $httpClient instanceof ClientInterface) {
-                throw new \LogicException('HTTP Client must implement Guzzle Client Interface');
-            }
-
             return new GithubActions(new GithubEnvironment($this->environment), new Client(
-                new \ArtARTs36\MergeRequestLinter\Support\Http\Client($httpClient),
+                $httpClient,
                 $credentials,
                 new PullRequestSchema(),
                 new DiffMapper(),

@@ -11,10 +11,10 @@ use Psr\Http\Client\ClientInterface;
 
 class ClientFactory implements HttpClientFactory
 {
-    public function create(HttpClientConfig $config): ClientInterface
+    public function create(HttpClientConfig $config): \ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client
     {
         if ($config->type === HttpClientConfig::TYPE_GUZZLE || $config->type === HttpClientConfig::TYPE_DEFAULT) {
-            return new Client($config->params);
+            return new ClientGuzzleWrapper(new Client($config->params));
         }
 
         if ($config->type === HttpClientConfig::TYPE_NULL) {

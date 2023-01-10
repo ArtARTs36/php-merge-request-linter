@@ -3,17 +3,19 @@
 namespace ArtARTs36\MergeRequestLinter\Support\Http;
 
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
+use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
+use GuzzleHttp\ClientInterface as GuzzleClient;
 use GuzzleHttp\Promise\Utils;
-use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\ClientInterface as PsrClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class Client implements \ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client
+class ClientGuzzleWrapper implements Client
 {
     use InteractsWithResponse;
 
     public function __construct(
-        private readonly ClientInterface&\GuzzleHttp\ClientInterface $http,
+        private readonly PsrClient&GuzzleClient $http,
     ) {
         //
     }

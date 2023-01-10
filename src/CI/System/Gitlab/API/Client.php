@@ -34,8 +34,6 @@ class Client implements GitlabClient
 
         $resp = $this->client->sendRequest($request);
 
-        $this->validateResponse($resp, $url);
-
         $response = $this->responseToJsonArray($resp);
 
         return new MergeRequest(

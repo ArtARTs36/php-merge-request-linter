@@ -13,7 +13,7 @@ class ToolInfoFactory
     {
         return new ToolInfo(
             new Client(
-                new \ArtARTs36\MergeRequestLinter\Support\Http\Client(new \GuzzleHttp\Client()),
+                new \ArtARTs36\MergeRequestLinter\Support\Http\ClientGuzzleWrapper(new \GuzzleHttp\Client()),
                 new Token(''),
                 new PullRequestSchema(),
                 new DiffMapper(),
