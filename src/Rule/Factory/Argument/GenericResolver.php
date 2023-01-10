@@ -17,7 +17,7 @@ class GenericResolver implements ArgumentResolver
 
     public function resolve(ParameterType $type, mixed $value): mixed
     {
-        if ($type->isGenericOfObject() && is_array(reset($value))) {
+        if ($type->isGenericOfObject() && is_array($value) && is_array(reset($value))) {
             $values = [];
 
             foreach ($value as $val) {

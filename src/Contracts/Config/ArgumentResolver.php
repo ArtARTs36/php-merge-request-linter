@@ -12,6 +12,7 @@ interface ArgumentResolver
 {
     /**
      * Resolve argument.
+     * @param scalar|array<mixed> $value
      * @throws ArgNotSupportedException
      */
     public function resolve(ParameterType $type, mixed $value): mixed;
