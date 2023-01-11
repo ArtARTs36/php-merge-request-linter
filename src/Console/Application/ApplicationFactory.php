@@ -16,9 +16,9 @@ use ArtARTs36\MergeRequestLinter\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
-use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
@@ -27,7 +27,7 @@ class ApplicationFactory
     {
         $application = new Application();
 
-        $logger = new ConsoleLogger($output);
+        $logger = (new ConsoleLoggerFactory())->create($output);
 
         $filesystem = new LocalFileSystem();
         $environment = new LocalEnvironment();
