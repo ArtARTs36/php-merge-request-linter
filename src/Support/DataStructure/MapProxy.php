@@ -84,6 +84,6 @@ class MapProxy implements Map
             return 'MapProxy items not loaded';
         }
 
-        return $this->map->debugView();
+        return 'Items: ' . $this->map->debugView();
     }
 }
