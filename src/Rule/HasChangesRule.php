@@ -32,11 +32,11 @@ class HasChangesRule implements Rule
     }
 
     /**
-     * @param array<FileChange> $changes
+     * @param Arrayee<int, FileChange> $changes
      */
-    public static function make(#[Generic(FileChange::class)] array $changes): self
+    public static function make(#[Generic(FileChange::class)] Arrayee $changes): self
     {
-        return new self(new Arrayee($changes), new CompositeChecker([
+        return new self($changes, new CompositeChecker([
             new ContainsChecker(),
             new ContainsRegexChecker(),
             new UpdatedPhpConstantChecker(),
