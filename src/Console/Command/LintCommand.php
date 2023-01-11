@@ -45,7 +45,9 @@ class LintCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if ($input->getOption('debug')) {
+        $isDebug = $input->getOption('debug');
+
+        if ($isDebug) {
             $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         }
 
@@ -57,7 +59,9 @@ class LintCommand extends Command
 
         $style->info('Config path: '. $config->path);
 
-        $style->info('Used rules: ' . $config->config->getRules()->implodeNames(', '));
+        if ($isDebug) {
+            $style->info('Used rules: ' . $config->config->getRules()->implodeNames(', '));
+        }
 
         $progressBar = new ProgressBar($output, $config->config->getRules()->count());
 
