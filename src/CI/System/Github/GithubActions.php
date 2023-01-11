@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Diff;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
@@ -73,15 +74,17 @@ class GithubActions implements CiSystem
      */
     private function mapChanges(PullRequest $request): Map
     {
-        $changes = [];
+        return new MapProxy(function () use ($request) {
+            $changes = [];
 
-        foreach ($request->changes as $change) {
-            $changes[$change->filename] = new \ArtARTs36\MergeRequestLinter\Request\Data\Change(
-                $change->filename,
-                new Diff($change->diff),
-            );
-        }
+            foreach ($request->changes as $change) {
+                $changes[$change->filename] = new \ArtARTs36\MergeRequestLinter\Request\Data\Change(
+                    $change->filename,
+                    new Diff($change->diff),
+                );
+            }
 
-        return new ArrayMap($changes);
+            return new ArrayMap($changes);
+        }, $request->changedFiles);
     }
 }

@@ -31,7 +31,7 @@ class Diff extends Arrayee
         return false;
     }
 
-    public function __toString(): string
+    public function debugView(): string
     {
         $json = json_encode($this->items);
 

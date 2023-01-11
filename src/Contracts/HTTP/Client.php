@@ -13,7 +13,7 @@ interface Client extends ClientInterface
 {
     /**
      * Send async requests.
-     * @param array<string, RequestInterface> $requests
+     * @param array<string|int, RequestInterface> $requests
      * @return array<string, ResponseInterface>
      */
     public function sendAsyncRequests(array $requests): array;

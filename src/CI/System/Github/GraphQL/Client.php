@@ -13,8 +13,11 @@ use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\DiffMapper;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
@@ -23,6 +26,8 @@ use Psr\Http\Message\RequestInterface;
 class Client implements GithubClient
 {
     use InteractsWithResponse;
+
+    private const PAGE_ITEMS_LIMIT = 30;
 
     public function __construct(
         private readonly HttpClient        $client,
@@ -35,23 +40,42 @@ class Client implements GithubClient
 
     public function getPullRequest(PullRequestInput $input): PullRequest
     {
-        $prRequest = $this->createGetPullRequest($input);
-        $changesRequest = $this->createGetPullRequestFilesRequest($input);
-
-        $reqs = [
-            'pullRequest' => $prRequest,
-            'changes' => $changesRequest,
-        ];
-
-        $responses = $this->client->sendAsyncRequests($reqs);
-
         $pullRequest = $this->pullRequestSchema->createPullRequest(
-            $this->responseToJsonArray($responses['pullRequest']),
+            $this->responseToJsonArray($this->client->sendRequest($this->createGetPullRequest($input))),
         );
 
-        $pullRequest->changes = $this->mapChanges($this->responseToJsonArray($responses['changes']));
+        $pullRequest->changes = new MapProxy(function () use ($input, $pullRequest) {
+            return $this->fetchChanges($input, $pullRequest);
+        }, $pullRequest->changedFiles);
 
         return $pullRequest;
+    }
+
+    /**
+     * @return Map<string, Change>
+     */
+    private function fetchChanges(PullRequestInput $input, PullRequest $pullRequest): Map
+    {
+        $changesPages = (int) round($pullRequest->changedFiles / self::PAGE_ITEMS_LIMIT);
+        $reqs = [];
+
+        for ($page = 0; $page < $changesPages; $page++) {
+            $reqs[$page] = $this->createGetPullRequestFilesRequest($input, $page);
+        }
+
+        $changesResponses = $this->client->sendAsyncRequests($reqs);
+
+        $changes = [];
+
+        foreach ($changesResponses as $response) {
+            foreach ($this->responseToJsonArray($response) as $respChange) {
+                $change = $this->mapChange($respChange);
+
+                $changes[$change->filename] = $change;
+            }
+        }
+
+        return new ArrayMap($changes);
     }
 
     public function getTags(TagsInput $input): TagCollection
@@ -78,13 +102,14 @@ class Client implements GithubClient
         return $this->applyCredentials($request);
     }
 
-    private function createGetPullRequestFilesRequest(PullRequestInput $input): RequestInterface
+    private function createGetPullRequestFilesRequest(PullRequestInput $input, int $page): RequestInterface
     {
         $url = sprintf(
-            'https://api.github.com/repos/%s/%s/pulls/%d/files',
+            'https://api.github.com/repos/%s/%s/pulls/%d/files?page=%d',
             $input->owner,
             $input->repository,
             $input->requestId,
+            $page,
         );
 
         $request = new Request('GET', $url);
@@ -93,22 +118,15 @@ class Client implements GithubClient
     }
 
     /**
-     * @param array<array{filename: string, patch: string, status: string}> $response
-     * @return array<Change>
+     * @param array{filename: string, patch: string, status: string} $respChange
      */
-    private function mapChanges(array $response): array
+    private function mapChange(array $respChange): Change
     {
-        $changes = [];
-
-        foreach ($response as $respChange) {
-            $changes[] = new Change(
-                $respChange['filename'],
-                $this->diffMapper->map([$respChange['patch']]),
-                Status::from($respChange['status']),
-            );
-        }
-
-        return $changes;
+        return new Change(
+            $respChange['filename'],
+            $this->diffMapper->map([$respChange['patch']]),
+            Status::from($respChange['status']),
+        );
     }
 
     /**

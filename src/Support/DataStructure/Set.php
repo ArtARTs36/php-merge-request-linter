@@ -123,7 +123,7 @@ class Set implements Collection
         return array_key_first($this->items);
     }
 
-    public function __toString(): string
+    public function debugView(): string
     {
         return "[" . $this->implode(', ') . "]";
     }

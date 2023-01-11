@@ -79,6 +79,8 @@ class HasChangesRule implements Rule
             return new Definition(sprintf('Merge Request must have changes in file: %s', $this->changes->first()?->file));
         }
 
-        return new Definition(sprintf('Merge Request must have changes in files: %s', $this->changes));
+        return new Definition(
+            sprintf('Merge Request must have changes in files: [%s]', $this->changes->implode(', ')),
+        );
     }
 }

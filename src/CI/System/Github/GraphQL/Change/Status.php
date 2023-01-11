@@ -7,4 +7,5 @@ enum Status: string
     case Modified = 'modified';
     case Added = 'added';
     case Removed = 'removed';
+    case Renamed = 'renamed';
 }

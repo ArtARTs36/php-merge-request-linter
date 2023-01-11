@@ -66,7 +66,7 @@ class Arrayee implements Collection
         return implode($sep, $this->items);
     }
 
-    public function __toString(): string
+    public function debugView(): string
     {
         return "[" . $this->implode(', ') . "]";
     }

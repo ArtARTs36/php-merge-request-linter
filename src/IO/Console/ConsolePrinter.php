@@ -75,7 +75,7 @@ class ConsolePrinter implements Printer
             if (is_bool($value)) {
                 $props[] = [$k, $value ? 'true' : 'false'];
             } elseif ($value instanceof Collection) {
-                $props[] = [$k, sprintf("- Count: %s \n- %s", $value->count(), $value)];
+                $props[] = [$k, sprintf("- Count: %s \n- %s", $value->count(), $value->debugView())];
             } elseif (is_string($value) || $value instanceof \Stringable) {
                 $props[] = [$k, sprintf('"%s"', $value)];
             } elseif (is_scalar($value)) {

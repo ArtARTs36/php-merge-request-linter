@@ -151,7 +151,7 @@ class ArrayMap implements Map
         return new Arrayee(array_keys($this->items));
     }
 
-    public function __toString(): string
+    public function debugView(): string
     {
         $json = json_encode($this->items);
 

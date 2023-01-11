@@ -36,7 +36,7 @@ interface Collection extends IteratorAggregate, \Countable
     public function isEmpty(): bool;
 
     /**
-     * Convert Collection to string.
+     * Convert Collection to debug view string.
      */
-    public function __toString(): string;
+    public function debugView(): string;
 }

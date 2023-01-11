@@ -21,6 +21,7 @@ class MapProxy implements Map
      */
     public function __construct(
         private \Closure $mapFetcher,
+        private readonly ?int $count = null,
     ) {
         //
     }
@@ -39,7 +40,7 @@ class MapProxy implements Map
 
     public function count(): int
     {
-        return $this->retrieveMap()->count();
+        return $this->count ?? $this->retrieveMap()->count();
     }
 
     public function containsAny(iterable $values): bool
@@ -77,8 +78,12 @@ class MapProxy implements Map
         return $this->retrieveMap()->keys();
     }
 
-    public function __toString(): string
+    public function debugView(): string
     {
-        return $this->retrieveMap()->__toString();
+        if ($this->map === null) {
+            return 'MapProxy items not loaded';
+        }
+
+        return $this->map->debugView();
     }
 }

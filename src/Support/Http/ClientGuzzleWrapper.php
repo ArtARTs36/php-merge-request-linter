@@ -28,10 +28,6 @@ class ClientGuzzleWrapper implements Client
         return $response;
     }
 
-    /**
-     * @param array<string, RequestInterface> $requests
-     * @return array<string, ResponseInterface>
-     */
     public function sendAsyncRequests(array $requests): array
     {
         $promises = [];
