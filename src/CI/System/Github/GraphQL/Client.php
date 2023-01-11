@@ -56,10 +56,10 @@ class Client implements GithubClient
      */
     private function fetchChanges(PullRequestInput $input, PullRequest $pullRequest): Map
     {
-        $changesPages = (int) round($pullRequest->changedFiles / self::PAGE_ITEMS_LIMIT);
+        $changesPages = (int) round($pullRequest->changedFiles / self::PAGE_ITEMS_LIMIT) + 1;
         $reqs = [];
 
-        for ($page = 0; $page < $changesPages; $page++) {
+        for ($page = 1; $page < $changesPages; $page++) {
             $reqs[$page] = $this->createGetPullRequestFilesRequest($input, $page);
         }
 
