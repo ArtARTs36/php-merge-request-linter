@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\DiffMapper;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
+use Psr\Log\LoggerInterface;
 
 class Client implements GitlabClient
 {
@@ -17,12 +18,15 @@ class Client implements GitlabClient
         private readonly RemoteCredentials $credentials,
         private readonly ClientInterface $client,
         private readonly DiffMapper $diffMapper,
+        private readonly LoggerInterface $logger,
     ) {
         //
     }
 
     public function getMergeRequest(MergeRequestInput $input): MergeRequest
     {
+        $this->logger->info(sprintf('[GitlabClient] Fetching Merge Request with id %d', $input->requestId));
+
         $url = sprintf(
             "%s/api/v4/projects/%d/merge_requests/%d/changes",
             $input->apiUrl,
@@ -36,7 +40,7 @@ class Client implements GitlabClient
 
         $response = $this->responseToJsonArray($resp);
 
-        return new MergeRequest(
+        $mergeRequest = new MergeRequest(
             $response['title'],
             $response['description'],
             $response['labels'],
@@ -48,6 +52,10 @@ class Client implements GitlabClient
             $response['merge_status'],
             $this->mapChanges($response['changes']),
         );
+
+        $this->logger->info(sprintf('[GitlabClient] Merge Request with id %d was fetched', $input->requestId));
+
+        return $mergeRequest;
     }
 
     /**

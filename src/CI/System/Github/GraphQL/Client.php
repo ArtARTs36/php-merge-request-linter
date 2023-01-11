@@ -68,7 +68,7 @@ class Client implements GithubClient
 
         $this->logger->info(
             sprintf(
-                '[GithubClient] Fetching changes for Pull Request with id %d. PR has %d changes, define %d pages for loading changes',
+                '[GithubClient] Fetching changes for Pull Request with id %d. PR has %d changes, defined %d pages for loading changes',
                 $input->requestId,
                 $pullRequest->changes->count(),
                 $changesPages,
