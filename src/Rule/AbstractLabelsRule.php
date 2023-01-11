@@ -11,16 +11,8 @@ abstract class AbstractLabelsRule extends AbstractRule implements Rule
     /**
      * @param Set<string> $labels
      */
-    final public function __construct(protected Set $labels)
+    final public function __construct(#[Generic(Generic::OF_STRING)] protected Set $labels)
     {
         //
-    }
-
-    /**
-     * @param iterable<string> $labels
-     */
-    public static function make(#[Generic(Generic::OF_STRING)] iterable $labels): self
-    {
-        return new static(Set::fromList($labels));
     }
 }

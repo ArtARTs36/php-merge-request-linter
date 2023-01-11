@@ -37,6 +37,6 @@ class ConstructorFinder implements RuleConstructorFinder
             return new EmptyConstructor($class);
         }
 
-        return new NativeConstructor($constructor);
+        return new NativeConstructor($reflector, $constructor);
     }
 }

@@ -8,19 +8,27 @@ use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
 
 class NativeConstructor implements RuleConstructor
 {
+    /**
+     * @param \ReflectionClass<object> $classReflector
+     * @param \ReflectionMethod $methodReflector
+     */
     public function __construct(
-        private \ReflectionMethod $constructor,
+        private \ReflectionClass $classReflector,
+        private \ReflectionMethod $methodReflector,
     ) {
+        //
     }
 
     public function params(): array
     {
-        return Reflector::mapMethodParamTypeOnParam($this->constructor);
+        return Reflector::mapMethodParamTypeOnParam($this->methodReflector);
     }
 
     public function construct(array $args): Rule
     {
-        //@phpstan-ignore-next-line
-        return $this->constructor->getDeclaringClass()->newInstanceArgs($args);
+        /** @var class-string<Rule> $class */
+        $class = $this->classReflector->getName();
+
+        return new $class(...$args);
     }
 }
