@@ -8,4 +8,6 @@ enum Status: string
     case Added = 'added';
     case Removed = 'removed';
     case Renamed = 'renamed';
+    case Copied = 'copied';
+    case Changed = 'changed';
 }
