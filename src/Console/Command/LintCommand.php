@@ -11,6 +11,7 @@ use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
+use ArtARTs36\MergeRequestLinter\Support\Bytes;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\TableCell;
@@ -84,6 +85,7 @@ class LintCommand extends Command
             ['Rules', $config->config->getRules()->count()],
             ['Notes', $result->notes->count()],
             ['Duration', $result->duration],
+            ['Memory', Bytes::toString(memory_get_peak_usage(true))],
         ]);
 
         if ($result->isFail()) {
