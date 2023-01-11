@@ -40,7 +40,7 @@ class ClientGuzzleWrapper implements Client
         $preparedResponses = [];
 
         /**
-         * @var string $key
+         * @var int|string $key
          */
         foreach ($responses as $key => $response) {
             if (! $response['value'] instanceof ResponseInterface) {
