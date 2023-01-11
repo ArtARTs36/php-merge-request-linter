@@ -18,17 +18,21 @@ use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
 {
-    public function create(): Application
+    public function create(OutputInterface $output): Application
     {
         $application = new Application();
+
+        $logger = new ConsoleLogger($output);
 
         $filesystem = new LocalFileSystem();
         $environment = new LocalEnvironment();
         $ciSystemsMap = DefaultSystems::map();
-        $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap);
+        $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger);
 
         $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment);
 

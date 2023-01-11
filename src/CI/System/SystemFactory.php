@@ -17,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\HTTP\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\DiffMapper;
+use Psr\Log\LoggerInterface;
 
 class SystemFactory implements CiSystemFactory
 {
@@ -28,6 +29,7 @@ class SystemFactory implements CiSystemFactory
         protected Environment       $environment,
         protected HttpClientFactory $httpClientFactory,
         protected Map          $ciSystems,
+        protected LoggerInterface $logger,
     ) {
         //
     }
@@ -79,6 +81,7 @@ class SystemFactory implements CiSystemFactory
                 $credentials,
                 new PullRequestSchema(),
                 new DiffMapper(),
+                $this->logger,
             ));
         }
 

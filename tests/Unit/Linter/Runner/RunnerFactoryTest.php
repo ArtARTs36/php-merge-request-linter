@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEnvironment;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use Psr\Log\NullLogger;
 
 final class RunnerFactoryTest extends TestCase
 {
@@ -16,7 +17,7 @@ final class RunnerFactoryTest extends TestCase
      */
     public function testCreate(): void
     {
-        self::assertInstanceOf(Runner::class, (new RunnerFactory(new NullEnvironment(), new ArrayMap([])))->create(
+        self::assertInstanceOf(Runner::class, (new RunnerFactory(new NullEnvironment(), new ArrayMap([]), new NullLogger()))->create(
             $this->makeConfig([]),
         ));
     }

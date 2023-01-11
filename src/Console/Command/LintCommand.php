@@ -45,6 +45,10 @@ class LintCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if ($input->getOption('debug')) {
+            $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        }
+
         $style = new SymfonyStyle($input, $output);
 
         // Resolve and print config
