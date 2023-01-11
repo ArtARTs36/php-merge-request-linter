@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console;
+namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +22,7 @@ class InstallCommand extends Command
     {
         $dir = getcwd();
 
-        copy(__DIR__ . '/../../stubs/.mr-linter.php', $pathTo = $dir . '/.mr-linter.php');
+        copy(__DIR__ . '/../../../stubs/.mr-linter.php', $pathTo = $dir . '/.mr-linter.php');
 
         $style = new SymfonyStyle($input, $output);
 

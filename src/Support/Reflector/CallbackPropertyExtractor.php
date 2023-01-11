@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Facade\Str as StrFacade;
 use ArtARTs36\Str\Str;
@@ -81,7 +81,7 @@ class CallbackPropertyExtractor implements PropertyExtractor
     {
         $val = $this->extract($object, $property);
 
-        if (! is_array($val) && ! $val instanceof Set && ! $val instanceof Map) {
+        if (! is_array($val) && ! $val instanceof Set && ! $val instanceof ArrayMap) {
             throw PropertyHasDifferentTypeException::make(
                 $property,
                 $this->getType($val),

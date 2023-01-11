@@ -20,7 +20,7 @@ class ChangedFilesLimitRule extends AbstractRule implements Rule
 
     protected function doLint(MergeRequest $request): bool
     {
-        return $request->changedFilesCount <= $this->limit;
+        return $request->changes->count() <= $this->limit;
     }
 
     public function getDefinition(): RuleDefinition

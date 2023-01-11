@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 final class DefaultRules
 {
@@ -20,14 +20,15 @@ final class DefaultRules
         HasLinkToYouTrackIssueRule::NAME => HasLinkToYouTrackIssueRule::class,
         TitleMatchesExpressionRule::NAME => TitleMatchesExpressionRule::class,
         TitleStartsWithAnyPrefixRule::NAME => TitleStartsWithAnyPrefixRule::class,
+        HasChangesRule::NAME => HasChangesRule::class,
     ];
 
     /**
-     * @return Map<string, class-string<Rule>>
+     * @return ArrayMap<string, class-string<Rule>>
      */
-    public static function map(): Map
+    public static function map(): ArrayMap
     {
-        return new Map(self::$rules);
+        return new ArrayMap(self::$rules);
     }
 
     private function __construct()

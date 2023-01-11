@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
+namespace ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits;
 
 trait CountProxy
 {
@@ -23,5 +23,10 @@ trait CountProxy
     public function equalsCount(\Countable $that): bool
     {
         return $this->count() === $that->count();
+    }
+
+    public function once(): bool
+    {
+        return $this->count() === 1;
     }
 }

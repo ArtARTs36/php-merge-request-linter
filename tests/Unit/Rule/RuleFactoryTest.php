@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 class RuleFactoryTest extends TestCase
@@ -19,7 +19,7 @@ class RuleFactoryTest extends TestCase
     {
         $factory = new RuleFactory(
             new Builder([
-                Map::class => new MapResolver(),
+                ArrayMap::class => new MapResolver(),
                 'string' => new AsIsResolver(),
                 'int' => new AsIsResolver(),
                 'float' => new AsIsResolver(),
@@ -39,8 +39,8 @@ class RuleFactoryTest extends TestCase
 class TestRuleForRuleFactory extends AbstractRule
 {
     public function __construct(
-        public Map $values,
-        public int $prop,
+        public ArrayMap $values,
+        public int      $prop,
     ) {
         //
     }

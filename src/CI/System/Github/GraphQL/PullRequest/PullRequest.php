@@ -2,6 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest;
 
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Change\Change;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
+
 class PullRequest
 {
     private const MERGEABLE_STATE_CONFLICTING = 'CONFLICTING';
@@ -9,6 +13,7 @@ class PullRequest
 
     /**
      * @param array<string> $labels
+     * @param Map<string, Change> $changes
      */
     public function __construct(
         public readonly string $title,
@@ -20,6 +25,7 @@ class PullRequest
         public readonly int $changedFiles,
         public readonly string $authorLogin,
         public readonly bool $isDraft,
+        public Map $changes = new ArrayMap([]),
     ) {
         //
     }

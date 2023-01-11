@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console;
+namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
@@ -53,7 +53,7 @@ class LintCommand extends Command
 
         $style->info('Config path: '. $config->path);
 
-        //
+        $style->info('Used rules: ' . $config->config->getRules()->implodeNames(', '));
 
         $progressBar = new ProgressBar($output, $config->config->getRules()->count());
 

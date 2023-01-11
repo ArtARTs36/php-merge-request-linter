@@ -1,20 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use ArtARTs36\FileSystem\Local\LocalFileSystem;
-use ArtARTs36\MergeRequestLinter\CI\System\DefaultSystems;
-use ArtARTs36\MergeRequestLinter\Configuration\Loader\ArrayConfigLoaderFactory;
-use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
-use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
-use ArtARTs36\MergeRequestLinter\Configuration\Loader\PhpConfigLoader;
-use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
-use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
-use ArtARTs36\MergeRequestLinter\Console\DumpCommand;
-use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
-use ArtARTs36\MergeRequestLinter\Console\LintCommand;
-use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
-use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
-use Symfony\Component\Console\Application;
+use ArtARTs36\MergeRequestLinter\Console\Application\ApplicationFactory;
 
 $loaded = false;
 
@@ -38,26 +25,6 @@ if ($loaded === false) {
     exit(1);
 }
 
-$application = new Application('Merge Request Linter', '0.5.1');
-
-$filesystem = new LocalFileSystem();
-$environment = new LocalEnvironment();
-$ciSystemsMap = DefaultSystems::map();
-$runnerFactory = new RunnerFactory($environment, $ciSystemsMap);
-
-$arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment);
-
-$configLoader = new CompositeLoader([
-    'php' => new PhpConfigLoader($filesystem),
-    'json' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('json')),
-    'yaml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('yaml')),
-    'yml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create('yaml')),
-]);
-
-$configResolver = new ConfigResolver(new PathResolver($filesystem), $configLoader);
-
-$application->add(new LintCommand($configResolver, $runnerFactory));
-$application->add(new InstallCommand());
-$application->add(new DumpCommand($configResolver));
+$application = (new ApplicationFactory())->create();
 
 $application->run();

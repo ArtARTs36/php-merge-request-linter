@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\ArrayObjectConverter;
 
 class DefaultResolvers
 {
@@ -12,15 +13,17 @@ class DefaultResolvers
     public static function get(): array
     {
         $asIsResolver = new AsIsResolver();
+        $arrayObjectConverter = new ArrayObjectConverter();
+        $genericAsIsResolver = new GenericResolver($asIsResolver, $arrayObjectConverter);
 
         return [
             'int' => $asIsResolver,
             'string' => $asIsResolver,
             'float' => $asIsResolver,
-            'array' => $asIsResolver,
-            MapResolver::SUPPORT_TYPE => new MapResolver(),
-            SetResolver::SUPPORT_TYPE => new SetResolver(),
-            'iterable' => $asIsResolver,
+            'array' => $genericAsIsResolver,
+            MapResolver::SUPPORT_TYPE => new GenericResolver(new MapResolver(), $arrayObjectConverter),
+            SetResolver::SUPPORT_TYPE => new GenericResolver(new SetResolver(), $arrayObjectConverter),
+            'iterable' => $genericAsIsResolver,
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 final class DefaultEvaluators
 {
@@ -27,14 +27,16 @@ final class DefaultEvaluators
         NotHasOperator::NAME => NotHasOperator::class,
         EqualsAnyEvaluator::NAME => EqualsAnyEvaluator::class,
         HasAnyEvaluator::NAME => HasAnyEvaluator::class,
+        CountEqualsEvaluator::NAME => CountEqualsEvaluator::class,
+        CountNotEqualsEvaluator::NAME => CountNotEqualsEvaluator::class,
     ];
 
     /**
-     * @return Map<string, class-string<Evaluator>>
+     * @return ArrayMap<string, class-string<Evaluator>>
      */
-    public static function map(): Map
+    public static function map(): ArrayMap
     {
-        return new Map(self::$map);
+        return new ArrayMap(self::$map);
     }
 
     private function __construct()

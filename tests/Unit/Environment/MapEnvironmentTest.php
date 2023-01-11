@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Environment;
 
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class MapEnvironmentTest extends TestCase
@@ -29,7 +29,7 @@ final class MapEnvironmentTest extends TestCase
      */
     public function testGetString(array $assigment, string $key, string $expected): void
     {
-        self::assertEquals($expected, (new MapEnvironment(new Map($assigment)))->getString($key));
+        self::assertEquals($expected, (new MapEnvironment(new ArrayMap($assigment)))->getString($key));
     }
 
     /**
@@ -42,7 +42,7 @@ final class MapEnvironmentTest extends TestCase
     {
         self::expectException(EnvironmentVariableNotFound::class);
 
-        (new MapEnvironment(new Map([])))->getString('local_environment_test_var_not_found');
+        (new MapEnvironment(new ArrayMap([])))->getString('local_environment_test_var_not_found');
     }
 
     public function providerForTestGetInt(): array
@@ -65,7 +65,7 @@ final class MapEnvironmentTest extends TestCase
      */
     public function testGetInt(array $assigment, string $key, int $expected): void
     {
-        self::assertEquals($expected, (new MapEnvironment(new Map($assigment)))->getInt($key));
+        self::assertEquals($expected, (new MapEnvironment(new ArrayMap($assigment)))->getInt($key));
     }
 
     public function providerForTestHas(): array
@@ -92,6 +92,6 @@ final class MapEnvironmentTest extends TestCase
      */
     public function testHas(array $assigment, string $key, bool $expected): void
     {
-        self::assertEquals($expected, (new MapEnvironment(new Map($assigment)))->has($key));
+        self::assertEquals($expected, (new MapEnvironment(new ArrayMap($assigment)))->has($key));
     }
 }

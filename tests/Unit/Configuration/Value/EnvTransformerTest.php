@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Value;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class EnvTransformerTest extends TestCase
@@ -28,7 +28,7 @@ final class EnvTransformerTest extends TestCase
      */
     public function testTransform(array $env, string $input, string $expected): void
     {
-        $transformer = new EnvTransformer(new MapEnvironment(new Map($env)));
+        $transformer = new EnvTransformer(new MapEnvironment(new ArrayMap($env)));
 
         self::assertEquals($expected, $transformer->transform($input));
     }
@@ -57,7 +57,7 @@ final class EnvTransformerTest extends TestCase
      */
     public function testSupports(string $input, bool $expected): void
     {
-        $transformer = new EnvTransformer(new MapEnvironment(new Map([])));
+        $transformer = new EnvTransformer(new MapEnvironment(new ArrayMap([])));
 
         self::assertEquals($expected, $transformer->supports($input));
     }

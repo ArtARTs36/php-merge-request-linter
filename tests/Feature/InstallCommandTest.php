@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
 
-use ArtARTs36\MergeRequestLinter\Console\InstallCommand;
+use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\Cwd;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 final class InstallCommandTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\InstallCommand::execute
+     * @covers \ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand::execute
      */
     public function testExecute(): void
     {

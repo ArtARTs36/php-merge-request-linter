@@ -11,7 +11,7 @@ use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
@@ -24,7 +24,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         return new Config(
             Rules::make($rules),
-            new Map([]),
+            new ArrayMap([]),
             new HttpClientConfig(HttpClientConfig::TYPE_NULL),
         );
     }
@@ -38,16 +38,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             (bool) ($request['has_conflicts'] ?? false),
             Str::make($request['source_branch'] ?? ''),
             Str::make($request['target_branch'] ?? ''),
-            (int) ($request['changed_files_count'] ?? 0),
             new Author($request['author_login'] ?? ''),
             $request['is_draft'] ?? false,
             false,
+            new ArrayMap($request['changes'] ?? []),
         );
     }
 
     protected function makeEnvironment(array $env): Environment
     {
-        return new MapEnvironment(new Map($env));
+        return new MapEnvironment(new ArrayMap($env));
     }
 
     protected function assertHasNotes(MergeRequest $request, Rule $rule, bool $expected): void

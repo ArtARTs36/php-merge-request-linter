@@ -2,14 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\Environment;
 
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 class MapEnvironment extends AbstractEnvironment
 {
     /**
-     * @param Map<string, mixed> $map
+     * @param ArrayMap<string, mixed> $map
      */
-    public function __construct(protected Map $map)
+    public function __construct(protected ArrayMap $map)
     {
         //
     }

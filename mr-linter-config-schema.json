@@ -185,6 +185,38 @@
                     "required": [
                         "prefixes"
                     ]
+                },
+                "@mr-linter/has_changes": {
+                    "type": "object",
+                    "description": "Merge Request must have changes in {files}.",
+                    "properties": {
+                        "when": {
+                            "$ref": "#/definitions/rule_conditions"
+                        },
+                        "changes": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string"
+                                    },
+                                    "contains": {
+                                        "type": "string"
+                                    },
+                                    "containsRegex": {
+                                        "type": "string"
+                                    },
+                                    "updatedPhpConstant": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": [
+                        "changes"
+                    ]
                 }
             }
         },
@@ -310,6 +342,14 @@
                         },
                         "countMax": {
                             "description": "Check the maximum number of elements in a field.",
+                            "type": "integer"
+                        },
+                        "countEquals": {
+                            "description": "Check count equals.",
+                            "type": "integer"
+                        },
+                        "countNotEquals": {
+                            "description": "Check count not equals.",
                             "type": "integer"
                         },
                         "has": {
@@ -446,50 +486,6 @@
                         }
                     }
                 },
-                "changedFilesCount": {
-                    "type": "object",
-                    "properties": {
-                        "equals": {
-                            "description": "Check if value are equal.",
-                            "type": "integer"
-                        },
-                        "=": {
-                            "description": "Check if value are equal.",
-                            "type": "integer"
-                        },
-                        "lte": {
-                            "description": "Check number is equal to or less than.",
-                            "type": "integer"
-                        },
-                        "<=": {
-                            "description": "Check number is equal to or less than.",
-                            "type": "integer"
-                        },
-                        "gte": {
-                            "description": "Check if a number is greater than or less than.",
-                            "type": "integer"
-                        },
-                        ">=": {
-                            "description": "Check if a number is greater than or less than.",
-                            "type": "integer"
-                        },
-                        "notEquals": {
-                            "description": "Check if value are not equal.",
-                            "type": "integer"
-                        },
-                        "!=": {
-                            "description": "Check if value are not equal.",
-                            "type": "integer"
-                        },
-                        "equalsAny": {
-                            "description": "Check if the field is equal to one of the values.",
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
                 "author.login": {
                     "type": "object",
                     "properties": {
@@ -577,6 +573,27 @@
                         "!=": {
                             "description": "Check if value are not equal.",
                             "type": "boolean"
+                        }
+                    }
+                },
+                "changes": {
+                    "type": "object",
+                    "properties": {
+                        "countMin": {
+                            "description": "Check the minimum number of elements in a field.",
+                            "type": "integer"
+                        },
+                        "countMax": {
+                            "description": "Check the maximum number of elements in a field.",
+                            "type": "integer"
+                        },
+                        "countEquals": {
+                            "description": "Check count equals.",
+                            "type": "integer"
+                        },
+                        "countNotEquals": {
+                            "description": "Check count not equals.",
+                            "type": "integer"
                         }
                     }
                 }

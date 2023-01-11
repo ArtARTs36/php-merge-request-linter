@@ -4,13 +4,14 @@ namespace ArtARTs36\MergeRequestLinter\Rule\Factory\Argument;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Exception\ArgNotSupportedException;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
 
 class MapResolver implements ArgumentResolver
 {
-    public const SUPPORT_TYPE = Map::class;
+    public const SUPPORT_TYPE = ArrayMap::class;
 
-    public function resolve(mixed $value): mixed
+    public function resolve(ParameterType $type, mixed $value): mixed
     {
         if (! is_array($value)) {
             throw new ArgNotSupportedException(sprintf(
@@ -19,6 +20,6 @@ class MapResolver implements ArgumentResolver
             ));
         }
 
-        return new Map($value);
+        return new ArrayMap($value);
     }
 }

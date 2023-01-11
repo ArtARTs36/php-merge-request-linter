@@ -3,20 +3,22 @@
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github;
 
 use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
+use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
-use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
+use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Diff;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
 class GithubActions implements CiSystem
 {
-    use InteractsWithResponse;
-
     public const NAME = 'github_actions';
 
     public function __construct(
@@ -60,10 +62,29 @@ class GithubActions implements CiSystem
             $pullRequest->hasConflicts(),
             Str::make($pullRequest->headRefName),
             Str::make($pullRequest->baseRefName),
-            $pullRequest->changedFiles,
             new Author($pullRequest->authorLogin),
             $pullRequest->isDraft,
             $pullRequest->canMerge(),
+            $this->mapChanges($pullRequest),
         );
+    }
+
+    /**
+     * @return Map<string, \ArtARTs36\MergeRequestLinter\Request\Data\Change>
+     */
+    private function mapChanges(PullRequest $request): Map
+    {
+        return new MapProxy(function () use ($request) {
+            $changes = [];
+
+            foreach ($request->changes as $change) {
+                $changes[$change->filename] = new \ArtARTs36\MergeRequestLinter\Request\Data\Change(
+                    $change->filename,
+                    new Diff($change->diff),
+                );
+            }
+
+            return new ArrayMap($changes);
+        }, $request->changedFiles);
     }
 }

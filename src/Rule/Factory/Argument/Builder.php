@@ -11,7 +11,7 @@ class Builder
      * @param array<string, ArgumentResolver> $argResolvers
      */
     public function __construct(
-        private array $argResolvers,
+        private readonly array $argResolvers,
     ) {
         //
     }
@@ -25,7 +25,7 @@ class Builder
         $args = [];
 
         foreach ($constructor->params() as $paramName => $paramType) {
-            $args[$paramName] = $this->argResolvers[$paramType->name]->resolve($params[$paramName]);
+            $args[$paramName] = $this->argResolvers[$paramType->name]->resolve($paramType, $params[$paramName]);
         }
 
         return $args;

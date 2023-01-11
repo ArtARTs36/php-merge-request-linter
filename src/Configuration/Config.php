@@ -4,9 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
 
 class Config
 {
@@ -14,8 +14,8 @@ class Config
      * @param Map<class-string<CiSystem>, RemoteCredentials> $credentials
      */
     public function __construct(
-        protected Rules $rules,
-        protected Map   $credentials,
+        protected Rules            $rules,
+        protected Map         $credentials,
         protected HttpClientConfig $httpClient,
     ) {
         //

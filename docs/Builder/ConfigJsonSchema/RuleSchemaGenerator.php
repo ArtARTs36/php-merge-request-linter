@@ -42,11 +42,26 @@ class RuleSchemaGenerator
                     ];
 
                     if ($paramType->isGeneric()) {
-                        $typeSchema['items'] = [
-                            [
-                                'type' => $paramType->generic,
-                            ],
-                        ];
+                        if ($paramType->isGenericOfObject()) {
+                            $genericProps = [];
+
+                            foreach (Reflector::mapPropertyTypes($paramType->generic) as $propertyName => $propertyType) {
+                                $genericProps[$propertyName] = [
+                                    'type' => JsonType::to($propertyType->name),
+                                ];
+                            }
+
+                            $typeSchema['items'] = [
+                                'type' => 'object',
+                                'properties' => $genericProps,
+                            ];
+                        } else {
+                            $typeSchema['items'] = [
+                                [
+                                    'type' => $paramType->generic,
+                                ],
+                            ];
+                        }
                     }
 
                     $ruleSchema['properties'][$paramName] = $typeSchema;

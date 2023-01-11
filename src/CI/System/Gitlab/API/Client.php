@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API;
 use ArtARTs36\MergeRequestLinter\CI\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Request\Data\Diff\DiffMapper;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
 
@@ -15,6 +16,7 @@ class Client implements GitlabClient
     public function __construct(
         private readonly RemoteCredentials $credentials,
         private readonly ClientInterface $client,
+        private readonly DiffMapper $diffMapper,
     ) {
         //
     }
@@ -32,8 +34,6 @@ class Client implements GitlabClient
 
         $resp = $this->client->sendRequest($request);
 
-        $this->validateResponse($resp, $url);
-
         $response = $this->responseToJsonArray($resp);
 
         return new MergeRequest(
@@ -43,11 +43,26 @@ class Client implements GitlabClient
             $response['has_conflicts'],
             $response['source_branch'],
             $response['target_branch'],
-            count($response['changes']),
             $response['author']['username'],
             $response['draft'] ?? false,
             $response['merge_status'],
+            $this->mapChanges($response['changes']),
         );
+    }
+
+    /**
+     * @param array<array{new_path: string, old_path: string}> $response
+     * @return array<Change>
+     */
+    private function mapChanges(array $response): array
+    {
+        $changes = [];
+
+        foreach ($response as $change) {
+            $changes[] = new Change($change['new_path'], $change['old_path'], $this->diffMapper->map($change));
+        }
+
+        return $changes;
     }
 
     /**

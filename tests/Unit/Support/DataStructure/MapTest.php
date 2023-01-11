@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class MapTest extends TestCase
@@ -31,11 +31,11 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestGet
-     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::get
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap::get
      */
     public function testGet(array $items, string $id, mixed $value): void
     {
-        self::assertEquals($value, (new Map($items))->get($id));
+        self::assertEquals($value, (new ArrayMap($items))->get($id));
     }
 
     public function providerForTestHas(): array
@@ -62,11 +62,11 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestHas
-     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::has
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap::has
      */
     public function testHas(array $items, string $id, bool $expected): void
     {
-        self::assertEquals($expected, (new Map($items))->has($id));
+        self::assertEquals($expected, (new ArrayMap($items))->has($id));
     }
 
     public function providerForTestMissing(): array
@@ -93,21 +93,21 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestMissing
-     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::missing
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap::missing
      */
     public function testMissing(array $items, string $id, bool $expected): void
     {
-        self::assertEquals($expected, (new Map($items))->missing($id));
+        self::assertEquals($expected, (new ArrayMap($items))->missing($id));
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::diff
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap::diff
      */
     public function testDiff(): void
     {
         self::assertEquals(
             ['one' => 1],
-            iterator_to_array((new Map(['one' => 1, 't' => 2]))->diff(new Map(['t' => 2])))
+            iterator_to_array((new ArrayMap(['one' => 1, 't' => 2]))->diff(new ArrayMap(['t' => 2])))
         );
     }
 
@@ -115,30 +115,30 @@ final class MapTest extends TestCase
     {
         return [
             [
-                new Map([
+                new ArrayMap([
                     'one' => 1,
                 ]),
                 1,
             ],
             [
-                new Map([
+                new ArrayMap([
                     'one' => 1,
                     'two' => 2,
                 ]),
                 1,
             ],
             [
-                new Map([]),
+                new ArrayMap([]),
                 null,
             ],
         ];
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\Map::first
+     * @covers \ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap::first
      * @dataProvider providerForTestFirst
      */
-    public function testFirst(Map $map, mixed $expected): void
+    public function testFirst(ArrayMap $map, mixed $expected): void
     {
         self::assertEquals($expected, $map->first());
     }

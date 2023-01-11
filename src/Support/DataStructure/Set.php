@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Collection;
 use ArtARTs36\MergeRequestLinter\Support\ArrayKeyIterator;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\CountProxy;
 
 /**
  * @template V
@@ -63,6 +64,17 @@ class Set implements Collection
         return false;
     }
 
+    public function containsAll(iterable $values): bool
+    {
+        foreach ($values as $value) {
+            if (! $this->contains($value)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @param Set<V> $that
      * @return Set<V>
@@ -103,7 +115,15 @@ class Set implements Collection
         return new ArrayKeyIterator($this->items);
     }
 
-    public function __toString(): string
+    /**
+     * @return V|null
+     */
+    public function first()
+    {
+        return array_key_first($this->items);
+    }
+
+    public function debugView(): string
     {
         return "[" . $this->implode(', ') . "]";
     }

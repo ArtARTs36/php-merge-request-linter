@@ -34,6 +34,8 @@ class ConsolePrinter implements Printer
             ->setHeaders(['Property', 'Value'])
             ->setRows($props);
 
+        $table->setColumnMaxWidth(1, 100);
+
         $table->render();
 
         $this->output->write("\n");
@@ -73,7 +75,7 @@ class ConsolePrinter implements Printer
             if (is_bool($value)) {
                 $props[] = [$k, $value ? 'true' : 'false'];
             } elseif ($value instanceof Collection) {
-                $props[] = [$k, $value];
+                $props[] = [$k, sprintf("- Count: %s \n- %s", $value->count(), $value->debugView())];
             } elseif (is_string($value) || $value instanceof \Stringable) {
                 $props[] = [$k, sprintf('"%s"', $value)];
             } elseif (is_scalar($value)) {
@@ -83,6 +85,8 @@ class ConsolePrinter implements Printer
 
                 $this->buildProps($value, $props, $prefix);
             }
+
+            $prefix = '';
         }
     }
 }

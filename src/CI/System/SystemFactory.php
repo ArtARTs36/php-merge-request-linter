@@ -11,11 +11,12 @@ use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Request\Data\Diff\DiffMapper;
 
 class SystemFactory implements CiSystemFactory
 {
@@ -23,16 +24,20 @@ class SystemFactory implements CiSystemFactory
      * @param Map<string, class-string<CiSystem>> $ciSystems
      */
     public function __construct(
-        protected Config $config,
-        protected Environment $environment,
+        protected Config            $config,
+        protected Environment       $environment,
         protected HttpClientFactory $httpClientFactory,
-        protected Map $ciSystems,
+        protected Map          $ciSystems,
     ) {
         //
     }
 
     public function createCurrently(): CiSystem
     {
+        if ($this->config->getCredentials()->isEmpty()) {
+            throw new InvalidCredentialsException('Credentials must be filled');
+        }
+
         foreach ($this->ciSystems as $name => $ciClass) {
             try {
                 $ci = $this->create($name);
@@ -73,6 +78,7 @@ class SystemFactory implements CiSystemFactory
                 $httpClient,
                 $credentials,
                 new PullRequestSchema(),
+                new DiffMapper(),
             ));
         }
 
@@ -80,6 +86,7 @@ class SystemFactory implements CiSystemFactory
             return new GitlabCi(new GitlabEnvironment($this->environment), new Gitlab\API\Client(
                 $credentials,
                 $httpClient,
+                new DiffMapper(),
             ));
         }
 
