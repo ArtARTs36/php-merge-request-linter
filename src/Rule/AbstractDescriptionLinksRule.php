@@ -11,16 +11,8 @@ abstract class AbstractDescriptionLinksRule extends AbstractRule implements Rule
     /**
      * @param Set<string> $domains
      */
-    final public function __construct(protected Set $domains)
+    final public function __construct(#[Generic(Generic::OF_STRING)] protected Set $domains)
     {
         //
-    }
-
-    /**
-     * @param iterable<string> $domains
-     */
-    public static function make(#[Generic(Generic::OF_STRING)] iterable $domains): static
-    {
-        return new static(Set::fromList($domains));
     }
 }
