@@ -53,7 +53,7 @@ class LintCommand extends Command
 
         $style->info('Config path: '. $config->path);
 
-        //
+        $style->info('Used rules: ' . $config->config->getRules()->implodeNames(', '));
 
         $progressBar = new ProgressBar($output, $config->config->getRules()->count());
 

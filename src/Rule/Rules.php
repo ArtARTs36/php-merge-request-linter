@@ -32,4 +32,19 @@ class Rules extends Arrayee
 
         return $this;
     }
+
+    public function implodeNames(string $sep): string
+    {
+        $str = '';
+
+        foreach ($this->items as $item) {
+            $str .= $item->getName();
+
+            if (next($this->items) !== false) {
+                $str .= $sep;
+            }
+        }
+
+        return $str;
+    }
 }
