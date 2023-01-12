@@ -11,6 +11,7 @@ use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
+use ArtARTs36\MergeRequestLinter\Report\Metrics;
 use ArtARTs36\MergeRequestLinter\Support\Bytes;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -32,9 +33,9 @@ class LintCommand extends Command
     public function __construct(
         protected ConfigResolver $config,
         protected LinterRunnerFactory $runnerFactory,
-        string                    $name = null
+        protected Metrics $metrics,
     ) {
-        parent::__construct($name);
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -81,12 +82,18 @@ class LintCommand extends Command
 
         $this->printNotes($style, $result->notes);
 
-        $style->table(['Metric', 'Value'], [
+        $metrics = [
             ['Rules', $config->config->getRules()->count()],
             ['Notes', $result->notes->count()],
             ['Duration', $result->duration],
             ['Memory', Bytes::toString(memory_get_peak_usage(true))],
-        ]);
+        ];
+
+        foreach ($this->metrics->describe() as [$subject, $value]) {
+            $metrics[] = [$subject->name, $value->getMetricValue()];
+        }
+
+        $style->table(['Metric', 'Value'], $metrics);
 
         if ($result->isFail()) {
             $style->error(sprintf('Found %d notes', $result->notes->count()));

@@ -18,6 +18,7 @@ use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Report\Metrics;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -25,7 +26,9 @@ class ApplicationFactory
 {
     public function create(OutputInterface $output): Application
     {
-        $application = new Application();
+        $metrics = new Metrics();
+
+        $application = new Application($metrics);
 
         $logger = (new ConsoleLoggerFactory())->create($output);
 
@@ -45,7 +48,7 @@ class ApplicationFactory
 
         $configResolver = new ConfigResolver(new PathResolver($filesystem), $configLoader);
 
-        $application->add(new LintCommand($configResolver, $runnerFactory));
+        $application->add(new LintCommand($configResolver, $runnerFactory, $metrics));
         $application->add(new InstallCommand());
         $application->add(new DumpCommand($configResolver));
         $application->add(new InfoCommand(new ToolInfoFactory()));
