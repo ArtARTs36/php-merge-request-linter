@@ -38,7 +38,7 @@ class ApplicationFactory
         $ciSystemsMap = DefaultSystems::map();
         $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics);
 
-        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment);
+        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics);
 
         $configLoader = new CompositeLoader([
             'php' => new PhpConfigLoader($filesystem),

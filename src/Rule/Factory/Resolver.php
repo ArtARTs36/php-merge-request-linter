@@ -17,7 +17,7 @@ class Resolver
     public function __construct(
         private ArrayMap         $nameClassRules,
         private RuleFactory      $factory,
-        private OperatorResolver $operatorResolver,
+        private ConditionRuleFactory $conditionRuleFactory,
     ) {
         //
     }
@@ -40,6 +40,6 @@ class Resolver
             return $rule;
         }
 
-        return new ConditionRule($rule, new CompositeOperator($this->operatorResolver->resolve($params['when'])));
+        return $this->conditionRuleFactory->create($rule, $params['when']);
     }
 }
