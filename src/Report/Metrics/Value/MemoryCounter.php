@@ -2,7 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Report\Metrics\Value;
 
-class Counter implements \ArtARTs36\MergeRequestLinter\Contracts\Report\Counter
+use ArtARTs36\MergeRequestLinter\Contracts\Report\Counter;
+
+class MemoryCounter implements Counter
 {
     public function __construct(
         private int $count = 0,

@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Report\Metrics\Record;
 
 class MemoryMetricManager implements MetricManager
 {
-    /**A
+    /**
      * @var array<Record>
      */
     private array $records = [];
