@@ -45,6 +45,7 @@ class LintCommand extends Command
         $this->addConfigFileOption();
 
         $this->addOption('debug');
+        $this->addOption('metrics');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -84,18 +85,20 @@ class LintCommand extends Command
 
         $this->printNotes($style, $result->notes);
 
-        $this->printMetrics($style, $config->config, $result);
+        $this->printMetrics($style, $config->config, $result, $input->getOption('metrics'));
 
         if ($result->isFail()) {
             $style->error(sprintf('Found %d notes', $result->notes->count()));
-        } else {
-            $style->success('No notes');
+
+            return self::FAILURE;
         }
 
-        return $result->isFail() ? self::FAILURE : self::SUCCESS;
+        $style->success('No notes');
+
+        return self::SUCCESS;
     }
 
-    private function printMetrics(StyleInterface $style, Config $config, LintResult $result)
+    private function printMetrics(StyleInterface $style, Config $config, LintResult $result, bool $fullMetrics)
     {
         $metrics = [
             ['[Linter] Rules', $config->getRules()->count()],
@@ -104,8 +107,10 @@ class LintCommand extends Command
             ['[Memory] Memory peak usage', Bytes::toString(memory_get_peak_usage(true))],
         ];
 
-        foreach ($this->metrics->describe() as [$subject, $value]) {
-            $metrics[] = [$subject->name, $value->getMetricValue()];
+        if ($fullMetrics) {
+            foreach ($this->metrics->describe() as [$subject, $value]) {
+                $metrics[] = [$subject->name, $value->getMetricValue()];
+            }
         }
 
         $style->table(['Metric', 'Value'], $metrics);
