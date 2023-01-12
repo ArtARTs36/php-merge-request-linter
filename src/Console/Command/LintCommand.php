@@ -98,7 +98,7 @@ class LintCommand extends Command
         return self::SUCCESS;
     }
 
-    private function printMetrics(StyleInterface $style, Config $config, LintResult $result, bool $fullMetrics)
+    private function printMetrics(StyleInterface $style, Config $config, LintResult $result, bool $fullMetrics): void
     {
         $metrics = [
             ['[Linter] Rules', $config->getRules()->count()],
