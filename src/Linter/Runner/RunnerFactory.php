@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\Http\ClientFactory;
@@ -22,6 +23,7 @@ class RunnerFactory implements LinterRunnerFactory
         protected Environment $environment,
         protected Map $ciSystems,
         protected LoggerInterface $logger,
+        protected MetricManager $metrics,
     ) {
         //
     }
@@ -30,7 +32,13 @@ class RunnerFactory implements LinterRunnerFactory
     {
         return new Runner(
             new CiRequestFetcher(
-                new SystemFactory($config, $this->environment, new ClientFactory(), $this->ciSystems, $this->logger),
+                new SystemFactory(
+                    $config,
+                    $this->environment,
+                    new ClientFactory($this->metrics),
+                    $this->ciSystems,
+                    $this->logger,
+                ),
             ),
         );
     }

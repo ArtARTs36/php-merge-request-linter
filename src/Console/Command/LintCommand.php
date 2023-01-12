@@ -6,12 +6,12 @@ use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
+use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
-use ArtARTs36\MergeRequestLinter\Report\Metrics;
 use ArtARTs36\MergeRequestLinter\Support\Bytes;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -33,7 +33,7 @@ class LintCommand extends Command
     public function __construct(
         protected ConfigResolver $config,
         protected LinterRunnerFactory $runnerFactory,
-        protected Metrics $metrics,
+        protected MetricManager $metrics,
     ) {
         parent::__construct();
     }

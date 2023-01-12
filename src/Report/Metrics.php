@@ -14,7 +14,7 @@ class Metrics implements MetricManager
 
     public function add(MetricSubject $subject, Metricable $value): self
     {
-        $this->metrics[$subject->key] = [$subject, $value];
+        $this->metrics[] = [$subject, $value];
 
         return $this;
     }
