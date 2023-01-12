@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Contracts\Report;
 
 use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Record;
 
 /**
  * Interface for managing metrics (time execution, etc.).
@@ -16,7 +17,7 @@ interface MetricManager
 
     /**
      * Describe metrics.
-     * @return array<array{MetricSubject, Metric}>
+     * @return array<Record>
      */
     public function describe(): array;
 }

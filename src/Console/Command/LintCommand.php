@@ -108,8 +108,8 @@ class LintCommand extends Command
         ];
 
         if ($fullMetrics) {
-            foreach ($this->metrics->describe() as [$subject, $value]) {
-                $metrics[] = [$subject->name, $value->getMetricValue()];
+            foreach ($this->metrics->describe() as $record) {
+                $metrics[] = [$record->subject->name, $record->getValue()];
             }
         }
 

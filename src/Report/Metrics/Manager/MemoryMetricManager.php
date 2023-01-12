@@ -5,26 +5,31 @@ namespace ArtARTs36\MergeRequestLinter\Report\Metrics\Manager;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\Metric;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Record;
 
 class MemoryMetricManager implements MetricManager
 {
     /**A
-     * @var array<array{MetricSubject, Metric}>
+     * @var array<Record>
      */
-    private array $metrics = [];
+    private array $records = [];
 
     public function add(MetricSubject $subject, Metric $value): self
     {
-        $this->metrics[] = [$subject, $value];
+        $this->records[] = new Record(
+            $subject,
+            $value,
+            new \DateTime(),
+        );
 
         return $this;
     }
 
     /**
-     * @return array<array{MetricSubject, Metric}>
+     * @return array<Record>
      */
     public function describe(): array
     {
-        return $this->metrics;
+        return $this->records;
     }
 }
