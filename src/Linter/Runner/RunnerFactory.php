@@ -39,6 +39,7 @@ class RunnerFactory implements LinterRunnerFactory
                     $this->ciSystems,
                     $this->logger,
                 ),
+                $this->metrics,
             ),
         );
     }

@@ -28,6 +28,11 @@ final class MockCi implements CiSystem
         ], $request);
     }
 
+    public function getName(): string
+    {
+        return 'mock_ci';
+    }
+
     public function isCurrentlyWorking(): bool
     {
         return true;
