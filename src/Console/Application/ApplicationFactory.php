@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\PhpConfigLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Configuration\Resolver\MetricableConfigResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InfoCommand;
@@ -46,7 +47,10 @@ class ApplicationFactory
             'yml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create(ConfigFormat::YAML)),
         ]);
 
-        $configResolver = new ConfigResolver(new PathResolver($filesystem), $configLoader);
+        $configResolver = new MetricableConfigResolver(
+            new ConfigResolver(new PathResolver($filesystem), $configLoader),
+            $metrics,
+        );
 
         $application->add(new LintCommand($configResolver, $runnerFactory, $metrics));
         $application->add(new InstallCommand());
