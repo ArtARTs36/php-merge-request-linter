@@ -23,6 +23,7 @@ class DefaultResolvers
             'array' => $genericAsIsResolver,
             MapResolver::SUPPORT_TYPE => new GenericResolver(new MapResolver(), $arrayObjectConverter),
             SetResolver::SUPPORT_TYPE => new GenericResolver(new SetResolver(), $arrayObjectConverter),
+            ArrayeeResolver::SUPPORT_TYPE => new GenericResolver(new ArrayeeResolver(), $arrayObjectConverter),
             'iterable' => $genericAsIsResolver,
         ];
     }

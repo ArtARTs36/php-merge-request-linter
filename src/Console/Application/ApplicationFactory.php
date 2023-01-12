@@ -10,27 +10,35 @@ use ArtARTs36\MergeRequestLinter\Configuration\Loader\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\PhpConfigLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Configuration\Resolver\MetricableConfigResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
 {
-    public function create(): Application
+    public function create(OutputInterface $output): Application
     {
-        $application = new Application();
+        $metrics = new MemoryMetricManager();
+
+        $application = new Application($metrics);
+
+        $logger = (new ConsoleLoggerFactory())->create($output);
 
         $filesystem = new LocalFileSystem();
         $environment = new LocalEnvironment();
         $ciSystemsMap = DefaultSystems::map();
-        $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap);
+        $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics);
 
-        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment);
+        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics);
 
         $configLoader = new CompositeLoader([
             'php' => new PhpConfigLoader($filesystem),
@@ -39,9 +47,12 @@ class ApplicationFactory
             'yml' => new ConfigLoaderProxy(static fn () => $arrayConfigLoaderFactory->create(ConfigFormat::YAML)),
         ]);
 
-        $configResolver = new ConfigResolver(new PathResolver($filesystem), $configLoader);
+        $configResolver = new MetricableConfigResolver(
+            new ConfigResolver(new PathResolver($filesystem), $configLoader),
+            $metrics,
+        );
 
-        $application->add(new LintCommand($configResolver, $runnerFactory));
+        $application->add(new LintCommand($configResolver, $runnerFactory, $metrics));
         $application->add(new InstallCommand());
         $application->add(new DumpCommand($configResolver));
         $application->add(new InfoCommand(new ToolInfoFactory()));

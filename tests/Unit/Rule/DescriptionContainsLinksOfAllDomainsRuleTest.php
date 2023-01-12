@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinksOfAllDomainsRule;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class DescriptionContainsLinksOfAllDomainsRuleTest extends TestCase
@@ -40,6 +41,6 @@ final class DescriptionContainsLinksOfAllDomainsRuleTest extends TestCase
      */
     public function testLint(MergeRequest $request, array $domains, bool $hasNotes): void
     {
-        self::assertHasNotes($request, DescriptionContainsLinksOfAllDomainsRule::make($domains), $hasNotes);
+        self::assertHasNotes($request, new DescriptionContainsLinksOfAllDomainsRule(Set::fromList($domains)), $hasNotes);
     }
 }

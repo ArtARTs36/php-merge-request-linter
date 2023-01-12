@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
@@ -30,7 +31,7 @@ final class RunnerTest extends TestCase
             {
                 throw new CiNotSupported();
             }
-        }));
+        }, new NullMetricManager()));
 
         $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
 
@@ -51,7 +52,7 @@ final class RunnerTest extends TestCase
                     'is_pull_request' => false,
                 ]);
             }
-        }));
+        }, new NullMetricManager()));
 
         $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
 
@@ -70,7 +71,7 @@ final class RunnerTest extends TestCase
             {
                 throw new InvalidCredentialsException();
             }
-        }));
+        }, new NullMetricManager()));
 
         $result = $runner->run((new Linter(new Rules([]), new NullLintEventSubscriber())));
 
@@ -97,7 +98,7 @@ final class RunnerTest extends TestCase
             {
                 return new MockCi(['is_pull_request' => true], $this->request);
             }
-        }));
+        }, new NullMetricManager()));
 
         $result = $runner->run(new Linter(Rules::make([
             new SuccessRule(),

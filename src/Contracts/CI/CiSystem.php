@@ -13,6 +13,11 @@ use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 interface CiSystem
 {
     /**
+     * Get CI System Name.
+     */
+    public function getName(): string;
+
+    /**
      * Is currently CiSystem
      */
     public function isCurrentlyWorking(): bool;

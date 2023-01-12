@@ -25,7 +25,7 @@ class GenericResolver implements ArgumentResolver
                 $values[] = $this->arrayObjectConverter->convert($val, $type->generic);
             }
 
-            return $values;
+            $value = $values;
         }
 
         return $this->resolver->resolve($type, $value);

@@ -22,6 +22,7 @@ use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
 use Psr\Http\Message\RequestInterface;
+use Psr\Log\LoggerInterface;
 
 class Client implements GithubClient
 {
@@ -34,15 +35,21 @@ class Client implements GithubClient
         private readonly RemoteCredentials $credentials,
         private readonly PullRequestSchema $pullRequestSchema,
         private readonly DiffMapper        $diffMapper,
+        private readonly LoggerInterface $logger,
     ) {
         //
     }
 
     public function getPullRequest(PullRequestInput $input): PullRequest
     {
+        $this->logger->info(sprintf('[GithubClient] Fetching Pull Request with id %d', $input->requestId));
+
         $pullRequest = $this->pullRequestSchema->createPullRequest(
             $this->responseToJsonArray($this->client->sendRequest($this->createGetPullRequest($input))),
         );
+
+        $this->logger->info(sprintf('[GithubClient] Pull Request with id %d was fetched', $input->requestId));
+        $this->logger->debug(sprintf('[GithubClient] Loading changes delayed until the first request'));
 
         $pullRequest->changes = new MapProxy(function () use ($input, $pullRequest) {
             return $this->fetchChanges($input, $pullRequest);
@@ -56,10 +63,19 @@ class Client implements GithubClient
      */
     private function fetchChanges(PullRequestInput $input, PullRequest $pullRequest): Map
     {
-        $changesPages = (int) round($pullRequest->changedFiles / self::PAGE_ITEMS_LIMIT) + 1;
+        $changesPages = (int) round($pullRequest->changedFiles / self::PAGE_ITEMS_LIMIT);
         $reqs = [];
 
-        for ($page = 1; $page < $changesPages; $page++) {
+        $this->logger->info(
+            sprintf(
+                '[GithubClient] Fetching changes for Pull Request with id %d. PR has %d changes, defined %d pages for loading changes',
+                $input->requestId,
+                $pullRequest->changes->count(),
+                $changesPages,
+            ),
+        );
+
+        for ($page = 1; $page < $changesPages + 1; $page++) {
             $reqs[$page] = $this->createGetPullRequestFilesRequest($input, $page);
         }
 
@@ -74,6 +90,14 @@ class Client implements GithubClient
                 $changes[$change->filename] = $change;
             }
         }
+
+        $this->logger->info(
+            sprintf(
+                '[GithubClient] Loaded %d changes for PR with id %d',
+                count($changes),
+                $input->requestId,
+            ),
+        );
 
         return new ArrayMap($changes);
     }

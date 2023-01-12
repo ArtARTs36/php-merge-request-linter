@@ -27,6 +27,11 @@ class GitlabCi implements CiSystem
         //
     }
 
+    public function getName(): string
+    {
+        return self::NAME;
+    }
+
     public function isCurrentlyWorking(): bool
     {
         return $this->environment->isWorking();

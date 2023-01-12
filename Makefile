@@ -1,14 +1,19 @@
-# usage as `make try MR_ID=1 TOKEN=aszbdg3htyhtgrfg5h5`
-try:
-	GITHUB_ACTIONS=1 GITHUB_REPOSITORY=artarts36/php-merge-request-linter GITHUB_GRAPHQL_URL=https://api.github.com/graphql GITHUB_REF_NAME=${MR_ID}/merge MR_LINTER_GITHUB_HTTP_TOKEN=${TOKEN} ./bin/mr-linter lint --debug
+ifneq ("$(wildcard .env)","")
+	include .env
+	export
+endif
 
-# usage as `make try-gitlab MR_ID=1 TOKEN=aszbdg3htyhtgrfg5h5`
+# usage as `make try MR_ID=1`
+try:
+	GITHUB_ACTIONS=1 GITHUB_REPOSITORY=artarts36/php-merge-request-linter GITHUB_GRAPHQL_URL=https://api.github.com/graphql GITHUB_REF_NAME=${MR_ID}/merge ./bin/mr-linter lint --debug --metrics
+
+# usage as `make try-gitlab MR_ID=1`
 try-gitlab:
 	GITLAB_CI=1 \
 	CI_MERGE_REQUEST_IID=${MR_ID} \
 	CI_MERGE_REQUEST_PROJECT_ID=41749211 \
 	CI_SERVER_URL=https://gitlab.com \
- 	MR_LINTER_GITLAB_HTTP_TOKEN=${TOKEN} ./bin/mr-linter lint --debug
+ 	MR_LINTER_GITLAB_HTTP_TOKEN=${TOKEN} ./bin/mr-linter lint --debug --metrics
 
 docker-build:
 	docker build . -t artarts36/merge-request-linter

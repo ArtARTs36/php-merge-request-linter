@@ -28,6 +28,11 @@ class GithubActions implements CiSystem
         //
     }
 
+    public function getName(): string
+    {
+        return self::NAME;
+    }
+
     public function isCurrentlyWorking(): bool
     {
         return $this->env->isWorking();

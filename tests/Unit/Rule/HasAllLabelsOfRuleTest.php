@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\HasAllLabelsOfRule;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class HasAllLabelsOfRuleTest extends TestCase
@@ -46,6 +47,6 @@ final class HasAllLabelsOfRuleTest extends TestCase
      */
     public function testLint(MergeRequest $request, array $requestedLabels, bool $hasNotes): void
     {
-        self::assertHasNotes($request, HasAllLabelsOfRule::make($requestedLabels), $hasNotes);
+        self::assertHasNotes($request, new HasAllLabelsOfRule(Set::fromList($requestedLabels)), $hasNotes);
     }
 }
