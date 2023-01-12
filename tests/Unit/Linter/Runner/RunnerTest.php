@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
-use ArtARTs36\MergeRequestLinter\Report\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;

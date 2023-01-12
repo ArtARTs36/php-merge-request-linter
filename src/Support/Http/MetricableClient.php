@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Support\Http;
 
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
-use ArtARTs36\MergeRequestLinter\Report\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

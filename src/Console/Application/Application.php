@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Console\Application;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
-use ArtARTs36\MergeRequestLinter\Report\MetricProxy;
-use ArtARTs36\MergeRequestLinter\Report\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Value\MetricProxy;
 use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

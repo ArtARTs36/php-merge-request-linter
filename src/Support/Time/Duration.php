@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\Time;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Report\Metricable;
+use ArtARTs36\MergeRequestLinter\Contracts\Report\Metric;
 
-class Duration implements Metricable
+class Duration implements Metric
 {
     public function __construct(
         public readonly float $seconds,

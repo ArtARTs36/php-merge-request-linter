@@ -6,8 +6,8 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Contracts\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Exception\CurrentlyNotMergeRequestException;
-use ArtARTs36\MergeRequestLinter\Report\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Report\StringValue;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Value\StringMetric;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 class CiRequestFetcher implements MergeRequestFetcher
@@ -29,7 +29,7 @@ class CiRequestFetcher implements MergeRequestFetcher
 
         $this->metrics->add(
             new MetricSubject('used_ci_system', '[CI] Used CI System'),
-            new StringValue($ci->getName()),
+            new StringMetric($ci->getName()),
         );
 
         return $ci->getCurrentlyMergeRequest();

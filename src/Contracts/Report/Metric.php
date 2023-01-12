@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Contracts\Report;
 /**
  * Interface for metricable objects.
  */
-interface Metricable
+interface Metric
 {
     /**
      * Get metric value in string.

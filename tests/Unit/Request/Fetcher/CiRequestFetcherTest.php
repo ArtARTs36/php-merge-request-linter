@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Request\Fetcher;
 
 use ArtARTs36\MergeRequestLinter\Exception\CurrentlyNotMergeRequestException;
-use ArtARTs36\MergeRequestLinter\Report\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;

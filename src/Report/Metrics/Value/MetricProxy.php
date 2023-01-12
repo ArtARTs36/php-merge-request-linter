@@ -1,15 +1,15 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Report;
+namespace ArtARTs36\MergeRequestLinter\Report\Metrics\Value;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Report\Metricable;
+use ArtARTs36\MergeRequestLinter\Contracts\Report\Metric;
 
-class MetricProxy implements Metricable
+class MetricProxy implements Metric
 {
-    private ?Metricable $metric = null;
+    private ?Metric $metric = null;
 
     /**
-     * @param \Closure(): Metricable $callback
+     * @param \Closure(): Metric $callback
      */
     public function __construct(
         private readonly \Closure $callback,
@@ -27,7 +27,7 @@ class MetricProxy implements Metricable
         $this->retrieve();
     }
 
-    private function retrieve(): Metricable
+    private function retrieve(): Metric
     {
         if ($this->metric === null) {
             $this->metric = ($this->callback)();

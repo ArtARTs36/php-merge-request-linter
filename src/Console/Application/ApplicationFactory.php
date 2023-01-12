@@ -19,7 +19,7 @@ use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
-use ArtARTs36\MergeRequestLinter\Report\Metrics;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -27,7 +27,7 @@ class ApplicationFactory
 {
     public function create(OutputInterface $output): Application
     {
-        $metrics = new Metrics();
+        $metrics = new MemoryMetricManager();
 
         $application = new Application($metrics);
 

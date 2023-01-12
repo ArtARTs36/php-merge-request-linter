@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Resolver;
 
 use ArtARTs36\MergeRequestLinter\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
-use ArtARTs36\MergeRequestLinter\Report\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 
 class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver

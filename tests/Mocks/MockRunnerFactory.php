@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
-use ArtARTs36\MergeRequestLinter\Report\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 
 final class MockRunnerFactory implements LinterRunnerFactory

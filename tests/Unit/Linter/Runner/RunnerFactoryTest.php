@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory;
-use ArtARTs36\MergeRequestLinter\Report\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEnvironment;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

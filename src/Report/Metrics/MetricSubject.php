@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Report;
+namespace ArtARTs36\MergeRequestLinter\Report\Metrics;
 
 class MetricSubject
 {
