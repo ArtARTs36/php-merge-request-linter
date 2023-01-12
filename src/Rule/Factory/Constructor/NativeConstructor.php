@@ -10,18 +10,17 @@ class NativeConstructor implements RuleConstructor
 {
     /**
      * @param \ReflectionClass<object> $classReflector
-     * @param \ReflectionMethod $methodReflector
      */
     public function __construct(
-        private \ReflectionClass $classReflector,
-        private \ReflectionMethod $methodReflector,
+        private \ReflectionClass  $classReflector,
+        private \ReflectionMethod $constructorReflector,
     ) {
         //
     }
 
     public function params(): array
     {
-        return Reflector::mapMethodParamTypeOnParam($this->methodReflector);
+        return Reflector::mapMethodParamTypeOnParam($this->constructorReflector);
     }
 
     public function construct(array $args): Rule
