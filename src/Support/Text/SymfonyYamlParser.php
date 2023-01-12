@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Support;
+namespace ArtARTs36\MergeRequestLinter\Support\Text;
 
 use ArtARTs36\MergeRequestLinter\Contracts\YamlParser;
 use Symfony\Component\Yaml\Parser;

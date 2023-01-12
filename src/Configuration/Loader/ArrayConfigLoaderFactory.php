@@ -21,7 +21,8 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\CallbackPropertyExtractor;
-use ArtARTs36\MergeRequestLinter\Support\SymfonyYamlParser;
+use ArtARTs36\MergeRequestLinter\Support\Text\NativeJsonDecoder;
+use ArtARTs36\MergeRequestLinter\Support\Text\SymfonyYamlParser;
 
 class ArrayConfigLoaderFactory
 {
@@ -85,8 +86,9 @@ class ArrayConfigLoaderFactory
             );
         }
 
-        return new $loaderClass(
+        return new JsonConfigLoader(
             $this->fileSystem,
+            new NativeJsonDecoder(),
             $credentialMapper,
             $rulesMapper,
         );
