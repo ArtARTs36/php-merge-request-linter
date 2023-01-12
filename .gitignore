@@ -4,3 +4,5 @@
 /.phpunit.result.cache
 /dev/build/vendor/
 /dev/build/composer.lock
+/.env
+/.deptrac.cache
