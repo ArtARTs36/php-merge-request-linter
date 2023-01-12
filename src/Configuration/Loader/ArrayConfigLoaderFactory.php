@@ -21,6 +21,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\CallbackPropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Support\SymfonyYamlParser;
 
 class ArrayConfigLoaderFactory
 {
@@ -60,21 +61,34 @@ class ArrayConfigLoaderFactory
             DefaultEvaluators::map(),
         ));
 
+        $credentialMapper = new CredentialMapper(
+            [
+                new EnvTransformer($this->environment),
+                new FileTransformer($this->fileSystem),
+            ],
+            DefaultSystems::map(),
+        );
+
+        $rulesMapper = new RulesMapper(
+            new Resolver(DefaultRules::map(), $ruleFactory, ConditionRuleFactory::new(
+                new OperatorResolver($operatorFactory),
+                $this->metrics,
+            )),
+        );
+
+        if ($loaderClass === YamlConfigLoader::class) {
+            return new YamlConfigLoader(
+                $this->fileSystem,
+                new SymfonyYamlParser(),
+                $credentialMapper,
+                $rulesMapper,
+            );
+        }
+
         return new $loaderClass(
             $this->fileSystem,
-            new CredentialMapper(
-                [
-                    new EnvTransformer($this->environment),
-                    new FileTransformer($this->fileSystem),
-                ],
-                DefaultSystems::map(),
-            ),
-            new RulesMapper(
-                new Resolver(DefaultRules::map(), $ruleFactory, ConditionRuleFactory::new(
-                    new OperatorResolver($operatorFactory),
-                    $this->metrics,
-                )),
-            ),
+            $credentialMapper,
+            $rulesMapper,
         );
     }
 }
