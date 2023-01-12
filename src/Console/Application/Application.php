@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Application;
 
+use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Report\MetricProxy;
-use ArtARTs36\MergeRequestLinter\Report\Metrics;
 use ArtARTs36\MergeRequestLinter\Report\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 use Symfony\Component\Console\Command\Command;
@@ -15,7 +15,7 @@ class Application extends \Symfony\Component\Console\Application
     public const VERSION = '0.6.0';
 
     public function __construct(
-        private readonly Metrics $metrics,
+        private readonly MetricManager $metrics,
     ) {
         parent::__construct('Merge Request Linter', self::VERSION);
     }

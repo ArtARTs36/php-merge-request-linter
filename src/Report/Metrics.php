@@ -3,8 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Report;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Report\Metricable;
+use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 
-class Metrics
+class Metrics implements MetricManager
 {
     /**A
      * @var array<array{MetricSubject, Metricable}>
