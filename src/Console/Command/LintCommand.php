@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
+use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
@@ -10,6 +11,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
+use ArtARTs36\MergeRequestLinter\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Support\Bytes;
@@ -82,18 +84,7 @@ class LintCommand extends Command
 
         $this->printNotes($style, $result->notes);
 
-        $metrics = [
-            ['Rules', $config->config->getRules()->count()],
-            ['Notes', $result->notes->count()],
-            ['Duration', $result->duration],
-            ['Memory', Bytes::toString(memory_get_peak_usage(true))],
-        ];
-
-        foreach ($this->metrics->describe() as [$subject, $value]) {
-            $metrics[] = [$subject->name, $value->getMetricValue()];
-        }
-
-        $style->table(['Metric', 'Value'], $metrics);
+        $this->printMetrics($style, $config->config, $result);
 
         if ($result->isFail()) {
             $style->error(sprintf('Found %d notes', $result->notes->count()));
@@ -102,6 +93,22 @@ class LintCommand extends Command
         }
 
         return $result->isFail() ? self::FAILURE : self::SUCCESS;
+    }
+
+    private function printMetrics(StyleInterface $style, Config $config, LintResult $result)
+    {
+        $metrics = [
+            ['[Linter] Rules', $config->getRules()->count()],
+            ['[Linter] Notes', $result->notes->count()],
+            ['[Linter] Duration', $result->duration],
+            ['[Memory] Memory peak usage', Bytes::toString(memory_get_peak_usage(true))],
+        ];
+
+        foreach ($this->metrics->describe() as [$subject, $value]) {
+            $metrics[] = [$subject->name, $value->getMetricValue()];
+        }
+
+        $style->table(['Metric', 'Value'], $metrics);
     }
 
     private function printNotes(StyleInterface $style, Notes $notes): void

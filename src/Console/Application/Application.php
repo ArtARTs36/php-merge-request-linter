@@ -27,7 +27,7 @@ class Application extends \Symfony\Component\Console\Application
         $this->metrics->add(
             new MetricSubject(
                 sprintf('command_time_execution_%s', $command->getName() ?? 'main'),
-                sprintf('Command "%s" execution', $command->getName()),
+                sprintf('[Console] Command "%s" execution', $command->getName()),
             ),
             $timeMetric = new MetricProxy(function () use ($timer) {
                 return $timer->finish();
