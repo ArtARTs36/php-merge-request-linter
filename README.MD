@@ -177,6 +177,7 @@ credentials:
 | make try-gitlab MR_ID=10          | Run MR-Linter on really merge request |
 | composer build-config-json-schema | Build JSON Schema for config          |
 | composer deptrac                  | Run deptrac                           |
+| composer check                    | Run test, lint, stat-analyse, deptrac |
 
 ## Console output example
 
