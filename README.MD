@@ -172,7 +172,9 @@ credentials:
 | composer test                     | Run tests (via PHPUnit)               |
 | composer lint                     | Run lint (via PHPCsFixer)             |
 | composer doc-rules                | Build rules doc page                  |
-| make try                          | Run MR-Linter on really merge-request |
+| make env                          | Add .env file                         |
+| make try MR_ID=10                 | Run MR-Linter on really pull request  |
+| make try-gitlab MR_ID=10          | Run MR-Linter on really merge request |
 | composer build-config-json-schema | Build JSON Schema for config          |
 | composer deptrac                  | Run deptrac                           |
 

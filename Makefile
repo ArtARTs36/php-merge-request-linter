@@ -3,6 +3,9 @@ ifneq ("$(wildcard .env)","")
 	export
 endif
 
+env:
+	echo "MR_LINTER_GITHUB_HTTP_TOKEN=token\nMR_LINTER_GITLAB_HTTP_TOKEN=token" > .env
+
 # usage as `make try MR_ID=1`
 try:
 	GITHUB_ACTIONS=1 \
