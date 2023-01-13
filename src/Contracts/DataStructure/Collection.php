@@ -7,7 +7,7 @@ use IteratorAggregate;
 /**
  * Interface for Collections.
  * @template K of array-key
- * @template Vm
+ * @template V
  * @template-extends IteratorAggregate<K, V>
  */
 interface Collection extends IteratorAggregate, \Countable
