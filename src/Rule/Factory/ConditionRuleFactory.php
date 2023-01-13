@@ -2,8 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
 
-use ArtARTs36\MergeRequestLinter\Condition\Operator\CompositeOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorResolver;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\Counter;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
@@ -36,7 +35,7 @@ class ConditionRuleFactory
     {
         return new ConditionRule(
             $rule,
-            new CompositeOperator($this->operatorResolver->resolve($when)),
+            $this->operatorResolver->resolve($when),
             $this->skippedRulesCounter,
         );
     }

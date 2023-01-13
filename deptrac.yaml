@@ -1,0 +1,35 @@
+deptrac:
+  paths:
+    - src/
+
+  layers:
+
+    - name: Rule
+      collectors:
+        - type: directory
+          value: src/Rule/.*
+
+    - name: RequestFetcher
+      collectors:
+        - type: directory
+          value: src/Request/Fetcher/.*
+
+    - name: CI
+      collectors:
+        - type: directory
+          value: src/CI/.*
+
+    - name: Environment
+      collectors:
+        - type: directory
+          value: src/Environment/.*
+
+    - name: HTTP
+      collectors:
+        - type: directory
+          value: src/Support/Http/.*
+
+    - name: Condition
+      collectors:
+        - type: directory
+          value: src/Condition/.*

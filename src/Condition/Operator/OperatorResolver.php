@@ -3,8 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Condition\Operator;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Contracts\Condition\OperatorResolver as OperatorResolverContract;
 
-class OperatorResolver
+class OperatorResolver implements OperatorResolverContract
 {
     public function __construct(
         private readonly OperatorFactory $operatorFactory,
@@ -14,18 +15,23 @@ class OperatorResolver
 
     /**
      * @param array<string, array<string, scalar>> $when
-     * @return iterable<ConditionOperator>
      */
-    public function resolve(array $when): iterable
+    public function resolve(array $when): ConditionOperator
     {
         $operators = [];
+        $resolved = 0;
 
         foreach ($when as $field => $op) {
             foreach ($op as $operatorType => $value) {
                 $operators[] = $this->operatorFactory->create($operatorType, $field, $value);
+                ++$resolved;
             }
         }
 
-        return $operators;
+        if ($resolved === 1 && ($firstOperator = reset($operators))) {
+            return $firstOperator;
+        }
+
+        return new CompositeOperator($operators);
     }
 }

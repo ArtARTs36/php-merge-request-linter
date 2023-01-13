@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ResolvedConfig;
 use ArtARTs36\MergeRequestLinter\Configuration\User;
+use ArtARTs36\MergeRequestLinter\Console\Interaction\WorkDirResolver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -14,6 +15,10 @@ trait HasConfigFileOption
         $this
             ->getDefinition()
             ->addOption(new InputOption('config', mode: InputOption::VALUE_OPTIONAL));
+
+        $this
+            ->getDefinition()
+            ->addOption(new InputOption(WorkDirResolver::OPTION_NAME, mode: InputOption::VALUE_OPTIONAL));
     }
 
     /**
@@ -23,11 +28,7 @@ trait HasConfigFileOption
     {
         $customPath = $input->getOption('config');
 
-        $currentDir = getcwd();
-
-        if ($currentDir === false) {
-            throw new \Exception('Current directory didnt defined');
-        }
+        $currentDir = (new WorkDirResolver())->resolve($input);
 
         return $this->config->resolve(new User($currentDir, $customPath));
     }

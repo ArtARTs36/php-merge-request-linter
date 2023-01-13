@@ -41,5 +41,8 @@ jobs:
       - name: Stat analyse
         run: composer stat-analyse
 
+      - name: Deptrac
+        run: composer deptrac
+
       - name: Run Tests
         run: composer test

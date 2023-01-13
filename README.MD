@@ -32,11 +32,12 @@ You must have implementation of `psr/http-client-implementation`
 
 ## Available Commands
 
-| Command  | Description  |
-| ------------ | ------------ |
-| ./vendor/bin/mr-linter install  | Install this tool (copy configuration file to work directory)  |
-| ./vendor/bin/mr-linter dump  | Print current rules  |
-| ./vendor/bin/mr-linter lint  | Run lint to current merge request  |
+| Command                        | Description                                                   |
+|--------------------------------|---------------------------------------------------------------|
+| ./vendor/bin/mr-linter install | Install this tool (copy configuration file to work directory) |
+| ./vendor/bin/mr-linter dump    | Print current rules                                           |
+| ./vendor/bin/mr-linter lint    | Run lint to current merge request                             |
+| ./vendor/bin/mr-linter info    | Print info about MR Linter                                    |
 
 ## Usage
 
@@ -171,8 +172,11 @@ credentials:
 | composer test                     | Run tests (via PHPUnit)               |
 | composer lint                     | Run lint (via PHPCsFixer)             |
 | composer doc-rules                | Build rules doc page                  |
-| make try                          | Run MR-Linter on really merge-request |
+| make env                          | Add .env file                         |
+| make try MR_ID=10                 | Run MR-Linter on really pull request  |
+| make try-gitlab MR_ID=10          | Run MR-Linter on really merge request |
 | composer build-config-json-schema | Build JSON Schema for config          |
+| composer deptrac                  | Run deptrac                           |
 
 ## Console output example
 
