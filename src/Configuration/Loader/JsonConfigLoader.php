@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\Text\JsonDecoder;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
+use ArtARTs36\MergeRequestLinter\Exception\TextDecodingException;
 
 class JsonConfigLoader extends AbstractArrayConfigLoader implements ConfigLoader
 {
@@ -30,7 +31,7 @@ class JsonConfigLoader extends AbstractArrayConfigLoader implements ConfigLoader
 
         try {
             $data = $this->json->decode($json);
-        } catch (\InvalidArgumentException $e) {
+        } catch (TextDecodingException $e) {
             throw new ConfigInvalidException(sprintf('JSON invalid: %s', $e->getMessage()));
         }
 
