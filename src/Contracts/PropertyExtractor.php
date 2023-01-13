@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts;
 
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;

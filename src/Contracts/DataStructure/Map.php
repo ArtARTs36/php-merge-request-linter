@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Collection;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 /**

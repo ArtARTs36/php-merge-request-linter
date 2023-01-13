@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\Condition;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Collection;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
@@ -38,7 +38,7 @@ interface EvaluatingSubject
     /**
      * Extract iterable property.
      * @return Arrayee<int|string, mixed>|ArrayMap<string, mixed>|Set<mixed>
-     *@throws PropertyNotExists
+     * @throws PropertyNotExists
      * @throws PropertyHasDifferentTypeException
      */
     public function collection(): Collection;

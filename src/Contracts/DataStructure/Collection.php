@@ -1,13 +1,13 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Contracts;
+namespace ArtARTs36\MergeRequestLinter\Contracts\DataStructure;
 
 use IteratorAggregate;
 
 /**
  * Interface for Collections.
  * @template K of array-key
- * @template V
+ * @template Vm
  * @template-extends IteratorAggregate<K, V>
  */
 interface Collection extends IteratorAggregate, \Countable
