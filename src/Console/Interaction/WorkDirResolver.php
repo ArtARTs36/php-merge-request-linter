@@ -28,7 +28,7 @@ class WorkDirResolver
     private function getFromInput(InputInterface $input): ?string
     {
         return $input->hasOption(self::OPTION_NAME) ?
-            (string) $input->getOption(self::OPTION_NAME) :
+            $input->getOption(self::OPTION_NAME) :
             null;
     }
 }
