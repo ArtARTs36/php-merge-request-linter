@@ -20,7 +20,19 @@ class ConsoleLogger implements LoggerInterface
 
     public function log($level, \Stringable|string $message, array $context = []): void
     {
-        $this->output->write("\n");
-        $this->logger->log($level, $message, $context);
+        if ($this->willBeLogged($level)) {
+            $this->output->write("\n");
+            $this->logger->log($level, $message, $context);
+        }
+    }
+
+    private function willBeLogged(string $level): bool
+    {
+        /** @var array<string, int> $verbosityLevelMap */
+        $verbosityLevelMap = (function () {
+            return $this->verbosityLevelMap ?? [];
+        })->call($this->logger);
+
+        return isset($verbosityLevelMap[$level]) && $this->output->getVerbosity() >= $verbosityLevelMap[$level];
     }
 }

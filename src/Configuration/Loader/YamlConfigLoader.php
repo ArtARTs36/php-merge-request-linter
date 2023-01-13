@@ -3,20 +3,21 @@
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
-use Symfony\Component\Yaml\Yaml;
+use ArtARTs36\MergeRequestLinter\Contracts\Text\YamlDecoder;
 
 class YamlConfigLoader extends AbstractArrayConfigLoader
 {
     public function __construct(
-        private readonly FileSystem $files,
-        CredentialMapper $credentialMapper,
-        RulesMapper $rulesMapper,
+        private readonly FileSystem  $files,
+        private readonly YamlDecoder $yaml,
+        CredentialMapper             $credentialMapper,
+        RulesMapper                  $rulesMapper,
     ) {
         parent::__construct($credentialMapper, $rulesMapper);
     }
 
     protected function loadConfigArray(string $path): array
     {
-        return Yaml::parse($this->files->getFileContent($path));
+        return $this->yaml->decode($this->files->getFileContent($path));
     }
 }
