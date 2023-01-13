@@ -331,6 +331,13 @@
                             "description": "Check count not equals.",
                             "type": "integer"
                         },
+                        "countEqualsAny": {
+                            "description": "Check count equals.",
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
                         "has": {
                             "description": "Check if an array contains some value.",
                             "type": "string"
@@ -573,6 +580,13 @@
                         "countNotEquals": {
                             "description": "Check count not equals.",
                             "type": "integer"
+                        },
+                        "countEqualsAny": {
+                            "description": "Check count equals.",
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
                         }
                     }
                 }

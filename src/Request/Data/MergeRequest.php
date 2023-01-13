@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Request\Data;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountEqualsAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountNotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsAnyEvaluator;
@@ -58,6 +59,7 @@ class MergeRequest
             CountMaxEvaluator::class,
             CountEqualsEvaluator::class,
             CountNotEqualsEvaluator::class,
+            CountEqualsAnyEvaluator::class,
             HasEvaluator::class,
             NotHasOperator::class,
             HasAnyEvaluator::class,
@@ -107,6 +109,7 @@ class MergeRequest
             CountMaxEvaluator::class,
             CountEqualsEvaluator::class,
             CountNotEqualsEvaluator::class,
+            CountEqualsAnyEvaluator::class,
         ])]
         public Map  $changes,
     ) {

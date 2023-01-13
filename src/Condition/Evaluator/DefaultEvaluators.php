@@ -29,6 +29,7 @@ final class DefaultEvaluators
         HasAnyEvaluator::NAME => HasAnyEvaluator::class,
         CountEqualsEvaluator::NAME => CountEqualsEvaluator::class,
         CountNotEqualsEvaluator::NAME => CountNotEqualsEvaluator::class,
+        CountEqualsAnyEvaluator::NAME => CountEqualsAnyEvaluator::class,
     ];
 
     /**

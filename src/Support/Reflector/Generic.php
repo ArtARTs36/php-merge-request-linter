@@ -6,6 +6,7 @@ namespace ArtARTs36\MergeRequestLinter\Support\Reflector;
 class Generic
 {
     public const OF_STRING = 'string';
+    public const OF_INTEGER = 'integer';
 
     public function __construct(
         public string $type,
