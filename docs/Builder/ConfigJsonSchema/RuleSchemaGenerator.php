@@ -86,10 +86,9 @@ class RuleSchemaGenerator
                 [
                     'type' => 'array',
                     'items' => [
-                        [
-                            '$ref' => $propertyDefinitionRef,
-                        ]
+                        '$ref' => $propertyDefinitionRef,
                     ],
+                    'minItems' => 1,
                 ],
             ];
 

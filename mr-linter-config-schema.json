@@ -13,11 +13,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_changed_files_limit"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_changed_files_limit"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -29,11 +28,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_description_contains_links_of_any_domains"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_description_contains_links_of_any_domains"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -45,11 +43,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_description_contains_links_of_all_domains"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_description_contains_links_of_all_domains"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -61,11 +58,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_description_not_empty"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_description_not_empty"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -77,11 +73,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_has_all_labels"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_has_all_labels"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -93,11 +88,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -109,11 +103,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels_of"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels_of"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -125,11 +118,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_jira_has_issue_link"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_jira_has_issue_link"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -141,11 +133,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_youtrack_has_issue_link"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_youtrack_has_issue_link"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -157,11 +148,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_title_matches_expression"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_title_matches_expression"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -173,11 +163,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_title_must_starts_with_any_prefix"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_title_must_starts_with_any_prefix"
+                            },
+                            "minItems": 1
                         }
                     ]
                 },
@@ -189,11 +178,10 @@
                         },
                         {
                             "type": "array",
-                            "items": [
-                                {
-                                    "$ref": "#/definitions/rules_properties_@mr-linter_has_changes"
-                                }
-                            ]
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_has_changes"
+                            },
+                            "minItems": 1
                         }
                     ]
                 }
