@@ -31,7 +31,7 @@ class ConsoleLogger implements LoggerInterface
         /** @var array<string, int> $verbosityLevelMap */
         $verbosityLevelMap = (function () {
             return $this->verbosityLevelMap ?? [];
-        })();
+        })->call($this->logger);
 
         return isset($verbosityLevelMap[$level]) && $this->output->getVerbosity() >= $verbosityLevelMap[$level];
     }
