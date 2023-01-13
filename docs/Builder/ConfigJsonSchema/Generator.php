@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
+use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
+
 class Generator
 {
     public function __construct(
@@ -11,37 +13,31 @@ class Generator
         //
     }
 
-    public function generate(): array
+    public function generate(): JsonSchema
     {
-        return [
-            '$schema' => 'http://json-schema.org/draft-04/schema#',
+        $schema = new JsonSchema();
+
+        $schema->addDefinition('rule_conditions', $this->operatorSchemaArrayGenerator->generate());
+
+        $schema->addProperty('rules', [
+            'type' => 'object',
+            'properties' => $this->ruleSchemaGenerator->generate($schema),
+        ]);
+
+        $schema->addProperty('credentials', [
             'type' => 'object',
             'properties' => [
-                'rules' => [
-                    'type' => 'object',
-                    'properties' => $this->ruleSchemaGenerator->generate(),
+                'gitlab_ci' => [
+                    'description' => 'Token',
+                    'type' => 'string',
                 ],
-                'credentials' => [
-                    'type' => 'object',
-                    'properties' => [
-                        'gitlab_ci' => [
-                            'description' => 'Token',
-                            'type' => 'string',
-                        ], 
-                        'github_actions' => [
-                            'description' => 'Token', 
-                            'type' => 'string',
-                        ],
-                    ],
+                'github_actions' => [
+                    'description' => 'Token',
+                    'type' => 'string',
                 ],
             ],
-            'definitions' => [
-                'rule_conditions' => $this->operatorSchemaArrayGenerator->generate(),
-            ],
-            'required' => [
-                'rules',
-                'credentials',
-            ],
-        ];
+        ]);
+
+        return $schema;
     }
 }

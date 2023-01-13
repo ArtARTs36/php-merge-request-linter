@@ -6,216 +6,195 @@
             "type": "object",
             "properties": {
                 "@mr-linter/changed_files_limit": {
-                    "type": "object",
                     "description": "Check count changed files on a {limit}.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_changed_files_limit"
                         },
-                        "limit": {
-                            "type": "integer"
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_changed_files_limit"
+                                }
+                            ]
                         }
-                    },
-                    "required": [
-                        "limit"
                     ]
                 },
                 "@mr-linter/description_contains_links_of_any_domains": {
-                    "type": "object",
                     "description": "Merge Request must contain links of any {domains}.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_description_contains_links_of_any_domains"
                         },
-                        "domains": {
+                        {
                             "type": "array",
                             "items": [
                                 {
-                                    "type": "string"
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_description_contains_links_of_any_domains"
                                 }
                             ]
                         }
-                    },
-                    "required": [
-                        "domains"
                     ]
                 },
                 "@mr-linter/description_contains_links_of_all_domains": {
-                    "type": "object",
                     "description": "Merge Request must contain links of all {domains}.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_description_contains_links_of_all_domains"
                         },
-                        "domains": {
+                        {
                             "type": "array",
                             "items": [
                                 {
-                                    "type": "string"
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_description_contains_links_of_all_domains"
                                 }
                             ]
                         }
-                    },
-                    "required": [
-                        "domains"
                     ]
                 },
                 "@mr-linter/description_not_empty": {
-                    "type": "object",
                     "description": "Description must fill.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
-                        }
-                    }
-                },
-                "@mr-linter/has_all_labels": {
-                    "type": "object",
-                    "description": "Merge Request must have all {labels}",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_description_not_empty"
                         },
-                        "labels": {
+                        {
                             "type": "array",
                             "items": [
                                 {
-                                    "type": "string"
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_description_not_empty"
                                 }
                             ]
                         }
-                    },
-                    "required": [
-                        "labels"
+                    ]
+                },
+                "@mr-linter/has_all_labels": {
+                    "description": "Merge Request must have all {labels}",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_has_all_labels"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_has_all_labels"
+                                }
+                            ]
+                        }
                     ]
                 },
                 "@mr-linter/has_any_labels": {
-                    "type": "object",
                     "description": "Merge Request must have any labels.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
-                        }
-                    }
-                },
-                "@mr-linter/has_any_labels_of": {
-                    "type": "object",
-                    "description": "Merge Request must have any {labels}.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels"
                         },
-                        "labels": {
+                        {
                             "type": "array",
                             "items": [
                                 {
-                                    "type": "string"
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels"
                                 }
                             ]
                         }
-                    },
-                    "required": [
-                        "labels"
+                    ]
+                },
+                "@mr-linter/has_any_labels_of": {
+                    "description": "Merge Request must have any {labels}.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels_of"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels_of"
+                                }
+                            ]
+                        }
                     ]
                 },
                 "@mr-linter/jira/has_issue_link": {
-                    "type": "object",
                     "description": "The description must have a link to Jira on a {domain} with {projectCode}.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_jira_has_issue_link"
                         },
-                        "domain": {
-                            "type": "string"
-                        },
-                        "projectCode": {
-                            "type": "string"
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_jira_has_issue_link"
+                                }
+                            ]
                         }
-                    },
-                    "required": [
-                        "domain",
-                        "projectCode"
                     ]
                 },
                 "@mr-linter/youtrack/has_issue_link": {
-                    "type": "object",
                     "description": "The description must have a link to YouTrack issue on a {domain} with {projectCode}.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_youtrack_has_issue_link"
                         },
-                        "domain": {
-                            "type": "string"
-                        },
-                        "projectCode": {
-                            "type": "string"
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_youtrack_has_issue_link"
+                                }
+                            ]
                         }
-                    },
-                    "required": [
-                        "domain",
-                        "projectCode"
                     ]
                 },
                 "@mr-linter/title_matches_expression": {
-                    "type": "object",
                     "description": "The title must match the expression: {regex}",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_title_matches_expression"
                         },
-                        "regex": {
-                            "type": "string"
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_title_matches_expression"
+                                }
+                            ]
                         }
-                    },
-                    "required": [
-                        "regex"
                     ]
                 },
                 "@mr-linter/title_must_starts_with_any_prefix": {
-                    "type": "object",
                     "description": "The title must starts with any {prefixes}",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_title_must_starts_with_any_prefix"
                         },
-                        "prefixes": {
-                            "type": "array"
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_title_must_starts_with_any_prefix"
+                                }
+                            ]
                         }
-                    },
-                    "required": [
-                        "prefixes"
                     ]
                 },
                 "@mr-linter/has_changes": {
-                    "type": "object",
                     "description": "Merge Request must have changes in {files}.",
-                    "properties": {
-                        "when": {
-                            "$ref": "#/definitions/rule_conditions"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_has_changes"
                         },
-                        "changes": {
+                        {
                             "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "file": {
-                                        "type": "string"
-                                    },
-                                    "contains": {
-                                        "type": "string"
-                                    },
-                                    "containsRegex": {
-                                        "type": "string"
-                                    },
-                                    "updatedPhpConstant": {
-                                        "type": "string"
-                                    }
+                            "items": [
+                                {
+                                    "$ref": "#/definitions/rules_properties_@mr-linter_has_changes"
                                 }
-                            }
+                            ]
                         }
-                    },
-                    "required": [
-                        "changes"
                     ]
                 }
             }
@@ -598,6 +577,207 @@
                     }
                 }
             }
+        },
+        "rules_properties_@mr-linter_changed_files_limit": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "limit": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "limit"
+            ]
+        },
+        "rules_properties_@mr-linter_description_contains_links_of_any_domains": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "domains": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "domains"
+            ]
+        },
+        "rules_properties_@mr-linter_description_contains_links_of_all_domains": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "domains": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "domains"
+            ]
+        },
+        "rules_properties_@mr-linter_description_not_empty": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                }
+            }
+        },
+        "rules_properties_@mr-linter_has_all_labels": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "labels": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "labels"
+            ]
+        },
+        "rules_properties_@mr-linter_has_any_labels": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                }
+            }
+        },
+        "rules_properties_@mr-linter_has_any_labels_of": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "labels": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "labels"
+            ]
+        },
+        "rules_properties_@mr-linter_jira_has_issue_link": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "projectCode": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "domain",
+                "projectCode"
+            ]
+        },
+        "rules_properties_@mr-linter_youtrack_has_issue_link": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "projectCode": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "domain",
+                "projectCode"
+            ]
+        },
+        "rules_properties_@mr-linter_title_matches_expression": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "regex": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "regex"
+            ]
+        },
+        "rules_properties_@mr-linter_title_must_starts_with_any_prefix": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "prefixes": {
+                    "type": "array"
+                }
+            },
+            "required": [
+                "prefixes"
+            ]
+        },
+        "rules_properties_@mr-linter_has_changes": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "changes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "file": {
+                                "type": "string"
+                            },
+                            "contains": {
+                                "type": "string"
+                            },
+                            "containsRegex": {
+                                "type": "string"
+                            },
+                            "updatedPhpConstant": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "changes"
+            ]
         }
     },
     "required": [
