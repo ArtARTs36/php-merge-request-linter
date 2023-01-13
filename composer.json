@@ -61,6 +61,12 @@
         ],
         "deptrac": [
             "./vendor/bin/deptrac"
+        ],
+        "check": [
+            "@lint",
+            "@stat-analyse",
+            "@deptrac",
+            "@test"
         ]
     }
 }

@@ -3,9 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructorFinder;
+use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
+use ArtARTs36\Str\Facade\Str;
 
 class RuleSchemaGenerator
 {
@@ -15,27 +17,29 @@ class RuleSchemaGenerator
         //
     }
 
-    public function generate()
+    public function generate(JsonSchema $jsonSchema): array
     {
         $rules = DefaultRules::map();
         $schema = [];
 
         foreach ($rules as $ruleName => $rule) {
             $ruleSchema = [
-                'type' => 'object',
                 'description' => Reflector::findPHPDocSummary(new \ReflectionClass($rule)),
-                'properties' => [
-                    'when' => [
-                        '$ref' => '#/definitions/rule_conditions',
-                    ],
-                ]
             ];
 
             $constructor = $this->constructorFinder->find($rule);
             $params = $constructor->params();
 
+            $definition = [
+                'type' => 'object',
+                'properties' => [
+                    'when' => [
+                        '$ref' => '#/definitions/rule_conditions',
+                    ],
+                ],
+            ];
+
             if (count($params) > 0) {
-                $ruleSchema['required'] = [];
                 foreach ($constructor->params() as $paramName => $paramType) {
                     $typeSchema = [
                         'type' => JsonType::to($paramType->name),
@@ -64,11 +68,29 @@ class RuleSchemaGenerator
                         }
                     }
 
-                    $ruleSchema['properties'][$paramName] = $typeSchema;
-
-                    $ruleSchema['required'][] = $paramName;
+                    $definition['properties'][$paramName] = $typeSchema;
+                    $definition['required'][] = $paramName;
                 }
             }
+
+            $definitionName = Str::replace('rules_properties_' . $ruleName, [
+                '/' => '_',
+            ]);
+
+            $propertyDefinitionRef = $jsonSchema->addDefinition($definitionName, $definition);
+
+            $ruleSchema['oneOf'] = [
+                [
+                    '$ref' => $propertyDefinitionRef,
+                ],
+                [
+                    'type' => 'array',
+                    'items' => [
+                        '$ref' => $propertyDefinitionRef,
+                    ],
+                    'minItems' => 1,
+                ],
+            ];
 
             $schema[$ruleName] = $ruleSchema;
         }
