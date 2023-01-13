@@ -2,26 +2,26 @@
 
 namespace ArtARTs36\MergeRequestLinter\Rule\Factory;
 
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\CompositeRule;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 class Resolver
 {
     /**
-     * @param ArrayMap<string, class-string<Rule>> $nameClassRules
+     * @param Map<string, class-string<Rule>> $nameClassRules
      */
     public function __construct(
-        private ArrayMap         $nameClassRules,
-        private RuleFactory      $factory,
-        private ConditionRuleFactory $conditionRuleFactory,
+        private readonly Map         $nameClassRules,
+        private readonly RuleFactory      $factory,
+        private readonly ConditionRuleFactory $conditionRuleFactory,
     ) {
         //
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @param array<string, mixed>|array<int, array<string, mixed>> $params
      * @throws RuleNotFound
      */
     public function resolve(string $ruleName, array $params): Rule
@@ -32,17 +32,27 @@ class Resolver
             throw RuleNotFound::fromRuleName($ruleName);
         }
 
-        if (array_is_list($params)) {
-            $rules = [];
-
-            foreach ($params as $param) {
-                $rules[] = $this->resolveRule($ruleClass, $param);
-            }
-
-            return new CompositeRule($rules);
+        if (array_is_list($params) && count($params) !== 0) {
+            return $this->resolveRuleOnManyConfigurations($ruleClass, $params);
         }
 
+        /** @var array<string, mixed> $params */
         return $this->resolveRule($ruleClass, $params);
+    }
+
+    /**
+     * @param class-string<Rule> $ruleClass
+     * @param array<int, array<string, mixed>> $params
+     */
+    private function resolveRuleOnManyConfigurations(string $ruleClass, array $params): Rule
+    {
+        $rules = [];
+
+        foreach ($params as $param) {
+            $rules[] = $this->resolveRule($ruleClass, $param);
+        }
+
+        return CompositeRule::make($rules);
     }
 
     /**
