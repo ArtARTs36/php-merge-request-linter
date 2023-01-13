@@ -5,7 +5,11 @@ endif
 
 # usage as `make try MR_ID=1`
 try:
-	GITHUB_ACTIONS=1 GITHUB_REPOSITORY=artarts36/php-merge-request-linter GITHUB_GRAPHQL_URL=https://api.github.com/graphql GITHUB_REF_NAME=${MR_ID}/merge ./bin/mr-linter lint --debug --metrics
+	GITHUB_ACTIONS=1 \
+	GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
+	GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
+	GITHUB_REF_NAME=${MR_ID}/merge \
+	./bin/mr-linter lint --debug --metrics
 
 # usage as `make try-gitlab MR_ID=1`
 try-gitlab:

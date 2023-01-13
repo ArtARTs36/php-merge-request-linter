@@ -62,10 +62,17 @@ class LintCommand extends Command
 
         $config = $this->resolveConfig($input);
 
-        $style->info('Config path: '. $config->path);
+        $this->printInfoMessage($output, sprintf('Config path: %s', $config->path));
 
         if ($isDebug) {
-            $style->info('Used rules: ' . $config->config->getRules()->implodeNames(', '));
+            $style->newLine(2);
+
+            $this->printInfoMessage($output, sprintf(
+                'Used rules: %s',
+                $config->config->getRules()->implodeNames(', '),
+            ));
+
+            $style->newLine(2);
         }
 
         $progressBar = new ProgressBar($output, $config->config->getRules()->count());
@@ -146,5 +153,10 @@ class LintCommand extends Command
         }
 
         $style->table(['#', 'Note'], $table);
+    }
+
+    private function printInfoMessage(OutputInterface $output, string $message): void
+    {
+        $output->write(sprintf('<info> [INFO] %s</info>', $message));
     }
 }
