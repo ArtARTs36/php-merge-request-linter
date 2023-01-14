@@ -4,14 +4,11 @@ namespace ArtARTs36\MergeRequestLinter\Contracts\Text;
 
 use ArtARTs36\MergeRequestLinter\Exception\TextDecodingException;
 
-/**
- * Interface for parsing YAML.
- */
-interface YamlDecoder
+interface TextDecoder
 {
     /**
-     * Parse yaml string to PHP array.
-     * @return array<string>
+     * Decode string to PHP array.
+     * @return array<mixed>
      * @throws TextDecodingException
      */
     public function decode(string $content): array;

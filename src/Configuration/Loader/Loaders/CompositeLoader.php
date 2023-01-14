@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
+namespace ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
@@ -13,7 +13,7 @@ class CompositeLoader implements ConfigLoader
      * @param array<string, ConfigLoader> $loadersByFormat
      */
     public function __construct(
-        private array $loadersByFormat,
+        private readonly array $loadersByFormat,
     ) {
         //
     }

@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\Text;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Text\JsonDecoder;
+use ArtARTs36\MergeRequestLinter\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Exception\TextDecodingException;
 
-class NativeJsonDecoder implements JsonDecoder
+class NativeJsonDecoder implements TextDecoder
 {
     public function decode(string $content): array
     {

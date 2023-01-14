@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
+namespace ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper;
 
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Rule\Rules;
 class RulesMapper
 {
     public function __construct(
-        private Resolver $ruleResolver,
+        private readonly Resolver $ruleResolver,
     ) {
         //
     }

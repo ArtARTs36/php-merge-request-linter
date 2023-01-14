@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Loader;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
-use ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\Proxy;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
@@ -13,13 +13,13 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 final class ConfigLoaderProxyTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Configuration\Loader\ConfigLoaderProxy::load
+     * @covers \ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\Proxy::load
      */
     public function testFactoryCallsCount(): void
     {
         $calls = 0;
 
-        $proxy = new ConfigLoaderProxy(function () use (&$calls) {
+        $proxy = new Proxy(function () use (&$calls) {
             $calls++;
 
             return new class () implements ConfigLoader {
