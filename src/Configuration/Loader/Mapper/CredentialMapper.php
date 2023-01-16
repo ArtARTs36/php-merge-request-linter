@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
+namespace ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper;
 
 use ArtARTs36\MergeRequestLinter\CI\Credentials\Token;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;

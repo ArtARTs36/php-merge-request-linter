@@ -5,6 +5,7 @@ rules:
       - Bug
       - Docs
       - Tests
+      - Optimization
 
   "@mr-linter/title_must_starts_with_any_prefix":
     prefixes:
@@ -12,6 +13,7 @@ rules:
       - '[Bug]'
       - '[Docs]'
       - '[Tests]'
+      - '[Optimization]'
 
   "@mr-linter/description_not_empty": {}
 

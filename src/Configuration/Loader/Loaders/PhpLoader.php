@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
+namespace ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders;
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
@@ -11,10 +11,10 @@ use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
-class PhpConfigLoader implements ConfigLoader
+class PhpLoader implements ConfigLoader
 {
     public function __construct(
-        private FileSystem $files,
+        private readonly FileSystem $files,
     ) {
         //
     }
