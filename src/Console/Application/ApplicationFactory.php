@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Console\Application;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\CI\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
+use ArtARTs36\MergeRequestLinter\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ArrayConfigLoaderFactory;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\Proxy;
@@ -20,6 +21,7 @@ use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;
+use ArtARTs36\MergeRequestLinter\Support\File\Directory;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -53,7 +55,7 @@ class ApplicationFactory
         );
 
         $application->add(new LintCommand($configResolver, $runnerFactory, $metrics));
-        $application->add(new InstallCommand());
+        $application->add(new InstallCommand(new Copier(new Directory(__DIR__ . '/../../../stubs'))));
         $application->add(new DumpCommand($configResolver));
         $application->add(new InfoCommand(new ToolInfoFactory()));
 

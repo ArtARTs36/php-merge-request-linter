@@ -2,8 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
+use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
+use ArtARTs36\MergeRequestLinter\Configuration\Copier;
+use ArtARTs36\MergeRequestLinter\Support\File\Directory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -13,21 +17,39 @@ class InstallCommand extends Command
 
     protected static $defaultDescription = 'Install this tool';
 
-    public function __construct(string $name = null)
+    public function __construct(
+        private readonly Copier $configCopier,
+    ) {
+        parent::__construct();
+    }
+
+    protected function configure()
     {
-        parent::__construct($name);
+        $this
+            ->getDefinition()
+            ->addOption(new InputOption('format', mode: InputOption::VALUE_OPTIONAL));
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dir = getcwd();
-
-        copy(__DIR__ . '/../../../stubs/.mr-linter.php', $pathTo = $dir . '/.mr-linter.php');
-
         $style = new SymfonyStyle($input, $output);
 
-        $style->info('Was copied configuration file to: '. $pathTo);
+        $dir = getcwd();
+        $format = $this->resolveConfigFormat($input);
+
+        $createdFile = $this->configCopier->copy($format, new Directory($dir));
+
+        $style->info(sprintf('Was copied configuration file to: %s [%s]', $createdFile, $createdFile->getSizeString()));
 
         return self::SUCCESS;
+    }
+
+    private function resolveConfigFormat(InputInterface $input): ConfigFormat
+    {
+        if ($input->getOption('format') !== null) {
+            return ConfigFormat::from($input->getOption('format'));
+        }
+
+        return ConfigFormat::PHP;
     }
 }

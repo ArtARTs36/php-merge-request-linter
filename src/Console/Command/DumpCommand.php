@@ -16,9 +16,9 @@ class DumpCommand extends Command
 
     protected static $defaultDescription = 'Print current rules';
 
-    public function __construct(protected ConfigResolver $config, string $name = null)
+    public function __construct(protected ConfigResolver $config)
     {
-        parent::__construct($name);
+        parent::__construct();
     }
 
     protected function configure(): void
