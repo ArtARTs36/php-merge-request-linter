@@ -1,0 +1,19 @@
+rules:
+  "@mr-linter/has_any_labels_of":
+    labels:
+      - Feature
+      - Bug
+      - Docs
+      - Tests
+
+  "@mr-linter/title_must_starts_with_any_prefix":
+    prefixes:
+      - '[Feature]'
+      - '[Bug]'
+      - '[Docs]'
+      - '[Tests]'
+
+  "@mr-linter/description_not_empty": {}
+
+credentials:
+  github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"

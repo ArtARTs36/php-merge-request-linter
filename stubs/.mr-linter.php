@@ -6,16 +6,17 @@ use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsOfRule;
 use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 
 return [
     'rules' => [
         new DescriptionNotEmptyRule(),
-        HasAnyLabelsOfRule::make([
+        new HasAnyLabelsOfRule(Set::fromList([
             'Feature',
             'Bug',
             'Docs',
             'Tests',
-        ]),
+        ])),
         new TitleStartsWithAnyPrefixRule([
             '[Feature]',
             '[Bug]',

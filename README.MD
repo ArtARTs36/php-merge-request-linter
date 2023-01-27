@@ -32,12 +32,13 @@ You must have implementation of `psr/http-client-implementation`
 
 ## Available Commands
 
-| Command                        | Description                                                   |
-|--------------------------------|---------------------------------------------------------------|
-| ./vendor/bin/mr-linter install | Install this tool (copy configuration file to work directory) |
-| ./vendor/bin/mr-linter dump    | Print current rules                                           |
-| ./vendor/bin/mr-linter lint    | Run lint to current merge request                             |
-| ./vendor/bin/mr-linter info    | Print info about MR Linter                                    |
+| Command                                      | Description                                                   |
+|----------------------------------------------|---------------------------------------------------------------|
+| ./vendor/bin/mr-linter install               | Install this tool (copy configuration file to work directory) |
+| ./vendor/bin/mr-linter install --format=yaml | Install this tool (copy configuration file to work directory) |
+| ./vendor/bin/mr-linter dump                  | Print current rules                                           |
+| ./vendor/bin/mr-linter lint                  | Run lint to current merge request                             |
+| ./vendor/bin/mr-linter info                  | Print info about MR Linter                                    |
 
 ## Usage
 
