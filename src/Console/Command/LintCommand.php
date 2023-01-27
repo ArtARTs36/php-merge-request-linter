@@ -15,7 +15,6 @@ use ArtARTs36\MergeRequestLinter\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Support\Bytes;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Helper\TableCellStyle;

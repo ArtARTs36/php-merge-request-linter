@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Console\Command;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Support\File\Directory;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -34,7 +33,7 @@ class InstallCommand extends Command
     {
         $style = new SymfonyStyle($input, $output);
 
-        $dir = getcwd();
+        $dir = $this->getWorkDir($input);
         $format = $this->resolveConfigFormat($input);
 
         $createdFile = $this->configCopier->copy($format, new Directory($dir));

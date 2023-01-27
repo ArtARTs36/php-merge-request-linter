@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
