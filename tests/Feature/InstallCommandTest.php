@@ -2,7 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
 
+use ArtARTs36\MergeRequestLinter\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
+use ArtARTs36\MergeRequestLinter\Support\File\Directory;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\Cwd;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -18,7 +20,7 @@ final class InstallCommandTest extends TestCase
 
         $cwd->set(__DIR__);
 
-        $command = new InstallCommand();
+        $command = new InstallCommand(new Copier(new Directory(__DIR__ . '/../../stubs/')));
         $tester = new CommandTester($command);
 
         $tester->execute([]);
