@@ -12,6 +12,7 @@ interface MetricManager
 {
     /**
      * Add new metric.
+     * @return $this
      */
     public function add(MetricSubject $subject, Metric $value): self;
 
