@@ -56,6 +56,10 @@ class ClientGuzzleWrapper implements Client
         return $preparedResponses;
     }
 
+    /**
+     * @throws InvalidCredentialsException
+     * @throws ServerUnexpectedResponseException
+     */
     private function validateResponse(ResponseInterface $response, UriInterface $url): void
     {
         $host = $url->getHost();
