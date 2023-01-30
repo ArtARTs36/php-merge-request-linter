@@ -3,10 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDecorator;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
-final class CompositeRule implements Rule
+final class CompositeRule implements RuleDecorator
 {
     /**
      * @param non-empty-list<Rule> $rules
@@ -48,5 +49,10 @@ final class CompositeRule implements Rule
     public function getDefinition(): RuleDefinition
     {
         return reset($this->rules)->getDefinition();
+    }
+
+    public function getDecoratedRules(): array
+    {
+        return $this->rules;
     }
 }
