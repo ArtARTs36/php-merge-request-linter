@@ -10,6 +10,7 @@ use GuzzleHttp\Promise\Utils;
 use Psr\Http\Client\ClientInterface as PsrClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class ClientGuzzleWrapper implements Client
 {
@@ -55,9 +56,9 @@ class ClientGuzzleWrapper implements Client
         return $preparedResponses;
     }
 
-    private function validateResponse(ResponseInterface $response, string $url): void
+    private function validateResponse(ResponseInterface $response, UriInterface $url): void
     {
-        $host = URI::host($url);
+        $host = $url->getHost();
 
         if ($response->getStatusCode() === 401 || $response->getStatusCode() === 403) {
             throw InvalidCredentialsException::fromResponse($host, $response->getBody()->getContents());
