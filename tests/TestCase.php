@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Tests;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Configuration\ReporterConfig;
+use ArtARTs36\MergeRequestLinter\Configuration\ReportsConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
@@ -26,6 +28,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             Rules::make($rules),
             new ArrayMap([]),
             new HttpClientConfig(HttpClientConfig::TYPE_NULL),
+            new ReportsConfig(new ReporterConfig('', false, new HttpClientConfig(HttpClientConfig::TYPE_NULL))),
         );
     }
 

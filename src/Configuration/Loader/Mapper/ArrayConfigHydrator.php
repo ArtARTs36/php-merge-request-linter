@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Configuration\ReporterConfig;
+use ArtARTs36\MergeRequestLinter\Configuration\ReportsConfig;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;
 
@@ -32,9 +34,14 @@ class ArrayConfigHydrator
             return $this->credentialMapper->map($data['credentials']);
         });
 
-        return new Config($rules, $credentials, new HttpClientConfig(
-            $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
-            $data['http_client']['params'] ?? [],
-        ));
+        return new Config(
+            $rules,
+            $credentials,
+            new HttpClientConfig(
+                $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
+                $data['http_client']['params'] ?? [],
+            ),
+            new ReportsConfig(ReporterConfig::fromArray($data['reports']['reporter'] ?? [])),
+        );
     }
 }

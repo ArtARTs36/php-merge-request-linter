@@ -14,6 +14,7 @@ use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
+use ArtARTs36\MergeRequestLinter\Report\Reporter\ReporterFactory;
 use ArtARTs36\MergeRequestLinter\Support\Bytes;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\TableCell;
@@ -35,6 +36,7 @@ class LintCommand extends Command
         protected ConfigResolver $config,
         protected LinterRunnerFactory $runnerFactory,
         protected MetricManager $metrics,
+        protected ReporterFactory $reporterFactory,
     ) {
         parent::__construct();
     }
@@ -93,6 +95,8 @@ class LintCommand extends Command
 
         $this->printMetrics($style, $config->config, $result, $input->getOption('metrics'));
 
+        $this->report($config->config, $result);
+
         if ($result->isFail()) {
             $style->error(sprintf('Found %d notes', $result->notes->count()));
 
@@ -102,6 +106,14 @@ class LintCommand extends Command
         $style->success('No notes');
 
         return self::SUCCESS;
+    }
+
+    private function report(Config $config, LintResult $result): void
+    {
+        $this
+            ->reporterFactory
+            ->create($config->getReportsConfig()->reporter)
+            ->report($result, $this->metrics->describe());
     }
 
     private function printMetrics(StyleInterface $style, Config $config, LintResult $result, bool $fullMetrics): void

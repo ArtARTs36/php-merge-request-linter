@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Report\Metric;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Record;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 class MemoryMetricManager implements MetricManager
 {
@@ -25,11 +26,8 @@ class MemoryMetricManager implements MetricManager
         return $this;
     }
 
-    /**
-     * @return array<Record>
-     */
-    public function describe(): array
+    public function describe(): Arrayee
     {
-        return $this->records;
+        return new Arrayee($this->records);
     }
 }

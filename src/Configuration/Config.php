@@ -17,6 +17,7 @@ class Config
         protected Rules            $rules,
         protected Map         $credentials,
         protected HttpClientConfig $httpClient,
+        protected ReportsConfig $reportsConfig,
     ) {
         //
     }
@@ -46,5 +47,10 @@ class Config
     public function getHttpClient(): HttpClientConfig
     {
         return $this->httpClient;
+    }
+
+    public function getReportsConfig(): ReportsConfig
+    {
+        return $this->reportsConfig;
     }
 }

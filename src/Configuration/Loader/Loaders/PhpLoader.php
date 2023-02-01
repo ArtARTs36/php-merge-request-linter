@@ -5,6 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Configuration\ReporterConfig;
+use ArtARTs36\MergeRequestLinter\Configuration\ReportsConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
@@ -59,6 +61,13 @@ class PhpLoader implements ConfigLoader
             Rules::make($config['rules']),
             new ArrayMap($config['credentials']),
             $this->makeHttpClientConfig($config),
+            new ReportsConfig(
+                new ReporterConfig(
+                    $config['reports']['reporter']['uri'],
+                    $config['reports']['reporter']['suppress_exceptions'],
+                    $this->makeHttpClientConfig($config['reports']['reporter'] ?? []),
+                ),
+            ),
         );
     }
 

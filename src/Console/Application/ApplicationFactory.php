@@ -21,8 +21,10 @@ use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;
+use ArtARTs36\MergeRequestLinter\Report\Reporter\ReporterFactory;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Support\File\Directory;
+use ArtARTs36\MergeRequestLinter\Support\Http\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -55,7 +57,10 @@ class ApplicationFactory
             $metrics,
         );
 
-        $application->add(new LintCommand($configResolver, $runnerFactory, $metrics));
+        $application->add(new LintCommand($configResolver, $runnerFactory, $metrics, new ReporterFactory(
+            new ClientFactory($metrics),
+            $logger,
+        )));
         $application->add(new InstallCommand(new Copier(new Directory(__DIR__ . '/../../../stubs'))));
         $application->add(new DumpCommand($configResolver, new RuleDumper()));
         $application->add(new InfoCommand(new ToolInfoFactory()));
