@@ -60,6 +60,14 @@ class Generator
                                 ],
                                 'params' => [
                                     'type' => 'object',
+                                    'properties' => [
+                                        'headers' => [
+                                            'type' => 'object',
+                                        ],
+                                        'proxy' => [
+                                            'type' => 'string',
+                                        ],
+                                    ],
                                 ],
                             ],
                         ],

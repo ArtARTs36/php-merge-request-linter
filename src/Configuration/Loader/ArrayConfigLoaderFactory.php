@@ -12,9 +12,12 @@ use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper\CredentialMapper;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper\ArrayConfigHydrator;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper\ReportsConfigMapper;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper\RulesMapper;
+use ArtARTs36\MergeRequestLinter\Configuration\Value\CompositeTransformer;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Configuration\Value\FileTransformer;
+use ArtARTs36\MergeRequestLinter\Configuration\Value\Injector;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
@@ -65,13 +68,12 @@ class ArrayConfigLoaderFactory
             DefaultEvaluators::map(),
         ));
 
-        $credentialMapper = new CredentialMapper(
-            [
-                new EnvTransformer($this->environment),
-                new FileTransformer($this->fileSystem),
-            ],
-            DefaultSystems::map(),
-        );
+        $valueTransformers = [
+            new EnvTransformer($this->environment),
+            new FileTransformer($this->fileSystem),
+        ];
+
+        $credentialMapper = new CredentialMapper($valueTransformers, DefaultSystems::map());
 
         $rulesMapper = new RulesMapper(
             new Resolver(DefaultRules::map(), $ruleFactory, ConditionRuleFactory::new(
@@ -80,9 +82,15 @@ class ArrayConfigLoaderFactory
             )),
         );
 
-        return new ArrayLoader($this->fileSystem, $this->decoderFactory->create($format->value), new ArrayConfigHydrator(
-            $credentialMapper,
-            $rulesMapper,
-        ));
+        return new ArrayLoader(
+            $this->fileSystem,
+            $this->decoderFactory->create($format->value),
+            new ArrayConfigHydrator(
+                $credentialMapper,
+                $rulesMapper,
+                new ReportsConfigMapper(),
+                new Injector(new CompositeTransformer($valueTransformers)),
+            )
+        );
     }
 }

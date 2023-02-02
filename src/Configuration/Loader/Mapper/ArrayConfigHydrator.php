@@ -4,16 +4,17 @@ namespace ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
-use ArtARTs36\MergeRequestLinter\Configuration\ReporterConfig;
-use ArtARTs36\MergeRequestLinter\Configuration\ReportsConfig;
+use ArtARTs36\MergeRequestLinter\Configuration\Value\Injector;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;
 
 class ArrayConfigHydrator
 {
     public function __construct(
-        private readonly CredentialMapper $credentialMapper,
-        private readonly RulesMapper $rulesMapper,
+        private readonly CredentialMapper    $credentialMapper,
+        private readonly RulesMapper         $rulesMapper,
+        private readonly ReportsConfigMapper $reportsMapper,
+        private readonly Injector            $injector,
     ) {
         //
     }
@@ -41,7 +42,7 @@ class ArrayConfigHydrator
                 $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
                 $data['http_client']['params'] ?? [],
             ),
-            new ReportsConfig(ReporterConfig::fromArray($data['reports']['reporter'] ?? [])),
+            $this->reportsMapper->map($data['reports'] ?? []),
         );
     }
 }

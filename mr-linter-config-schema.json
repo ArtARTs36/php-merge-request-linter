@@ -223,7 +223,15 @@
                                     ]
                                 },
                                 "params": {
-                                    "type": "object"
+                                    "type": "object",
+                                    "properties": {
+                                        "headers": {
+                                            "type": "object"
+                                        },
+                                        "proxy": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
                         }
