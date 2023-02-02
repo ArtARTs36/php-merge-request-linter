@@ -4,6 +4,11 @@ namespace ArtARTs36\MergeRequestLinter\Configuration;
 
 class HttpClientConfig
 {
+    public const TYPES = [
+        self::TYPE_GUZZLE,
+        self::TYPE_NULL,
+    ];
+
     public const TYPE_GUZZLE = 'guzzle';
     public const TYPE_DEFAULT = self::TYPE_GUZZLE;
     public const TYPE_NULL = 'null';

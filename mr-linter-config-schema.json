@@ -199,6 +199,40 @@
                     "type": "string"
                 }
             }
+        },
+        "reports": {
+            "type": "object",
+            "properties": {
+                "reporter": {
+                    "type": "object",
+                    "properties": {
+                        "uri": {
+                            "type": "string"
+                        },
+                        "suppress_exceptions": {
+                            "type": "boolean"
+                        },
+                        "http_client": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": [
+                                        "guzzle",
+                                        "null"
+                                    ]
+                                },
+                                "params": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "required": [
+                        "uri"
+                    ]
+                }
+            }
         }
     },
     "definitions": {

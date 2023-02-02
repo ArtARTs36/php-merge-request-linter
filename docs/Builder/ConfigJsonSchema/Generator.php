@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
+use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
 
 class Generator
@@ -37,6 +38,38 @@ class Generator
                 ],
             ],
         ]);
+
+        $schema->addProperty('reports', [
+            'type' => 'object',
+            'properties' => [
+                'reporter' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'uri' => [
+                            'type' => 'string',
+                        ],
+                        'suppress_exceptions' => [
+                            'type' => 'boolean',
+                        ],
+                        'http_client' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'type' => [
+                                    'type' => 'string',
+                                    'enum' => HttpClientConfig::TYPES,
+                                ],
+                                'params' => [
+                                    'type' => 'object',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'required' => [
+                        'uri',
+                    ],
+                ],
+            ],
+        ], false);
 
         return $schema;
     }

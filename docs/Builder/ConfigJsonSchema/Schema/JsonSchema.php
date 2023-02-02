@@ -21,10 +21,13 @@ class JsonSchema
         return '#/definitions/' . $name;
     }
 
-    public function addProperty(string $name, array $prop): void
+    public function addProperty(string $name, array $prop, bool $required = true): void
     {
         $this->schema['properties'][$name] = $prop;
-        $this->schema['required'][] = $name;
+
+        if ($required) {
+            $this->schema['required'][] = $name;
+        }
     }
 
     public function toJson(): string

@@ -8,7 +8,7 @@ $prevHash = md5_file(__DIR__ . '/../../mr-linter-config-schema.json');
 
 $newSchemaJson = $jsonSchema->generate()->toJson();
 
-if (md5($newSchemaJson) !== $prevHash) {
+if (md5($newSchemaJson) === $prevHash) {
     fputs(STDOUT, 'JsonSchema: not changes');
 } else {
     fputs(STDOUT, 'JsonSchema: updated');

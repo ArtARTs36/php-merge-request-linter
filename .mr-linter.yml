@@ -25,10 +25,5 @@ rules:
       targetBranch:
         equals: "master"
 
-reports:
-  reporter:
-    uri: "http://localhost:8082"
-    suppress_exceptions: true
-
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
