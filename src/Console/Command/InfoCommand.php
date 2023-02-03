@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Console\Command;
 use ArtARTs36\MergeRequestLinter\CI\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Console\Application\Application;
+use ArtARTs36\MergeRequestLinter\Console\Presentation\ListPrinter;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfo;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
@@ -19,6 +20,7 @@ class InfoCommand extends Command
 
     public function __construct(
         private readonly ToolInfoFactory $toolInfoFactory,
+        private readonly ListPrinter $listPrinter = new ListPrinter(),
     ) {
         parent::__construct();
     }
@@ -31,7 +33,7 @@ class InfoCommand extends Command
 
         $toolInfo = $this->toolInfoFactory->create();
 
-        $this->printList($output, [
+        $this->listPrinter->print($output, [
             sprintf('Repository: %s', ToolInfo::REPO_URI),
             sprintf('Current version: %s', Application::VERSION),
             fn () => sprintf('Latest version: %s', $toolInfo->getLatestVersion()?->digit() ?? 'undefined'),
@@ -42,18 +44,5 @@ class InfoCommand extends Command
         ]);
 
         return self::SUCCESS;
-    }
-
-    /**
-     * @param array<string|callable(): string> $lines
-     */
-    private function printList(OutputInterface $output, array $lines): void
-    {
-        foreach ($lines as $line) {
-            $line = is_callable($line) ? $line() : $line;
-
-            $output->write('- '. $line);
-            $output->write("\n");
-        }
     }
 }
