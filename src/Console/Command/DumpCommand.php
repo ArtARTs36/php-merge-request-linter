@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
+use ArtARTs36\MergeRequestLinter\Console\Interaction\RulePrinter;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,8 +18,9 @@ class DumpCommand extends Command
     protected static $defaultDescription = 'Print current rules';
 
     public function __construct(
-        protected ConfigResolver $config,
+        protected readonly ConfigResolver $config,
         private readonly RuleDumper $dumper,
+        private readonly RulePrinter $printer = new RulePrinter(),
     ) {
         parent::__construct();
     }
@@ -36,18 +38,7 @@ class DumpCommand extends Command
 
         $style->info('Config path: '. $config->path);
 
-        $rows = [];
-        $i = 0;
-
-        foreach ($this->dumper->dump($config->config->getRules()) as $rule) {
-            $rows[] = [
-                ++$i,
-                $rule->definition,
-                $rule->class,
-            ];
-        }
-
-        $style->table(['#', 'Definition', 'Class'], $rows);
+        $this->printer->print($style, $this->dumper->dump($config->config->getRules()));
 
         return self::SUCCESS;
     }
