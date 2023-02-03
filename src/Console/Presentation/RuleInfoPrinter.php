@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Console\Presentation;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\TablePrinter;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleInfo;
 
-class RulePrinter
+class RuleInfoPrinter
 {
     private const HEADERS = ['#', 'Definition', 'Class'];
 

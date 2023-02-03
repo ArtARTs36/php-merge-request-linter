@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\Console\Presentation\RulePrinter;
+use ArtARTs36\MergeRequestLinter\Console\Presentation\RuleInfoPrinter;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyTablePrinter;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
@@ -20,8 +20,8 @@ class DumpCommand extends Command
 
     public function __construct(
         protected readonly ConfigResolver $config,
-        private readonly RuleDumper $dumper,
-        private readonly RulePrinter $printer = new RulePrinter(),
+        private readonly RuleDumper       $dumper,
+        private readonly RuleInfoPrinter  $printer = new RuleInfoPrinter(),
     ) {
         parent::__construct();
     }
