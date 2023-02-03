@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Contracts\Report;
 
 use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Record;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 /**
  * Interface for managing metrics (time execution, etc.).
@@ -18,7 +19,7 @@ interface MetricManager
 
     /**
      * Describe metrics.
-     * @return array<Record>
+     * @return Arrayee<int, Record>
      */
-    public function describe(): array;
+    public function describe(): Arrayee;
 }

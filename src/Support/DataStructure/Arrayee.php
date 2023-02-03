@@ -70,4 +70,24 @@ class Arrayee implements Collection
     {
         return "[" . $this->implode(', ') . "]";
     }
+
+    /**
+     * @param callable(V): mixed $mapper
+     * @return array<mixed>
+     */
+    public function mapToArray(callable $mapper): array
+    {
+        return array_map($mapper, $this->items);
+    }
+
+    /**
+     * @param Arrayee<K, V>|array<K, V> $that
+     * @return Arrayee<K, V>
+     */
+    public function merge(Arrayee|array $that): Arrayee
+    {
+        $items = is_array($that) ? $that : $that->items;
+
+        return new Arrayee(array_merge($this->items, $items));
+    }
 }

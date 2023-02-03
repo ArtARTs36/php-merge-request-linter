@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
+use ArtARTs36\MergeRequestLinter\Console\Presentation\Metric;
+use ArtARTs36\MergeRequestLinter\Console\Presentation\MetricPrinter;
 use ArtARTs36\MergeRequestLinter\Console\Presentation\NotePrinter;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
@@ -13,7 +15,9 @@ use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyTablePrinter;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Report\Metrics\Record;
 use ArtARTs36\MergeRequestLinter\Support\Bytes;
+use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -33,6 +37,7 @@ class LintCommand extends Command
         protected LinterRunnerFactory $runnerFactory,
         protected MetricManager $metrics,
         protected readonly NotePrinter $notePrinter = new NotePrinter(),
+        protected readonly MetricPrinter $metricPrinter = new MetricPrinter(),
     ) {
         parent::__construct();
     }
@@ -106,20 +111,22 @@ class LintCommand extends Command
 
     private function printMetrics(StyleInterface $style, Config $config, LintResult $result, bool $fullMetrics): void
     {
-        $metrics = [
-            ['[Linter] Rules', $config->getRules()->count()],
-            ['[Linter] Notes', $result->notes->count()],
-            ['[Linter] Duration', $result->duration],
-            ['[Memory] Memory peak usage', Bytes::toString(memory_get_peak_usage(true))],
-        ];
+        $metrics = new Arrayee([
+            new Metric('[Linter] Rules', '' . $config->getRules()->count()),
+            new Metric('[Linter] Notes', '' . $result->notes->count()),
+            new Metric('[Linter] Duration', $result->duration),
+            new Metric('[Memory] Memory peak usage', Bytes::toString(memory_get_peak_usage(true))),
+        ]);
 
         if ($fullMetrics) {
-            foreach ($this->metrics->describe() as $record) {
-                $metrics[] = [$record->subject->name, $record->getValue()];
-            }
+            $metrics = $metrics->merge(
+                $this->metrics->describe()->mapToArray(
+                    static fn (Record $record) => new Metric($record->subject->name, $record->getValue()),
+                )
+            );
         }
 
-        $style->table(['Metric', 'Value'], $metrics);
+        $this->metricPrinter->print(new SymfonyTablePrinter($style), $metrics);
     }
 
     private function printInfoMessage(OutputInterface $output, string $message): void
