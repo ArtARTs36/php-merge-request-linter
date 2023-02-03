@@ -8,7 +8,7 @@ namespace ArtARTs36\MergeRequestLinter\Contracts\Rule;
 interface RuleDecorator extends Rule
 {
     /**
-     * Get decorated rule.
+     * Get decorated rules.
      * @return array<Rule>
      */
     public function getDecoratedRules(): array;
