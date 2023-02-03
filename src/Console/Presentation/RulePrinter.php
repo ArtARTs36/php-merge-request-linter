@@ -1,9 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Interaction;
+namespace ArtARTs36\MergeRequestLinter\Console\Presentation;
 
+use ArtARTs36\MergeRequestLinter\Contracts\IO\TablePrinter;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleInfo;
-use Symfony\Component\Console\Style\StyleInterface;
 
 class RulePrinter
 {
@@ -12,7 +12,7 @@ class RulePrinter
     /**
      * @param iterable<RuleInfo> $rules
      */
-    public function print(StyleInterface $output, iterable $rules): void
+    public function print(TablePrinter $printer, iterable $rules): void
     {
         $i = 0;
         $rows = [];
@@ -25,6 +25,6 @@ class RulePrinter
             ];
         }
 
-        $output->table(self::HEADERS, $rows);
+        $printer->printTable(self::HEADERS, $rows);
     }
 }

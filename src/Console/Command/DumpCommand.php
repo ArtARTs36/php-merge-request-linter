@@ -2,8 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\Console\Interaction\RulePrinter;
+use ArtARTs36\MergeRequestLinter\Console\Presentation\RulePrinter;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyTablePrinter;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,7 +39,7 @@ class DumpCommand extends Command
 
         $style->info('Config path: '. $config->path);
 
-        $this->printer->print($style, $this->dumper->dump($config->config->getRules()));
+        $this->printer->print(new SymfonyTablePrinter($style), $this->dumper->dump($config->config->getRules()));
 
         return self::SUCCESS;
     }
