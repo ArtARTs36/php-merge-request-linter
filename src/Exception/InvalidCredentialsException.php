@@ -2,7 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Exception;
 
-class InvalidCredentialsException extends \RuntimeException
+use Psr\Http\Client\ClientExceptionInterface;
+
+class InvalidCredentialsException extends MergeRequestLinterException implements ClientExceptionInterface
 {
     public static function fromCiName(string $ciName): self
     {

@@ -28,10 +28,6 @@ class ArrayConfigHydrator
 
         $rules = $this->rulesMapper->map($data['rules']);
 
-        if (! class_exists('\GuzzleHttp\Client')) {
-            throw new ConfigInvalidException('HTTP Client unavailable');
-        }
-
         $credentials = new MapProxy(function () use ($data) {
             return $this->credentialMapper->map($data['credentials']);
         });

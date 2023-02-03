@@ -1,0 +1,20 @@
+<?php
+
+namespace ArtARTs36\MergeRequestLinter\IO\Console;
+
+use ArtARTs36\MergeRequestLinter\Contracts\IO\TablePrinter;
+use Symfony\Component\Console\Style\StyleInterface;
+
+class SymfonyTablePrinter implements TablePrinter
+{
+    public function __construct(
+        private readonly StyleInterface $output,
+    ) {
+        //
+    }
+
+    public function printTable(array $headers, array $rows): void
+    {
+        $this->output->table($headers, $rows);
+    }
+}

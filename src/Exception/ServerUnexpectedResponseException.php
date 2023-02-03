@@ -2,7 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Exception;
 
-final class ServerUnexpectedResponseException extends MergeRequestLinterException
+use Psr\Http\Client\ClientExceptionInterface;
+
+final class ServerUnexpectedResponseException extends MergeRequestLinterException implements ClientExceptionInterface
 {
     public static function create(string $ciName, int $status, string $response): self
     {

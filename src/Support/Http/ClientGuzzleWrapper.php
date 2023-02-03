@@ -10,6 +10,7 @@ use GuzzleHttp\Promise\Utils;
 use Psr\Http\Client\ClientInterface as PsrClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class ClientGuzzleWrapper implements Client
 {
@@ -39,9 +40,7 @@ class ClientGuzzleWrapper implements Client
         $responses = Utils::settle($promises)->wait();
         $preparedResponses = [];
 
-        /**
-         * @var int|string $key
-         */
+        /** @var int|string $key */
         foreach ($responses as $key => $response) {
             if (! $response['value'] instanceof ResponseInterface) {
                 throw new \LogicException(sprintf('Failed send request: %s', var_export($response['value'], true)));
@@ -55,9 +54,13 @@ class ClientGuzzleWrapper implements Client
         return $preparedResponses;
     }
 
-    private function validateResponse(ResponseInterface $response, string $url): void
+    /**
+     * @throws InvalidCredentialsException
+     * @throws ServerUnexpectedResponseException
+     */
+    private function validateResponse(ResponseInterface $response, UriInterface $url): void
     {
-        $host = URI::host($url);
+        $host = $url->getHost();
 
         if ($response->getStatusCode() === 401 || $response->getStatusCode() === 403) {
             throw InvalidCredentialsException::fromResponse($host, $response->getBody()->getContents());
