@@ -2,11 +2,19 @@ name: PHP Composer
 
 on:
   push:
-    branches: [ master, 'dev' ]
+    branches: [ master, 'dev', 'ci-changelog' ]
   pull_request:
     branches: [ master, 'dev' ]
 
 jobs:
+  changelog:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "Generate release changelog"
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
+        with:
+          token: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
+
   build:
 
     runs-on: ubuntu-latest
