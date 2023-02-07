@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Exception\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
+use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterTypeName;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 class MapResolverTest extends TestCase
@@ -34,7 +35,7 @@ class MapResolverTest extends TestCase
     {
         $resolver = new MapResolver();
 
-        $resolvedValue = $resolver->resolve(new ParameterType(''), $value);
+        $resolvedValue = $resolver->resolve(new ParameterType(ParameterTypeName::Array), $value);
 
         self::assertInstanceOf(ArrayMap::class, $resolvedValue);
         self::assertTrue($expected->equals($resolvedValue));
@@ -49,6 +50,6 @@ class MapResolverTest extends TestCase
 
         self::expectException(ArgNotSupportedException::class);
 
-        $resolver->resolve(new ParameterType(''), 1);
+        $resolver->resolve(new ParameterType(ParameterTypeName::Bool), 1);
     }
 }

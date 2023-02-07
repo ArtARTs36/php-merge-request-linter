@@ -22,7 +22,9 @@ use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Support\File\Directory;
+use ArtARTs36\MergeRequestLinter\Support\MapContainer;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -41,7 +43,11 @@ class ApplicationFactory
         $ciSystemsMap = DefaultSystems::map();
         $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics);
 
-        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics);
+        $container = new MapContainer();
+
+        $argResolverFactory = new ArgumentResolverFactory($container);
+
+        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics, $argResolverFactory, $container);
 
         $configLoader = new CompositeLoader([
             'php' => new PhpLoader($filesystem),

@@ -18,13 +18,16 @@ use ArtARTs36\MergeRequestLinter\Configuration\Value\FileTransformer;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
+use ArtARTs36\MergeRequestLinter\Rule\CustomRule\OperatorRulesExecutor;
+use ArtARTs36\MergeRequestLinter\Rule\CustomRule\RulesExecutor;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\DefaultResolvers;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\ConditionRuleFactory;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
+use ArtARTs36\MergeRequestLinter\Support\MapContainer;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\CallbackPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Support\Text\DecoderFactory;
 
@@ -39,6 +42,8 @@ class ArrayConfigLoaderFactory
         private readonly FileSystem $fileSystem,
         private readonly Environment $environment,
         private readonly MetricManager $metrics,
+        private readonly ArgumentResolverFactory $argumentResolverFactory,
+        private readonly MapContainer $container,
         private readonly DecoderFactory $decoderFactory = new DecoderFactory(),
     ) {
         //
@@ -56,7 +61,7 @@ class ArrayConfigLoaderFactory
 
         $ruleFactory = new RuleFactory(
             new Builder(
-                DefaultResolvers::get(),
+                $this->argumentResolverFactory->create(),
             ),
             new ConstructorFinder(),
         );
@@ -64,6 +69,9 @@ class ArrayConfigLoaderFactory
         $operatorFactory = new OperatorFactory(new CallbackPropertyExtractor(), new EvaluatorFactory(
             DefaultEvaluators::map(),
         ));
+
+        $this->container->set(OperatorFactory::class, $operatorFactory);
+        $this->container->set(RulesExecutor::class, new OperatorRulesExecutor(new OperatorResolver($operatorFactory)));
 
         $credentialMapper = new CredentialMapper(
             [

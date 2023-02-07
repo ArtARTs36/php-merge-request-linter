@@ -7,11 +7,8 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
 
 class Builder
 {
-    /**
-     * @param array<string, ArgumentResolver> $argResolvers
-     */
     public function __construct(
-        private readonly array $argResolvers,
+        private readonly ArgumentResolver $argResolver,
     ) {
         //
     }
@@ -25,7 +22,7 @@ class Builder
         $args = [];
 
         foreach ($constructor->params() as $paramName => $paramType) {
-            $args[$paramName] = $this->argResolvers[$paramType->name]->resolve($paramType, $params[$paramName]);
+            $args[$paramName] = $this->argResolver->resolve($paramType, $params[$paramName] ?? null);
         }
 
         return $args;
