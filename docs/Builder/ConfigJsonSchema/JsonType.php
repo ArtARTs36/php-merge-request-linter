@@ -18,14 +18,16 @@ class JsonType
         'iterable' => 'array',
         'float' => 'number',
         'bool' => 'boolean',
+        'array' => 'array',
+        'string' => 'string',
     ];
 
-    public static function to(string $type): string
+    public static function to(string $type): ?string
     {
         if (isset(self::MAP[$type])) {
             return self::MAP[$type];
         }
 
-        return $type;
+        return null;
     }
 }
