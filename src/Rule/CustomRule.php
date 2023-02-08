@@ -8,18 +8,22 @@ use ArtARTs36\MergeRequestLinter\Rule\Attribute\AddParams;
 use ArtARTs36\MergeRequestLinter\Rule\Attribute\ArrayItem;
 use ArtARTs36\MergeRequestLinter\Rule\CustomRule\RulesExecutor;
 
+/**
+ * Custom Rule for Users.
+ * @phpstan-import-type MergeRequestField from RulesExecutor
+ * @phpstan-import-type EvaluatorName from RulesExecutor
+ * @phpstan-import-type ConditionValue from RulesExecutor
+ * @phpstan-import-type Condition from RulesExecutor
+ */
 #[AddParams([
     'rules' => new ArrayItem(ref: 'rule_conditions'),
 ])]
-/**
- * Custom Rule for Users.
- */
 class CustomRule extends AbstractRule
 {
     public const NAME = 'custom';
 
     /**
-     * @param array<string, array<string, mixed>> $rules
+     * @param array<array<MergeRequestField, Condition>> $rules
      */
     public function __construct(
         private readonly RulesExecutor $executor,
