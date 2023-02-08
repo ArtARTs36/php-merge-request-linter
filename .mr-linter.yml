@@ -24,6 +24,8 @@ rules:
     when:
       targetBranch:
         equals: "master"
+      title:
+        notStarts: '[Docs]'
 
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
