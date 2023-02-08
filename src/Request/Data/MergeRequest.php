@@ -16,6 +16,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\MatchEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotHasEvaluator;
@@ -44,6 +45,7 @@ class MergeRequest
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Str $title,
         #[SupportsConditionEvaluator([
@@ -57,6 +59,7 @@ class MergeRequest
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Str $description,
         #[Generic(Generic::OF_STRING)]
@@ -69,6 +72,7 @@ class MergeRequest
             HasEvaluator::class,
             NotHasEvaluator::class,
             HasAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Set $labels,
         #[SupportsConditionEvaluator([
@@ -85,6 +89,7 @@ class MergeRequest
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Str $sourceBranch,
         #[SupportsConditionEvaluator([
@@ -98,6 +103,7 @@ class MergeRequest
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Str $targetBranch,
         public Author $author,
