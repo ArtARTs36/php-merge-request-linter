@@ -2,7 +2,7 @@ name: Testing
 
 on:
   push:
-    branches: [ master, 'dev' ]
+    branches: [ master, 'dev', 'coverage' ]
   pull_request:
     branches: [ master, 'dev' ]
 
@@ -13,6 +13,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: xdebug
 
       - name: Validate composer.json
         run: composer validate
@@ -45,4 +51,6 @@ jobs:
         run: composer deptrac
 
       - name: Run Tests
+        env:
+          XDEBUG_MODE: coverage
         run: composer test
