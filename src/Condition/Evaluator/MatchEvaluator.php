@@ -3,6 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Condition\Evaluator;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Exception\InvalidEvaluatorValueException;
+use ArtARTs36\Str\Exceptions\InvalidRegexException;
 use ArtARTs36\Str\Facade\Str;
 
 /**
@@ -14,6 +16,10 @@ class MatchEvaluator extends StringEvaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return Str::match($subject->string(), $this->value);
+        try {
+            return ! empty(Str::match($subject->string(), $this->value));
+        } catch (InvalidRegexException $e) {
+            throw new InvalidEvaluatorValueException($e->getMessage(), previous: $e);
+        }
     }
 }
