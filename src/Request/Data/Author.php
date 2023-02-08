@@ -9,7 +9,9 @@ use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotStartsOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsEvaluator;
 
 class Author
@@ -20,7 +22,9 @@ class Author
             LengthMinOperator::class,
             LengthMaxEvaluator::class,
             StartsEvaluator::class,
+            NotStartsOperator::class,
             EndsEvaluator::class,
+            NotEndsEvaluator::class,
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,

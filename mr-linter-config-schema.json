@@ -227,8 +227,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -275,8 +283,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -435,8 +451,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -483,8 +507,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {

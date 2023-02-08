@@ -1,6 +1,6 @@
 # Merge Request Linter
 
-![PHP Composer](https://github.com/ArtARTs36/php-merge-request-linter/workflows/PHP%20Composer/badge.svg?branch=master)
+![Testing](https://github.com/ArtARTs36/php-merge-request-linter/workflows/Testing/badge.svg?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Latest Version](https://img.shields.io/packagist/v/artarts36/merge-request-linter)
 ![Total Downloads](https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg)

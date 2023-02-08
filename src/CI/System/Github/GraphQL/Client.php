@@ -63,7 +63,7 @@ class Client implements GithubClient
      */
     private function fetchChanges(PullRequestInput $input, PullRequest $pullRequest): Map
     {
-        $changesPages = (int) round($pullRequest->changedFiles / self::PAGE_ITEMS_LIMIT);
+        $changesPages = $this->calculateChangesPages($pullRequest->changedFiles);
         $reqs = [];
 
         $this->logger->info(
@@ -100,6 +100,15 @@ class Client implements GithubClient
         );
 
         return new ArrayMap($changes);
+    }
+
+    private function calculateChangesPages(int $changes): int
+    {
+        if ($changes > self::PAGE_ITEMS_LIMIT) {
+            return (int) ceil($changes / self::PAGE_ITEMS_LIMIT);
+        }
+
+        return 1;
     }
 
     public function getTags(TagsInput $input): TagCollection
