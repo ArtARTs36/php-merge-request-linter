@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Support\ArrayKeyIterator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\CountProxy;
 
@@ -10,7 +11,7 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\CountProxy;
  * @template V
  * @template-implements Collection<int, V>
  */
-class Set implements Collection
+class Set implements Collection, HasDebugInfo
 {
     use CountProxy;
 
@@ -123,8 +124,11 @@ class Set implements Collection
         return array_key_first($this->items);
     }
 
-    public function debugView(): string
+    public function __debugInfo(): array
     {
-        return "[" . $this->implode(', ') . "]";
+        return [
+            'count' => $this->count(),
+            'items' => array_values($this->items),
+        ];
     }
 }

@@ -157,4 +157,12 @@ class ArrayMap implements Map
 
         return $json === false ? '' : $json;
     }
+
+    public function __debugInfo(): array
+    {
+        return [
+            'count' => $this->count(),
+            'items' => $this->items,
+        ];
+    }
 }

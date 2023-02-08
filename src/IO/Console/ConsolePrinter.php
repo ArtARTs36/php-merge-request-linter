@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\IO\Console;
 
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
@@ -74,8 +74,35 @@ class ConsolePrinter implements Printer
 
             if (is_bool($value)) {
                 $props[] = [$k, $value ? 'true' : 'false'];
-            } elseif ($value instanceof Collection) {
-                $props[] = [$k, sprintf("- Count: %s \n- %s", $value->count(), $value->debugView())];
+            } elseif ($value instanceof HasDebugInfo) {
+                $debugInfo = '';
+                $debugBag = $value->__debugInfo();
+
+                foreach ($debugBag as $field => $debugVal) {
+                    $printVal = '';
+
+                    if (is_scalar($debugVal)) {
+                        $printVal = $debugVal;
+                    } elseif (is_array($debugVal)) {
+                        $printVal = json_encode($debugVal);
+                    } elseif ($debugVal instanceof \Stringable) {
+                        $printVal = (string) $debugVal;
+                    } elseif ($debugVal === null) {
+                        $printVal = 'null';
+                    }
+
+                    $debugInfo .= sprintf(
+                        '- %s: %s',
+                        $field,
+                        $printVal,
+                    );
+
+                    if (next($debugBag) !== false) {
+                        $debugInfo .= "\n";
+                    }
+                }
+
+                $props[] = [$k, $debugInfo];
             } elseif (is_string($value) || $value instanceof \Stringable) {
                 $props[] = [$k, sprintf('"%s"', $value)];
             } elseif (is_scalar($value)) {
