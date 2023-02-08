@@ -3,6 +3,8 @@ ifneq ("$(wildcard .env)","")
 	export
 endif
 
+.PHONY: docs
+
 env:
 	echo "MR_LINTER_GITHUB_HTTP_TOKEN=token\nMR_LINTER_GITLAB_HTTP_TOKEN=token" > .env
 
