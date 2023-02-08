@@ -30,11 +30,4 @@ class Diff extends Arrayee
 
         return false;
     }
-
-    public function debugView(): string
-    {
-        $json = json_encode($this->items);
-
-        return $json === false ? '' : $json;
-    }
 }

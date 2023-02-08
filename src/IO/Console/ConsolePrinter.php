@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\IO\Console;
 
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
@@ -61,7 +61,7 @@ class ConsolePrinter implements Printer
     }
 
     /**
-     * @param array<mixed> $props
+     * @param array<array<string>> $props
      */
     private function buildProps(object $object, array &$props, string $prefix): void
     {
@@ -72,21 +72,53 @@ class ConsolePrinter implements Printer
                 $k = $prefix . '.' . $key;
             }
 
-            if (is_bool($value)) {
-                $props[] = [$k, $value ? 'true' : 'false'];
-            } elseif ($value instanceof Collection) {
-                $props[] = [$k, sprintf("- Count: %s \n- %s", $value->count(), $value->debugView())];
-            } elseif (is_string($value) || $value instanceof \Stringable) {
-                $props[] = [$k, sprintf('"%s"', $value)];
-            } elseif (is_scalar($value)) {
-                $props[] = [$k, $value];
-            } elseif (is_object($value)) {
+            if ($value instanceof HasDebugInfo) {
+                $debugInfo = '';
+                $debugBag = $value->__debugInfo();
+
+                foreach ($debugBag as $field => $debugVal) {
+                    $debugInfo .= sprintf(
+                        '- %s: %s',
+                        $field,
+                        $this->prepareValue($debugVal),
+                    );
+
+                    if (next($debugBag) !== false) {
+                        $debugInfo .= "\n";
+                    }
+                }
+
+                $props[] = [$k, $debugInfo];
+            } elseif (is_object($value) && ! $value instanceof \Stringable) {
                 $prefix = $k;
 
                 $this->buildProps($value, $props, $prefix);
+            } else {
+                $props[] = [$k, $this->prepareValue($value)];
             }
 
             $prefix = '';
         }
+    }
+
+    private function prepareValue(mixed $value): string
+    {
+        if (is_array($value)) {
+            return ($json = json_encode($value)) ? $json : '';
+        }
+
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        if (is_string($value) || $value instanceof \Stringable) {
+            return sprintf('"%s"', $value);
+        }
+
+        if ($value === null) {
+            return 'null';
+        }
+
+        return '' . $value;
     }
 }

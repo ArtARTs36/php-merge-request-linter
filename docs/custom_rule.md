@@ -12,7 +12,7 @@ interface Rule
      /**
      * Get rule name.
      */
-    public static function getName(): string;
+    public function getName(): string;
 
     /**
      * Lint "merge requests" by specific rules
@@ -39,7 +39,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;use ArtARTs36\MergeRequestL
 
 class ExampleRule implements Rule
 {
-    public static function getName(): string
+    public function getName(): string
     {
         return "@custom-rules/example_rule";
     }
