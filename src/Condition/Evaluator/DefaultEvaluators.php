@@ -26,7 +26,7 @@ final class DefaultEvaluators
         ContainsEvaluator::NAME => ContainsEvaluator::class,
         NotEqualsEvaluator::NAME => NotEqualsEvaluator::class,
         NotEqualsEvaluator::SYMBOL => NotEqualsEvaluator::class,
-        NotHasOperator::NAME => NotHasOperator::class,
+        NotHasEvaluator::NAME => NotHasEvaluator::class,
         EqualsAnyEvaluator::NAME => EqualsAnyEvaluator::class,
         HasAnyEvaluator::NAME => HasAnyEvaluator::class,
         CountEqualsEvaluator::NAME => CountEqualsEvaluator::class,
