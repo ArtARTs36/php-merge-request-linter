@@ -53,4 +53,11 @@ jobs:
       - name: Run Tests
         env:
           XDEBUG_MODE: coverage
-        run: composer test
+        run: composer test-coverage
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          verbose: true
