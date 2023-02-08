@@ -26,6 +26,7 @@ final class LengthMaxEvaluatorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator::doEvaluate
      * @dataProvider providerForEvaluate
      */
     public function testEvaluate(string $propertyValue, int $value, bool $expected): void

@@ -1,6 +1,7 @@
 # Merge Request Linter
 
 ![Testing](https://github.com/ArtARTs36/php-merge-request-linter/workflows/Testing/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/ArtARTs36/php-merge-request-linter/branch/master/graph/badge.svg?token=OGRWW81OHH)](https://codecov.io/gh/ArtARTs36/php-merge-request-linter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Latest Version](https://img.shields.io/packagist/v/artarts36/merge-request-linter)
 ![Total Downloads](https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg)

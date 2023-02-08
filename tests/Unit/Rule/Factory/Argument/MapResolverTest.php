@@ -28,6 +28,7 @@ class MapResolverTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver::__construct
      * @dataProvider providerForTestResolve
      */
     public function testResolve(mixed $value, ArrayMap $expected): void
@@ -42,6 +43,7 @@ class MapResolverTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver::__construct
      */
     public function testResolveOnArgNotSupportedException(): void
     {
