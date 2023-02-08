@@ -19,7 +19,6 @@ final class EqualsEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsEvaluator::doEvaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $propertyValue, string $value, bool $expected): void

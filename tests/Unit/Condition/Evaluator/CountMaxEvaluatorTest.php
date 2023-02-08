@@ -33,7 +33,6 @@ final class CountMaxEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMaxEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMaxEvaluator::doEvaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMaxEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(array|ArrayMap $propertyValue, int $value, bool $expected): void

@@ -27,7 +27,6 @@ final class NotEqualsEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator::doEvaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $propertyValue, string $value, bool $expected): void

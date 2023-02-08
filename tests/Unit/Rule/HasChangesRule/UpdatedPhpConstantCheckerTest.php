@@ -63,7 +63,6 @@ final class UpdatedPhpConstantCheckerTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Rule\HasChangesRule\UpdatedPhpConstantChecker::check
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasChangesRule\UpdatedPhpConstantChecker::__construct
      * @dataProvider providerForTestCheck
      * @param array<string> $lines
      */

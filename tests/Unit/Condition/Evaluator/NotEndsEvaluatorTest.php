@@ -19,7 +19,6 @@ class NotEndsEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEndsEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEndsEvaluator::doEvaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEndsEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $propertyValue, mixed $value, bool $expected): void

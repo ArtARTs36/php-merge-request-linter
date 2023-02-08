@@ -33,7 +33,6 @@ final class CountMinEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMinEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMinEvaluator::doEvaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMinEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(array|ArrayMap $propertyValue, int $value, bool $expected): void
