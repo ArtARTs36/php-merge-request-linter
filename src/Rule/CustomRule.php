@@ -11,11 +11,15 @@ use ArtARTs36\MergeRequestLinter\Rule\CustomRule\RulesExecutor;
 #[AddParams([
     'rules' => new ArrayItem(ref: 'rule_conditions'),
 ])]
+/**
+ * @phpstan-type EvaluatorName string
+ * @phpstan-type ConditionValue mixed
+ */
 class CustomRule extends AbstractRule
 {
     public const NAME = 'custom';
 
-    /**
+    /**A
      * @param array<string, array<string, mixed>> $rules
      */
     public function __construct(
