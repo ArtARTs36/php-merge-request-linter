@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support;
 
-use _PHPStan_d279f388f\Psr\Container\NotFoundExceptionInterface;
 use ArtARTs36\MergeRequestLinter\Exception\MergeRequestLinterException;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class MapContainer implements ContainerInterface
 {

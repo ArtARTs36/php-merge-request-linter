@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructorFinder;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
+use ArtARTs36\MergeRequestLinter\Rule\Attribute\AddParams;
+use ArtARTs36\MergeRequestLinter\Rule\Attribute\ArrayItem;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
@@ -23,8 +25,10 @@ class RuleSchemaGenerator
         $schema = [];
 
         foreach ($rules as $ruleName => $rule) {
+            $ruleReflector = new \ReflectionClass($rule);
+
             $ruleSchema = [
-                'description' => Reflector::findPHPDocSummary(new \ReflectionClass($rule)),
+                'description' => Reflector::findPHPDocSummary($ruleReflector),
             ];
 
             $constructor = $this->constructorFinder->find($rule);
@@ -46,7 +50,7 @@ class RuleSchemaGenerator
                     ];
 
                     if ($typeSchema['type'] === null) {
-                        continue 2;
+                        continue;
                     }
 
                     if ($paramType->isGeneric()) {
@@ -74,6 +78,32 @@ class RuleSchemaGenerator
 
                     $definition['properties'][$paramName] = $typeSchema;
                     $definition['required'][] = $paramName;
+                }
+            }
+
+            foreach ($ruleReflector->getAttributes(AddParams::class) as $reflectionAttr) {
+                /** @var AddParams $attribute */
+                $attribute = $reflectionAttr->newInstance();
+
+                foreach ($attribute->params as $paramKey => $paramVal) {
+                    $isOverwrite = isset($definition['properties'][$paramKey]);
+
+                    if ($paramVal->ref() !== null) {
+                        if ($paramVal instanceof ArrayItem) {
+                            $definition['properties'][$paramKey] = [
+                                'type' => 'array',
+                                'items' => [
+                                    '$ref' => '#/definitions/' . $paramVal->ref(),
+                                ],
+                            ];
+                        }
+                    } else {
+                        continue;
+                    }
+
+                    if (! $isOverwrite) {
+                        $definition['required'][] = $paramKey;
+                    }
                 }
             }
 

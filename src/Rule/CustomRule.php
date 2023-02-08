@@ -4,8 +4,13 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Rule\Attribute\AddParams;
+use ArtARTs36\MergeRequestLinter\Rule\Attribute\ArrayItem;
 use ArtARTs36\MergeRequestLinter\Rule\CustomRule\RulesExecutor;
 
+#[AddParams([
+    'rules' => new ArrayItem(ref: 'rule_conditions'),
+])]
 class CustomRule extends AbstractRule
 {
     public const NAME = 'custom';

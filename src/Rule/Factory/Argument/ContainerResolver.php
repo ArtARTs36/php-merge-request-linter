@@ -22,7 +22,7 @@ class ContainerResolver implements ArgumentResolver
     {
         $class = $type->class;
 
-        if ($class === null || ! class_exists($class)) {
+        if ($class === null || ! class_exists($class) && ! interface_exists($class)) {
             throw new ArgNotSupportedException(sprintf(
                 'Type with name "%s" not supported',
                 $type->name->value,
