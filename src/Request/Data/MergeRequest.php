@@ -19,7 +19,7 @@ use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotHasOperator;
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotStartsOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
@@ -38,7 +38,7 @@ class MergeRequest
             LengthMinOperator::class,
             LengthMaxEvaluator::class,
             StartsEvaluator::class,
-            NotStartsOperator::class,
+            NotStartsEvaluator::class,
             EndsEvaluator::class,
             NotEndsEvaluator::class,
             ContainsEvaluator::class,
@@ -51,7 +51,7 @@ class MergeRequest
             LengthMinOperator::class,
             LengthMaxEvaluator::class,
             StartsEvaluator::class,
-            NotStartsOperator::class,
+            NotStartsEvaluator::class,
             EndsEvaluator::class,
             NotEndsEvaluator::class,
             ContainsEvaluator::class,
@@ -92,7 +92,7 @@ class MergeRequest
             LengthMinOperator::class,
             LengthMaxEvaluator::class,
             StartsEvaluator::class,
-            NotStartsOperator::class,
+            NotStartsEvaluator::class,
             EndsEvaluator::class,
             NotEndsEvaluator::class,
             ContainsEvaluator::class,

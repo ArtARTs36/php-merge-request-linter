@@ -11,7 +11,7 @@ final class DefaultEvaluators
         EqualsEvaluator::NAME => EqualsEvaluator::class,
         EqualsEvaluator::SYMBOL => EqualsEvaluator::class,
         StartsEvaluator::NAME => StartsEvaluator::class,
-        NotStartsOperator::NAME => NotStartsOperator::class,
+        NotStartsEvaluator::NAME => NotStartsEvaluator::class,
         HasEvaluator::NAME => HasEvaluator::class,
         EndsEvaluator::NAME => EndsEvaluator::class,
         NotEndsEvaluator::NAME => NotEndsEvaluator::class,
