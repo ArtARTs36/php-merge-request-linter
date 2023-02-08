@@ -18,6 +18,8 @@ class EndsEvaluatorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $propertyValue, mixed $value, bool $expected): void

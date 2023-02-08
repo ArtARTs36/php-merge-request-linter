@@ -29,6 +29,8 @@ final class HasLinkToYouTrackIssueRuleTest extends TestCase
     /**
      * @dataProvider providerForTestLint
      * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToYoutrackIssueRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToYoutrackIssueRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToYoutrackIssueRule::__construct
      */
     public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
     {

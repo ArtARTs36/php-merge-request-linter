@@ -21,7 +21,9 @@ final class LteEvaluatorTest extends TestCase
     }
 
     /**
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteEvaluator::__construct
      * @dataProvider providerForEvaluate
      */
     public function testEvaluate(int|float $propertyValue, int|float $value, bool $expected): void

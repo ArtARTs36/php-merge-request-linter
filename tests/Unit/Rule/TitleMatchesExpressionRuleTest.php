@@ -29,6 +29,7 @@ final class TitleMatchesExpressionRuleTest extends TestCase
     /**
      * @dataProvider providerForTestLint
      * @covers \ArtARTs36\MergeRequestLinter\Rule\TitleMatchesExpressionRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\TitleMatchesExpressionRule::doLint
      * @covers \ArtARTs36\MergeRequestLinter\Rule\TitleMatchesExpressionRule::__construct
      */
     public function testLint(MergeRequest $request, string $expression, bool $hasNotes): void

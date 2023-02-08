@@ -18,6 +18,8 @@ final class HasEvaluatorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(array $propertyValue, mixed $value, bool $expected): void

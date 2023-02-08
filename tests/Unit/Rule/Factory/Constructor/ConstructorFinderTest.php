@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Factory;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Factory\Constructor;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
@@ -34,6 +34,7 @@ final class ConstructorFinderTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder::find
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder::__construct
      * @dataProvider providerForTestFind
      * @param class-string<Rule> $ruleClass
      * @param class-string<RuleConstructor> $expectedConstructorClass

@@ -43,6 +43,7 @@ final class HasAllLabelsOfRuleTest extends TestCase
     /**
      * @dataProvider providerForTestLint
      * @covers \ArtARTs36\MergeRequestLinter\Rule\HasAllLabelsOfRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasAllLabelsOfRule::doLint
      * @covers \ArtARTs36\MergeRequestLinter\Rule\HasAllLabelsOfRule::__construct
      */
     public function testLint(MergeRequest $request, array $requestedLabels, bool $hasNotes): void
