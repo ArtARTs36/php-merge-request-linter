@@ -3,6 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Linter;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LintEventSubscriber;
+use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Exception\InvalidEvaluatorValueException;
 use ArtARTs36\MergeRequestLinter\Exception\StopLintException;
 use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Note\LintNote;
@@ -25,17 +27,20 @@ class Linter
 
         $notes = [];
 
+        /** @var Rule $rule */
         foreach ($this->rules as $rule) {
             try {
                 array_push($notes, ...$rule->lint($request));
 
                 $this->eventSubscriber->success($rule->getName());
             } catch (StopLintException $e) {
-                $notes[] = new LintNote('Lint stopped. Reason: '. $e->getMessage());
+                $notes[] = new LintNote(sprintf('[%s] Lint stopped. Reason: %s', $rule->getName(), $e->getMessage()));
 
                 $this->eventSubscriber->stopOn($rule->getName());
 
                 break;
+            } catch (InvalidEvaluatorValueException $e) {
+                $notes[] = new LintNote(sprintf('[%s] Invalid condition value: %s', $rule->getName(), $e->getMessage()));
             } catch (\Throwable $e) {
                 $notes[] = new ExceptionNote($e);
 

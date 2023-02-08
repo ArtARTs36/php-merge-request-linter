@@ -257,6 +257,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -313,6 +317,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -356,6 +364,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -425,6 +437,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -481,6 +497,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -537,6 +557,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
