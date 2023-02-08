@@ -48,3 +48,7 @@ docker-pub-try:
 		-e MR_LINTER_GITHUB_HTTP_TOKEN=${TOKEN} \
 		-v "${PWD}/.mr-linter.json:/app/.mr-linter.json:ro" \
 		artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
+
+docs:
+	php docs/Builder/build_rules.php
+	php docs/Builder/build_config_json_schema.php
