@@ -61,7 +61,7 @@ class ConsolePrinter implements Printer
     }
 
     /**
-     * @param array<mixed> $props
+     * @param array<array<string>> $props
      */
     private function buildProps(object $object, array &$props, string $prefix): void
     {
@@ -104,7 +104,7 @@ class ConsolePrinter implements Printer
     private function prepareValue(mixed $value): string
     {
         if (is_array($value)) {
-            return json_encode($value);
+            return ($json = json_encode($value)) ? $json : '';
         }
 
         if (is_bool($value)) {
