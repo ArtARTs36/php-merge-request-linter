@@ -128,7 +128,7 @@ class Set implements Collection, HasDebugInfo
     {
         return [
             'count' => $this->count(),
-            'items' => array_values($this->items),
+            'items' => array_keys($this->items),
         ];
     }
 }

@@ -72,29 +72,15 @@ class ConsolePrinter implements Printer
                 $k = $prefix . '.' . $key;
             }
 
-            if (is_bool($value)) {
-                $props[] = [$k, $value ? 'true' : 'false'];
-            } elseif ($value instanceof HasDebugInfo) {
+            if ($value instanceof HasDebugInfo) {
                 $debugInfo = '';
                 $debugBag = $value->__debugInfo();
 
                 foreach ($debugBag as $field => $debugVal) {
-                    $printVal = '';
-
-                    if (is_scalar($debugVal)) {
-                        $printVal = $debugVal;
-                    } elseif (is_array($debugVal)) {
-                        $printVal = json_encode($debugVal);
-                    } elseif ($debugVal instanceof \Stringable) {
-                        $printVal = (string) $debugVal;
-                    } elseif ($debugVal === null) {
-                        $printVal = 'null';
-                    }
-
                     $debugInfo .= sprintf(
                         '- %s: %s',
                         $field,
-                        $printVal,
+                        $this->prepareValue($debugVal),
                     );
 
                     if (next($debugBag) !== false) {
@@ -103,17 +89,36 @@ class ConsolePrinter implements Printer
                 }
 
                 $props[] = [$k, $debugInfo];
-            } elseif (is_string($value) || $value instanceof \Stringable) {
-                $props[] = [$k, sprintf('"%s"', $value)];
-            } elseif (is_scalar($value)) {
-                $props[] = [$k, $value];
-            } elseif (is_object($value)) {
+            } elseif (is_object($value) && ! $value instanceof \Stringable) {
                 $prefix = $k;
 
                 $this->buildProps($value, $props, $prefix);
+            } else {
+                $props[] = [$k, $this->prepareValue($value)];
             }
 
             $prefix = '';
         }
+    }
+
+    private function prepareValue(mixed $value): string
+    {
+        if (is_array($value)) {
+            return json_encode($value);
+        }
+
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        if (is_string($value) || $value instanceof \Stringable) {
+            return sprintf('"%s"', $value);
+        }
+
+        if ($value === null) {
+            return 'null';
+        }
+
+        return '' . $value;
     }
 }
