@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Linter\Event;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LintEventSubscriber;
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 class NullLintEventSubscriber implements LintEventSubscriber
 {

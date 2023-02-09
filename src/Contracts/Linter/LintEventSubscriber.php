@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\Linter;
 
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 /**
  * Subscriber for events from Linter.

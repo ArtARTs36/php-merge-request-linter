@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\HasChangesRule;
 
-use ArtARTs36\MergeRequestLinter\Request\Data\Change;
-use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Diff;
-use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Line;
-use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Type;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Rule\FileChange;
 use ArtARTs36\MergeRequestLinter\Rule\HasChangesRule\UpdatedPhpConstantChecker;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -70,7 +70,7 @@ final class UpdatedPhpConstantCheckerTest extends TestCase
     {
         $needChange = new FileChange('', null, null, $constant);
         $requestChange = new Change('', new Diff(array_map(function (string $line) {
-            return new Line(Type::NEW, Str::make($line));
+            return new DiffLine(DiffType::NEW, Str::make($line));
         }, $lines)));
 
         $checker = new UpdatedPhpConstantChecker();

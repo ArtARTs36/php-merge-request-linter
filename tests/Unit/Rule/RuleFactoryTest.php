@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\AbstractRule;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;

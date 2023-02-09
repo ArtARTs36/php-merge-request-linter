@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequest;
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequestInput;
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GitlabCiTest extends TestCase
@@ -27,7 +27,7 @@ final class GitlabCiTest extends TestCase
 
     /**
      * @dataProvider providerForTestIs
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::isCurrentlyWorking
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::isCurrentlyWorking
      */
     public function testIs(array $env, bool $expected): void
     {
@@ -50,8 +50,8 @@ final class GitlabCiTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::isCurrentlyMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Gitlab\GitlabCi::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::isCurrentlyMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::__construct
      */
     public function testIsMergeRequest(array $env, bool $expected): void
     {

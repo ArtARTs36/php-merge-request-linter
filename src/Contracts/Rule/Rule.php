@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Contracts\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Exception\LintException;
 use ArtARTs36\MergeRequestLinter\Exception\StopLintException;
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 /**
  * Rule for lint "merge request".

@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\CI;
 
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequest;
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\API\MergeRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
 
 /**
  * Interface for GitLab Client.

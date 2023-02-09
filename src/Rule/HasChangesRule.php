@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\HasChangesRule\CompositeChecker;
 use ArtARTs36\MergeRequestLinter\Rule\HasChangesRule\ContainsChecker;
 use ArtARTs36\MergeRequestLinter\Rule\HasChangesRule\ContainsRegexChecker;

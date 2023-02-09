@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
-use ArtARTs36\MergeRequestLinter\CI\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorFactory;
@@ -18,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\Value\FileTransformer;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Rule\CustomRule\OperatorRulesExecutor;
 use ArtARTs36\MergeRequestLinter\Rule\CustomRule\RulesExecutor;

@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Console\Application;
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
-use ArtARTs36\MergeRequestLinter\CI\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ArrayConfigLoaderFactory;
@@ -17,6 +16,7 @@ use ArtARTs36\MergeRequestLinter\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;

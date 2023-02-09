@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Rule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 abstract class AbstractRule implements Rule
 {

@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\CI\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Console\Application\Application;
 use ArtARTs36\MergeRequestLinter\Console\Presentation\ListPrinter;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfo;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;

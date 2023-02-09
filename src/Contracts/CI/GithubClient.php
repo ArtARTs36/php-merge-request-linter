@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\CI;
 
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagCollection;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagsInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
 
 /**
  * Client for GitHub.

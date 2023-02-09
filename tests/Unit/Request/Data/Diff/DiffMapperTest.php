@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Request\Data\Diff;
 
-use ArtARTs36\MergeRequestLinter\Request\Data\Diff\DiffMapper;
-use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Type;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class DiffMapperTest extends TestCase
@@ -19,15 +19,15 @@ final class DiffMapperTest extends TestCase
                 ],
                 [
                     [
-                        'type' => Type::NOT_CHANGES->value,
+                        'type' => DiffType::NOT_CHANGES->value,
                         'content' => 'test1',
                     ],
                     [
-                        'type' => Type::OLD->value,
+                        'type' => DiffType::OLD->value,
                         'content' => 'test2',
                     ],
                     [
-                        'type' => Type::NEW->value,
+                        'type' => DiffType::NEW->value,
                         'content' => 'test3',
                     ],
                 ],
@@ -36,7 +36,7 @@ final class DiffMapperTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Request\Data\Diff\DiffMapper::map
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper::map
      * @dataProvider providerForTestMap
      */
     public function testMap(array $response, array $expected): void

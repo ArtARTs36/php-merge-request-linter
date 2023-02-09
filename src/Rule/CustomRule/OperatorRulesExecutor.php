@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Rule\CustomRule;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 class OperatorRulesExecutor implements RulesExecutor
 {

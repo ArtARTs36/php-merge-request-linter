@@ -1,8 +1,8 @@
 <?php
 
-use ArtARTs36\MergeRequestLinter\CI\Credentials\Token;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\Token;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsOfRule;
 use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule;

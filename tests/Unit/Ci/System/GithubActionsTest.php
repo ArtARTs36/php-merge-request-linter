@@ -2,13 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\CI\System\Github\Env\GithubEnvironment;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequest;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullRequestInput;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagCollection;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -31,7 +31,7 @@ final class GithubActionsTest extends TestCase
 
     /**
      * @dataProvider providerForTestIs
-     * @covers \ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions::isCurrentlyWorking
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::isCurrentlyWorking
      */
     public function testIs(array $env, bool $expected): void
     {
@@ -54,7 +54,7 @@ final class GithubActionsTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Ci\System\Github\GithubActions::isCurrentlyMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::isCurrentlyMergeRequest
      */
     public function testIsMergeRequest(array $env, bool $expected): void
     {

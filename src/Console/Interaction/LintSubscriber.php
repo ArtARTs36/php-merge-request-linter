@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Console\Interaction;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\ProgressBar;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LintEventSubscriber;
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 class LintSubscriber implements LintEventSubscriber
 {
