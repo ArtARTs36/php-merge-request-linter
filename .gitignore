@@ -6,3 +6,4 @@
 /dev/build/composer.lock
 /.env
 /.deptrac.cache
+/composer-require-checker.phar

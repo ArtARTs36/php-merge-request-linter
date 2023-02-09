@@ -54,3 +54,15 @@ docker-pub-try:
 docs:
 	php docs/Builder/build_rules.php
 	php docs/Builder/build_config_json_schema.php
+
+deps-check:
+	@test -f composer-require-checker.phar || wget \
+		https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar -O composer-require-checker.phar && \
+		chmod +x composer-require-checker.phar
+	./composer-require-checker.phar check --config-file=${PWD}/composer-require-checker.json composer.json --verbose
+
+check: deps-check
+	composer lint
+	composer stat-analyse
+	composer deptrac
+	composer test

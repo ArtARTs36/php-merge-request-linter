@@ -2,7 +2,7 @@ name: Testing
 
 on:
   push:
-    branches: [ master, 'dev' ]
+    branches: [ master, 'dev', 'deps-check' ]
   pull_request:
     branches: [ master, 'dev' ]
 
@@ -22,6 +22,9 @@ jobs:
 
       - name: Validate composer.json
         run: composer validate
+
+      - name: Check dependencies
+        run: make deps-check
 
       - name: Cache Composer packages
         id: composer-cache

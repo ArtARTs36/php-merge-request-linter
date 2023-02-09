@@ -1,0 +1,18 @@
+{
+  "symbol-whitelist" : [
+    "GuzzleHttp\\Client",
+    "GuzzleHttp\\Promise\\Utils"
+  ],
+  "php-core-extensions" : [
+    "Core",
+    "date",
+    "json",
+    "pcre",
+    "Phar",
+    "Reflection",
+    "SPL",
+    "random",
+    "standard"
+  ],
+  "scan-files" : []
+}
