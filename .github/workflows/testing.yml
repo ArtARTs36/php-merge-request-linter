@@ -23,9 +23,6 @@ jobs:
       - name: Validate composer.json
         run: composer validate
 
-      - name: Check dependencies
-        run: make deps-check
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v2
@@ -38,6 +35,9 @@ jobs:
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
+
+      - name: Check dependencies
+        run: make deps-check
 
       - name: MR Lint
         env:
