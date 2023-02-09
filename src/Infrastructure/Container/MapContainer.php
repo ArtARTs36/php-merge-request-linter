@@ -36,9 +36,11 @@ class MapContainer implements ContainerInterface
     }
 
     /**
-     * @param class-string $id
+     * @template V object
+     * @param class-string<V> $id
+     * @param V $object
      */
-    public function set(string $id, object $object): void
+    public function set(string $id, mixed $object): void
     {
         $this->map[$id] = $object;
     }
