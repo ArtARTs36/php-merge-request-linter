@@ -15,10 +15,7 @@ class RuleSchemaGenerator
     private const OVERWRITE_PARAMS = [
         CustomRule::class => [
             'rules' => [
-                'type' => 'array',
-                'items' => [
-                    '$ref' => '#/definitions/rule_conditions',
-                ],
+                '$ref' => '#/definitions/rule_conditions',
             ],
         ],
     ];

@@ -15,7 +15,7 @@ interface RulesExecutor
 {
     /**
      * Execute user custom rules.
-     * @param array<array<MergeRequestField, Condition>> $rules
+     * @param array<MergeRequestField, Condition> $rules
      */
     public function execute(array $rules, MergeRequest $request): bool;
 }

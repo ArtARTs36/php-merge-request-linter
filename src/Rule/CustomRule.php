@@ -18,7 +18,7 @@ class CustomRule extends AbstractRule
     public const NAME = 'custom';
 
     /**
-     * @param array<array<MergeRequestField, Condition>> $rules
+     * @param array<MergeRequestField, Condition> $rules
      */
     public function __construct(
         private readonly RulesExecutor $executor,

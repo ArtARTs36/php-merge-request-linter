@@ -14,12 +14,12 @@ class ClassSummary
             return null;
         }
 
-        return Str::make(trim(preg_replace('#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]?(.*)?#u', '$1', $comment)))
+        return Str::make(trim($cleaned))
             ->lines()
             ->trim()
             ->filter(function (Str $str) {
                 return ! $str->startsWith('@');
             })
-            ?->first();
+            ->first();
     }
 }

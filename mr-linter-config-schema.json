@@ -803,10 +803,7 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "rules": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/rule_conditions"
-                    }
+                    "$ref": "#/definitions/rule_conditions"
                 },
                 "definition": {
                     "type": "string"
