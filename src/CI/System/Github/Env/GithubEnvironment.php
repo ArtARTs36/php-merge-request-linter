@@ -23,20 +23,25 @@ class GithubEnvironment
         return $this->environment->has(VarName::Identity->value);
     }
 
-    /**
-     * @throws EnvironmentVariableNotFoundException
-     */
-    public function getMergeRequestId(): int
+    public function getMergeRequestId(): ?int
     {
-        $ref = $this->environment->getString(VarName::RefName->value);
+        try {
+            $ref = $this->environment->getString(VarName::RefName->value);
+        } catch (EnvironmentVariableNotFoundException) {
+            return null;
+        }
 
         $refStr = Str::make($ref);
+
+        if (! $refStr->endsWith(self::REQUEST_ID_SUFFIX)) {
+            return null;
+        }
 
         $id = $refStr->deleteWhenEnds(self::REQUEST_ID_SUFFIX);
 
         if (! $id->isDigit()) {
             throw new InvalidEnvironmentVariableValueException(sprintf(
-                'Var "%s" is invalid. Expected: merge/{id}',
+                'Var "%s" is invalid. Expected: {id}/merge',
                 VarName::RefName->value,
             ));
         }

@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullReques
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Exception\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Diff;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
@@ -40,18 +40,19 @@ class GithubActions implements CiSystem
 
     public function isCurrentlyMergeRequest(): bool
     {
-        try {
-            return $this->env->getMergeRequestId() >= 0;
-        } catch (EnvironmentVariableNotFoundException) {
-            return false;
-        }
+        return $this->env->getMergeRequestId() !== null;
     }
 
     public function getCurrentlyMergeRequest(): MergeRequest
     {
+        $requestId = $this->env->getMergeRequestId();
+
+        if ($requestId === null) {
+            throw new CurrentlyNotMergeRequestException();
+        }
+
         $graphqlUrl = $this->env->getGraphqlURL();
         $repo = $this->env->extractRepo();
-        $requestId = $this->env->getMergeRequestId();
 
         $pullRequest = $this->client->getPullRequest(new PullRequestInput(
             $graphqlUrl,

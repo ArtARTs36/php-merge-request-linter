@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\CI;
 
+use ArtARTs36\MergeRequestLinter\Exception\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Exception\ServerUnexpectedResponseException;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
@@ -18,19 +19,20 @@ interface CiSystem
     public function getName(): string;
 
     /**
-     * Is currently CiSystem
+     * Is currently CiSystem.
      */
     public function isCurrentlyWorking(): bool;
 
     /**
-     * Is Merge Request
+     * Is Merge Request.
      */
     public function isCurrentlyMergeRequest(): bool;
 
     /**
-     * Get current merge request
+     * Get current merge request.
      * @throws InvalidCredentialsException
      * @throws ServerUnexpectedResponseException
+     * @throws CurrentlyNotMergeRequestException
      */
     public function getCurrentlyMergeRequest(): MergeRequest;
 }
