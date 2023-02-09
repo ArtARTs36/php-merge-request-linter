@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 
 /**
+ * @deprecated
  * The title must match the expression: {regex}
  */
 class TitleMatchesExpressionRule extends AbstractRule implements Rule

@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Application extends \Symfony\Component\Console\Application
 {
-    public const VERSION = '0.7.9';
+    public const VERSION = '0.8.0';
 
     public function __construct(
         private readonly MetricManager $metrics,

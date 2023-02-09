@@ -36,6 +36,9 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
 
+      - name: Check dependencies
+        run: make deps-check
+
       - name: MR Lint
         env:
           MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}

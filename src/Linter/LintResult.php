@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Linter;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
-use ArtARTs36\MergeRequestLinter\Note\Notes;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Support\Time\Duration;
 
 class LintResult

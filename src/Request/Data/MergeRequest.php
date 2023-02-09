@@ -29,6 +29,20 @@ use ArtARTs36\Str\Str;
 
 class MergeRequest
 {
+    public const FIELDS = [
+        'title',
+        'description',
+        'labels',
+        'hasConflicts',
+        'sourceBranch',
+        'targetBranch',
+        'author',
+        'author.login',
+        'isDraft',
+        'canMerge',
+        'changes',
+    ];
+
     /**
      * @param Set<string> $labels
      * @param Map<string, Change> $changes

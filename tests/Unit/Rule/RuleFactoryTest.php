@@ -2,12 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\AbstractRule;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\CompositeResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ObjectCompositeResolver;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
@@ -22,12 +25,16 @@ class RuleFactoryTest extends TestCase
     public function testCreate(): void
     {
         $factory = new RuleFactory(
-            new Builder([
-                ArrayMap::class => new MapResolver(),
+            new Builder(new CompositeResolver([
                 'string' => new AsIsResolver(),
                 'int' => new AsIsResolver(),
                 'float' => new AsIsResolver(),
-            ]),
+                'array' => new AsIsResolver(),
+                'object' => new ObjectCompositeResolver([
+                    Map::class => new MapResolver(),
+                    ArrayMap::class => new MapResolver(),
+                ]),
+            ])),
             new ConstructorFinder(),
         );
 

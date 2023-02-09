@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder;
 
+use ArtARTs36\MergeRequestLinter\Support\Reflector\ClassSummary;
 use ArtARTs36\Str\Str;
 
 class RulesPageBuilder
@@ -34,7 +35,7 @@ class RulesPageBuilder
 
             $id++;
 
-            $comment = trim(preg_replace('#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]?(.*)?#u', '$1', $comment));
+            $comment = ClassSummary::findInPhpDocComment($comment);
 
             if ($id === 1) {
                 $descriptions = $descriptions->append("| $id | $ruleName | $class | $comment |");

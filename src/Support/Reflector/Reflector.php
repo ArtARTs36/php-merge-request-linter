@@ -27,10 +27,23 @@ class Reflector
                 $generic = current($genericAttr->getArguments());
             }
 
-            $params[$parameter->getName()] = new ParameterType($type->getName(), $generic);
+            $params[$parameter->getName()] = self::createParameterType($type->getName(), $generic);
         }
 
         return $params;
+    }
+
+    private static function createParameterType(string $name, ?string $generic): ParameterType
+    {
+        $typeName = $name;
+        $class = null;
+
+        if (class_exists($name) || interface_exists($name)) {
+            $typeName = 'object';
+            $class = $name;
+        }
+
+        return new ParameterType(ParameterTypeName::from($typeName), $class, $generic);
     }
 
     /**
@@ -58,7 +71,7 @@ class Reflector
                 throw new \LogicException(sprintf('Property %s not has type', $property->getName()));
             }
 
-            $map[$property->getName()] = new ParameterType($type->getName(), $generic);
+            $map[$property->getName()] = self::createParameterType($type->getName(), $generic);
         }
 
         return $map;
@@ -95,12 +108,6 @@ class Reflector
             return null;
         }
 
-        $cleaned = preg_replace('#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]?(.*)?#u', '$1', $comment);
-
-        if ($cleaned === null) {
-            return null;
-        }
-
-        return trim($cleaned);
+        return ClassSummary::findInPhpDocComment($comment);
     }
 }

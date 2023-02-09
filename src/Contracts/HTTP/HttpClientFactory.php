@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Contracts\HTTP;
 
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
-use ArtARTs36\MergeRequestLinter\Exception\HttpClientTypeNotSupported;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpClientTypeNotSupported;
 
 /**
  * Interface for HTTP Client Factory.
