@@ -184,6 +184,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "custom": {
+                    "description": "Custom Rule for Users.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_custom"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_custom"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             }
         },
@@ -835,6 +850,24 @@
             },
             "required": [
                 "changes"
+            ]
+        },
+        "rules_properties_custom": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "rules": {
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "definition": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "rules",
+                "definition"
             ]
         }
     },

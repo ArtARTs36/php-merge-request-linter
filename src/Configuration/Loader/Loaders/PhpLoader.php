@@ -11,6 +11,9 @@ use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
+/**
+ * @deprecated
+ */
 class PhpLoader implements ConfigLoader
 {
     public function __construct(

@@ -2,10 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\Environment;
 
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
-
 /**
- * Environment
+ * Environment.
  */
 interface Environment
 {
@@ -16,13 +14,13 @@ interface Environment
 
     /**
      * Get string value of Environment
-     * @throws EnvironmentVariableNotFound
+     * @throws EnvironmentVariableNotFoundException
      */
     public function getString(string $key): string;
 
     /**
      * Get integer value of Environment
-     * @throws EnvironmentVariableNotFound
+     * @throws EnvironmentVariableNotFoundException
      */
     public function getInt(string $key): int;
 }

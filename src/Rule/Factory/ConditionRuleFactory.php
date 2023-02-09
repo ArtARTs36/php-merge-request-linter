@@ -10,11 +10,17 @@ use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Value\MemoryCounter;
 use ArtARTs36\MergeRequestLinter\Rule\ConditionRule;
 
+/**
+ * @phpstan-import-type MergeRequestField from OperatorResolver
+ * @phpstan-import-type EvaluatorName from OperatorResolver
+ * @phpstan-import-type ConditionValue from OperatorResolver
+ * @phpstan-import-type Condition from OperatorResolver
+ */
 class ConditionRuleFactory
 {
     public function __construct(
-        private OperatorResolver $operatorResolver,
-        private Counter $skippedRulesCounter,
+        private readonly OperatorResolver $operatorResolver,
+        private readonly Counter $skippedRulesCounter,
     ) {
         //
     }
@@ -29,7 +35,7 @@ class ConditionRuleFactory
     }
 
     /**
-     * @param array<string, mixed> $when
+     * @param array<MergeRequestField, Condition> $when
      */
     public function create(Rule $rule, array $when): Rule
     {

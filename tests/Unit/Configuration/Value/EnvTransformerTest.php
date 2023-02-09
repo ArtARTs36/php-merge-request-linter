@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Value;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
-use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

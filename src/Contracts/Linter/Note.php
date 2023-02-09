@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\Linter;
 
-use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 
 /**
  * Note after linting.

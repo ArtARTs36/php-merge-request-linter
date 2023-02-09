@@ -8,8 +8,8 @@ use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ArrayConfigLoaderFactory;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\CompositeLoader;
-use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\Proxy;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\PhpLoader;
+use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\Proxy;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\MetricableConfigResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
@@ -17,11 +17,13 @@ use ArtARTs36\MergeRequestLinter\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
-use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
+use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Support\File\Directory;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,7 +43,11 @@ class ApplicationFactory
         $ciSystemsMap = DefaultSystems::map();
         $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics);
 
-        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics);
+        $container = new MapContainer();
+
+        $argResolverFactory = new ArgumentResolverFactory($container);
+
+        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics, $argResolverFactory, $container);
 
         $configLoader = new CompositeLoader([
             'php' => new PhpLoader($filesystem),

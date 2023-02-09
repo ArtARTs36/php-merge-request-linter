@@ -5,10 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Support\Reflector;
 class ParameterType
 {
     /**
+     * @param class-string|null $class
      * @param string|class-string|null $generic
      */
     public function __construct(
-        public readonly string  $name,
+        public readonly ParameterTypeName $name,
+        public readonly ?string $class = null,
         public readonly ?string $generic = null,
     ) {
         //

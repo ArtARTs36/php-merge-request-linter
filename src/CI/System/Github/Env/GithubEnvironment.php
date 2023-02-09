@@ -2,8 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github\Env;
 
+use ArtARTs36\MergeRequestLinter\CI\System\Exceptions\InvalidEnvironmentVariableValueException;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
+use ArtARTs36\MergeRequestLinter\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\Str\Str;
 
 class GithubEnvironment
@@ -22,6 +23,9 @@ class GithubEnvironment
         return $this->environment->has(VarName::Identity->value);
     }
 
+    /**
+     * @throws EnvironmentVariableNotFoundException
+     */
     public function getMergeRequestId(): int
     {
         $ref = $this->environment->getString(VarName::RefName->value);
@@ -31,17 +35,26 @@ class GithubEnvironment
         $id = $refStr->deleteWhenEnds(self::REQUEST_ID_SUFFIX);
 
         if (! $id->isDigit()) {
-            throw new EnvironmentVariableNotFound(VarName::RefName->value);
+            throw new InvalidEnvironmentVariableValueException(sprintf(
+                'Var "%s" is invalid. Expected: merge/{id}',
+                VarName::RefName->value,
+            ));
         }
 
         return $id->toInteger();
     }
 
+    /**
+     * @throws EnvironmentVariableNotFoundException
+     */
     public function getGraphqlURL(): string
     {
         return $this->environment->getString(VarName::GraphqlURL->value);
     }
 
+    /**
+     * @throws EnvironmentVariableNotFoundException
+     */
     public function extractRepo(): Repo
     {
         $repo = $this->environment->getString(VarName::Repository->value);

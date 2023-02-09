@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructorFinder;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
+use ArtARTs36\MergeRequestLinter\Rule\CustomRule;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
@@ -11,6 +12,14 @@ use ArtARTs36\Str\Facade\Str;
 
 class RuleSchemaGenerator
 {
+    private const OVERWRITE_PARAMS = [
+        CustomRule::class => [
+            'rules' => [
+                '$ref' => '#/definitions/rule_conditions',
+            ],
+        ],
+    ];
+
     public function __construct(
         private RuleConstructorFinder $constructorFinder = new ConstructorFinder(),
     ) {
@@ -23,8 +32,10 @@ class RuleSchemaGenerator
         $schema = [];
 
         foreach ($rules as $ruleName => $rule) {
+            $ruleReflector = new \ReflectionClass($rule);
+
             $ruleSchema = [
-                'description' => Reflector::findPHPDocSummary(new \ReflectionClass($rule)),
+                'description' => Reflector::findPHPDocSummary($ruleReflector),
             ];
 
             $constructor = $this->constructorFinder->find($rule);
@@ -41,30 +52,38 @@ class RuleSchemaGenerator
 
             if (count($params) > 0) {
                 foreach ($constructor->params() as $paramName => $paramType) {
-                    $typeSchema = [
-                        'type' => JsonType::to($paramType->name),
-                    ];
+                    if (isset(self::OVERWRITE_PARAMS[$rule][$paramName])) {
+                        $typeSchema = self::OVERWRITE_PARAMS[$rule][$paramName];
+                    } else {
+                        $typeSchema = [
+                            'type' => JsonType::to($paramType->class ?? $paramType->name->value),
+                        ];
 
-                    if ($paramType->isGeneric()) {
-                        if ($paramType->isGenericOfObject()) {
-                            $genericProps = [];
+                        if ($typeSchema['type'] === null) {
+                            continue;
+                        }
 
-                            foreach (Reflector::mapPropertyTypes($paramType->generic) as $propertyName => $propertyType) {
-                                $genericProps[$propertyName] = [
-                                    'type' => JsonType::to($propertyType->name),
+                        if ($paramType->isGeneric()) {
+                            if ($paramType->isGenericOfObject()) {
+                                $genericProps = [];
+
+                                foreach (Reflector::mapPropertyTypes($paramType->generic) as $propertyName => $propertyType) {
+                                    $genericProps[$propertyName] = [
+                                        'type' => JsonType::to($propertyType->class ?? $propertyType->name->value),
+                                    ];
+                                }
+
+                                $typeSchema['items'] = [
+                                    'type' => 'object',
+                                    'properties' => $genericProps,
+                                ];
+                            } else {
+                                $typeSchema['items'] = [
+                                    [
+                                        'type' => $paramType->generic,
+                                    ],
                                 ];
                             }
-
-                            $typeSchema['items'] = [
-                                'type' => 'object',
-                                'properties' => $genericProps,
-                            ];
-                        } else {
-                            $typeSchema['items'] = [
-                                [
-                                    'type' => $paramType->generic,
-                                ],
-                            ];
                         }
                     }
 

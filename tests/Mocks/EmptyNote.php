@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Note\AbstractNote;
-use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
+use ArtARTs36\MergeRequestLinter\Domain\Note\AbstractNote;
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 
 final class EmptyNote extends AbstractNote
 {
