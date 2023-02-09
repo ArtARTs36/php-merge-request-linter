@@ -1,6 +1,7 @@
 # Merge Request Linter
 
-![PHP Composer](https://github.com/ArtARTs36/php-merge-request-linter/workflows/PHP%20Composer/badge.svg?branch=master)
+![Testing](https://github.com/ArtARTs36/php-merge-request-linter/workflows/Testing/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/ArtARTs36/php-merge-request-linter/branch/master/graph/badge.svg?token=OGRWW81OHH)](https://codecov.io/gh/ArtARTs36/php-merge-request-linter)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Latest Version](https://img.shields.io/packagist/v/artarts36/merge-request-linter)
 ![Total Downloads](https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg)
@@ -168,17 +169,17 @@ credentials:
 
 ## Development Commands
 
-| Command                           | Description                           |
-|-----------------------------------|---------------------------------------|
-| composer test                     | Run tests (via PHPUnit)               |
-| composer lint                     | Run lint (via PHPCsFixer)             |
-| composer doc-rules                | Build rules doc page                  |
-| make env                          | Add .env file                         |
-| make try MR_ID=10                 | Run MR-Linter on really pull request  |
-| make try-gitlab MR_ID=10          | Run MR-Linter on really merge request |
-| composer build-config-json-schema | Build JSON Schema for config          |
-| composer deptrac                  | Run deptrac                           |
-| composer check                    | Run test, lint, stat-analyse, deptrac |
+| Command                  | Description                                          |
+|--------------------------|------------------------------------------------------|
+| composer test            | Run tests (via PHPUnit)                              |
+| composer lint            | Run lint (via PHPCsFixer)                            |
+| composer deptrac         | Run deptrac                                          |
+| make deps-check          | Check composer requires (via ComposerRequireChecker) |
+| make check               | Run test, lint, stat-analyse, deptrac                |
+| make docs                | Build docs (rule page, Config JSON Schema)           |
+| make env                 | Add .env file                                        |
+| make try MR_ID=10        | Run MR-Linter on really pull request                 |
+| make try-gitlab MR_ID=10 | Run MR-Linter on really merge request                |
 
 ## Console output example
 

@@ -3,6 +3,8 @@ ifneq ("$(wildcard .env)","")
 	export
 endif
 
+.PHONY: docs
+
 env:
 	echo "MR_LINTER_GITHUB_HTTP_TOKEN=token\nMR_LINTER_GITLAB_HTTP_TOKEN=token" > .env
 
@@ -48,3 +50,19 @@ docker-pub-try:
 		-e MR_LINTER_GITHUB_HTTP_TOKEN=${TOKEN} \
 		-v "${PWD}/.mr-linter.json:/app/.mr-linter.json:ro" \
 		artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
+
+docs:
+	php docs/Builder/build_rules.php
+	php docs/Builder/build_config_json_schema.php
+
+deps-check:
+	@test -f composer-require-checker.phar || wget \
+		https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar -O composer-require-checker.phar && \
+		chmod +x composer-require-checker.phar
+	./composer-require-checker.phar check --config-file=${PWD}/composer-require-checker.json composer.json --verbose
+
+check: deps-check
+	composer lint
+	composer stat-analyse
+	composer deptrac
+	composer test

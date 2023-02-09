@@ -16,8 +16,11 @@ use ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\MatchEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator;
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotHasOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotHasEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
@@ -50,10 +53,13 @@ class MergeRequest
             LengthMinOperator::class,
             LengthMaxEvaluator::class,
             StartsEvaluator::class,
+            NotStartsEvaluator::class,
             EndsEvaluator::class,
+            NotEndsEvaluator::class,
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Str $title,
         #[SupportsConditionEvaluator([
@@ -61,10 +67,13 @@ class MergeRequest
             LengthMinOperator::class,
             LengthMaxEvaluator::class,
             StartsEvaluator::class,
+            NotStartsEvaluator::class,
             EndsEvaluator::class,
+            NotEndsEvaluator::class,
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Str $description,
         #[Generic(Generic::OF_STRING)]
@@ -75,8 +84,9 @@ class MergeRequest
             CountNotEqualsEvaluator::class,
             CountEqualsAnyEvaluator::class,
             HasEvaluator::class,
-            NotHasOperator::class,
+            NotHasEvaluator::class,
             HasAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Set $labels,
         #[SupportsConditionEvaluator([
@@ -93,6 +103,7 @@ class MergeRequest
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Str $sourceBranch,
         #[SupportsConditionEvaluator([
@@ -100,10 +111,13 @@ class MergeRequest
             LengthMinOperator::class,
             LengthMaxEvaluator::class,
             StartsEvaluator::class,
+            NotStartsEvaluator::class,
             EndsEvaluator::class,
+            NotEndsEvaluator::class,
             ContainsEvaluator::class,
             NotEqualsEvaluator::class,
             EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
         ])]
         public Str $targetBranch,
         public Author $author,

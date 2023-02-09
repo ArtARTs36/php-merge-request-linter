@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\DataStructure;
 
+use ArtARTs36\MergeRequestLinter\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 /**
@@ -10,7 +11,7 @@ use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
  * @template V
  * @template-extends Collection<K, V>
  */
-interface Map extends Collection
+interface Map extends Collection, HasDebugInfo
 {
     /**
      * Get value by key.

@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Testing
 
 on:
   push:
@@ -13,6 +13,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: xdebug
 
       - name: Validate composer.json
         run: composer validate
@@ -30,6 +36,9 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
 
+      - name: Check dependencies
+        run: make deps-check
+
       - name: MR Lint
         env:
           MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
@@ -45,4 +54,13 @@ jobs:
         run: composer deptrac
 
       - name: Run Tests
-        run: composer test
+        env:
+          XDEBUG_MODE: coverage
+        run: composer test-coverage
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          verbose: true

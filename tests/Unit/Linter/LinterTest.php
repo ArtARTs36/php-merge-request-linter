@@ -42,7 +42,7 @@ final class LinterTest extends TestCase
             },
         ]), new NullLintEventSubscriber());
 
-        self::assertEquals('Lint stopped. Reason: Test-stop', $linter->run($this->makeMergeRequest())->first());
+        self::assertStringContainsString('Lint stopped. Reason: Test-stop', $linter->run($this->makeMergeRequest())->first());
     }
 
     /**

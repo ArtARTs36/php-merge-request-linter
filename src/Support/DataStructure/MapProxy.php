@@ -78,12 +78,15 @@ class MapProxy implements Map
         return $this->retrieveMap()->keys();
     }
 
-    public function debugView(): string
+    public function __debugInfo(): array
     {
         if ($this->map === null) {
-            return 'MapProxy items not loaded';
+            return [
+                'count' => null,
+                'items' => 'Not loaded',
+            ];
         }
 
-        return 'Items: ' . $this->map->debugView();
+        return $this->map->__debugInfo();
     }
 }

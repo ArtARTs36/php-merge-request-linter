@@ -21,6 +21,7 @@ final class LteEvaluatorTest extends TestCase
     }
 
     /**
+     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LteEvaluator::doEvaluate
      * @dataProvider providerForEvaluate
      */

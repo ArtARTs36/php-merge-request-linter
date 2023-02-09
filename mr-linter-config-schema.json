@@ -242,8 +242,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -264,6 +272,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -290,8 +302,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -312,6 +332,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -355,6 +379,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -424,6 +452,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -450,8 +482,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -472,6 +512,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },
@@ -498,8 +542,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -520,6 +572,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "match": {
+                            "description": "Check if a string match a regex.",
+                            "type": "string"
                         }
                     }
                 },

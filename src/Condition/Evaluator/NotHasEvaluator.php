@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Condition\EvaluatingSubject;
  * Check if an array not contains some value.
  */
 #[EvaluatesGenericType]
-class NotHasOperator extends ScalarEvaluator
+class NotHasEvaluator extends ScalarEvaluator
 {
     public const NAME = 'notHas';
 

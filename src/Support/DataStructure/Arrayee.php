@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\ContainsAll;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\CountProxy;
 use Traversable;
@@ -12,7 +13,7 @@ use Traversable;
  * @template V
  * @template-implements Collection<K, V>
  */
-class Arrayee implements Collection
+class Arrayee implements Collection, HasDebugInfo
 {
     use CountProxy;
     use ContainsAll;
@@ -66,11 +67,6 @@ class Arrayee implements Collection
         return implode($sep, $this->items);
     }
 
-    public function debugView(): string
-    {
-        return "[" . $this->implode(', ') . "]";
-    }
-
     /**
      * @param callable(V): mixed $mapper
      * @return array<mixed>
@@ -89,5 +85,13 @@ class Arrayee implements Collection
         $items = is_array($that) ? $that : $that->items;
 
         return new Arrayee(array_merge($this->items, $items));
+    }
+
+    public function __debugInfo(): array
+    {
+        return [
+            'count' => $this->count(),
+            'items' => $this->items,
+        ];
     }
 }

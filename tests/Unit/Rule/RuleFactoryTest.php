@@ -18,6 +18,10 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 class RuleFactoryTest extends TestCase
 {
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory::create
+     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory::__construct
+     */
     public function testCreate(): void
     {
         $factory = new RuleFactory(
