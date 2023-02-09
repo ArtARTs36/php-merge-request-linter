@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;

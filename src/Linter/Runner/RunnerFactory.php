@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\ClientFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
 use Psr\Log\LoggerInterface;
 
