@@ -4,8 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Console\Presentation;
 
 use ArtARTs36\MergeRequestLinter\Contracts\IO\TablePrinter;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
-use ArtARTs36\MergeRequestLinter\Note\Notes;
-use ArtARTs36\MergeRequestLinter\Note\NoteSeverity;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Helper\TableCellStyle;
 

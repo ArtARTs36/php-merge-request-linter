@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Note;
+namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
 
@@ -9,7 +9,7 @@ final class ExceptionNote extends AbstractNote implements Note
     protected const SEVERITY = NoteSeverity::Fatal;
 
     public function __construct(
-        protected \Throwable $exception,
+        private readonly \Throwable $exception,
     ) {
         //
     }

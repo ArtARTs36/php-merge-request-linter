@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Note;
+namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 
 enum NoteSeverity: string
 {

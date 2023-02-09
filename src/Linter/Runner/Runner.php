@@ -4,13 +4,13 @@ namespace ArtARTs36\MergeRequestLinter\Linter\Runner;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Contracts\Request\MergeRequestFetcher;
+use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Exception\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Exception\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
-use ArtARTs36\MergeRequestLinter\Note\ExceptionNote;
-use ArtARTs36\MergeRequestLinter\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 
 class Runner implements LinterRunner

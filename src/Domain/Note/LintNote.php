@@ -1,13 +1,13 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Note;
+namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
 
 final class LintNote extends AbstractNote implements Note
 {
     public function __construct(
-        protected string $description,
+        private readonly string $description,
     ) {
         //
     }
