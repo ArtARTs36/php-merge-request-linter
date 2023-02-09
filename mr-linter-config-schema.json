@@ -186,7 +186,7 @@
                     ]
                 },
                 "custom": {
-                    "description": null,
+                    "description": "Custom Rule for Users.",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_custom"

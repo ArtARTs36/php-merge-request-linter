@@ -108,12 +108,6 @@ class Reflector
             return null;
         }
 
-        $cleaned = preg_replace('#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]?(.*)?#u', '$1', $comment);
-
-        if ($cleaned === null) {
-            return null;
-        }
-
-        return trim($cleaned);
+        return ClassSummary::findInPhpDocComment($comment);
     }
 }
