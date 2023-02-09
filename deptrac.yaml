@@ -19,15 +19,10 @@ deptrac:
         - type: directory
           value: src/CI/.*
 
-    - name: '[Infrastructure] Environment'
+    - name: 'Infrastructure'
       collectors:
         - type: directory
-          value: src/Infrastructure/Environment/.*
-
-    - name: '[Infrastructure] HTTP'
-      collectors:
-        - type: directory
-          value: src/Infrastructure/Http/.*
+          value: src/Infrastructure/.*
 
     - name: Condition
       collectors:
