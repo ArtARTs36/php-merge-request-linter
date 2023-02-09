@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Application;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;

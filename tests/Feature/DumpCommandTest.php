@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
 
-use ArtARTs36\MergeRequestLinter\Console\Command\DumpCommand;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConfigResolver;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 final class DumpCommandTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\Command\DumpCommand::execute
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand::execute
      */
     public function testExecute(): void
     {

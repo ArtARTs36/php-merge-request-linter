@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Presentation;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Printers;
 
 class Metric
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Interaction;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction;
 
 use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\ProgressBar;

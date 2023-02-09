@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Command;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Copier;

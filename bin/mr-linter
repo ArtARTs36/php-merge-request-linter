@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use ArtARTs36\MergeRequestLinter\Console\Application\ApplicationFactory;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Application\ApplicationFactory;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 $loaded = false;

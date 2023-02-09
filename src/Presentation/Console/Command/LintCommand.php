@@ -1,20 +1,20 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Command;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
-use ArtARTs36\MergeRequestLinter\Console\Presentation\Metric;
-use ArtARTs36\MergeRequestLinter\Console\Presentation\MetricPrinter;
-use ArtARTs36\MergeRequestLinter\Console\Presentation\NotePrinter;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
-use ArtARTs36\MergeRequestLinter\IO\Console\ConsolePrinter;
-use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyProgressBar;
-use ArtARTs36\MergeRequestLinter\IO\Console\SymfonyTablePrinter;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyTablePrinter;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\Metric;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\MetricPrinter;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\NotePrinter;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Record;
 use ArtARTs36\MergeRequestLinter\Support\Bytes;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;

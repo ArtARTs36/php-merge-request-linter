@@ -1,11 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\IO\Console;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger as SymfonyConsoleLogger;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ConsoleLogger implements LoggerInterface
 {

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Console\Interaction;
 
-use ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockProgressBar;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullPrinter;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -20,7 +20,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber::success
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber::success
      * @dataProvider providerForTestSuccess
      */
     public function testSuccess(int $runs, int $expectedProgress): void
@@ -46,7 +46,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber::fail
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber::fail
      * @dataProvider providerForTestFail
      */
     public function testFail(int $runs, int $expectedProgress): void
@@ -62,7 +62,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\Interaction\LintSubscriber::stopOn
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber::stopOn
      */
     public function testStopOn(): void
     {

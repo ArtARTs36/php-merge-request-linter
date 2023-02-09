@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Interaction;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction;
 
 use Symfony\Component\Console\Input\InputInterface;
 

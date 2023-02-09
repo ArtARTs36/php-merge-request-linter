@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\IO\Console;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
 use ArtARTs36\MergeRequestLinter\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;

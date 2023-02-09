@@ -1,11 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Command;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
-use ArtARTs36\MergeRequestLinter\Console\Application\Application;
-use ArtARTs36\MergeRequestLinter\Console\Presentation\ListPrinter;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Application\Application;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\ListPrinter;
 use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfo;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;

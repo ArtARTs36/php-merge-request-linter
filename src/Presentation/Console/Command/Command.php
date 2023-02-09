@@ -1,8 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Command;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\Console\Interaction\WorkDirResolver;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\WorkDirResolver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 

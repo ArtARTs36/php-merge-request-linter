@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Console\Application;
+namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
@@ -12,15 +12,15 @@ use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\Proxy;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\MetricableConfigResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
-use ArtARTs36\MergeRequestLinter\Console\Command\DumpCommand;
-use ArtARTs36\MergeRequestLinter\Console\Command\InfoCommand;
-use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
-use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
-use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ArgumentResolverFactory;
@@ -62,7 +62,7 @@ class ApplicationFactory
         );
 
         $application->add(new LintCommand($configResolver, $runnerFactory, $metrics));
-        $application->add(new InstallCommand(new Copier(new Directory(__DIR__ . '/../../../stubs'))));
+        $application->add(new InstallCommand(new Copier(new Directory(__DIR__ . '/../../../../stubs'))));
         $application->add(new DumpCommand($configResolver, new RuleDumper()));
         $application->add(new InfoCommand(new ToolInfoFactory()));
 

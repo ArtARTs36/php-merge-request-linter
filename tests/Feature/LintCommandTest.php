@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
 
-use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
@@ -15,7 +15,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 final class LintCommandTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Console\Command\LintCommand::execute
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand::execute
      */
     public function testExecuteAllGood(): void
     {
