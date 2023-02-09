@@ -1,6 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Exception;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions;
+
+use ArtARTs36\MergeRequestLinter\Exception\MergeRequestLinterException;
 
 class HttpClientTypeNotSupported extends MergeRequestLinterException
 {

@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
 use ArtARTs36\MergeRequestLinter\Contracts\HTTP\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
-use ArtARTs36\MergeRequestLinter\Exception\HttpClientTypeNotSupported;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpClientTypeNotSupported;
 use GuzzleHttp\Client as GuzzleClient;
 
 class ClientFactory implements HttpClientFactory
