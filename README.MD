@@ -162,6 +162,15 @@ rules:
     when:
       targetBranch:
         equals: "master"
+        
+    custom:
+       - definition: "Title must include 'BUG'"
+         rules:
+            title:
+               match: "/BUG/i"
+         when:
+            targetBranch:
+               equals: master
 
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
