@@ -2,9 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Container;
 
-use ArtARTs36\MergeRequestLinter\Exception\MergeRequestLinterException;
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class MapContainer implements ContainerInterface
 {
@@ -23,7 +21,7 @@ class MapContainer implements ContainerInterface
     public function get(string $id)
     {
         if (! $this->has($id)) {
-            throw new class () extends MergeRequestLinterException implements NotFoundExceptionInterface {};
+            throw EntryNotFoundException::create($id);
         }
 
         return $this->map[$id];
