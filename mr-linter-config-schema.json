@@ -364,10 +364,6 @@
                             "items": {
                                 "type": "string"
                             }
-                        },
-                        "match": {
-                            "description": "Check if a string match a regex.",
-                            "type": "string"
                         }
                     }
                 },
@@ -415,8 +411,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -630,6 +634,21 @@
                             "type": "array",
                             "items": {
                                 "type": "integer"
+                            }
+                        },
+                        "has": {
+                            "description": "Check if an array contains some value.",
+                            "type": "ArtARTs36\\MergeRequestLinter\\Request\\Data\\Change"
+                        },
+                        "notHas": {
+                            "description": "Check if an array not contains some value.",
+                            "type": "ArtARTs36\\MergeRequestLinter\\Request\\Data\\Change"
+                        },
+                        "hasAny": {
+                            "description": "Check if an array contains some value of list.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
                             }
                         }
                     }

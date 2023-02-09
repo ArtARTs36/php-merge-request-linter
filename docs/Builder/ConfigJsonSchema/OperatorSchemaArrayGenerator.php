@@ -3,7 +3,27 @@
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Condition\Attribute\SupportsConditionEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\ContainsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountEqualsAnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountMinEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\CountNotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsAnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasAnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\HasEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\MatchEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotHasEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\NotStartsEvaluator;
+use ArtARTs36\MergeRequestLinter\Condition\Evaluator\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
@@ -11,6 +31,46 @@ use ArtARTs36\Str\Str;
 
 class OperatorSchemaArrayGenerator
 {
+    private array $typeEvaluatorsMap = [
+        Str::class => [
+            EqualsEvaluator::class,
+            LengthMinOperator::class,
+            LengthMaxEvaluator::class,
+            StartsEvaluator::class,
+            NotStartsEvaluator::class,
+            EndsEvaluator::class,
+            NotEndsEvaluator::class,
+            ContainsEvaluator::class,
+            NotEqualsEvaluator::class,
+            EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
+        ],
+        Set::class => [
+            CountMinEvaluator::class,
+            CountMaxEvaluator::class,
+            CountEqualsEvaluator::class,
+            CountNotEqualsEvaluator::class,
+            CountEqualsAnyEvaluator::class,
+            HasEvaluator::class,
+            NotHasEvaluator::class,
+            HasAnyEvaluator::class,
+        ],
+        Map::class => [
+            CountMinEvaluator::class,
+            CountMaxEvaluator::class,
+            CountEqualsEvaluator::class,
+            CountNotEqualsEvaluator::class,
+            CountEqualsAnyEvaluator::class,
+            HasEvaluator::class,
+            NotHasEvaluator::class,
+            HasAnyEvaluator::class,
+        ],
+        'bool' => [
+            EqualsEvaluator::class,
+            NotEqualsEvaluator::class,
+        ],
+    ];
+
     public function __construct(
         private OperatorMetadataLoader $operatorMetadataLoader = new OperatorMetadataLoader(),
     ) {
@@ -57,70 +117,72 @@ class OperatorSchemaArrayGenerator
                 'properties' => [],
             ];
 
-            foreach ($property->getAttributes(SupportsConditionEvaluator::class) as $attribute) {
-                $operators = current($attribute->getArguments());
+            $operators = $this->typeEvaluatorsMap[$property->getType()->getName()] ?? null;
 
-                foreach ($operators as $operatorClass) {
-                    $operatorMeta = $operatorMetadata[$operatorClass];
+            if ($operators === null) {
+                continue;
+            }
 
-                    if ($operatorMeta->evaluatesSameType) {
-                        $val = [
-                            'description' => $operatorMeta->description,
-                            'type' => JsonType::to($property->getType()->getName()),
-                        ];
+            foreach ($operators as $operatorClass) {
+                $operatorMeta = $operatorMetadata[$operatorClass];
 
-                        foreach ($operatorMeta->names as $operatorName) {
-                            $opArray['properties'][$propertyName]['properties'][$operatorName] = $val;
-                        }
+                if ($operatorMeta->evaluatesSameType) {
+                    $val = [
+                        'description' => $operatorMeta->description,
+                        'type' => JsonType::to($property->getType()->getName()),
+                    ];
 
-                        continue;
+                    foreach ($operatorMeta->names as $operatorName) {
+                        $opArray['properties'][$propertyName]['properties'][$operatorName] = $val;
                     }
 
-                    if ($operatorMeta->evaluatesGenericType) {
-                        $genericAttr = $property->getAttributes(Generic::class);
-                        $genericType = current(current($genericAttr)->getArguments());
+                    continue;
+                }
 
-                        $val = [
-                            'description' => $operatorMeta->description,
-                            'type' => JsonType::to($genericType),
-                        ];
+                if ($operatorMeta->evaluatesGenericType) {
+                    $genericAttr = $property->getAttributes(Generic::class);
+                    $genericType = current(current($genericAttr)->getArguments());
 
-                        foreach ($operatorMeta->names as $operatorName) {
-                            $opArray['properties'][$propertyName]['properties'][$operatorName] = $val;
-                        }
+                    $val = [
+                        'description' => $operatorMeta->description,
+                        'type' => JsonType::to($genericType),
+                    ];
 
-                        continue;
+                    foreach ($operatorMeta->names as $operatorName) {
+                        $opArray['properties'][$propertyName]['properties'][$operatorName] = $val;
                     }
 
-                    $opParamTypes = $operatorMeta->parameters;
+                    continue;
+                }
 
-                    if (count($opParamTypes) === 1) {
-                        foreach ($operatorMeta->names as $operatorName) {
-                            $v = [
-                                'description' => $operatorMeta->description,
-                                'type' => $opParamTypes[0]->jsonType,
-                            ];
+                $opParamTypes = $operatorMeta->parameters;
 
-                            if ($opParamTypes[0]->isGeneric()) {
-                                $v['items'] = [
-                                    'type' => $opParamTypes[0]->generic,
-                                ];
-                            }
+                if (count($opParamTypes) === 1) {
+                    foreach ($operatorMeta->names as $operatorName) {
+                        $v = [
+                            'description' => $operatorMeta->description,
+                            'type' => $opParamTypes[0]->jsonType,
+                        ];
 
-                            $opArray['properties'][$propertyName]['properties'][$operatorName] = $v;
-                        }
-                    } else {
-                        $anyOf = [];
-
-                        foreach ($opParamTypes as $pType) {
-                            $anyOf[] = [
-                                'type' => $pType,
+                        if ($opParamTypes[0]->isGeneric()) {
+                            $v['items'] = [
+                                'type' => $opParamTypes[0]->generic,
                             ];
                         }
 
-                        foreach ($operatorMeta->names as $operatorName) {
-                            $opArray['properties'][$propertyName]['properties'][$operatorName]['anyOf'] = $anyOf;
-                        }
+                        $opArray['properties'][$propertyName]['properties'][$operatorName] = $v;
+                    }
+                } else {
+                    $anyOf = [];
+
+                    foreach ($opParamTypes as $pType) {
+                        $anyOf[] = [
+                            'type' => $pType,
+                        ];
+                    }
+
+                    foreach ($operatorMeta->names as $operatorName) {
+                        $opArray['properties'][$propertyName]['properties'][$operatorName]['anyOf'] = $anyOf;
                     }
                 }
             }

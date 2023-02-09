@@ -34,97 +34,17 @@ class MergeRequest
      * @param Map<string, Change> $changes
      */
     public function __construct(
-        #[SupportsConditionEvaluator([
-            EqualsEvaluator::class,
-            LengthMinOperator::class,
-            LengthMaxEvaluator::class,
-            StartsEvaluator::class,
-            NotStartsEvaluator::class,
-            EndsEvaluator::class,
-            NotEndsEvaluator::class,
-            ContainsEvaluator::class,
-            NotEqualsEvaluator::class,
-            EqualsAnyEvaluator::class,
-            MatchEvaluator::class,
-        ])]
         public Str $title,
-        #[SupportsConditionEvaluator([
-            EqualsEvaluator::class,
-            LengthMinOperator::class,
-            LengthMaxEvaluator::class,
-            StartsEvaluator::class,
-            NotStartsEvaluator::class,
-            EndsEvaluator::class,
-            NotEndsEvaluator::class,
-            ContainsEvaluator::class,
-            NotEqualsEvaluator::class,
-            EqualsAnyEvaluator::class,
-            MatchEvaluator::class,
-        ])]
         public Str $description,
         #[Generic(Generic::OF_STRING)]
-        #[SupportsConditionEvaluator([
-            CountMinEvaluator::class,
-            CountMaxEvaluator::class,
-            CountEqualsEvaluator::class,
-            CountNotEqualsEvaluator::class,
-            CountEqualsAnyEvaluator::class,
-            HasEvaluator::class,
-            NotHasEvaluator::class,
-            HasAnyEvaluator::class,
-            MatchEvaluator::class,
-        ])]
         public Set $labels,
-        #[SupportsConditionEvaluator([
-            EqualsEvaluator::class,
-            NotEqualsEvaluator::class,
-        ])]
         public bool $hasConflicts,
-        #[SupportsConditionEvaluator([
-            EqualsEvaluator::class,
-            LengthMinOperator::class,
-            LengthMaxEvaluator::class,
-            StartsEvaluator::class,
-            EndsEvaluator::class,
-            ContainsEvaluator::class,
-            NotEqualsEvaluator::class,
-            EqualsAnyEvaluator::class,
-            MatchEvaluator::class,
-        ])]
         public Str $sourceBranch,
-        #[SupportsConditionEvaluator([
-            EqualsEvaluator::class,
-            LengthMinOperator::class,
-            LengthMaxEvaluator::class,
-            StartsEvaluator::class,
-            NotStartsEvaluator::class,
-            EndsEvaluator::class,
-            NotEndsEvaluator::class,
-            ContainsEvaluator::class,
-            NotEqualsEvaluator::class,
-            EqualsAnyEvaluator::class,
-            MatchEvaluator::class,
-        ])]
         public Str $targetBranch,
         public Author $author,
-        #[SupportsConditionEvaluator([
-            EqualsEvaluator::class,
-            NotEqualsEvaluator::class,
-        ])]
         public bool $isDraft,
-        #[SupportsConditionEvaluator([
-            EqualsEvaluator::class,
-            NotEqualsEvaluator::class,
-        ])]
         public bool $canMerge,
         #[Generic(Change::class)]
-        #[SupportsConditionEvaluator([
-            CountMinEvaluator::class,
-            CountMaxEvaluator::class,
-            CountEqualsEvaluator::class,
-            CountNotEqualsEvaluator::class,
-            CountEqualsAnyEvaluator::class,
-        ])]
         public Map  $changes,
     ) {
         //
