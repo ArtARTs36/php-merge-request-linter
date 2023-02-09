@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullReques
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Diff;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
@@ -42,7 +42,7 @@ class GithubActions implements CiSystem
     {
         try {
             return $this->env->getMergeRequestId() >= 0;
-        } catch (EnvironmentVariableNotFound) {
+        } catch (VarNotFoundException) {
             return false;
         }
     }

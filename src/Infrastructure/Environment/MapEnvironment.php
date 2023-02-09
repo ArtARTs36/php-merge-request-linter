@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Environment;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment;
 
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 

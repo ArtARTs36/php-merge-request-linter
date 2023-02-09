@@ -1,9 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Environment;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
 
 abstract class AbstractEnvironment implements Environment
 {
@@ -29,7 +28,7 @@ abstract class AbstractEnvironment implements Environment
         $value = $this->get($key);
 
         if ($value === false) {
-            throw EnvironmentVariableNotFound::make($key);
+            throw VarNotFoundException::make($key);
         }
 
         return $value;

@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\PullRequest\PullReques
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\CI\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
-use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

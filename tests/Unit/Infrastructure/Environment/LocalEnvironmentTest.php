@@ -1,9 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Environment;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Environment;
 
-use ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\VarNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class LocalEnvironmentTest extends TestCase
@@ -21,9 +21,9 @@ final class LocalEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestGetString
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::getString
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::getString
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::doGet
      */
     public function testGetString(string $assigment, string $key, string $expected): void
     {
@@ -33,13 +33,13 @@ final class LocalEnvironmentTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::getString
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::getString
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::doGet
      */
     public function testGetStringOnNotFound(): void
     {
-        self::expectException(EnvironmentVariableNotFound::class);
+        self::expectException(VarNotFoundException::class);
 
         (new LocalEnvironment())->getString('local_environment_test_var_not_found');
     }
@@ -57,9 +57,9 @@ final class LocalEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestGetInt
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::getInt
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::getInt
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::doGet
      */
     public function testGetInt(string $assigment, string $key, int $expected): void
     {
@@ -86,7 +86,7 @@ final class LocalEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestHas
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\LocalEnvironment::has
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::has
      */
     public function testHas(string $assigment, string $key, bool $expected): void
     {

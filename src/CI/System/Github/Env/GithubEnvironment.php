@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\CI\System\Github\Env;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\VarNotFoundException;
 use ArtARTs36\Str\Str;
 
 class GithubEnvironment
@@ -31,7 +31,7 @@ class GithubEnvironment
         $id = $refStr->deleteWhenEnds(self::REQUEST_ID_SUFFIX);
 
         if (! $id->isDigit()) {
-            throw new EnvironmentVariableNotFound(VarName::RefName->value);
+            throw VarNotFoundException::make(VarName::RefName->value);
         }
 
         return $id->toInteger();

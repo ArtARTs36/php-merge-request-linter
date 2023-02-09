@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\Change;
 use ArtARTs36\MergeRequestLinter\Request\Data\Diff\Diff;
@@ -41,7 +41,7 @@ class GitlabCi implements CiSystem
     {
         try {
             return $this->environment->getMergeRequestId() >= 0;
-        } catch (EnvironmentVariableNotFound) {
+        } catch (VarNotFoundException) {
             return false;
         }
     }

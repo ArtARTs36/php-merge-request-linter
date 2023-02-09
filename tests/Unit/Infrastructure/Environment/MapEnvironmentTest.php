@@ -1,9 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Environment;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Environment;
 
-use ArtARTs36\MergeRequestLinter\Environment\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Exception\EnvironmentVariableNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\VarNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -22,10 +22,10 @@ final class MapEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestGetString
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::getString
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::doGet
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::getString
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::__construct
      */
     public function testGetString(array $assigment, string $key, string $expected): void
     {
@@ -33,14 +33,14 @@ final class MapEnvironmentTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::getString
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::doGet
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::getString
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::__construct
      */
     public function testGetStringOnNotFound(): void
     {
-        self::expectException(EnvironmentVariableNotFound::class);
+        self::expectException(VarNotFoundException::class);
 
         (new MapEnvironment(new ArrayMap([])))->getString('local_environment_test_var_not_found');
     }
@@ -58,10 +58,10 @@ final class MapEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestGetInt
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::getInt
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::doGet
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::getInt
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::__construct
      */
     public function testGetInt(array $assigment, string $key, int $expected): void
     {
@@ -86,9 +86,9 @@ final class MapEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestHas
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::has
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Environment\MapEnvironment::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::has
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment::__construct
      */
     public function testHas(array $assigment, string $key, bool $expected): void
     {
