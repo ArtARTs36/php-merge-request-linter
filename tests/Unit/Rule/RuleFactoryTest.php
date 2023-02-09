@@ -2,25 +2,25 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\AbstractRule;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\AbstractRule;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\AsIsResolver;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\CompositeResolver;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ObjectCompositeResolver;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ObjectCompositeResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 class RuleFactoryTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory::create
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory::__construct
      */
     public function testCreate(): void
     {

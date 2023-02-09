@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYouTrackIssueRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\HasLinkToYouTrackIssueRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class HasLinkToYouTrackIssueRuleTest extends TestCase
@@ -28,9 +28,9 @@ final class HasLinkToYouTrackIssueRuleTest extends TestCase
 
     /**
      * @dataProvider providerForTestLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToYoutrackIssueRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToYoutrackIssueRule::doLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToYoutrackIssueRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYoutrackIssueRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYoutrackIssueRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYoutrackIssueRule::__construct
      */
     public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
     {

@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\ChangedFilesLimitRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ChangedFilesLimitRuleTest extends TestCase
@@ -30,9 +30,9 @@ final class ChangedFilesLimitRuleTest extends TestCase
 
     /**
      * @dataProvider providerForTestLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\ChangedFilesLimitRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\ChangedFilesLimitRule::doLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\ChangedFilesLimitRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::__construct
      */
     public function testLint(MergeRequest $request, int $limit, bool $expected): void
     {

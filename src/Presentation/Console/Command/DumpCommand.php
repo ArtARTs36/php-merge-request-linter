@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyTablePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\RuleInfoPrinter;
-use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;

@@ -6,10 +6,10 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\EmptyConstructor;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\NativeConstructor;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\StaticConstructor;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\EmptyConstructor;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\NativeConstructor;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\StaticConstructor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ConstructorFinderTest extends TestCase
@@ -33,8 +33,8 @@ final class ConstructorFinderTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder::find
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder::find
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder::__construct
      * @dataProvider providerForTestFind
      * @param class-string<Rule> $ruleClass
      * @param class-string<RuleConstructor> $expectedConstructorClass

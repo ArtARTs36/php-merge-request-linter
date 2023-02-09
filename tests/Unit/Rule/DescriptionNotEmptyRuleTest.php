@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class DescriptionNotEmptyRuleTest extends TestCase
@@ -26,9 +26,9 @@ final class DescriptionNotEmptyRuleTest extends TestCase
 
     /**
      * @dataProvider providerForTestLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule::doLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule::__construct
      */
     public function testLint(MergeRequest $request, bool $hasNotes): void
     {

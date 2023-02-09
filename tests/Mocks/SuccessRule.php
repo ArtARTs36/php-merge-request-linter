@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Definition;
 
 class SuccessRule implements Rule
 {

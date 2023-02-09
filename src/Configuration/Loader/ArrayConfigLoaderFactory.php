@@ -3,6 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\OperatorRulesExecutor;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\RulesExecutor;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorFactory;
@@ -19,15 +22,12 @@ use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
-use ArtARTs36\MergeRequestLinter\Rule\CustomRule\OperatorRulesExecutor;
-use ArtARTs36\MergeRequestLinter\Rule\CustomRule\RulesExecutor;
-use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ArgumentResolverFactory;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\Builder;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\ConditionRuleFactory;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\RuleFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\CallbackPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Support\Text\DecoderFactory;
 

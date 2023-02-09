@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Factory\Argument;
 
 use ArtARTs36\MergeRequestLinter\Exception\ArgNotSupportedException;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterTypeName;
@@ -28,8 +28,8 @@ class MapResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver::__construct
      * @dataProvider providerForTestResolve
      */
     public function testResolve(mixed $value, ArrayMap $expected): void
@@ -43,8 +43,8 @@ class MapResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\MapResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver::__construct
      */
     public function testResolveOnArgNotSupportedException(): void
     {

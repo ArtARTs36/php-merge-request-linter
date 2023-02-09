@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
@@ -13,7 +14,6 @@ use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
-use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

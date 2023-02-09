@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToJiraTaskRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\HasLinkToJiraTaskRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class HasLinkToJiraTaskRuleTest extends TestCase
@@ -28,9 +28,9 @@ final class HasLinkToJiraTaskRuleTest extends TestCase
 
     /**
      * @dataProvider providerForTestLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToJiraTaskRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToJiraTaskRule::doLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasLinkToJiraTaskRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToJiraTaskRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToJiraTaskRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToJiraTaskRule::__construct
      */
     public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
     {

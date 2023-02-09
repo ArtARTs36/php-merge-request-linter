@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinksOfAllDomainsRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinksOfAllDomainsRule;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -36,9 +36,9 @@ final class DescriptionContainsLinksOfAllDomainsRuleTest extends TestCase
 
     /**
      * @dataProvider providerForTestLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinksOfAllDomainsRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinksOfAllDomainsRule::doLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\DescriptionContainsLinksOfAllDomainsRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinksOfAllDomainsRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinksOfAllDomainsRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinksOfAllDomainsRule::__construct
      */
     public function testLint(MergeRequest $request, array $domains, bool $hasNotes): void
     {

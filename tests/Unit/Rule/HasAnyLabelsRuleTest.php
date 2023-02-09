@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class HasAnyLabelsRuleTest extends TestCase
@@ -26,9 +26,9 @@ final class HasAnyLabelsRuleTest extends TestCase
 
     /**
      * @dataProvider providerForTestLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule::doLint
-     * @covers \ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsRule::__construct
      */
     public function testLint(MergeRequest $request, bool $hasNotes): void
     {

@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
@@ -10,7 +11,6 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;

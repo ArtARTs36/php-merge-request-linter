@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper;
 
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Resolver;
-use ArtARTs36\MergeRequestLinter\Rule\Rules;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 
 class RulesMapper
 {

@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Configuration;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Rule\Rules;
 
 class Config
 {

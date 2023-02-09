@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\ArrayConfigLoaderFactory;
@@ -15,6 +16,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
@@ -22,8 +24,6 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;
-use ArtARTs36\MergeRequestLinter\Rule\Dumper\RuleDumper;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Support\File\Directory;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 use Symfony\Component\Console\Output\OutputInterface;
