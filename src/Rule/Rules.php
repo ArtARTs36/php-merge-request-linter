@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 /**
+ * @deprecated
  * @template-extends Arrayee<int, Rule>
  */
 class Rules extends Arrayee
