@@ -14,5 +14,7 @@
     "random",
     "standard"
   ],
-  "scan-files" : []
+  "scan-files" : [
+    "bin/*.php"
+  ]
 }
