@@ -18,7 +18,6 @@ final class DefaultRules
         HasAnyLabelsOfRule::NAME => HasAnyLabelsOfRule::class,
         HasLinkToJiraTaskRule::NAME => HasLinkToJiraTaskRule::class,
         HasLinkToYouTrackIssueRule::NAME => HasLinkToYouTrackIssueRule::class,
-        TitleMatchesExpressionRule::NAME => TitleMatchesExpressionRule::class,
         TitleStartsWithAnyPrefixRule::NAME => TitleStartsWithAnyPrefixRule::class,
         HasChangesRule::NAME => HasChangesRule::class,
         CustomRule::NAME => CustomRule::class,
