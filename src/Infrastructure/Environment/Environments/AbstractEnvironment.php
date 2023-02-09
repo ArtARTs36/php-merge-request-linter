@@ -1,8 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 
 abstract class AbstractEnvironment implements Environment
 {

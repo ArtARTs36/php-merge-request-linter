@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments;
 
 class LocalEnvironment extends AbstractEnvironment
 {

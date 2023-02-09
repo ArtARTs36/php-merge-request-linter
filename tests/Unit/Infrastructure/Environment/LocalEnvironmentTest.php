@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Environment;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\VarNotFoundException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class LocalEnvironmentTest extends TestCase
@@ -21,9 +21,9 @@ final class LocalEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestGetString
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::getString
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::getString
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::doGet
      */
     public function testGetString(string $assigment, string $key, string $expected): void
     {
@@ -33,9 +33,9 @@ final class LocalEnvironmentTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::getString
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::getString
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::doGet
      */
     public function testGetStringOnNotFound(): void
     {
@@ -57,9 +57,9 @@ final class LocalEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestGetInt
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::getInt
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::get
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::doGet
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::getInt
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::doGet
      */
     public function testGetInt(string $assigment, string $key, int $expected): void
     {
@@ -86,7 +86,7 @@ final class LocalEnvironmentTest extends TestCase
 
     /**
      * @dataProvider providerForTestHas
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment::has
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment::has
      */
     public function testHas(string $assigment, string $key, bool $expected): void
     {

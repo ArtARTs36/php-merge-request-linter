@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Request\Data\Author;
 use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Rule\Rules;

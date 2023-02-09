@@ -18,7 +18,7 @@ use ArtARTs36\MergeRequestLinter\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\IO\Console\ConsoleLoggerFactory;
 use ArtARTs36\MergeRequestLinter\Linter\Runner\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\MemoryMetricManager;

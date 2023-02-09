@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Exception\MergeRequestLinterException;
