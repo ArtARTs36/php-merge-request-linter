@@ -27,10 +27,10 @@ final class InstallCommandTest extends TestCase
         $tester->execute([]);
 
         $tester->assertCommandIsSuccessful();
-        self::assertFileExists('.mr-linter.php');
+        self::assertFileExists('.mr-linter.yaml');
         self::assertStringContainsString('Was copied configuration file to:', $tester->getDisplay());
 
-        @unlink('.mr-linter.php');
+        @unlink('.mr-linter.yaml');
 
         $cwd->revert();
     }

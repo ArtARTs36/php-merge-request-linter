@@ -50,6 +50,6 @@ class InstallCommand extends Command
             return ConfigFormat::from($input->getOption('format'));
         }
 
-        return ConfigFormat::PHP;
+        return ConfigFormat::YAML;
     }
 }

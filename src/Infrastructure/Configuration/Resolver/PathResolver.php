@@ -12,7 +12,7 @@ class PathResolver
     private const FILE_NAME = '.mr-linter';
 
     public function __construct(
-        private FileSystem $files,
+        private readonly FileSystem $files,
     ) {
         //
     }

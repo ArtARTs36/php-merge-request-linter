@@ -6,7 +6,6 @@ use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 
 enum ConfigFormat: string
 {
-    case PHP = 'php';
     case JSON = 'json';
     case YAML = 'yaml';
 
