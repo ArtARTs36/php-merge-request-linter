@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Resolver\ResolvedConfig;
-use ArtARTs36\MergeRequestLinter\Configuration\User;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\ResolvedConfig;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 

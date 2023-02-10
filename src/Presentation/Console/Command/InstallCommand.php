@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
-use ArtARTs36\MergeRequestLinter\Configuration\Copier;
+use ArtARTs36\MergeRequestLinter\Application\Configuration\Copier;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Support\File\Directory;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

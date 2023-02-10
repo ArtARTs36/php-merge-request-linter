@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Http;
 
-use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\NullClient;
-use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ClientFactoryTest extends TestCase

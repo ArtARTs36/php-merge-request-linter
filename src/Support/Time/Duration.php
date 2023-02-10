@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\Time;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Report\Metric;
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\Metric;
 
 class Duration implements Metric
 {

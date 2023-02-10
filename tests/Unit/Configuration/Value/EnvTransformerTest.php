@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Value;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -23,7 +23,7 @@ final class EnvTransformerTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer::transform
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::transform
      * @dataProvider providerForTestTransform
      */
     public function testTransform(array $env, string $input, string $expected): void
@@ -52,7 +52,7 @@ final class EnvTransformerTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Configuration\Value\EnvTransformer::supports
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::supports
      * @dataProvider providerForTestSupports
      */
     public function testSupports(string $input, bool $expected): void

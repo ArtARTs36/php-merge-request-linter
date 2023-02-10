@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
-use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Application\Application;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\ListPrinter;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfo;

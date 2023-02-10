@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\Config;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Exception\ConfigException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
 
 /**
  * Config Loader.

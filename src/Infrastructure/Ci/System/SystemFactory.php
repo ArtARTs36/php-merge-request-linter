@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
@@ -18,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use Psr\Log\LoggerInterface;
 
