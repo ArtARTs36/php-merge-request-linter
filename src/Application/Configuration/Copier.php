@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Configuration;
 
+use ArtARTs36\MergeRequestLinter\Common\File\Directory;
+use ArtARTs36\MergeRequestLinter\Common\File\File;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
-use ArtARTs36\MergeRequestLinter\Support\File\Directory;
-use ArtARTs36\MergeRequestLinter\Support\File\File;
 
 class Copier
 {

@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\CountMinEvaluator;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

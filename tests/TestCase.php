@@ -3,6 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Tests;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
@@ -11,8 +13,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase

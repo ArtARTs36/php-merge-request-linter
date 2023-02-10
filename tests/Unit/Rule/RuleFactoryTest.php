@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\AbstractRule;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
@@ -13,7 +14,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResol
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ObjectCompositeResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 class RuleFactoryTest extends TestCase
@@ -58,7 +58,7 @@ class TestRuleForRuleFactory extends AbstractRule
 
     public function doLint(MergeRequest $request): bool
     {
-        // TODO: Implement lint() method.
+        return true;
     }
 
     public function getDefinition(): RuleDefinition

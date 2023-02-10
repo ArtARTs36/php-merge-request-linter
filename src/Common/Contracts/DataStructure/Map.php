@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Common\Contracts\HasDebugInfo;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 
 /**
  * Interface for Collections.

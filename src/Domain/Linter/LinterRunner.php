@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Application\Linter\LintResult;
 
 /**
  * Linter Runner

@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
@@ -12,12 +11,14 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullReq
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\CredentialsNotSetException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use Psr\Log\LoggerInterface;
 
@@ -53,7 +54,7 @@ class SystemFactory implements CiSystemFactory
         foreach ($this->ciSystems as $name => $ciClass) {
             try {
                 $ci = $this->create($name);
-            } catch (InvalidCredentialsException) {
+            } catch (CredentialsNotSetException) {
                 continue;
             }
 
@@ -84,7 +85,7 @@ class SystemFactory implements CiSystemFactory
         $credentials = $this->config->getCredentials()->get($targetClass);
 
         if ($credentials === null) {
-            throw InvalidCredentialsException::fromCiName($ciName);
+            throw CredentialsNotSetException::create($ciName);
         }
 
         $httpClient = $this->httpClientFactory->create($this->config->getHttpClient());

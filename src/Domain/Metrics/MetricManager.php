@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Metrics;
 
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 
 /**
  * Interface for managing metrics (time execution, etc.).

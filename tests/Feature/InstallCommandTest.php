@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
 
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Copier;
+use ArtARTs36\MergeRequestLinter\Common\File\Directory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
-use ArtARTs36\MergeRequestLinter\Support\File\Directory;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\Cwd;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;

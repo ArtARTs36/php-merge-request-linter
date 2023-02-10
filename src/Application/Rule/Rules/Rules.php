@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 /**
  * @deprecated

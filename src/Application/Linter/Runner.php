@@ -2,14 +2,16 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
+use ArtARTs36\MergeRequestLinter\Common\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
-use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\CredentialsNotSetException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 
 final class Runner implements LinterRunner
 {
@@ -28,8 +30,8 @@ final class Runner implements LinterRunner
 
             return new LintResult($notes->isEmpty(), $notes, $timer->finish());
         } catch (CurrentlyNotMergeRequestException) {
-            return LintResult::success(new LintNote('Currently is not merge request'), $timer->finish());
-        } catch (CiNotSupported|InvalidCredentialsException $e) {
+            return LintResult::successWithNote(new LintNote('Currently is not merge request'), $timer->finish());
+        } catch (CiNotSupported|InvalidCredentialsException|CredentialsNotSetException $e) {
             return LintResult::fail(new ExceptionNote($e), $timer->finish());
         }
     }

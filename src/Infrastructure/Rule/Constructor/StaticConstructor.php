@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor;
 
+use ArtARTs36\MergeRequestLinter\Common\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructor;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
 
 class StaticConstructor implements RuleConstructor
 {

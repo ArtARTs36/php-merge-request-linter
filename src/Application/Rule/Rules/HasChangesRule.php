@@ -9,12 +9,12 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\ContainsR
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\DiffChecker;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\NeedFileChange;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\UpdatedPhpConstantChecker;
+use ArtARTs36\MergeRequestLinter\Common\Attributes\Generic;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 
 /**
  * Merge Request must have changes in {files}.

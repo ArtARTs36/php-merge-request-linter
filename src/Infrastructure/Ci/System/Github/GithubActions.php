@@ -3,6 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\MapProxy;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
@@ -12,9 +15,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullReq
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
 class GithubActions implements CiSystem

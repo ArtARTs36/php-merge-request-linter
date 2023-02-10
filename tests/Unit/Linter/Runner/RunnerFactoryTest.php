@@ -3,10 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\NullEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use Psr\Log\NullLogger;
 

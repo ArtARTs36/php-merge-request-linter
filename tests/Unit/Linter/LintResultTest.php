@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter;
 
-use ArtARTs36\MergeRequestLinter\Application\Linter\LintResult;
-use ArtARTs36\MergeRequestLinter\Support\Time\Duration;
+use ArtARTs36\MergeRequestLinter\Common\Time\Duration;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyNote;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -17,7 +17,7 @@ final class LintResultTest extends TestCase
                 true,
             ],
             [
-                LintResult::success(new EmptyNote(), new Duration(0.13)),
+                LintResult::successWithNote(new EmptyNote(), new Duration(0.13)),
                 false,
             ],
         ];
@@ -25,7 +25,7 @@ final class LintResultTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsFail
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::isFail
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult::isFail
      */
     public function testIsFail(LintResult $result, bool $expected): void
     {
@@ -33,8 +33,8 @@ final class LintResultTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::fail
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult::fail
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult::__construct
      */
     public function testFail(): void
     {
@@ -44,12 +44,12 @@ final class LintResultTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::success
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult::successWithNote
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult::__construct
      */
     public function testSuccess(): void
     {
-        $result = LintResult::success(new EmptyNote(), new Duration(0.12));
+        $result = LintResult::successWithNote(new EmptyNote(), new Duration(0.12));
 
         self::assertTrue($result->state);
     }

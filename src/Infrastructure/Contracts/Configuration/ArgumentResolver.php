@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration;
 
+use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
 
 /**
  * Argument resolver.

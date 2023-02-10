@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
 
 final class MapResolver implements ArgumentResolver
 {

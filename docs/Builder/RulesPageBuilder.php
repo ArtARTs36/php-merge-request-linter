@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder;
 
-use ArtARTs36\MergeRequestLinter\Support\Reflector\ClassSummary;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\ClassSummary;
 use ArtARTs36\Str\Str;
 
 class RulesPageBuilder

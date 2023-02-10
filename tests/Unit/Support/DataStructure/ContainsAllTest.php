@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\ContainsAll;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\Traits\ContainsAll;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ContainsAllTest extends TestCase

@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Evaluator;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 class EvaluatorFactory
 {

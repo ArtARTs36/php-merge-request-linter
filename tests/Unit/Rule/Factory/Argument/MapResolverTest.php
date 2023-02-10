@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Factory\Argument;
 
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterType;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterTypeName;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterTypeName;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 class MapResolverTest extends TestCase

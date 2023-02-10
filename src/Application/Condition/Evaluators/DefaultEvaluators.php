@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 
 final class DefaultEvaluators
 {

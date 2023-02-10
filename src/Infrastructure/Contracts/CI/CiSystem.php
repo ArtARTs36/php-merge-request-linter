@@ -4,8 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
-use ArtARTs36\MergeRequestLinter\Exception\ServerUnexpectedResponseException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ServerUnexpectedResponseException;
 
 /**
  * Continuous Integration System.

@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
+use ArtARTs36\MergeRequestLinter\Common\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\Generic;
 
 /**
  * Check if the field is equal to one of the values.

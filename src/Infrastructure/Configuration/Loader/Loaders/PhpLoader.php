@@ -4,12 +4,12 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loade
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigNotFound;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 /**
  * @deprecated

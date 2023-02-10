@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
 
+use ArtARTs36\MergeRequestLinter\Common\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ArrayeeResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver;
@@ -11,7 +12,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\GenericR
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ObjectCompositeResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\SetResolver;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\ArrayObjectConverter;
 use Psr\Container\ContainerInterface;
 
 class ArgumentResolverFactory

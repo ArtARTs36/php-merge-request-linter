@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
+use ArtARTs36\MergeRequestLinter\Common\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricProxy;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
