@@ -6,14 +6,10 @@ use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
-use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
-use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
-use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
-use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\Record;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyTablePrinter;
@@ -27,7 +23,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class LintCommand extends Command
 {
@@ -41,6 +37,7 @@ class LintCommand extends Command
         protected ConfigResolver $config,
         protected LinterRunnerFactory $runnerFactory,
         protected MetricManager $metrics,
+        protected EventDispatcherInterface $events,
         protected readonly NotePrinter $notePrinter = new NotePrinter(),
         protected readonly MetricPrinter $metricPrinter = new MetricPrinter(),
     ) {
@@ -82,21 +79,13 @@ class LintCommand extends Command
             $style->newLine(2);
         }
 
-        $progressBar = new ProgressBar($output, $config->config->getRules()->count());
-
-        $subscriber = new LintSubscriber(
-            new SymfonyProgressBar($progressBar),
+        $this->events->addSubscriber(new LintEventsSubscriber(
+            new SymfonyProgressBar(new ProgressBar($output, $config->config->getRules()->count())),
             new ConsolePrinter($style),
             $input->getOption('debug'),
-        );
+        ));
 
-        $evDispatcher = new EventDispatcher();
-        $evDispatcher->addListener(LintStartedEvent::class, $subscriber->started(...));
-        $evDispatcher->addListener(RuleWasSuccessfulEvent::class, $subscriber->success(...));
-        $evDispatcher->addListener(RuleWasFailedEvent::class, $subscriber->fail(...));
-        $evDispatcher->addListener(LintFinishedEvent::class, $subscriber->finished(...));
-
-        $linter = new Linter($config->config->getRules(), $evDispatcher);
+        $linter = new Linter($config->config->getRules(), $this->events);
 
         $result = $this->runnerFactory->create($config->config)->run($linter);
 

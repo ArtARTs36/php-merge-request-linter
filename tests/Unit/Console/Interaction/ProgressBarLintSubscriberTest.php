@@ -2,9 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Console\Interaction;
 
-use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
-use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
-use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockProgressBar;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullPrinter;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -22,7 +20,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber::success
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber::succeed
      * @dataProvider providerForTestSuccess
      */
     public function testSuccess(int $runs, int $expectedProgress): void
@@ -30,7 +28,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
         $subscriber = $this->makeProgressBarLintSubscriber();
 
         for ($i = 0; $i < $runs; $i++) {
-            $subscriber->subscriber->success(new RuleWasSuccessfulEvent(''));
+            $subscriber->subscriber->succeed();
         }
 
         self::assertEquals($expectedProgress, $subscriber->progressBar->progress);
@@ -48,7 +46,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber::fail
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber::failed
      * @dataProvider providerForTestFail
      */
     public function testFail(int $runs, int $expectedProgress): void
@@ -56,7 +54,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
         $subscriber = $this->makeProgressBarLintSubscriber();
 
         for ($i = 0; $i < $runs; $i++) {
-            $subscriber->subscriber->fail(new RuleWasFailedEvent(''));
+            $subscriber->subscriber->failed();
         }
 
         self::assertEquals($expectedProgress, $subscriber->progressBar->progress);
@@ -66,12 +64,12 @@ final class ProgressBarLintSubscriberTest extends TestCase
     private function makeProgressBarLintSubscriber()
     {
         $bar = new MockProgressBar();
-        $subscriber = new LintSubscriber($bar, new NullPrinter(), false);
+        $subscriber = new LintEventsSubscriber($bar, new NullPrinter(), false);
 
         return new class ($bar, $subscriber) {
             public function __construct(
-                public MockProgressBar $progressBar,
-                public LintSubscriber  $subscriber,
+                public MockProgressBar      $progressBar,
+                public LintEventsSubscriber $subscriber,
             ) {
                 //
             }

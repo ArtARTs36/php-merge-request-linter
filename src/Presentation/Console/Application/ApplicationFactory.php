@@ -27,6 +27,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactor
 use ArtARTs36\MergeRequestLinter\Support\File\Directory;
 use ArtARTs36\MergeRequestLinter\Support\ToolInfo\ToolInfoFactory;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ApplicationFactory
 {
@@ -61,7 +62,9 @@ class ApplicationFactory
             $metrics,
         );
 
-        $application->add(new LintCommand($configResolver, $runnerFactory, $metrics));
+        $events = new EventDispatcher();
+
+        $application->add(new LintCommand($configResolver, $runnerFactory, $metrics, $events));
         $application->add(new InstallCommand(new Copier(new Directory(__DIR__ . '/../../../../stubs'))));
         $application->add(new DumpCommand($configResolver, new RuleDumper()));
         $application->add(new InfoCommand(new ToolInfoFactory()));

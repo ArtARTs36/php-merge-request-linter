@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
@@ -52,6 +53,8 @@ class Linter
                 $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));
             }
         }
+
+        $this->events->dispatch(new LintFinishedEvent($request));
 
         return new Notes($notes);
     }

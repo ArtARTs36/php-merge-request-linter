@@ -5,11 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
 use ArtARTs36\MergeRequestLinter\Contracts\IO\ProgressBar;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
-use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class LintSubscriber
+class LintEventsSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly ProgressBar $progressBar,
@@ -19,12 +20,22 @@ class LintSubscriber
         //
     }
 
-    public function success(RuleWasSuccessfulEvent $event): void
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            RuleWasSuccessfulEvent::class => 'succeed',
+            RuleWasFailedEvent::class => 'failed',
+            RuleFatalEndedEvent::class => 'failed',
+            LintFinishedEvent::class => 'finished',
+        ];
+    }
+
+    public function succeed(): void
     {
         $this->progressBar->add();
     }
 
-    public function fail(RuleWasFailedEvent $event): void
+    public function failed(): void
     {
         $this->progressBar->add();
     }
@@ -32,10 +43,7 @@ class LintSubscriber
     public function finished(LintFinishedEvent $event): void
     {
         $this->progressBar->finish();
-    }
 
-    public function started(LintStartedEvent $event): void
-    {
         if (! $this->isDebug) {
             return;
         }
