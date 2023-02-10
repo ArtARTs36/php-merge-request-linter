@@ -25,7 +25,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return new Config(
             Rules::make($rules),
             new ArrayMap([]),
-            new HttpClientConfig(HttpClientConfig::TYPE_NULL),
+            new HttpClientConfig(HttpClientConfig::TYPE_NULL, []),
         );
     }
 

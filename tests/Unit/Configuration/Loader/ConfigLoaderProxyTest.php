@@ -25,7 +25,7 @@ final class ConfigLoaderProxyTest extends TestCase
             return new class () implements ConfigLoader {
                 public function load(string $path): Config
                 {
-                    return new Config(new Rules([]), new ArrayMap([]), new HttpClientConfig(HttpClientConfig::TYPE_NULL));
+                    return new Config(new Rules([]), new ArrayMap([]), new HttpClientConfig(HttpClientConfig::TYPE_NULL, []));
                 }
             };
         });

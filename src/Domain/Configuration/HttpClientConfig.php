@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
+/**
+ * @phpstan-type Params array{base_uri: string, cookies: true, headers: array<string, string>}
+ */
 class HttpClientConfig
 {
     public const TYPE_GUZZLE = 'guzzle';
@@ -9,11 +12,11 @@ class HttpClientConfig
     public const TYPE_NULL = 'null';
 
     /**
-     * @param array<string, mixed> $params
+     * @param Params $params
      */
     public function __construct(
         public string $type,
-        public array $params = [],
+        public array $params,
     ) {
         //
     }

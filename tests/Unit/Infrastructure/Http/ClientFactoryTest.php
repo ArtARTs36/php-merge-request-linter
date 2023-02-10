@@ -14,8 +14,8 @@ final class ClientFactoryTest extends TestCase
     public function providerForTestCreate(): array
     {
         return [
-            [new HttpClientConfig(HttpClientConfig::TYPE_GUZZLE), MetricableClient::class],
-            [new HttpClientConfig(HttpClientConfig::TYPE_NULL), NullClient::class],
+            [new HttpClientConfig(HttpClientConfig::TYPE_GUZZLE, []), MetricableClient::class],
+            [new HttpClientConfig(HttpClientConfig::TYPE_NULL, []), NullClient::class],
         ];
     }
 
