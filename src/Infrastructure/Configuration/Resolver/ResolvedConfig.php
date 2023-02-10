@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 
 class ResolvedConfig
 {

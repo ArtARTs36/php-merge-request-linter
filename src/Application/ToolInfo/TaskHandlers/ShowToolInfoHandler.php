@@ -8,8 +8,8 @@ use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\CollectionSubj
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\InfoSubject;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\StringSubject;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfo;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Version;

@@ -7,13 +7,13 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\DefaultEvaluat
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\OperatorRulesExecutor;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\RulesExecutor;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CredentialMapper;

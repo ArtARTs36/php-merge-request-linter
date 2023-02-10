@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration;
+namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 

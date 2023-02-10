@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\MapProxy;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\HttpClientConfig;
 
 class ArrayConfigHydrator
 {

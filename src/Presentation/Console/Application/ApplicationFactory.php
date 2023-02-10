@@ -7,8 +7,8 @@ use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfig
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
 use ArtARTs36\MergeRequestLinter\Common\File\Directory;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\ArrayConfigLoaderFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\CompositeLoader;

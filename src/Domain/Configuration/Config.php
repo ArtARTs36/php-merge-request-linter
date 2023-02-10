@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration;
+namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;

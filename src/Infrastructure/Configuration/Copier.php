@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Common\File\Directory;
 use ArtARTs36\MergeRequestLinter\Common\File\File;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 
 class Copier
 {

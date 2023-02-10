@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
@@ -10,7 +11,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\CredentialsNotSetException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;

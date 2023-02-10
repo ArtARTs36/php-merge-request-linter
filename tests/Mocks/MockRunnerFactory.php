@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;

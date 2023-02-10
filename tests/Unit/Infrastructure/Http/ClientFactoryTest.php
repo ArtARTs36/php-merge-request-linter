@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Http;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\NullClient;
