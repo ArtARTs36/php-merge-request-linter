@@ -261,6 +261,10 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a string is empty.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -321,6 +325,10 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a string is empty.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -445,6 +453,10 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a string is empty.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -505,6 +517,10 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a string is empty.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -565,6 +581,10 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a string is empty.",
+                            "type": "boolean"
                         }
                     }
                 },

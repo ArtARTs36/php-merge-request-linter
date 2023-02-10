@@ -27,5 +27,11 @@ rules:
       title:
         notStarts: '[Docs]'
 
+  "custom":
+    - rules:
+        targetBranch:
+          isEmpty: false
+      definition: "Target branch must be not empty"
+
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
