@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
+use ArtARTs36\Str\Str;
 
 /**
  * Interface for evaluating Subject.
@@ -33,7 +34,7 @@ interface EvaluatingSubject
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
      */
-    public function string(): string;
+    public function string(): Str;
 
     /**
      * Extract iterable property.

@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
+use ArtARTs36\Str\Str;
 
 final class MockPropertyExtractor implements PropertyExtractor
 {
@@ -24,9 +25,9 @@ final class MockPropertyExtractor implements PropertyExtractor
         return $this->value;
     }
 
-    public function string(object $object, string $property): string
+    public function string(object $object, string $property): Str
     {
-        return $this->value;
+        return Str::make($this->value);
     }
 
     public function collection(object $object, string $property): Collection

@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
+use ArtARTs36\Str\Str;
 
 /**
  * Property Extractor.
@@ -33,7 +34,7 @@ interface PropertyExtractor
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
      */
-    public function string(object $object, string $property): string;
+    public function string(object $object, string $property): Str;
 
     /**
      * Extract iterable property.

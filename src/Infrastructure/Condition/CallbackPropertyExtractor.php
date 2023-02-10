@@ -58,19 +58,21 @@ class CallbackPropertyExtractor implements PropertyExtractor
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
      */
-    public function string(object $object, string $property): string
+    public function string(object $object, string $property): Str
     {
         $val = $this->extract($object, $property);
 
-        if (! is_string($val) && ! $val instanceof Str) {
-            throw PropertyHasDifferentTypeException::make(
-                $property,
-                $this->getType($val),
-                'string',
-            );
+        if (is_string($val)) {
+            return Str::make($val);
+        } elseif ($val instanceof Str) {
+            return $val;
         }
 
-        return $val;
+        throw PropertyHasDifferentTypeException::make(
+            $property,
+            $this->getType($val),
+            'string',
+        );
     }
 
     /**

@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\Str\Str;
 
 class MockEvaluatingSubject implements EvaluatingSubject
 {
@@ -24,9 +25,9 @@ class MockEvaluatingSubject implements EvaluatingSubject
         return $this->value;
     }
 
-    public function string(): string
+    public function string(): Str
     {
-        return $this->value;
+        return new Str($this->value);
     }
 
     public function collection(): Collection
