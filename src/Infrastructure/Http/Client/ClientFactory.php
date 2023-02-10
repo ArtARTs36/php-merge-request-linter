@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
-use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
-use ArtARTs36\MergeRequestLinter\Contracts\HTTP\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpClientTypeNotSupported;
 use GuzzleHttp\Client as GuzzleClient;
 

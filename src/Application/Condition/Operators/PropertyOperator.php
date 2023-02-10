@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Operators;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
 
 class PropertyOperator implements ConditionOperator
 {

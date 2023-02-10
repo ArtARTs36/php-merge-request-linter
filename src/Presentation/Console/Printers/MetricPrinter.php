@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Printers;
 
-use ArtARTs36\MergeRequestLinter\Contracts\IO\TablePrinter;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\TablePrinter;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 
 class MetricPrinter

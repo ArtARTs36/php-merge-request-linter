@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction;
 
-use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
-use ArtARTs36\MergeRequestLinter\Contracts\IO\ProgressBar;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\Printer;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\ProgressBar;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LintEventsSubscriber implements EventSubscriberInterface

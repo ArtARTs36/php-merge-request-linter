@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
-use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Exception\ServerUnexpectedResponseException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use GuzzleHttp\ClientInterface as GuzzleClient;
 use GuzzleHttp\Promise\Utils;
 use Psr\Http\Client\ClientInterface as PsrClient;

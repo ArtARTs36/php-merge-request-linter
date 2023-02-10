@@ -2,8 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
-
 final class ExceptionNote extends AbstractNote implements Note
 {
     protected const SEVERITY = NoteSeverity::Fatal;

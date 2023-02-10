@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
-use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyTablePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\RuleInfoPrinter;
 use Symfony\Component\Console\Input\InputInterface;

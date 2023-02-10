@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\RuleNotFound;
 
 /**
  * Interface for resolving Rules.

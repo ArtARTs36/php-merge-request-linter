@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Exception\ConstructorFindException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ConstructorFindException;
 
 class ConstructorFinder implements RuleConstructorFinder
 {

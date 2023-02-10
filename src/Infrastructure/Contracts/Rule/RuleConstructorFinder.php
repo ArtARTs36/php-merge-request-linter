@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Exception\ConstructorFindException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ConstructorFindException;
 
 /**
  * Constructor Finder for Rule

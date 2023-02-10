@@ -2,10 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL;
 
-use ArtARTs36\MergeRequestLinter\Contracts\CI\GithubClient;
-use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client as HttpClient;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Change;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Status;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
@@ -15,6 +12,9 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\Tag
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;

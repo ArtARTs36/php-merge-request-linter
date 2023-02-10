@@ -3,14 +3,14 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
-use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use Psr\Log\LoggerInterface;

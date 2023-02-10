@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Exception;
 
+use ArtARTs36\MergeRequestLinter\Common\Exceptions\MergeRequestLinterException;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class InvalidCredentialsException extends MergeRequestLinterException implements ClientExceptionInterface

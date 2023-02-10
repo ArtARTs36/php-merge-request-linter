@@ -3,10 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CompositeRule;
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 

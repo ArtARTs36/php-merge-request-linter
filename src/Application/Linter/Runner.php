@@ -2,19 +2,19 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
-use ArtARTs36\MergeRequestLinter\Contracts\Request\MergeRequestFetcher;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
-use ArtARTs36\MergeRequestLinter\Exception\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\Request\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 
-class Runner implements LinterRunner
+final class Runner implements LinterRunner
 {
     public function __construct(
-        protected MergeRequestFetcher $requestFetcher,
+        private readonly MergeRequestFetcher $requestFetcher,
     ) {
         //
     }

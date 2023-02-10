@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
-use ArtARTs36\MergeRequestLinter\Contracts\HasDebugInfo;
-use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\HasDebugInfo;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\Printer;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Output\OutputInterface;

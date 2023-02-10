@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Container;
 
-use ArtARTs36\MergeRequestLinter\Exception\MergeRequestLinterException;
+use ArtARTs36\MergeRequestLinter\Common\Exceptions\MergeRequestLinterException;
 use Psr\Container\NotFoundExceptionInterface;
 
 class EntryNotFoundException extends MergeRequestLinterException implements NotFoundExceptionInterface

@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
 
 class Proxy implements ConfigLoader
 {

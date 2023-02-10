@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\ComparedIncompatibilityTypesException;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Exception\ComparedIncompatibilityTypesException;
-use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
-use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 
 abstract class Evaluator implements ConditionEvaluator
 {

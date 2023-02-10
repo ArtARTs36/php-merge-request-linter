@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
-use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 use Psr\Http\Message\RequestInterface;

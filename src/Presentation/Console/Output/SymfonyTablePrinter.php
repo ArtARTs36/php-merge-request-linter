@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
-use ArtARTs36\MergeRequestLinter\Contracts\IO\TablePrinter;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\TablePrinter;
 use Symfony\Component\Console\Style\StyleInterface;
 
 class SymfonyTablePrinter implements TablePrinter

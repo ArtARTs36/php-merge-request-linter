@@ -3,10 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders;
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
-use ArtARTs36\MergeRequestLinter\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 
 class ArrayLoader implements ConfigLoader
 {

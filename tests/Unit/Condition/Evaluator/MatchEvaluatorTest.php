@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\MatchEvaluator;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidEvaluatorValueException;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\InvalidEvaluatorValueException;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Printers;
 
-use ArtARTs36\MergeRequestLinter\Contracts\IO\TablePrinter;
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\TablePrinter;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Helper\TableCellStyle;
 

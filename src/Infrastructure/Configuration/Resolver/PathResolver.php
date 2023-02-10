@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver;
 
 use ArtARTs36\FileSystem\Contracts\FileNotFound;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
-use ArtARTs36\MergeRequestLinter\Exception\ConfigNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigNotFound;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
 
 class PathResolver

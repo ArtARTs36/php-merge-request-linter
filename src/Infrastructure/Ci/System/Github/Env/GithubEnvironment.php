@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidEnvironmentVariableValueException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\Str\Str;
 
 class GithubEnvironment

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
-use ArtARTs36\MergeRequestLinter\Contracts\IO\ProgressBar;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\ProgressBar;
 
 final class SymfonyProgressBar implements ProgressBar
 {

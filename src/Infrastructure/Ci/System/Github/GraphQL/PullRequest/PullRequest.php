@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest;
 
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Change;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 

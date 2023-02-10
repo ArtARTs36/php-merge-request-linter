@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
-use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

@@ -7,11 +7,11 @@ use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
 
-class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver
+class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver
 {
     public function __construct(
-        private readonly \ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver $resolver,
-        private readonly MetricManager $metrics,
+        private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver $resolver,
+        private readonly MetricManager                                                                       $metrics,
     ) {
         //
     }

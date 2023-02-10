@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\InvalidEvaluatorValueException;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
@@ -13,7 +14,6 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidEvaluatorValueException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class Linter

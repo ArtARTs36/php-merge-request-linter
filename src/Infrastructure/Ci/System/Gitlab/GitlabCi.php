@@ -2,16 +2,16 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab;
 
-use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\CI\GitlabClient;
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;

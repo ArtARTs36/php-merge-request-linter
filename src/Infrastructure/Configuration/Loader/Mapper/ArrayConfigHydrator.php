@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
-use ArtARTs36\MergeRequestLinter\Exception\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\MapProxy;
 

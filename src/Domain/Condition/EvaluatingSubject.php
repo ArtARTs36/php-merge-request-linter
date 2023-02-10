@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Condition;
 
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
-use ArtARTs36\MergeRequestLinter\Exception\PropertyHasDifferentTypeException;
-use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;

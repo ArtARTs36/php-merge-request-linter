@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Support\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
-use ArtARTs36\MergeRequestLinter\Contracts\HasDebugInfo;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Support\ArrayKeyIterator;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\Traits\CountProxy;
 

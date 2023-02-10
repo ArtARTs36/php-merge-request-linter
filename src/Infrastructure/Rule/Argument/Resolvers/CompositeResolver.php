@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Exception\ArgNotSupportedException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Support\Reflector\ParameterType;
 
 final class CompositeResolver implements ArgumentResolver

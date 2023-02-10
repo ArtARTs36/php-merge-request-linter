@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
-use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Contracts\CI\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigValueTransformer;
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\Token;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
 use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
 
 class CredentialMapper

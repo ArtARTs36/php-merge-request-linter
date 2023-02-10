@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Condition;
 
-use ArtARTs36\MergeRequestLinter\Exception\ComparedIncompatibilityTypesException;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidEvaluatorValueException;
-use ArtARTs36\MergeRequestLinter\Exception\PropertyNotExists;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\ComparedIncompatibilityTypesException;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\InvalidEvaluatorValueException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 
 /**
  * Interface for Condition Operator

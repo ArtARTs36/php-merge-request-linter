@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Printers;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleInfo;
-use ArtARTs36\MergeRequestLinter\Contracts\IO\TablePrinter;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\TablePrinter;
 
 class RuleInfoPrinter
 {

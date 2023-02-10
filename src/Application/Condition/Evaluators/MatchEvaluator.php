@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\InvalidEvaluatorValueException;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Exception\InvalidEvaluatorValueException;
 use ArtARTs36\Str\Exceptions\InvalidRegexException;
 use ArtARTs36\Str\Facade\Str;
 

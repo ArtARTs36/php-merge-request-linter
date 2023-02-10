@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Contracts\IO\ProgressBar;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\ProgressBar;
 
 final class MockProgressBar implements ProgressBar
 {
