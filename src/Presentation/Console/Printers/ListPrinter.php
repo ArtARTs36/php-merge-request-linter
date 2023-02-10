@@ -7,7 +7,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ListPrinter
 {
     /**
-     * @param array<string|callable(): string> $lines
+     * @param array<string> $lines
      */
     public function print(OutputInterface $output, array $lines): void
     {

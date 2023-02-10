@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
+use ArtARTs36\MergeRequestLinter\Application\ToolInfo\Handlers\ShowToolInfoHandler;
 use ArtARTs36\MergeRequestLinter\Common\File\Directory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
@@ -67,7 +68,7 @@ class ApplicationFactory
         $application->add(new LintCommand($configResolver, $runnerFactory, $metrics, $events));
         $application->add(new InstallCommand(new Copier(new Directory(__DIR__ . '/../../../../stubs'))));
         $application->add(new DumpCommand($configResolver, new RuleDumper()));
-        $application->add(new InfoCommand(new ToolInfoFactory()));
+        $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory())));
 
         return $application;
     }
