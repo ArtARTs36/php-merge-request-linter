@@ -2,13 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
+use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
+use ArtARTs36\MergeRequestLinter\Application\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\Record;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;

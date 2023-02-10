@@ -1,7 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Linter\Runner;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Linter;
 
+use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;

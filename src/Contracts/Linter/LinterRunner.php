@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Contracts\Linter;
 
-use ArtARTs36\MergeRequestLinter\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
+use ArtARTs36\MergeRequestLinter\Application\Linter\LintResult;
 
 /**
  * Linter Runner

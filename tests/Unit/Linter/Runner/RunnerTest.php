@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
+use ArtARTs36\MergeRequestLinter\Application\Linter\Event\NullLintEventSubscriber;
+use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
+use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
@@ -11,9 +14,6 @@ use ArtARTs36\MergeRequestLinter\Exception\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
-use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
-use ArtARTs36\MergeRequestLinter\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -21,8 +21,8 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 final class RunnerTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Runner\Runner::run
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Runner\Runner::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::run
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::__construct
      */
     public function testRunOnCiNotDetected(): void
     {
@@ -40,8 +40,8 @@ final class RunnerTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Runner\Runner::run
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Runner\Runner::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::run
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::__construct
      */
     public function testRunOnNotMergeRequest(): void
     {
@@ -61,8 +61,8 @@ final class RunnerTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Runner\Runner::run
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Runner\Runner::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::run
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::__construct
      */
     public function testRunOnInvalidCredentials(): void
     {
@@ -83,8 +83,8 @@ final class RunnerTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Runner\Runner::run
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Runner\Runner::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::run
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::__construct
      */
     public function testRunSuccess(): void
     {

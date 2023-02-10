@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter;
 
+use ArtARTs36\MergeRequestLinter\Application\Linter\Event\NullLintEventSubscriber;
+use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Actions\StopsLint;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
@@ -9,15 +11,13 @@ use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Linter\Event\NullLintEventSubscriber;
-use ArtARTs36\MergeRequestLinter\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class LinterTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Linter::run
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Linter::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::run
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::__construct
      */
     public function testRunOnStopException(): void
     {
@@ -46,8 +46,8 @@ final class LinterTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Linter::run
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\Linter::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::run
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::__construct
      */
     public function testRunOnException(): void
     {

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter;
 
-use ArtARTs36\MergeRequestLinter\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Application\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Support\Time\Duration;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyNote;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -25,7 +25,7 @@ final class LintResultTest extends TestCase
 
     /**
      * @dataProvider providerForTestIsFail
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::isFail
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::isFail
      */
     public function testIsFail(LintResult $result, bool $expected): void
     {
@@ -33,8 +33,8 @@ final class LintResultTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::fail
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::fail
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::__construct
      */
     public function testFail(): void
     {
@@ -44,8 +44,8 @@ final class LintResultTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::success
-     * @covers \ArtARTs36\MergeRequestLinter\Linter\LintResult::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::success
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\LintResult::__construct
      */
     public function testSuccess(): void
     {

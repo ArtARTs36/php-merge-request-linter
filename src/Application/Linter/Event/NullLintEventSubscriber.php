@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Linter\Event;
+namespace ArtARTs36\MergeRequestLinter\Application\Linter\Event;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
