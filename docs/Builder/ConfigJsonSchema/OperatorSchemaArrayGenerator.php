@@ -55,6 +55,7 @@ class OperatorSchemaArrayGenerator
             HasEvaluator::class,
             NotHasEvaluator::class,
             HasAnyEvaluator::class,
+            IsEmptyEvaluator::class,
         ],
         Map::class => [
             CountMinEvaluator::class,
@@ -65,6 +66,7 @@ class OperatorSchemaArrayGenerator
             HasEvaluator::class,
             NotHasEvaluator::class,
             HasAnyEvaluator::class,
+            IsEmptyEvaluator::class,
         ],
         'bool' => [
             EqualsEvaluator::class,

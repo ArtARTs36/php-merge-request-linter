@@ -34,6 +34,11 @@ class MockEvaluatingSubject implements EvaluatingSubject
         return new Arrayee($this->value);
     }
 
+    public function interface(string $interface): mixed
+    {
+        return $this->value;
+    }
+
     public function propertyName(): string
     {
         return 'mock_property';

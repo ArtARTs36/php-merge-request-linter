@@ -42,4 +42,12 @@ interface EvaluatingSubject
      * @throws PropertyHasDifferentTypeException
      */
     public function collection(): Collection;
+
+    /**
+     * Extract property which implements $interface.
+     * @template V
+     * @param class-string<V> $interface
+     * @return V
+     */
+    public function interface(string $interface): mixed;
 }

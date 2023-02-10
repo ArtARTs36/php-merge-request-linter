@@ -263,7 +263,7 @@
                             "type": "string"
                         },
                         "isEmpty": {
-                            "description": "Check if a string is empty.",
+                            "description": "Check if a value is empty.",
                             "type": "boolean"
                         }
                     }
@@ -327,7 +327,7 @@
                             "type": "string"
                         },
                         "isEmpty": {
-                            "description": "Check if a string is empty.",
+                            "description": "Check if a value is empty.",
                             "type": "boolean"
                         }
                     }
@@ -372,6 +372,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -455,7 +459,7 @@
                             "type": "string"
                         },
                         "isEmpty": {
-                            "description": "Check if a string is empty.",
+                            "description": "Check if a value is empty.",
                             "type": "boolean"
                         }
                     }
@@ -519,7 +523,7 @@
                             "type": "string"
                         },
                         "isEmpty": {
-                            "description": "Check if a string is empty.",
+                            "description": "Check if a value is empty.",
                             "type": "boolean"
                         }
                     }
@@ -583,7 +587,7 @@
                             "type": "string"
                         },
                         "isEmpty": {
-                            "description": "Check if a string is empty.",
+                            "description": "Check if a value is empty.",
                             "type": "boolean"
                         }
                     }
@@ -670,6 +674,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
                         }
                     }
                 }

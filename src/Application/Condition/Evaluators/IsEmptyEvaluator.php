@@ -2,10 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
+use ArtARTs36\EmptyContracts\MayBeEmpty;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 
 /**
- * Check if a string is empty.
+ * Check if a value is empty.
  */
 final class IsEmptyEvaluator extends Evaluator
 {
@@ -19,6 +20,6 @@ final class IsEmptyEvaluator extends Evaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return ($subject->string() === '') === $this->value;
+        return $subject->interface(MayBeEmpty::class)->isEmpty() === $this->value;
     }
 }

@@ -56,4 +56,9 @@ class EvaluatingSubject implements \ArtARTs36\MergeRequestLinter\Domain\Conditio
     {
         return $this->propertyExtractor->collection($this->subject, $this->property);
     }
+
+    public function interface(string $interface): mixed
+    {
+        return $this->propertyExtractor->interface($this->subject, $this->property, $interface);
+    }
 }

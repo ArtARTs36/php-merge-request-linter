@@ -42,4 +42,12 @@ interface PropertyExtractor
      * @throws PropertyHasDifferentTypeException
      */
     public function collection(object $object, string $property): Collection;
+
+    /**
+     * Extract property which implements $interface.
+     * @template V
+     * @param class-string<V> $interface
+     * @return V
+     */
+    public function interface(object $object, string $property, string $interface): mixed;
 }

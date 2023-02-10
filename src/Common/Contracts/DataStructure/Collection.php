@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure;
 
+use ArtARTs36\EmptyContracts\MayBeEmpty;
 use IteratorAggregate;
 
 /**
@@ -10,7 +11,7 @@ use IteratorAggregate;
  * @template V
  * @template-extends IteratorAggregate<K, V>
  */
-interface Collection extends IteratorAggregate, \Countable
+interface Collection extends IteratorAggregate, \Countable, MayBeEmpty
 {
     /**
      * Check contains any of {values}.

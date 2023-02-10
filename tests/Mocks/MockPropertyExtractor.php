@@ -37,4 +37,9 @@ final class MockPropertyExtractor implements PropertyExtractor
 
         return $this->value;
     }
+
+    public function interface(object $object, string $property, string $interface): mixed
+    {
+        return $this->value;
+    }
 }

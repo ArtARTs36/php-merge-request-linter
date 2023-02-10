@@ -96,6 +96,27 @@ class CallbackPropertyExtractor implements PropertyExtractor
         return $val;
     }
 
+    public function interface(object $object, string $property, string $interface): mixed
+    {
+        $val = $this->extract($object, $property);
+
+        if (is_array($val)) {
+            $val = new Arrayee($val);
+        } elseif (is_string($val)) {
+            $val = Str::make($val);
+        }
+
+        if ($val instanceof $interface) {
+            return $val;
+        }
+
+        throw PropertyHasDifferentTypeException::make(
+            $property,
+            $this->getType($val),
+            $interface,
+        );
+    }
+
     /**
      * @throws PropertyNotExists
      */
