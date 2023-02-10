@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\ToolInfo\Handlers;
+namespace ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\BoolSubject;

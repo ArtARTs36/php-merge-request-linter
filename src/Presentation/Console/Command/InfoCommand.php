@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\Application\ToolInfo\Handlers\ShowToolInfoHandler;
+use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\InfoSubject;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\ListPrinter;
 use Symfony\Component\Console\Input\InputInterface;
