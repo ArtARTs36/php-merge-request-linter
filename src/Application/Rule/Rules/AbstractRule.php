@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 
 abstract class AbstractRule implements Rule
 {

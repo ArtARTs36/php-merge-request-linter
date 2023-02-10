@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
 
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructor;
 
 class Builder
 {

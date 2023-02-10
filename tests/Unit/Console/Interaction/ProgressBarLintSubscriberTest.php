@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Console\Interaction;
 
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockProgressBar;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullPrinter;
@@ -28,7 +30,7 @@ final class ProgressBarLintSubscriberTest extends TestCase
         $subscriber = $this->makeProgressBarLintSubscriber();
 
         for ($i = 0; $i < $runs; $i++) {
-            $subscriber->subscriber->success('test-rule');
+            $subscriber->subscriber->success(new RuleWasSuccessfulEvent(''));
         }
 
         self::assertEquals($expectedProgress, $subscriber->progressBar->progress);
@@ -54,23 +56,11 @@ final class ProgressBarLintSubscriberTest extends TestCase
         $subscriber = $this->makeProgressBarLintSubscriber();
 
         for ($i = 0; $i < $runs; $i++) {
-            $subscriber->subscriber->fail('test-rule');
+            $subscriber->subscriber->fail(new RuleWasFailedEvent(''));
         }
 
         self::assertEquals($expectedProgress, $subscriber->progressBar->progress);
         self::assertFalse($subscriber->progressBar->finished);
-    }
-
-    /**
-     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintSubscriber::stopOn
-     */
-    public function testStopOn(): void
-    {
-        $subscriber = $this->makeProgressBarLintSubscriber();
-
-        $subscriber->subscriber->stopOn('kuku');
-
-        self::assertTrue($subscriber->progressBar->finished);
     }
 
     private function makeProgressBarLintSubscriber()

@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
 
 class RuleFactory

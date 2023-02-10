@@ -6,6 +6,10 @@ use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigResolver;
 use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\Record;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Config;
@@ -23,6 +27,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class LintCommand extends Command
 {
@@ -79,14 +84,19 @@ class LintCommand extends Command
 
         $progressBar = new ProgressBar($output, $config->config->getRules()->count());
 
-        $linter = new Linter(
-            $config->config->getRules(),
-            new LintSubscriber(
-                new SymfonyProgressBar($progressBar),
-                new ConsolePrinter($style),
-                $input->getOption('debug'),
-            ),
+        $subscriber = new LintSubscriber(
+            new SymfonyProgressBar($progressBar),
+            new ConsolePrinter($style),
+            $input->getOption('debug'),
         );
+
+        $evDispatcher = new EventDispatcher();
+        $evDispatcher->addListener(LintStartedEvent::class, $subscriber->started(...));
+        $evDispatcher->addListener(RuleWasSuccessfulEvent::class, $subscriber->success(...));
+        $evDispatcher->addListener(RuleWasFailedEvent::class, $subscriber->fail(...));
+        $evDispatcher->addListener(LintFinishedEvent::class, $subscriber->finished(...));
+
+        $linter = new Linter($config->config->getRules(), $evDispatcher);
 
         $result = $this->runnerFactory->create($config->config)->run($linter);
 

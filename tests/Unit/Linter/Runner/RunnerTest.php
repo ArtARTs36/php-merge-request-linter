@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter\Runner;
 
-use ArtARTs36\MergeRequestLinter\Application\Linter\Event\NullLintEventSubscriber;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
@@ -15,6 +14,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -33,7 +33,7 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
+        $result = $runner->run(new Linter(new Rules([]), new NullEventDispatcher()));
 
         self::assertEquals(false, $result->state);
         self::assertInstanceOf(ExceptionNote::class, $result->notes->first());
@@ -54,7 +54,7 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run(new Linter(new Rules([]), new NullLintEventSubscriber()));
+        $result = $runner->run(new Linter(new Rules([]), new NullEventDispatcher()));
 
         self::assertTrue($result->state);
         self::assertEquals('Currently is not merge request', $result->notes->first());
@@ -73,7 +73,7 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run((new Linter(new Rules([]), new NullLintEventSubscriber())));
+        $result = $runner->run((new Linter(new Rules([]), new NullEventDispatcher())));
 
         self::assertFalse($result->state);
         self::assertEquals(
@@ -102,7 +102,7 @@ final class RunnerTest extends TestCase
 
         $result = $runner->run(new Linter(Rules::make([
             new SuccessRule(),
-        ]), new NullLintEventSubscriber()));
+        ]), new NullEventDispatcher()));
 
         self::assertTrue($result->state);
     }

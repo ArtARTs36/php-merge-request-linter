@@ -1,7 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Contracts\Rule;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule;
 
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\ConstructorFindException;
 
 /**

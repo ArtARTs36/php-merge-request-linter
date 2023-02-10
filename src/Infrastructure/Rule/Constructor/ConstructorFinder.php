@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructor;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\ConstructorFindException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructor;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructorFinder;
 
 class ConstructorFinder implements RuleConstructorFinder
 {

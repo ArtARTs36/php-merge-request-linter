@@ -3,11 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\Counter;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 
 /**

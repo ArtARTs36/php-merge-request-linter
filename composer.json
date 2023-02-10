@@ -15,7 +15,9 @@
         "psr/http-client": "^1.0",
         "artarts36/file-system-contracts": "^0.2.0",
         "psr/http-message": "^1.0",
-        "psr/container": "^2.0"
+        "psr/container": "^2.0",
+        "symfony/event-dispatcher": "^6.2",
+        "psr/event-dispatcher": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",

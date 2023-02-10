@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 
 /**
  * Merge Request must contain links of any {domains}.
