@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\Counter;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDecorator;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Report\Metrics\Value\NullCounter;
 

@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 
 class OperatorRulesExecutor implements RulesExecutor
 {

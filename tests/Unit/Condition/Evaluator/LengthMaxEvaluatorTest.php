@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -25,8 +25,8 @@ final class LengthMaxEvaluatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator::evaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\LengthMaxEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator::doEvaluate
      * @dataProvider providerForEvaluate
      */
     public function testEvaluate(string $propertyValue, int $value, bool $expected): void

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -17,8 +17,8 @@ class EndsEvaluatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator::evaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\EndsEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EndsEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EndsEvaluator::doEvaluate
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $propertyValue, mixed $value, bool $expected): void

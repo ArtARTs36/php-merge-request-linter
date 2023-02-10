@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
 
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\GteEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\GteEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -21,8 +21,8 @@ final class GteEvaluatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\GteEvaluator::doEvaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Condition\Evaluator\GteEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\GteEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\GteEvaluator::evaluate
      * @dataProvider providerForEvaluate
      */
     public function testEvaluate(int|float $propertyValue, int|float $value, bool $expected): void

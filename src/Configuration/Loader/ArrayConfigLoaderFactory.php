@@ -3,13 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Configuration\Loader;
 
 use ArtARTs36\FileSystem\Contracts\FileSystem;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\OperatorRulesExecutor;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\RulesExecutor;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\DefaultEvaluators;
-use ArtARTs36\MergeRequestLinter\Condition\Evaluator\EvaluatorFactory;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorFactory;
-use ArtARTs36\MergeRequestLinter\Condition\Operator\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Configuration\Loader\Mapper\ArrayConfigHydrator;
@@ -21,7 +18,10 @@ use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Operator\OperatorFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Operator\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;

@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CompositeRule;
 use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Exception\RuleNotFound;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\RuleResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 
