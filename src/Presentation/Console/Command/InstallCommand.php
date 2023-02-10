@@ -2,7 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\Application\Configuration\Copier;
+use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
+use ArtARTs36\MergeRequestLinter\Application\Configuration\Tasks\CreateConfigTask;
 use ArtARTs36\MergeRequestLinter\Common\File\Directory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +18,7 @@ class InstallCommand extends Command
     protected static $defaultDescription = 'Install this tool';
 
     public function __construct(
-        private readonly Copier $configCopier,
+        private readonly CreateConfigTaskHandler $handler,
     ) {
         parent::__construct();
     }
@@ -36,7 +37,7 @@ class InstallCommand extends Command
         $dir = $this->getWorkDir($input);
         $format = $this->resolveConfigFormat($input);
 
-        $createdFile = $this->configCopier->copy($format, new Directory($dir));
+        $createdFile = $this->handler->handle(new CreateConfigTask($format, new Directory($dir)));
 
         $style->info(sprintf('Was copied configuration file to: %s [%s]', $createdFile, $createdFile->getSizeString()));
 

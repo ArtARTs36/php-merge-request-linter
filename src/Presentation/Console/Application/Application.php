@@ -6,18 +6,17 @@ use ArtARTs36\MergeRequestLinter\Common\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricProxy;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Application extends \Symfony\Component\Console\Application
 {
-    public const VERSION = '0.8.0';
-
     public function __construct(
         private readonly MetricManager $metrics,
     ) {
-        parent::__construct('Merge Request Linter', self::VERSION);
+        parent::__construct('Merge Request Linter', Version::VERSION);
     }
 
     protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output)

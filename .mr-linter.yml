@@ -19,7 +19,7 @@ rules:
 
   "@mr-linter/has_changes":
     changes:
-      - file: "src/Console/Application/Application.php"
+      - file: "src/Version.php"
         updatedPhpConstant: "VERSION"
     when:
       targetBranch:

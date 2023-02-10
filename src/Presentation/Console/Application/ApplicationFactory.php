@@ -3,12 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
-use ArtARTs36\MergeRequestLinter\Application\Configuration\Copier;
+use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\Handlers\ShowToolInfoHandler;
 use ArtARTs36\MergeRequestLinter\Common\File\Directory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\ArrayConfigLoaderFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\CompositeLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\PhpLoader;
@@ -66,7 +67,7 @@ class ApplicationFactory
         $events = new EventDispatcher();
 
         $application->add(new LintCommand($configResolver, $runnerFactory, $metrics, $events));
-        $application->add(new InstallCommand(new Copier(new Directory(__DIR__ . '/../../../../stubs'))));
+        $application->add(new InstallCommand(new CreateConfigTaskHandler(new Copier(new Directory(__DIR__ . '/../../../../stubs')))));
         $application->add(new DumpCommand($configResolver, new RuleDumper()));
         $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory())));
 

@@ -12,7 +12,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfo;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
-use ArtARTs36\MergeRequestLinter\Presentation\Console\Application\Application;
+use ArtARTs36\MergeRequestLinter\Version;
 
 class ShowToolInfoHandler
 {
@@ -40,7 +40,7 @@ class ShowToolInfoHandler
         /** @var Arrayee<int, InfoSubject> $subjects */
         $subjects = new Arrayee([
             new StringSubject('Repository', ToolInfo::REPO_URI),
-            new StringSubject('Current version', Application::VERSION),
+            new StringSubject('Current version', Version::VERSION),
             new StringSubject('Latest version', $toolInfo->getLatestVersion()?->digit() ?? 'undefined'),
             new CollectionSubject('Supported config formats', ConfigFormat::list()),
             new BoolSubject('Used as PHAR', $toolInfo->usedAsPhar()),

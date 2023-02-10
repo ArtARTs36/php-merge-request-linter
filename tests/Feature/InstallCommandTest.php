@@ -2,8 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
 
-use ArtARTs36\MergeRequestLinter\Application\Configuration\Copier;
+use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Common\File\Directory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\Cwd;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -20,7 +21,7 @@ final class InstallCommandTest extends TestCase
 
         $cwd->set(__DIR__);
 
-        $command = new InstallCommand(new Copier(new Directory(__DIR__ . '/../../stubs/')));
+        $command = new InstallCommand(new CreateConfigTaskHandler(new Copier(new Directory(__DIR__ . '/../../stubs/'))));
         $tester = new CommandTester($command);
 
         $tester->execute([]);
