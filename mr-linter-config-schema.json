@@ -140,21 +140,6 @@
                         }
                     ]
                 },
-                "@mr-linter/title_matches_expression": {
-                    "description": "The title must match the expression: {regex}",
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/rules_properties_@mr-linter_title_matches_expression"
-                        },
-                        {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/rules_properties_@mr-linter_title_matches_expression"
-                            },
-                            "minItems": 1
-                        }
-                    ]
-                },
                 "@mr-linter/title_must_starts_with_any_prefix": {
                     "description": "The title must starts with any {prefixes}",
                     "oneOf": [
@@ -653,11 +638,11 @@
                         },
                         "has": {
                             "description": "Check if an array contains some value.",
-                            "type": "ArtARTs36\\MergeRequestLinter\\Request\\Data\\Change"
+                            "type": null
                         },
                         "notHas": {
                             "description": "Check if an array not contains some value.",
-                            "type": "ArtARTs36\\MergeRequestLinter\\Request\\Data\\Change"
+                            "type": null
                         },
                         "hasAny": {
                             "description": "Check if an array contains some value of list.",
@@ -810,20 +795,6 @@
             "required": [
                 "domain",
                 "projectCode"
-            ]
-        },
-        "rules_properties_@mr-linter_title_matches_expression": {
-            "type": "object",
-            "properties": {
-                "when": {
-                    "$ref": "#/definitions/rule_conditions"
-                },
-                "regex": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "regex"
             ]
         },
         "rules_properties_@mr-linter_title_must_starts_with_any_prefix": {
