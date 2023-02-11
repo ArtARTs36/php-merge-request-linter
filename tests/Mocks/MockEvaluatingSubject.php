@@ -39,9 +39,4 @@ class MockEvaluatingSubject implements EvaluatingSubject
     {
         return $this->value;
     }
-
-    public function propertyName(): string
-    {
-        return 'mock_property';
-    }
 }
