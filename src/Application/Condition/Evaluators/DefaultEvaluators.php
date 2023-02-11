@@ -16,10 +16,11 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNo
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AllEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 
 final class DefaultEvaluators
 {
-    /** @var array<string, class-string<Evaluator>> */
+    /** @var array<string, class-string<ConditionEvaluator>> */
     public static array $map = [
         EqualsEvaluator::NAME => EqualsEvaluator::class,
         EqualsEvaluator::SYMBOL => EqualsEvaluator::class,
@@ -58,7 +59,7 @@ final class DefaultEvaluators
     ];
 
     /**
-     * @return ArrayMap<string, class-string<Evaluator>>
+     * @return ArrayMap<string, class-string<ConditionEvaluator>>
      */
     public static function map(): ArrayMap
     {
