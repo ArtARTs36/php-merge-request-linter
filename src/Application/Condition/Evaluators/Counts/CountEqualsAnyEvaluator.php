@@ -1,9 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
+namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts;
 
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Evaluator;
 use ArtARTs36\MergeRequestLinter\Common\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use function ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\in_array;
 
 /**
  * Check count equals.

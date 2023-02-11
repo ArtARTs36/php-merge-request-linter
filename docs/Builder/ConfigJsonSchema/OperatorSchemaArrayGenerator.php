@@ -2,22 +2,22 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsCamelCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsLowerCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsStudlyCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\ContainsEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\CountEqualsAnyEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\CountEqualsEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\CountMaxEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\CountMinEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\CountNotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsAnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountMinEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EqualsAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsCamelCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsEmptyEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsLowerCaseEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsStudlyCaseEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\MatchEvaluator;
