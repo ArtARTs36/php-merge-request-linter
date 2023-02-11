@@ -6,8 +6,6 @@ use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 use ArtARTs36\Str\Str;
 
 /**
@@ -17,30 +15,26 @@ interface EvaluatingSubject
 {
     /**
      * Extract numeric property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
+     * @throws EvaluatingSubjectException
      */
     public function numeric(): int|float;
 
     /**
      * Extract scalar property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
+     * @throws EvaluatingSubjectException
      */
     public function scalar(): int|string|float|bool;
 
     /**
      * Extract string property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
+     * @throws EvaluatingSubjectException
      */
     public function string(): Str;
 
     /**
      * Extract iterable property.
      * @return Arrayee<int|string, mixed>|ArrayMap<string, mixed>|Set<mixed>
-     * @throws PropertyNotExists
-     * @throws PropertyHasDifferentTypeException
+     * @throws EvaluatingSubjectException
      */
     public function collection(): Collection;
 
@@ -49,6 +43,7 @@ interface EvaluatingSubject
      * @template V
      * @param class-string<V> $interface
      * @return V
+     * @throws EvaluatingSubjectException
      */
     public function interface(string $interface): mixed;
 

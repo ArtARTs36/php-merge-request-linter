@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions;
 
 use ArtARTs36\MergeRequestLinter\Common\Exceptions\MergeRequestLinterException;
-use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectValueHasDifferentTypeException;
+use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectException;
 
-class PropertyHasDifferentTypeException extends MergeRequestLinterException implements EvaluatingSubjectValueHasDifferentTypeException
+class PropertyHasDifferentTypeException extends MergeRequestLinterException implements EvaluatingSubjectException
 {
     public function __construct(
         private readonly string $propertyName,

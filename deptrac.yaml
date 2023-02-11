@@ -4,27 +4,19 @@ deptrac:
 
   layers:
 
-    - name: Rule
-      collectors:
-        - type: directory
-          value: src/Rule/.*
-
-    - name: RequestFetcher
-      collectors:
-        - type: directory
-          value: src/Request/Fetcher/.*
-
-    - name: CI
-      collectors:
-        - type: directory
-          value: src/CI/.*
-
     - name: 'Infrastructure'
       collectors:
         - type: directory
           value: src/Infrastructure/.*
 
-    - name: Condition
+    - name: 'Domain'
       collectors:
         - type: directory
-          value: src/Condition/.*
+          value: src/Domain/.*
+
+  ruleset:
+    Vendor: ~
+
+    # Hexagonal
+    Domain: ~
+    Infrastructure: [ Domain ]
