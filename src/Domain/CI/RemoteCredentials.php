@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI;
+namespace ArtARTs36\MergeRequestLinter\Domain\CI;
 
 /**
  * Remote credentials for remote git hosting

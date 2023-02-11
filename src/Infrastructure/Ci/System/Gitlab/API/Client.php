@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API;
 
+use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;

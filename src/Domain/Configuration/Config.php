@@ -5,8 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\RemoteCredentials;
 
 class Config
 {
