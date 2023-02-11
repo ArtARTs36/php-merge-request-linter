@@ -32,6 +32,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluato
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Common\Reflector\Property;
 use ArtARTs36\MergeRequestLinter\Common\Reflector\Reflector;
@@ -169,7 +170,11 @@ class OperatorSchemaArrayGenerator
             foreach ($operators as $operatorClass) {
                 $operatorMeta = $operatorMetadata[$operatorClass];
 
-                if (is_subclass_of($operatorClass, IterEvaluator::class) && isset($this->typeEvaluatorsMap[$property->type->generic])) {
+                if (is_subclass_of($operatorClass, IterEvaluator::class)) {
+                    if (! isset($this->typeEvaluatorsMap[$property->type->generic])) {
+                        continue;
+                    }
+
                     $val = [
                         'description' => $operatorMeta->description,
                         'type' => JsonType::OBJECT,
@@ -197,9 +202,15 @@ class OperatorSchemaArrayGenerator
                 }
 
                 if ($operatorMeta->evaluatesSameType) {
+                    $jsonType = JsonType::to($property->type->name());
+
+                    if ($jsonType === null) {
+                        continue;
+                    }
+
                     $val = [
                         'description' => $operatorMeta->description,
-                        'type' => JsonType::to($property->type->name()),
+                        'type' => $jsonType,
                     ];
 
                     foreach ($operatorMeta->names as $operatorName) {
@@ -210,9 +221,15 @@ class OperatorSchemaArrayGenerator
                 }
 
                 if ($operatorMeta->evaluatesGenericType) {
+                    $jsonType = JsonType::to($property->type->generic);
+
+                    if ($jsonType === null) {
+                        continue;
+                    }
+
                     $val = [
                         'description' => $operatorMeta->description,
-                        'type' => JsonType::to($property->type->generic),
+                        'type' => $jsonType,
                     ];
 
                     foreach ($operatorMeta->names as $operatorName) {
@@ -272,6 +289,6 @@ class OperatorSchemaArrayGenerator
 
     private function allowObjectScan(string $type): bool
     {
-        return $type !== Set::class && $type !== Str::class;
+        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class;
     }
 }

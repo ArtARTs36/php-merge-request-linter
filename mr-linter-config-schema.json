@@ -952,14 +952,6 @@
                                 "type": "integer"
                             }
                         },
-                        "has": {
-                            "description": "Check if an array contains some value.",
-                            "type": null
-                        },
-                        "notHas": {
-                            "description": "Check if an array not contains some value.",
-                            "type": null
-                        },
                         "hasAny": {
                             "description": "Check if an array contains some value of list.",
                             "type": "array",
@@ -970,14 +962,6 @@
                         "isEmpty": {
                             "description": "Check if a value is empty.",
                             "type": "boolean"
-                        },
-                        "$all": {
-                            "description": "True if all values of array matched conditions.",
-                            "type": "array"
-                        },
-                        "$any": {
-                            "description": "True if any value of array matched conditions.",
-                            "type": "array"
                         }
                     }
                 }
