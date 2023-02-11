@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AllEvalua
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
+use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
 
 /**
@@ -18,6 +19,7 @@ class EvaluatorFactory
      */
     public function __construct(
         private readonly Map $evaluatorByType,
+        private readonly EvaluatingSubjectFactory $subjectFactory,
     ) {
         //
     }
@@ -63,7 +65,7 @@ class EvaluatorFactory
             $evaluators[] = $this->create($evName, $val);
         }
 
-        return new AllEvaluator($evaluators);
+        return new AllEvaluator($evaluators, $this->subjectFactory);
     }
 
     /**
@@ -77,6 +79,6 @@ class EvaluatorFactory
             $evaluators[] = $this->create($evName, $val);
         }
 
-        return new AnyEvaluator($evaluators);
+        return new AnyEvaluator($evaluators, $this->subjectFactory);
     }
 }

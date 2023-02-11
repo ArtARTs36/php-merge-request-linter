@@ -14,6 +14,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtrac
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\SubjectFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CredentialMapper;
@@ -66,8 +67,13 @@ class ArrayConfigLoaderFactory
             new ConstructorFinder(),
         );
 
-        $operatorFactory = new OperatorFactory(new CallbackPropertyExtractor(), new EvaluatorFactory(
+        $propExtractor = new CallbackPropertyExtractor();
+
+        $subjectFactory = new SubjectFactory($propExtractor);
+
+        $operatorFactory = new OperatorFactory($propExtractor, new EvaluatorFactory(
             DefaultEvaluators::map(),
+            $subjectFactory,
         ));
 
         $this->container->set(OperatorFactory::class, $operatorFactory);
