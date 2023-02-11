@@ -179,13 +179,13 @@ class OperatorSchemaArrayGenerator
                     foreach ($this->typeEvaluatorsMap[$property->type->generic] as $subEvaluatorClass) {
                         $subEvaluatorMeta = $operatorMetadata[$subEvaluatorClass];
 
-                        $suvEvaluatorData = [
+                        $subEvaluatorData = [
                             'description' => $subEvaluatorMeta->description,
                             'type' => JsonType::OBJECT,
                         ];
 
                         foreach ($subEvaluatorMeta->names as $name) {
-                            $val['properties'][$name] = $suvEvaluatorData;
+                            $val['properties'][$name] = $subEvaluatorData;
                         }
                     }
 
@@ -222,40 +222,52 @@ class OperatorSchemaArrayGenerator
                     continue;
                 }
 
-                $opParamTypes = $operatorMeta->parameters;
-
-                if (count($opParamTypes) === 1) {
-                    foreach ($operatorMeta->names as $operatorName) {
-                        $v = [
-                            'description' => $operatorMeta->description,
-                            'type' => $opParamTypes[0]->jsonType,
-                        ];
-
-                        if ($opParamTypes[0]->isGeneric()) {
-                            $v['items'] = [
-                                'type' => $opParamTypes[0]->generic,
-                            ];
-                        }
-
-                        $opArray['properties'][$propertyName]['properties'][$operatorName] = $v;
-                    }
-                } else {
-                    $anyOf = [];
-
-                    foreach ($opParamTypes as $pType) {
-                        $anyOf[] = [
-                            'type' => $pType,
-                        ];
-                    }
-
-                    foreach ($operatorMeta->names as $operatorName) {
-                        $opArray['properties'][$propertyName]['properties'][$operatorName]['anyOf'] = $anyOf;
-                    }
-                }
+                $opArray['properties'][$propertyName]['properties'] = array_merge(
+                    $opArray['properties'][$propertyName]['properties'],
+                    $this->mapEvaluatorData($operatorMeta),
+                );
             }
         }
 
         return $opArray;
+    }
+
+    private function mapEvaluatorData(OperatorMetadata $operatorMeta): array
+    {
+        $opParamTypes = $operatorMeta->parameters;
+
+        if (count($opParamTypes) === 1) {
+            foreach ($operatorMeta->names as $operatorName) {
+                $v = [
+                    'description' => $operatorMeta->description,
+                    'type' => $opParamTypes[0]->jsonType,
+                ];
+
+                if ($opParamTypes[0]->isGeneric()) {
+                    $v['items'] = [
+                        'type' => $opParamTypes[0]->generic,
+                    ];
+                }
+
+               return [$operatorName => $v];
+            }
+        } else {
+            $anyOf = [];
+
+            foreach ($opParamTypes as $pType) {
+                $anyOf[] = [
+                    'type' => $pType,
+                ];
+            }
+
+            $v = [];
+
+            foreach ($operatorMeta->names as $operatorName) {
+                $v[$operatorName]['anyOf'] = $anyOf;
+            }
+
+            return $v;
+        }
     }
 
     private function allowObjectScan(string $type): bool
