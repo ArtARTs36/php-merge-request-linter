@@ -15,6 +15,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountMi
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AllEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 
@@ -59,9 +60,9 @@ final class DefaultEvaluators
     ];
 
     /**
-     * @return ArrayMap<string, class-string<ConditionEvaluator>>
+     * @return Map<string, class-string<ConditionEvaluator>>
      */
-    public static function map(): ArrayMap
+    public static function map(): Map
     {
         return new ArrayMap(self::$map);
     }
