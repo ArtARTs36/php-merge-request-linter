@@ -254,6 +254,8 @@ class OperatorSchemaArrayGenerator
         $opParamTypes = $operatorMeta->parameters;
 
         if (count($opParamTypes) === 1) {
+            $values = [];
+
             foreach ($operatorMeta->names as $operatorName) {
                 $v = [
                     'description' => $operatorMeta->description,
@@ -266,25 +268,27 @@ class OperatorSchemaArrayGenerator
                     ];
                 }
 
-               return [$operatorName => $v];
-            }
-        } else {
-            $anyOf = [];
-
-            foreach ($opParamTypes as $pType) {
-                $anyOf[] = [
-                    'type' => $pType,
-                ];
+               $values[$operatorName] = $v;
             }
 
-            $v = [];
-
-            foreach ($operatorMeta->names as $operatorName) {
-                $v[$operatorName]['anyOf'] = $anyOf;
-            }
-
-            return $v;
+            return $values;
         }
+
+        $anyOf = [];
+
+        foreach ($opParamTypes as $pType) {
+            $anyOf[] = [
+                'type' => $pType,
+            ];
+        }
+
+        $v = [];
+
+        foreach ($operatorMeta->names as $operatorName) {
+            $v[$operatorName]['anyOf'] = $anyOf;
+        }
+
+        return $v;
     }
 
     private function allowObjectScan(string $type): bool
