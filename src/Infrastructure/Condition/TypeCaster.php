@@ -64,7 +64,9 @@ class TypeCaster
     }
 
     /**
-     * @throws PropertyHasDifferentTypeException
+     * Extract iterable property.
+     * @return Arrayee<int|string, mixed>|ArrayMap<string, mixed>|Set<mixed>
+     * @throws ValueHasDifferentTypeException
      */
     public function collection(mixed $val): Collection
     {

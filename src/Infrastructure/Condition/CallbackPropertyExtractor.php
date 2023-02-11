@@ -3,13 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Collection;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
-use ArtARTs36\Str\Facade\Str as StrFacade;
 use ArtARTs36\Str\Str;
 
 class CallbackPropertyExtractor implements PropertyExtractor

@@ -21,7 +21,7 @@ class ValueHasDifferentTypeException extends MergeRequestLinterException
         return new self(
             $realType,
             $expectedType,
-            sprintf('Property "%s" has different type "%s". Expected: %s', $property, $realType, $expectedType),
+            sprintf('Value has different type "%s". Expected: %s', $realType, $expectedType),
         );
     }
 

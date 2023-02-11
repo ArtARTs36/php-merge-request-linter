@@ -19,7 +19,6 @@ class AllEvaluator implements ConditionEvaluator
 
     public function evaluate(EvaluatingSubject $subject): bool
     {
-
         foreach ($subject->collection() as $value) {
             foreach ($this->evaluators as $evaluator) {
                 if (! $evaluator->evaluate(new StaticEvaluatingSubject($value))) {
