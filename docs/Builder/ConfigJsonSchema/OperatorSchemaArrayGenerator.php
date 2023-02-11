@@ -28,9 +28,9 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvalu
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\StartsEvaluator;
-use ArtARTs36\MergeRequestLinter\Common\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\Property;
 use ArtARTs36\MergeRequestLinter\Common\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
@@ -95,25 +95,22 @@ class OperatorSchemaArrayGenerator
 
     public function generate(): array
     {
-        $reflector = new \ReflectionClass(MergeRequest::class);
         $opArray = [
             'properties' => [],
         ];
 
         $operatorMetadata = $this->operatorMetadataLoader->load();
 
-        return $this->doGenerate($reflector, $operatorMetadata, $opArray, '');
+        return $this->doGenerate(Reflector::mapProperties(MergeRequest::class), $operatorMetadata, $opArray, '');
     }
 
     /**
+     * @param array<string, Property> $properties
      * @param array<class-string<ConditionOperator>, OperatorMetadata> $operatorMetadata
      */
-    private function doGenerate(\ReflectionClass $reflector, array $operatorMetadata, array $opArray, string $propertyPrefix): array
+    private function doGenerate(array $properties, array $operatorMetadata, array $opArray, string $propertyPrefix): array
     {
-        $properties = Reflector::mapProperties($reflector->getName());
-
-        foreach ($reflector->getProperties() as $prop) {
-            $property = $properties[$prop->getName()];
+        foreach ($properties as $property) {
             $propertyName = $property->name;
 
             if (\ArtARTs36\Str\Facade\Str::isNotEmpty($propertyPrefix)) {
@@ -122,7 +119,7 @@ class OperatorSchemaArrayGenerator
 
             if ($property->type->isClass() && $this->allowObjectScan($property->type->class)) {
                 $opArray = array_merge($opArray, $this->doGenerate(
-                    new \ReflectionClass($property->type->class),
+                    Reflector::mapProperties($property->type->class),
                     $operatorMetadata,
                     $opArray,
                     $propertyName,
