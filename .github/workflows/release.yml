@@ -16,7 +16,7 @@ jobs:
         run: composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
       - name: build phar
-        run: cd dev/build/ && composer install && cd ../../ && echo "y" | composer require guzzlehttp/guzzle && dev/build/vendor/bin/box compile && git checkout
+        run: cd dev/build/ && composer install && cd ../../ && dev/build/vendor/bin/box compile && git checkout
 
       - name: sign phar
         uses: phpDocumentor/phar-ga@latest

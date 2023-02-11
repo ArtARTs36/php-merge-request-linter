@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8abb6454946d1c2e8aff662245b02462",
+    "content-hash": "507b90efe67f9112d83697e62f812ac6",
     "packages": [
         {
             "name": "artarts36/empty-contracts",
