@@ -2,8 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\ToolInfo;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\Tag;
-
 /**
  * ToolInfo.
  */
