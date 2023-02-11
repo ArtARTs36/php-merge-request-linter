@@ -15,6 +15,7 @@ class JsonType
         Set::class => 'array',
         Arrayee::class => 'array',
         'int' => 'integer',
+        'integer' => 'integer',
         'iterable' => 'array',
         'float' => 'number',
         'bool' => 'boolean',

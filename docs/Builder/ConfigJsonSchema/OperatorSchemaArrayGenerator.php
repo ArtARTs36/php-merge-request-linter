@@ -184,9 +184,15 @@ class OperatorSchemaArrayGenerator
                     foreach ($this->typeEvaluatorsMap[$property->type->generic] as $subEvaluatorClass) {
                         $subEvaluatorMeta = $operatorMetadata[$subEvaluatorClass];
 
+                        if ($subEvaluatorMeta->parameters[0]->isGeneric()) {
+                            $jsonType = JsonType::to($subEvaluatorMeta->parameters[0]->generic);
+                        } else {
+                            $jsonType = $subEvaluatorMeta->parameters[0]->jsonType;
+                        }
+
                         $subEvaluatorData = [
                             'description' => $subEvaluatorMeta->description,
-                            'type' => JsonType::OBJECT,
+                            'type' => $jsonType,
                         ];
 
                         foreach ($subEvaluatorMeta->names as $name) {
