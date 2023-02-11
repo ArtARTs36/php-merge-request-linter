@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher;
 
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\StringMetric;
-use ArtARTs36\MergeRequestLinter\Domain\Request\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;

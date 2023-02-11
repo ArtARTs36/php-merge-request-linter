@@ -1,15 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI;
+namespace ArtARTs36\MergeRequestLinter\Domain\CI;
 
-use ArtARTs36\MergeRequestLinter\Domain\Request\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ServerUnexpectedResponseException;
 
 /**
  * Continuous Integration System.
- * @internal
  */
 interface CiSystem
 {
@@ -30,9 +26,7 @@ interface CiSystem
 
     /**
      * Get current merge request.
-     * @throws InvalidCredentialsException
-     * @throws ServerUnexpectedResponseException
-     * @throws CurrentlyNotMergeRequestException
+     * @throws GettingMergeRequestException
      */
     public function getCurrentlyMergeRequest(): MergeRequest;
 }

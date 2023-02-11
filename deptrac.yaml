@@ -15,8 +15,5 @@ deptrac:
           value: src/Domain/.*
 
   ruleset:
-    Vendor: ~
-
-    # Hexagonal
     Domain: ~
     Infrastructure: [ Domain ]

@@ -3,11 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
 use ArtARTs36\MergeRequestLinter\Common\Time\Timer;
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
-use ArtARTs36\MergeRequestLinter\Domain\Request\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\CredentialsNotSetException;

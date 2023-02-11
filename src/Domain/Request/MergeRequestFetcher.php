@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+
 /**
  * Interface for request fetching.
  */

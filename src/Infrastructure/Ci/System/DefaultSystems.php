@@ -4,9 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystem;
 
 final class DefaultSystems
 {

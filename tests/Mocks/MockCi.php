@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
+use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystem;
 use JetBrains\PhpStorm\ArrayShape;
 
 final class MockCi implements CiSystem
