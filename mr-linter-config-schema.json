@@ -281,6 +281,14 @@
                         "isLowerCase": {
                             "description": "Check if a string is lower case.",
                             "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -360,6 +368,14 @@
                         },
                         "isLowerCase": {
                             "description": "Check if a string is lower case.",
+                            "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab case.",
                             "type": "boolean"
                         }
                     }
@@ -509,6 +525,14 @@
                         "isLowerCase": {
                             "description": "Check if a string is lower case.",
                             "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -589,6 +613,14 @@
                         "isLowerCase": {
                             "description": "Check if a string is lower case.",
                             "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -668,6 +700,14 @@
                         },
                         "isLowerCase": {
                             "description": "Check if a string is lower case.",
+                            "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab case.",
                             "type": "boolean"
                         }
                     }

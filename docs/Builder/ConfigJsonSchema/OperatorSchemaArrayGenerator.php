@@ -3,7 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsCamelCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsKebabCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsLowerCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsSnakeCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsStudlyCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\ContainsEvaluator;
@@ -53,6 +55,8 @@ class OperatorSchemaArrayGenerator
             IsStudlyCaseEvaluator::class,
             IsUpperCaseEvaluator::class,
             IsLowerCaseEvaluator::class,
+            IsSnakeCaseEvaluator::class,
+            IsKebabCaseEvaluator::class,
         ],
         Set::class => [
             CountMinEvaluator::class,

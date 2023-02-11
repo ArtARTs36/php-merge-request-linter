@@ -3,7 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsCamelCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsKebabCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsLowerCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsSnakeCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsStudlyCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsAnyEvaluator;
@@ -47,6 +49,8 @@ final class DefaultEvaluators
         IsStudlyCaseEvaluator::NAME => IsStudlyCaseEvaluator::class,
         IsLowerCaseEvaluator::NAME => IsLowerCaseEvaluator::class,
         IsUpperCaseEvaluator::NAME => IsUpperCaseEvaluator::class,
+        IsSnakeCaseEvaluator::NAME => IsSnakeCaseEvaluator::class,
+        IsKebabCaseEvaluator::NAME => IsKebabCaseEvaluator::class,
     ];
 
     /**

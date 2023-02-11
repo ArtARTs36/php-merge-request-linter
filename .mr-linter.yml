@@ -27,5 +27,11 @@ rules:
       title:
         notStarts: '[Docs]'
 
+  custom:
+    - definition: "Branch must be in kebab-case"
+      rules:
+        sourceBranch:
+          isKebabCase: true
+
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
