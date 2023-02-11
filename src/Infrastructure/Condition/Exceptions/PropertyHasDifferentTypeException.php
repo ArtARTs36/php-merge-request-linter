@@ -28,17 +28,17 @@ class PropertyHasDifferentTypeException extends MergeRequestLinterException impl
         );
     }
 
-    public function getPropertyName(): string
+    public function getValueName(): string
     {
         return $this->propertyName;
     }
 
-    public function getRealPropertyType(): string
+    public function getRealValueType(): string
     {
         return $this->realPropertyType;
     }
 
-    public function getExpectedPropertyType(): string
+    public function getExpectedValueType(): string
     {
         return $this->expectedPropertyType;
     }

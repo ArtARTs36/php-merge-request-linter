@@ -5,9 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\StaticEvaluatingSubject;
 
-class AllEvaluator extends IterEvaluator
+class AnyEvaluator extends IterEvaluator
 {
-    public const NAME = '$all';
+    public const NAME = '$any';
 
     public function evaluate(EvaluatingSubject $subject): bool
     {
@@ -15,12 +15,12 @@ class AllEvaluator extends IterEvaluator
             $name = sprintf('%s[%s]', $subject->name(), (string) $index);
 
             foreach ($this->evaluators as $evaluator) {
-                if (! $evaluator->evaluate(new StaticEvaluatingSubject($name, $value))) {
-                    return false;
+                if ($evaluator->evaluate(new StaticEvaluatingSubject($name, $value))) {
+                    return true;
                 }
             }
         }
 
-        return true;
+        return false;
     }
 }

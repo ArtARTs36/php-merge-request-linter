@@ -85,6 +85,11 @@ class PropertyEvaluatingSubject implements EvaluatingSubject
         }
     }
 
+    public function name(): string
+    {
+        return $this->property;
+    }
+
     private function createPropertyHasDifferentTypeException(ValueHasDifferentTypeException $e, string $property): PropertyHasDifferentTypeException
     {
         return PropertyHasDifferentTypeException::make($property, $e->getRealPropertyType(), $e->getExpectedPropertyType());

@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\ComparedIncompatibilityTypesException;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
+use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectValueHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 
 abstract class Evaluator implements ConditionEvaluator
@@ -18,14 +18,14 @@ abstract class Evaluator implements ConditionEvaluator
     {
         try {
             return $this->doEvaluate($subject);
-        } catch (PropertyHasDifferentTypeException $e) {
+        } catch (EvaluatingSubjectValueHasDifferentTypeException $e) {
             throw new ComparedIncompatibilityTypesException(
                 sprintf(
                     'Operator "%s": attempt compare incompatibility types on property request.%s(%s). Expected type: %s',
                     static::NAME,
-                    $e->getPropertyName(),
-                    $e->getRealPropertyType(),
-                    $e->getExpectedPropertyType(),
+                    $e->getValueName(),
+                    $e->getRealValueType(),
+                    $e->getExpectedValueType(),
                 ),
                 previous: $e,
             );

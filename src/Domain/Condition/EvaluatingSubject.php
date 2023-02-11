@@ -51,4 +51,9 @@ interface EvaluatingSubject
      * @return V
      */
     public function interface(string $interface): mixed;
+
+    /**
+     * Get subject name.
+     */
+    public function name(): string;
 }

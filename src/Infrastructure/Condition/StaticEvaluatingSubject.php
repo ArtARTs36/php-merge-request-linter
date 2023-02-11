@@ -9,6 +9,7 @@ use ArtARTs36\Str\Str;
 class StaticEvaluatingSubject implements EvaluatingSubject
 {
     public function __construct(
+        private readonly string $name,
         private readonly mixed $value,
         private readonly TypeCaster $caster = new TypeCaster(),
     ) {
@@ -38,5 +39,10 @@ class StaticEvaluatingSubject implements EvaluatingSubject
     public function interface(string $interface): mixed
     {
         return $this->caster->interface($interface, $this->value);
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 }

@@ -10,15 +10,15 @@ interface EvaluatingSubjectValueHasDifferentTypeException extends \Throwable
     /**
      * Get property name.
      */
-    public function getPropertyName(): string;
+    public function getValueName(): string;
 
     /**
      * Get real property type.
      */
-    public function getRealPropertyType(): string;
+    public function getRealValueType(): string;
 
     /**
      * Get expected property type.
      */
-    public function getExpectedPropertyType(): string;
+    public function getExpectedValueType(): string;
 }
