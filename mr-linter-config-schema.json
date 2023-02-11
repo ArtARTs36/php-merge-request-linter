@@ -265,6 +265,22 @@
                         "isEmpty": {
                             "description": "Check if a value is empty.",
                             "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camel case.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is studly case.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -328,6 +344,22 @@
                         },
                         "isEmpty": {
                             "description": "Check if a value is empty.",
+                            "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camel case.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is studly case.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
                             "type": "boolean"
                         }
                     }
@@ -461,6 +493,22 @@
                         "isEmpty": {
                             "description": "Check if a value is empty.",
                             "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camel case.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is studly case.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -525,6 +573,22 @@
                         "isEmpty": {
                             "description": "Check if a value is empty.",
                             "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camel case.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is studly case.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -588,6 +652,22 @@
                         },
                         "isEmpty": {
                             "description": "Check if a value is empty.",
+                            "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camel case.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is studly case.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
                             "type": "boolean"
                         }
                     }

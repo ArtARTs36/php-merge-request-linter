@@ -2,18 +2,17 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
-use ArtARTs36\EmptyContracts\MayBeEmpty;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 
 /**
- * Check if a value is empty.
+ * Check if a string is lower case.
  */
-final class IsEmptyEvaluator extends BoolEvaluator
+class IsLowerCaseEvaluator extends BoolEvaluator
 {
-    public const NAME = 'isEmpty';
+    public const NAME = 'isLowerCase';
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return $subject->interface(MayBeEmpty::class)->isEmpty() === $this->value;
+        return $subject->string()->isLower() === $this->value;
     }
 }

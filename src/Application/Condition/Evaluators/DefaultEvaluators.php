@@ -34,6 +34,10 @@ final class DefaultEvaluators
         CountEqualsAnyEvaluator::NAME => CountEqualsAnyEvaluator::class,
         MatchEvaluator::NAME => MatchEvaluator::class,
         IsEmptyEvaluator::NAME => IsEmptyEvaluator::class,
+        IsCamelCaseEvaluator::NAME => IsCamelCaseEvaluator::class,
+        IsStudlyCaseEvaluator::NAME => IsStudlyCaseEvaluator::class,
+        IsLowerCaseEvaluator::NAME => IsLowerCaseEvaluator::class,
+        IsUpperCaseEvaluator::NAME => IsUpperCaseEvaluator::class,
     ];
 
     /**

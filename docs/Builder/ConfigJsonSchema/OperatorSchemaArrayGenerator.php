@@ -13,7 +13,11 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EqualsAnyEvalu
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsCamelCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsEmptyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsLowerCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsStudlyCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\MatchEvaluator;
@@ -45,6 +49,10 @@ class OperatorSchemaArrayGenerator
             EqualsAnyEvaluator::class,
             MatchEvaluator::class,
             IsEmptyEvaluator::class,
+            IsCamelCaseEvaluator::class,
+            IsStudlyCaseEvaluator::class,
+            IsUpperCaseEvaluator::class,
+            IsLowerCaseEvaluator::class,
         ],
         Set::class => [
             CountMinEvaluator::class,
