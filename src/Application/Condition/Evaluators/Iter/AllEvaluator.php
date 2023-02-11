@@ -14,7 +14,7 @@ class AllEvaluator extends IterEvaluator
         foreach ($subject->collection() as $index => $value) {
             $name = sprintf('%s[%s]', $subject->name(), (string) $index);
 
-            foreach ($this->evaluators as $evaluator) {
+            foreach ($this->value as $evaluator) {
                 if (! $evaluator->evaluate(new StaticEvaluatingSubject($name, $value))) {
                     return false;
                 }

@@ -7,10 +7,10 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 abstract class IterEvaluator implements ConditionEvaluator
 {
     /**
-     * @param iterable<ConditionEvaluator> $evaluators
+     * @param iterable<ConditionEvaluator> $value
      */
     public function __construct(
-        protected readonly iterable $evaluators,
+        protected readonly iterable $value,
     ) {
         //
     }

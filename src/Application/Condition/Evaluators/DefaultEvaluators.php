@@ -13,6 +13,8 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEq
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountMinEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AllEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
 
 final class DefaultEvaluators
@@ -51,6 +53,8 @@ final class DefaultEvaluators
         IsUpperCaseEvaluator::NAME => IsUpperCaseEvaluator::class,
         IsSnakeCaseEvaluator::NAME => IsSnakeCaseEvaluator::class,
         IsKebabCaseEvaluator::NAME => IsKebabCaseEvaluator::class,
+        AllEvaluator::NAME => AllEvaluator::class,
+        AnyEvaluator::NAME => AnyEvaluator::class,
     ];
 
     /**
