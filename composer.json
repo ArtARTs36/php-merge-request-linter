@@ -1,7 +1,7 @@
 {
     "name": "artarts36/merge-request-linter",
     "description": "MR Linter - tools for validating merge requests",
-    "type": "library",
+    "type": "project",
     "require": {
         "php": "^8.1",
         "artarts36/str": "^2.1.1",

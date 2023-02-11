@@ -17,14 +17,6 @@ This package provides tools for validating merge requests
 
 ## Installation
 
-### Installation as Composer Dependency
-
-You must have implementation of `psr/http-client-implementation`
-
-* Run: `composer require --dev artarts36/merge-request-linter`
-* Run `./vendor/bin/mr-linter install`. The file `.mr-linter.php` will be added to the root directory.
-* Configure `.mr-linter.php`
-
 ### Installation via PHAR
 
 * Download [PHAR](https://github.com/ArtARTs36/php-merge-request-linter/releases/latest/downloadmr-linter.phar)
@@ -41,31 +33,7 @@ You must have implementation of `psr/http-client-implementation`
 | ./vendor/bin/mr-linter lint                  | Run lint to current merge request                             |
 | ./vendor/bin/mr-linter info                  | Print info about MR Linter                                    |
 
-## Usage
-
-Add new script into your composer.json (section **scripts**):
-
-```json
-    "mr-lint": [
-        "./vendor/bin/mr-linter lint"
-    ]
-```
-
 ### ➜ Usage with Gitlab CI
-
-1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
-2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_GITLAB_HTTP_TOKEN" with your personal access token
-3. Add new step into **.gitlab-ci.yml**:
-   ```yaml
-   mr-lint:
-     stage: lint
-     only:
-       - merge_requests
-     script:
-       - composer mr-lint
-   ```
-
-### ➜ Usage with Gitlab CI without installation
 
 [See example](https://gitlab.com/artem_ukrainsky/mr-linter-testing/)
 
@@ -74,7 +42,7 @@ Add new script into your composer.json (section **scripts**):
 3. Add new step into **.gitlab-ci.yml**
    ```yaml
    mr-lint:
-     image: artarts36/merge-request-linter:0.3.0
+     image: artarts36/merge-request-linter:0.8.0
      stage: test
      only:
        - merge_requests
@@ -91,7 +59,7 @@ Add new script into your composer.json (section **scripts**):
     - name: MR Lint
       env:
         MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
-      run: composer mr-lint
+      run: mr-linter mr-lint
     ```
 
 ## Run in Docker
