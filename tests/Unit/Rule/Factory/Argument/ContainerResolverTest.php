@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Factory\Argument;
 
-use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterType;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterTypeName;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\TypeName;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ContainerResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -13,8 +13,8 @@ final class ContainerResolverTest extends TestCase
     public function providerForTestResolveOnExceptions(): array
     {
         return [
-            [new ParameterType(ParameterTypeName::String), [], 'Type with name "string" not supported'],
-            [new ParameterType(ParameterTypeName::Object, \stdClass::class), [], 'Resolver for type "stdClass" not found'],
+            [new Type(TypeName::String), [], 'Type with name "string" not supported'],
+            [new Type(TypeName::Object, \stdClass::class), [], 'Resolver for type "stdClass" not found'],
         ];
     }
 
@@ -22,7 +22,7 @@ final class ContainerResolverTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ContainerResolver::resolve
      * @dataProvider providerForTestResolveOnExceptions
      */
-    public function testResolveOnExceptions(ParameterType $paramType, array $container, string $expectException): void
+    public function testResolveOnExceptions(Type $paramType, array $container, string $expectException): void
     {
         self::expectExceptionMessage($expectException);
 

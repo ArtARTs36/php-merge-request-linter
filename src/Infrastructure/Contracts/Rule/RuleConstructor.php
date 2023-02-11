@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule;
 
-use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterType;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 
 /**
@@ -12,7 +12,7 @@ interface RuleConstructor
 {
     /**
      * Get required params.
-     * @return array<string, ParameterType>
+     * @return array<string, Type>
      */
     public function params(): array;
 

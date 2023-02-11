@@ -2,16 +2,16 @@
 
 namespace ArtARTs36\MergeRequestLinter\Common\Reflector;
 
-class ParameterType
+class Type
 {
     /**
      * @param class-string|null $class
      * @param string|class-string|null $generic
      */
     public function __construct(
-        public readonly ParameterTypeName $name,
-        public readonly ?string $class = null,
-        public readonly ?string $generic = null,
+        public readonly TypeName $name,
+        public readonly ?string  $class = null,
+        public readonly ?string  $generic = null,
     ) {
         //
     }

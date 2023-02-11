@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
 use ArtARTs36\MergeRequestLinter\Common\Reflector\ArrayObjectConverter;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterType;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 
 final class GenericResolver implements ArgumentResolver
@@ -15,7 +15,7 @@ final class GenericResolver implements ArgumentResolver
         //
     }
 
-    public function resolve(ParameterType $type, mixed $value): mixed
+    public function resolve(Type $type, mixed $value): mixed
     {
         if ($type->isGenericOfObject() && is_array($value) && is_array(reset($value))) {
             $values = [];

@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Common\Attributes\Generic;
 class Reflector
 {
     /**
-     * @return array<string, ParameterType>
+     * @return array<string, Type>
      * @throws \Exception
      */
     public static function mapMethodParamTypeOnParam(\ReflectionMethod $method): array
@@ -29,13 +29,13 @@ class Reflector
                 $generic = current($genericAttr->getArguments());
             }
 
-            $params[$parameter->getName()] = self::createParameterType($type->getName(), $generic);
+            $params[$parameter->getName()] = self::createType($type->getName(), $generic);
         }
 
         return $params;
     }
 
-    private static function createParameterType(string $name, ?string $generic): ParameterType
+    private static function createType(string $name, ?string $generic): Type
     {
         $typeName = $name;
         $class = null;
@@ -45,14 +45,14 @@ class Reflector
             $class = $name;
         }
 
-        return new ParameterType(ParameterTypeName::from($typeName), $class, $generic);
+        return new Type(TypeName::from($typeName), $class, $generic);
     }
 
     /**
      * @param class-string $class
-     * @return array<string, ParameterType>
+     * @return array<string, Property>
      */
-    public static function mapPropertyTypes(string $class): array
+    public static function mapProperties(string $class): array
     {
         $reflector = new \ReflectionClass($class);
 
@@ -73,7 +73,10 @@ class Reflector
                 throw new \LogicException(sprintf('Property %s not has type', $property->getName()));
             }
 
-            $map[$property->getName()] = self::createParameterType($type->getName(), $generic);
+            $map[$property->getName()] = new Property(
+                $property->getName(),
+                self::createType($type->getName(), $generic),
+            );
         }
 
         return $map;

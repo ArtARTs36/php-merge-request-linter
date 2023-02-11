@@ -67,9 +67,9 @@ class RuleSchemaGenerator
                             if ($paramType->isGenericOfObject()) {
                                 $genericProps = [];
 
-                                foreach (Reflector::mapPropertyTypes($paramType->generic) as $propertyName => $propertyType) {
-                                    $genericProps[$propertyName] = [
-                                        'type' => JsonType::to($propertyType->class ?? $propertyType->name->value),
+                                foreach (Reflector::mapProperties($paramType->generic) as $property) {
+                                    $genericProps[$property->name] = [
+                                        'type' => JsonType::to($property->type->class ?? $property->type->name->value),
                                     ];
                                 }
 

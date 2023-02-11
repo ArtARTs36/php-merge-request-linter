@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Common\Reflector;
 
-enum ParameterTypeName: string
+enum TypeName: string
 {
     case String = 'string';
     case Bool = 'bool';

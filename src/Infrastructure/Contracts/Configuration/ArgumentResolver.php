@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration;
 
-use ArtARTs36\MergeRequestLinter\Common\Reflector\ParameterType;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 
 /**
@@ -15,5 +15,5 @@ interface ArgumentResolver
      * @param scalar|array<mixed> $value
      * @throws ArgNotSupportedException
      */
-    public function resolve(ParameterType $type, mixed $value): mixed;
+    public function resolve(Type $type, mixed $value): mixed;
 }
