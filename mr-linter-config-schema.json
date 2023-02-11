@@ -424,6 +424,178 @@
                         "isEmpty": {
                             "description": "Check if a value is empty.",
                             "type": "boolean"
+                        },
+                        "$all": {
+                            "description": "True if all values of array matched conditions.",
+                            "type": "object",
+                            "properties": {
+                                "equals": {
+                                    "description": "Check if value are equal.",
+                                    "type": "object"
+                                },
+                                "=": {
+                                    "description": "Check if value are equal.",
+                                    "type": "object"
+                                },
+                                "lengthMin": {
+                                    "description": "Check the minimum string length.",
+                                    "type": "object"
+                                },
+                                "lengthMax": {
+                                    "description": "Check the maximum string length.",
+                                    "type": "object"
+                                },
+                                "starts": {
+                                    "description": "Check if a string contains a prefix.",
+                                    "type": "object"
+                                },
+                                "notStarts": {
+                                    "description": "Check if a string not contains a prefix.",
+                                    "type": "object"
+                                },
+                                "ends": {
+                                    "description": "Check if a string contains a suffix.",
+                                    "type": "object"
+                                },
+                                "notEnds": {
+                                    "description": "Check if a string not contains a suffix.",
+                                    "type": "object"
+                                },
+                                "contains": {
+                                    "description": "Check if a string contains a substring.",
+                                    "type": "object"
+                                },
+                                "notEquals": {
+                                    "description": "Check if value are not equal.",
+                                    "type": "object"
+                                },
+                                "!=": {
+                                    "description": "Check if value are not equal.",
+                                    "type": "object"
+                                },
+                                "equalsAny": {
+                                    "description": "Check if the field is equal to one of the values.",
+                                    "type": "object"
+                                },
+                                "match": {
+                                    "description": "Check if a string match a regex.",
+                                    "type": "object"
+                                },
+                                "isEmpty": {
+                                    "description": "Check if a value is empty.",
+                                    "type": "object"
+                                },
+                                "isCamelCase": {
+                                    "description": "Check if a string is camel case.",
+                                    "type": "object"
+                                },
+                                "isStudlyCase": {
+                                    "description": "Check if a string is studly case.",
+                                    "type": "object"
+                                },
+                                "isUpperCase": {
+                                    "description": "Check if a string is upper case.",
+                                    "type": "object"
+                                },
+                                "isLowerCase": {
+                                    "description": "Check if a string is lower case.",
+                                    "type": "object"
+                                },
+                                "isSnakeCase": {
+                                    "description": "Check if a string is snake case.",
+                                    "type": "object"
+                                },
+                                "isKebabCase": {
+                                    "description": "Check if a string is kebab case.",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "$any": {
+                            "description": "True if any value of array matched conditions.",
+                            "type": "object",
+                            "properties": {
+                                "equals": {
+                                    "description": "Check if value are equal.",
+                                    "type": "object"
+                                },
+                                "=": {
+                                    "description": "Check if value are equal.",
+                                    "type": "object"
+                                },
+                                "lengthMin": {
+                                    "description": "Check the minimum string length.",
+                                    "type": "object"
+                                },
+                                "lengthMax": {
+                                    "description": "Check the maximum string length.",
+                                    "type": "object"
+                                },
+                                "starts": {
+                                    "description": "Check if a string contains a prefix.",
+                                    "type": "object"
+                                },
+                                "notStarts": {
+                                    "description": "Check if a string not contains a prefix.",
+                                    "type": "object"
+                                },
+                                "ends": {
+                                    "description": "Check if a string contains a suffix.",
+                                    "type": "object"
+                                },
+                                "notEnds": {
+                                    "description": "Check if a string not contains a suffix.",
+                                    "type": "object"
+                                },
+                                "contains": {
+                                    "description": "Check if a string contains a substring.",
+                                    "type": "object"
+                                },
+                                "notEquals": {
+                                    "description": "Check if value are not equal.",
+                                    "type": "object"
+                                },
+                                "!=": {
+                                    "description": "Check if value are not equal.",
+                                    "type": "object"
+                                },
+                                "equalsAny": {
+                                    "description": "Check if the field is equal to one of the values.",
+                                    "type": "object"
+                                },
+                                "match": {
+                                    "description": "Check if a string match a regex.",
+                                    "type": "object"
+                                },
+                                "isEmpty": {
+                                    "description": "Check if a value is empty.",
+                                    "type": "object"
+                                },
+                                "isCamelCase": {
+                                    "description": "Check if a string is camel case.",
+                                    "type": "object"
+                                },
+                                "isStudlyCase": {
+                                    "description": "Check if a string is studly case.",
+                                    "type": "object"
+                                },
+                                "isUpperCase": {
+                                    "description": "Check if a string is upper case.",
+                                    "type": "object"
+                                },
+                                "isLowerCase": {
+                                    "description": "Check if a string is lower case.",
+                                    "type": "object"
+                                },
+                                "isSnakeCase": {
+                                    "description": "Check if a string is snake case.",
+                                    "type": "object"
+                                },
+                                "isKebabCase": {
+                                    "description": "Check if a string is kebab case.",
+                                    "type": "object"
+                                }
+                            }
                         }
                     }
                 },
@@ -798,6 +970,14 @@
                         "isEmpty": {
                             "description": "Check if a value is empty.",
                             "type": "boolean"
+                        },
+                        "$all": {
+                            "description": "True if all values of array matched conditions.",
+                            "type": "array"
+                        },
+                        "$any": {
+                            "description": "True if any value of array matched conditions.",
+                            "type": "array"
                         }
                     }
                 }

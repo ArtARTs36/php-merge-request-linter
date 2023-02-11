@@ -20,6 +20,9 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EqualsEvaluato
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsEmptyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AllEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\IterEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\MatchEvaluator;
@@ -39,6 +42,26 @@ use ArtARTs36\Str\Str;
 class OperatorSchemaArrayGenerator
 {
     private array $typeEvaluatorsMap = [
+        'string' => [
+            EqualsEvaluator::class,
+            LengthMinOperator::class,
+            LengthMaxEvaluator::class,
+            StartsEvaluator::class,
+            NotStartsEvaluator::class,
+            EndsEvaluator::class,
+            NotEndsEvaluator::class,
+            ContainsEvaluator::class,
+            NotEqualsEvaluator::class,
+            EqualsAnyEvaluator::class,
+            MatchEvaluator::class,
+            IsEmptyEvaluator::class,
+            IsCamelCaseEvaluator::class,
+            IsStudlyCaseEvaluator::class,
+            IsUpperCaseEvaluator::class,
+            IsLowerCaseEvaluator::class,
+            IsSnakeCaseEvaluator::class,
+            IsKebabCaseEvaluator::class,
+        ],
         Str::class => [
             EqualsEvaluator::class,
             LengthMinOperator::class,
@@ -69,6 +92,8 @@ class OperatorSchemaArrayGenerator
             NotHasEvaluator::class,
             HasAnyEvaluator::class,
             IsEmptyEvaluator::class,
+            AllEvaluator::class,
+            AnyEvaluator::class,
         ],
         Map::class => [
             CountMinEvaluator::class,
@@ -80,6 +105,8 @@ class OperatorSchemaArrayGenerator
             NotHasEvaluator::class,
             HasAnyEvaluator::class,
             IsEmptyEvaluator::class,
+            AllEvaluator::class,
+            AnyEvaluator::class,
         ],
         'bool' => [
             EqualsEvaluator::class,
@@ -141,6 +168,33 @@ class OperatorSchemaArrayGenerator
 
             foreach ($operators as $operatorClass) {
                 $operatorMeta = $operatorMetadata[$operatorClass];
+
+                if (is_subclass_of($operatorClass, IterEvaluator::class) && isset($this->typeEvaluatorsMap[$property->type->generic])) {
+                    $val = [
+                        'description' => $operatorMeta->description,
+                        'type' => JsonType::OBJECT,
+                        'properties' => [],
+                    ];
+
+                    foreach ($this->typeEvaluatorsMap[$property->type->generic] as $subEvaluatorClass) {
+                        $subEvaluatorMeta = $operatorMetadata[$subEvaluatorClass];
+
+                        $suvEvaluatorData = [
+                            'description' => $subEvaluatorMeta->description,
+                            'type' => JsonType::OBJECT,
+                        ];
+
+                        foreach ($subEvaluatorMeta->names as $name) {
+                            $val['properties'][$name] = $suvEvaluatorData;
+                        }
+                    }
+
+                    foreach ($operatorMeta->names as $operatorName) {
+                        $opArray['properties'][$propertyName]['properties'][$operatorName] = $val;
+                    }
+
+                    continue;
+                }
 
                 if ($operatorMeta->evaluatesSameType) {
                     $val = [

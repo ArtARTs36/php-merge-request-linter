@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\StaticEvaluatingSubject;
 
+/**
+ * True if all values of array matched conditions.
+ */
 class AllEvaluator extends IterEvaluator
 {
     public const NAME = '$all';
