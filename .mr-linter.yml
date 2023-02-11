@@ -33,5 +33,11 @@ rules:
         sourceBranch:
           isKebabCase: true
 
+    - definition: "Labels must be in StudlyCase"
+      rules:
+        labels:
+          "$all":
+            isStudlyCase: true
+
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"

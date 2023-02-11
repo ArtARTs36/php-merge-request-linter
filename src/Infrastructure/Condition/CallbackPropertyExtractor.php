@@ -14,109 +14,35 @@ use ArtARTs36\Str\Str;
 
 class CallbackPropertyExtractor implements PropertyExtractor
 {
-    /**
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
+    public function __construct(
+        private readonly TypeCaster $caster = new TypeCaster(),
+    ) {
+        //
+    }
+
     public function numeric(object $object, string $property): int|float
     {
-        $val = $this->extract($object, $property);
-
-        if (! is_numeric($val)) {
-            throw PropertyHasDifferentTypeException::make($property, $this->getType($val), 'int|float');
-        }
-
-        if (is_string($val)) {
-            $number = StrFacade::toNumber($val);
-
-            return $number === null ? 0 : $number;
-        }
-
-        return is_float($val) ? $val : (int) $val;
+        return $this->caster->numeric($this->extract($object, $property));
     }
 
-    /**
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
     public function scalar(object $object, string $property): int|string|float|bool
     {
-        $val = $this->extract($object, $property);
-
-        if (! is_scalar($val) && ! $val instanceof Str) {
-            throw PropertyHasDifferentTypeException::make(
-                $property,
-                $this->getType($val),
-                'int|float|string|bool',
-            );
-        }
-
-        return $val;
+        return $this->caster->scalar($this->extract($object, $property));
     }
 
-    /**
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
     public function string(object $object, string $property): Str
     {
-        $val = $this->extract($object, $property);
-
-        if (is_string($val)) {
-            return Str::make($val);
-        } elseif ($val instanceof Str) {
-            return $val;
-        }
-
-        throw PropertyHasDifferentTypeException::make(
-            $property,
-            $this->getType($val),
-            'string',
-        );
+        return $this->caster->string($this->extract($object, $property));
     }
 
-    /**
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
     public function collection(object $object, string $property): Collection
     {
-        $val = $this->extract($object, $property);
-
-        if (! is_array($val) && ! $val instanceof Set && ! $val instanceof ArrayMap) {
-            throw PropertyHasDifferentTypeException::make(
-                $property,
-                $this->getType($val),
-                'array|Set|Map',
-            );
-        }
-
-        if (is_array($val)) {
-            return new Arrayee($val);
-        }
-
-        return $val;
+        return $this->caster->collection($this->extract($object, $property));
     }
 
     public function interface(object $object, string $property, string $interface): mixed
     {
-        $val = $this->extract($object, $property);
-
-        if (is_array($val)) {
-            $val = new Arrayee($val);
-        } elseif (is_string($val)) {
-            $val = Str::make($val);
-        }
-
-        if ($val instanceof $interface) {
-            return $val;
-        }
-
-        throw PropertyHasDifferentTypeException::make(
-            $property,
-            $this->getType($val),
-            $interface,
-        );
+        return $this->caster->interface($interface, $this->extract($object, $property));
     }
 
     /**
@@ -153,14 +79,5 @@ class CallbackPropertyExtractor implements PropertyExtractor
         };
 
         return $extractor->call($object);
-    }
-
-    private function getType(mixed $value): string
-    {
-        if (is_object($value)) {
-            return get_class($value);
-        }
-
-        return gettype($value);
     }
 }

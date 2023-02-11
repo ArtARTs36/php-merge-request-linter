@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Operators;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\PropertyEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
 
 class PropertyOperator implements ConditionOperator
@@ -19,7 +19,7 @@ class PropertyOperator implements ConditionOperator
 
     public function check(object $subject): bool
     {
-        return $this->evaluator->evaluate(new EvaluatingSubject(
+        return $this->evaluator->evaluate(new PropertyEvaluatingSubject(
             $subject,
             $this->propertyExtractor,
             $this->property,
