@@ -31,6 +31,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\StartsEvaluato
 use ArtARTs36\MergeRequestLinter\Common\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Common\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\Str\Str;
@@ -109,16 +110,19 @@ class OperatorSchemaArrayGenerator
      */
     private function doGenerate(\ReflectionClass $reflector, array $operatorMetadata, array $opArray, string $propertyPrefix): array
     {
-        foreach ($reflector->getProperties() as $property) {
-            $propertyName = $property->getName();
+        $properties = Reflector::mapProperties($reflector->getName());
+
+        foreach ($reflector->getProperties() as $prop) {
+            $property = $properties[$prop->getName()];
+            $propertyName = $property->name;
 
             if (\ArtARTs36\Str\Facade\Str::isNotEmpty($propertyPrefix)) {
                 $propertyName = $propertyPrefix . '.' . $propertyName;
             }
 
-            if (class_exists($property->getType()->getName()) && $this->allowObjectScan($property->getType()->getName())) {
+            if ($property->type->isClass() && $this->allowObjectScan($property->type->class)) {
                 $opArray = array_merge($opArray, $this->doGenerate(
-                    new \ReflectionClass($property->getType()->getName()),
+                    new \ReflectionClass($property->type->class),
                     $operatorMetadata,
                     $opArray,
                     $propertyName,
@@ -132,7 +136,7 @@ class OperatorSchemaArrayGenerator
                 'properties' => [],
             ];
 
-            $operators = $this->typeEvaluatorsMap[$property->getType()->getName()] ?? null;
+            $operators = $this->typeEvaluatorsMap[$property->type->name()] ?? null;
 
             if ($operators === null) {
                 continue;
@@ -144,7 +148,7 @@ class OperatorSchemaArrayGenerator
                 if ($operatorMeta->evaluatesSameType) {
                     $val = [
                         'description' => $operatorMeta->description,
-                        'type' => JsonType::to($property->getType()->getName()),
+                        'type' => JsonType::to($property->type->name()),
                     ];
 
                     foreach ($operatorMeta->names as $operatorName) {
@@ -155,12 +159,9 @@ class OperatorSchemaArrayGenerator
                 }
 
                 if ($operatorMeta->evaluatesGenericType) {
-                    $genericAttr = $property->getAttributes(Generic::class);
-                    $genericType = current(current($genericAttr)->getArguments());
-
                     $val = [
                         'description' => $operatorMeta->description,
-                        'type' => JsonType::to($genericType),
+                        'type' => JsonType::to($property->type->generic),
                     ];
 
                     foreach ($operatorMeta->names as $operatorName) {

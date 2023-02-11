@@ -7,7 +7,11 @@ $jsonSchema = new \ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Gene
 $path = __DIR__ . '/../../mr-linter-config-schema.json';
 $prevHash = md5_file($path);
 
-file_put_contents($path, $json = $jsonSchema->generate()->toJson());
+try {
+    file_put_contents($path, $json = $jsonSchema->generate()->toJson());
+} catch (\Throwable $e) {
+
+}
 
 $updated = $prevHash !== md5($json);
 

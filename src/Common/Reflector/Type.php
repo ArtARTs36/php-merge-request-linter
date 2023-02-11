@@ -16,6 +16,11 @@ class Type
         //
     }
 
+    public function name(): string
+    {
+        return $this->class ?? $this->name->value;
+    }
+
     public function isGeneric(): bool
     {
         return $this->generic !== null;
@@ -23,6 +28,11 @@ class Type
 
     public function isGenericOfObject(): bool
     {
-        return $this->generic !== null && class_exists($this->generic);
+        return $this->generic !== null && (class_exists($this->generic) || interface_exists($this->generic));
+    }
+
+    public function isClass(): bool
+    {
+        return $this->class !== null && class_exists($this->class);
     }
 }
