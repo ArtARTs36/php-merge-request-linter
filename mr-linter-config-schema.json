@@ -283,11 +283,11 @@
                             "type": "boolean"
                         },
                         "isSnakeCase": {
-                            "description": "Check if a string is snake case.",
+                            "description": "Check if a string is snake_case.",
                             "type": "boolean"
                         },
                         "isKebabCase": {
-                            "description": "Check if a string is kebab case.",
+                            "description": "Check if a string is kebab-case.",
                             "type": "boolean"
                         }
                     }
@@ -371,11 +371,11 @@
                             "type": "boolean"
                         },
                         "isSnakeCase": {
-                            "description": "Check if a string is snake case.",
+                            "description": "Check if a string is snake_case.",
                             "type": "boolean"
                         },
                         "isKebabCase": {
-                            "description": "Check if a string is kebab case.",
+                            "description": "Check if a string is kebab-case.",
                             "type": "boolean"
                         }
                     }
@@ -502,11 +502,11 @@
                                     "type": "object"
                                 },
                                 "isSnakeCase": {
-                                    "description": "Check if a string is snake case.",
+                                    "description": "Check if a string is snake_case.",
                                     "type": "object"
                                 },
                                 "isKebabCase": {
-                                    "description": "Check if a string is kebab case.",
+                                    "description": "Check if a string is kebab-case.",
                                     "type": "object"
                                 }
                             }
@@ -588,11 +588,11 @@
                                     "type": "object"
                                 },
                                 "isSnakeCase": {
-                                    "description": "Check if a string is snake case.",
+                                    "description": "Check if a string is snake_case.",
                                     "type": "object"
                                 },
                                 "isKebabCase": {
-                                    "description": "Check if a string is kebab case.",
+                                    "description": "Check if a string is kebab-case.",
                                     "type": "object"
                                 }
                             }
@@ -699,11 +699,11 @@
                             "type": "boolean"
                         },
                         "isSnakeCase": {
-                            "description": "Check if a string is snake case.",
+                            "description": "Check if a string is snake_case.",
                             "type": "boolean"
                         },
                         "isKebabCase": {
-                            "description": "Check if a string is kebab case.",
+                            "description": "Check if a string is kebab-case.",
                             "type": "boolean"
                         }
                     }
@@ -787,11 +787,11 @@
                             "type": "boolean"
                         },
                         "isSnakeCase": {
-                            "description": "Check if a string is snake case.",
+                            "description": "Check if a string is snake_case.",
                             "type": "boolean"
                         },
                         "isKebabCase": {
-                            "description": "Check if a string is kebab case.",
+                            "description": "Check if a string is kebab-case.",
                             "type": "boolean"
                         }
                     }
@@ -875,11 +875,11 @@
                             "type": "boolean"
                         },
                         "isSnakeCase": {
-                            "description": "Check if a string is snake case.",
+                            "description": "Check if a string is snake_case.",
                             "type": "boolean"
                         },
                         "isKebabCase": {
-                            "description": "Check if a string is kebab case.",
+                            "description": "Check if a string is kebab-case.",
                             "type": "boolean"
                         }
                     }

@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\BoolEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 
 /**
- * Check if a string is kebab case.
+ * Check if a string is kebab-case.
  */
 class IsKebabCaseEvaluator extends BoolEvaluator
 {

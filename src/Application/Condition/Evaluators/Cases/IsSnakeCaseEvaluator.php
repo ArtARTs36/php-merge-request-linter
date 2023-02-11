@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\BoolEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 
 /**
- * Check if a string is snake case.
+ * Check if a string is snake_case.
  */
 class IsSnakeCaseEvaluator extends BoolEvaluator
 {
