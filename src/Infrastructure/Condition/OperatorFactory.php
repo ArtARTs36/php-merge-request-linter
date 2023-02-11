@@ -4,14 +4,14 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Operators\PropertyOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
 
 class OperatorFactory
 {
     public function __construct(
-        private readonly PropertyExtractor $propertyExtractor,
-        private readonly EvaluatorFactory $evaluatorFactory,
+        private readonly EvaluatingSubjectFactory $subjectFactory,
+        private readonly EvaluatorFactory         $evaluatorFactory,
     ) {
         //
     }
@@ -23,6 +23,6 @@ class OperatorFactory
     {
         $evaluator = $this->evaluatorFactory->create($type, $value);
 
-        return new PropertyOperator($evaluator, $this->propertyExtractor, $field);
+        return new PropertyOperator($evaluator, $this->subjectFactory, $field);
     }
 }

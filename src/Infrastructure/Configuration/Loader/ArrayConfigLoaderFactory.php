@@ -71,7 +71,7 @@ class ArrayConfigLoaderFactory
 
         $subjectFactory = new SubjectFactory($propExtractor);
 
-        $operatorFactory = new OperatorFactory($propExtractor, new EvaluatorFactory(
+        $operatorFactory = new OperatorFactory($subjectFactory, new EvaluatorFactory(
             DefaultEvaluators::map(),
             $subjectFactory,
         ));
