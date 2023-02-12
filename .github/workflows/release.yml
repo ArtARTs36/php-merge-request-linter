@@ -36,4 +36,4 @@ jobs:
         env:
           MR_LINTER_DOCKER_USER: ${{ secrets.MR_LINTER_DOCKER_USER }}
           MR_LINTER_DOCKER_PASSWORD: ${{ secrets.MR_LINTER_DOCKER_PASSWORD }}
-        run: make docker-pub-build && make docker-pub-push
+        run: make docker-pub-build && make docker-pub-push && make docker-pub-push-as-latest
