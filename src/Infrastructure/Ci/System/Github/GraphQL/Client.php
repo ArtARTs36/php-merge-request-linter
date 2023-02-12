@@ -151,7 +151,7 @@ class Client implements GithubClient
     }
 
     /**
-     * @param array{filename: string, patch: string, status: string} $respChange
+     * @param array{filename: string, patch: string|null, status: string} $respChange
      */
     private function mapChange(array $respChange): Change
     {
