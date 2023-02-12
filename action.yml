@@ -3,5 +3,4 @@ description: 'Lint your merge/pull requests'
 runs:
   using: docker
   image: docker://artarts36/merge-request-linter:0.3.0
-  args:
-    - lint
+  entrypoint: entrypoint.sh
