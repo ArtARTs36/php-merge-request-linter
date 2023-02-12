@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\DurationMetric;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricProxy;
@@ -29,7 +30,7 @@ class Application extends \Symfony\Component\Console\Application
                 sprintf('[Console] Command "%s" execution', $command->getName()),
             ),
             $timeMetric = new MetricProxy(function () use ($timer) {
-                return $timer->finish();
+                return new DurationMetric($timer->finish());
             }),
         );
 

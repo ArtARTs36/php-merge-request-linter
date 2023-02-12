@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver;
 
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\DurationMetric;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
@@ -24,7 +25,7 @@ class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastr
 
         $this->metrics->add(
             new MetricSubject('config_resolving_time', '[Config] Duration of config resolving'),
-            $timer->finish(),
+            new DurationMetric($timer->finish()),
         );
 
         return $config;
