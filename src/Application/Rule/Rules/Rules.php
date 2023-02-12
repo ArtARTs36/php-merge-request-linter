@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 /**
  * @template-extends Arrayee<int, Rule>
  */
-class Rules extends Arrayee
+class Rules extends Arrayee implements \ArtARTs36\MergeRequestLinter\Domain\Rule\Rules
 {
     /**
      * @param iterable<Rule> $rules
