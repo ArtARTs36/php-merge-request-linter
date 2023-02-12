@@ -28,3 +28,4 @@ deptrac:
     Domain: [Shared]
     Infrastructure: [Domain, Shared, Application]
     Application: [Domain, Infrastructure, Shared]
+    Shared: ~
