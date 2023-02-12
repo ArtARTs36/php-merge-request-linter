@@ -157,7 +157,7 @@ class Client implements GithubClient
     {
         return new Change(
             $respChange['filename'],
-            $this->diffMapper->map([$respChange['patch']]),
+            $this->diffMapper->map([$respChange['patch'] ?? '']),
             Status::from($respChange['status']),
         );
     }
