@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
-use ArtARTs36\MergeRequestLinter\Common\Time\Timer;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;

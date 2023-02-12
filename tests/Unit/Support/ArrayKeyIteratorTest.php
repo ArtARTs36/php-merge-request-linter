@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
 
-use ArtARTs36\MergeRequestLinter\Common\Iterators\ArrayKeyIterator;
+use ArtARTs36\MergeRequestLinter\Shared\Iterators\ArrayKeyIterator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ArrayKeyIteratorTest extends TestCase
@@ -20,7 +20,7 @@ final class ArrayKeyIteratorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Common\Iterators\ArrayKeyIterator
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Iterators\ArrayKeyIterator
      * @dataProvider providerForTestIterate
      */
     public function testIterate(array $map): void

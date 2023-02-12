@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions;
 
-use ArtARTs36\MergeRequestLinter\Common\Exceptions\MergeRequestLinterException;
+use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
 
 class CredentialsNotSetException extends MergeRequestLinterException
 {

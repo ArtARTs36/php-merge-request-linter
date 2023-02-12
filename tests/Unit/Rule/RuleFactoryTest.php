@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\AbstractRule;
-use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;

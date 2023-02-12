@@ -15,8 +15,8 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountMi
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AllEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
-use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 
 final class DefaultEvaluators

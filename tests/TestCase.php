@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Tests;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Note;

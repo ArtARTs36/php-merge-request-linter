@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
 
-use ArtARTs36\MergeRequestLinter\Common\File\File;
+use ArtARTs36\MergeRequestLinter\Shared\File\File;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class FileTest extends TestCase
@@ -22,7 +22,7 @@ final class FileTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Common\File\File::extension
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\File\File::extension
      * @dataProvider providerForTestExtension
      */
     public function testExtension(string $path, string $expected): void

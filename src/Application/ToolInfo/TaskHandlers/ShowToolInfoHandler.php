@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\BoolSubject;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\CollectionSubject;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\InfoSubject;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\StringSubject;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfo;

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
 
-use ArtARTs36\MergeRequestLinter\Common\Reflector\ArrayObjectConverter;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ArrayeeResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver;

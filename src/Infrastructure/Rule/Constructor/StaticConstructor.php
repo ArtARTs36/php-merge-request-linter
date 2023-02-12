@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor;
 
-use ArtARTs36\MergeRequestLinter\Common\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructor;
 

@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 
-use ArtARTs36\MergeRequestLinter\Common\Attributes\Generic;
-use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
 class MergeRequest

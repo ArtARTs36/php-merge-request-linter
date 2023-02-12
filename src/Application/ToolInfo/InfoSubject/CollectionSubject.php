@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject;
 
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 final class CollectionSubject implements InfoSubject
 {

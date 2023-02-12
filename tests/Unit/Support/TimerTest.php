@@ -2,14 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
 
-use ArtARTs36\MergeRequestLinter\Common\Time\Timer;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class TimerTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Common\Time\Timer::start
-     * @covers \ArtARTs36\MergeRequestLinter\Common\Time\Timer::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Timer::start
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Timer::__construct
      */
     public function testStart(): void
     {
@@ -19,8 +19,8 @@ final class TimerTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Common\Time\Timer::finish
-     * @covers \ArtARTs36\MergeRequestLinter\Common\Time\Timer::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Timer::finish
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Timer::__construct
      */
     public function testFinish(): void
     {

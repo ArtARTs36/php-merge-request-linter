@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 
-use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;

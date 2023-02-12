@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
  * @template-extends Arrayee<int, DiffLine>

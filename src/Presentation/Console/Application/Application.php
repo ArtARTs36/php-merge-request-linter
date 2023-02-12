@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
-use ArtARTs36\MergeRequestLinter\Common\Time\Timer;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricProxy;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;

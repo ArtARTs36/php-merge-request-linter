@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 
 final class DefaultRules

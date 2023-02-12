@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;

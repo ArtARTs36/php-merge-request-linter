@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
-use ArtARTs36\MergeRequestLinter\Common\Contracts\HasDebugInfo;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\Printer;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;

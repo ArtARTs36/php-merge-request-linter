@@ -31,11 +31,11 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvalu
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\StartsEvaluator;
-use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\Property;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Property;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\Str\Str;

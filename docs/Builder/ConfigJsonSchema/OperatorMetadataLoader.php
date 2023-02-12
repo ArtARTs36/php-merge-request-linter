@@ -6,8 +6,8 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesGeneri
 use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
-use ArtARTs36\MergeRequestLinter\Common\Attributes\Generic;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 
 class OperatorMetadataLoader

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 enum ConfigFormat: string
 {

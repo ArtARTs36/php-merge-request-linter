@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Common\File\Bytes;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions;
 
-use ArtARTs36\MergeRequestLinter\Common\Exceptions\MergeRequestLinterException;
+use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectException;
 
 class PropertyNotExists extends MergeRequestLinterException implements EvaluatingSubjectException

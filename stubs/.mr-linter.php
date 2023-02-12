@@ -3,7 +3,7 @@
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsOfRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithAnyPrefixRule;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\Token;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;

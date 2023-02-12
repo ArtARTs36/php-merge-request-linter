@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class MapTest extends TestCase
@@ -31,7 +31,7 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestGet
-     * @covers \ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap::get
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::get
      */
     public function testGet(array $items, string $id, mixed $value): void
     {
@@ -62,7 +62,7 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestHas
-     * @covers \ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap::has
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::has
      */
     public function testHas(array $items, string $id, bool $expected): void
     {
@@ -93,7 +93,7 @@ final class MapTest extends TestCase
 
     /**
      * @dataProvider providerForTestMissing
-     * @covers \ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap::missing
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::missing
      */
     public function testMissing(array $items, string $id, bool $expected): void
     {
@@ -101,7 +101,7 @@ final class MapTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap::diff
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::diff
      */
     public function testDiff(): void
     {
@@ -135,7 +135,7 @@ final class MapTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap::first
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::first
      * @dataProvider providerForTestFirst
      */
     public function testFirst(ArrayMap $map, mixed $expected): void

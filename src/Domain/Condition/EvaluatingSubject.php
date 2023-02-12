@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Condition;
 
-use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Collection;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
 /**

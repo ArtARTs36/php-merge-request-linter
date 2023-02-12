@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
-use ArtARTs36\MergeRequestLinter\Common\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;

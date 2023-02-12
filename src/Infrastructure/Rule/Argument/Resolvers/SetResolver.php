@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 

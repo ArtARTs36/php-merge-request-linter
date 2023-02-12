@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers;
 
 use ArtARTs36\MergeRequestLinter\Application\Configuration\TaskHandlers\CreateConfigTask;
-use ArtARTs36\MergeRequestLinter\Common\File\File;
+use ArtARTs36\MergeRequestLinter\Shared\File\File;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
 
 class CreateConfigTaskHandler

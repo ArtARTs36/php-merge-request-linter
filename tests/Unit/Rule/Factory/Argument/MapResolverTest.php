@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Factory\Argument;
 
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\Type;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\TypeName;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

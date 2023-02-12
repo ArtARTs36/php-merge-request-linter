@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
-use ArtARTs36\MergeRequestLinter\Common\Reflector\ArrayObjectConverter;
-use ArtARTs36\MergeRequestLinter\Common\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\ArrayObjectConverter;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 
 final class GenericResolver implements ArgumentResolver

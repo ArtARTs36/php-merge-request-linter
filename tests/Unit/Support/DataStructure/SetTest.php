@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Common\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class SetTest extends TestCase
@@ -19,7 +19,7 @@ final class SetTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Common\DataStructure\Set::implode
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::implode
      * @dataProvider providerTestImplode
      */
     public function testImplode(array $set, string $separator, string $expected): void
