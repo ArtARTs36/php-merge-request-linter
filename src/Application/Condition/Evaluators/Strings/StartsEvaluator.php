@@ -1,8 +1,7 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
+namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\StringEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 
 /**
