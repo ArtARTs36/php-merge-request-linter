@@ -7,6 +7,10 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Null object for Client Interface.
+ * @codeCoverageIgnore
+ */
 final class NullClient implements Client
 {
     public function sendRequest(RequestInterface $request): ResponseInterface

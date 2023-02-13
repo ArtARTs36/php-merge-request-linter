@@ -17,8 +17,8 @@ class NotHasEvaluatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator::evaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator::doEvaluate
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(array $propertyValue, mixed $value, bool $expected): void
