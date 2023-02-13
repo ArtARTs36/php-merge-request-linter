@@ -28,4 +28,27 @@ final class SetTest extends TestCase
 
         self::assertEquals($expected, $ds->implode($separator));
     }
+
+    public function providerForTestFirst(): array
+    {
+        return [
+            [
+                [1, 2],
+                1,
+            ],
+            [
+                [],
+                null,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::first
+     * @dataProvider providerForTestFirst
+     */
+    public function testFirst(array $set, mixed $expected): void
+    {
+        self::assertEquals($expected, Set::fromList($set)->first());
+    }
 }
