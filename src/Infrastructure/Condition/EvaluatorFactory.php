@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AllEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectFactory;

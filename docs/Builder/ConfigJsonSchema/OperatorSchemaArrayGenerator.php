@@ -20,9 +20,9 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EqualsEvaluato
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsEmptyEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AllEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\AnyEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter\IterEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\CompositeEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\MatchEvaluator;
@@ -170,7 +170,7 @@ class OperatorSchemaArrayGenerator
             foreach ($operators as $operatorClass) {
                 $operatorMeta = $operatorMetadata[$operatorClass];
 
-                if (is_subclass_of($operatorClass, IterEvaluator::class)) {
+                if (is_subclass_of($operatorClass, CompositeEvaluator::class)) {
                     if (! isset($this->typeEvaluatorsMap[$property->type->generic])) {
                         continue;
                     }

@@ -1,15 +1,15 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Iter;
+namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite;
 
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 
 /**
- * True if all values of array matched conditions.
+ * True if any value of array matched conditions.
  */
-class AllEvaluator extends IterEvaluator
+class AnyEvaluator extends CompositeEvaluator
 {
-    public const NAME = '$all';
+    public const NAME = '$any';
 
     public function evaluate(EvaluatingSubject $subject): bool
     {
@@ -17,12 +17,12 @@ class AllEvaluator extends IterEvaluator
             $name = sprintf('%s[%s]', $subject->name(), (string) $index);
 
             foreach ($this->value as $evaluator) {
-                if (! $evaluator->evaluate($this->subjectFactory->createForValue($name, $value))) {
-                    return false;
+                if ($evaluator->evaluate($this->subjectFactory->createForValue($name, $value))) {
+                    return true;
                 }
             }
         }
 
-        return true;
+        return false;
     }
 }
