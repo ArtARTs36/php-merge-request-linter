@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators\Counts;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class CountEqualsEvaluatorTest extends TestCase
+final class CountNotEqualsEvaluatorTest extends TestCase
 {
     public function providerForTestEvaluate(): array
     {
@@ -14,29 +14,29 @@ final class CountEqualsEvaluatorTest extends TestCase
             [
                 [],
                 0,
-                true,
+                false,
             ],
             [
                 [1],
                 1,
-                true,
+                false,
             ],
             [
                 [1],
                 2,
-                false,
+                true,
             ],
         ];
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsEvaluator::evaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNotEqualsEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNotEqualsEvaluator::doEvaluate
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(array $subject, int $evaluatorValue, bool $expected): void
     {
-        $evaluator = new CountEqualsEvaluator($evaluatorValue);
+        $evaluator = new CountNotEqualsEvaluator($evaluatorValue);
 
         self::assertEquals($expected, $evaluator->evaluate(new MockEvaluatingSubject($subject)));
     }

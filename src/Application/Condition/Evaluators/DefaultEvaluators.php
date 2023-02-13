@@ -28,6 +28,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class DefaultEvaluators
 {
     /** @var array<string, class-string<ConditionEvaluator>> */
