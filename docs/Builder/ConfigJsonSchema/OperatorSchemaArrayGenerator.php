@@ -2,12 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsCamelCaseEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsKebabCaseEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsLowerCaseEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsSnakeCaseEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsStudlyCaseEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsUpperCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\CompositeEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\ContainsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsEvaluator;
@@ -20,9 +17,6 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EqualsEvaluato
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IsEmptyEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AnyEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\CompositeEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\MatchEvaluator;
@@ -31,13 +25,19 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvalu
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\StartsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsCamelCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsKebabCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsLowerCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsSnakeCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsStudlyCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsUpperCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Property;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
-use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\Str\Str;
 
 class OperatorSchemaArrayGenerator

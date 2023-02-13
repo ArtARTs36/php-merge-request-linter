@@ -1,23 +1,23 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators\Cases;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators\Strings\Cases;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsKebabCaseEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsSnakeCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class IsKebabCaseEvaluatorTest extends TestCase
+final class IsSnakeCaseEvaluatorTest extends TestCase
 {
     public function providerForTestEvaluate(): array
     {
         return [
             [
-                'kebab-case',
+                'ab_cd',
                 true,
                 true,
             ],
             [
-                'camelCase',
+                'abCD',
                 true,
                 false,
             ],
@@ -25,13 +25,13 @@ final class IsKebabCaseEvaluatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsKebabCaseEvaluator::evaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases\IsKebabCaseEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsSnakeCaseEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsSnakeCaseEvaluatorS::doEvaluate
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $subjectValue, bool $evaluatorValue, bool $expectedResult): void
     {
-        $evaluator = new IsKebabCaseEvaluator($evaluatorValue);
+        $evaluator = new IsSnakeCaseEvaluator($evaluatorValue);
 
         self::assertEquals($expectedResult, $evaluator->evaluate(new MockEvaluatingSubject($subjectValue)));
     }

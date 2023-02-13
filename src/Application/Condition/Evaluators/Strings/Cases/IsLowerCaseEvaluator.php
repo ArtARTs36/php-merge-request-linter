@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Cases;
+namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\BoolEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
