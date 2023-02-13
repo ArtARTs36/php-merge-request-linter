@@ -8,6 +8,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter;
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
@@ -21,12 +24,21 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
     public function __construct(
         protected Rules $rules,
         protected EventDispatcherInterface $events,
+        private readonly MetricManager $metrics,
     ) {
         //
     }
 
     public function run(MergeRequest $request): Notes
     {
+        $this->metrics->add(
+            new MetricSubject(
+                'linter_used_rules',
+                '[Linter] Used rules',
+            ),
+            MemoryCounter::create($this->rules),
+        );
+
         $this->events->dispatch(new LintStartedEvent($request));
 
         $notes = [];

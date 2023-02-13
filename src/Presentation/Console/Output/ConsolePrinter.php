@@ -41,6 +41,16 @@ class ConsolePrinter implements Printer
         $this->output->write("\n");
     }
 
+    public function printInfoLine(string $message): void
+    {
+        $this->output->write(sprintf('<info> [INFO] %s</info>', $message));
+    }
+
+    public function line(int $count): void
+    {
+        $this->output->writeln(str_repeat("\n", $count));
+    }
+
     /**
      * @param array<array{string, string}> $props
      * @return array<array{string, string}|TableSeparator>

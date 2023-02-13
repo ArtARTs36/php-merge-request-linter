@@ -15,4 +15,14 @@ class NullPrinter implements Printer
     {
         //
     }
+
+    public function printInfoLine(string $message): void
+    {
+        //
+    }
+
+    public function line(int $count): void
+    {
+        // TODO: Implement line() method.
+    }
 }

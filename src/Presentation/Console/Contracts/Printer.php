@@ -16,4 +16,14 @@ interface Printer
      * Print object.
      */
     public function printObject(object $object): void;
+
+    /**
+     * Print info message.
+     */
+    public function printInfoLine(string $message): void;
+
+    /**
+     * Print new lines.
+     */
+    public function line(int $count): void;
 }

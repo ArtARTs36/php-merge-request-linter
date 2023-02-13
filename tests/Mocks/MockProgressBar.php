@@ -10,6 +10,11 @@ final class MockProgressBar implements ProgressBar
 
     public bool $finished = false;
 
+    public function max(int $max): void
+    {
+        //
+    }
+
     public function add(): void
     {
         ++$this->progress;

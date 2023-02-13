@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -37,7 +38,7 @@ final class LinterTest extends TestCase
                     return new Definition('');
                 }
             },
-        ]), new NullEventDispatcher());
+        ]), new NullEventDispatcher(), new NullMetricManager());
 
         $notes = $linter->run($this->makeMergeRequest());
 

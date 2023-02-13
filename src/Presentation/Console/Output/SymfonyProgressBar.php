@@ -12,6 +12,11 @@ final class SymfonyProgressBar implements ProgressBar
         //
     }
 
+    public function max(int $max): void
+    {
+        $this->bar->setMaxSteps($max);
+    }
+
     public function add(): void
     {
         $this->bar->advance();

@@ -4,8 +4,11 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
+use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
+use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
@@ -64,9 +67,14 @@ class ApplicationFactory
 
         $events = new EventDispatcher();
 
-        $application->add(new LintCommand($configResolver, $runnerFactory, $metrics, $events));
+        $application->add(new LintCommand($metrics, $events, new LintTaskHandler(
+            $configResolver,
+            $events,
+            new LinterFactory($events, $metrics),
+            $runnerFactory,
+        )));
         $application->add(new InstallCommand(new CreateConfigTaskHandler(new Copier(new Directory(__DIR__ . '/../../../../stubs')))));
-        $application->add(new DumpCommand($configResolver, new RuleDumper()));
+        $application->add(new DumpCommand(new DumpTaskHandler($configResolver, new RuleDumper())));
         $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory())));
 
         return $application;

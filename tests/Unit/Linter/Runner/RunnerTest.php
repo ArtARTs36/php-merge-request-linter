@@ -33,7 +33,7 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run(new Linter(new Rules([]), new NullEventDispatcher()));
+        $result = $runner->run(new Linter(new Rules([]), new NullEventDispatcher(), new NullMetricManager()));
 
         self::assertEquals(false, $result->state);
         self::assertInstanceOf(ExceptionNote::class, $result->notes->first());
@@ -54,7 +54,7 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run(new Linter(new Rules([]), new NullEventDispatcher()));
+        $result = $runner->run(new Linter(new Rules([]), new NullEventDispatcher(), new NullMetricManager()));
 
         self::assertTrue($result->state);
         self::assertEquals('Currently is not merge request', $result->notes->first());
@@ -73,7 +73,7 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run((new Linter(new Rules([]), new NullEventDispatcher())));
+        $result = $runner->run((new Linter(new Rules([]), new NullEventDispatcher(), new NullMetricManager())));
 
         self::assertFalse($result->state);
         self::assertEquals(
@@ -102,7 +102,7 @@ final class RunnerTest extends TestCase
 
         $result = $runner->run(new Linter(Rules::make([
             new SuccessRule(),
-        ]), new NullEventDispatcher()));
+        ]), new NullEventDispatcher(), new NullMetricManager()));
 
         self::assertTrue($result->state);
     }

@@ -10,6 +10,11 @@ class MemoryCounter implements Counter
         //
     }
 
+    public static function create(\Countable $countable): self
+    {
+        return new self($countable->count());
+    }
+
     public function inc(): void
     {
         ++$this->count;

@@ -8,6 +8,11 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts;
 interface ProgressBar
 {
     /**
+     * Set max length.
+     */
+    public function max(int $max): void;
+
+    /**
      * Add progress.
      */
     public function add(): void;

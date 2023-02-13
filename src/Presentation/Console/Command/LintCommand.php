@@ -2,15 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
-use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
+use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
+use ArtARTs36\MergeRequestLinter\Application\Linter\Tasks\LintTask;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\Record;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;
@@ -34,10 +32,9 @@ class LintCommand extends Command
     protected static $defaultDescription = 'Run lint to current merge request';
 
     public function __construct(
-        protected ConfigResolver $config,
-        protected LinterRunnerFactory $runnerFactory,
         protected MetricManager $metrics,
         protected EventDispatcherInterface $events,
+        private readonly LintTaskHandler $handler,
         protected readonly NotePrinter $notePrinter = new NotePrinter(),
         protected readonly MetricPrinter $metricPrinter = new MetricPrinter(),
     ) {
@@ -62,32 +59,16 @@ class LintCommand extends Command
 
         $style = new SymfonyStyle($input, $output);
 
-        // Resolve and print config
-
-        $config = $this->resolveConfig($input);
-
-        $this->printInfoMessage($output, sprintf('Config path: %s', $config->path));
-
-        if ($isDebug) {
-            $style->newLine(2);
-
-            $this->printInfoMessage($output, sprintf(
-                'Used rules: %s',
-                $config->config->getRules()->implodeNames(', '),
-            ));
-
-            $style->newLine(2);
-        }
-
         $this->events->addSubscriber(new LintEventsSubscriber(
-            new SymfonyProgressBar(new ProgressBar($output, $config->config->getRules()->count())),
+            new SymfonyProgressBar(new ProgressBar($output)),
             new ConsolePrinter($style),
             $input->getOption('debug'),
         ));
 
-        $linter = new Linter($config->config->getRules(), $this->events);
-
-        $result = $this->runnerFactory->create($config->config)->run($linter);
+        $result = $this->handler->handle(new LintTask(
+            $this->getWorkDir($input),
+            $input->getOption('config'),
+        ));
 
         $style->newLine(2);
 
@@ -95,7 +76,7 @@ class LintCommand extends Command
             $this->notePrinter->print(new SymfonyTablePrinter($style), $result->notes);
         }
 
-        $this->printMetrics($style, $config->config, $result, $input->getOption('metrics'));
+        $this->printMetrics($style, $result, $input->getOption('metrics'));
 
         if ($result->isFail()) {
             $style->error(sprintf('Found %d notes', $result->notes->count()));
@@ -108,10 +89,9 @@ class LintCommand extends Command
         return self::SUCCESS;
     }
 
-    private function printMetrics(StyleInterface $style, Config $config, LintResult $result, bool $fullMetrics): void
+    private function printMetrics(StyleInterface $style, LintResult $result, bool $fullMetrics): void
     {
         $metrics = new Arrayee([
-            new Metric('[Linter] Rules', '' . $config->getRules()->count()),
             new Metric('[Linter] Notes', '' . $result->notes->count()),
             new Metric('[Linter] Duration', $result->duration),
             new Metric('[Memory] Memory peak usage', Bytes::toString(memory_get_peak_usage(true))),
@@ -126,10 +106,5 @@ class LintCommand extends Command
         }
 
         $this->metricPrinter->print(new SymfonyTablePrinter($style), $metrics);
-    }
-
-    private function printInfoMessage(OutputInterface $output, string $message): void
-    {
-        $output->write(sprintf('<info> [INFO] %s</info>', $message));
     }
 }
