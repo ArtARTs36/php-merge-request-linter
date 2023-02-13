@@ -17,6 +17,8 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsStudlyCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\EndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\MatchEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;

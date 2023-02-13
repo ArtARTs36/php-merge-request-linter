@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 /**
  * Check if the field is equal to one of the values.
  */
-class EqualsAnyEvaluator extends Evaluator
+final class EqualsAnyEvaluator extends Evaluator
 {
     public const NAME = 'equalsAny';
 

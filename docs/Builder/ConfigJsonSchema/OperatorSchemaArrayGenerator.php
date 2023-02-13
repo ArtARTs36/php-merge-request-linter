@@ -16,8 +16,6 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\EqualsEvaluato
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\IsEmptyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMaxEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\StartsEvaluator;
@@ -28,6 +26,8 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsStudlyCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\EndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\MatchEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;

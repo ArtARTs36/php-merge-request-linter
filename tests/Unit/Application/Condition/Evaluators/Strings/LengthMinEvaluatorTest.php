@@ -1,8 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators\Strings;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -25,8 +25,8 @@ final class LengthMinEvaluatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator::evaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LengthMinOperator::doEvaluateF
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator::doEvaluateF
      * @dataProvider providerForEvaluate
      */
     public function testEvaluate(string $propertyValue, int $value, bool $expected): void
