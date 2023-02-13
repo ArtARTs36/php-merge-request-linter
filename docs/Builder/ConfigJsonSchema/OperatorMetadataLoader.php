@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesGenericType;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesCollectionType;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\DefaultEvaluators;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AnyEvaluator;
@@ -58,7 +58,7 @@ class OperatorMetadataLoader
                 $operatorNames,
                 $operatorClass,
                 Reflector::hasAttribute($operatorReflector, EvaluatesSameType::class),
-                Reflector::hasAttribute($operatorReflector, EvaluatesGenericType::class),
+                Reflector::hasAttribute($operatorReflector, EvaluatesCollectionType::class),
                 $paramTypeNames,
                 Reflector::findPHPDocSummary($operatorReflector) ?? '',
             );

@@ -13,7 +13,7 @@ final class IsEmptyEvaluatorTest extends TestCase
     {
         return [
             [
-                new class implements MayBeEmpty {
+                new class () implements MayBeEmpty {
                     public function isEmpty(): bool
                     {
                         return true;
@@ -23,7 +23,7 @@ final class IsEmptyEvaluatorTest extends TestCase
                 true,
             ],
             [
-                new class implements MayBeEmpty {
+                new class () implements MayBeEmpty {
                     public function isEmpty(): bool
                     {
                         return true;
@@ -33,7 +33,7 @@ final class IsEmptyEvaluatorTest extends TestCase
                 false,
             ],
             [
-                new class implements MayBeEmpty {
+                new class () implements MayBeEmpty {
                     public function isEmpty(): bool
                     {
                         return false;
@@ -43,7 +43,7 @@ final class IsEmptyEvaluatorTest extends TestCase
                 true,
             ],
             [
-                new class implements MayBeEmpty {
+                new class () implements MayBeEmpty {
                     public function isEmpty(): bool
                     {
                         return false;

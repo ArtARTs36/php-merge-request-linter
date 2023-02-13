@@ -2,13 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesGenericType;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesCollectionType;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 
 /**
  * Check if an array not contains some value.
  */
-#[EvaluatesGenericType]
+#[EvaluatesCollectionType]
 class NotHasEvaluator extends ScalarEvaluator
 {
     public const NAME = 'notHas';
