@@ -2,6 +2,9 @@ deptrac:
   paths:
     - src/
 
+  exclude_files:
+    - src/Presentation/Console/Application/ApplicationFactory.php
+
   layers:
 
     - name: 'Application'
@@ -24,8 +27,14 @@ deptrac:
         - type: directory
           value: src/Shared/.*
 
+    - name: 'Presentation'
+      collectors:
+        - type: directory
+          value: src/Presentation/.*
+
   ruleset:
     Domain: [Shared]
     Infrastructure: [Domain, Shared, Application]
     Application: [Domain, Infrastructure, Shared]
     Shared: ~
+    Presentation: [Application, Domain, Shared]
