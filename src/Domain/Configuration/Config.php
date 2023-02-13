@@ -6,7 +6,6 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 
 class Config
 {
@@ -19,15 +18,6 @@ class Config
         protected HttpClientConfig $httpClient,
     ) {
         //
-    }
-
-    public function addRule(Rule ...$rules): self
-    {
-        foreach ($rules as $rule) {
-            $this->rules->add($rule);
-        }
-
-        return $this;
     }
 
     public function getRules(): Rules
