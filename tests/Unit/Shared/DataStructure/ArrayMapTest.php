@@ -1,11 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support\DataStructure;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class MapTest extends TestCase
+final class ArrayMapTest extends TestCase
 {
     public function providerForTestGet(): array
     {
@@ -141,5 +141,63 @@ final class MapTest extends TestCase
     public function testFirst(ArrayMap $map, mixed $expected): void
     {
         self::assertEquals($expected, $map->first());
+    }
+
+    public function providerForTestSearch(): array
+    {
+        return [
+            [
+                [
+                    'key1' => 1,
+                    'key2' => 2,
+                ],
+                1,
+                'key1',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::search
+     * @dataProvider providerForTestSearch
+     */
+    public function testSearch(array $map, mixed $value, mixed $expectedKey): void
+    {
+        $map = new ArrayMap($map);
+
+        self::assertEquals($expectedKey, $map->search($value));
+    }
+
+    public function providerForTestContains(): array
+    {
+        return [
+            [
+                [
+                    'key1' => 1,
+                    'key2' => 2,
+                ],
+                1,
+                true,
+            ],
+            [
+                [
+                    'key1' => 1,
+                    'key2' => 2,
+                ],
+                3,
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::contains
+     * @dataProvider providerForTestContains
+     */
+    public function testContains(array $map, mixed $value, bool $expected): void
+    {
+        $map = new ArrayMap($map);
+
+        self::assertEquals($expected, $map->contains($value));
     }
 }

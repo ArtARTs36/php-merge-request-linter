@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support\DataStructure;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

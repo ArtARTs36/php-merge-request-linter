@@ -55,7 +55,7 @@ class ArrayMap implements Map
 
     public function contains(mixed $value): bool
     {
-        return $this->search($value) === null;
+        return $this->search($value) !== null;
     }
 
     public function missing(string $id): bool
@@ -149,13 +149,6 @@ class ArrayMap implements Map
     public function keys(): Arrayee
     {
         return new Arrayee(array_keys($this->items));
-    }
-
-    public function debugView(): string
-    {
-        $json = json_encode($this->items);
-
-        return $json === false ? '' : $json;
     }
 
     public function __debugInfo(): array
