@@ -50,17 +50,33 @@ This package provides tools for validating merge requests
        - mr-linter lint
    ```
 
-### ➜ Usage with Github Actions
+### ➜ Usage with GitHub Actions
+
+[View on Marketplace](https://github.com/marketplace/actions/merge-request-linter)
 
 1. Generate token on [page](https://github.com/settings/tokens/new)
 2. Open https://github.com/{owner}/{repo}/settings/secrets/actions/new. Add new secret "MR_LINTER_GITHUB_HTTP_TOKEN" with your personal access token
-3. Add new step into **.github/workflows/workflow-name.yml**:
-    ```yml
-    - name: MR Lint
-      env:
-        MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
-      run: mr-linter mr-lint
-    ```
+3. Add new workflow file **.github/workflows/review.yml**:
+```yml
+name: PR Review
+
+on:
+pull_request:
+branches: [ master ]
+
+jobs:
+build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Lint Pull Request
+        uses: mr-linter/mr-linter-ga@v0.2.0
+        env:
+          MR_LINTER_GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
+```
 
 ## Run in Docker
 
