@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Condition\Evaluator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LteEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
