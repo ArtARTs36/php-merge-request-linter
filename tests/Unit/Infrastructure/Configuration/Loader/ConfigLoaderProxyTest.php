@@ -1,13 +1,13 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Loader;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Configuration\Loader;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\Proxy;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ConfigLoaderProxyTest extends TestCase

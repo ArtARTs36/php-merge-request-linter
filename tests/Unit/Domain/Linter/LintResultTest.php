@@ -1,9 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Domain\Linter;
 
-use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyNote;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

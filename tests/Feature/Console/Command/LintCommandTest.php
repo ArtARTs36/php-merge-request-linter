@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Feature;
+namespace ArtARTs36\MergeRequestLinter\Tests\Feature\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;

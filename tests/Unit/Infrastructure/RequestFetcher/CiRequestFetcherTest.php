@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Request\Fetcher;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\RequestFetcher;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;

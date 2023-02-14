@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\Credentials;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\Credentials;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\Token;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

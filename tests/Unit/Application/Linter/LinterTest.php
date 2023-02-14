@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Linter;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;

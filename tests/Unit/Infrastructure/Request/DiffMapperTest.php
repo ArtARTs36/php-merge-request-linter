@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Request\Data\Diff;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Request;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;

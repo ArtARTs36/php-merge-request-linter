@@ -1,8 +1,7 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Ci\System;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
@@ -11,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\Tag
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GithubActionsTest extends TestCase

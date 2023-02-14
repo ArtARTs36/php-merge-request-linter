@@ -1,10 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Configuration\Value;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Configuration\Value;
 
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class EnvTransformerTest extends TestCase
