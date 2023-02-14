@@ -4,10 +4,11 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Definition;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 
-class Definition implements RuleDefinition
+final class Definition implements RuleDefinition
 {
-    public function __construct(protected string $description)
-    {
+    public function __construct(
+        private readonly string $description,
+    ) {
         //
     }
 
