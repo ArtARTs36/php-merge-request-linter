@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Dumper;
 
+/**
+ * @codeCoverageIgnore
+ */
 class DumpInfo
 {
     /**
