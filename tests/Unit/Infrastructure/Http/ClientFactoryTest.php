@@ -21,6 +21,7 @@ final class ClientFactoryTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory::__construct
      * @param class-string $expectedClass
      * @dataProvider providerForTestCreate
      */
@@ -29,5 +30,19 @@ final class ClientFactoryTest extends TestCase
         $factory = new ClientFactory(new NullMetricManager());
 
         self::assertInstanceOf($expectedClass, $factory->create($config));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory::__construct
+     * @dataProvider providerForTestCreate
+     */
+    public function testCreateOnNotSupported(): void
+    {
+        self::expectExceptionMessage('HTTP Client with type "non-exists-client-type" not supported');
+
+        $factory = new ClientFactory(new NullMetricManager());
+
+        $factory->create(new HttpClientConfig('non-exists-client-type', []));
     }
 }
