@@ -19,7 +19,7 @@ This package provides tools for validating merge requests
 
 ### Installation via PHAR
 
-* Download [PHAR](https://github.com/ArtARTs36/php-merge-request-linter/releases/latest/downloadmr-linter.phar)
+* Download [PHAR](https://github.com/ArtARTs36/php-merge-request-linter/releases/latest/download/mr-linter.phar)
 * Run `mr-linter.phar install`. The file `.mr-linter.php` will be added.
 * Configure `.mr-linter.php`
 
