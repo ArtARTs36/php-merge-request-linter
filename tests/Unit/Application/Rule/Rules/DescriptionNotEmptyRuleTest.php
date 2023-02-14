@@ -1,12 +1,12 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsRule;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class HasAnyLabelsRuleTest extends TestCase
+final class DescriptionNotEmptyRuleTest extends TestCase
 {
     public function providerForTestLint(): array
     {
@@ -17,7 +17,7 @@ final class HasAnyLabelsRuleTest extends TestCase
             ],
             [
                 $this->makeMergeRequest([
-                    'labels' => ['Feature'],
+                    'description' => 'Test',
                 ]),
                 false,
             ],
@@ -26,11 +26,11 @@ final class HasAnyLabelsRuleTest extends TestCase
 
     /**
      * @dataProvider providerForTestLint
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule::doLint
      */
     public function testLint(MergeRequest $request, bool $hasNotes): void
     {
-        self::assertHasNotes($request, new HasAnyLabelsRule(), $hasNotes);
+        self::assertHasNotes($request, new DescriptionNotEmptyRule(), $hasNotes);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithAnyPrefixRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;

@@ -1,10 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinksOfAllDomainsRule;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class DescriptionContainsLinksOfAllDomainsRuleTest extends TestCase
