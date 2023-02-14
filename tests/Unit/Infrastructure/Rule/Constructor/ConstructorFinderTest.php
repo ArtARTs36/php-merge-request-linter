@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule\Factory\Constructor;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Constructor;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;

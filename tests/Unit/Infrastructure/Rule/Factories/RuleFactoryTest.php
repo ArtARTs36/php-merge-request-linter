@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Rule;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Factories;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\AbstractRule;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
@@ -16,7 +16,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFind
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-class RuleFactoryTest extends TestCase
+final class RuleFactoryTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory::create
