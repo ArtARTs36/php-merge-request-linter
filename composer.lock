@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "513be17f21d345fa3f3fe0abeef42bbd",
+    "content-hash": "ea8238828d30b86b79cc99cdbdde941c",
     "packages": [
         {
             "name": "artarts36/empty-contracts",
@@ -1764,6 +1764,47 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "artarts36/array-file-system",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ArtARTs36/php-array-file-system.git",
+                "reference": "ca0e4b434562560742d978d19787472f6eda453a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ArtARTs36/php-array-file-system/zipball/ca0e4b434562560742d978d19787472f6eda453a",
+                "reference": "ca0e4b434562560742d978d19787472f6eda453a",
+                "shasum": ""
+            },
+            "require": {
+                "artarts36/file-system-contracts": "^0.2.0",
+                "php": "^8"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ArtARTs36\\FileSystem\\Arrays\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "artarts36",
+                    "email": "temicska99@mail.ru"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/ArtARTs36/php-array-file-system/issues",
+                "source": "https://github.com/ArtARTs36/php-array-file-system/tree/0.1.0"
+            },
+            "time": "2023-02-14T19:18:00+00:00"
+        },
         {
             "name": "artarts36/php-cs-fixer-good-fixers",
             "version": "0.1.2",
