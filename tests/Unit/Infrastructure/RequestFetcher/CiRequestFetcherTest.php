@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\RequestFetcher;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
@@ -26,5 +27,22 @@ final class CiRequestFetcherTest extends TestCase
         self::expectException(CurrentlyNotMergeRequestException::class);
 
         $fetcher->fetch();
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher::fetch
+     */
+    public function testFetchAddMetric(): void
+    {
+        $fetcher = new CiRequestFetcher(
+            new MockCiSystemFactory(new MockCi([
+                'is_pull_request' => true,
+            ], $this->makeMergeRequest())),
+            $metrics = new MemoryMetricManager(),
+        );
+
+        $fetcher->fetch();
+
+        self::assertEquals('used_ci_system', $metrics->describe()->first()->subject->key);
     }
 }
