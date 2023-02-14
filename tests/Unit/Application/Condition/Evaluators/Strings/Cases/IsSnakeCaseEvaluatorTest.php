@@ -27,6 +27,7 @@ final class IsSnakeCaseEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsSnakeCaseEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsSnakeCaseEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\BoolEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $subjectValue, bool $evaluatorValue, bool $expectedResult): void

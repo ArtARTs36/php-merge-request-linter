@@ -9,6 +9,7 @@ final class DurationTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Duration::__toString
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Duration::__construct
      */
     public function testToString(): void
     {

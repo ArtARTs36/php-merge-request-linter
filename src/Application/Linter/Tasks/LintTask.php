@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter\Tasks;
 
+/**
+ * @codeCoverageIgnore
+ */
 class LintTask
 {
     public function __construct(
