@@ -4,8 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 
 class Timer
 {
-    public function __construct(protected float $started)
-    {
+    public function __construct(
+        private readonly float $started,
+    ) {
         //
     }
 

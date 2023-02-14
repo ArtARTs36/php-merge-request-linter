@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\File;
 
 use ArtARTs36\MergeRequestLinter\Shared\File\File;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

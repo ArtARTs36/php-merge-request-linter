@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Iterators;
 
 use ArtARTs36\MergeRequestLinter\Shared\Iterators\ArrayKeyIterator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Support;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Time;
 
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
