@@ -34,7 +34,6 @@ final class ConstructorFinderTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder::find
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder::__construct
      * @dataProvider providerForTestFind
      * @param class-string<Rule> $ruleClass
      * @param class-string<RuleConstructor> $expectedConstructorClass

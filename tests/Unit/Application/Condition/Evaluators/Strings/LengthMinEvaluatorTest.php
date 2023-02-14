@@ -26,7 +26,7 @@ final class LengthMinEvaluatorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator::evaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator::doEvaluateF
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator::doEvaluate
      * @dataProvider providerForEvaluate
      */
     public function testEvaluate(string $propertyValue, int $value, bool $expected): void

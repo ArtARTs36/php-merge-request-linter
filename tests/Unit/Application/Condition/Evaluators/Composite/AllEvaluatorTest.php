@@ -33,6 +33,7 @@ final class AllEvaluatorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\CompositeEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      * @param array<MockConditionEvaluator> $evaluators
      */

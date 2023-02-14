@@ -28,7 +28,6 @@ final class DescriptionNotEmptyRuleTest extends TestCase
      * @dataProvider providerForTestLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule::doLint
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule::__construct
      */
     public function testLint(MergeRequest $request, bool $hasNotes): void
     {

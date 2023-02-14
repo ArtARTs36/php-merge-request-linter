@@ -42,6 +42,7 @@ final class CountEqualsAnyEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsAnyEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsAnyEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEqualsAnyEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(array $subject, array $evaluatorValue, bool $expected): void

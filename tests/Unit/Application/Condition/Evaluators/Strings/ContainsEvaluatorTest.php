@@ -21,6 +21,7 @@ final class ContainsEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\StringEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(mixed $propertyValue, mixed $value, bool $expected): void

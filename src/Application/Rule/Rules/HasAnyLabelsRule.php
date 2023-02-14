@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 /**
  * Merge Request must have any labels.
  */
-class HasAnyLabelsRule extends AbstractRule implements Rule
+final class HasAnyLabelsRule extends AbstractRule implements Rule
 {
     public const NAME = '@mr-linter/has_any_labels';
 

@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 /**
  * Description must fill.
  */
-class DescriptionNotEmptyRule extends AbstractRule implements Rule
+final class DescriptionNotEmptyRule extends AbstractRule implements Rule
 {
     public const NAME = '@mr-linter/description_not_empty';
 
