@@ -39,5 +39,13 @@ rules:
           $all:
             isStudlyCase: true
 
+    - definition: "Description must have list of fixed bugs"
+      rules:
+        description:
+          contains: "Fixed\n"
+      when:
+        labels:
+          has: "Bug"
+
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
