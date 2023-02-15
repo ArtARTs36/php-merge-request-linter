@@ -44,4 +44,3 @@ final class MapProxyTest extends TestCase
         self::assertEquals($expectedCalls, $counter->counter, sprintf('Failed on method %s', $methodName));
     }
 }
-
