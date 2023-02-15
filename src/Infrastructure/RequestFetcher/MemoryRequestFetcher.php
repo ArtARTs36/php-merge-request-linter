@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 
-class MemoryRequestFetcher implements MergeRequestFetcher
+final class MemoryRequestFetcher implements MergeRequestFetcher
 {
     public function __construct(
         private MergeRequest $request,
