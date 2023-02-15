@@ -9,9 +9,13 @@ class NativeJsonDecoder implements TextDecoder
 {
     public function decode(string $content): array
     {
-        $data = \json_decode($content);
+        $data = \json_decode($content, true);
         if (\JSON_ERROR_NONE !== \json_last_error()) {
             throw new TextDecodingException('json_decode error: ' . \json_last_error_msg());
+        }
+
+        if (! is_array($data)) {
+            throw new TextDecodingException('JSON content invalid');
         }
 
         return $data;
