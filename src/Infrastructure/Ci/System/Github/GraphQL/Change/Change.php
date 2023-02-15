@@ -4,6 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\C
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Change
 {
     /**
