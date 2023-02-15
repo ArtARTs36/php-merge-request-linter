@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators\Generic;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\EqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
