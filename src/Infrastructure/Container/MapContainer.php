@@ -36,7 +36,7 @@ class MapContainer implements ContainerInterface
     }
 
     /**
-     * @template V object
+     * @template V as object
      * @param class-string<V> $id
      * @param V $object
      */

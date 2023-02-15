@@ -20,7 +20,7 @@ class ConsoleLogger implements LoggerInterface
 
     public function log($level, \Stringable|string $message, array $context = []): void
     {
-        if ($this->willBeLogged($level)) {
+        if (is_string($level) && $this->willBeLogged($level)) {
             $this->output->write("\n");
             $this->logger->log($level, $message, $context);
         }
