@@ -2,18 +2,19 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder;
 
-use ArtARTs36\MergeRequestLinter\Support\Reflector\ClassSummary;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
 use ArtARTs36\Str\Str;
 
 class RulesPageBuilder
 {
-    protected string $namespace = 'ArtARTs36\MergeRequestLinter\\Rule\\';
+    protected string $namespace = 'ArtARTs36\MergeRequestLinter\\Application\\Rule\\Rules\\';
 
-    protected string $dir = __DIR__ . '/../../src/Rule/';
+    protected string $dir = __DIR__ . '/../../src/Application/Rule/Rules';
 
     public function build(): string
     {
         $files = glob(realpath($this->dir) . '/*Rule.php');
+
         $descriptions = Str::fromEmpty();
 
         $id = 0;

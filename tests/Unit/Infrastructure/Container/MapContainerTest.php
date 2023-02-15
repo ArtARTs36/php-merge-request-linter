@@ -62,7 +62,8 @@ final class MapContainerTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer::get
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer::has
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer::__construct
      * @param array<class-string, object> $initial
      * @param class-string $class
      * @dataProvider providerForTestHas

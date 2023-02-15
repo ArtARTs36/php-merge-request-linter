@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor
-          key: ${{ runner.os }}-php-mr-linter-$GITHUB_REF-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-php-mr-linter-$GITHUB_REF-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
 

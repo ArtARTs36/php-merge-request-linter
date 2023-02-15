@@ -10,5 +10,5 @@ $path = __DIR__ . '/../rules.md';
 
 $updated = $saver->save($path, $builder->build());
 
-fputs(STDOUT, $updated ? 'Documentation page updated' : 'Documentation page is actually');
+fputs(STDOUT, $updated ? '-> Documentation page updated' : '-> Documentation page is actually');
 fputs(STDOUT, "\n");

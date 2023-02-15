@@ -35,7 +35,7 @@ interface Rule
 ```php
 <?php
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleDefinition;use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;use ArtARTs36\MergeRequestLinter\Rule\Definition;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 
 class ExampleRule implements Rule
 {

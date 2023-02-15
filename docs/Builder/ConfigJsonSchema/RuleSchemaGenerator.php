@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\RuleConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
-use ArtARTs36\MergeRequestLinter\Rule\CustomRule;
-use ArtARTs36\MergeRequestLinter\Rule\DefaultRules;
-use ArtARTs36\MergeRequestLinter\Rule\Factory\Constructor\ConstructorFinder;
-use ArtARTs36\MergeRequestLinter\Support\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;
 use ArtARTs36\Str\Facade\Str;
 
 class RuleSchemaGenerator
@@ -67,9 +67,9 @@ class RuleSchemaGenerator
                             if ($paramType->isGenericOfObject()) {
                                 $genericProps = [];
 
-                                foreach (Reflector::mapPropertyTypes($paramType->generic) as $propertyName => $propertyType) {
-                                    $genericProps[$propertyName] = [
-                                        'type' => JsonType::to($propertyType->class ?? $propertyType->name->value),
+                                foreach (Reflector::mapProperties($paramType->generic) as $property) {
+                                    $genericProps[$property->name] = [
+                                        'type' => JsonType::to($property->type->class ?? $property->type->name->value),
                                     ];
                                 }
 

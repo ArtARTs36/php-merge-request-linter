@@ -140,21 +140,6 @@
                         }
                     ]
                 },
-                "@mr-linter/title_matches_expression": {
-                    "description": "The title must match the expression: {regex}",
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/rules_properties_@mr-linter_title_matches_expression"
-                        },
-                        {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/rules_properties_@mr-linter_title_matches_expression"
-                            },
-                            "minItems": 1
-                        }
-                    ]
-                },
                 "@mr-linter/title_must_starts_with_any_prefix": {
                     "description": "The title must starts with any {prefixes}",
                     "oneOf": [
@@ -276,6 +261,34 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camelCase.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is StudlyCase.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
+                            "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake_case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab-case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -336,6 +349,34 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camelCase.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is StudlyCase.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
+                            "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake_case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab-case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -380,9 +421,181 @@
                                 "type": "string"
                             }
                         },
-                        "match": {
-                            "description": "Check if a string match a regex.",
-                            "type": "string"
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
+                        },
+                        "$all": {
+                            "description": "True if all values of array matched conditions.",
+                            "type": "object",
+                            "properties": {
+                                "equals": {
+                                    "description": "Check if value are equal.",
+                                    "type": "string"
+                                },
+                                "=": {
+                                    "description": "Check if value are equal.",
+                                    "type": "string"
+                                },
+                                "lengthMin": {
+                                    "description": "Check the minimum string length.",
+                                    "type": "integer"
+                                },
+                                "lengthMax": {
+                                    "description": "Check the maximum string length.",
+                                    "type": "integer"
+                                },
+                                "starts": {
+                                    "description": "Check if a string contains a prefix.",
+                                    "type": "string"
+                                },
+                                "notStarts": {
+                                    "description": "Check if a string not contains a prefix.",
+                                    "type": "string"
+                                },
+                                "ends": {
+                                    "description": "Check if a string contains a suffix.",
+                                    "type": "string"
+                                },
+                                "notEnds": {
+                                    "description": "Check if a string not contains a suffix.",
+                                    "type": "string"
+                                },
+                                "contains": {
+                                    "description": "Check if a string contains a substring.",
+                                    "type": "string"
+                                },
+                                "notEquals": {
+                                    "description": "Check if value are not equal.",
+                                    "type": "string"
+                                },
+                                "!=": {
+                                    "description": "Check if value are not equal.",
+                                    "type": "string"
+                                },
+                                "equalsAny": {
+                                    "description": "Check if the field is equal to one of the values.",
+                                    "type": "string"
+                                },
+                                "match": {
+                                    "description": "Check if a string match a regex.",
+                                    "type": "string"
+                                },
+                                "isEmpty": {
+                                    "description": "Check if a value is empty.",
+                                    "type": "boolean"
+                                },
+                                "isCamelCase": {
+                                    "description": "Check if a string is camelCase.",
+                                    "type": "boolean"
+                                },
+                                "isStudlyCase": {
+                                    "description": "Check if a string is StudlyCase.",
+                                    "type": "boolean"
+                                },
+                                "isUpperCase": {
+                                    "description": "Check if a string is upper case.",
+                                    "type": "boolean"
+                                },
+                                "isLowerCase": {
+                                    "description": "Check if a string is lower case.",
+                                    "type": "boolean"
+                                },
+                                "isSnakeCase": {
+                                    "description": "Check if a string is snake_case.",
+                                    "type": "boolean"
+                                },
+                                "isKebabCase": {
+                                    "description": "Check if a string is kebab-case.",
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "$any": {
+                            "description": "True if any value of array matched conditions.",
+                            "type": "object",
+                            "properties": {
+                                "equals": {
+                                    "description": "Check if value are equal.",
+                                    "type": "string"
+                                },
+                                "=": {
+                                    "description": "Check if value are equal.",
+                                    "type": "string"
+                                },
+                                "lengthMin": {
+                                    "description": "Check the minimum string length.",
+                                    "type": "integer"
+                                },
+                                "lengthMax": {
+                                    "description": "Check the maximum string length.",
+                                    "type": "integer"
+                                },
+                                "starts": {
+                                    "description": "Check if a string contains a prefix.",
+                                    "type": "string"
+                                },
+                                "notStarts": {
+                                    "description": "Check if a string not contains a prefix.",
+                                    "type": "string"
+                                },
+                                "ends": {
+                                    "description": "Check if a string contains a suffix.",
+                                    "type": "string"
+                                },
+                                "notEnds": {
+                                    "description": "Check if a string not contains a suffix.",
+                                    "type": "string"
+                                },
+                                "contains": {
+                                    "description": "Check if a string contains a substring.",
+                                    "type": "string"
+                                },
+                                "notEquals": {
+                                    "description": "Check if value are not equal.",
+                                    "type": "string"
+                                },
+                                "!=": {
+                                    "description": "Check if value are not equal.",
+                                    "type": "string"
+                                },
+                                "equalsAny": {
+                                    "description": "Check if the field is equal to one of the values.",
+                                    "type": "string"
+                                },
+                                "match": {
+                                    "description": "Check if a string match a regex.",
+                                    "type": "string"
+                                },
+                                "isEmpty": {
+                                    "description": "Check if a value is empty.",
+                                    "type": "boolean"
+                                },
+                                "isCamelCase": {
+                                    "description": "Check if a string is camelCase.",
+                                    "type": "boolean"
+                                },
+                                "isStudlyCase": {
+                                    "description": "Check if a string is StudlyCase.",
+                                    "type": "boolean"
+                                },
+                                "isUpperCase": {
+                                    "description": "Check if a string is upper case.",
+                                    "type": "boolean"
+                                },
+                                "isLowerCase": {
+                                    "description": "Check if a string is lower case.",
+                                    "type": "boolean"
+                                },
+                                "isSnakeCase": {
+                                    "description": "Check if a string is snake_case.",
+                                    "type": "boolean"
+                                },
+                                "isKebabCase": {
+                                    "description": "Check if a string is kebab-case.",
+                                    "type": "boolean"
+                                }
+                            }
                         }
                     }
                 },
@@ -430,8 +643,16 @@
                             "description": "Check if a string contains a prefix.",
                             "type": "string"
                         },
+                        "notStarts": {
+                            "description": "Check if a string not contains a prefix.",
+                            "type": "string"
+                        },
                         "ends": {
                             "description": "Check if a string contains a suffix.",
+                            "type": "string"
+                        },
+                        "notEnds": {
+                            "description": "Check if a string not contains a suffix.",
                             "type": "string"
                         },
                         "contains": {
@@ -456,6 +677,34 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camelCase.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is StudlyCase.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
+                            "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake_case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab-case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -516,6 +765,34 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camelCase.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is StudlyCase.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
+                            "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake_case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab-case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -576,6 +853,34 @@
                         "match": {
                             "description": "Check if a string match a regex.",
                             "type": "string"
+                        },
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
+                        },
+                        "isCamelCase": {
+                            "description": "Check if a string is camelCase.",
+                            "type": "boolean"
+                        },
+                        "isStudlyCase": {
+                            "description": "Check if a string is StudlyCase.",
+                            "type": "boolean"
+                        },
+                        "isUpperCase": {
+                            "description": "Check if a string is upper case.",
+                            "type": "boolean"
+                        },
+                        "isLowerCase": {
+                            "description": "Check if a string is lower case.",
+                            "type": "boolean"
+                        },
+                        "isSnakeCase": {
+                            "description": "Check if a string is snake_case.",
+                            "type": "boolean"
+                        },
+                        "isKebabCase": {
+                            "description": "Check if a string is kebab-case.",
+                            "type": "boolean"
                         }
                     }
                 },
@@ -646,6 +951,17 @@
                             "items": {
                                 "type": "integer"
                             }
+                        },
+                        "hasAny": {
+                            "description": "Check if an array contains some value of list.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "isEmpty": {
+                            "description": "Check if a value is empty.",
+                            "type": "boolean"
                         }
                     }
                 }
@@ -791,20 +1107,6 @@
             "required": [
                 "domain",
                 "projectCode"
-            ]
-        },
-        "rules_properties_@mr-linter_title_matches_expression": {
-            "type": "object",
-            "properties": {
-                "when": {
-                    "$ref": "#/definitions/rule_conditions"
-                },
-                "regex": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "regex"
             ]
         },
         "rules_properties_@mr-linter_title_must_starts_with_any_prefix": {

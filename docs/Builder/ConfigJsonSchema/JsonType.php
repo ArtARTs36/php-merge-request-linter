@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
 class JsonType
@@ -15,6 +15,7 @@ class JsonType
         Set::class => 'array',
         Arrayee::class => 'array',
         'int' => 'integer',
+        'integer' => 'integer',
         'iterable' => 'array',
         'float' => 'number',
         'bool' => 'boolean',

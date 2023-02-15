@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Contracts\IO\Printer;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\Printer;
 
 class NullPrinter implements Printer
 {
@@ -14,5 +14,15 @@ class NullPrinter implements Printer
     public function printObject(object $object): void
     {
         //
+    }
+
+    public function printInfoLine(string $message): void
+    {
+        //
+    }
+
+    public function line(int $count): void
+    {
+        // TODO: Implement line() method.
     }
 }

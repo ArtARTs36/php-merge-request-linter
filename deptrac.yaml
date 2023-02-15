@@ -2,29 +2,39 @@ deptrac:
   paths:
     - src/
 
+  exclude_files:
+    - src/Presentation/Console/Application/ApplicationFactory.php
+
   layers:
 
-    - name: Rule
+    - name: 'Application'
       collectors:
         - type: directory
-          value: src/Rule/.*
-
-    - name: RequestFetcher
-      collectors:
-        - type: directory
-          value: src/Request/Fetcher/.*
-
-    - name: CI
-      collectors:
-        - type: directory
-          value: src/CI/.*
+          value: src/Application/.*
 
     - name: 'Infrastructure'
       collectors:
         - type: directory
           value: src/Infrastructure/.*
 
-    - name: Condition
+    - name: 'Domain'
       collectors:
         - type: directory
-          value: src/Condition/.*
+          value: src/Domain/.*
+
+    - name: 'Shared'
+      collectors:
+        - type: directory
+          value: src/Shared/.*
+
+    - name: 'Presentation'
+      collectors:
+        - type: directory
+          value: src/Presentation/.*
+
+  ruleset:
+    Domain: [Shared]
+    Infrastructure: [Domain, Shared, Application]
+    Application: [Domain, Infrastructure, Shared]
+    Shared: ~
+    Presentation: [Application, Domain, Shared]

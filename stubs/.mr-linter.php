@@ -1,12 +1,12 @@
 <?php
 
-use ArtARTs36\MergeRequestLinter\CI\Credentials\Token;
-use ArtARTs36\MergeRequestLinter\CI\System\Github\GithubActions;
-use ArtARTs36\MergeRequestLinter\CI\System\Gitlab\GitlabCi;
-use ArtARTs36\MergeRequestLinter\Rule\DescriptionNotEmptyRule;
-use ArtARTs36\MergeRequestLinter\Rule\HasAnyLabelsOfRule;
-use ArtARTs36\MergeRequestLinter\Rule\TitleStartsWithAnyPrefixRule;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsOfRule;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithAnyPrefixRule;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\Token;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 
 return [
     'rules' => [

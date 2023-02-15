@@ -17,55 +17,42 @@ This package provides tools for validating merge requests
 
 ## Installation
 
-### Installation as Composer Dependency
+Add config file with name `.mr-linter.yml` or `.mr-linter.json`.
+Examples:
+* https://github.com/ArtARTs36/php-merge-request-linter/blob/master/stubs/.mr-linter.yaml
+* https://github.com/ArtARTs36/php-merge-request-linter/blob/master/stubs/.mr-linter.json
 
-You must have implementation of `psr/http-client-implementation`
+## ➜ Usage with GitHub Actions
 
-* Run: `composer require --dev artarts36/merge-request-linter`
-* Run `./vendor/bin/mr-linter install`. The file `.mr-linter.php` will be added to the root directory.
-* Configure `.mr-linter.php`
+[View on Marketplace](https://github.com/marketplace/actions/merge-request-linter)
 
-### Installation via PHAR
+Implementation example: https://github.com/ArtARTs36/ShellCommand/pull/11
 
-* Download [PHAR](https://github.com/ArtARTs36/php-merge-request-linter/releases/latest/downloadmr-linter.phar)
-* Run `mr-linter.phar install`. The file `.mr-linter.php` will be added.
-* Configure `.mr-linter.php`
+1. Generate token on [page](https://github.com/settings/tokens/new)
+2. Open https://github.com/{owner}/{repo}/settings/secrets/actions/new. Add new secret "MR_LINTER_GITHUB_HTTP_TOKEN" with your personal access token
+3. Add new workflow file **.github/workflows/review.yml**:
+```yml
+name: PR Review
 
-## Available Commands
+on:
+pull_request:
+branches: [ master ]
 
-| Command                                      | Description                                                   |
-|----------------------------------------------|---------------------------------------------------------------|
-| ./vendor/bin/mr-linter install               | Install this tool (copy configuration file to work directory) |
-| ./vendor/bin/mr-linter install --format=yaml | Install this tool (copy configuration file to work directory) |
-| ./vendor/bin/mr-linter dump                  | Print current rules                                           |
-| ./vendor/bin/mr-linter lint                  | Run lint to current merge request                             |
-| ./vendor/bin/mr-linter info                  | Print info about MR Linter                                    |
+jobs:
+build:
 
-## Usage
+    runs-on: ubuntu-latest
 
-Add new script into your composer.json (section **scripts**):
+    steps:
+      - uses: actions/checkout@v2
 
-```json
-    "mr-lint": [
-        "./vendor/bin/mr-linter lint"
-    ]
+      - name: Lint Pull Request
+        uses: mr-linter/mr-linter-ga@v0.2.0
+        env:
+          MR_LINTER_GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
 ```
 
-### ➜ Usage with Gitlab CI
-
-1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
-2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_GITLAB_HTTP_TOKEN" with your personal access token
-3. Add new step into **.gitlab-ci.yml**:
-   ```yaml
-   mr-lint:
-     stage: lint
-     only:
-       - merge_requests
-     script:
-       - composer mr-lint
-   ```
-
-### ➜ Usage with Gitlab CI without installation
+## ➜ Usage with Gitlab CI
 
 [See example](https://gitlab.com/artem_ukrainsky/mr-linter-testing/)
 
@@ -74,25 +61,13 @@ Add new script into your composer.json (section **scripts**):
 3. Add new step into **.gitlab-ci.yml**
    ```yaml
    mr-lint:
-     image: artarts36/merge-request-linter:0.3.0
+     image: artarts36/merge-request-linter:0.8.0
      stage: test
      only:
        - merge_requests
      script:
        - mr-linter lint
    ```
-
-### ➜ Usage with Github Actions
-
-1. Generate token on [page](https://github.com/settings/tokens/new)
-2. Open https://github.com/{owner}/{repo}/settings/secrets/actions/new. Add new secret "MR_LINTER_GITHUB_HTTP_TOKEN" with your personal access token
-3. Add new step into **.github/workflows/workflow-name.yml**:
-    ```yml
-    - name: MR Lint
-      env:
-        MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
-      run: composer mr-lint
-    ```
 
 ## Run in Docker
 
@@ -108,6 +83,17 @@ docker run \
   -v "${PWD}/.mr-linter.json:/app/.mr-linter.json:ro" \
   artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
 ```
+
+## Available Commands
+
+| Command                                      | Description                                                   |
+|----------------------------------------------|---------------------------------------------------------------|
+| ./vendor/bin/mr-linter install               | Install this tool (copy configuration file to work directory) |
+| ./vendor/bin/mr-linter install --format=yaml | Install this tool (copy configuration file to work directory) |
+| ./vendor/bin/mr-linter dump                  | Print current rules                                           |
+| ./vendor/bin/mr-linter lint                  | Run lint to current merge request                             |
+| ./vendor/bin/mr-linter info                  | Print info about MR Linter                                    |
+
 
 ## JSON Config
 

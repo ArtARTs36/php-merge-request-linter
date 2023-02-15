@@ -39,6 +39,12 @@ docker-pub-push:
 	@docker login -u ${MR_LINTER_DOCKER_USER} -p ${MR_LINTER_DOCKER_PASSWORD}
 	docker push artarts36/merge-request-linter:${MR_LINTER_VERSION}
 
+# usage as `MR_LINTER_DOCKER_USER=root MR_LINTER_DOCKER_PASSWORD=root make docker-pub-push-as-latest MR_LINTER_VERSION=0.2.0`
+docker-pub-push-as-latest:
+	@docker login -u ${MR_LINTER_DOCKER_USER} -p ${MR_LINTER_DOCKER_PASSWORD}
+	docker tag artarts36/merge-request-linter:${MR_LINTER_VERSION} artarts36/merge-request-linter:latest
+	docker push artarts36/merge-request-linter:latest
+
 # usage as `make docker-pub-try MR_LINTER_VERSION=0.2.0 MR_ID=10 TOKEN=aszbdg3htyhtgrfg5h5`
 docker-pub-try:
 	docker run \
@@ -66,3 +72,9 @@ check: deps-check
 	composer stat-analyse
 	composer deptrac
 	composer test
+
+info:
+	./bin/mr-linter info
+
+dump:
+	./bin/mr-linter dump

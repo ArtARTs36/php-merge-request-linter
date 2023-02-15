@@ -2,17 +2,17 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Configuration\HttpClientConfig;
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
-use ArtARTs36\MergeRequestLinter\Contracts\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Request\Data\Author;
-use ArtARTs36\MergeRequestLinter\Request\Data\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -25,7 +25,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return new Config(
             Rules::make($rules),
             new ArrayMap([]),
-            new HttpClientConfig(HttpClientConfig::TYPE_NULL),
+            new HttpClientConfig(HttpClientConfig::TYPE_NULL, []),
         );
     }
 
@@ -38,7 +38,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             (bool) ($request['has_conflicts'] ?? false),
             Str::make($request['source_branch'] ?? ''),
             Str::make($request['target_branch'] ?? ''),
-            new Author($request['author_login'] ?? ''),
+            new Author(Str::make($request['author_login'] ?? '')),
             $request['is_draft'] ?? false,
             false,
             new ArrayMap($request['changes'] ?? []),

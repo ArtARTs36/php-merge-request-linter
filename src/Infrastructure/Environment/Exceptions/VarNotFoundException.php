@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Environment\EnvironmentVariableNotFoundException;
-use ArtARTs36\MergeRequestLinter\Exception\MergeRequestLinterException;
+use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 
 class VarNotFoundException extends MergeRequestLinterException implements EnvironmentVariableNotFoundException
 {

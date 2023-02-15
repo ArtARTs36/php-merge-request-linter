@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Contracts\Config\ConfigLoader;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
 
 final class MockConfigLoader implements ConfigLoader
 {

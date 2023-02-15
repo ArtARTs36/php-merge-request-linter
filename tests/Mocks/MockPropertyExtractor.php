@@ -2,9 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Contracts\DataStructure\Collection;
-use ArtARTs36\MergeRequestLinter\Contracts\PropertyExtractor;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
+use ArtARTs36\Str\Str;
 
 final class MockPropertyExtractor implements PropertyExtractor
 {
@@ -24,9 +25,9 @@ final class MockPropertyExtractor implements PropertyExtractor
         return $this->value;
     }
 
-    public function string(object $object, string $property): string
+    public function string(object $object, string $property): Str
     {
-        return $this->value;
+        return Str::make($this->value);
     }
 
     public function collection(object $object, string $property): Collection
@@ -35,6 +36,11 @@ final class MockPropertyExtractor implements PropertyExtractor
             return new Arrayee($this->value);
         }
 
+        return $this->value;
+    }
+
+    public function interface(object $object, string $property, string $interface): mixed
+    {
         return $this->value;
     }
 }

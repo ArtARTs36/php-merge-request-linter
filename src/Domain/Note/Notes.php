@@ -2,8 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\Note;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
  * @template-extends Arrayee<int, Note>

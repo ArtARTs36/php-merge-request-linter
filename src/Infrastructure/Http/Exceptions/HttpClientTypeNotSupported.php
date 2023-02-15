@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions;
 
-use ArtARTs36\MergeRequestLinter\Exception\MergeRequestLinterException;
+use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
 
 class HttpClientTypeNotSupported extends MergeRequestLinterException
 {

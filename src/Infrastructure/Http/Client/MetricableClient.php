@@ -2,11 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
-use ArtARTs36\MergeRequestLinter\Contracts\HTTP\Client;
-use ArtARTs36\MergeRequestLinter\Contracts\Report\MetricManager;
-use ArtARTs36\MergeRequestLinter\Report\Metrics\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Support\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Support\Time\Timer;
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\DurationMetric;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -28,7 +29,7 @@ class MetricableClient implements Client
         $this->metrics->add(new MetricSubject(
             'http_send_request',
             sprintf('[HTTP] Wait of response from %s', $request->getUri()->getHost()),
-        ), $timer->finish());
+        ), new DurationMetric($timer->finish()));
 
         return $response;
     }
@@ -44,7 +45,7 @@ class MetricableClient implements Client
         $this->metrics->add(new MetricSubject(
             'http_send_request',
             sprintf('[HTTP] Wait of response from %s for %d async requests', $hosts, count($requests)),
-        ), $timer->finish());
+        ), new DurationMetric($timer->finish()));
 
         return $responses;
     }

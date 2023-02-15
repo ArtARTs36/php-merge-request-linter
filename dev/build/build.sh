@@ -8,8 +8,6 @@ cd dev/build/ && composer install
 
 cd ../../
 
-echo "y" | composer require guzzlehttp/guzzle
-
 # Compile phar
 dev/build/vendor/bin/box compile
 

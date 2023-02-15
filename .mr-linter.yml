@@ -19,13 +19,25 @@ rules:
 
   "@mr-linter/has_changes":
     changes:
-      - file: "src/Console/Application/Application.php"
+      - file: "src/Version.php"
         updatedPhpConstant: "VERSION"
     when:
       targetBranch:
         equals: "master"
       title:
         notStarts: '[Docs]'
+
+  custom:
+    - definition: "Branch must be in kebab-case"
+      rules:
+        sourceBranch:
+          isKebabCase: true
+
+    - definition: "Labels must be in StudlyCase"
+      rules:
+        labels:
+          $all:
+            isStudlyCase: true
 
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"

@@ -2,13 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Contracts\CI\CiSystemFactory;
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunner;
-use ArtARTs36\MergeRequestLinter\Contracts\Linter\LinterRunnerFactory;
-use ArtARTs36\MergeRequestLinter\Linter\Runner\Runner;
-use ArtARTs36\MergeRequestLinter\Report\Metrics\Manager\NullMetricManager;
-use ArtARTs36\MergeRequestLinter\Request\Fetcher\CiRequestFetcher;
+use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 
 final class MockRunnerFactory implements LinterRunnerFactory
 {
