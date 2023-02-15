@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflector;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Property
 {
     public function __construct(

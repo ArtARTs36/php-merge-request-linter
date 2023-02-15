@@ -29,4 +29,23 @@ final class FileTest extends TestCase
     {
         self::assertEquals($expected, File::extension($path));
     }
+
+    public function providerForTestGetSizeString(): array
+    {
+        return [
+            [
+                __DIR__ . '/test_file.txt',
+                '13 bytes',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\File\File::getSizeString
+     * @dataProvider providerForTestGetSizeString
+     */
+    public function testGetSizeString(string $path, string $size): void
+    {
+        self::assertEquals($size, (new File($path))->getSizeString());
+    }
 }
