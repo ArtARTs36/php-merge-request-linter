@@ -51,4 +51,14 @@ final class SetTest extends TestCase
     {
         self::assertEquals($expected, Set::fromList($set)->first());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::values
+     */
+    public function testValues(): void
+    {
+        $set = Set::fromList($values = ['value1', 'value2']);
+
+        self::assertEquals($values, $set->values());
+    }
 }

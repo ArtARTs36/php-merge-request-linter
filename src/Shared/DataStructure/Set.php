@@ -117,6 +117,14 @@ class Set implements Collection, HasDebugInfo
     }
 
     /**
+     * @return array<V>
+     */
+    public function values(): array
+    {
+        return array_keys($this->items);
+    }
+
+    /**
      * @return V|null
      */
     public function first()

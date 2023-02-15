@@ -9,6 +9,7 @@ final class SymfonyYamlDecoderTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\SymfonyYamlDecoder::decode
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\SymfonyYamlDecoder::__construct
      */
     public function testDecode(): void
     {
@@ -23,12 +24,13 @@ final class SymfonyYamlDecoderTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\SymfonyYamlDecoder::decode
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\SymfonyYamlDecoder::__construct
      */
     public function testDecodeOnInvalidYamlString(): void
     {
-        self::expectExceptionMessage('Invalid yaml string');
-
         $decoder = new SymfonyYamlDecoder();
+
+        self::expectExceptionMessage('Invalid yaml string');
 
         $decoder->decode('');
     }
@@ -46,13 +48,14 @@ a',
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\SymfonyYamlDecoder::decode
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\SymfonyYamlDecoder::__construct
      * @dataProvider providerForTestDecodeOnParseException
      */
     public function testDecodeOnParseException(string $yaml, string $expectedExceptionMessage): void
     {
-        self::expectExceptionMessage($expectedExceptionMessage);
-
         $decoder = new SymfonyYamlDecoder();
+
+        self::expectExceptionMessage($expectedExceptionMessage);
 
         $decoder->decode($yaml);
     }
