@@ -46,7 +46,7 @@ class InstallCommand extends Command
 
     private function resolveConfigFormat(InputInterface $input): ConfigFormat
     {
-        if ($input->getOption('format') !== null) {
+        if ($input->getOption('format') !== null && is_string($input->getOption('format'))) {
             return ConfigFormat::from($input->getOption('format'));
         }
 
