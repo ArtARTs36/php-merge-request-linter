@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\SetResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\TypeName;
@@ -32,5 +33,17 @@ final class SetResolverTest extends TestCase
 
         self::assertInstanceOf(Set::class, $result);
         self::assertEquals($value, $result->values());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\SetResolver::resolve
+     */
+    public function testResolveOnArgNotSupportedException(): void
+    {
+        $resolver = new SetResolver();
+
+        self::expectException(ArgNotSupportedException::class);
+
+        $resolver->resolve(new Type(TypeName::Array), 1);
     }
 }
