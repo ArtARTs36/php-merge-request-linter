@@ -12,7 +12,7 @@ class Directory
 
     public function pathTo(string $filename): string
     {
-        return $this->directory . DIRECTORY_SEPARATOR . $filename;
+        return rtrim($this->directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
     }
 
     public function __toString(): string
