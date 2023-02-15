@@ -24,6 +24,7 @@ final class FileTransformerTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\FileTransformer::transform
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\FileTransformer::doTransform
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\FileTransformer::__construct
      * @dataProvider providerForTestTransform
      */
     public function testTransform(array $files, string $value, string $expected): void
