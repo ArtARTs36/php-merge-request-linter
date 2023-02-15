@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules\HasChangesRule;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\NeedFileChange;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\UpdatedPhpConstantChecker;
