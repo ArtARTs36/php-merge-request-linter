@@ -7,7 +7,8 @@
     ],
     "files": [
         "LICENSE",
-        "stubs/.mr-linter.php"
+        "stubs/.mr-linter.json",
+        "stubs/.mr-linter.yaml"
     ],
     "git-commit": "git-commit",
     "output": "bin/build/mr-linter.phar"
