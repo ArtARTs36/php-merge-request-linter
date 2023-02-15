@@ -5,11 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Text\Decoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\SymfonyYamlDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextDecoderNotFoundException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class DecoderFactoryTest extends TestCase
 {
-    public function providerForTestFactory(): array
+    public function providerForTestCreate(): array
     {
         return [
             ['yaml', SymfonyYamlDecoder::class],
@@ -19,12 +20,24 @@ final class DecoderFactoryTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory::create
-     * @dataProvider providerForTestFactory
+     * @dataProvider providerForTestCreate
      */
-    public function testFactory(string $format, string $expectedClass): void
+    public function testCreate(string $format, string $expectedClass): void
     {
         $factory = new DecoderFactory();
 
         self::assertInstanceOf($expectedClass, $factory->create($format));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory::create
+     */
+    public function testCreateOnDecoderNotFound(): void
+    {
+        $factory = new DecoderFactory();
+
+        self::expectException(TextDecoderNotFoundException::class);
+
+        $factory->create('non-exists-decoder-format');
     }
 }
