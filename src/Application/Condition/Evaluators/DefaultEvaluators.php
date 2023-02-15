@@ -9,6 +9,8 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountEq
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountMinEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\EqualsAnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\EqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\IsEmptyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsCamelCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsKebabCaseEvaluator;

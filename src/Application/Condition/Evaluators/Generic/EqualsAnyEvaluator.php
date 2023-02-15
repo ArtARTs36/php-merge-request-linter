@@ -1,9 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
+namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic;
 
-use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Evaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 
 /**
  * Check if the field is equal to one of the values.

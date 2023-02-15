@@ -1,8 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
+namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesSameType;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\ScalarEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 
 /**
