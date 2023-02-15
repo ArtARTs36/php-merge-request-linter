@@ -72,3 +72,9 @@ check: deps-check
 	composer stat-analyse
 	composer deptrac
 	composer test
+
+info:
+	./bin/mr-linter info
+
+dump:
+	./bin/mr-linter dump
