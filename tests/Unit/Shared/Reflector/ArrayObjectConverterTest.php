@@ -24,11 +24,17 @@ final class ArrayObjectConverterTest extends TestCase
                     'phone' => null,
                 ],
             ],
+            [
+                [],
+                WithoutConstructorClass::class,
+                [],
+            ],
         ];
     }
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflector\ArrayObjectConverter::convert
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflector\ArrayObjectConverter::mapParams
      * @dataProvider providerForTestConvert
      */
     public function testConvert(array $data, string $class, array $expect): void
@@ -40,6 +46,11 @@ final class ArrayObjectConverterTest extends TestCase
         self::assertInstanceOf($class, $result);
         self::assertEquals($expect, get_object_vars($result));
     }
+}
+
+class WithoutConstructorClass
+{
+    //
 }
 
 class TestPeople
