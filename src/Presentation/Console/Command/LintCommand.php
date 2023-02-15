@@ -67,7 +67,7 @@ class LintCommand extends Command
 
         $result = $this->handler->handle(new LintTask(
             $this->getWorkDir($input),
-            $input->getOption('config'),
+            $this->getStringOptionFromInput($input, 'config'),
         ));
 
         $style->newLine(2);
@@ -76,7 +76,7 @@ class LintCommand extends Command
             $this->notePrinter->print(new SymfonyTablePrinter($style), $result->notes);
         }
 
-        $this->printMetrics($style, $result, $input->getOption('metrics'));
+        $this->printMetrics($style, $result, $this->getBoolFromOption($input, 'metrics'));
 
         if ($result->isFail()) {
             $style->error(sprintf('Found %d notes', $result->notes->count()));

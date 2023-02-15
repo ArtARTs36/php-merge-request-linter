@@ -68,8 +68,9 @@ class Arrayee implements Collection, HasDebugInfo
     }
 
     /**
-     * @param callable(V): mixed $mapper
-     * @return array<mixed>
+     * @template M
+     * @param callable(V): M $mapper
+     * @return array<M>
      */
     public function mapToArray(callable $mapper): array
     {

@@ -27,8 +27,16 @@ class WorkDirResolver
 
     private function getFromInput(InputInterface $input): ?string
     {
-        return $input->hasOption(self::OPTION_NAME) ?
-            $input->getOption(self::OPTION_NAME) :
-            null;
+        $option = $input->getOption(self::OPTION_NAME);
+
+        if (empty($option)) {
+            return null;
+        }
+
+        if (! is_string($option)) {
+            throw new \RuntimeException(sprintf('Option "%s" must be string', self::OPTION_NAME));
+        }
+
+        return $option;
     }
 }
