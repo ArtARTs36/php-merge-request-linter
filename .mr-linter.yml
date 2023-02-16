@@ -18,14 +18,22 @@ rules:
   "@mr-linter/description_not_empty": {}
 
   "@mr-linter/has_changes":
-    changes:
+    - changes:
       - file: "src/Version.php"
         updatedPhpConstant: "VERSION"
-    when:
-      targetBranch:
-        equals: "master"
-      title:
-        notStarts: '[Docs]'
+      when:
+        targetBranch:
+          equals: "master"
+        title:
+          notStarts: '[Docs]'
+
+    - changes:
+        - file: "CHANGELOG.MD"
+      when:
+        targetBranch:
+          equals: "master"
+        title:
+          notStarts: '[Docs]'
 
   custom:
     - definition: "Branch must be in kebab-case"
@@ -46,6 +54,14 @@ rules:
       when:
         labels:
           has: "Bug"
+
+    - definition: "Description must have list of features"
+      rules:
+        description:
+          contains: "Added\n"
+      when:
+        labels:
+          has: "Feature"
 
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
