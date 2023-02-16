@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
+/**
+ * @phpstan-type FileName string
+ */
 class MergeRequest
 {
     public const FIELDS = [
@@ -25,7 +28,7 @@ class MergeRequest
 
     /**
      * @param Set<string> $labels
-     * @param Map<string, Change> $changes
+     * @param Map<FileName, Change> $changes
      */
     public function __construct(
         public Str $title,
