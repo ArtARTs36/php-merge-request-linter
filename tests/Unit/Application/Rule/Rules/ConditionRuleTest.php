@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConditionOperator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -14,21 +15,11 @@ final class ConditionRuleTest extends TestCase
     {
         return [
             [
-                new class () implements ConditionOperator {
-                    public function check(object $subject): bool
-                    {
-                        return true;
-                    }
-                },
+                MockConditionOperator::true(),
                 0,
             ],
             [
-                new class () implements ConditionOperator {
-                    public function check(object $subject): bool
-                    {
-                        return false;
-                    }
-                },
+                MockConditionOperator::false(),
                 1,
             ],
         ];
