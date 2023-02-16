@@ -14,7 +14,7 @@ final class ConditionRuleTest extends TestCase
     {
         return [
             [
-                new class implements ConditionOperator {
+                new class () implements ConditionOperator {
                     public function check(object $subject): bool
                     {
                         return true;
@@ -23,7 +23,7 @@ final class ConditionRuleTest extends TestCase
                 0,
             ],
             [
-                new class implements ConditionOperator {
+                new class () implements ConditionOperator {
                     public function check(object $subject): bool
                     {
                         return false;
