@@ -11,7 +11,7 @@ class MemoryCounter implements Counter
     }
 
     /**
-     * @param \Countable|array $countable
+     * @param \Countable|array<mixed> $countable
      */
     public static function create(\Countable|array $countable): self
     {

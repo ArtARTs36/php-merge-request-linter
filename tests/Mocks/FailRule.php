@@ -21,6 +21,6 @@ final class FailRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('');
+        return new Definition('Fail rule');
     }
 }
