@@ -45,6 +45,7 @@ class RuleSchemaGenerator
                 'type' => 'object',
                 'properties' => [
                     'when' => [
+                        'description' => 'Conditions that determine whether the rule should run.',
                         '$ref' => '#/definitions/rule_conditions',
                     ],
                 ],
