@@ -971,6 +971,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "limit": {
@@ -985,6 +986,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "domains": {
@@ -1004,6 +1006,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "domains": {
@@ -1023,6 +1026,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 }
             }
@@ -1031,6 +1035,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "labels": {
@@ -1050,6 +1055,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 }
             }
@@ -1058,6 +1064,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "labels": {
@@ -1077,6 +1084,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "domain": {
@@ -1095,6 +1103,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "domain": {
@@ -1113,6 +1122,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "prefixes": {
@@ -1127,6 +1137,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "changes": {
@@ -1158,6 +1169,7 @@
             "type": "object",
             "properties": {
                 "when": {
+                    "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "rules": {
