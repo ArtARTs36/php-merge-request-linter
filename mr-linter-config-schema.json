@@ -289,6 +289,10 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
                         }
                     }
                 },
@@ -377,6 +381,10 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
                         }
                     }
                 },
@@ -508,6 +516,10 @@
                                 "isKebabCase": {
                                     "description": "Check if a string is kebab-case.",
                                     "type": "boolean"
+                                },
+                                "linesMax": {
+                                    "description": "Check the maximum string lines.",
+                                    "type": "integer"
                                 }
                             }
                         },
@@ -594,6 +606,10 @@
                                 "isKebabCase": {
                                     "description": "Check if a string is kebab-case.",
                                     "type": "boolean"
+                                },
+                                "linesMax": {
+                                    "description": "Check the maximum string lines.",
+                                    "type": "integer"
                                 }
                             }
                         }
@@ -705,6 +721,10 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
                         }
                     }
                 },
@@ -793,6 +813,10 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
                         }
                     }
                 },
@@ -881,6 +905,10 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
                         }
                     }
                 },

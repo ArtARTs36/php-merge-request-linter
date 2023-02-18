@@ -15,6 +15,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\Equals
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\IsEmptyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LinesMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsCamelCaseEvaluator;
@@ -62,6 +63,7 @@ class OperatorSchemaArrayGenerator
             IsLowerCaseEvaluator::class,
             IsSnakeCaseEvaluator::class,
             IsKebabCaseEvaluator::class,
+            LinesMaxEvaluator::class,
         ],
         Str::class => [
             EqualsEvaluator::class,
@@ -82,6 +84,7 @@ class OperatorSchemaArrayGenerator
             IsLowerCaseEvaluator::class,
             IsSnakeCaseEvaluator::class,
             IsKebabCaseEvaluator::class,
+            LinesMaxEvaluator::class,
         ],
         Set::class => [
             CountMinEvaluator::class,
