@@ -71,6 +71,7 @@ final class DefaultEvaluators
         IsKebabCaseEvaluator::NAME => IsKebabCaseEvaluator::class,
         AllEvaluator::NAME => AllEvaluator::class,
         AnyEvaluator::NAME => AnyEvaluator::class,
+        LinesMaxEvaluator::NAME => LinesMaxEvaluator::class,
     ];
 
     /**
