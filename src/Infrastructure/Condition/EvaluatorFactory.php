@@ -47,7 +47,7 @@ class EvaluatorFactory
         [, $level] = explode(ContainsHeadingEvaluator::PREFIX_NAME, $type, 2);
 
         return new ContainsHeadingEvaluator(
-            $value['title'],
+            $value,
             $level,
         );
     }

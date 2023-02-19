@@ -15,7 +15,13 @@ final class ExceptionNote extends AbstractNote implements Note
     public function getDescription(): string
     {
         if ($this->exception->getMessage() !== '') {
-            return sprintf('%s (exception %s)', $this->exception->getMessage(), $this->exception::class);
+            return sprintf(
+                '%s (exception %s on %s#%d)',
+                $this->exception->getMessage(),
+                $this->exception::class,
+                $this->exception->getFile(),
+                $this->exception->getLine(),
+            );
         }
 
         return sprintf('Exception %s', $this->exception::class);
