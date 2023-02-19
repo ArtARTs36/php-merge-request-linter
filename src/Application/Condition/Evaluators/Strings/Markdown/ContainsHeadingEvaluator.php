@@ -29,4 +29,9 @@ final class ContainsHeadingEvaluator extends Evaluator
             ->interface(Markdown::class)
             ->containsHeadingWithLevel($this->value, $this->level);
     }
+
+    public function level(): int
+    {
+        return $this->level;
+    }
 }
