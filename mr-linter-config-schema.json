@@ -294,7 +294,7 @@
                             "description": "Check the maximum string lines.",
                             "type": "integer"
                         },
-                        "containsAny": {
+                        "containsLine": {
                             "description": "",
                             "type": "string"
                         }
@@ -390,7 +390,7 @@
                             "description": "Check the maximum string lines.",
                             "type": "integer"
                         },
-                        "containsAny": {
+                        "containsLine": {
                             "description": "",
                             "type": "string"
                         }
@@ -734,7 +734,7 @@
                             "description": "Check the maximum string lines.",
                             "type": "integer"
                         },
-                        "containsAny": {
+                        "containsLine": {
                             "description": "",
                             "type": "string"
                         }
@@ -830,7 +830,7 @@
                             "description": "Check the maximum string lines.",
                             "type": "integer"
                         },
-                        "containsAny": {
+                        "containsLine": {
                             "description": "",
                             "type": "string"
                         }
@@ -926,7 +926,7 @@
                             "description": "Check the maximum string lines.",
                             "type": "integer"
                         },
-                        "containsAny": {
+                        "containsLine": {
                             "description": "",
                             "type": "string"
                         }

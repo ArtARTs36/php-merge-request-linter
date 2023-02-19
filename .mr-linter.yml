@@ -50,7 +50,7 @@ rules:
     - definition: "Description must have list of fixed bugs"
       rules:
         description:
-          contains: "Fixed\n"
+          containsLine: "Fixed"
       when:
         labels:
           has: "Bug"
@@ -58,7 +58,7 @@ rules:
     - definition: "Description must have list of features"
       rules:
         description:
-          contains: "Added\n"
+          containsLine: "Added"
       when:
         labels:
           has: "Feature"
