@@ -6,6 +6,9 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Evaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 use ArtARTs36\Str\Markdown;
 
+/**
+ * Check if a markdown-string contains a heading.
+ */
 final class ContainsHeadingEvaluator extends Evaluator
 {
     public const PREFIX_NAME = 'containsHeading';

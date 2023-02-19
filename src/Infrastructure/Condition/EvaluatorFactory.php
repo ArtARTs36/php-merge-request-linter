@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
 
 /**
- * @phpstan-type EvaluatorName string
+ * @phpstan-import-type EvaluatorName from EvaluatorCreator
  */
 class EvaluatorFactory
 {
@@ -26,7 +26,7 @@ class EvaluatorFactory
         $evaluator = $this->creator->create($type, $value);
 
         if ($evaluator === null) {
-            throw new \RuntimeException(sprintf('Evaluator with name "%s" not resolved', $type));
+            throw ConditionEvaluatorNotFound::make($type);
         }
 
         return $evaluator;
