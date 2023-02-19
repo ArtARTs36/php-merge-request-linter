@@ -58,6 +58,7 @@ class GitlabCi implements CiSystem
 
         return new MergeRequest(
             Str::make($request->title),
+            Str::make($request->description)->markdown(),
             Str::make($request->description),
             Set::fromList($request->labels),
             $request->hasConflicts,

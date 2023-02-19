@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AnyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectFactory;
@@ -34,9 +35,21 @@ class EvaluatorFactory
             return $this->createAllEvaluator($value);
         } elseif ($type === AnyEvaluator::NAME && is_array($value)) {
             return $this->createAnyEvaluator($value);
+        } elseif (str_contains($type, ContainsHeadingEvaluator::PREFIX_NAME)) {
+            return $this->createContainsHeadingEvaluator($type, $value);
         }
 
         return $this->createByType($type, $value);
+    }
+
+    private function createContainsHeadingEvaluator(string $type, mixed $value): ContainsHeadingEvaluator
+    {
+        [, $level] = explode(ContainsHeadingEvaluator::PREFIX_NAME, $type, 2);
+
+        return new ContainsHeadingEvaluator(
+            $value['title'],
+            $level,
+        );
     }
 
     /**

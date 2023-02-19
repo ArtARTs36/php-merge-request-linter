@@ -300,6 +300,35 @@
                         }
                     }
                 },
+                "descriptionMarkdown": {
+                    "type": "object",
+                    "properties": {
+                        "containsHeading1": {
+                            "description": "",
+                            "type": "string"
+                        },
+                        "containsHeading2": {
+                            "description": "",
+                            "type": "string"
+                        },
+                        "containsHeading3": {
+                            "description": "",
+                            "type": "string"
+                        },
+                        "containsHeading4": {
+                            "description": "",
+                            "type": "string"
+                        },
+                        "containsHeading5": {
+                            "description": "",
+                            "type": "string"
+                        },
+                        "containsHeading6": {
+                            "description": "",
+                            "type": "string"
+                        }
+                    }
+                },
                 "description": {
                     "type": "object",
                     "properties": {

@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\Str\Markdown;
 use ArtARTs36\Str\Str;
 
 /**
@@ -32,6 +33,7 @@ class MergeRequest
      */
     public function __construct(
         public Str $title,
+        public Markdown $descriptionMarkdown,
         public Str $description,
         #[Generic(Generic::OF_STRING)]
         public Set $labels,

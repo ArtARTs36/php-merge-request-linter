@@ -23,6 +23,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Contai
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\EndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\MatchEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;
@@ -74,6 +75,12 @@ final class DefaultEvaluators
         AnyEvaluator::NAME => AnyEvaluator::class,
         LinesMaxEvaluator::NAME => LinesMaxEvaluator::class,
         ContainsLineEvaluator::NAME => ContainsLineEvaluator::class,
+        ContainsHeadingEvaluator::NAME => ContainsHeadingEvaluator::class,
+        ContainsHeadingEvaluator::NAME_HEADING_2 => ContainsHeadingEvaluator::class,
+        ContainsHeadingEvaluator::NAME_HEADING_3 => ContainsHeadingEvaluator::class,
+        ContainsHeadingEvaluator::NAME_HEADING_4 => ContainsHeadingEvaluator::class,
+        ContainsHeadingEvaluator::NAME_HEADING_5 => ContainsHeadingEvaluator::class,
+        ContainsHeadingEvaluator::NAME_HEADING_6 => ContainsHeadingEvaluator::class,
     ];
 
     /**

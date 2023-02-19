@@ -29,6 +29,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Contai
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\EndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\MatchEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;
@@ -40,6 +41,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Property;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
+use ArtARTs36\Str\Markdown;
 use ArtARTs36\Str\Str;
 
 class OperatorSchemaArrayGenerator
@@ -117,6 +119,9 @@ class OperatorSchemaArrayGenerator
         'bool' => [
             EqualsEvaluator::class,
             NotEqualsEvaluator::class,
+        ],
+        Markdown::class => [
+            ContainsHeadingEvaluator::class,
         ],
     ];
 
@@ -304,6 +309,6 @@ class OperatorSchemaArrayGenerator
 
     private function allowObjectScan(string $type): bool
     {
-        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class;
+        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class && $type !== Markdown::class;
     }
 }

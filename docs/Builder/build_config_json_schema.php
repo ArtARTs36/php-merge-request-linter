@@ -10,7 +10,8 @@ $prevHash = md5_file($path);
 try {
     file_put_contents($path, $json = $jsonSchema->generate()->toJson());
 } catch (\Throwable $e) {
-
+    var_dump($e->getMessage());
+    exit();
 }
 
 $updated = $prevHash !== md5($json);

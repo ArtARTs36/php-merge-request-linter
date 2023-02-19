@@ -13,6 +13,7 @@ class PullRequestSchema
 
         return new PullRequest(
             $pullRequest['title'],
+            $pullRequest['body'],
             $pullRequest['bodyText'],
             array_map(fn (array $item) => $item['name'], $pullRequest['labels']['nodes']),
             $pullRequest['mergeable'],
@@ -33,6 +34,7 @@ class PullRequestSchema
         login
       }
       title
+      body
       bodyText
       mergeable
       baseRefName

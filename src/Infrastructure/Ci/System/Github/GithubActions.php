@@ -63,6 +63,7 @@ class GithubActions implements CiSystem
 
         return new MergeRequest(
             Str::make($pullRequest->title),
+            Str::make($pullRequest->bodyMarkdown)->markdown(),
             Str::make($pullRequest->bodyText),
             Set::fromList($pullRequest->labels),
             $pullRequest->hasConflicts(),
