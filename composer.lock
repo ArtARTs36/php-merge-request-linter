@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea8238828d30b86b79cc99cdbdde941c",
+    "content-hash": "9f18297f2cbd92383cda4cc37be3c709",
     "packages": [
         {
             "name": "artarts36/empty-contracts",
@@ -129,16 +129,16 @@
         },
         {
             "name": "artarts36/str",
-            "version": "2.1.1",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArtARTs36/str.git",
-                "reference": "9d81dca1a29e36544b330e1bdc3dbe9af80e41bb"
+                "reference": "543cb19197970035e775d3c77a42fd7278e20628"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ArtARTs36/str/zipball/9d81dca1a29e36544b330e1bdc3dbe9af80e41bb",
-                "reference": "9d81dca1a29e36544b330e1bdc3dbe9af80e41bb",
+                "url": "https://api.github.com/repos/ArtARTs36/str/zipball/543cb19197970035e775d3c77a42fd7278e20628",
+                "reference": "543cb19197970035e775d3c77a42fd7278e20628",
                 "shasum": ""
             },
             "require": {
@@ -170,9 +170,9 @@
             "description": "String Wrapper",
             "support": {
                 "issues": "https://github.com/ArtARTs36/str/issues",
-                "source": "https://github.com/ArtARTs36/str/tree/2.1.1"
+                "source": "https://github.com/ArtARTs36/str/tree/2.2.0"
             },
-            "time": "2023-02-11T00:35:53+00:00"
+            "time": "2023-02-19T18:49:08+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
