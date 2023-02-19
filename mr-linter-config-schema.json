@@ -293,6 +293,10 @@
                         "linesMax": {
                             "description": "Check the maximum string lines.",
                             "type": "integer"
+                        },
+                        "containsAny": {
+                            "description": "",
+                            "type": "string"
                         }
                     }
                 },
@@ -385,6 +389,10 @@
                         "linesMax": {
                             "description": "Check the maximum string lines.",
                             "type": "integer"
+                        },
+                        "containsAny": {
+                            "description": "",
+                            "type": "string"
                         }
                     }
                 },
@@ -725,6 +733,10 @@
                         "linesMax": {
                             "description": "Check the maximum string lines.",
                             "type": "integer"
+                        },
+                        "containsAny": {
+                            "description": "",
+                            "type": "string"
                         }
                     }
                 },
@@ -817,6 +829,10 @@
                         "linesMax": {
                             "description": "Check the maximum string lines.",
                             "type": "integer"
+                        },
+                        "containsAny": {
+                            "description": "",
+                            "type": "string"
                         }
                     }
                 },
@@ -909,6 +925,10 @@
                         "linesMax": {
                             "description": "Check the maximum string lines.",
                             "type": "integer"
+                        },
+                        "containsAny": {
+                            "description": "",
+                            "type": "string"
                         }
                     }
                 },

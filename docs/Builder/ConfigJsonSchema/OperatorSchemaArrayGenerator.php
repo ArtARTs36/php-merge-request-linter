@@ -25,6 +25,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsStudlyCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsLineEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\EndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator;
@@ -85,6 +86,7 @@ class OperatorSchemaArrayGenerator
             IsSnakeCaseEvaluator::class,
             IsKebabCaseEvaluator::class,
             LinesMaxEvaluator::class,
+            ContainsLineEvaluator::class,
         ],
         Set::class => [
             CountMinEvaluator::class,
