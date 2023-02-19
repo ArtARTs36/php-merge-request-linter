@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Cleaner\LeagueMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
@@ -20,6 +21,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpCli
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
+use League\CommonMark\CommonMarkConverter;
 use Psr\Log\LoggerInterface;
 
 class SystemFactory implements CiSystemFactory
@@ -123,11 +125,15 @@ class SystemFactory implements CiSystemFactory
 
     protected function createGitlabCi(RemoteCredentials $credentials, HttpClient $httpClient): CiSystem
     {
-        return new GitlabCi(new GitlabEnvironment($this->environment), new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Client(
-            $credentials,
-            $httpClient,
-            new DiffMapper(),
-            $this->logger,
-        ));
+        return new GitlabCi(
+            new GitlabEnvironment($this->environment),
+            new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Client(
+                $credentials,
+                $httpClient,
+                new DiffMapper(),
+                $this->logger,
+            ),
+            new LeagueMarkdownCleaner(new CommonMarkConverter()),
+        );
     }
 }

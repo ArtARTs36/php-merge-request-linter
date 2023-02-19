@@ -46,6 +46,12 @@ class EvaluatorFactory
     {
         [, $level] = explode(ContainsHeadingEvaluator::PREFIX_NAME, $type, 2);
 
+        if (! is_numeric($level)) {
+            throw new \RuntimeException('Given invalid value');
+        }
+
+        $level = (int) $level;
+
         return new ContainsHeadingEvaluator(
             $value,
             $level,

@@ -18,7 +18,7 @@ final class ContainsHeadingEvaluator extends Evaluator
 
     public function __construct(
         private readonly string $value,
-        private readonly string $level,
+        private readonly int $level,
     ) {
         //
     }

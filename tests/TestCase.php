@@ -33,6 +33,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         return new MergeRequest(
             Str::make($request['title'] ?? ''),
+            Str::make($request['description'] ?? '')->markdown(),
             Str::make($request['description'] ?? ''),
             Set::fromList($request['labels'] ?? []),
             (bool) ($request['has_conflicts'] ?? false),

@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeReques
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GitlabCiTest extends TestCase
@@ -60,11 +61,15 @@ final class GitlabCiTest extends TestCase
 
     private function makeCi(array $env): GitlabCi
     {
-        return new GitlabCi(new GitlabEnvironment($this->makeEnvironment($env)), new class () implements GitlabClient {
-            public function getMergeRequest(MergeRequestInput $input): MergeRequest
-            {
-                // TODO: Implement getMergeRequest() method.
-            }
-        });
+        return new GitlabCi(
+            new GitlabEnvironment($this->makeEnvironment($env)),
+            new class () implements GitlabClient {
+                public function getMergeRequest(MergeRequestInput $input): MergeRequest
+                {
+                    // TODO: Implement getMergeRequest() method.
+                }
+            },
+            new MockMarkdownCleaner(),
+        );
     }
 }
