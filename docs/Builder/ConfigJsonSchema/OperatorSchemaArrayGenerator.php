@@ -67,6 +67,7 @@ class OperatorSchemaArrayGenerator
             IsSnakeCaseEvaluator::class,
             IsKebabCaseEvaluator::class,
             LinesMaxEvaluator::class,
+            ContainsLineEvaluator::class,
         ],
         Str::class => [
             EqualsEvaluator::class,
