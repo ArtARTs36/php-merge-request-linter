@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Conditions\Operators;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
