@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Configuration\TaskHandlers;
+namespace ArtARTs36\MergeRequestLinter\Application\Configuration\Tasks;
 
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
