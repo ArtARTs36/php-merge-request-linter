@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest;
 
+/**
+ * @codeCoverageIgnore
+ */
 class PullRequestInput
 {
     public function __construct(

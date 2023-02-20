@@ -64,7 +64,16 @@ class GithubEnvironment
     {
         $repo = $this->environment->getString(VarName::Repository->value);
 
-        [$owner, $name] = \ArtARTs36\Str\Facade\Str::explode($repo, self::REPO_SEPARATOR);
+        $parts = \ArtARTs36\Str\Facade\Str::explode($repo, self::REPO_SEPARATOR);
+
+        if (count($parts) < 2) {
+            throw new InvalidEnvironmentVariableValueException(sprintf(
+                'Var "%s" is invalid. Expected: {owner}/{repo}',
+                VarName::Repository->value,
+            ));
+        }
+
+        [$owner, $name] = $parts;
 
         return new Repo($owner, $name);
     }

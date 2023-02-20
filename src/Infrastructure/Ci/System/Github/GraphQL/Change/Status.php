@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change;
 
+/**
+ * @codeCoverageIgnore
+ */
 enum Status: string
 {
     case Modified = 'modified';
