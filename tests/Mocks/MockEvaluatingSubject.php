@@ -41,6 +41,10 @@ class MockEvaluatingSubject implements EvaluatingSubject
             return new Arrayee($this->value);
         }
 
+        if (is_string($this->value)) {
+            return Str::make($this->value);
+        }
+
         return $this->value;
     }
 

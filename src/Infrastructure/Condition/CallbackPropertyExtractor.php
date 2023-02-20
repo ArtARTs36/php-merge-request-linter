@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
-use ArtARTs36\Str\Str;
 
 class CallbackPropertyExtractor implements PropertyExtractor
 {
@@ -22,11 +21,6 @@ class CallbackPropertyExtractor implements PropertyExtractor
     public function scalar(object $object, string $property): int|string|float|bool
     {
         return $this->caster->scalar($this->extract($object, $property));
-    }
-
-    public function string(object $object, string $property): Str
-    {
-        return $this->caster->string($this->extract($object, $property));
     }
 
     public function interface(object $object, string $property, string $interface): mixed

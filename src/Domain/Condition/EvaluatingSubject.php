@@ -2,8 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Condition;
 
-use ArtARTs36\Str\Str;
-
 /**
  * Interface for evaluating Subject.
  */
@@ -20,12 +18,6 @@ interface EvaluatingSubject
      * @throws EvaluatingSubjectException
      */
     public function scalar(): int|string|float|bool;
-
-    /**
-     * Extract string property.
-     * @throws EvaluatingSubjectException
-     */
-    public function string(): Str;
 
     /**
      * Extract property which implements $interface.

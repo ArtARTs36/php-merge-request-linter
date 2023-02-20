@@ -17,7 +17,7 @@ class MatchEvaluator extends StringEvaluator
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
         try {
-            return ! empty(Str::match($subject->string(), $this->value));
+            return ! empty(Str::match($subject->interface(\ArtARTs36\Str\Str::class), $this->value));
         } catch (InvalidRegexException $e) {
             throw new InvalidEvaluatorValueException($e->getMessage(), previous: $e);
         }

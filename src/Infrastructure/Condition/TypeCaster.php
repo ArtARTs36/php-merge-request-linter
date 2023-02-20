@@ -47,23 +47,6 @@ class TypeCaster
     }
 
     /**
-     * @throws PropertyHasDifferentTypeException
-     */
-    public function string(mixed $val): Str
-    {
-        if (is_string($val)) {
-            return Str::make($val);
-        } elseif ($val instanceof Str) {
-            return $val;
-        }
-
-        throw ValueHasDifferentTypeException::make(
-            $this->getType($val),
-            'string|Str',
-        );
-    }
-
-    /**
      * Extract iterable property.
      * @return Arrayee<int|string, mixed>|ArrayMap<string, mixed>|Set<mixed>
      * @throws ValueHasDifferentTypeException

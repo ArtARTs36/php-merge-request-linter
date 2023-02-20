@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\BoolEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\Str\Str;
 
 /**
  * Check if a string is lower case.
@@ -14,6 +15,6 @@ class IsLowerCaseEvaluator extends BoolEvaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return $subject->string()->isLower() === $this->value;
+        return $subject->interface(Str::class)->isLower() === $this->value;
     }
 }

@@ -7,7 +7,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHas
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ValueHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
-use ArtARTs36\Str\Str;
 
 class PropertyEvaluatingSubject implements EvaluatingSubject
 {
@@ -42,20 +41,6 @@ class PropertyEvaluatingSubject implements EvaluatingSubject
     {
         try {
             return $this->propertyExtractor->scalar($this->subject, $this->property);
-        } catch (ValueHasDifferentTypeException $e) {
-            throw $this->createPropertyHasDifferentTypeException($e, $this->property);
-        }
-    }
-
-    /**
-     * Extract string property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
-    public function string(): Str
-    {
-        try {
-            return $this->propertyExtractor->string($this->subject, $this->property);
         } catch (ValueHasDifferentTypeException $e) {
             throw $this->createPropertyHasDifferentTypeException($e, $this->property);
         }
