@@ -27,6 +27,7 @@ final class NativeConstructorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\NativeConstructor::construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\NativeConstructor::__construct
      * @dataProvider providerForTestConstruct
      */
     public function testConstruct(string $class, array $args): void

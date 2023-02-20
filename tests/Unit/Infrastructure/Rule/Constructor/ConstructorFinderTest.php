@@ -44,6 +44,18 @@ final class ConstructorFinderTest extends TestCase
 
         self::assertInstanceOf($expectedConstructorClass, $finder->find($ruleClass));
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder::find
+     */
+    public function testFindOnClassNonExists(): void
+    {
+        $finder = new ConstructorFinder();
+
+        self::expectExceptionMessage('Class "test-class" not found');
+
+        $finder->find('test-class');
+    }
 }
 
 class TestRuleForEmptyConstructor implements Rule
