@@ -2,6 +2,16 @@
 
 This file contains changelogs.
 
+v0.9.0
+--------------------
+#### Added
+* Markdown condition: containsHeading
+* `linesMax` condition
+* `containsLine` condition
+
+#### Changed
+* Refactored condition evaluator resolving
+
 v0.8.1
 --------------------
 #### Fixed
