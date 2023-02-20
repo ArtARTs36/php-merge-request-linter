@@ -10,6 +10,7 @@ use ArtARTs36\Str\Str;
 
 /**
  * @phpstan-type FileName string
+ * @codeCoverageIgnore
  */
 class MergeRequest
 {

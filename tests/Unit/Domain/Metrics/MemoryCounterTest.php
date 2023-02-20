@@ -10,6 +10,7 @@ final class MemoryCounterTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter::create
      * @covers \ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter::getMetricValue
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter::__construct
      */
     public function testCreate(): void
     {
@@ -21,6 +22,7 @@ final class MemoryCounterTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter::inc
      * @covers \ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter::getMetricValue
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter::__construct
      */
     public function testInc(): void
     {

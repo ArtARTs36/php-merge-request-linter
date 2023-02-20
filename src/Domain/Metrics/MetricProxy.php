@@ -20,11 +20,6 @@ class MetricProxy implements Metric
         return $this->retrieve()->getMetricValue();
     }
 
-    public function retrieveIfNotRetrieved(): void
-    {
-        $this->retrieve();
-    }
-
     private function retrieve(): Metric
     {
         if ($this->metric === null) {
