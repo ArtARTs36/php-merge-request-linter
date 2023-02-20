@@ -5,7 +5,7 @@ This file contains changelogs.
 v0.9.0
 --------------------
 #### Added
-* Markdown condition: containsHeading
+* Markdown condition: `containsHeading`
 * `linesMax` condition
 * `containsLine` condition
 
