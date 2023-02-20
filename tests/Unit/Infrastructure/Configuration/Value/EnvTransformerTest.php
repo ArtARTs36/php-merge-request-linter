@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Configuration\Value;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\InvalidConfigValueException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
@@ -24,6 +25,8 @@ final class EnvTransformerTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::transform
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::doTransform
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::__construct
      * @dataProvider providerForTestTransform
      */
     public function testTransform(array $env, string $input, string $expected): void
@@ -53,6 +56,7 @@ final class EnvTransformerTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::supports
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::__construct
      * @dataProvider providerForTestSupports
      */
     public function testSupports(string $input, bool $expected): void
@@ -60,5 +64,19 @@ final class EnvTransformerTest extends TestCase
         $transformer = new EnvTransformer(new MapEnvironment(new ArrayMap([])));
 
         self::assertEquals($expected, $transformer->supports($input));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::transform
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::doTransform
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::__construct
+     */
+    public function testTransformOnEnvNotFound(): void
+    {
+        $transformer = new EnvTransformer(new MapEnvironment(new ArrayMap([])));
+
+        self::expectException(InvalidConfigValueException::class);
+
+        $transformer->transform('var');
     }
 }
