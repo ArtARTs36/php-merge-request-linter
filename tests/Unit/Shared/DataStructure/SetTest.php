@@ -67,4 +67,31 @@ final class SetTest extends TestCase
 
         self::assertEquals($values, $set->values());
     }
+
+    public function providerForTestContains(): array
+    {
+        return [
+            [
+                [1, 2, 3],
+                1,
+                true,
+            ],
+            [
+                [1, 2, 3],
+                4,
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::contains
+     * @dataProvider providerForTestContains
+     */
+    public function testContains(array $set, mixed $value, bool $expected): void
+    {
+        $set = Set::fromList($set);
+
+        self::assertEquals($expected, $set->contains($value));
+    }
 }

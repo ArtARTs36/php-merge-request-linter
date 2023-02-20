@@ -32,6 +32,7 @@ final class ArrayMapTest extends TestCase
     /**
      * @dataProvider providerForTestGet
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::get
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::__construct
      */
     public function testGet(array $items, string $id, mixed $value): void
     {
@@ -63,6 +64,7 @@ final class ArrayMapTest extends TestCase
     /**
      * @dataProvider providerForTestHas
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::has
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::__construct
      */
     public function testHas(array $items, string $id, bool $expected): void
     {
@@ -94,6 +96,7 @@ final class ArrayMapTest extends TestCase
     /**
      * @dataProvider providerForTestMissing
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::missing
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::__construct
      */
     public function testMissing(array $items, string $id, bool $expected): void
     {
@@ -102,6 +105,7 @@ final class ArrayMapTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::diff
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::__construct
      */
     public function testDiff(): void
     {
@@ -136,6 +140,7 @@ final class ArrayMapTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::first
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::__construct
      * @dataProvider providerForTestFirst
      */
     public function testFirst(ArrayMap $map, mixed $expected): void
@@ -154,11 +159,20 @@ final class ArrayMapTest extends TestCase
                 1,
                 'key1',
             ],
+            [
+                [
+                    'key1' => 1,
+                    'key2' => 2,
+                ],
+                3,
+                null,
+            ],
         ];
     }
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::search
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::__construct
      * @dataProvider providerForTestSearch
      */
     public function testSearch(array $map, mixed $value, mixed $expectedKey): void
@@ -192,6 +206,7 @@ final class ArrayMapTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::contains
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::__construct
      * @dataProvider providerForTestContains
      */
     public function testContains(array $map, mixed $value, bool $expected): void
