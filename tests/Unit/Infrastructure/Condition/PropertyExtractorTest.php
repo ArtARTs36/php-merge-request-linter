@@ -19,6 +19,7 @@ final class PropertyExtractorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor::interface
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor::__construct
      * @dataProvider providerForTestInterface
      */
     public function testInterface(string|int|float $rawValue, string $interface): void
