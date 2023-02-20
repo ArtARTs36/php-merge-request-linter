@@ -295,7 +295,7 @@
                             "type": "integer"
                         },
                         "containsLine": {
-                            "description": "",
+                            "description": "Check if a string contains a line.",
                             "type": "string"
                         }
                     }
@@ -304,27 +304,27 @@
                     "type": "object",
                     "properties": {
                         "containsHeading1": {
-                            "description": "",
+                            "description": "Check if a markdown-string contains a heading.",
                             "type": "string"
                         },
                         "containsHeading2": {
-                            "description": "",
+                            "description": "Check if a markdown-string contains a heading.",
                             "type": "string"
                         },
                         "containsHeading3": {
-                            "description": "",
+                            "description": "Check if a markdown-string contains a heading.",
                             "type": "string"
                         },
                         "containsHeading4": {
-                            "description": "",
+                            "description": "Check if a markdown-string contains a heading.",
                             "type": "string"
                         },
                         "containsHeading5": {
-                            "description": "",
+                            "description": "Check if a markdown-string contains a heading.",
                             "type": "string"
                         },
                         "containsHeading6": {
-                            "description": "",
+                            "description": "Check if a markdown-string contains a heading.",
                             "type": "string"
                         }
                     }
@@ -420,7 +420,7 @@
                             "type": "integer"
                         },
                         "containsLine": {
-                            "description": "",
+                            "description": "Check if a string contains a line.",
                             "type": "string"
                         }
                     }
@@ -764,7 +764,7 @@
                             "type": "integer"
                         },
                         "containsLine": {
-                            "description": "",
+                            "description": "Check if a string contains a line.",
                             "type": "string"
                         }
                     }
@@ -860,7 +860,7 @@
                             "type": "integer"
                         },
                         "containsLine": {
-                            "description": "",
+                            "description": "Check if a string contains a line.",
                             "type": "string"
                         }
                     }
@@ -956,7 +956,7 @@
                             "type": "integer"
                         },
                         "containsLine": {
-                            "description": "",
+                            "description": "Check if a string contains a line.",
                             "type": "string"
                         }
                     }
