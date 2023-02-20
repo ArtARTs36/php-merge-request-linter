@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IntEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 
 /**
  * Check the minimum number of elements in a field.
@@ -14,6 +15,6 @@ class CountMinEvaluator extends IntEvaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return count($subject->collection()) >= $this->value;
+        return $subject->interface(Collection::class)->count() >= $this->value;
     }
 }

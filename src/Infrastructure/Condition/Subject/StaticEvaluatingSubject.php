@@ -1,9 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\TypeCaster;
 use ArtARTs36\Str\Str;
 
 class StaticEvaluatingSubject implements EvaluatingSubject
@@ -29,11 +29,6 @@ class StaticEvaluatingSubject implements EvaluatingSubject
     public function string(): Str
     {
         return $this->caster->string($this->value);
-    }
-
-    public function collection(): Collection
-    {
-        return $this->caster->collection($this->value);
     }
 
     public function interface(string $interface): mixed

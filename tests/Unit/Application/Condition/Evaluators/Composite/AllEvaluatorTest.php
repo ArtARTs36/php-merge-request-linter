@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators\Composite;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllEvaluator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\SubjectFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject\SubjectFactory;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockPropertyExtractor;

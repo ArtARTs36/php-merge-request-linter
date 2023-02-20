@@ -15,7 +15,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\Chai
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\SubjectFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject\SubjectFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CredentialMapper;

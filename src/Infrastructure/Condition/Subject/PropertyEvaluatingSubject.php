@@ -1,8 +1,7 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
@@ -57,20 +56,6 @@ class PropertyEvaluatingSubject implements EvaluatingSubject
     {
         try {
             return $this->propertyExtractor->string($this->subject, $this->property);
-        } catch (ValueHasDifferentTypeException $e) {
-            throw $this->createPropertyHasDifferentTypeException($e, $this->property);
-        }
-    }
-
-    /**
-     * Extract iterable property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
-    public function collection(): Collection
-    {
-        try {
-            return $this->propertyExtractor->collection($this->subject, $this->property);
         } catch (ValueHasDifferentTypeException $e) {
             throw $this->createPropertyHasDifferentTypeException($e, $this->property);
         }

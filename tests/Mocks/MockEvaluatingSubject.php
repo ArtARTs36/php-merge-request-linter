@@ -37,6 +37,10 @@ class MockEvaluatingSubject implements EvaluatingSubject
 
     public function interface(string $interface): mixed
     {
+        if (is_array($this->value)) {
+            return new Arrayee($this->value);
+        }
+
         return $this->value;
     }
 

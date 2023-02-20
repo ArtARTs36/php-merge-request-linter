@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject;
 
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectFactory;

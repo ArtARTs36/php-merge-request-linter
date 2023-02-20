@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IntEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 
 /**
  * Check count equals.
@@ -14,6 +15,6 @@ class CountEqualsEvaluator extends IntEvaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return $subject->collection()->count() === $this->value;
+        return $subject->interface(Collection::class)->count() === $this->value;
     }
 }
