@@ -14,7 +14,7 @@ final class LeagueMarkdownCleaner implements MarkdownCleaner
         //
     }
 
-    public function clean(string|Str $str): Str
+    public function clean(Str $str): Str
     {
         $html = $this->converter->convert($str)->getContent();
 

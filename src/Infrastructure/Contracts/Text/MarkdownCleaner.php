@@ -12,5 +12,5 @@ interface MarkdownCleaner
     /**
      * Convert markdown to text.
      */
-    public function clean(string|Str $str): Str;
+    public function clean(Str $str): Str;
 }

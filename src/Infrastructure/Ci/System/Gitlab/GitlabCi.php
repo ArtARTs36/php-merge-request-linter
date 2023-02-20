@@ -58,10 +58,12 @@ class GitlabCi implements CiSystem
             ),
         );
 
+        $description = Str::make($request->description);
+
         return new MergeRequest(
             Str::make($request->title),
-            Str::make($request->description)->markdown(),
-            $this->markdownCleaner->clean($request->description),
+            $description->markdown(),
+            $this->markdownCleaner->clean($description),
             Set::fromList($request->labels),
             $request->hasConflicts,
             Str::make($request->sourceBranch),
