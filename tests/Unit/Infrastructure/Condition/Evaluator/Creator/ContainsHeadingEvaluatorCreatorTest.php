@@ -1,9 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition\Evaluator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition\Evaluator\Creator;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\ContainsHeadingEvaluatorCreator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ContainsHeadingEvaluatorCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -22,8 +22,8 @@ final class ContainsHeadingEvaluatorCreatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\ContainsHeadingEvaluatorCreator::create
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\ContainsHeadingEvaluatorCreator::extractHeadingLevel
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ContainsHeadingEvaluatorCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ContainsHeadingEvaluatorCreator::extractHeadingLevel
      * @dataProvider providerForTestCreate
      */
     public function testCreate(string $evaluatorName, string $value, int $expectedLevel): void
@@ -37,7 +37,7 @@ final class ContainsHeadingEvaluatorCreatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\ContainsHeadingEvaluatorCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ContainsHeadingEvaluatorCreator::create
      */
     public function testCreateOnNull(): void
     {
@@ -47,8 +47,8 @@ final class ContainsHeadingEvaluatorCreatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\ContainsHeadingEvaluatorCreator::create
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\ContainsHeadingEvaluatorCreator::extractHeadingLevel
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ContainsHeadingEvaluatorCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ContainsHeadingEvaluatorCreator::extractHeadingLevel
      */
     public function testCreateOnEvaluatorNotFound(): void
     {

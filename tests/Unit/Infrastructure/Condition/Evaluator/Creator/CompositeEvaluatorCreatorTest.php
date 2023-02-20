@@ -1,9 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition\Evaluator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition\Evaluator\Creator;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllEvaluator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\CompositeEvaluatorCreator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\CompositeEvaluatorCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\SubjectFactory;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConditionEvaluator;
@@ -14,8 +14,8 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 final class CompositeEvaluatorCreatorTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\CompositeEvaluatorCreator::create
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\CompositeEvaluatorCreator::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\CompositeEvaluatorCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\CompositeEvaluatorCreator::__construct
      */
     public function testCreate(): void
     {
@@ -34,8 +34,8 @@ final class CompositeEvaluatorCreatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\CompositeEvaluatorCreator::create
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\CompositeEvaluatorCreator::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\CompositeEvaluatorCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\CompositeEvaluatorCreator::__construct
      */
     public function testConditionEvaluatorNotFound(): void
     {
@@ -72,8 +72,8 @@ final class CompositeEvaluatorCreatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\CompositeEvaluatorCreator::create
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\CompositeEvaluatorCreator::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\CompositeEvaluatorCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\CompositeEvaluatorCreator::__construct
      * @dataProvider providerForTestConditionOnNull
      */
     public function testConditionOnNull(string $type, mixed $value): void

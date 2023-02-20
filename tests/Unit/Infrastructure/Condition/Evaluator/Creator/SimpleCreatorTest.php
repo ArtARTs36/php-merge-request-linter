@@ -1,10 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition\Evaluator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition\Evaluator\Creator;
 
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\SimpleCreator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\SimpleCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -26,8 +26,8 @@ final class SimpleCreatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\SimpleCreator::create
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\SimpleCreator::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\SimpleCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\SimpleCreator::__construct
      * @dataProvider providerForTestCreate
      */
     public function testCreate(array $evaluators, string $type, mixed $value, string $expectedEvaluatorClass): void
@@ -40,8 +40,8 @@ final class SimpleCreatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\SimpleCreator::create
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\SimpleCreator::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\SimpleCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\SimpleCreator::__construct
      */
     public function testCreateOnEvaluatorNotFound(): void
     {
