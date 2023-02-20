@@ -12,11 +12,6 @@ final class MockPropertyExtractor implements PropertyExtractor
         //
     }
 
-    public function numeric(object $object, string $property): int|float
-    {
-        return $this->value;
-    }
-
     public function scalar(object $object, string $property): int|string|float|bool
     {
         return $this->value;

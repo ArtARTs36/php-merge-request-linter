@@ -3,25 +3,25 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use ArtARTs36\Str\Str;
 
 final class PropertyExtractorTest extends TestCase
 {
-    public function providerForNumeric(): array
+    public function providerForTestInterface(): array
     {
         return [
-            ['1', 1],
-            ['1.0', 1.0],
-            [1, 1],
-            [1.0, 1.0],
+            ['test', Str::class],
+            [1.0, Number::class],
         ];
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor::numeric
-     * @dataProvider providerForNumeric
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor::interface
+     * @dataProvider providerForTestInterface
      */
-    public function testNumeric(string|int|float $rawValue, int|float $expected): void
+    public function testInterface(string|int|float $rawValue, string $interface): void
     {
         $obj = new class ($rawValue) {
             public function __construct(
@@ -33,6 +33,6 @@ final class PropertyExtractorTest extends TestCase
 
         $extractor = new CallbackPropertyExtractor();
 
-        self::assertTrue($expected === $extractor->numeric($obj, 'prop'));
+        self::assertInstanceOf($interface, $extractor->interface($obj, 'prop', $interface));
     }
 }

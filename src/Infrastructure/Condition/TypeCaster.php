@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ValueHasDifferentTypeException;
@@ -79,6 +80,8 @@ class TypeCaster
             $val = new Arrayee($val);
         } elseif (is_string($val)) {
             $val = Str::make($val);
+        } elseif (is_int($val) || is_float($val)) {
+            $val = new Number($val);
         }
 
         if ($val instanceof $interface) {

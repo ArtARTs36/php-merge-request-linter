@@ -19,20 +19,6 @@ class PropertyEvaluatingSubject implements EvaluatingSubject
     }
 
     /**
-     * Extract numeric property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
-    public function numeric(): int|float
-    {
-        try {
-            return $this->propertyExtractor->numeric($this->subject, $this->property);
-        } catch (ValueHasDifferentTypeException $e) {
-            throw $this->createPropertyHasDifferentTypeException($e, $this->property);
-        }
-    }
-
-    /**
      * Extract scalar property.
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists

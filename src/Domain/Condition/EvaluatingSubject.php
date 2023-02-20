@@ -8,12 +8,6 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Condition;
 interface EvaluatingSubject
 {
     /**
-     * Extract numeric property.
-     * @throws EvaluatingSubjectException
-     */
-    public function numeric(): int|float;
-
-    /**
      * Extract scalar property.
      * @throws EvaluatingSubjectException
      */

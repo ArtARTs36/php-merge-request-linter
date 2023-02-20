@@ -13,11 +13,6 @@ class CallbackPropertyExtractor implements PropertyExtractor
         //
     }
 
-    public function numeric(object $object, string $property): int|float
-    {
-        return $this->caster->numeric($this->extract($object, $property));
-    }
-
     public function scalar(object $object, string $property): int|string|float|bool
     {
         return $this->caster->scalar($this->extract($object, $property));

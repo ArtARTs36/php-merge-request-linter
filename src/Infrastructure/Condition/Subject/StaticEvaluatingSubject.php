@@ -15,11 +15,6 @@ class StaticEvaluatingSubject implements EvaluatingSubject
         //
     }
 
-    public function numeric(): int|float
-    {
-        return $this->caster->numeric($this->value);
-    }
-
     public function scalar(): int|string|float|bool
     {
         return $this->caster->scalar($this->value);

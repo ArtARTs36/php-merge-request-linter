@@ -10,12 +10,6 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectException;
 interface PropertyExtractor
 {
     /**
-     * Extract numeric property.
-     * @throws EvaluatingSubjectException
-     */
-    public function numeric(object $object, string $property): int|float;
-
-    /**
      * Extract scalar property.
      * @throws EvaluatingSubjectException
      */
