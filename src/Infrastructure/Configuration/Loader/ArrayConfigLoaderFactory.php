@@ -72,9 +72,9 @@ class ArrayConfigLoaderFactory
 
         $subjectFactory = new SubjectFactory($propExtractor);
 
-        $evaluatorChain = (new ChainFactory(DefaultEvaluators::map(), $subjectFactory))->create();
+        $evaluatorCreatorChain = (new ChainFactory(DefaultEvaluators::map(), $subjectFactory))->create();
 
-        $operatorFactory = new OperatorFactory($subjectFactory, new EvaluatorFactory($evaluatorChain));
+        $operatorFactory = new OperatorFactory($subjectFactory, new EvaluatorFactory($evaluatorCreatorChain));
 
         $this->container->set(OperatorFactory::class, $operatorFactory);
         $this->container->set(RulesExecutor::class, new OperatorRulesExecutor(new OperatorResolver($operatorFactory)));
