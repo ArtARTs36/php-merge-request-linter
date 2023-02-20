@@ -2,9 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change;
 
-/**
- * @codeCoverageIgnore
- */
 enum Status: string
 {
     case Modified = 'modified';
@@ -13,4 +10,10 @@ enum Status: string
     case Renamed = 'renamed';
     case Copied = 'copied';
     case Changed = 'changed';
+    case Unknown = 'Unknown';
+
+    public static function create(string $value): self
+    {
+        return self::tryFrom($value) ?? self::Unknown;
+    }
 }
