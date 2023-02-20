@@ -30,15 +30,6 @@ final class MockPropertyExtractor implements PropertyExtractor
         return Str::make($this->value);
     }
 
-    public function collection(object $object, string $property): Collection
-    {
-        if (is_array($this->value)) {
-            return new Arrayee($this->value);
-        }
-
-        return $this->value;
-    }
-
     public function interface(object $object, string $property, string $interface): mixed
     {
         return $this->value;
