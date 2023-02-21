@@ -9,8 +9,10 @@ v0.9.0
 * `linesMax` condition
 * `containsLine` condition
 
-#### Changed
+#### Internal
 * Refactored condition evaluator resolving
+* Up test coverage to 40.21%
+* Add dependency **psr/clock**
 
 v0.8.1
 --------------------
