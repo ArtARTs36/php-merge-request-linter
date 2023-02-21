@@ -13,6 +13,7 @@ final class MemoryMetricManagerTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\MemoryMetricManager::add
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\MemoryMetricManager::__construct
      */
     public function testAdd(): void
     {
@@ -41,6 +42,7 @@ final class MemoryMetricManagerTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\MemoryMetricManager::describe
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\MemoryMetricManager::__construct
      * @dataProvider providerForTestDescribe
      */
     public function testDescribe(array $adds, array $expected): void

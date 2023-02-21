@@ -14,6 +14,8 @@ final class InstallCommandTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand::execute
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand::configure
      */
     public function testExecute(): void
     {

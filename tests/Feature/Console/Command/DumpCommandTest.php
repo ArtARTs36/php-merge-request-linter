@@ -15,6 +15,8 @@ final class DumpCommandTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand::execute
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand::configure
      */
     public function testExecute(): void
     {
