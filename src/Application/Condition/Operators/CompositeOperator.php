@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Operators;
 
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 
-class CompositeOperator implements ConditionOperator
+final class CompositeOperator implements ConditionOperator
 {
     /**
      * @param iterable<ConditionOperator> $operators

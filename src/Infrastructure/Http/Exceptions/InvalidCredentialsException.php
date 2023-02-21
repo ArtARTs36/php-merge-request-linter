@@ -9,6 +9,6 @@ final class InvalidCredentialsException extends MergeRequestLinterException impl
 {
     public static function fromResponse(string $host, string $response): self
     {
-        return new self("Given invalid credentials for $host. Server returns: ". $response);
+        return new self(sprintf('Given invalid credentials for %s. Server returns: "%s"', $host, $response));
     }
 }

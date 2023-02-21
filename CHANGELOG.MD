@@ -2,6 +2,18 @@
 
 This file contains changelogs.
 
+v0.9.0
+--------------------
+#### Added
+* Markdown condition: `containsHeading`
+* `linesMax` condition
+* `containsLine` condition
+
+#### Internal
+* Refactored condition evaluator resolving
+* Up test coverage to 40.21%
+* Add dependency **psr/clock**
+
 v0.8.1
 --------------------
 #### Fixed

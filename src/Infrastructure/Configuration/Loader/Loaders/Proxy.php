@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loade
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
 
-class Proxy implements ConfigLoader
+final class Proxy implements ConfigLoader
 {
     private ?ConfigLoader $loader = null;
 

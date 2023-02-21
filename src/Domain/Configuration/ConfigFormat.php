@@ -4,6 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
+/**
+ * @codeCoverageIgnore
+ */
 enum ConfigFormat: string
 {
     case JSON = 'json';

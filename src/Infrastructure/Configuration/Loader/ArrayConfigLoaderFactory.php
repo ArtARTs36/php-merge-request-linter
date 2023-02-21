@@ -11,10 +11,11 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ChainFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\EvaluatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\SubjectFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject\SubjectFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CredentialMapper;
@@ -71,10 +72,9 @@ class ArrayConfigLoaderFactory
 
         $subjectFactory = new SubjectFactory($propExtractor);
 
-        $operatorFactory = new OperatorFactory($subjectFactory, new EvaluatorFactory(
-            DefaultEvaluators::map(),
-            $subjectFactory,
-        ));
+        $evaluatorCreatorChain = (new ChainFactory(DefaultEvaluators::map(), $subjectFactory))->create();
+
+        $operatorFactory = new OperatorFactory($subjectFactory, new EvaluatorFactory($evaluatorCreatorChain));
 
         $this->container->set(OperatorFactory::class, $operatorFactory);
         $this->container->set(RulesExecutor::class, new OperatorRulesExecutor(new OperatorResolver($operatorFactory)));

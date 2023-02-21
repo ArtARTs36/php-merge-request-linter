@@ -10,4 +10,10 @@ enum Status: string
     case Renamed = 'renamed';
     case Copied = 'copied';
     case Changed = 'changed';
+    case Unknown = 'Unknown';
+
+    public static function create(string $value): self
+    {
+        return self::tryFrom($value) ?? self::Unknown;
+    }
 }

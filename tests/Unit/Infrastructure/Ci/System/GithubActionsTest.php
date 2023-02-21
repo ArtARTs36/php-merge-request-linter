@@ -4,13 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockGithubClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GithubActionsTest extends TestCase
@@ -65,17 +61,7 @@ final class GithubActionsTest extends TestCase
     {
         return new GithubActions(
             new GithubEnvironment(new MapEnvironment(new ArrayMap($env))),
-            new class () implements GithubClient {
-                public function getPullRequest(PullRequestInput $input): PullRequest
-                {
-                    // TODO: Implement getPullRequest() method.
-                }
-
-                public function getTags(TagsInput $input): TagCollection
-                {
-                    // TODO: Implement getTags() method.
-                }
-            },
+            new MockGithubClient(),
         );
     }
 }

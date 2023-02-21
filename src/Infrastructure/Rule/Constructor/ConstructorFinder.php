@@ -18,7 +18,7 @@ class ConstructorFinder implements RuleConstructorFinder
     public function find(string $class): RuleConstructor
     {
         if (! class_exists($class)) {
-            throw new ConstructorFindException(sprintf('Class %s not found', $class));
+            throw new ConstructorFindException(sprintf('Class "%s" not found', $class));
         }
 
         $reflector = new \ReflectionClass($class);

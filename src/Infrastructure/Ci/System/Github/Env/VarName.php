@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env;
 
+/**
+ * @codeCoverageIgnore
+ */
 enum VarName: string
 {
     case Identity = 'GITHUB_ACTIONS';

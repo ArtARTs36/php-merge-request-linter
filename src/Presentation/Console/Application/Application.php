@@ -29,15 +29,11 @@ class Application extends \Symfony\Component\Console\Application
                 sprintf('command_time_execution_%s', $command->getName() ?? 'main'),
                 sprintf('[Console] Command "%s" execution', $command->getName()),
             ),
-            $timeMetric = new MetricProxy(function () use ($timer) {
+            new MetricProxy(function () use ($timer) {
                 return new DurationMetric($timer->finish());
             }),
         );
 
-        $result = parent::doRunCommand($command, $input, $output);
-
-        $timeMetric->retrieveIfNotRetrieved();
-
-        return $result;
+        return parent::doRunCommand($command, $input, $output);
     }
 }

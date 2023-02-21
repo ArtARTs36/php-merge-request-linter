@@ -289,6 +289,43 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
+                        },
+                        "containsLine": {
+                            "description": "Check if a string contains a line.",
+                            "type": "string"
+                        }
+                    }
+                },
+                "descriptionMarkdown": {
+                    "type": "object",
+                    "properties": {
+                        "containsHeading1": {
+                            "description": "Check if a markdown-string contains a heading.",
+                            "type": "string"
+                        },
+                        "containsHeading2": {
+                            "description": "Check if a markdown-string contains a heading.",
+                            "type": "string"
+                        },
+                        "containsHeading3": {
+                            "description": "Check if a markdown-string contains a heading.",
+                            "type": "string"
+                        },
+                        "containsHeading4": {
+                            "description": "Check if a markdown-string contains a heading.",
+                            "type": "string"
+                        },
+                        "containsHeading5": {
+                            "description": "Check if a markdown-string contains a heading.",
+                            "type": "string"
+                        },
+                        "containsHeading6": {
+                            "description": "Check if a markdown-string contains a heading.",
+                            "type": "string"
                         }
                     }
                 },
@@ -377,6 +414,14 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
+                        },
+                        "containsLine": {
+                            "description": "Check if a string contains a line.",
+                            "type": "string"
                         }
                     }
                 },
@@ -508,6 +553,10 @@
                                 "isKebabCase": {
                                     "description": "Check if a string is kebab-case.",
                                     "type": "boolean"
+                                },
+                                "linesMax": {
+                                    "description": "Check the maximum string lines.",
+                                    "type": "integer"
                                 }
                             }
                         },
@@ -594,6 +643,10 @@
                                 "isKebabCase": {
                                     "description": "Check if a string is kebab-case.",
                                     "type": "boolean"
+                                },
+                                "linesMax": {
+                                    "description": "Check the maximum string lines.",
+                                    "type": "integer"
                                 }
                             }
                         }
@@ -705,6 +758,14 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
+                        },
+                        "containsLine": {
+                            "description": "Check if a string contains a line.",
+                            "type": "string"
                         }
                     }
                 },
@@ -793,6 +854,14 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
+                        },
+                        "containsLine": {
+                            "description": "Check if a string contains a line.",
+                            "type": "string"
                         }
                     }
                 },
@@ -881,6 +950,14 @@
                         "isKebabCase": {
                             "description": "Check if a string is kebab-case.",
                             "type": "boolean"
+                        },
+                        "linesMax": {
+                            "description": "Check the maximum string lines.",
+                            "type": "integer"
+                        },
+                        "containsLine": {
+                            "description": "Check if a string contains a line.",
+                            "type": "string"
                         }
                     }
                 },

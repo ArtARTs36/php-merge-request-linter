@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextDecodingException;
 
-class NativeJsonDecoder implements TextDecoder
+final class NativeJsonDecoder implements TextDecoder
 {
     public function decode(string $content): array
     {

@@ -1,10 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
-use ArtARTs36\Str\Str;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\TypeCaster;
 
 class StaticEvaluatingSubject implements EvaluatingSubject
 {
@@ -16,24 +15,9 @@ class StaticEvaluatingSubject implements EvaluatingSubject
         //
     }
 
-    public function numeric(): int|float
-    {
-        return $this->caster->numeric($this->value);
-    }
-
     public function scalar(): int|string|float|bool
     {
         return $this->caster->scalar($this->value);
-    }
-
-    public function string(): Str
-    {
-        return $this->caster->string($this->value);
-    }
-
-    public function collection(): Collection
-    {
-        return $this->caster->collection($this->value);
     }
 
     public function interface(string $interface): mixed

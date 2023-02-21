@@ -10,7 +10,7 @@ abstract class CompositeEvaluator implements ConditionEvaluator
     /**
      * @param iterable<ConditionEvaluator> $value
      */
-    public function __construct(
+    final public function __construct(
         protected readonly iterable $value,
         protected readonly EvaluatingSubjectFactory $subjectFactory,
     ) {

@@ -1,14 +1,12 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNotExists;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ValueHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
-use ArtARTs36\Str\Str;
 
 class PropertyEvaluatingSubject implements EvaluatingSubject
 {
@@ -21,20 +19,6 @@ class PropertyEvaluatingSubject implements EvaluatingSubject
     }
 
     /**
-     * Extract numeric property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
-    public function numeric(): int|float
-    {
-        try {
-            return $this->propertyExtractor->numeric($this->subject, $this->property);
-        } catch (ValueHasDifferentTypeException $e) {
-            throw $this->createPropertyHasDifferentTypeException($e, $this->property);
-        }
-    }
-
-    /**
      * Extract scalar property.
      * @throws PropertyHasDifferentTypeException
      * @throws PropertyNotExists
@@ -43,34 +27,6 @@ class PropertyEvaluatingSubject implements EvaluatingSubject
     {
         try {
             return $this->propertyExtractor->scalar($this->subject, $this->property);
-        } catch (ValueHasDifferentTypeException $e) {
-            throw $this->createPropertyHasDifferentTypeException($e, $this->property);
-        }
-    }
-
-    /**
-     * Extract string property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
-    public function string(): Str
-    {
-        try {
-            return $this->propertyExtractor->string($this->subject, $this->property);
-        } catch (ValueHasDifferentTypeException $e) {
-            throw $this->createPropertyHasDifferentTypeException($e, $this->property);
-        }
-    }
-
-    /**
-     * Extract iterable property.
-     * @throws PropertyHasDifferentTypeException
-     * @throws PropertyNotExists
-     */
-    public function collection(): Collection
-    {
-        try {
-            return $this->propertyExtractor->collection($this->subject, $this->property);
         } catch (ValueHasDifferentTypeException $e) {
             throw $this->createPropertyHasDifferentTypeException($e, $this->property);
         }

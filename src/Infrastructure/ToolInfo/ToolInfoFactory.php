@@ -11,7 +11,7 @@ use Psr\Log\NullLogger;
 
 class ToolInfoFactory
 {
-    public function create(): ToolInfo
+    public function create(): \ArtARTs36\MergeRequestLinter\Domain\ToolInfo\ToolInfo
     {
         return new ToolInfo(
             new Client(

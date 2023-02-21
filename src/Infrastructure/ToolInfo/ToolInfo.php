@@ -17,6 +17,7 @@ class ToolInfo implements \ArtARTs36\MergeRequestLinter\Domain\ToolInfo\ToolInfo
 
     public function __construct(
         private readonly GithubClient $github,
+        private readonly string $dir = __DIR__
     ) {
         //
     }
@@ -32,6 +33,6 @@ class ToolInfo implements \ArtARTs36\MergeRequestLinter\Domain\ToolInfo\ToolInfo
 
     public function usedAsPhar(): bool
     {
-        return Str::startsWith(__DIR__, self::PHAR_URI_PREFIX);
+        return Str::startsWith($this->dir, self::PHAR_URI_PREFIX);
     }
 }

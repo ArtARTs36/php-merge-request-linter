@@ -14,6 +14,7 @@ final class ConfigLoaderProxyTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\Proxy::load
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\Proxy::__construct
      */
     public function testFactoryCallsCount(): void
     {

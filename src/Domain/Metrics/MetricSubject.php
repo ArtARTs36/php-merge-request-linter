@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Metrics;
 
+/**
+ * @codeCoverageIgnore
+ */
 class MetricSubject
 {
     public function __construct(

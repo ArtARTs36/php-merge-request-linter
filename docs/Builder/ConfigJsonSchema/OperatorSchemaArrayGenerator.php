@@ -15,6 +15,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\Equals
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\IsEmptyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LinesMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsCamelCaseEvaluator;
@@ -24,9 +25,11 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsStudlyCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsLineEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\EndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\MatchEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotEndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;
@@ -38,6 +41,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Property;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
+use ArtARTs36\Str\Markdown;
 use ArtARTs36\Str\Str;
 
 class OperatorSchemaArrayGenerator
@@ -62,6 +66,8 @@ class OperatorSchemaArrayGenerator
             IsLowerCaseEvaluator::class,
             IsSnakeCaseEvaluator::class,
             IsKebabCaseEvaluator::class,
+            LinesMaxEvaluator::class,
+            ContainsLineEvaluator::class,
         ],
         Str::class => [
             EqualsEvaluator::class,
@@ -82,6 +88,8 @@ class OperatorSchemaArrayGenerator
             IsLowerCaseEvaluator::class,
             IsSnakeCaseEvaluator::class,
             IsKebabCaseEvaluator::class,
+            LinesMaxEvaluator::class,
+            ContainsLineEvaluator::class,
         ],
         Set::class => [
             CountMinEvaluator::class,
@@ -112,6 +120,9 @@ class OperatorSchemaArrayGenerator
         'bool' => [
             EqualsEvaluator::class,
             NotEqualsEvaluator::class,
+        ],
+        Markdown::class => [
+            ContainsHeadingEvaluator::class,
         ],
     ];
 
@@ -299,6 +310,6 @@ class OperatorSchemaArrayGenerator
 
     private function allowObjectScan(string $type): bool
     {
-        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class;
+        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class && $type !== Markdown::class;
     }
 }

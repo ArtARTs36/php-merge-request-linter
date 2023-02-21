@@ -5,32 +5,14 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ValueHasDifferentTypeException;
-use ArtARTs36\Str\Facade\Str as StrFacade;
 use ArtARTs36\Str\Str;
 
 class TypeCaster
 {
-    /**
-     * @throws PropertyHasDifferentTypeException
-     */
-    public function numeric(mixed $val): int|float
-    {
-        if (! is_numeric($val)) {
-            throw ValueHasDifferentTypeException::make($this->getType($val), 'int|float');
-        }
-
-        if (is_string($val)) {
-            $number = StrFacade::toNumber($val);
-
-            return $number === null ? 0 : $number;
-        }
-
-        return is_float($val) ? $val : (int) $val;
-    }
-
     /**
      * @throws PropertyHasDifferentTypeException
      */
@@ -44,23 +26,6 @@ class TypeCaster
         }
 
         return $val;
-    }
-
-    /**
-     * @throws PropertyHasDifferentTypeException
-     */
-    public function string(mixed $val): Str
-    {
-        if (is_string($val)) {
-            return Str::make($val);
-        } elseif ($val instanceof Str) {
-            return $val;
-        }
-
-        throw ValueHasDifferentTypeException::make(
-            $this->getType($val),
-            'string|Str',
-        );
     }
 
     /**
@@ -96,6 +61,8 @@ class TypeCaster
             $val = new Arrayee($val);
         } elseif (is_string($val)) {
             $val = Str::make($val);
+        } elseif (is_int($val) || is_float($val)) {
+            $val = new Number($val);
         }
 
         if ($val instanceof $interface) {

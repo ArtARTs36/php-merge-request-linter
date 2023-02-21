@@ -70,7 +70,7 @@ class Reflector
             $type = $property->getType();
 
             if (! $type instanceof \ReflectionNamedType) {
-                throw new \LogicException(sprintf('Property %s not has type', $property->getName()));
+                throw new \LogicException(sprintf('Property %s::%s not has type', $class, $property->getName()));
             }
 
             $map[$property->getName()] = new Property(

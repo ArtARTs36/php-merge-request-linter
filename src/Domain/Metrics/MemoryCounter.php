@@ -10,9 +10,12 @@ class MemoryCounter implements Counter
         //
     }
 
-    public static function create(\Countable $countable): self
+    /**
+     * @param \Countable|array<mixed> $countable
+     */
+    public static function create(\Countable|array $countable): self
     {
-        return new self($countable->count());
+        return new self(count($countable));
     }
 
     public function inc(): void

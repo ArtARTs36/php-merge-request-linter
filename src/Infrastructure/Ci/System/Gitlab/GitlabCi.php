@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
@@ -21,8 +22,9 @@ class GitlabCi implements CiSystem
     public const NAME = 'gitlab_ci';
 
     public function __construct(
-        protected GitlabEnvironment $environment,
-        protected GitlabClient $client,
+        protected GitlabEnvironment     $environment,
+        protected GitlabClient          $client,
+        protected MarkdownCleaner $markdownCleaner,
     ) {
         //
     }
@@ -56,9 +58,12 @@ class GitlabCi implements CiSystem
             ),
         );
 
+        $description = Str::make($request->description);
+
         return new MergeRequest(
             Str::make($request->title),
-            Str::make($request->description),
+            $description->markdown(),
+            $this->markdownCleaner->clean($description),
             Set::fromList($request->labels),
             $request->hasConflicts,
             Str::make($request->sourceBranch),
@@ -73,7 +78,7 @@ class GitlabCi implements CiSystem
     /**
      * @return Map<string, Change>
      */
-    private function mapChanges(\ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequest $request): Map
+    private function mapChanges(API\MergeRequest $request): Map
     {
         $changes = [];
 

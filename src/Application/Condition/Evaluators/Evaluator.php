@@ -12,6 +12,10 @@ abstract class Evaluator implements ConditionEvaluator
 {
     public const NAME = '';
 
+    /**
+     * @throws PropertyHasDifferentTypeException
+     * @throws PropertyNotExists
+     */
     abstract protected function doEvaluate(EvaluatingSubject $subject): bool;
 
     public function evaluate(EvaluatingSubject $subject): bool

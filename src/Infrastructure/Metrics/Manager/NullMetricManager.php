@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Metrics\Metric;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
 
+/**
+ * @codeCoverageIgnore
+ */
 class NullMetricManager implements MetricManager
 {
     public function add(MetricSubject $subject, Metric $value): MetricManager

@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Tasks;
 
+/**
+ * @codeCoverageIgnore
+ */
 class DumpTask
 {
     public function __construct(

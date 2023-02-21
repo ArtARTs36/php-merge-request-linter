@@ -32,18 +32,25 @@ class CredentialMapper
         $mapped = [];
 
         foreach ($credentials as $ciName => $token) {
+            /** @var class-string<CiSystem> $ciClass */
+            $ciClass = $this->ciSystemMap->get($ciName);
+
             foreach ($this->valueTransformers as $transformer) {
                 if ($transformer->supports($token)) {
-                    /** @var class-string<CiSystem> $ciClass */
-                    $ciClass = $this->ciSystemMap->get($ciName);
-
-                    $mapped[$ciClass] = new Token($transformer->transform($token));
+                    $mapped[$ciClass] = $this->createCredentials($transformer->transform($token));
 
                     continue 2;
                 }
             }
+
+            $mapped[$ciClass] = $this->createCredentials($token);
         }
 
         return new ArrayMap($mapped);
+    }
+
+    private function createCredentials(string $token): Token
+    {
+        return new Token($token);
     }
 }

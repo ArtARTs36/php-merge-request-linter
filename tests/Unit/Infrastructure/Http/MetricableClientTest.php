@@ -12,6 +12,7 @@ final class MetricableClientTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient::sendRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient::__construct
      */
     public function testSendRequest(): void
     {
@@ -25,6 +26,8 @@ final class MetricableClientTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient::sendAsyncRequests
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient::getHosts
      */
     public function testSendAsyncRequest(): void
     {

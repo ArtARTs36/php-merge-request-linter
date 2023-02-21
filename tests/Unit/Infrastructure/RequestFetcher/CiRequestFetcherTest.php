@@ -14,6 +14,7 @@ final class CiRequestFetcherTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher::fetch
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher::__construct
      */
     public function testFetchOnCurrentlyNotMergeRequestException(): void
     {
@@ -31,6 +32,7 @@ final class CiRequestFetcherTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher::fetch
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher::__construct
      */
     public function testFetchAddMetric(): void
     {

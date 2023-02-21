@@ -49,16 +49,16 @@ rules:
 
     - definition: "Description must have list of fixed bugs"
       rules:
-        description:
-          contains: "Fixed\n"
+        descriptionMarkdown:
+          containsHeading2: "Fixed"
       when:
         labels:
           has: "Bug"
 
     - definition: "Description must have list of features"
       rules:
-        description:
-          contains: "Added\n"
+        descriptionMarkdown:
+          containsHeading2: "Added"
       when:
         labels:
           has: "Feature"

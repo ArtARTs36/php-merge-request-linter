@@ -7,10 +7,10 @@ use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\BoolSubject;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\CollectionSubject;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\InfoSubject;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject\StringSubject;
+use ArtARTs36\MergeRequestLinter\Domain\ToolInfo\ToolInfo;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
-use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfo;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Version;
 
@@ -39,7 +39,7 @@ class ShowToolInfoHandler
     {
         /** @var Arrayee<int, InfoSubject> $subjects */
         $subjects = new Arrayee([
-            new StringSubject('Repository', ToolInfo::REPO_URI),
+            new StringSubject('Repository', \ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfo::REPO_URI),
             new StringSubject('Current version', Version::VERSION),
             new StringSubject('Latest version', $toolInfo->getLatestVersion()?->digit() ?? 'undefined'),
             new CollectionSubject('Supported config formats', ConfigFormat::list()),

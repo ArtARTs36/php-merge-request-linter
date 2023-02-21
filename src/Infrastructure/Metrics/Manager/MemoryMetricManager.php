@@ -7,6 +7,8 @@ use ArtARTs36\MergeRequestLinter\Domain\Metrics\Metric;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\Record;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
+use Psr\Clock\ClockInterface;
 
 class MemoryMetricManager implements MetricManager
 {
@@ -15,12 +17,18 @@ class MemoryMetricManager implements MetricManager
      */
     private array $records = [];
 
+    public function __construct(
+        private readonly ClockInterface $clock = new Clock(),
+    ) {
+        //
+    }
+
     public function add(MetricSubject $subject, Metric $value): self
     {
         $this->records[] = new Record(
             $subject,
             $value,
-            new \DateTime(),
+            $this->clock->now(),
         );
 
         return $this;
