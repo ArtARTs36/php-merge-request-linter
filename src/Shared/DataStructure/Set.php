@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\HasDebugInfo;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\ContainsAny;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\CountProxy;
 use ArtARTs36\MergeRequestLinter\Shared\Iterators\ArrayKeyIterator;
 
@@ -14,6 +15,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Iterators\ArrayKeyIterator;
 class Set implements Collection, HasDebugInfo
 {
     use CountProxy;
+    use ContainsAny;
 
     /**
      * @param array<V, true> $items
@@ -49,20 +51,6 @@ class Set implements Collection, HasDebugInfo
     public function contains(mixed $value): bool
     {
         return array_key_exists($value, $this->items);
-    }
-
-    /**
-     * @param iterable<V> $values
-     */
-    public function containsAny(iterable $values): bool
-    {
-        foreach ($values as $value) {
-            if ($this->contains($value)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public function containsAll(iterable $values): bool

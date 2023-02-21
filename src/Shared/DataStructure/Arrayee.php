@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\ContainsAll;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\ContainsAny;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\CountProxy;
 use Traversable;
 
@@ -17,6 +18,7 @@ class Arrayee implements Collection, HasDebugInfo
 {
     use CountProxy;
     use ContainsAll;
+    use ContainsAny;
 
     /**
      * @param array<K, V> $items
@@ -30,17 +32,6 @@ class Arrayee implements Collection, HasDebugInfo
     public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->items);
-    }
-
-    public function containsAny(iterable $values): bool
-    {
-        foreach ($values as $value) {
-            if ($this->contains($value)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public function contains(mixed $value): bool
