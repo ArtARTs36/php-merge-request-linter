@@ -136,6 +136,7 @@ class OperatorSchemaArrayGenerator
     {
         $opArray = [
             'properties' => [],
+            'additionalProperties' => false,
         ];
 
         $operatorMetadata = $this->operatorMetadataLoader->load();
@@ -170,6 +171,7 @@ class OperatorSchemaArrayGenerator
             $opArray['properties'][$propertyName] = [
                 'type' => 'object',
                 'properties' => [],
+                'additionalProperties' => false,
             ];
 
             $operators = $this->typeEvaluatorsMap[$property->type->name()] ?? null;
@@ -190,6 +192,7 @@ class OperatorSchemaArrayGenerator
                         'description' => $operatorMeta->description,
                         'type' => JsonType::OBJECT,
                         'properties' => [],
+                        'additionalProperties' => false,
                     ];
 
                     foreach ($this->typeEvaluatorsMap[$property->type->generic] as $subEvaluatorClass) {

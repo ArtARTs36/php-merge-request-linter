@@ -49,6 +49,7 @@ class RuleSchemaGenerator
                         '$ref' => '#/definitions/rule_conditions',
                     ],
                 ],
+                'additionalProperties' => false,
             ];
 
             if (count($params) > 0) {
@@ -77,6 +78,7 @@ class RuleSchemaGenerator
                                 $typeSchema['items'] = [
                                     'type' => 'object',
                                     'properties' => $genericProps,
+                                    'additionalProperties' => false,
                                 ];
                             } else {
                                 $typeSchema['items'] = [

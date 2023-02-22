@@ -185,7 +185,8 @@
                         }
                     ]
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "credentials": {
             "type": "object",
@@ -198,7 +199,8 @@
                     "description": "Token",
                     "type": "string"
                 }
-            }
+            },
+            "additionalProperties": false
         }
     },
     "definitions": {
@@ -298,7 +300,8 @@
                             "description": "Check if a string contains a line.",
                             "type": "string"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "descriptionMarkdown": {
                     "type": "object",
@@ -327,7 +330,8 @@
                             "description": "Check if a markdown-string contains a heading.",
                             "type": "string"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "description": {
                     "type": "object",
@@ -423,7 +427,8 @@
                             "description": "Check if a string contains a line.",
                             "type": "string"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "labels": {
                     "type": "object",
@@ -557,8 +562,13 @@
                                 "linesMax": {
                                     "description": "Check the maximum string lines.",
                                     "type": "integer"
+                                },
+                                "containsLine": {
+                                    "description": "Check if a string contains a line.",
+                                    "type": "string"
                                 }
-                            }
+                            },
+                            "additionalProperties": false
                         },
                         "$any": {
                             "description": "True if any value of array matched conditions.",
@@ -647,10 +657,16 @@
                                 "linesMax": {
                                     "description": "Check the maximum string lines.",
                                     "type": "integer"
+                                },
+                                "containsLine": {
+                                    "description": "Check if a string contains a line.",
+                                    "type": "string"
                                 }
-                            }
+                            },
+                            "additionalProperties": false
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "hasConflicts": {
                     "type": "object",
@@ -671,7 +687,8 @@
                             "description": "Check if value are not equal.",
                             "type": "boolean"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "sourceBranch": {
                     "type": "object",
@@ -767,7 +784,8 @@
                             "description": "Check if a string contains a line.",
                             "type": "string"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "targetBranch": {
                     "type": "object",
@@ -863,7 +881,8 @@
                             "description": "Check if a string contains a line.",
                             "type": "string"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "author.login": {
                     "type": "object",
@@ -959,7 +978,8 @@
                             "description": "Check if a string contains a line.",
                             "type": "string"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "isDraft": {
                     "type": "object",
@@ -980,7 +1000,8 @@
                             "description": "Check if value are not equal.",
                             "type": "boolean"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "canMerge": {
                     "type": "object",
@@ -1001,7 +1022,8 @@
                             "description": "Check if value are not equal.",
                             "type": "boolean"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 },
                 "changes": {
                     "type": "object",
@@ -1040,9 +1062,11 @@
                             "description": "Check if a value is empty.",
                             "type": "boolean"
                         }
-                    }
+                    },
+                    "additionalProperties": false
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "rules_properties_@mr-linter_changed_files_limit": {
             "type": "object",
@@ -1055,6 +1079,7 @@
                     "type": "integer"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "limit"
             ]
@@ -1075,6 +1100,7 @@
                     ]
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "domains"
             ]
@@ -1095,6 +1121,7 @@
                     ]
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "domains"
             ]
@@ -1106,7 +1133,8 @@
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "rules_properties_@mr-linter_has_all_labels": {
             "type": "object",
@@ -1124,6 +1152,7 @@
                     ]
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "labels"
             ]
@@ -1135,7 +1164,8 @@
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "rules_properties_@mr-linter_has_any_labels_of": {
             "type": "object",
@@ -1153,6 +1183,7 @@
                     ]
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "labels"
             ]
@@ -1171,6 +1202,7 @@
                     "type": "string"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "domain",
                 "projectCode"
@@ -1190,6 +1222,7 @@
                     "type": "string"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "domain",
                 "projectCode"
@@ -1206,6 +1239,7 @@
                     "type": "array"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "prefixes"
             ]
@@ -1234,10 +1268,12 @@
                             "updatedPhpConstant": {
                                 "type": "string"
                             }
-                        }
+                        },
+                        "additionalProperties": false
                     }
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "changes"
             ]
@@ -1256,6 +1292,7 @@
                     "type": "string"
                 }
             },
+            "additionalProperties": false,
             "required": [
                 "rules",
                 "definition"

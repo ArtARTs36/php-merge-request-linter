@@ -22,6 +22,7 @@ class Generator
         $schema->addProperty('rules', [
             'type' => 'object',
             'properties' => $this->ruleSchemaGenerator->generate($schema),
+            'additionalProperties' => false,
         ]);
 
         $schema->addProperty('credentials', [
@@ -36,6 +37,7 @@ class Generator
                     'type' => 'string',
                 ],
             ],
+            'additionalProperties' => false,
         ]);
 
         return $schema;
