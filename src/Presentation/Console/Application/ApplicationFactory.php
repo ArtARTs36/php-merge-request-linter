@@ -4,11 +4,15 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
+use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\EventHandlerRegistrar;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
@@ -46,7 +50,8 @@ class ApplicationFactory
         $filesystem = new LocalFileSystem();
         $environment = new LocalEnvironment();
         $ciSystemsMap = DefaultSystems::map();
-        $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics);
+        $httpClientFactory = new ClientFactory($metrics);
+        $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics, $httpClientFactory);
 
         $container = new MapContainer();
 
@@ -66,6 +71,13 @@ class ApplicationFactory
         );
 
         $events = new EventDispatcher();
+
+        $events->addListener(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events) {
+             (new EventHandlerRegistrar(
+                (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient())))->create(),
+                $event->config->config->getNotifications(),
+            ))->register($events);
+        });
 
         $application->add(new LintCommand($metrics, $events, new LintTaskHandler(
             $configResolver,

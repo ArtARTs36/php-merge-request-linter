@@ -63,5 +63,16 @@ rules:
         labels:
           has: "Feature"
 
+notifications:
+  channels:
+    dev:
+      type: 'telegram_bot'
+      chat_id: 'env(MR_LINTER_TELEGRAM_CHAT_ID)'
+      bot_token: 'env(MR_LINTER_TELEGRAM_BOT_TOKEN)'
+  on:
+    lint_finished:
+      channel: 'dev'
+      template: '{{ request.title }}'
+
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"

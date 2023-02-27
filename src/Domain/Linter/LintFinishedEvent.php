@@ -9,6 +9,8 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
  */
 class LintFinishedEvent
 {
+    public const NAME = 'lint_finished';
+
     public function __construct(
         public readonly MergeRequest $request,
     ) {

@@ -24,4 +24,9 @@ interface Map extends Collection, HasDebugInfo
      * @return Arrayee<int, K>
      */
     public function keys(): Arrayee;
+
+    /**
+     * @return array<K, V>
+     */
+    public function toArray(): array;
 }

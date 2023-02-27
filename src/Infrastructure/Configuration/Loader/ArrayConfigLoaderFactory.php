@@ -19,6 +19,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject\SubjectFactory
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CredentialMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\RulesMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\FileTransformer;
@@ -79,11 +80,13 @@ class ArrayConfigLoaderFactory
         $this->container->set(OperatorFactory::class, $operatorFactory);
         $this->container->set(RulesExecutor::class, new OperatorRulesExecutor(new OperatorResolver($operatorFactory)));
 
+        $valueTransformers = [
+            new EnvTransformer($this->environment),
+            new FileTransformer($this->fileSystem),
+        ];
+
         $credentialMapper = new CredentialMapper(
-            [
-                new EnvTransformer($this->environment),
-                new FileTransformer($this->fileSystem),
-            ],
+            $valueTransformers,
             DefaultSystems::map(),
         );
 
@@ -97,6 +100,9 @@ class ArrayConfigLoaderFactory
         return new ArrayLoader($this->fileSystem, $this->decoderFactory->create($format->value), new ArrayConfigHydrator(
             $credentialMapper,
             $rulesMapper,
+            new NotificationsMapper(
+                $valueTransformers,
+            ),
         ));
     }
 }

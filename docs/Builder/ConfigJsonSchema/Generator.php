@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
+use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 
 class Generator
 {
@@ -39,6 +40,42 @@ class Generator
             ],
             'additionalProperties' => false,
         ]);
+
+        $notificationsChannelTgBotRef = $schema->addDefinition('notifications_channel_telegram_bot', [
+            'properties' => [
+                'type' => [
+                    'type' => 'string',
+                    'const' => ChannelType::TelegramBot->value,
+                ],
+                'bot_token' => [
+                    'type' => 'string',
+                ],
+                'chat_id' => [
+                    'type' => 'string',
+                ],
+            ],
+        ]);
+
+        $notificationsChannelRef = $schema->addDefinition('notifications_channel', [
+            'type' => 'object',
+            'oneOf' => [
+                [
+                    '$ref' => $notificationsChannelTgBotRef,
+                ],
+            ],
+        ]);
+
+        $schema->addProperty('notifications', [
+            'type' => 'object',
+            'properties' => [
+                'channels' => [
+                    'type' => 'object',
+                    'additionalProperties' => [
+                        '$ref' => $notificationsChannelRef,
+                    ],
+                ],
+            ],
+        ], false);
 
         return $schema;
     }

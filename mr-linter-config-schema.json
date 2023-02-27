@@ -51,7 +51,7 @@
                     ]
                 },
                 "@mr-linter/description_not_empty": {
-                    "description": "Description must fill.",
+                    "description": "Description must be filled.",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_description_not_empty"
@@ -201,6 +201,17 @@
                 }
             },
             "additionalProperties": false
+        },
+        "notifications": {
+            "type": "object",
+            "properties": {
+                "channels": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/notifications_channel"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1296,6 +1307,28 @@
             "required": [
                 "rules",
                 "definition"
+            ]
+        },
+        "notifications_channel_telegram_bot": {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "telegram_bot"
+                },
+                "bot_token": {
+                    "type": "string"
+                },
+                "chat_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "notifications_channel": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/notifications_channel_telegram_bot"
+                }
             ]
         }
     },

@@ -75,4 +75,11 @@ class CallsCounterMap implements Map
 
         return new Arrayee([0]);
     }
+
+    public function toArray(): array
+    {
+        ++$this->counter;
+
+        return [];
+    }
 }

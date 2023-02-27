@@ -78,6 +78,11 @@ class MapProxy implements Map
         return $this->retrieveMap()->keys();
     }
 
+    public function toArray(): array
+    {
+        return $this->retrieveMap()->toArray();
+    }
+
     public function __debugInfo(): array
     {
         if ($this->map === null) {

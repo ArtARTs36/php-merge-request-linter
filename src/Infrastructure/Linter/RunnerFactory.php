@@ -25,6 +25,7 @@ class RunnerFactory implements LinterRunnerFactory
         protected Map $ciSystems,
         protected LoggerInterface $logger,
         protected MetricManager $metrics,
+        protected ClientFactory $clientFactory,
     ) {
         //
     }
