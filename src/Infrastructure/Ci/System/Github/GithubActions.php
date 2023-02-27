@@ -74,6 +74,7 @@ class GithubActions implements CiSystem
             $pullRequest->canMerge(),
             $this->mapChanges($pullRequest),
             $pullRequest->createdAt,
+            Str::make($pullRequest->uri),
         );
     }
 

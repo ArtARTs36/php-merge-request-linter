@@ -27,6 +27,7 @@ class PullRequest
         public readonly string $authorLogin,
         public readonly bool $isDraft,
         public readonly \DateTimeImmutable $createdAt,
+        public readonly string $uri,
         public Map $changes = new ArrayMap([]),
     ) {
         //
