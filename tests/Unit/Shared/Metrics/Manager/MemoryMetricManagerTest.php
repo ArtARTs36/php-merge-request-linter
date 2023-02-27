@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Metrics;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Manager;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;

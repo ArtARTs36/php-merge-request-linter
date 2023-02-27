@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Domain\Metrics;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Value;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Metric;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricProxy;
