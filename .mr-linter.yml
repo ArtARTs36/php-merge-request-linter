@@ -77,7 +77,7 @@ notifications:
         
         {{ request.uri }}
         
-        Notes:
+        Notes: {{ result.notes.count }}
         
         {% for note in result.notes %}
         - {{ note.description }}
