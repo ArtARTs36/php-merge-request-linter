@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Shared\File;
 class Bytes
 {
     /**
-     * @var array<string,int>
+     * @var array<string, int>
      */
     private const SIZES = [
         'GB' => 1073741824,

@@ -27,9 +27,7 @@ final class Runner implements LinterRunner
         $timer = Timer::start();
 
         try {
-            $notes = $linter->run($this->requestFetcher->fetch());
-
-            return new LintResult($notes->isEmpty(), $notes, $timer->finish());
+            return $linter->run($this->requestFetcher->fetch());
         } catch (CurrentlyNotMergeRequestException) {
             return LintResult::successWithNote(new LintNote('Currently is not merge request'), $timer->finish());
         } catch (CiNotSupported|InvalidCredentialsException|CredentialsNotSetException $e) {

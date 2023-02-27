@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Linter;
 
 use ArtARTs36\MergeRequestLinter\Domain\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class LinterFactory

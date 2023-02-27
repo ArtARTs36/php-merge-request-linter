@@ -72,6 +72,8 @@ class GitlabCi implements CiSystem
             $request->isDraft,
             $request->canMerge(),
             $this->mapChanges($request),
+            $request->createdAt,
+            Str::make($request->uri),
         );
     }
 

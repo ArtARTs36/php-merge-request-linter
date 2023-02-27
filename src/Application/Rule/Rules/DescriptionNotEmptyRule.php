@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 
 /**
- * Description must fill.
+ * Description must be filled.
  */
 final class DescriptionNotEmptyRule extends AbstractRule implements Rule
 {
@@ -21,6 +21,6 @@ final class DescriptionNotEmptyRule extends AbstractRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('Description must fill');
+        return new Definition('Description must be filled');
     }
 }

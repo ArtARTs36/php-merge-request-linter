@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 
-use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 /**
@@ -13,5 +12,5 @@ interface Linter
     /**
      * Lint merge request.
      */
-    public function run(MergeRequest $request): Notes;
+    public function run(MergeRequest $request): LintResult;
 }

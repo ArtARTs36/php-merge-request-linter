@@ -22,6 +22,8 @@ class PullRequestSchema
             $pullRequest['changedFiles'],
             $pullRequest['author']['login'],
             $pullRequest['isDraft'] ?? false,
+            new \DateTimeImmutable($pullRequest['createdAt']),
+            $pullRequest['url'],
         );
     }
 
@@ -47,6 +49,8 @@ class PullRequestSchema
       }
       changedFiles
       isDraft
+      createdAt
+      url
     }
   }
 }";

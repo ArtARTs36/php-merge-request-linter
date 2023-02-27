@@ -8,7 +8,7 @@ Currently is available that rules:
 | 2 | custom | ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule | Custom Rule for Users. |
 | 3 | @mr-linter/description_contains_links_of_any_domains | ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinkOfAnyDomainsRule | Merge Request must contain links of any {domains}. |
 | 4 | @mr-linter/description_contains_links_of_all_domains | ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinksOfAllDomainsRule | Merge Request must contain links of all {domains}. |
-| 5 | @mr-linter/description_not_empty | ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule | Description must fill. |
+| 5 | @mr-linter/description_not_empty | ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionNotEmptyRule | Description must be filled. |
 | 6 | @mr-linter/has_all_labels | ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAllLabelsOfRule | Merge Request must have all {labels} |
 | 7 | @mr-linter/has_any_labels_of | ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsOfRule | Merge Request must have any {labels}. |
 | 8 | @mr-linter/has_any_labels | ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasAnyLabelsRule | Merge Request must have any labels. |

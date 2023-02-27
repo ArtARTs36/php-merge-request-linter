@@ -46,6 +46,8 @@ class MergeRequest
         public bool $canMerge,
         #[Generic(Change::class)]
         public Map  $changes,
+        public \DateTimeImmutable $createdAt,
+        public Str $uri,
     ) {
         //
     }

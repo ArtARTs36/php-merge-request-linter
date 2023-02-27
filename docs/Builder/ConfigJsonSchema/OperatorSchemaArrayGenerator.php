@@ -13,9 +13,11 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts\CountNo
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\EqualsAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\EqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic\IsEmptyEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\GteEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LinesMaxEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LteEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsCamelCaseEvaluator;
@@ -35,8 +37,10 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotEnd
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Property;
@@ -117,9 +121,28 @@ class OperatorSchemaArrayGenerator
             AllEvaluator::class,
             AnyEvaluator::class,
         ],
+        Arrayee::class => [
+            CountMinEvaluator::class,
+            CountMaxEvaluator::class,
+            CountEqualsEvaluator::class,
+            CountNotEqualsEvaluator::class,
+            CountEqualsAnyEvaluator::class,
+            HasEvaluator::class,
+            NotHasEvaluator::class,
+            HasAnyEvaluator::class,
+            IsEmptyEvaluator::class,
+            AllEvaluator::class,
+            AnyEvaluator::class,
+        ],
         'bool' => [
             EqualsEvaluator::class,
             NotEqualsEvaluator::class,
+        ],
+        'float' => [
+            EqualsEvaluator::class,
+            NotEqualsEvaluator::class,
+            LteEvaluator::class,
+            GteEvaluator::class,
         ],
         Markdown::class => [
             ContainsHeadingEvaluator::class,
@@ -132,7 +155,7 @@ class OperatorSchemaArrayGenerator
         //
     }
 
-    public function generate(): array
+    public function generate(string $forClass): array
     {
         $opArray = [
             'properties' => [],
@@ -141,7 +164,7 @@ class OperatorSchemaArrayGenerator
 
         $operatorMetadata = $this->operatorMetadataLoader->load();
 
-        return $this->doGenerate(Reflector::mapProperties(MergeRequest::class), $operatorMetadata, $opArray, '');
+        return $this->doGenerate(Reflector::mapProperties($forClass), $operatorMetadata, $opArray, '');
     }
 
     /**
@@ -313,6 +336,6 @@ class OperatorSchemaArrayGenerator
 
     private function allowObjectScan(string $type): bool
     {
-        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class && $type !== Markdown::class;
+        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class && $type !== Markdown::class && $type !== Arrayee::class;
     }
 }

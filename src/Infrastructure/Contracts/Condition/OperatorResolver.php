@@ -6,16 +6,17 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 
 /**
  * Interface for resolving Condition Operator.
- * @phpstan-type MergeRequestField value-of<\ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest::FIELDS>
+ * @phpstan-type Field string
  * @phpstan-type EvaluatorName string
  * @phpstan-type ConditionValue mixed
  * @phpstan-type Condition array<EvaluatorName, ConditionValue>
+ * @phpstan-type Conditions array<Field, Condition>
  */
 interface OperatorResolver
 {
     /**
      * Resolve Condition Operators.
-     * @param array<MergeRequestField, Condition> $when
+     * @param Conditions $when
      */
     public function resolve(array $when): ConditionOperator;
 }

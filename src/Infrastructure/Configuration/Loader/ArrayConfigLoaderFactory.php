@@ -8,7 +8,6 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\OperatorRules
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\RulesExecutor;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ChainFactory;
@@ -19,6 +18,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject\SubjectFactory
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CredentialMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\RulesMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\FileTransformer;
@@ -32,6 +32,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFact
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 
 class ArrayConfigLoaderFactory
 {
@@ -77,13 +78,16 @@ class ArrayConfigLoaderFactory
         $operatorFactory = new OperatorFactory($subjectFactory, new EvaluatorFactory($evaluatorCreatorChain));
 
         $this->container->set(OperatorFactory::class, $operatorFactory);
-        $this->container->set(RulesExecutor::class, new OperatorRulesExecutor(new OperatorResolver($operatorFactory)));
+        $this->container->set(\ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver::class, $opResolver = new OperatorResolver($operatorFactory));
+        $this->container->set(RulesExecutor::class, new OperatorRulesExecutor($opResolver));
+
+        $valueTransformers = [
+            new EnvTransformer($this->environment),
+            new FileTransformer($this->fileSystem),
+        ];
 
         $credentialMapper = new CredentialMapper(
-            [
-                new EnvTransformer($this->environment),
-                new FileTransformer($this->fileSystem),
-            ],
+            $valueTransformers,
             DefaultSystems::map(),
         );
 
@@ -97,6 +101,9 @@ class ArrayConfigLoaderFactory
         return new ArrayLoader($this->fileSystem, $this->decoderFactory->create($format->value), new ArrayConfigHydrator(
             $credentialMapper,
             $rulesMapper,
+            new NotificationsMapper(
+                $valueTransformers,
+            ),
         ));
     }
 }

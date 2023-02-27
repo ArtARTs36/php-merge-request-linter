@@ -9,9 +9,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\Printer;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\ProgressBar;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 
-class LintEventsSubscriber implements EventSubscriberInterface
+class LintEventsSubscriber implements EventSubscriber
 {
     public function __construct(
         private readonly ProgressBar $progressBar,
@@ -21,7 +21,7 @@ class LintEventsSubscriber implements EventSubscriberInterface
         //
     }
 
-    public static function getSubscribedEvents(): array
+    public function getSubscribedEvents(): array
     {
         return [
             RuleWasSuccessfulEvent::class => 'succeed',

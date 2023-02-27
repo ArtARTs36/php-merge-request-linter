@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Configuration\L
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\Proxy;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
@@ -26,7 +27,12 @@ final class ConfigLoaderProxyTest extends TestCase
             return new class () implements ConfigLoader {
                 public function load(string $path): Config
                 {
-                    return new Config(new Rules([]), new ArrayMap([]), new HttpClientConfig(HttpClientConfig::TYPE_NULL, []));
+                    return new Config(
+                        new Rules([]),
+                        new ArrayMap([]),
+                        new HttpClientConfig(HttpClientConfig::TYPE_NULL, []),
+                        new NotificationsConfig(new ArrayMap([]), new ArrayMap([])),
+                    );
                 }
             };
         });

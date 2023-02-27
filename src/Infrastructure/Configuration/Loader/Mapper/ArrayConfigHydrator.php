@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
@@ -12,6 +14,7 @@ class ArrayConfigHydrator
     public function __construct(
         private readonly CredentialMapper $credentialMapper,
         private readonly RulesMapper $rulesMapper,
+        private readonly NotificationsMapper $notificationsMapper,
     ) {
         //
     }
@@ -32,9 +35,15 @@ class ArrayConfigHydrator
             return $this->credentialMapper->map($data['credentials']);
         });
 
+        if (isset($data['notifications'])) {
+            $notifications = $this->notificationsMapper->map($data['notifications']);
+        } else {
+            $notifications = new NotificationsConfig(new ArrayMap([]), new ArrayMap([]));
+        }
+
         return new Config($rules, $credentials, new HttpClientConfig(
             $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
             $data['http_client']['params'] ?? [],
-        ));
+        ), $notifications);
     }
 }

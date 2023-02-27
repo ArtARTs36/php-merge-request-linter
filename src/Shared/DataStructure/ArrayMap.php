@@ -151,6 +151,11 @@ class ArrayMap implements Map
         return new Arrayee(array_keys($this->items));
     }
 
+    public function toArray(): array
+    {
+        return $this->items;
+    }
+
     public function __debugInfo(): array
     {
         return [

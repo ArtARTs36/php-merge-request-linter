@@ -10,6 +10,8 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
  */
 class LintStartedEvent
 {
+    public const NAME = 'lint_started';
+
     public function __construct(
         public readonly MergeRequest $request,
     ) {

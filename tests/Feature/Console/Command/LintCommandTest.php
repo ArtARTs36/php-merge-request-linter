@@ -4,8 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Feature\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConfigResolver;

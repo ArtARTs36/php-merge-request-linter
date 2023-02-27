@@ -4,11 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Tasks\LintTask;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\Record;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;
@@ -16,12 +12,16 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyTablePrinter
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\Metric;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\MetricPrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\NotePrinter;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class LintCommand extends Command
 {
@@ -33,7 +33,7 @@ class LintCommand extends Command
 
     public function __construct(
         protected MetricManager $metrics,
-        protected EventDispatcherInterface $events,
+        protected EventManager $events,
         private readonly LintTaskHandler $handler,
         protected readonly NotePrinter $notePrinter = new NotePrinter(),
         protected readonly MetricPrinter $metricPrinter = new MetricPrinter(),
@@ -59,7 +59,7 @@ class LintCommand extends Command
 
         $style = new SymfonyStyle($input, $output);
 
-        $this->events->addSubscriber(new LintEventsSubscriber(
+        $this->events->subscribe(new LintEventsSubscriber(
             new SymfonyProgressBar(new ProgressBar($output)),
             new ConsolePrinter($style),
             $input->getOption('debug'),

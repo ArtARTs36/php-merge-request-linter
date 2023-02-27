@@ -2,11 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\DurationMetric;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricProxy;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricProxy;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,7 +29,7 @@ class Application extends \Symfony\Component\Console\Application
                 sprintf('[Console] Command "%s" execution', $command->getName()),
             ),
             new MetricProxy(function () use ($timer) {
-                return new DurationMetric($timer->finish());
+                return $timer->finish();
             }),
         );
 

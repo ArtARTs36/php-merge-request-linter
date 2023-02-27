@@ -13,9 +13,10 @@ class Config
      * @param Map<class-string<CiSystem>, RemoteCredentials> $credentials
      */
     public function __construct(
-        protected Rules            $rules,
-        protected Map         $credentials,
-        protected HttpClientConfig $httpClient,
+        private Rules            $rules,
+        private Map         $credentials,
+        private HttpClientConfig $httpClient,
+        private NotificationsConfig $notifications,
     ) {
         //
     }
@@ -36,5 +37,10 @@ class Config
     public function getHttpClient(): HttpClientConfig
     {
         return $this->httpClient;
+    }
+
+    public function getNotifications(): NotificationsConfig
+    {
+        return $this->notifications;
     }
 }

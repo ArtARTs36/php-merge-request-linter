@@ -2,6 +2,11 @@
 
 This file contains changelogs.
 
+v0.10.0
+--------------------
+#### Added
+* Notifications for telegram on events: **lint_finished**, **lint_started**
+
 v0.9.0
 --------------------
 #### Added

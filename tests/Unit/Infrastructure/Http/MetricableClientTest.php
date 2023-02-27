@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Http;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\NullClient;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\MemoryMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use GuzzleHttp\Psr7\Request;
 
