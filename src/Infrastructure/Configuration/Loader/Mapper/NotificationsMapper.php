@@ -66,7 +66,7 @@ class NotificationsMapper
                 throw ConfigInvalidException::invalidType(
                     sprintf('notifications.on.%s.channel', $eventName),
                     'string',
-                    gettype($channelName),
+                    get_debug_type($channelName),
                 );
             }
 
@@ -75,7 +75,7 @@ class NotificationsMapper
             if ($channel === null) {
                 throw ConfigInvalidException::fromKey(sprintf(
                     'notifications.on.%s.channel',
-                    $channel,
+                    $eventName,
                 ));
             }
 
