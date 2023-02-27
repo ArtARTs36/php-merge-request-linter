@@ -1,12 +1,12 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Notifications;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Notifications\Exceptions;
 
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\MessengerNotFoundException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class MessengerNotFoundExceptionTest extends TestCase
+final class mMessengerNotFoundExceptionTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\MessengerNotFoundException::create
