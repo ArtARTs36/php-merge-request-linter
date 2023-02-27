@@ -26,6 +26,7 @@ class PullRequest
         public readonly int $changedFiles,
         public readonly string $authorLogin,
         public readonly bool $isDraft,
+        public readonly \DateTimeImmutable $createdAt,
         public Map $changes = new ArrayMap([]),
     ) {
         //

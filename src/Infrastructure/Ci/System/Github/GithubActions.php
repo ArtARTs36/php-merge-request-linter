@@ -73,6 +73,7 @@ class GithubActions implements CiSystem
             $pullRequest->isDraft,
             $pullRequest->canMerge(),
             $this->mapChanges($pullRequest),
+            $pullRequest->createdAt,
         );
     }
 

@@ -21,6 +21,7 @@ class MergeRequest
         public readonly bool $isDraft,
         public readonly string $mergeStatus,
         public readonly array $changes,
+        public readonly \DateTimeImmutable $createdAt,
     ) {
         //
     }

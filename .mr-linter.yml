@@ -76,7 +76,7 @@ notifications:
         result.state:
           equals: false
       template: |
-        👀 Review on PR "{{ request.title }}" by {{ request.author.login }}
+        👀 Review on PR "{{ request.title }}" by {{ request.author.login }} {{ request.createdAt.format('Y-m-d') }}
         
         Notes:
         

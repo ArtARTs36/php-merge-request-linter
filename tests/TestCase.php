@@ -45,6 +45,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             $request['is_draft'] ?? false,
             false,
             new ArrayMap($request['changes'] ?? []),
+            new \DateTimeImmutable(),
         );
     }
 
