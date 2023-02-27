@@ -73,6 +73,7 @@ class GitlabCi implements CiSystem
             $request->canMerge(),
             $this->mapChanges($request),
             $request->createdAt,
+            Str::make($request->uri),
         );
     }
 

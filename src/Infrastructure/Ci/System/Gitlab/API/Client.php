@@ -52,6 +52,7 @@ class Client implements GitlabClient
             $response['merge_status'],
             $this->mapChanges($response['changes']),
             new \DateTimeImmutable($response['created_at']),
+            $response['web_url'] ?? '',
         );
 
         $this->logger->info(sprintf('[GitlabClient] Merge Request with id %d was fetched', $input->requestId));

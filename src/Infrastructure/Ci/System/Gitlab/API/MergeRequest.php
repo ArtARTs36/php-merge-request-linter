@@ -22,6 +22,7 @@ class MergeRequest
         public readonly string $mergeStatus,
         public readonly array $changes,
         public readonly \DateTimeImmutable $createdAt,
+        public readonly string $uri,
     ) {
         //
     }
