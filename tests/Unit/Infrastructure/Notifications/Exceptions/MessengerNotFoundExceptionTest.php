@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\MessengerNotFoundException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class mMessengerNotFoundExceptionTest extends TestCase
+final class MessengerNotFoundExceptionTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\MessengerNotFoundException::create
