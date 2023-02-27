@@ -73,7 +73,7 @@ notifications:
     lint_finished:
       channel: 'dev'
       template: |
-        👀 Review on PR "{{ request.title }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d') }}
+        👀 Review on PR "{{ request.title }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
         
         {{ request.uri }}
         
