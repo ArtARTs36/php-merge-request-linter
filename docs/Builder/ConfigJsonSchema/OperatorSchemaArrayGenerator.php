@@ -40,6 +40,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Property;
@@ -120,7 +121,7 @@ class OperatorSchemaArrayGenerator
             AllEvaluator::class,
             AnyEvaluator::class,
         ],
-        Notes::class => [
+        Arrayee::class => [
             CountMinEvaluator::class,
             CountMaxEvaluator::class,
             CountEqualsEvaluator::class,
@@ -335,6 +336,6 @@ class OperatorSchemaArrayGenerator
 
     private function allowObjectScan(string $type): bool
     {
-        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class && $type !== Markdown::class && $type !== Notes::class;
+        return $type !== ArrayMap::class && $type !== Set::class && $type !== Str::class && $type !== Markdown::class && $type !== Arrayee::class;
     }
 }

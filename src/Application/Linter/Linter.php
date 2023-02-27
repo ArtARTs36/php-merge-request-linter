@@ -19,6 +19,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -73,7 +74,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
 
         $duration = $timer->finish();
 
-        $notes = new Notes($notes);
+        $notes = new Arrayee($notes);
         $result = new LintResult($notes->isEmpty(), $notes, $duration);
 
         $this->events->dispatch(new LintFinishedEvent($request, $result));
