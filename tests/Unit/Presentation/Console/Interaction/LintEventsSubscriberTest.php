@@ -68,7 +68,7 @@ final class LintEventsSubscriberTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $events = LintEventsSubscriber::getSubscribedEvents();
+        $events = $this->makeProgressBarLintSubscriber()->subscriber->getSubscribedEvents();
 
         $failedEvents = [];
 

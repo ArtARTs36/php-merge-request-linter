@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\EventHandlerRegistrar;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
@@ -35,7 +36,6 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactory;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ApplicationFactory
 {
@@ -72,7 +72,7 @@ class ApplicationFactory
 
         $events = new EventDispatcher();
 
-        $events->addListener(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events) {
+        $events->listen(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events) {
              (new EventHandlerRegistrar(
                 (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient())))->create(),
                 $event->config->config->getNotifications(),
