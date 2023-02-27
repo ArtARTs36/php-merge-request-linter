@@ -46,6 +46,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             false,
             new ArrayMap($request['changes'] ?? []),
             new \DateTimeImmutable(),
+            Str::fromEmpty(),
         );
     }
 
