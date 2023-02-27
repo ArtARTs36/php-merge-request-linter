@@ -72,7 +72,14 @@ notifications:
   on:
     lint_finished:
       channel: 'dev'
-      template: "👀 Review on PR \"{{ request.title }}\" by {{ request.author.login }}\n\n Notes:\n\n{% for note in result.notes %}- {{ note.getDescription() }}\n{% endfor %}"
+      template: |
+        👀 Review on PR \"{{ request.title }}\" by {{ request.author.login }}
+        
+        Notes:
+        
+        {% for note in result.notes %}
+        - {{ note.getDescription() }}
+        {% endfor %}
 
 credentials:
   github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
