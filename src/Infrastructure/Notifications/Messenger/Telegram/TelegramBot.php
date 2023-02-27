@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Te
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
+use Psr\Http\Message\UriInterface;
 
 class TelegramBot
 {
@@ -19,18 +20,21 @@ class TelegramBot
 
     public function sendMessage(TelegramMessage $message): void
     {
+        $req = new Request('GET', $this->createUriForSendMessage($message));
+
+        $this->client->sendRequest($req);
+    }
+
+    private function createUriForSendMessage(TelegramMessage $message): UriInterface
+    {
         $uri = new Uri(sprintf('%s/bot%s/sendMessage', $this->host, $message->token));
 
-        $uri = Uri::withQueryValues(
+        return Uri::withQueryValues(
             $uri,
             [
                 'chat_id' => $message->chatId,
                 'text' => $message->message,
             ],
         );
-
-        $req = new Request('GET', $uri);
-
-        $this->client->sendRequest($req);
     }
 }
