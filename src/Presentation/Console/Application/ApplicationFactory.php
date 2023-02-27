@@ -9,13 +9,6 @@ use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\EventHandlerRegistrar;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
-use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
@@ -26,9 +19,15 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\ConfigRes
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\MetricableConfigResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\Manager\MemoryMetricManager;
+use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
@@ -36,6 +35,8 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
+use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
@@ -74,10 +75,12 @@ class ApplicationFactory
         $events = new EventDispatcher();
 
         $events->listen(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container) {
-            (new EventHandlerRegistrar(
-                (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient())))->create(),
+            (new ListenerRegistrar(
                 $event->config->config->getNotifications(),
-                $container->get(OperatorResolver::class),
+                new ListenerFactory(
+                    (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient())))->create(),
+                    $container->get(OperatorResolver::class),
+                ),
             ))->register($events);
         });
 
