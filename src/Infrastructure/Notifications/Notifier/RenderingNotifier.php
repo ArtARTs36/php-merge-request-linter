@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Notifications\Message;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Messenger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\MessengerNotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 
 class RenderingNotifier implements Notifier
@@ -26,7 +27,7 @@ class RenderingNotifier implements Notifier
         $messenger = $this->messengers->get($channel->type->value);
 
         if ($messenger === null) {
-            throw new \Exception(sprintf('Messenger for channel with type "%s" not found', $channel->type->value));
+            throw MessengerNotFoundException::create($channel->type);
         }
 
         $text = $this->renderer->render($message->template, $message->data);
