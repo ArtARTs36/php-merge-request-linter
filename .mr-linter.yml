@@ -81,7 +81,7 @@ notifications:
         Notes:
         
         {% for note in result.notes %}
-        - {{ note.getDescription() }}
+        - {{ note.description }}
         {% endfor %}
 
 credentials:
