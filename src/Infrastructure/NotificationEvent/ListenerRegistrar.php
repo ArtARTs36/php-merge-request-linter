@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 
 class ListenerRegistrar
 {
@@ -15,7 +15,7 @@ class ListenerRegistrar
         //
     }
 
-    public function register(EventDispatcher $dispatcher): void
+    public function register(EventManager $dispatcher): void
     {
         foreach ($this->config->on as $events) {
             /** @var NotificationEventMessage $eventMsg */
