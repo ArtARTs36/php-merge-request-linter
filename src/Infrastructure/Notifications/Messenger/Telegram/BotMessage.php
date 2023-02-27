@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Telegram;
 
+/**
+ * @codeCoverageIgnore
+ */
 class BotMessage
 {
     public function __construct(

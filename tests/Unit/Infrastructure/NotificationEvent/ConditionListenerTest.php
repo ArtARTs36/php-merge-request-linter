@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\NotificationEvent;
 
-use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
