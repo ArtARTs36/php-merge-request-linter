@@ -8,8 +8,9 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 interface EventManager extends EventDispatcherInterface
 {
     /**
-     * @param string|class-string $event
-     * @param callable(object): void $listener
+     * @template E as object
+     * @param string|class-string<E> $event
+     * @param callable(E): void $listener
      */
     public function listen(string $event, callable $listener): void;
 

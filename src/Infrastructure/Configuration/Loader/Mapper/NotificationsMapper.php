@@ -20,10 +20,18 @@ class NotificationsMapper
         //
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function map(array $data): NotificationsConfig
     {
+        /** @var array<string, Channel> $channels */
         $channels = [];
 
+        /**
+         * @var string $name
+         * @var array<string, mixed> $channel
+         */
         foreach ($data['channels'] as $name => $channel) {
             $type = ChannelType::from($channel['type']);
 
@@ -32,8 +40,13 @@ class NotificationsMapper
             $channels[$name] = new Channel($type, new ArrayMap($this->transformValues($channel)));
         }
 
+        /** @var array<string, array<NotificationEventMessage>> $notifications */
         $notifications = [];
 
+        /**
+         * @var string $eventName
+         * @var array<string, string> $notification
+         */
         foreach ($data['on'] as $eventName => $notification) {
             $notifications[$eventName][] = new NotificationEventMessage(
                 $eventName,
@@ -45,6 +58,10 @@ class NotificationsMapper
         return new NotificationsConfig(new ArrayMap($channels), new ArrayMap($notifications));
     }
 
+    /**
+     * @param array<string, mixed> $values
+     * @return array<string, mixed>
+     */
     private function transformValues(array $values): array
     {
         foreach ($values as &$v) {

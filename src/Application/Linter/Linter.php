@@ -76,7 +76,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         $notes = new Notes($notes);
         $result = new LintResult($notes->isEmpty(), $notes, $duration);
 
-        $this->events->dispatch(new LintFinishedEvent($request, $result), LintFinishedEvent::NAME);
+        $this->events->dispatch(new LintFinishedEvent($request, $result));
 
         return $result;
     }

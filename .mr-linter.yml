@@ -73,7 +73,7 @@ notifications:
     lint_finished:
       channel: 'dev'
       template: |
-        👀 Review on PR \"{{ request.title }}\" by {{ request.author.login }}
+        👀 Review on PR "{{ request.title }}" by {{ request.author.login }}
         
         Notes:
         

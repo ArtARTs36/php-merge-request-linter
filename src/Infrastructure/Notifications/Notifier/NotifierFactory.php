@@ -33,8 +33,11 @@ class NotifierFactory
      */
     private function createMessengers(): Map
     {
-        return new ArrayMap([
+        /** @var Map<string, Messenger> $messengers */
+        $messengers = new ArrayMap([
             ChannelType::TelegramBot->value => new TelegramBotMessenger(new TelegramBot($this->client)),
         ]);
+
+        return $messengers;
     }
 }

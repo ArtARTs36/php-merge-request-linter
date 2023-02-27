@@ -25,7 +25,7 @@ class TwigRenderer implements TextRenderer
 
     public function render(string $text, Map $data): string
     {
-        $templateName = time();
+        $templateName = 'template_' . time();
 
         $this->loader->setTemplate($templateName, $text);
 

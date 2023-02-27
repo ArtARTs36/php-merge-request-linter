@@ -2,11 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
-use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
-use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;

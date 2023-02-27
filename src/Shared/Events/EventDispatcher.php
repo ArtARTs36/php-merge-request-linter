@@ -2,10 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Events;
 
-use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
-use Psr\EventDispatcher\EventDispatcherInterface;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 
-class EventDispatcher implements EventDispatcherInterface
+class EventDispatcher implements EventManager
 {
     /** @var array<string|class-string, array<callable(object): void>> */
     private array $listeners = [];
@@ -27,13 +26,9 @@ class EventDispatcher implements EventDispatcherInterface
         return $event;
     }
 
-    /**
-     * @param string|class-string $event
-     * @param callable(object): void $listener
-     */
     public function listen(string $event, callable $listener): void
     {
-        $this->listeners[$event][] = $listener;
+        $this->listeners[$event][] = $listener; // @phpstan-ignore-line
     }
 
     public function subscribe(EventSubscriber $subscriber): void
