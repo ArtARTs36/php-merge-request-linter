@@ -75,11 +75,11 @@ notifications:
       template: |
         👀 Review on PR "{{ request.title }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
         
-        {{ request.sourceBranch }} -> {{ request.targetBranch }}
+        🌲 {{ request.sourceBranch }} ➡ {{ request.targetBranch }}
         
-        {{ request.uri }}
+        🌐 {{ request.uri }}
         
-        Notes: {{ result.notes.count }}
+        📉 Notes: {{ result.notes.count }}
         
         {% for note in result.notes %}
         - {{ note.description }}
