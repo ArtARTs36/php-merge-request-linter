@@ -13,5 +13,5 @@ interface Linter
     /**
      * Lint merge request.
      */
-    public function run(MergeRequest $request): Notes;
+    public function run(MergeRequest $request): LintResult;
 }

@@ -13,6 +13,7 @@ class LintFinishedEvent
 
     public function __construct(
         public readonly MergeRequest $request,
+        public readonly LintResult $result,
     ) {
         //
     }

@@ -4,10 +4,12 @@ namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\InvalidEvaluatorValueException;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Metrics\DurationMetric;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
@@ -17,6 +19,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
@@ -29,8 +32,10 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         //
     }
 
-    public function run(MergeRequest $request): Notes
+    public function run(MergeRequest $request): LintResult
     {
+        $timer = Timer::start();
+
         $this->metrics->add(
             new MetricSubject(
                 'linter_used_rules',
@@ -66,8 +71,13 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
             }
         }
 
-        $this->events->dispatch(new LintFinishedEvent($request), LintFinishedEvent::NAME);
+        $duration = $timer->finish();
 
-        return new Notes($notes);
+        $notes = new Notes($notes);
+        $result = new LintResult($notes->isEmpty(), $notes, $duration);
+
+        $this->events->dispatch(new LintFinishedEvent($request, $result), LintFinishedEvent::NAME);
+
+        return $result;
     }
 }

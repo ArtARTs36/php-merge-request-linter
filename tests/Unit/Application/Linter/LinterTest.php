@@ -40,8 +40,8 @@ final class LinterTest extends TestCase
             },
         ]), new NullEventDispatcher(), new NullMetricManager());
 
-        $notes = $linter->run($this->makeMergeRequest());
+        $result = $linter->run($this->makeMergeRequest());
 
-        self::assertInstanceOf(ExceptionNote::class, $notes->first());
+        self::assertInstanceOf(ExceptionNote::class, $result->notes->first());
     }
 }
