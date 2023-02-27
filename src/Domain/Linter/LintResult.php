@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
@@ -10,6 +11,7 @@ class LintResult
 {
     public function __construct(
         public bool $state,
+        #[Generic(Note::class)]
         public Notes $notes,
         public Duration $duration,
     ) {
