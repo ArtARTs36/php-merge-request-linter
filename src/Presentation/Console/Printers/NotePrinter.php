@@ -13,6 +13,9 @@ class NotePrinter
 {
     private const HEADERS = ['#', 'Note'];
 
+    /**
+     * @param Arrayee<int, Note> $notes
+     */
     public function print(TablePrinter $printer, Arrayee $notes): void
     {
         $table = [];

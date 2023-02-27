@@ -11,10 +11,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 
 /**
- * @phpstan-import-type MergeRequestField from OperatorResolver
- * @phpstan-import-type EvaluatorName from OperatorResolver
- * @phpstan-import-type ConditionValue from OperatorResolver
- * @phpstan-import-type Condition from OperatorResolver
+ * @phpstan-import-type Conditions from OperatorResolver
  */
 class ConditionRuleFactory
 {
@@ -35,7 +32,7 @@ class ConditionRuleFactory
     }
 
     /**
-     * @param array<MergeRequestField, Condition> $when
+     * @param Conditions $when
      */
     public function create(Rule $rule, array $when): Rule
     {

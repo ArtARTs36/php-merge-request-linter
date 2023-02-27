@@ -9,6 +9,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 
 class LintResult
 {
+    /**
+     * @param Arrayee<int, Note> $notes
+     */
     public function __construct(
         public bool $state,
         #[Generic(Note::class)]
