@@ -22,6 +22,7 @@ final class TelegramBotTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Telegram\HttpBot::sendMessage
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Telegram\HttpBot::createUriForSendMessage
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Telegram\HttpBot::__construct
      * @dataProvider providerForTestMessage
      */
     public function testSendMessage(BotMessage $message, string $expectedUri): void
