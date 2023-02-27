@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Domain\Metrics;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Value;
 
 final class StringMetric implements Metric
 {

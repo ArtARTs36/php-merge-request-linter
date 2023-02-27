@@ -2,16 +2,16 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Domain\Metrics;
 
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\Metric;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\Record;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Metric;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class RecordTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Domain\Metrics\Record::getValue
-     * @covers \ArtARTs36\MergeRequestLinter\Domain\Metrics\Record::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record::getValue
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record::__construct
      */
     public function testGetValue(): void
     {

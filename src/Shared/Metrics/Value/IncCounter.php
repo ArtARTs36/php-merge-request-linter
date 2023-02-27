@@ -1,8 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Domain\Metrics;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Value;
 
-class MemoryCounter implements Counter
+class IncCounter implements Counter
 {
     public function __construct(
         private int $count = 0,

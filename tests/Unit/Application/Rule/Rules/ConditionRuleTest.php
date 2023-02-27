@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConditionOperator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -35,7 +35,7 @@ final class ConditionRuleTest extends TestCase
         $rule = new ConditionRule(
             new SuccessRule(),
             $operator,
-            $counter = new MemoryCounter(),
+            $counter = new IncCounter(),
         );
 
         $rule->lint($this->makeMergeRequest());

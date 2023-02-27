@@ -4,12 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Tasks\LintTask;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\Record;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;
@@ -17,6 +12,11 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyTablePrinter
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\Metric;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\MetricPrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\NotePrinter;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

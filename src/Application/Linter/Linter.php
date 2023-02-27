@@ -9,15 +9,15 @@ use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MemoryCounter;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
-use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -40,7 +40,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
                 'linter_used_rules',
                 '[Linter] Used rules',
             ),
-            MemoryCounter::create($this->rules),
+            IncCounter::create($this->rules),
         );
 
         $this->events->dispatch(new LintStartedEvent($request));
