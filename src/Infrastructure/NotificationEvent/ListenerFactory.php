@@ -17,13 +17,15 @@ class ListenerFactory
 
     public function create(NotificationEventMessage $message): Listener
     {
-        return new ConditionListener(
+        $notifyListener = new NotifyListener(
+            $this->notifier,
             $message,
-            $this->operator,
-            new NotifyListener(
-                $this->notifier,
-                $message,
-            ),
         );
+
+        if (empty($message->conditions)) {
+            return $notifyListener;
+        }
+
+        return new ConditionListener($message, $this->operator, $notifyListener);
     }
 }

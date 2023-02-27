@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
  * @phpstan-type EvaluatorName string
  * @phpstan-type ConditionValue mixed
  * @phpstan-type Condition array<EvaluatorName, ConditionValue>
+ * @codeCoverageIgnore
  */
 class NotificationEventMessage
 {
@@ -19,7 +20,7 @@ class NotificationEventMessage
         public readonly string $event,
         public readonly Channel $channel,
         public readonly string $template,
-        public readonly array $conditions,
+        public readonly array $conditions = [],
     ) {
         //
     }
