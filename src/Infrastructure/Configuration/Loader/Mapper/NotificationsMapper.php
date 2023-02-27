@@ -52,6 +52,7 @@ class NotificationsMapper
                 $eventName,
                 $channels[$notification['channel']],
                 $notification['template'],
+                $notification['when'] ?? [],
             );
         }
 

@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\EventHandlerRegistrar;
@@ -72,10 +73,11 @@ class ApplicationFactory
 
         $events = new EventDispatcher();
 
-        $events->listen(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events) {
+        $events->listen(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container) {
              (new EventHandlerRegistrar(
                 (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient())))->create(),
                 $event->config->config->getNotifications(),
+                $container->get(OperatorResolver::class),
             ))->register($events);
         });
 

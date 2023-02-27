@@ -72,6 +72,9 @@ notifications:
   on:
     lint_finished:
       channel: 'dev'
+      when:
+        result.state:
+          equals: false
       template: |
         👀 Review on PR "{{ request.title }}" by {{ request.author.login }}
         

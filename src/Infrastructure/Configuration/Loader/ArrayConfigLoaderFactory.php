@@ -78,7 +78,8 @@ class ArrayConfigLoaderFactory
         $operatorFactory = new OperatorFactory($subjectFactory, new EvaluatorFactory($evaluatorCreatorChain));
 
         $this->container->set(OperatorFactory::class, $operatorFactory);
-        $this->container->set(RulesExecutor::class, new OperatorRulesExecutor(new OperatorResolver($operatorFactory)));
+        $this->container->set(\ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver::class, $opResolver = new OperatorResolver($operatorFactory));
+        $this->container->set(RulesExecutor::class, new OperatorRulesExecutor($opResolver));
 
         $valueTransformers = [
             new EnvTransformer($this->environment),
