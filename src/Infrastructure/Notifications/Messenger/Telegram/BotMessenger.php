@@ -5,10 +5,10 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Te
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Messenger;
 
-class TelegramBotMessenger implements Messenger
+class BotMessenger implements Messenger
 {
     public function __construct(
-        private readonly TelegramBot $bot,
+        private readonly Bot $bot,
     ) {
         //
     }
@@ -18,7 +18,7 @@ class TelegramBotMessenger implements Messenger
         $chatId = $channel->params->get('chat_id');
         $token = $channel->params->get('bot_token');
 
-        $this->bot->sendMessage(new TelegramMessage(
+        $this->bot->sendMessage(new BotMessage(
             $token,
             $chatId,
             $message,

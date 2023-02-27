@@ -7,7 +7,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
 
-class TelegramBot
+class HttpBot implements Bot
 {
     private const HOST = 'https://api.telegram.org';
 
@@ -18,14 +18,14 @@ class TelegramBot
         //
     }
 
-    public function sendMessage(TelegramMessage $message): void
+    public function sendMessage(BotMessage $message): void
     {
         $req = new Request('GET', $this->createUriForSendMessage($message));
 
         $this->client->sendRequest($req);
     }
 
-    private function createUriForSendMessage(TelegramMessage $message): UriInterface
+    private function createUriForSendMessage(BotMessage $message): UriInterface
     {
         $uri = new Uri(sprintf('%s/bot%s/sendMessage', $this->host, $message->token));
 

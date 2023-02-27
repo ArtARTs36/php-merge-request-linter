@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Telegram;
 
-class TelegramMessage
+class BotMessage
 {
     public function __construct(
         public readonly string $token,
