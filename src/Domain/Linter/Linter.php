@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 
-use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 /**

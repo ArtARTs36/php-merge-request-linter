@@ -26,6 +26,7 @@ interface Map extends Collection, HasDebugInfo
     public function keys(): Arrayee;
 
     /**
+     * Convert Map to native array.
      * @return array<K, V>
      */
     public function toArray(): array;

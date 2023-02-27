@@ -62,9 +62,11 @@ class NotificationsMapper
                 throw ConfigInvalidException::keyNotSet(sprintf('notifications.on.%s.channel', $eventName));
             }
 
-            if (!is_string($channelName)) {
+            if (! is_string($channelName)) {
                 throw ConfigInvalidException::invalidType(
-                    sprintf('notifications.on.%s.channel', $eventName), 'string', gettype($channelName),
+                    sprintf('notifications.on.%s.channel', $eventName),
+                    'string',
+                    gettype($channelName),
                 );
             }
 

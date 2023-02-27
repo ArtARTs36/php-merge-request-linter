@@ -4,6 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts;
 
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 
+/**
+ * Interface for different Messengers.
+ */
 interface Messenger
 {
     /**

@@ -74,7 +74,7 @@ class ApplicationFactory
         $events = new EventDispatcher();
 
         $events->listen(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container) {
-             (new EventHandlerRegistrar(
+            (new EventHandlerRegistrar(
                 (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient())))->create(),
                 $event->config->config->getNotifications(),
                 $container->get(OperatorResolver::class),
