@@ -2,48 +2,24 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class NullEventDispatcher implements EventDispatcherInterface
+class NullEventDispatcher implements EventManager
 {
-    public function addListener(string $eventName, callable $listener, int $priority = 0)
+    public function listen(string $event, callable $listener): void
     {
-        // TODO: Implement addListener() method.
+        // TODO: Implement listen() method.
     }
 
-    public function addSubscriber(EventSubscriberInterface $subscriber)
+    public function subscribe(EventSubscriber $subscriber): void
     {
-        // TODO: Implement addSubscriber() method.
-    }
-
-    public function removeListener(string $eventName, callable $listener)
-    {
-        // TODO: Implement removeListener() method.
-    }
-
-    public function removeSubscriber(EventSubscriberInterface $subscriber)
-    {
-        // TODO: Implement removeSubscriber() method.
-    }
-
-    public function getListeners(string $eventName = null): array
-    {
-        return [];
+        // TODO: Implement subscribe() method.
     }
 
     public function dispatch(object $event, string $eventName = null): object
     {
         return $event;
-    }
-
-    public function getListenerPriority(string $eventName, callable $listener): ?int
-    {
-        return null;
-    }
-
-    public function hasListeners(string $eventName = null): bool
-    {
-        return false;
     }
 }

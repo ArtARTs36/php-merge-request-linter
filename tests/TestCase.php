@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
@@ -26,6 +27,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             Rules::make($rules),
             new ArrayMap([]),
             new HttpClientConfig(HttpClientConfig::TYPE_NULL, []),
+            new NotificationsConfig(new ArrayMap([]), new ArrayMap([])),
         );
     }
 

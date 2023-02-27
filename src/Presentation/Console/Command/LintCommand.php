@@ -4,8 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Tasks\LintTask;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Metrics\MetricManager;
@@ -33,7 +33,7 @@ class LintCommand extends Command
 
     public function __construct(
         protected MetricManager $metrics,
-        protected EventDispatcher $events,
+        protected EventManager $events,
         private readonly LintTaskHandler $handler,
         protected readonly NotePrinter $notePrinter = new NotePrinter(),
         protected readonly MetricPrinter $metricPrinter = new MetricPrinter(),
