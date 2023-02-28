@@ -42,3 +42,19 @@ rules:
           $all:
             isStudlyCase: true
 ```
+
+#### 4. A bug fix request must have a list of bug fixes
+
+This configuration causes a list of fixed bugs to be listed under the 2 level heading.
+
+```yaml
+rules:
+  custom:
+    - definition: "Description must have list of fixed bugs"
+      rules:
+        descriptionMarkdown:
+          containsHeading2: "Fixed"
+      when:
+        labels:
+          has: "Bug"
+```

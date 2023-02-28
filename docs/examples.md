@@ -1,5 +1,7 @@
 ## Examples of usage
 
+[See examples of custom rules](custom_rule.md#examples)
+
 ### Don't forget to include the task number in the request header
 
 Imagine you are a PHPStorm developer at JetBrains, your project in the tracker is called ["WI"](https://youtrack.jetbrains.com/issues/WI).
@@ -63,20 +65,4 @@ rules:
       when:
         targetBranch:
           equals: "master"
-```
-
-### A bug fix request must have a list of bug fixes
-
-This configuration causes a list of fixed bugs to be listed under the 2 level heading.
-
-```yaml
-rules:
-  custom:
-    - definition: "Description must have list of fixed bugs"
-      rules:
-        descriptionMarkdown:
-          containsHeading2: "Fixed"
-      when:
-        labels:
-          has: "Bug"
 ```
