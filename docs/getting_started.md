@@ -7,6 +7,16 @@ Examples:
 * https://github.com/ArtARTs36/php-merge-request-linter/blob/master/stubs/.mr-linter.yaml
 * https://github.com/ArtARTs36/php-merge-request-linter/blob/master/stubs/.mr-linter.json
 
+Or generate **yaml** file with following command:
+```shell
+docker run -v "${PWD}:/app/:rw" --user 1000:1000 -it artarts36/merge-request-linter:0.10.0 install
+```
+
+Or generate **json** file with following command:
+```shell
+docker run -v "${PWD}:/app/:rw" --user 1000:1000 -it artarts36/merge-request-linter:0.10.0 install --format=json
+```
+
 When writing a config, look at [JSON Schema](../mr-linter-config-schema.json).
 
 ## ➜ Usage with GitHub Actions
