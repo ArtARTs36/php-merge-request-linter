@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
 use ArtARTs36\Str\Str;
 
@@ -13,35 +14,21 @@ class RulesPageBuilder
 
     public function build(): string
     {
-        $files = glob(realpath($this->dir) . '/*Rule.php');
-
         $descriptions = Str::fromEmpty();
 
         $id = 0;
 
-        foreach ($files as $file) {
-            $filename = pathinfo($file, PATHINFO_FILENAME);
-            $class = $this->namespace . $filename;
-            $comment = $this->getFirstDocCommentWhenNotAbstract($file);
-
-            if ($comment === null) {
-                continue;
-            }
-
-            if (! defined("$class::NAME")) {
-                continue;
-            }
-
-            $ruleName = $class::NAME;
+        foreach (DefaultRules::map() as $ruleName => $ruleClass) {
+            $reflector = new \ReflectionClass($ruleClass);
 
             $id++;
 
-            $comment = ClassSummary::findInPhpDocComment($comment);
+            $comment = ClassSummary::findInPhpDocComment($reflector->getDocComment());
 
             if ($id === 1) {
-                $descriptions = $descriptions->append("| $id | $ruleName | $class | $comment |");
+                $descriptions = $descriptions->append("| $id | $ruleName | $ruleClass | $comment |");
             } else {
-                $descriptions = $descriptions->appendLine("| $id | $ruleName | $class | $comment |");
+                $descriptions = $descriptions->appendLine("| $id | $ruleName | $ruleClass | $comment |");
             }
         }
 
