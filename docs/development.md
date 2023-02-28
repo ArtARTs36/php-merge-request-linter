@@ -11,6 +11,8 @@ Our pipeline consists of the following steps:
 - **Check architecture** via [Deptrac](https://github.com/qossmic/deptrac)
 - **Run tests** via [PHPUnit](https://github.com/sebastianbergmann/phpunit)
 
+Before submitting a merge request, you can perform all checks by running the `make check` command.
+
 ### Development Commands
 
 | Command                  | Description                                          |
