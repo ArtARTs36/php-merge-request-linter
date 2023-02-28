@@ -24,3 +24,13 @@ Our pipeline consists of the following steps:
 | make env                 | Add .env file                                        |
 | make try MR_ID=10        | Run MR-Linter on really pull request                 |
 | make try-gitlab MR_ID=10 | Run MR-Linter on really merge request                |
+
+### MR-Linter Commands
+
+| Command                               | Description                                                   |
+|---------------------------------------|---------------------------------------------------------------|
+| ./bin/mr-linter install               | Install this tool (copy configuration file to work directory) |
+| ./bin/mr-linter install --format=yaml | Install this tool (copy configuration file to work directory) |
+| ./bin/mr-linter dump                  | Print current rules                                           |
+| ./bin/mr-linter lint                  | Run lint to current merge request                             |
+| ./bin/mr-linter info                  | Print info about MR Linter                                    |
