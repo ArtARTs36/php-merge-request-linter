@@ -14,6 +14,7 @@ Supported CI Systems: **GitHub Actions**, **Gitlab CI**.
 ## Documentation
 
 * [Getting Started](docs/getting_started.md)
+* [Examples of usage](docs/examples.md)
 * [Show validation rules](docs/rules.md)
 * [Conditions](docs/conditions.md)
 * [Creating custom rule](docs/custom_rule.md)
