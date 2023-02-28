@@ -14,7 +14,7 @@ final class AbstractRuleTest extends TestCase
      */
     public function testGetName(): void
     {
-        $rule = new class extends AbstractRule {
+        $rule = new class () extends AbstractRule {
             public const NAME = 'test-rule';
 
             protected function doLint(MergeRequest $request): bool

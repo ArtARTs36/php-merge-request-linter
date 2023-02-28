@@ -38,6 +38,7 @@ final class TitleStartsWithTaskNumberRuleTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::getDefinition
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::__construct
      * @dataProvider providerForTestLint
      */
