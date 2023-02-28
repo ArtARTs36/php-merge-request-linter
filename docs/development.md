@@ -1,6 +1,6 @@
-## Development
+# Development
 
-### Pipeline
+## Pipeline
 
 Our pipeline consists of the following steps:
 
@@ -13,7 +13,7 @@ Our pipeline consists of the following steps:
 
 Before submitting a merge request, you can perform all checks by running the `make check` command.
 
-### Development Commands
+## Development Commands
 
 | Command                  | Description                                          |
 |--------------------------|------------------------------------------------------|
@@ -27,7 +27,7 @@ Before submitting a merge request, you can perform all checks by running the `ma
 | make try MR_ID=10        | Run MR-Linter on really pull request                 |
 | make try-gitlab MR_ID=10 | Run MR-Linter on really merge request                |
 
-### MR-Linter Commands
+## MR-Linter Commands
 
 | Command                               | Description                                                   |
 |---------------------------------------|---------------------------------------------------------------|

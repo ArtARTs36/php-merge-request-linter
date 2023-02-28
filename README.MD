@@ -13,15 +13,15 @@ Supported CI Systems: **GitHub Actions**, **Gitlab CI**.
 
 ## Documentation
 
-* [Getting Started](docs/getting_started.md)
+* [Getting Started](docs/getting-started.md)
 * [Examples of usage](docs/examples.md)
 * [Show validation rules](docs/rules.md)
 * [Conditions](docs/conditions.md)
-* [Creating custom rule](docs/custom_rule.md)
+* [Creating custom rule](docs/custom-rule.md)
 * [Docker Image](https://hub.docker.com/repository/docker/artarts36/merge-request-linter)
 * [Config JSON Schema](mr-linter-config-schema.json)
 * [Notifications](docs/notifications.md)
-* [Run in Docker](docs/run_in_docker.md)
+* [Run in Docker](docs/run-in-docker.md)
 * [Development](docs/development.md)
 
 ## Console output example

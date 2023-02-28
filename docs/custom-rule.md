@@ -1,12 +1,14 @@
-## Creating custom rules
+# Creating custom rules
 
 The standard set of validation rules may not be enough for you. You can define your rules with [conditional operators](conditions.md).
 
 So, all custom conditions are described through the **custom** rule. You need to put your rules in the **rules** section.
 
-### Examples
+## Examples
 
-#### 1. Branch must be in kebab-case
+## 1. Branch must be in kebab-case
+
+Give branches a consistent naming style with this configuration.
 
 ```yaml
 rules:
@@ -17,21 +19,7 @@ rules:
           isKebabCase: true
 ```
 
-#### 2. Prohibit creating drafts on the "master" branch
-
-```yaml
-rules:
-  custom:
-    - definition: "Drafts disabled on master"
-      rules:
-        isDraft:
-          equals: false
-      when:
-        targetBranch:
-          equals: "master"
-```
-
-#### 3. Labels must be in StudlyCase
+## 2. Labels must be in StudlyCase
 
 ```yaml
 rules:
@@ -43,7 +31,7 @@ rules:
             isStudlyCase: true
 ```
 
-#### 4. A bug fix request must have a list of bug fixes
+## 3. A bug fix request must have a list of bug fixes
 
 This configuration causes a list of fixed bugs to be listed under the 2 level heading.
 

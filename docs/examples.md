@@ -1,8 +1,8 @@
-## Examples of usage
+# Examples of usage
 
-[See examples of custom rules](custom_rule.md#examples)
+[See examples of custom rules](custom-rule.md#examples)
 
-### Don't forget to include the task number in the request header
+## Don't forget to include the task number in the request header
 
 Imagine you are a PHPStorm developer at JetBrains, your project in the tracker is called ["WI"](https://youtrack.jetbrains.com/issues/WI).
 
@@ -14,7 +14,7 @@ rules:
     projectName: "WI"
 ```
 
-### Don't forget to include labels
+## Don't forget to include labels
 
 The simplest example that allows you to set any labels.
 
@@ -36,7 +36,7 @@ rules:
       - Optimization
 ```
 
-### Keep a Changelog
+## Keep a Changelog
 
 This example shows how to make the changelog update required on the **master** branch.
 
@@ -50,7 +50,7 @@ rules:
           equals: "master"
 ```
 
-### Don't forget to update your app version
+## Don't forget to update your app version
 
 Imagine that you are a developer of the Laravel framework, with every merge in the **master**, you need to update the application version in the [**Application.php**](https://github.com/laravel/framework/blob/10.x/src/Illuminate/Foundation/Application.php#L41) file. 
 
