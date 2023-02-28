@@ -2,9 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder;
 
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
+use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\JsonType;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
-use ArtARTs36\Str\Str;
 
 class RulesPageBuilder
 {
@@ -12,51 +17,50 @@ class RulesPageBuilder
 
     protected string $dir = __DIR__ . '/../../src/Application/Rule/Rules';
 
+    public function __construct(
+        private RuleConstructorFinder $ruleConstructorFinder = new ConstructorFinder(),
+    ) {
+        //
+    }
+
     public function build(): string
     {
-        $descriptions = Str::fromEmpty();
-
-        $id = 0;
+        $rules = [];
 
         foreach (DefaultRules::map() as $ruleName => $ruleClass) {
-            $reflector = new \ReflectionClass($ruleClass);
+            if ($ruleClass === CustomRule::class) {
+                continue;
+            }
 
-            $id++;
+            $reflector = new \ReflectionClass($ruleClass);
 
             $comment = ClassSummary::findInPhpDocComment($reflector->getDocComment());
 
-            if ($id === 1) {
-                $descriptions = $descriptions->append("| $id | $ruleName | $ruleClass | $comment |");
-            } else {
-                $descriptions = $descriptions->appendLine("| $id | $ruleName | $ruleClass | $comment |");
+            $path = '..' . str_replace(dirname(__DIR__, 2), '', $reflector->getFileName());
+
+            $params = [];
+
+            foreach ($this->ruleConstructorFinder->find($ruleClass)->params() as $paramName => $param) {
+                $params[] = [
+                    'name' => $paramName,
+                    'type' => JsonType::to($param->name()),
+                    'generic' => $param->isGeneric() ? JsonType::to($param->generic) : null,
+                ];
             }
+
+            $rules[] = [
+                'name' => $ruleName,
+                'params' => $params,
+                'description' => $comment,
+                'path' => $path,
+            ];
         }
 
-        return <<<HTML
-# Available Rules
-
-Currently is available that rules:
-
-| # | Name | Class | Description |
-| ------------ | ------------ | ------------ | ------------ |
-$descriptions
-HTML;
-    }
-
-    protected function getFirstDocCommentWhenNotAbstract(string $filePath): ?string
-    {
-        $tokens = token_get_all(file_get_contents($filePath));
-
-        foreach ($tokens as [$tokenIndex, $value]) {
-            if ($tokenIndex === T_ABSTRACT) {
-                return null;
-            }
-
-            if ($tokenIndex === T_DOC_COMMENT) {
-                return $value;
-            }
-        }
-
-        return null;
+        return TwigRenderer::create()->render(
+            file_get_contents(__DIR__ . '/templates/rules.md.twig'),
+            new ArrayMap([
+                'rules' => $rules,
+            ])
+        );
     }
 }

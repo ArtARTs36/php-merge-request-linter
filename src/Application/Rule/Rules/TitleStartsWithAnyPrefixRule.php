@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 
 /**
  * The title must starts with any {prefixes}
@@ -17,8 +18,10 @@ class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
     /**
      * @param array<string> $prefixes
      */
-    public function __construct(protected array $prefixes)
-    {
+    public function __construct(
+        #[Generic(Generic::OF_STRING)]
+        protected array $prefixes,
+    ) {
         //
     }
 

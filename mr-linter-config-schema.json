@@ -3393,7 +3393,12 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "prefixes": {
-                    "type": "array"
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string"
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
