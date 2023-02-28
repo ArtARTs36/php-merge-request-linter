@@ -1,62 +1,44 @@
-# Creating custom rule
+## Creating custom rules
 
-You can create self rules for requests' validation.
+The standard set of validation rules may not be enough for you. You can define your rules with [conditional operators](conditions.md).
 
-You need to implement the interface [ArtARTs36\MergeRequestLinter\Contracts\Rule](../src/Contracts/Rule.php) and add rule instance to "rules" in `.mr-linter.php`.
-```php
-/**
- * Rule for lint merge request
- */
-interface Rule
-{
-     /**
-     * Get rule name.
-     */
-    public function getName(): string;
+So, all custom conditions are described through the **custom** rule. You need to put your rules in the **rules** section.
 
-    /**
-     * Lint "merge requests" by specific rules
-     * Returns empty array if notes are not found.
-     * @return array<Note>
-     * @throws StopLintException
-     * @throws LintException
-     */
-    public function lint(MergeRequest $request): array;
+### Examples
 
-    /**
-     * Get rule definition.
-     */
-    public function getDefinition(): RuleDefinition;
-}
+#### 1. Branch must be in kebab-case
+
+```yaml
+rules:
+  custom:
+    - definition: "Branch must be in kebab-case"
+      rules:
+        sourceBranch:
+          isKebabCase: true
 ```
 
-### Example
+#### 2. Prohibit creating drafts on the "master" branch
 
-```php
-<?php
-
-use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-
-class ExampleRule implements Rule
-{
-    public function getName(): string
-    {
-        return "@custom-rules/example_rule";
-    }
-
-    public function lint(MergeRequest $request): array
-    {
-        if (! $request->title->startsWith('TASK-')) {
-            return [new LintNote("Prefix 'TASK' not found!")];
-        }
-        
-        return [];
-    }
-    
-    public function getDefinition(): RuleDefinition
-    {
-        return new Definition("Title must have prefix 'task'");
-    }
-}
+```yaml
+rules:
+  custom:
+    - definition: "Drafts disabled on master"
+      rules:
+        isDraft:
+          equals: false
+      when:
+        targetBranch:
+          equals: "master"
 ```
 
+#### 3. Labels must be in StudlyCase
+
+```yaml
+rules:
+  custom:
+    - definition: "Drafts disabled on master"
+      rules:
+        labels:
+          $all:
+            isStudlyCase: true
+```
