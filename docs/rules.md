@@ -15,3 +15,4 @@ Currently is available that rules:
 | @mr-linter/youtrack/has_issue_link | The description must have a link to YouTrack issue on a {domain} with {projectCode}. | `domain` - string   <br/>  `projectCode` - string   <br/>  |
 | @mr-linter/title_must_starts_with_any_prefix | The title must starts with any {prefixes} | `prefixes` - array  of strings   <br/>  |
 | @mr-linter/has_changes | Merge Request must have changes in {files}. | `changes` - array   <br/>  |
+| @mr-linter/title_starts_with_task_number | Title must starts with task number of project {projectName}. Mask: {projectName}-number | `projectName` - string   <br/>  |

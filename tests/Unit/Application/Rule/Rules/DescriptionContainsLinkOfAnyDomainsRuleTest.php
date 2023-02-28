@@ -32,6 +32,7 @@ final class DescriptionContainsLinkOfAnyDomainsRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinkOfAnyDomainsRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinkOfAnyDomainsRule::doLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinkOfAnyDomainsRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DescriptionContainsLinkOfAnyDomainsRule::getDefinition
      */
     public function testLint(MergeRequest $request, array $domains, bool $hasNotes): void
     {

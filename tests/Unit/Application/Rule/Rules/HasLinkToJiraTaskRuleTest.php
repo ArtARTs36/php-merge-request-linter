@@ -31,6 +31,7 @@ final class HasLinkToJiraTaskRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToJiraTaskRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToJiraTaskRule::doLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToJiraTaskRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToJiraTaskRule::getDefinition
      */
     public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
     {

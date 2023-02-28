@@ -1,5 +1,17 @@
 ## Examples of usage
 
+### Don't forget to include the task number in the request header
+
+Imagine you are a PHPStorm developer at JetBrains, your project in the tracker is called ["WI"](https://youtrack.jetbrains.com/issues/WI).
+
+Then your configuration will be as follows:
+
+```yaml
+rules:
+  "@mr-linter/title_starts_with_task_number":
+    projectName: "WI"
+```
+
 ### Don't forget to include labels
 
 The simplest example that allows you to set any labels.
