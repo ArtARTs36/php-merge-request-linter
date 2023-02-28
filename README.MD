@@ -9,7 +9,7 @@
 
 This project provides tools for validating merge/pull requests.
 
-Supported CI Systems: **Github Actions**, **Gitlab CI**.
+Supported CI Systems: **GitHub Actions**, **Gitlab CI**.
 
 ## Documentation
 
