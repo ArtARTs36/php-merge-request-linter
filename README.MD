@@ -20,6 +20,7 @@ Supported CI Systems: **GitHub Actions**, **Gitlab CI**.
 * [Creating custom rule](docs/custom_rule.md)
 * [Docker Image](https://hub.docker.com/repository/docker/artarts36/merge-request-linter)
 * [Config JSON Schema](mr-linter-config-schema.json)
+* [Notifications](docs/notifications.md)
 * [Run in Docker](docs/run_in_docker.md)
 * [Development](docs/development.md)
 
