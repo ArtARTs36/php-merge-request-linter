@@ -5,5 +5,5 @@ Currently is available that rules:
 | Name | Description | Parameters |
 | ------------ | ------------ | ------------ |
 {% for rule in rules %}
-| {{ rule.name }} | {{ rule.description }} | {% if rule.params|length == 0 %} None {% endif %}{% for param in rule.params%} `{{ param.name }}` - {{ param.type }} {% if param.generic %} of {{ param.generic }} {% endif %}  <br/> {% endfor%} |
+| {{ rule.name }} | {{ rule.description }} | {% if rule.params|length == 0 %} None {% endif %}{% for param in rule.params%} `{{ param.name }}` - {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %}  <br/> {% endfor%} |
 {% endfor %}
