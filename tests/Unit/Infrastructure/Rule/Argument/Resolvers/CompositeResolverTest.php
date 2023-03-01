@@ -31,7 +31,7 @@ final class CompositeResolverTest extends TestCase
     public function testResolveOk(): void
     {
         $resolver = new CompositeResolver([
-            TypeName::String->value => new class implements ArgumentResolver {
+            TypeName::String->value => new class () implements ArgumentResolver {
                 public function resolve(Type $type, mixed $value): mixed
                 {
                     return 'test-value';
