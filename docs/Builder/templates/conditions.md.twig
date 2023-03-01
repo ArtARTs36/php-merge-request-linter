@@ -1,0 +1,14 @@
+## Condition Operators
+
+Currently is available that operators:
+
+| Name | Description | Parameter |
+|------| ------------ | ----------- |
+{% for operator in operators %}
+{% for operatorName in operator.names %}
+| {{ operatorName }} | {{ operator.description }} | {% for parameter in operator.parameters %}
+{{ parameter.jsonType }}{% if parameter.generic %} of {{ parameter.generic }}s{% endif %}{% if loop.last == false %} / {% endif %}
+{% endfor%} |
+{% endfor %}
+{% endfor %}
+

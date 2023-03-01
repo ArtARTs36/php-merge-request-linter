@@ -21,6 +21,7 @@ final class LintCommandTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand::execute
      * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand::__construct
      * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand::configure
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand::printMetrics
      */
     public function testExecuteAllGood(): void
     {

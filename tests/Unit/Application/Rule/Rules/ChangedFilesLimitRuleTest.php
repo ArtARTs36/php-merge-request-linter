@@ -33,6 +33,7 @@ final class ChangedFilesLimitRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::doLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::getDefinition
      */
     public function testLint(MergeRequest $request, int $limit, bool $expected): void
     {

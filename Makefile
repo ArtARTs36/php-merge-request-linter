@@ -60,6 +60,7 @@ docker-pub-try:
 docs:
 	php docs/Builder/build_rules.php
 	php docs/Builder/build_config_json_schema.php
+	php docs/Builder/build_conditions.php
 
 deps-check:
 	@test -f composer-require-checker.phar || wget \

@@ -31,6 +31,7 @@ final class TitleStartsWithAnyPrefixRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithAnyPrefixRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithAnyPrefixRule::doLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithAnyPrefixRule::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithAnyPrefixRule::getDefinition
      */
     public function testLint(MergeRequest $request, array $prefixes, bool $hasNotes): void
     {

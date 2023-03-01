@@ -63,6 +63,9 @@ final class UpdatedPhpConstantCheckerTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\UpdatedPhpConstantChecker::check
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\UpdatedPhpConstantChecker::hasConst
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\UpdatedPhpConstantChecker::regexForConst
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\UpdatedPhpConstantChecker::regexForDefine
      * @dataProvider providerForTestCheck
      * @param array<string> $lines
      */
@@ -76,5 +79,17 @@ final class UpdatedPhpConstantCheckerTest extends TestCase
         $checker = new UpdatedPhpConstantChecker();
 
         self::assertEquals($hasNotes, count($checker->check($needChange, $requestChange)) > 0);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\UpdatedPhpConstantChecker::check
+     */
+    public function testCheckEmptyRun(): void
+    {
+        $needChange = new NeedFileChange('', null, null, null);
+
+        $checker = new UpdatedPhpConstantChecker();
+
+        self::assertCount(0, $checker->check($needChange, new Change('', new Diff([]))));
     }
 }

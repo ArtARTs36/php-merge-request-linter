@@ -21,6 +21,7 @@ final class DefaultRules
         TitleStartsWithAnyPrefixRule::NAME => TitleStartsWithAnyPrefixRule::class,
         HasChangesRule::NAME => HasChangesRule::class,
         CustomRule::NAME => CustomRule::class,
+        TitleStartsWithTaskNumberRule::NAME => TitleStartsWithTaskNumberRule::class,
     ];
 
     /**

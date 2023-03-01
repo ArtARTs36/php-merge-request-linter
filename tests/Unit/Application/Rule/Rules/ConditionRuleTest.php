@@ -42,4 +42,46 @@ final class ConditionRuleTest extends TestCase
 
         self::assertEquals($expected, $counter->getMetricValue());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule::getDefinition
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule::__construct
+     */
+    public function testGetDefinition(): void
+    {
+        $rule = new ConditionRule(
+            $subRule = new SuccessRule(),
+            MockConditionOperator::true(),
+        );
+
+        self::assertEquals($subRule->getDefinition(), $rule->getDefinition());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule::getName
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule::__construct
+     */
+    public function testGetName(): void
+    {
+        $rule = new ConditionRule(
+            $subRule = new SuccessRule(),
+            MockConditionOperator::true(),
+        );
+
+        self::assertEquals($subRule->getName(), $rule->getName());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule::getDecoratedRules
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule::__construct
+     */
+    public function testGetDecoratedRules(): void
+    {
+        $rule = new ConditionRule(
+            $subRule = new SuccessRule(),
+            MockConditionOperator::true(),
+        );
+
+        self::assertEquals([$subRule], $rule->getDecoratedRules());
+    }
 }

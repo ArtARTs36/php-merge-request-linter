@@ -2,6 +2,12 @@
 
 This file contains changelogs.
 
+v0.10.1
+--------------------
+#### Added
+* Documentation for conditions
+* Rule `@mr-linter/title_starts_with_task_number` for checking task number in request title
+
 v0.10.0
 --------------------
 #### Added
