@@ -81,4 +81,4 @@ dump:
 	./bin/mr-linter dump
 
 push-docs:
-	php ./bin/retriever.php
+	php ./vendor/bin/retriever.php
