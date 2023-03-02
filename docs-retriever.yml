@@ -1,0 +1,18 @@
+repositories:
+  source:
+    repository: 'self'
+
+  target:
+    repository: 'https://github.com/mr-linter/site-frontend'
+
+copy:
+  - source: 'docs/*.md'
+    target:
+      directory: 'docs'
+      commit:
+        message: 'Add docs from main repository'
+
+merge_request:
+  title: 'Update docs'
+  description: 'Updated docs from main repository'
+  target_branch: 'master'
