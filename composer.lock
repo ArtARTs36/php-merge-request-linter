@@ -2430,7 +2430,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArtARTs36/docs-retriever",
-                "reference": "bf69430b02ca1fad0fe8cf32518f7a807fcd7469"
+                "reference": "ccc9f0299c1edf29f43a4f04d8a1b934b5f4f240"
             },
             "require": {
                 "artarts36/git-handler": "^1.3",
@@ -2439,7 +2439,7 @@
                 "symfony/yaml": "^6.2"
             },
             "bin": [
-                "bin/retriever.php"
+                "bin/docs-retriever"
             ],
             "type": "library",
             "autoload": {
@@ -2453,7 +2453,7 @@
                     "email": "temicska99@mail.ru"
                 }
             ],
-            "time": "2023-03-02T22:54:46+00:00"
+            "time": "2023-03-02T23:16:00+00:00"
         },
         {
             "name": "artarts36/git-handler",
