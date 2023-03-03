@@ -36,16 +36,6 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
 
-      - name: Setup ssh keys
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.DOCS_RETRIEVER_SSH_KEY }}
-
-      - name: Push docs to site
-        run: make push-docs
-        env:
-          DOCS_RETRIEVER_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
-
       - name: Check dependencies
         run: make deps-check
 
