@@ -25,9 +25,7 @@ When writing a config, look at [JSON Schema](../mr-linter-config-schema.json).
 
 Implementation example: https://github.com/ArtARTs36/ShellCommand/pull/11
 
-1. Generate token on [page](https://github.com/settings/tokens/new)
-2. Open https://github.com/{owner}/{repo}/settings/secrets/actions/new. Add new secret "MR_LINTER_GITHUB_HTTP_TOKEN" with your personal access token
-3. Add new workflow file **.github/workflows/review.yml**:
+1. Add new workflow file **.github/workflows/review.yml**:
 ```yml
 name: PR Review
 
@@ -45,7 +43,7 @@ build:
       - name: Lint Pull Request
         uses: mr-linter/mr-linter-ga@v0.2.0
         env:
-          MR_LINTER_GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
+          MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Usage with Gitlab CI
