@@ -3,7 +3,7 @@ repositories:
     repository: 'self'
 
   target:
-    repository: 'https://github.com/mr-linter/site-frontend'
+    repository: 'git@github.com:mr-linter/site-frontend.git'
     token: 'env(DOCS_RETRIEVER_HTTP_TOKEN)'
 
 copy:
