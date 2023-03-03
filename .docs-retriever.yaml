@@ -1,0 +1,28 @@
+repositories:
+  source:
+    repository: 'self'
+
+  target:
+    repository: 'git@github.com:mr-linter/site-frontend.git'
+    token: 'env(DOCS_RETRIEVER_HTTP_TOKEN)'
+
+copy:
+  - source: 'docs/*.md'
+    target:
+      directory: 'src/guide'
+      commit:
+        message: 'Add docs from main repository'
+        author:
+          name: 'github-actions[bot]'
+          email: 'github-actions[bot]@users.noreply.github.com'
+
+merge_request:
+  title: '[AUTO] Update documentation'
+  target_branch: 'master'
+  user: 'artarts36'
+  description: |
+    Updated docs from main repository:
+    
+    {% for file in files %}
+    - {{ file }}
+    {% endfor %}

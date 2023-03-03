@@ -13,3 +13,4 @@ Makefile                        export-ignore
 deptrac.yaml                    export-ignore
 .mr-linter.yml                  export-ignore
 composer-require-checker.json   export-ignore
+docs-retriever.yml             export-ignore

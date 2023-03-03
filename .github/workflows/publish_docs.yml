@@ -1,0 +1,43 @@
+on:
+  pull_request:
+    types:
+      - closed
+
+name: Publish documentation to site
+jobs:
+  publish_docs:
+    if: github.event.pull_request.merged == true
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: xdebug
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-mr-linter-$GITHUB_REF-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
+
+      - name: Setup ssh keys
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.DOCS_RETRIEVER_SSH_KEY }}
+
+      - name: Push docs to site
+        run: make push-docs
+        env:
+          DOCS_RETRIEVER_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
