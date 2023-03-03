@@ -17,7 +17,7 @@ copy:
           email: 'github-actions[bot]@users.noreply.github.com'
 
 merge_request:
-  title: 'Update docs'
+  title: '[AUTO] Update documentation'
   target_branch: 'master'
   user: 'artarts36'
   description: |
