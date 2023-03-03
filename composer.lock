@@ -2430,7 +2430,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArtARTs36/docs-retriever",
-                "reference": "f4351f24d796ba131793231662ac15aca63c85cb"
+                "reference": "20161ef422024b3b3f2bf28e15c686206042e6cc"
             },
             "require": {
                 "artarts36/git-handler": "^1.3.3",
@@ -2455,7 +2455,7 @@
                     "email": "temicska99@mail.ru"
                 }
             ],
-            "time": "2023-03-03T13:36:07+00:00"
+            "time": "2023-03-03T13:38:01+00:00"
         },
         {
             "name": "artarts36/git-handler",
