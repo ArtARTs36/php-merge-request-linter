@@ -12,7 +12,7 @@ copy:
       directory: 'src/guide'
       commit:
         message: 'Add docs from main repository'
-        user:
+        author:
           name: 'github-actions[bot]'
           email: 'github-actions[bot]@users.noreply.github.com'
 
