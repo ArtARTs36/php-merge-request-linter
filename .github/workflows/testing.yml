@@ -37,7 +37,11 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
 
       - name: Push docs to site
-        run: make push-docs
+        run: |
+          echo "${{ secrets.DOCS_RETRIEVER_SSH_KEY }}" > ~/.ssh/doc-retriever && \
+          ssh-add && \
+          eval "$(ssh-agent -s)" && \
+          make push-docs
 
       - name: Check dependencies
         run: make deps-check
