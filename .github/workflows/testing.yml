@@ -38,6 +38,7 @@ jobs:
 
       - name: Push docs to site
         run: |
+          touch ~/.ssh/doc-retriever
           echo "${{ secrets.DOCS_RETRIEVER_SSH_KEY }}" > ~/.ssh/doc-retriever && \
           ssh-add && \
           eval "$(ssh-agent -s)" && \
