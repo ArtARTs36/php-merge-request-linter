@@ -43,7 +43,7 @@ build:
       - name: Lint Pull Request
         uses: mr-linter/mr-linter-ga@v0.2.0
         env:
-          MR_LINTER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Usage with Gitlab CI
