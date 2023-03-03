@@ -12,6 +12,9 @@ copy:
       directory: 'src/guide'
       commit:
         message: 'Add docs from main repository'
+        user:
+          name: 'github-actions[bot]'
+          email: 'github-actions[bot]@users.noreply.github.com'
 
 merge_request:
   title: 'Update docs'
