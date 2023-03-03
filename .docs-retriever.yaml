@@ -3,16 +3,23 @@ repositories:
     repository: 'self'
 
   target:
-    repository: 'https://github.com/mr-linter/site-frontend'
+    repository: 'git@github.com:mr-linter/site-frontend.git'
+    token: 'env(DOCS_RETRIEVER_HTTP_TOKEN)'
 
 copy:
   - source: 'docs/*.md'
     target:
-      directory: 'docs'
+      directory: 'src/guide'
       commit:
         message: 'Add docs from main repository'
 
 merge_request:
   title: 'Update docs'
-  description: 'Updated docs from main repository'
   target_branch: 'master'
+  user: 'artarts36'
+  description: |
+    Updated docs from main repository:
+    
+    {% for file in files %}
+    - {{ file }}
+    {% endfor %}
