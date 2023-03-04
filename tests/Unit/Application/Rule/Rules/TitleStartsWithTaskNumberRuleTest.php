@@ -5,32 +5,46 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use ArtARTs36\MergeRequestLinter\Tests\TestFor;
 
+#[TestFor(TitleStartsWithTaskNumberRule::class)]
 final class TitleStartsWithTaskNumberRuleTest extends TestCase
 {
     public function providerForTestLint(): array
     {
         return [
             [
-                $this->makeMergeRequest([
-                    'title' => 'TASK-1 project',
-                ]),
-                'TASK',
-                false,
+                new RuleTestDataSet(
+                    [
+                        'title' => 'TASK-1 project',
+                    ],
+                    [
+                        'TASK',
+                    ],
+                    true,
+                ),
             ],
             [
-                $this->makeMergeRequest([
-                    'title' => 'TASK- project',
-                ]),
-                'TASK',
-                true,
+                new RuleTestDataSet(
+                    [
+                        'title' => 'TASK- project',
+                    ],
+                    [
+                        'TASK',
+                    ],
+                    false,
+                ),
             ],
             [
-                $this->makeMergeRequest([
-                    'title' => 'AB TASK-1 project',
-                ]),
-                'TASK',
-                true,
+                new RuleTestDataSet(
+                    [
+                        'title' => 'AB TASK-1 project',
+                    ],
+                    [
+                        'TASK',
+                    ],
+                    false,
+                ),
             ],
         ];
     }
@@ -42,8 +56,8 @@ final class TitleStartsWithTaskNumberRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::__construct
      * @dataProvider providerForTestLint
      */
-    public function testLint(MergeRequest $request, string $projectName, bool $hasNotes): void
+    public function testLint(RuleTestDataSet $set): void
     {
-        self::assertHasNotes($request, new TitleStartsWithTaskNumberRule($projectName), $hasNotes);
+        self::assertRuleLint(new TitleStartsWithTaskNumberRule(...$set->ruleValues), $set);
     }
 }

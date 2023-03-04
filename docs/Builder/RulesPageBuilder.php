@@ -19,6 +19,7 @@ class RulesPageBuilder
 
     public function __construct(
         private RuleConstructorFinder $ruleConstructorFinder = new ConstructorFinder(),
+        private RuleTestDataSetsLoader $ruleTestDataSetsLoader = new RuleTestDataSetsLoader(),
     ) {
         //
     }
@@ -26,6 +27,8 @@ class RulesPageBuilder
     public function build(): string
     {
         $rules = [];
+
+        $testDataSets = $this->ruleTestDataSetsLoader->load();
 
         foreach (DefaultRules::map() as $ruleName => $ruleClass) {
             if ($ruleClass === CustomRule::class) {
@@ -53,6 +56,7 @@ class RulesPageBuilder
                 'params' => $params,
                 'description' => $comment,
                 'path' => $path,
+                'tests' => $testDataSets[$ruleClass] ?? [],
             ];
         }
 

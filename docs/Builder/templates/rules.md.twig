@@ -1,4 +1,4 @@
-# Available Rules
+# Validation rules
 
 Currently is available that rules:
 
@@ -7,4 +7,31 @@ Currently is available that rules:
 {% for rule in rules %}
 | {{ rule.name }} | {{ rule.description }} |{% if rule.params|length == 0 %} None {% endif %}
 {% for param in rule.params%} `{{ param.name }}` - {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %}  <br/> {% endfor%} |
+{% endfor %}
+
+{% for rule in rules %}
+## Rule "{{ rule.name }}"
+{{ rule.description }}
+### Tests
+{% for test in rule.tests %}
+#### Case №{{ loop.index }}
+Merge request properties:
+{% for reqPropKey, reqPropValue in test.requestProperties %}
+- {{ reqPropKey }}: {% if reqPropValue is iterable %}[{% for val in reqPropValue %}{{ val }}{% if loop.last == false %}, {% endif%}{% endfor %}]
+{% else %}
+{{ reqPropValue }}
+{% endif %}
+{% endfor %}
+
+Rule values:
+{% for reqPropKey, reqPropValue in test.ruleValues %}
+- {{ rule.params[reqPropKey].name }}: {% if reqPropValue is iterable %}[{% for val in reqPropValue %}{{ val }}{% if loop.last == false %}, {% endif%}{% endfor %}]
+{% else %}
+{{ reqPropValue }}
+{% endif %}
+{% endfor %}
+
+Expected state: {{ test.result ? 'true' : 'false' }}
+
+{% endfor %}
 {% endfor %}
