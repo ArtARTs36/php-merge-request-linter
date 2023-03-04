@@ -16,6 +16,15 @@ copy:
           name: 'github-actions[bot]'
           email: 'github-actions[bot]@users.noreply.github.com'
 
+  - source: 'CHANGELOG.MD'
+    target:
+      directory: 'src/guide'
+      commit:
+        message: 'Update changelog'
+        author:
+          name: 'github-actions[bot]'
+          email: 'github-actions[bot]@users.noreply.github.com'
+
 merge_request:
   title: '[AUTO] Update documentation'
   target_branch: 'master'

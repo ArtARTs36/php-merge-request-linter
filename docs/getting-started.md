@@ -17,7 +17,7 @@ Or generate **json** file with following command:
 docker run -v "${PWD}:/app/:rw" --user 1000:1000 -it artarts36/merge-request-linter:0.10.0 install --format=json
 ```
 
-When writing a config, look at [JSON Schema](../mr-linter-config-schema.json).
+When writing a config, look at [JSON Schema](config-schema.md).
 
 ## Usage with GitHub Actions
 
