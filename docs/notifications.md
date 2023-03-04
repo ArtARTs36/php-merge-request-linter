@@ -1,4 +1,4 @@
-## Notifications
+# Notifications
 
 #### Supported Messengers:
 - Telegram (via bot)

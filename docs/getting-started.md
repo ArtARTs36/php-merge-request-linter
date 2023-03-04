@@ -25,7 +25,7 @@ When writing a config, look at [JSON Schema](../mr-linter-config-schema.json).
 
 Implementation example: https://github.com/ArtARTs36/ShellCommand/pull/11
 
-1. Add new workflow file **.github/workflows/review.yml**:
+Add new workflow file **.github/workflows/review.yml**:
 ```yml
 name: PR Review
 
