@@ -1,4 +1,4 @@
-# Available Rules
+# Validation rules
 
 Currently is available that rules:
 
