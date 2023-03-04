@@ -11,6 +11,8 @@ This project provides tools for validating merge/pull requests.
 
 Supported CI Systems: **GitHub Actions**, **Gitlab CI**.
 
+[Read more about MR Linter »](https://mr-linter.dev)
+
 ## Documentation
 
 * [Getting Started](docs/getting-started.md)
