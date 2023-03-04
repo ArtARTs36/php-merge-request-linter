@@ -51,7 +51,7 @@ build:
 [See example](https://gitlab.com/artem_ukrainsky/mr-linter-testing/)
 
 1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
-2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_GITLAB_HTTP_TOKEN" with your personal access token
+2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_HTTP_TOKEN" with your personal access token
 3. Add new step into **.gitlab-ci.yml**
    ```yaml
    mr-lint:

@@ -19,6 +19,6 @@
     "@mr-linter/description_not_empty": {}
   },
   "credentials": {
-    "github_actions": "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
+    "github_actions": "env(MR_LINTER_HTTP_TOKEN)"
   }
 }
