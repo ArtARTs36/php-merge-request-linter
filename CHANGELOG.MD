@@ -82,24 +82,22 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## v0.7.9
+## [v0.7.9](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.8..0.7.9)
 
 ### Added
 * Added condition `match` for chechking string on match regex.
 
 -----------------------------------------------------------------
 
-## v0.7.8
-
-### Added
-* Added coverage reporting
+## [v0.7.8](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.7..0.7.8)
 
 ### Internal
+* Added coverage reporting
 * Added some tests
 
 -----------------------------------------------------------------
 
-## v0.7.7
+## [v0.7.7](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.6..0.7.7)
 
 ### Added
 * Added `notStarts` Condition Operator
@@ -107,41 +105,39 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## v0.7.6
+## [v0.7.6](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.5..0.7.6)
 
 ### Added
 * Added interface `HasDebugInfo` for better object printing.
 
 -----------------------------------------------------------------
 
-## v0.7.5
+## [v0.7.5](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.4..0.7.5)
 
-### Moved
+### Changed
 * Moved exception on building guzzle client to ClientFactory
+* Static class URI
 
 ### Fixed
 * Command `dump`: print concrete rule class
 
-### Removed
-* Static class URI
-
 -----------------------------------------------------------------
 
-## v0.7.4
+## [v0.7.4](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.3..0.7.4)
 
 ### Added
 * Added command `mr-linter install`: Copy config into yaml, json files
 
 -----------------------------------------------------------------
 
-## v0.7.3
+## [v0.7.3](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.2..0.7.3)
 
 ### Changed
 * Configuration loading refactoring
 
 -----------------------------------------------------------------
 
-## v0.7.2
+## [v0.7.2](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.1..0.7.2)
 
 ### Added
 * Support many configurations for Rule
@@ -149,24 +145,24 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## v0.7.1
+## [v0.7.1](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.0..0.7.1)
 
-### Added
+## Internal
 * Deptrac
 * Contracts for YAML/JSON decoding.
 
 -----------------------------------------------------------------
 
-## v0.7.0
+## [v0.7.0](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.6.0..0.7.0)
 
 ### Added
 * Metrics
-* Debug mode, `mr-linter lint --debug`
+* Debug mode, command `mr-linter lint --debug`
 * Logging for HTTP Requests
 
 -----------------------------------------------------------------
 
-## v0.6.0
+## [v0.6.0](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.5.1..0.6.0)
 
 ### Added
 * Added Rule **HasChanges**
@@ -176,28 +172,28 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## v0.5.1
+## [v0.5.1](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.5.0..0.5.1)
 
 ### Fixed
 * [Bug] Credentials are required to be filled
 
 -----------------------------------------------------------------
 
-## v0.5.0
+## [v0.5.0](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.4.0..0.5.0)
 
 ### Added
 * Added YAML Config Loader
 
 -----------------------------------------------------------------
 
-## v0.4.0
+## [v0.4.0](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.3.0..0.4.0)
 
 ### Added
 * Added rule conditions
 
 -----------------------------------------------------------------
 
-## v0.3.0
+## [v0.3.0](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.2.0..0.3.0)
 
 ### Added
 * Loading Config from JSON
@@ -205,21 +201,21 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## v0.2.0
+## [v0.2.0](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.1.5..0.2.0)
 
 ### Added
 * Added method `getName` to Rule
 
 -----------------------------------------------------------------
 
-## 0.1.5
+## [v0.1.5](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.1.4..0.1.5)
 
 ### Fixed
 * Fix finding composer autoload path in binary
 
 -----------------------------------------------------------------
 
-## v0.1.4
+## [v0.1.4](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.1.3..0.1.4)
 
 ### Added
 * Added rule for check count changed files on a limit
@@ -227,7 +223,7 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## v0.1.3
+## [v0.1.3](https://github.com/ArtARTs36/php-merge-request-linter/compare/v0.1.2..0.1.3)
 
 ### Changed
 * Update exception hierarchy. Parent: MergeRequestLinterException
@@ -237,7 +233,7 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## v0.1.2
+## [v0.1.2](https://github.com/ArtARTs36/php-merge-request-linter/compare/v0.1.1..v0.1.2)
 
 ### Added
 * [Feature] Added rule "Has link to YouTrack issue"
@@ -247,14 +243,14 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## [v0.1.1](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.1.0..0.1.1)
+## [v0.1.1](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.1.0..v0.1.1)
 
 ### Added
 * [Feature] Added rule "Has link to Jira task"
 
 -----------------------------------------------------------------
 
-## v0.1.0
+## [v0.1.0](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.1.0)
 
 ### Added
 * 🔥 Init library

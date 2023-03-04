@@ -25,6 +25,8 @@ Supported CI Systems: **GitHub Actions**, **Gitlab CI**.
 * [Notifications](docs/notifications.md)
 * [Run in Docker](docs/run-in-docker.md)
 * [Development](docs/development.md)
+* [Changelog](CHANGELOG.MD)
+* [License](LICENSE)
 
 ## Console output example
 
