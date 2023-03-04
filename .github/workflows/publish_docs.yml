@@ -1,7 +1,6 @@
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches: [ master ]
 
 name: Publish documentation to site
 jobs:
