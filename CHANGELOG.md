@@ -1,4 +1,4 @@
-# CHANGELOG for Merge Request Linter
+# Changelog
 
 This file contains changelogs.
 
@@ -177,7 +177,7 @@ This file contains changelogs.
 
 ## [v0.7.1 (2022-01-13)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.7.0..0.7.1)
 
-## Internal
+### Internal
 * Deptrac
 * Contracts for YAML/JSON decoding.
 
