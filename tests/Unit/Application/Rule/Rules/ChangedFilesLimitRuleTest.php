@@ -3,27 +3,28 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule;
-use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use ArtARTs36\MergeRequestLinter\Tests\TestFor;
 
+#[TestFor(ChangedFilesLimitRule::class)]
 final class ChangedFilesLimitRuleTest extends TestCase
 {
     public function providerForTestLint(): array
     {
         return [
             [
-                $this->makeMergeRequest([
-                    'changes' => array_fill(0, 150, 1),
-                ]),
-                50,
-                true,
+                new RuleTestDataSet(
+                    ['changes' => array_fill(0, 10, 1)],
+                    [5],
+                    false,
+                ),
             ],
             [
-                $this->makeMergeRequest([
-                    'changes' => array_fill(0, 40, 1),
-                ]),
-                50,
-                false,
+                new RuleTestDataSet(
+                    ['changes' => array_fill(0, 5, 1)],
+                    [10],
+                    true,
+                ),
             ],
         ];
     }
@@ -35,8 +36,8 @@ final class ChangedFilesLimitRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::__construct
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangedFilesLimitRule::getDefinition
      */
-    public function testLint(MergeRequest $request, int $limit, bool $expected): void
+    public function testLint(RuleTestDataSet $set): void
     {
-        self::assertHasNotes($request, new ChangedFilesLimitRule($limit), $expected);
+        self::assertRuleLint(new ChangedFilesLimitRule(...$set->ruleValues), $set);
     }
 }

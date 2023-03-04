@@ -14,6 +14,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules\RuleTestDataSet;
 use ArtARTs36\Str\Str;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -53,6 +54,19 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function makeEnvironment(array $env): Environment
     {
         return new MapEnvironment(new ArrayMap($env));
+    }
+
+    protected function assertRuleLint(Rule $rule, RuleTestDataSet $set): void
+    {
+        $notes = $rule->lint($this->makeMergeRequest($set->requestProperties));
+
+        self::assertEquals($set->result, count($notes) === 0, sprintf(
+            'Given %d notes: %s',
+            count($notes),
+            implode(', ', array_map(function (Note $note) {
+                return $note->getDescription();
+            }, $notes)),
+        ));
     }
 
     protected function assertHasNotes(MergeRequest $request, Rule $rule, bool $expected): void
