@@ -5,8 +5,6 @@ on:
 name: Publish documentation to site
 jobs:
   publish_docs:
-    if: github.event.pull_request.merged == true
-
     runs-on: ubuntu-latest
 
     steps:
