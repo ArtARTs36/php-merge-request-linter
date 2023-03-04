@@ -16,7 +16,7 @@ copy:
           name: 'github-actions[bot]'
           email: 'github-actions[bot]@users.noreply.github.com'
 
-  - source: 'CHANGELOG.MD'
+  - source: 'CHANGELOG.md'
     target:
       directory: 'src/guide'
       commit:
