@@ -2,7 +2,7 @@
 
 This page contains list of commands for Docker.
 
-## Run lint command:
+## Run "lint" command
 
 ```shell
 docker run \
@@ -16,7 +16,7 @@ docker run \
   artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
 ```
 
-## Run info command:
+## Run "info" command
 
 ```shell
 docker run \
@@ -24,7 +24,7 @@ docker run \
   artarts36/merge-request-linter:${MR_LINTER_VERSION} info
 ```
 
-## Run dump command:
+## Run "dump" command:
 
 ```shell
 docker run \
@@ -32,7 +32,7 @@ docker run \
   artarts36/merge-request-linter:${MR_LINTER_VERSION} dump
 ```
 
-## Run install command:
+## Run "install" command:
 
 ```shell
 docker run -v "${PWD}:/app/:rw" --user 1000:1000 -it artarts36/merge-request-linter:0.10.0 install

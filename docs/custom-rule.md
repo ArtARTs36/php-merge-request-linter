@@ -21,6 +21,8 @@ rules:
 
 ## 2. Labels must be in StudlyCase
 
+In this configuration, the "$all" keyword means that each label must be in a studly case.
+
 ```yaml
 rules:
   custom:
