@@ -5,8 +5,8 @@ This page contains list of commands for Docker.
 ## Run "lint" command
 
 You need setup variables:
-* `MR_ID` - ID of your merge/pull
-* `TOKEN` - github/gitlab token
+* `MR_ID` - ID of your pull request
+* `TOKEN` - GitHub token
 
 ```shell
 docker run \
