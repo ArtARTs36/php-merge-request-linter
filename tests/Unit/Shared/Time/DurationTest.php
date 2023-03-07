@@ -17,4 +17,14 @@ final class DurationTest extends TestCase
 
         self::assertEquals('0.12s', (string) $duration);
     }
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Duration::getMetricValue
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Duration::__construct
+     */
+    public function testToGetMetricValue(): void
+    {
+        $duration = new Duration(0.12);
+
+        self::assertEquals('0.12s', $duration->getMetricValue());
+    }
 }
