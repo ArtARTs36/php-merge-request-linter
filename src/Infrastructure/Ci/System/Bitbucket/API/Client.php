@@ -22,7 +22,7 @@ class Client
     public function getPullRequest(PullRequestInput $input): PullRequest
     {
         $url = sprintf(
-            'https://%s/api/2.0/projects/%s/repos/%s/pull-requests/%s',
+            'https://%s/rest/api/latest/projects/%s/repos/%s/pull-requests/%d',
             $input->host,
             $input->projectKey,
             $input->repoName,
