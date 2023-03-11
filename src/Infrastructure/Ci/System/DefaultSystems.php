@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
@@ -14,6 +15,7 @@ final class DefaultSystems
     public static array $map = [
         GithubActions::NAME => GithubActions::class,
         GitlabCi::NAME => GitlabCi::class,
+        BitbucketPipelines::NAME => BitbucketPipelines::class,
     ];
 
     /**

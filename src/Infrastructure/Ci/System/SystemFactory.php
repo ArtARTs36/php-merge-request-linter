@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Cleaner\LeagueMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
@@ -44,6 +46,7 @@ class SystemFactory implements CiSystemFactory
         $this->creators = [
             GithubActions::class => $this->createGithubActions(...),
             GitlabCi::class => $this->createGitlabCi(...),
+            BitbucketPipelines::NAME => $this->createBitbucketPipelines(...),
         ] + $creators;
     }
 
@@ -134,6 +137,14 @@ class SystemFactory implements CiSystemFactory
                 $this->logger,
             ),
             new LeagueMarkdownCleaner(new CommonMarkConverter()),
+        );
+    }
+
+    protected function createBitbucketPipelines(RemoteCredentials $credentials, HttpClient $httpClient): BitbucketPipelines
+    {
+        return new BitbucketPipelines(
+            new Bitbucket\API\Client($credentials, $httpClient, $this->logger),
+            new BitbucketEnvironment($this->environment),
         );
     }
 }
