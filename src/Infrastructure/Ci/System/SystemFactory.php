@@ -46,7 +46,7 @@ class SystemFactory implements CiSystemFactory
         $this->creators = [
             GithubActions::class => $this->createGithubActions(...),
             GitlabCi::class => $this->createGitlabCi(...),
-            BitbucketPipelines::NAME => $this->createBitbucketPipelines(...),
+            BitbucketPipelines::class => $this->createBitbucketPipelines(...),
         ] + $creators;
     }
 
