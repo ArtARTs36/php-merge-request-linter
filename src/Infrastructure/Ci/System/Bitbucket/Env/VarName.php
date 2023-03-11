@@ -9,4 +9,5 @@ enum VarName: string
     case PullRequestId = 'BITBUCKET_PR_ID';
     case RepoName = 'BITBUCKET_REPO_SLUG';
     case HttpOrigin = 'BITBUCKET_GIT_HTTP_ORIGIN';
+    case Workspace = 'BITBUCKET_WORKSPACE';
 }

@@ -28,10 +28,10 @@ class BitbucketEnvironment
 
     public function getRepo(): Repo
     {
-        $projectKey = $this->environment->getString(VarName::ProjectKey->value);
+        $workspace = $this->environment->getString(VarName::Workspace->value);
         $repoName = $this->environment->getString(VarName::RepoName->value);
 
-        return new Repo($projectKey, $repoName);
+        return new Repo($workspace, $repoName);
     }
 
     public function getHost(): string

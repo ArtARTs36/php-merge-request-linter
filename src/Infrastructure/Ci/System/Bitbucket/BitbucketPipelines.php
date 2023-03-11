@@ -51,7 +51,7 @@ class BitbucketPipelines implements CiSystem
         $prId = $this->environment->getPullRequestId();
 
         $pr = $this->client->getPullRequest(new PullRequestInput(
-            $repo->projectKey,
+            $repo->workspace,
             $repo->slug,
             $prId,
             $this->environment->getHost(),
