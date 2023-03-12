@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use Psr\Http\Message\RequestInterface;
 
-final class Token implements Authenticator
+final class TokenAuthenticator implements Authenticator
 {
     public function __construct(
         private readonly string $header,

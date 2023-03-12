@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\BasicBase64;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\CompositeAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HostAuthenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\Token;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
 
@@ -21,11 +21,11 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
     public function map(array|string $value): Authenticator
     {
         if (is_string($value)) {
-            return Token::bearer($this->valueTransformer->tryTransform($value));
+            return TokenAuthenticator::bearer($this->valueTransformer->tryTransform($value));
         }
 
         if (array_key_exists('token', $value)) {
-            return Token::bearer($this->valueTransformer->tryTransform($value['token']));
+            return TokenAuthenticator::bearer($this->valueTransformer->tryTransform($value['token']));
         }
 
         $authenticators = [];
