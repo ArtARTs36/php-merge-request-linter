@@ -145,6 +145,7 @@ class SystemFactory implements CiSystemFactory
         return new BitbucketPipelines(
             new Bitbucket\API\Client($credentials, $httpClient, $this->logger),
             new BitbucketEnvironment($this->environment),
+            new LeagueMarkdownCleaner(new CommonMarkConverter()),
         );
     }
 }
