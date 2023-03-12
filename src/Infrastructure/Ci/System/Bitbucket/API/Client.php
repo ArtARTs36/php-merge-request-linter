@@ -29,11 +29,13 @@ class Client
         );
 
         $this->logger->info(sprintf(
-            '[BitbucketClient] fetching pull request at url "%s"',
+            '[BitbucketClient] fetching pull request at url "%s" with credentials: %s',
             $url,
+            $this->credentials->getToken(),
         ));
 
         $request = new Request('GET', $url);
+
         $request = $this->applyCredentials($request);
         $response = $this->http->sendRequest($request);
 
