@@ -15,14 +15,14 @@ class PullRequest
         public readonly \DateTimeImmutable $createdAt,
         public readonly string             $uri,
         public readonly string             $description,
-        public readonly string             $state,
+        public readonly ?PullRequestState   $state,
     ) {
         //
     }
 
     public function canMerge(): bool
     {
-        return $this->state === 'OPEN';
+        return $this->state === PullRequestState::Open;
     }
 
     public function isDraft(): bool

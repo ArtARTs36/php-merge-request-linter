@@ -67,7 +67,7 @@ class Client
             new \DateTimeImmutable($data['created_on']),
             $data['links']['html']['href'] ?? '',
             $data['description'] ?? '',
-            $data['state'] ?? '',
+            isset($data['state']) ? PullRequestState::tryFrom($data['state']) : null,
         );
     }
 }
