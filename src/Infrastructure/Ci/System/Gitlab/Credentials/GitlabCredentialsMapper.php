@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\WrapTokenAuthenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
 
@@ -19,6 +19,6 @@ class GitlabCredentialsMapper implements AuthenticatorMapper
     {
         $token = is_array($credentials) ? reset($credentials) : $credentials;
 
-        return new WrapTokenAuthenticator($this->valueTransformer->tryTransform($token), 'PRIVATE-TOKEN');
+        return new TokenAuthenticator('PRIVATE-TOKEN', $this->valueTransformer->tryTransform($token));
     }
 }
