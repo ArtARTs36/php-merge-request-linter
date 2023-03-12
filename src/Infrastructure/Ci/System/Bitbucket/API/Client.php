@@ -48,7 +48,9 @@ class Client
             return $request;
         }
 
-        return $request->withHeader('Authorization', 'bearer ' . $this->credentials->getToken());
+        $auth = base64_encode(sprintf('aukrainsky:%s', $this->credentials->getToken()));
+
+        return $request->withHeader('Authorization', 'Basic ' . $auth);
     }
 
     private function makePullRequest(array $data): PullRequest
