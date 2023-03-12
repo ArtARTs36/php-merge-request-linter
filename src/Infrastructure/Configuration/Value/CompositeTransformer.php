@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\InvalidConfigValueException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\TransformConfigValueException;
 
 class CompositeTransformer implements ConfigValueTransformer
 {

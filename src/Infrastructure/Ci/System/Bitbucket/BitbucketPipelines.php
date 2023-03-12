@@ -23,8 +23,7 @@ class BitbucketPipelines implements CiSystem
         private readonly Client $client,
         private readonly BitbucketEnvironment $environment,
         private readonly MarkdownCleaner $markdownCleaner,
-    )
-    {
+    ) {
         //
     }
 

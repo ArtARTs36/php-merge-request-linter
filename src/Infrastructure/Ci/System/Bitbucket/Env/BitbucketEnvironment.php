@@ -18,6 +18,9 @@ class BitbucketEnvironment
         return $this->environment->has(VarName::ProjectKey->value);
     }
 
+    /**
+     * @throws EnvironmentVariableNotFoundException
+     */
     public function getRepo(): Repo
     {
         $workspace = $this->environment->getString(VarName::Workspace->value);
@@ -26,6 +29,9 @@ class BitbucketEnvironment
         return new Repo($workspace, $repoName);
     }
 
+    /**
+     * @throws EnvironmentVariableNotFoundException
+     */
     public function getPullRequestId(): int
     {
         return $this->environment->getInt(VarName::PullRequestId->value);

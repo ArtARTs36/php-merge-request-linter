@@ -9,5 +9,8 @@ use Psr\Http\Message\RequestInterface;
  */
 interface Authenticator
 {
+    /**
+     * Authenticate request.
+     */
     public function authenticate(RequestInterface $request): RequestInterface;
 }
