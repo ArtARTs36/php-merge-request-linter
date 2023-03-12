@@ -48,7 +48,7 @@ class Client
             return $request;
         }
 
-        return $request->withHeader('JWT', $this->credentials->getToken());
+        return $request->withHeader('Authorization', 'bearer ' . $this->credentials->getToken());
     }
 
     private function makePullRequest(array $data): PullRequest
