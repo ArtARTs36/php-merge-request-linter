@@ -39,6 +39,8 @@ class Client
         $request = $this->applyCredentials($request);
         $response = $this->http->sendRequest($request);
 
+        var_dump($response);
+
         return $this->makePullRequest($this->responseToJsonArray($response));
     }
 
