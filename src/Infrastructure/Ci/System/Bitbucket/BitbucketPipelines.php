@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Markdown;
@@ -21,6 +22,7 @@ class BitbucketPipelines implements CiSystem
     public function __construct(
         private readonly Client $client,
         private readonly BitbucketEnvironment $environment,
+        private readonly MarkdownCleaner $markdownCleaner,
     )
     {
         //
@@ -57,17 +59,19 @@ class BitbucketPipelines implements CiSystem
             $this->environment->getHost(),
         ));
 
+        $description = Str::make($pr->description);
+
         return new MergeRequest(
             Str::make($pr->title),
-            new Markdown(Str::fromEmpty()),
-            Str::fromEmpty(),
+            new Markdown($description),
+            $this->markdownCleaner->clean($description),
             new Set([]),
             false,
             Str::make($pr->sourceBranch),
             Str::make($pr->targetBranch),
             new Author(Str::make($pr->authorNickname)),
-            false,
-            true,
+            $pr->isDraft(),
+            $pr->canMerge(),
             new ArrayMap([]),
             $pr->createdAt,
             Str::make($pr->uri),
