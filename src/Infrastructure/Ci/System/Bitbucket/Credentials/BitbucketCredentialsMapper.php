@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Credentials;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\BasicBase64;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\BasicBase64Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\CompositeAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HostAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator;
@@ -41,7 +41,7 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
                 }
             }
 
-            $authenticators[] = new BasicBase64($value['app_password']['user'], $value['app_password']['password']);
+            $authenticators[] = new BasicBase64Authenticator($value['app_password']['user'], $value['app_password']['password']);
         }
 
         return new CompositeAuthenticator($authenticators);

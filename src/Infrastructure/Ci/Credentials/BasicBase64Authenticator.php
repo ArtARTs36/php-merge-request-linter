@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use Psr\Http\Message\RequestInterface;
 
-final class BasicBase64 implements Authenticator
+final class BasicBase64Authenticator implements Authenticator
 {
     public function __construct(
         private readonly string $user,
@@ -20,6 +20,7 @@ final class BasicBase64 implements Authenticator
     }
 
     /**
+     * @codeCoverageIgnore
      * @return array<null>|null
      */
     public function __debugInfo(): ?array
