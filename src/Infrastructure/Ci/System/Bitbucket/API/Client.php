@@ -66,7 +66,8 @@ class Client
             $data['destination']['branch']['name'] ?? '',
             new \DateTimeImmutable($data['created_on']),
             $data['links']['html']['href'] ?? '',
-            $data['rendered']['description'] ?? '',
+            $data['description'] ?? '',
+            $data['state'] ?? '',
         );
     }
 }
