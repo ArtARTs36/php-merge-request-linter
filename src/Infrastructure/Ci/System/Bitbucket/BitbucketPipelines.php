@@ -63,14 +63,14 @@ class BitbucketPipelines implements CiSystem
             Str::fromEmpty(),
             new Set([]),
             false,
-            Str::fromEmpty(),
-            Str::fromEmpty(),
-            new Author(Str::make($pr->title)),
+            Str::make($pr->sourceBranch),
+            Str::make($pr->targetBranch),
+            new Author(Str::make($pr->authorNickname)),
             false,
             true,
             new ArrayMap([]),
-            new \DateTimeImmutable(),
-            Str::fromEmpty(),
+            $pr->createdAt,
+            Str::make($pr->uri),
         );
     }
 }

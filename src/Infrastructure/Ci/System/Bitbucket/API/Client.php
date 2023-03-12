@@ -61,6 +61,11 @@ class Client
         return new PullRequest(
             $data['id'],
             $data['title'],
+            $data['author']['nickname'] ?? '',
+            $data['source']['branch']['name'] ?? '',
+            $data['destination']['branch']['name'] ?? '',
+            new \DateTimeImmutable($data['created_on']),
+            $data['links']['html']['href'] ?? '',
         );
     }
 }
