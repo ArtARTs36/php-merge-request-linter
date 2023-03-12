@@ -43,6 +43,9 @@ class Client
         return $this->makePullRequest($responseArray);
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function makePullRequest(array $data): PullRequest
     {
         return new PullRequest(

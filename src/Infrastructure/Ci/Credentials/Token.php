@@ -24,6 +24,9 @@ final class Token implements Authenticator
         return new self('Authorization', 'Bearer ' . $token);
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function __debugInfo(): array
     {
         return [

@@ -19,6 +19,9 @@ final class WrapToken implements Authenticator
         return $request->withHeader($this->header, $this->token);
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function __debugInfo(): array
     {
         return [

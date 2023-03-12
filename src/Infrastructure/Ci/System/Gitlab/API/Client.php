@@ -34,7 +34,8 @@ class Client implements GitlabClient
             $input->requestId,
         );
 
-        $request = new Request('GET', $url, $this->authHeaders());
+        $request = new Request('GET', $url);
+        $request = $this->credentials->authenticate($request);
 
         $resp = $this->client->sendRequest($request);
 
@@ -73,17 +74,5 @@ class Client implements GitlabClient
         }
 
         return $changes;
-    }
-
-    /**
-     * @return array<string, array<mixed>>
-     */
-    private function authHeaders(): array
-    {
-        return [
-            'PRIVATE-TOKEN' => [
-                $this->credentials->buildHeaders(),
-            ],
-        ];
     }
 }

@@ -19,6 +19,9 @@ final class BasicBase64 implements Authenticator
         return $request->withHeader('Authorization', 'Basic '. base64_encode("$this->user:$this->password"));
     }
 
+    /**
+     * @return array<null>|null
+     */
     public function __debugInfo(): ?array
     {
         return null;

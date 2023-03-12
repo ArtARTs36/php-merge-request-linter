@@ -11,7 +11,7 @@ interface AuthenticatorMapper
 {
     /**
      * Map raw data to Authenticator.
-     * @param array<string, string>|string $credentials
+     * @param array<string, mixed> $credentials
      */
     public function map(array|string $credentials): Authenticator;
 }
