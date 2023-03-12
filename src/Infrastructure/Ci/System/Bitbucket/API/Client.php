@@ -38,10 +38,11 @@ class Client
 
         $request = $this->applyCredentials($request);
         $response = $this->http->sendRequest($request);
+        $responseArray = $this->responseToJsonArray($response);
 
-        var_dump($response);
+        var_dump($responseArray);
 
-        return $this->makePullRequest($this->responseToJsonArray($response));
+        return $this->makePullRequest($responseArray);
     }
 
     private function applyCredentials(Request $request): Request
