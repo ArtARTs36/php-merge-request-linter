@@ -22,7 +22,7 @@ class Client
     public function getPullRequest(PullRequestInput $input): PullRequest
     {
         $url = sprintf(
-            'https://api.bitbucket.org/2.0/repositories/{workspaceID}/%s/pullrequests/%s',
+            'https://api.bitbucket.org/2.0/repositories/%s/%s/pullrequests/%s',
             $input->projectKey,
             $input->repoName,
             $input->requestId,
