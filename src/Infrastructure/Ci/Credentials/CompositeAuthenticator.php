@@ -19,7 +19,7 @@ class CompositeAuthenticator implements Authenticator
     public function authenticate(RequestInterface $request): RequestInterface
     {
         foreach ($this->authenticators as $authenticator) {
-            $authenticator->authenticate($request);
+            $request = $authenticator->authenticate($request);
         }
 
         return $request;

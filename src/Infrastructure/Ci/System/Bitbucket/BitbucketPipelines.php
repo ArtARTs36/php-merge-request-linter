@@ -56,7 +56,6 @@ class BitbucketPipelines implements CiSystem
             $repo->workspace,
             $repo->slug,
             $prId,
-            $this->environment->getHost(),
         ));
 
         $description = Str::make($pr->description);

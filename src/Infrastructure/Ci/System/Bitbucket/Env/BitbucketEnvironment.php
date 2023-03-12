@@ -26,13 +26,6 @@ class BitbucketEnvironment
         return new Repo($workspace, $repoName);
     }
 
-    public function getHost(): string
-    {
-        $origin = $this->environment->getString(VarName::HttpOrigin->value);
-
-        return parse_url($origin, PHP_URL_HOST);
-    }
-
     public function getPullRequestId(): int
     {
         return $this->environment->getInt(VarName::PullRequestId->value);

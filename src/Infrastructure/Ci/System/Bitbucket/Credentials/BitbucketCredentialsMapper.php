@@ -30,8 +30,8 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
             $authenticators[] = new HostAuthenticator($value['host']);
         }
 
-        if (array_key_exists('app_password', $value) && count($value) === 2) {
-            foreach ($value as &$v) {
+        if (array_key_exists('app_password', $value) && count($value['app_password']) === 2) {
+            foreach ($value['app_password'] as &$v) {
                 if ($this->valueTransformer->supports($v)) {
                     $v = $this->valueTransformer->transform($v);
                 }

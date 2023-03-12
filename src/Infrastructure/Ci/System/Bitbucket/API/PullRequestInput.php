@@ -8,7 +8,6 @@ class PullRequestInput
         public readonly string $projectKey,
         public readonly string $repoName,
         public readonly int    $requestId,
-        public readonly string $host,
     ) {
         //
     }
