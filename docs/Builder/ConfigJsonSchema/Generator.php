@@ -39,6 +39,38 @@ class Generator
                     'description' => 'Token',
                     'type' => 'string',
                 ],
+                'bitbucket_pipelines' => [
+                    'oneOf' => [
+                        [
+                            'type' => 'object',
+                            'properties' => [
+                                'host' => [
+                                    'type' => 'string',
+                                    'description' => 'API Host',
+                                ],
+                                'token' => [
+                                    'type' => 'string',
+                                    'description' => 'API Token',
+                                ],
+                                'app_password' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'user' => [
+                                            'type' => 'string',
+                                        ],
+                                        'password' => [
+                                            'type' => 'string',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        [
+                            'type' => 'string',
+                            'description' => 'token',
+                        ],
+                    ],
+                ],
             ],
             'additionalProperties' => false,
         ]);
