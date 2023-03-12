@@ -13,14 +13,6 @@ class BitbucketEnvironment
         //
     }
 
-    /**
-     * @throws EnvironmentVariableNotFoundException
-     */
-    public function getPipelinesToken(): string
-    {
-        return $this->environment->getString(VarName::PipelinesToken->value);
-    }
-
     public function isWorking(): bool
     {
         return $this->environment->has(VarName::ProjectKey->value);
