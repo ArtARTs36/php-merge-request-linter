@@ -2,55 +2,41 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\Token;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
+use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 
 class CredentialMapper
 {
     /**
-     * @param iterable<ConfigValueTransformer> $valueTransformers
+     * @param array<string, AuthenticatorMapper> $mappers
      * @param Map<string, class-string<CiSystem>> $ciSystemMap
      */
     public function __construct(
-        private readonly iterable $valueTransformers,
-        private readonly Map $ciSystemMap,
+        private readonly array $mappers,
+        private readonly Map   $ciSystemMap,
     ) {
         //
     }
 
     /**
-     * @param array<string, string> $credentials
-     * @return ArrayMap<class-string<CiSystem>, RemoteCredentials>
+     * @param array<string, string|array<string, string>> $credentials
+     * @return ArrayMap<class-string<CiSystem>, Authenticator>
      */
     public function map(array $credentials): ArrayMap
     {
-        /** @var array<class-string<CiSystem>, RemoteCredentials> $mapped */
+        /** @var array<class-string<CiSystem>, Authenticator> $mapped */
         $mapped = [];
 
-        foreach ($credentials as $ciName => $token) {
+        foreach ($credentials as $ciName => $credential) {
             /** @var class-string<CiSystem> $ciClass */
             $ciClass = $this->ciSystemMap->get($ciName);
 
-            foreach ($this->valueTransformers as $transformer) {
-                if ($transformer->supports($token)) {
-                    $mapped[$ciClass] = $this->createCredentials($transformer->transform($token));
-
-                    continue 2;
-                }
-            }
-
-            $mapped[$ciClass] = $this->createCredentials($token);
+            $mapped[$ciClass] = $this->mappers[$ciName]->map($credential);
         }
 
         return new ArrayMap($mapped);
-    }
-
-    private function createCredentials(string $token): Token
-    {
-        return new Token($token);
     }
 }

@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\Bitbucke
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Cleaner\LeagueMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
@@ -28,12 +28,12 @@ use Psr\Log\LoggerInterface;
 
 class SystemFactory implements CiSystemFactory
 {
-    /** @var array<class-string<CiSystem>, callable(RemoteCredentials, HttpClient): CiSystem> */
+    /** @var array<class-string<CiSystem>, callable(Authenticator, HttpClient): CiSystem> */
     protected array $creators;
 
     /**
      * @param Map<string, class-string<CiSystem>> $ciSystems
-     * @param array<class-string<CiSystem>, callable(RemoteCredentials, HttpClient): CiSystem> $creators
+     * @param array<class-string<CiSystem>, callable(Authenticator, HttpClient): CiSystem> $creators
      */
     public function __construct(
         protected Config            $config,
@@ -107,15 +107,15 @@ class SystemFactory implements CiSystemFactory
     }
 
     /**
-     * @param callable(RemoteCredentials, HttpClient): CiSystem $creator
+     * @param callable(Authenticator, HttpClient): CiSystem $creator
      * @return CiSystem
      */
-    protected function createUsingCreator(callable $creator, RemoteCredentials $credentials, HttpClient $client): CiSystem
+    protected function createUsingCreator(callable $creator, Authenticator $credentials, HttpClient $client): CiSystem
     {
         return $creator($credentials, $client);
     }
 
-    protected function createGithubActions(RemoteCredentials $credentials, HttpClient $httpClient): CiSystem
+    protected function createGithubActions(Authenticator $credentials, HttpClient $httpClient): CiSystem
     {
         return new GithubActions(new GithubEnvironment($this->environment), new Client(
             $httpClient,
@@ -126,7 +126,7 @@ class SystemFactory implements CiSystemFactory
         ));
     }
 
-    protected function createGitlabCi(RemoteCredentials $credentials, HttpClient $httpClient): CiSystem
+    protected function createGitlabCi(Authenticator $credentials, HttpClient $httpClient): CiSystem
     {
         return new GitlabCi(
             new GitlabEnvironment($this->environment),
@@ -140,7 +140,7 @@ class SystemFactory implements CiSystemFactory
         );
     }
 
-    protected function createBitbucketPipelines(RemoteCredentials $credentials, HttpClient $httpClient): BitbucketPipelines
+    protected function createBitbucketPipelines(Authenticator $credentials, HttpClient $httpClient): BitbucketPipelines
     {
         return new BitbucketPipelines(
             new Bitbucket\API\Client($credentials, $httpClient, $this->logger),

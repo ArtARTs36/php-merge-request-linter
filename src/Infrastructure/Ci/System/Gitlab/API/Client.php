@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API;
 
-use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
@@ -15,9 +15,9 @@ class Client implements GitlabClient
     use InteractsWithResponse;
 
     public function __construct(
-        private readonly RemoteCredentials $credentials,
+        private readonly Authenticator   $credentials,
         private readonly ClientInterface $client,
-        private readonly DiffMapper $diffMapper,
+        private readonly DiffMapper      $diffMapper,
         private readonly LoggerInterface $logger,
     ) {
         //
@@ -82,7 +82,7 @@ class Client implements GitlabClient
     {
         return [
             'PRIVATE-TOKEN' => [
-                $this->credentials->getToken(),
+                $this->credentials->buildHeaders(),
             ],
         ];
     }

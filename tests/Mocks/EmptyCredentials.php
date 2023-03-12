@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 
-final class EmptyCredentials implements RemoteCredentials
+final class EmptyCredentials implements Authenticator
 {
-    public function getToken(): string
+    public function buildHeaders(): string
     {
         return '';
     }

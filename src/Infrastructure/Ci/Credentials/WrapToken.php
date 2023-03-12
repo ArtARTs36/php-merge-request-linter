@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use Psr\Http\Message\RequestInterface;
 
-final class Token implements Authenticator
+final class WrapToken implements Authenticator
 {
     public function __construct(
         private readonly string $header,
@@ -17,11 +17,6 @@ final class Token implements Authenticator
     public function authenticate(RequestInterface $request): RequestInterface
     {
         return $request->withHeader($this->header, $this->token);
-    }
-
-    public static function bearer(string $token): self
-    {
-        return new self('Authorization', 'Bearer ' . $token);
     }
 
     public function __debugInfo(): array

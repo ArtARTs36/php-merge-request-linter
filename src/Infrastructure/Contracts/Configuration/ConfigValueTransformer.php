@@ -17,4 +17,9 @@ interface ConfigValueTransformer
      * @throws TransformConfigValueException
      */
     public function transform(string $value): string;
+
+    /**
+     * Transform value or return same value.
+     */
+    public function tryTransform(string $value): string;
 }
