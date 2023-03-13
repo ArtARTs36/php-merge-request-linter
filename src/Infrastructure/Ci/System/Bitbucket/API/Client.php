@@ -40,6 +40,8 @@ class Client
         $response = $this->http->sendRequest($request);
         $responseArray = $this->responseToJsonArray($response);
 
+        var_dump($responseArray);
+
         return $this->makePullRequest($responseArray);
     }
 
