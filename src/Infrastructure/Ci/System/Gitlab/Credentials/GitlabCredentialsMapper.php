@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 
 class GitlabCredentialsMapper implements AuthenticatorMapper
 {
@@ -17,8 +18,12 @@ class GitlabCredentialsMapper implements AuthenticatorMapper
 
     public function map(array|string $credentials): Authenticator
     {
-        $token = is_array($credentials) ? reset($credentials) : $credentials;
+        if (! is_string($credentials)) {
+            throw new InvalidCredentialsException(sprintf(
+                'Gitlab CI supported only token',
+            ));
+        }
 
-        return new TokenAuthenticator('PRIVATE-TOKEN', $this->valueTransformer->tryTransform($token));
+        return new TokenAuthenticator('PRIVATE-TOKEN', $this->valueTransformer->tryTransform($credentials));
     }
 }

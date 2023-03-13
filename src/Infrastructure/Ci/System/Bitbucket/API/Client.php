@@ -40,9 +40,22 @@ class Client
         $response = $this->http->sendRequest($request);
         $responseArray = $this->responseToJsonArray($response);
 
-        var_dump($responseArray);
+        $diffUrl = $responseArray['links']['diff']['href'] ?? null;
+
+        if ($diffUrl !== null) {
+            $this->fetchChanges($diffUrl);
+        }
 
         return $this->makePullRequest($responseArray);
+    }
+
+    private function fetchChanges(string $url): void
+    {
+        $req = $this->credentials->authenticate(new Request('GET', $url));
+
+        $resp = $this->http->sendRequest($req);
+
+        var_dump($resp);
     }
 
     /**
