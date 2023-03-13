@@ -54,8 +54,9 @@ class Client
         $req = $this->credentials->authenticate(new Request('GET', $url));
 
         $resp = $this->http->sendRequest($req);
+        $respArray = $this->responseToJsonArray($resp);
 
-        var_dump($resp);
+        var_dump($respArray);
     }
 
     /**
