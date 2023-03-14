@@ -5,13 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\CiSettings;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 
 class Config
 {
     /**
-     * @param Map<class-string<CiSystem>, CiSettings> $settings
+     * @param Map<string, CiSettings> $settings
      */
     public function __construct(
         private readonly Rules               $rules,
@@ -28,7 +26,7 @@ class Config
     }
 
     /**
-     * @return Map<class-string<CiSystem>, CiSettings>
+     * @return Map<string, CiSettings>
      */
     public function getSettings(): Map
     {

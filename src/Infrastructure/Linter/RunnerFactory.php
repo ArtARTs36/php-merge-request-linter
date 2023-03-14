@@ -12,6 +12,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActionsCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCiCreator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
@@ -51,13 +52,13 @@ class RunnerFactory implements LinterRunnerFactory
     {
         $httpClient = (new ClientFactory($this->metrics))->create($config->getHttpClient());
 
-        return new SystemFactory(
-            $config,
-            new ArrayMap([
-                GithubActions::NAME => new GithubActionsCreator($this->environment, $httpClient, $this->logger),
-                GitlabCi::NAME => new GitlabCiCreator($this->environment, $httpClient, $this->logger),
-                BitbucketPipelines::NAME => new BitbucketPipelinesCreator($this->environment, $httpClient, $this->logger),
-            ]),
-        );
+        /** @var Map<string, SystemCreator> $creators */
+        $creators = new ArrayMap([
+            GithubActions::NAME => new GithubActionsCreator($this->environment, $httpClient, $this->logger),
+            GitlabCi::NAME => new GitlabCiCreator($this->environment, $httpClient, $this->logger),
+            BitbucketPipelines::NAME => new BitbucketPipelinesCreator($this->environment, $httpClient, $this->logger),
+        ]);
+
+        return new SystemFactory($config, $creators);
     }
 }

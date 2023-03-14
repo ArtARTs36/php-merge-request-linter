@@ -10,7 +10,6 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Credentials\BitbucketCredentialsMapper;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Credentials\GithubActionsCredentialsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials\GitlabCredentialsMapper;
@@ -101,7 +100,6 @@ class ArrayConfigLoaderFactory
                 GitlabCi::NAME => new GitlabCredentialsMapper($compositeValueTransformer),
                 BitbucketPipelines::NAME => new BitbucketCredentialsMapper($compositeValueTransformer),
             ],
-            DefaultSystems::map(),
         );
 
         $rulesMapper = new RulesMapper(

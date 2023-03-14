@@ -15,6 +15,7 @@ final class RunnerFactoryTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory::createSystemFactory
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory::__construct
      */
     public function testCreate(): void

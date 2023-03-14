@@ -40,6 +40,9 @@ class DescriptionLabelsResolver implements LabelsResolver
         $len = \ArtARTs36\Str\Facade\Str::length($settings['line_starts_with']);
         $haystack = Str::make($line)->cut(null, $len);
 
-        return $haystack->explode($settings['separator'])->trim()->toStrings();
+        return $haystack
+            ->explode($settings['separator'])
+            ->trim()
+            ->toStrings();
     }
 }
