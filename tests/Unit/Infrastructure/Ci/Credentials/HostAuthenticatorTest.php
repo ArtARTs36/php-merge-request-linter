@@ -21,5 +21,6 @@ final class HostAuthenticatorTest extends TestCase
         $resultReq = $authenticator->authenticate($req);
 
         self::assertEquals('http://site1.ru/page', $resultReq->getUri()->__toString());
+        self::assertEquals(['Host' => ['site1.ru']], $resultReq->getHeaders());
     }
 }
