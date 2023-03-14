@@ -35,12 +35,10 @@ class DescriptionLabelsResolver implements LabelsResolver
      * @param OfDescription $settings
      * @return array<string>
      */
-    private function findLabels(string $line, array $settings): array
+    private function findLabels(Str $line, array $settings): array
     {
-        $len = \ArtARTs36\Str\Facade\Str::length($settings['line_starts_with']);
-        $haystack = Str::make($line)->cut(null, $len);
-
-        return $haystack
+        return $line
+            ->deleteWhenStarts($settings['line_starts_with'])
             ->explode($settings['separator'])
             ->trim()
             ->toStrings();
