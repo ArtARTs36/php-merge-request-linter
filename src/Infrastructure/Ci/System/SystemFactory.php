@@ -6,7 +6,6 @@ use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\CredentialsNotSetException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 
 class SystemFactory implements CiSystemFactory
@@ -23,35 +22,20 @@ class SystemFactory implements CiSystemFactory
 
     public function createCurrently(): CiSystem
     {
-        $ciName = $this->creators->keys()->first();
+        foreach ($this->config->getSettings() as $ciName => $ciSettings) {
+            $creator = $this->creators->get($ciName);
 
-        if ($ciName === null) {
-            throw new CiNotSupported('CI not detected');
+            if ($creator === null) {
+                throw CiNotSupported::fromCiName($ciName);
+            }
+
+            $ci = $creator->create($ciSettings);
+
+            if ($ci->isCurrentlyWorking()) {
+                return $ci;
+            }
         }
 
-        $ci = $this->create($ciName);
-
-        if (! $ci->isCurrentlyWorking()) {
-            throw new CiNotSupported('CI not working');
-        }
-
-        return $ci;
-    }
-
-    public function create(string $ciName): CiSystem
-    {
-        $creator = $this->creators->get($ciName);
-
-        if ($creator === null) {
-            throw CiNotSupported::fromCiName($ciName);
-        }
-
-        $settings = $this->config->getSettings()->get($ciName);
-
-        if ($settings === null) {
-            throw CredentialsNotSetException::create($ciName);
-        }
-
-        return $creator->create($settings);
+        throw new CiNotSupported('CI not detected');
     }
 }

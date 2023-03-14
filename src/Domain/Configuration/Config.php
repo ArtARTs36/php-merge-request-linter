@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 
+/**
+ * @phpstan-type CiName = string
+ */
 class Config
 {
     /**
@@ -25,7 +28,7 @@ class Config
     }
 
     /**
-     * @return Map<string, CiSettings>
+     * @return Map<CiName, CiSettings>
      */
     public function getSettings(): Map
     {

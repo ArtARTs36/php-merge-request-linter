@@ -10,7 +10,6 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\CredentialsNotSetException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\Linter;
 
@@ -30,7 +29,7 @@ final class Runner implements LinterRunner
             return $linter->run($this->requestFetcher->fetch());
         } catch (CurrentlyNotMergeRequestException) {
             return LintResult::successWithNote(new LintNote('Currently is not merge request'), $timer->finish());
-        } catch (CiNotSupported|InvalidCredentialsException|CredentialsNotSetException $e) {
+        } catch (CiNotSupported|InvalidCredentialsException $e) {
             return LintResult::fail(new ExceptionNote($e), $timer->finish());
         }
     }
