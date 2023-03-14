@@ -15,5 +15,7 @@ rules:
 
   "@mr-linter/description_not_empty": {}
 
-credentials:
-  github_actions: "env(MR_LINTER_HTTP_TOKEN)"
+ci:
+  github_actions:
+    credentials:
+      token: "env(MR_LINTER_HTTP_TOKEN)"
