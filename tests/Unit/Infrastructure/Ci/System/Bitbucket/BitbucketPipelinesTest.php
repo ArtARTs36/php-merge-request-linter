@@ -34,22 +34,56 @@ final class BitbucketPipelinesTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::isCurrentlyWorking
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::__construct
      * @dataProvider providerForTestIsCurrentlyWorking
      */
     public function testIsCurrentlyWorking(array $vars, bool $expected): void
     {
-        $ci = new BitbucketPipelines(
+        $ci = $this->mockCi($vars);
+
+        self::assertEquals($expected, $ci->isCurrentlyWorking());
+    }
+
+    public function providerForTestIsCurrentlyMergeRequest(): array
+    {
+        return [
+            [
+                [
+                    VarName::PullRequestId->value => 1,
+                ],
+                true,
+            ],
+            [
+                [],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::isCurrentlyMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::__construct
+     * @dataProvider providerForTestIsCurrentlyMergeRequest
+     */
+    public function testIsCurrentlyMergeRequest(array $vars, bool $expected): void
+    {
+        $ci = $this->mockCi($vars);
+
+        self::assertEquals($expected, $ci->isCurrentlyMergeRequest());
+    }
+
+    private function mockCi(array $env): BitbucketPipelines
+    {
+        return new BitbucketPipelines(
             new Client(
                 new NullAuthenticator(),
                 new MockClient(),
                 new NullLogger(),
             ),
             new BitbucketEnvironment(new MapEnvironment(
-                new ArrayMap($vars),
+                new ArrayMap($env),
             )),
             new MockMarkdownCleaner(),
         );
-
-        self::assertEquals($expected, $ci->isCurrentlyWorking());
     }
 }
