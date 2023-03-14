@@ -30,11 +30,11 @@ class CredentialMapper
         /** @var array<class-string<CiSystem>, Authenticator> $mapped */
         $mapped = [];
 
-        foreach ($credentials as $ciName => $credential) {
+        foreach ($credentials as $ciName => $bag) {
             /** @var class-string<CiSystem> $ciClass */
             $ciClass = $this->ciSystemMap->get($ciName);
 
-            $mapped[$ciClass] = $this->mappers[$ciName]->map($credential);
+            $mapped[$ciClass] = $this->mappers[$ciName]->map($bag['credentials']);
         }
 
         return new ArrayMap($mapped);

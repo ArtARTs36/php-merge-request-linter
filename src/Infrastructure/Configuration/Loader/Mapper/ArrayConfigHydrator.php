@@ -32,7 +32,7 @@ class ArrayConfigHydrator
         $rules = $this->rulesMapper->map($data['rules']);
 
         $credentials = new MapProxy(function () use ($data) {
-            return $this->credentialMapper->map($data['credentials']);
+            return $this->credentialMapper->map($data['ci']);
         });
 
         if (isset($data['notifications'])) {

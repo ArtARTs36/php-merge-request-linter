@@ -20,10 +20,6 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
 
     public function map(array|string $value): Authenticator
     {
-        if (is_string($value)) {
-            return TokenAuthenticator::bearer($this->valueTransformer->tryTransform($value));
-        }
-
         $authenticators = [];
 
         if (array_key_exists('token', $value)) {

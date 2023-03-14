@@ -16,14 +16,14 @@ class GitlabCredentialsMapper implements AuthenticatorMapper
         //
     }
 
-    public function map(array|string $credentials): Authenticator
+    public function map(array $credentials): Authenticator
     {
-        if (! is_string($credentials)) {
+        if (! isset($credentials['token'])) {
             throw new InvalidCredentialsException(sprintf(
                 'Gitlab CI supported only token',
             ));
         }
 
-        return new TokenAuthenticator('PRIVATE-TOKEN', $this->valueTransformer->tryTransform($credentials));
+        return new TokenAuthenticator('PRIVATE-TOKEN', $this->valueTransformer->tryTransform($credentials['token']));
     }
 }

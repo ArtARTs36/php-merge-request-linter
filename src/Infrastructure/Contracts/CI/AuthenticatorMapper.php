@@ -15,5 +15,5 @@ interface AuthenticatorMapper
      * @param array<string, mixed> $credentials
      * @throws InvalidCredentialsException
      */
-    public function map(array|string $credentials): Authenticator;
+    public function map(array $credentials): Authenticator;
 }

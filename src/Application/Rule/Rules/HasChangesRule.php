@@ -72,9 +72,6 @@ class HasChangesRule implements Rule
             array_push($notes, ...$this->diffChecker->check($needChange, $requestChange));
         }
 
-        var_dump($request->changes);
-        exit();
-
         return $notes;
     }
 

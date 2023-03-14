@@ -28,30 +28,45 @@ class Generator
             'additionalProperties' => false,
         ]);
 
-        $schema->addProperty('credentials', [
+        $schema->addProperty('ci', [
             'type' => 'object',
             'properties' => [
                 'gitlab_ci' => [
-                    'description' => 'Token',
-                    'type' => 'string',
-                ],
-                'github_actions' => [
-                    'description' => 'Token',
-                    'type' => 'string',
-                ],
-                'bitbucket_pipelines' => [
-                    'oneOf' => [
-                        [
+                    'description' => 'Gitlab CI settings',
+                    'type' => 'object',
+                    'properties' => [
+                        'credentials' => [
                             'type' => 'object',
                             'properties' => [
-                                'host' => [
-                                    'type' => 'string',
-                                    'description' => 'API Host',
-                                ],
                                 'token' => [
                                     'type' => 'string',
                                     'description' => 'API Token',
                                 ],
+                            ],
+                        ],
+                    ],
+                ],
+                'github_actions' => [
+                    'description' => 'Github Actions settings',
+                    'type' => 'object',
+                    'properties' => [
+                        'credentials' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'token' => [
+                                    'type' => 'string',
+                                    'description' => 'API Token',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'bitbucket_pipelines' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'credentials' => [
+                            'type' => 'object',
+                            'properties' => [
                                 'app_password' => [
                                     'type' => 'object',
                                     'properties' => [
@@ -63,11 +78,11 @@ class Generator
                                         ],
                                     ],
                                 ],
+                                'host' => [
+                                    'type' => 'string',
+                                    'description' => 'API Host',
+                                ],
                             ],
-                        ],
-                        [
-                            'type' => 'string',
-                            'description' => 'token',
                         ],
                     ],
                 ],
