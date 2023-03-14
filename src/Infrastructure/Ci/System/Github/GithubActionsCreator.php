@@ -13,7 +13,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpCli
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use Psr\Log\LoggerInterface;
 
-class GithubActionsCreator implements SystemCreator
+final class GithubActionsCreator implements SystemCreator
 {
     public function __construct(
         private readonly Environment $environment,
