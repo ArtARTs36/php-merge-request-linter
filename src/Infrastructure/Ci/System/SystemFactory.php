@@ -23,19 +23,19 @@ class SystemFactory implements CiSystemFactory
 
     public function createCurrently(): CiSystem
     {
-        foreach ($this->creators as $name => $ciClass) {
-            try {
-                $ci = $this->create($name);
-            } catch (CredentialsNotSetException) {
-                continue;
-            }
+        $ciName = $this->creators->keys()->first();
 
-            if ($ci->isCurrentlyWorking()) {
-                return $ci;
-            }
+        if ($ciName === null) {
+            throw new CiNotSupported('CI not detected');
         }
 
-        throw new CiNotSupported('CI not detected');
+        $ci = $this->create($ciName);
+
+        if (! $ci->isCurrentlyWorking()) {
+            throw new CiNotSupported('CI not working');
+        }
+
+        return $ci;
     }
 
     public function create(string $ciName): CiSystem
