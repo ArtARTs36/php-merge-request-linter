@@ -34,4 +34,17 @@ final class CompositeAuthenticatorTest extends TestCase
 
         self::assertTrue($allCalled, 'Sub authenticators not called');
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\CompositeAuthenticator::getAuthenticators
+     */
+    public function testGetAuthenticators(): void
+    {
+        $authenticator = new CompositeAuthenticator($subs = [
+            new CounterAuthenticator(),
+            new CounterAuthenticator(),
+        ]);
+
+        self::assertEquals($subs, $authenticator->getAuthenticators());
+    }
 }
