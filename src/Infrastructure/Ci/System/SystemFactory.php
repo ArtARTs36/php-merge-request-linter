@@ -52,10 +52,6 @@ class SystemFactory implements CiSystemFactory
 
     public function createCurrently(): CiSystem
     {
-        if ($this->config->getCredentials()->isEmpty()) {
-            throw new InvalidCredentialsException('Credentials must be filled');
-        }
-
         foreach ($this->ciSystems as $name => $ciClass) {
             try {
                 $ci = $this->create($name);
@@ -87,7 +83,7 @@ class SystemFactory implements CiSystemFactory
 
         //
 
-        $credentials = $this->config->getCredentials()->get($targetClass);
+        $credentials = $this->config->getSettings()->get($targetClass);
 
         if ($credentials === null) {
             throw CredentialsNotSetException::create($ciName);
@@ -110,9 +106,9 @@ class SystemFactory implements CiSystemFactory
      * @param callable(Authenticator, HttpClient): CiSystem $creator
      * @return CiSystem
      */
-    protected function createUsingCreator(callable $creator, Authenticator $credentials, HttpClient $client): CiSystem
+    protected function createUsingCreator(callable $creator, CiSettings $credentials, HttpClient $client): CiSystem
     {
-        return $creator($credentials, $client);
+        return $creator($credentials->credentials, $client);
     }
 
     protected function createGithubActions(Authenticator $credentials, HttpClient $httpClient): CiSystem

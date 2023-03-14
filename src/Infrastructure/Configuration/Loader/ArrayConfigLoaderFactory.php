@@ -23,7 +23,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject\SubjectFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CredentialMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CiSettingsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\RulesMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\CompositeTransformer;
@@ -95,7 +95,7 @@ class ArrayConfigLoaderFactory
 
         $compositeValueTransformer = new CompositeTransformer($valueTransformers);
 
-        $credentialMapper = new CredentialMapper(
+        $credentialMapper = new CiSettingsMapper(
             [
                 GithubActions::NAME => new GithubActionsCredentialsMapper($compositeValueTransformer),
                 GitlabCi::NAME => new GitlabCredentialsMapper($compositeValueTransformer),

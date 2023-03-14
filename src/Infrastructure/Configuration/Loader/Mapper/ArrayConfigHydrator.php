@@ -12,8 +12,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigI
 class ArrayConfigHydrator
 {
     public function __construct(
-        private readonly CredentialMapper $credentialMapper,
-        private readonly RulesMapper $rulesMapper,
+        private readonly CiSettingsMapper    $credentialMapper,
+        private readonly RulesMapper         $rulesMapper,
         private readonly NotificationsMapper $notificationsMapper,
     ) {
         //
@@ -31,7 +31,7 @@ class ArrayConfigHydrator
 
         $rules = $this->rulesMapper->map($data['rules']);
 
-        $credentials = new MapProxy(function () use ($data) {
+        $ciSettings = new MapProxy(function () use ($data) {
             return $this->credentialMapper->map($data['ci']);
         });
 
@@ -41,7 +41,7 @@ class ArrayConfigHydrator
             $notifications = new NotificationsConfig(new ArrayMap([]), new ArrayMap([]));
         }
 
-        return new Config($rules, $credentials, new HttpClientConfig(
+        return new Config($rules, $ciSettings, new HttpClientConfig(
             $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
             $data['http_client']['params'] ?? [],
         ), $notifications);
