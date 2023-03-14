@@ -17,7 +17,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Cleaner\LeagueMarkdownClean
 use League\CommonMark\CommonMarkConverter;
 use Psr\Log\LoggerInterface;
 
-class BitbucketPipelinesCreator implements SystemCreator
+final class BitbucketPipelinesCreator implements SystemCreator
 {
     public function __construct(
         private readonly Environment $environment,
