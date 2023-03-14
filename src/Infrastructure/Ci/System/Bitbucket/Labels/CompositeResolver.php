@@ -18,14 +18,14 @@ final class CompositeResolver implements LabelsResolver
 
     public function resolve(PullRequest $pr, LabelsSettings $settings): array
     {
-        $result = [];
-
         foreach ($this->resolvers as $resolver) {
             $labels = $resolver->resolve($pr, $settings);
 
-            array_push($result, ...$labels);
+            if (count($labels) > 0) {
+                return $labels;
+            }
         }
 
-        return $result;
+        return [];
     }
 }

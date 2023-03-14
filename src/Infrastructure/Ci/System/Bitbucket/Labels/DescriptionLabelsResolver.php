@@ -28,7 +28,7 @@ class DescriptionLabelsResolver implements LabelsResolver
             }
         }
 
-        return $params;
+        return [];
     }
 
     /**

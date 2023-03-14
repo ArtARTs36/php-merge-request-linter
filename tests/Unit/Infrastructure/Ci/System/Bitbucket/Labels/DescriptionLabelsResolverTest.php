@@ -23,6 +23,13 @@ final class DescriptionLabelsResolverTest extends TestCase
             ],
             [
                 BitbucketPR::create(
+                    description: Str::make("Text \nSuperPrefix|: Feature, Bug"),
+                ),
+                ['line_starts_with' => 'SuperPrefix: ', 'separator' => ', '],
+                [],
+            ],
+            [
+                BitbucketPR::create(
                     description: Str::make("Text \nSuperPrefix: Feature, Bug"),
                 ),
                 null,
