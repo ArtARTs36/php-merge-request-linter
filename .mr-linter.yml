@@ -28,7 +28,7 @@ rules:
           notStarts: '[Docs]'
 
     - changes:
-        - file: "CHANGELOG.MD"
+        - file: "CHANGELOG.md"
       when:
         targetBranch:
           equals: "master"
