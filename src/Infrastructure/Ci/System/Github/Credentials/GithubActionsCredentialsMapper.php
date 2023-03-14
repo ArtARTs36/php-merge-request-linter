@@ -18,7 +18,7 @@ class GithubActionsCredentialsMapper implements AuthenticatorMapper
 
     public function map(array $credentials): Authenticator
     {
-        if (! isset($credentials['token'])) {
+        if (! array_key_exists('token', $credentials)) {
             throw new InvalidCredentialsException(sprintf(
                 'Github Actions supported only token',
             ));
