@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActionsCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Cleaner\LeagueMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
@@ -28,31 +29,19 @@ use Psr\Log\LoggerInterface;
 
 class SystemFactory implements CiSystemFactory
 {
-    /** @var array<class-string<CiSystem>, callable(Authenticator, HttpClient): CiSystem> */
-    protected array $creators;
-
     /**
-     * @param Map<string, class-string<CiSystem>> $ciSystems
-     * @param array<class-string<CiSystem>, callable(Authenticator, HttpClient): CiSystem> $creators
+     * @param Map<string, SystemCreator> $creators
      */
     public function __construct(
-        protected Config            $config,
-        protected Environment       $environment,
-        protected HttpClientFactory $httpClientFactory,
-        protected Map          $ciSystems,
-        protected LoggerInterface $logger,
-        array $creators = []
+        private readonly Config $config,
+        private readonly Map $creators,
     ) {
-        $this->creators = [
-            GithubActions::class => $this->createGithubActions(...),
-            GitlabCi::class => $this->createGitlabCi(...),
-            BitbucketPipelines::class => $this->createBitbucketPipelines(...),
-        ] + $creators;
+        //
     }
 
     public function createCurrently(): CiSystem
     {
-        foreach ($this->ciSystems as $name => $ciClass) {
+        foreach ($this->creators as $name => $ciClass) {
             try {
                 $ci = $this->create($name);
             } catch (CredentialsNotSetException) {
@@ -69,79 +58,18 @@ class SystemFactory implements CiSystemFactory
 
     public function create(string $ciName): CiSystem
     {
-        $targetClass = $this->ciSystems->get($ciName);
+        $creator = $this->creators->get($ciName);
 
-        if ($targetClass === null) {
+        if ($creator === null) {
             throw CiNotSupported::fromCiName($ciName);
         }
 
-        // Resolve empty class without difficult constructing
+        $settings = $this->config->getSettings()->get($ciName);
 
-        if (! method_exists($targetClass, '__construct')) {
-            return new $targetClass();
-        }
-
-        //
-
-        $credentials = $this->config->getSettings()->get($targetClass);
-
-        if ($credentials === null) {
+        if ($settings === null) {
             throw CredentialsNotSetException::create($ciName);
         }
 
-        $httpClient = $this->httpClientFactory->create($this->config->getHttpClient());
-
-        if (isset($this->creators[$targetClass])) {
-            return $this->createUsingCreator($this->creators[$targetClass], $credentials, $httpClient);
-        }
-
-        return new $targetClass(
-            credentials: $credentials,
-            httpClient: $httpClient,
-            environment: $this->environment,
-        );
-    }
-
-    /**
-     * @param callable(Authenticator, HttpClient): CiSystem $creator
-     * @return CiSystem
-     */
-    protected function createUsingCreator(callable $creator, CiSettings $credentials, HttpClient $client): CiSystem
-    {
-        return $creator($credentials->credentials, $client);
-    }
-
-    protected function createGithubActions(Authenticator $credentials, HttpClient $httpClient): CiSystem
-    {
-        return new GithubActions(new GithubEnvironment($this->environment), new Client(
-            $httpClient,
-            $credentials,
-            new PullRequestSchema(),
-            new DiffMapper(),
-            $this->logger,
-        ));
-    }
-
-    protected function createGitlabCi(Authenticator $credentials, HttpClient $httpClient): CiSystem
-    {
-        return new GitlabCi(
-            new GitlabEnvironment($this->environment),
-            new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Client(
-                $credentials,
-                $httpClient,
-                new DiffMapper(),
-                $this->logger,
-            ),
-            new LeagueMarkdownCleaner(new CommonMarkConverter()),
-        );
-    }
-
-    protected function createBitbucketPipelines(Authenticator $credentials, HttpClient $httpClient): BitbucketPipelines
-    {
-        return new BitbucketPipelines(
-            new Bitbucket\API\Client($credentials, $httpClient, $this->logger),
-            new BitbucketEnvironment($this->environment),
-            new LeagueMarkdownCleaner(new CommonMarkConverter()),
-        );
+        return $creator->create($settings);
     }
 }

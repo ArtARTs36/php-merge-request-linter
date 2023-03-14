@@ -25,7 +25,7 @@ class CiSettingsMapper
 
     /**
      * @param array<string, array<string, array{credentials: array<string, mixed>}>> $settings
-     * @return ArrayMap<class-string<CiSystem>, CiSettings>
+     * @return ArrayMap<string, CiSettings>
      */
     public function map(array $settings): ArrayMap
     {
@@ -39,7 +39,7 @@ class CiSettingsMapper
             $params = $bag;
             unset($params['credentials']);
 
-            $mapped[$ciClass] = new CiSettings(
+            $mapped[$ciName] = new CiSettings(
                 new AuthenticatorProxy(function () use ($ciName, $bag) {
                     return $this->authMappers[$ciName]->map($bag['credentials']);
                 }),
