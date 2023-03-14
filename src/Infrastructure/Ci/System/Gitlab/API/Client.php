@@ -62,7 +62,7 @@ class Client implements GitlabClient
     }
 
     /**
-     * @param array<array{new_path: string, old_path: string}> $response
+     * @param array<array{new_path: string, old_path: string, diff: string}> $response
      * @return array<Change>
      */
     private function mapChanges(array $response): array
@@ -70,7 +70,7 @@ class Client implements GitlabClient
         $changes = [];
 
         foreach ($response as $change) {
-            $changes[] = new Change($change['new_path'], $change['old_path'], $this->diffMapper->map($change));
+            $changes[] = new Change($change['new_path'], $change['old_path'], $this->diffMapper->map([$change['diff'] ?? '']));
         }
 
         return $changes;
