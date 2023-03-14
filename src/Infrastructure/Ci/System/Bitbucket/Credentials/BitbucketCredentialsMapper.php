@@ -24,11 +24,11 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
             return TokenAuthenticator::bearer($this->valueTransformer->tryTransform($value));
         }
 
-        if (array_key_exists('token', $value)) {
-            return TokenAuthenticator::bearer($this->valueTransformer->tryTransform($value['token']));
-        }
-
         $authenticators = [];
+
+        if (array_key_exists('token', $value)) {
+            $authenticators[] = TokenAuthenticator::bearer($this->valueTransformer->tryTransform($value['token']));
+        }
 
         if (array_key_exists('host', $value)) {
             $authenticators[] = new HostAuthenticator($this->valueTransformer->tryTransform($value['host']));
