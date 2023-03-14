@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use Psr\Http\Message\RequestInterface;
 
-class AuthenticatorProxy implements Authenticator
+final class AuthenticatorProxy implements Authenticator
 {
     private ?Authenticator $authenticator = null;
 
