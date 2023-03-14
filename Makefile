@@ -27,7 +27,7 @@ try-gitlab:
 # usage as `make try-bitbucket MR_ID=2`
 try-bitbucket:
 	BITBUCKET_PROJECT_KEY=aukrainsky \
-	BITBUCKET_PR_ID=2 \
+	BITBUCKET_PR_ID=6 \
 	BITBUCKET_WORKSPACE=aukrainsky \
 	BITBUCKET_REPO_SLUG=a1 \
  	./bin/mr-linter lint --debug --metrics

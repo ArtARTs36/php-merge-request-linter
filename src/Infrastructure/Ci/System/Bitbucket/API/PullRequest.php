@@ -2,10 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\Str\Facade\Str;
 
 class PullRequest
 {
+    /**
+     * @param Map<string, array<DiffLine>> $changes
+     */
     public function __construct(
         public readonly int                $id,
         public readonly string             $title,
@@ -15,7 +20,8 @@ class PullRequest
         public readonly \DateTimeImmutable $createdAt,
         public readonly string             $uri,
         public readonly string             $description,
-        public readonly ?PullRequestState   $state,
+        public readonly ?PullRequestState  $state,
+        public readonly Map                $changes,
     ) {
         //
     }

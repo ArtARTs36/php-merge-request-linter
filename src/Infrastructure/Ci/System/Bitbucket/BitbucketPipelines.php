@@ -4,13 +4,17 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Markdown;
 use ArtARTs36\Str\Str;
@@ -70,9 +74,25 @@ class BitbucketPipelines implements CiSystem
             new Author(Str::make($pr->authorNickname)),
             $pr->isDraft(),
             $pr->canMerge(),
-            new ArrayMap([]),
+            $this->mapChanges($pr),
             $pr->createdAt,
             Str::make($pr->uri),
         );
+    }
+
+    private function mapChanges(PullRequest $request): Map
+    {
+        return new MapProxy(function () use ($request) {
+            $changes = [];
+
+            foreach ($request->changes as $filename => $diff) {
+                $changes[$filename] = new \ArtARTs36\MergeRequestLinter\Domain\Request\Change(
+                    $filename,
+                    new Diff($diff),
+                );
+            }
+
+            return new ArrayMap($changes);
+        });
     }
 }

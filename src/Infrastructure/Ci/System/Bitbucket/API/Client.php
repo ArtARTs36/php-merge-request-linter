@@ -3,7 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
 
@@ -15,10 +19,14 @@ class Client
         private readonly Authenticator                                                      $credentials,
         private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client $http,
         private readonly LoggerInterface                                                    $logger,
+        private readonly BitbucketDiffMapper                                                $diffMapper = new BitbucketDiffMapper(),
     ) {
         //
     }
 
+    /**
+     * @link https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-pull-request-id-get
+     */
     public function getPullRequest(PullRequestInput $input): PullRequest
     {
         $url = sprintf(
@@ -43,29 +51,33 @@ class Client
         $diffUrl = $responseArray['links']['diff']['href'] ?? null;
 
         if ($diffUrl !== null) {
-            $this->fetchChanges($diffUrl);
+            $changes = new MapProxy(function () use ($diffUrl) {
+                return new ArrayMap($this->fetchChanges($diffUrl));
+            });
+        } else {
+            $changes = new ArrayMap([]);
         }
 
-        return $this->makePullRequest($responseArray);
+        return $this->makePullRequest($responseArray, $changes);
     }
 
-    private function fetchChanges(string $url): void
+    /**
+     * @return array<string, array<DiffLine>>
+     */
+    private function fetchChanges(string $url): array
     {
         $req = $this->credentials->authenticate(new Request('GET', $url));
 
         $resp = $this->http->sendRequest($req);
 
-        var_dump($resp->getBody()->getContents());
-
-        $respArray = $this->responseToJsonArray($resp);
-
-        var_dump($respArray);
+        return $this->diffMapper->map($resp->getBody()->getContents());
     }
 
     /**
      * @param array<string, mixed> $data
+     * @param ArrayMap<string, array<DiffLine>> $changes
      */
-    private function makePullRequest(array $data): PullRequest
+    private function makePullRequest(array $data, Map $changes): PullRequest
     {
         return new PullRequest(
             $data['id'],
@@ -77,6 +89,7 @@ class Client
             $data['links']['html']['href'] ?? '',
             $data['description'] ?? '',
             isset($data['state']) ? PullRequestState::tryFrom($data['state']) : null,
+            $changes,
         );
     }
 }
