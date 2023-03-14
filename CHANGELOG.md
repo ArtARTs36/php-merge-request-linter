@@ -4,6 +4,18 @@ This file contains changelogs.
 
 [View all Releases](https://github.com/ArtARTs36/php-merge-request-linter/releases)
 
+## [v0.11.0 (2023-03-14)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.10.1..0.11.0)
+
+### Added
+* Support Bitbucket Pipelines
+
+### Changed
+* Configuration structure for CI credentials
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.11.0)
+
+-----------------------------------------------------------------
+
 ## [v0.10.1 (2023-03-01)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.10.0..0.10.1)
 
 ### Added
