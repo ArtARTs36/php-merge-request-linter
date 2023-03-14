@@ -36,7 +36,7 @@ final class TokenAuthenticatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator::bearer
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator::__debugInfo
      */
     public function testDebugInfo(): void
     {
