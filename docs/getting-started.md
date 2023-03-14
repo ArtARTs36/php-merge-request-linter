@@ -91,3 +91,24 @@ build:
          user: your-login
          password: 'env(MR_LINTER_APP_PASSWORD)'
    ```
+
+### Labels
+
+Currently, Bitbucket does not support labels natively.
+
+But if you need labels, you can simulate them by specifying the labels in the pull request description itself.
+
+To do this, you need to do the following configuration:
+
+```yaml
+ci:
+  bitbucket_pipelines:
+    labels:
+      of_description:
+        line_starts_with: 'Labels: '
+        separator: ', '
+    credentials:
+      app_password:
+        user: 'env(MR_LINTER_BITBUCKET_USER)'
+        password: 'env(MR_LINTER_BITBUCKET_PASSWORD)'
+```
