@@ -20,7 +20,7 @@ class PullRequest
         public readonly \DateTimeImmutable $createdAt,
         public readonly string             $uri,
         public readonly string             $description,
-        public readonly ?PullRequestState  $state,
+        public readonly PullRequestState  $state,
         public readonly Map                $changes,
     ) {
         //
