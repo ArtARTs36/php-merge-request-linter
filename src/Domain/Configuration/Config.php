@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\CiSettings;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 
 class Config

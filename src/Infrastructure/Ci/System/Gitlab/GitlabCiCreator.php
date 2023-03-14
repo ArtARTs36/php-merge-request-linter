@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\CiSettings;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CiSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;

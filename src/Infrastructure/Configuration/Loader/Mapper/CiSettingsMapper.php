@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CiSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\AuthenticatorProxy;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\CiSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
+namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 
