@@ -8,7 +8,12 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\OperatorRules
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\RulesExecutor;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Credentials\BitbucketCredentialsMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Credentials\GithubActionsCredentialsMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials\GitlabCredentialsMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\CallbackPropertyExtractor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ChainFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\EvaluatorFactory;
@@ -17,9 +22,10 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Subject\SubjectFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\ArrayLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CredentialMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\CiSettingsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\RulesMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\CompositeTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\FileTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
@@ -86,9 +92,14 @@ class ArrayConfigLoaderFactory
             new FileTransformer($this->fileSystem),
         ];
 
-        $credentialMapper = new CredentialMapper(
-            $valueTransformers,
-            DefaultSystems::map(),
+        $compositeValueTransformer = new CompositeTransformer($valueTransformers);
+
+        $credentialMapper = new CiSettingsMapper(
+            [
+                GithubActions::NAME => new GithubActionsCredentialsMapper($compositeValueTransformer),
+                GitlabCi::NAME => new GitlabCredentialsMapper($compositeValueTransformer),
+                BitbucketPipelines::NAME => new BitbucketCredentialsMapper($compositeValueTransformer),
+            ],
         );
 
         $rulesMapper = new RulesMapper(

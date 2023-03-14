@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API;
 
-use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
@@ -15,9 +15,9 @@ class Client implements GitlabClient
     use InteractsWithResponse;
 
     public function __construct(
-        private readonly RemoteCredentials $credentials,
+        private readonly Authenticator   $credentials,
         private readonly ClientInterface $client,
-        private readonly DiffMapper $diffMapper,
+        private readonly DiffMapper      $diffMapper,
         private readonly LoggerInterface $logger,
     ) {
         //
@@ -34,7 +34,8 @@ class Client implements GitlabClient
             $input->requestId,
         );
 
-        $request = new Request('GET', $url, $this->authHeaders());
+        $request = new Request('GET', $url);
+        $request = $this->credentials->authenticate($request);
 
         $resp = $this->client->sendRequest($request);
 
@@ -61,7 +62,7 @@ class Client implements GitlabClient
     }
 
     /**
-     * @param array<array{new_path: string, old_path: string}> $response
+     * @param array<array{new_path: string, old_path: string, diff: string|null}> $response
      * @return array<Change>
      */
     private function mapChanges(array $response): array
@@ -69,21 +70,9 @@ class Client implements GitlabClient
         $changes = [];
 
         foreach ($response as $change) {
-            $changes[] = new Change($change['new_path'], $change['old_path'], $this->diffMapper->map($change));
+            $changes[] = new Change($change['new_path'], $change['old_path'], $this->diffMapper->map($change['diff'] ?? ''));
         }
 
         return $changes;
-    }
-
-    /**
-     * @return array<string, array<mixed>>
-     */
-    private function authHeaders(): array
-    {
-        return [
-            'PRIVATE-TOKEN' => [
-                $this->credentials->getToken(),
-            ],
-        ];
     }
 }

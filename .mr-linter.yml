@@ -28,7 +28,7 @@ rules:
           notStarts: '[Docs]'
 
     - changes:
-        - file: "CHANGELOG.MD"
+        - file: "CHANGELOG.md"
       when:
         targetBranch:
           equals: "master"
@@ -85,5 +85,7 @@ notifications:
         - {{ note.description }}
         {% endfor %}
 
-credentials:
-  github_actions: "env(MR_LINTER_GITHUB_HTTP_TOKEN)"
+ci:
+  github_actions:
+    credentials:
+      token: 'env(MR_LINTER_GITHUB_HTTP_TOKEN)'

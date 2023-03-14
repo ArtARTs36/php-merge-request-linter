@@ -12,11 +12,7 @@ final class DiffMapperTest extends TestCase
     {
         return [
             [
-                [
-                    'test1',
-                    '-test2',
-                    '+test3',
-                ],
+                "test1\n-test2\n+test3",
                 [
                     [
                         'type' => DiffType::NOT_CHANGES->value,
@@ -39,7 +35,7 @@ final class DiffMapperTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper::map
      * @dataProvider providerForTestMap
      */
-    public function testMap(array $response, array $expected): void
+    public function testMap(string $response, array $expected): void
     {
         $mapper = new DiffMapper();
 

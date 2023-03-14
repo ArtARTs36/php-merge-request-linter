@@ -51,7 +51,7 @@ build:
 [See example](https://gitlab.com/artem_ukrainsky/mr-linter-testing/)
 
 1. Generate token on `https://{gitlab-host}/-/profile/personal_access_tokens`
-2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable "MR_LINTER_HTTP_TOKEN" with your personal access token
+2. Open `https://{gitlab-host}/group/project/-/settings/ci_cd`. Add new variable `MR_LINTER_HTTP_TOKEN` with your personal access token
 3. Add new step into **.gitlab-ci.yml**
    ```yaml
    mr-lint:
@@ -62,3 +62,53 @@ build:
      script:
        - mr-linter lint
    ```
+
+## Usage with Bitbucket Pipelines
+
+1. Create App Password on `https://bitbucket.org/account/settings/app-passwords/new` with permissions: 
+   * Account: read
+   * Repositories: read
+   * Pull requests: read
+
+2. Add new repository variable `MR_LINTER_APP_PASSWORD` on `https://bitbucket.org/{repository-owner}/{repository-name}/admin/addon/admin/pipelines/repository-variables`
+
+3. Add new step into **bitbucket-pipelines.yaml**
+   ```yaml
+   pipelines:
+      pull-requests:
+         '**':
+            - step:
+                 name: PR Review
+                 script:
+                    - ./vendor/bin/mr-linter lint
+   ```
+
+4. Setup credentials in `mr-linter.yaml` as:
+   ```yaml
+   credentials:
+     bitbucket_pipelines:
+       app_password:
+         user: your-login
+         password: 'env(MR_LINTER_APP_PASSWORD)'
+   ```
+
+### Labels
+
+Currently, Bitbucket does not support labels natively.
+
+But if you need labels, you can simulate them by specifying the labels in the pull request description itself.
+
+To do this, you need to do the following configuration:
+
+```yaml
+ci:
+  bitbucket_pipelines:
+    labels:
+      of_description:
+        line_starts_with: 'Labels: '
+        separator: ', '
+    credentials:
+      app_password:
+        user: 'env(MR_LINTER_BITBUCKET_USER)'
+        password: 'env(MR_LINTER_BITBUCKET_PASSWORD)'
+```

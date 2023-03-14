@@ -7,7 +7,7 @@ Currently is available that rules:
 | @mr-linter/changed_files_limit | Check count changed files on a {limit}. | `limit` - integer   <br/>  |
 | @mr-linter/description_contains_links_of_any_domains | Merge Request must contain links of any {domains}. | `domains` - array  of strings   <br/>  |
 | @mr-linter/description_contains_links_of_all_domains | Merge Request must contain links of all {domains}. | `domains` - array  of strings   <br/>  |
-| @mr-linter/description_not_empty | Description must be filled. | None  |
+| @mr-linter/description_not_empty | The description must be filled. | None  |
 | @mr-linter/has_all_labels | Merge Request must have all {labels} | `labels` - array  of strings   <br/>  |
 | @mr-linter/has_any_labels | Merge Request must have any labels. | None  |
 | @mr-linter/has_any_labels_of | Merge Request must have any {labels}. | `labels` - array  of strings   <br/>  |

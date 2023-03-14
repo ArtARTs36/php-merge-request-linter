@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
-use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
+use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Change;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Status;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
@@ -32,10 +32,10 @@ class Client implements GithubClient
 
     public function __construct(
         private readonly HttpClient        $client,
-        private readonly RemoteCredentials $credentials,
+        private readonly Authenticator     $credentials,
         private readonly PullRequestSchema $pullRequestSchema,
         private readonly DiffMapper        $diffMapper,
-        private readonly LoggerInterface $logger,
+        private readonly LoggerInterface   $logger,
     ) {
         //
     }
@@ -116,7 +116,7 @@ class Client implements GithubClient
         $url = sprintf('https://api.github.com/repos/%s/%s/tags', $input->owner, $input->repo);
 
         $request = new Request('GET', $url);
-        $request = $this->applyCredentials($request);
+        $request = $this->credentials->authenticate($request);
 
         $response = $this->client->sendRequest($request);
 
@@ -132,7 +132,7 @@ class Client implements GithubClient
         $request = (new Request('POST', $input->graphqlUrl))
             ->withBody(StreamBuilder::streamFor($query));
 
-        return $this->applyCredentials($request);
+        return $this->credentials->authenticate($request);
     }
 
     private function createGetPullRequestFilesRequest(PullRequestInput $input, int $page): RequestInterface
@@ -147,7 +147,7 @@ class Client implements GithubClient
 
         $request = new Request('GET', $url);
 
-        return $this->applyCredentials($request);
+        return $this->credentials->authenticate($request);
     }
 
     /**
@@ -157,7 +157,7 @@ class Client implements GithubClient
     {
         return new Change(
             $respChange['filename'],
-            $this->diffMapper->map([$respChange['patch'] ?? '']),
+            $this->diffMapper->map($respChange['patch'] ?? ''),
             Status::create($respChange['status']),
         );
     }
@@ -187,14 +187,5 @@ class Client implements GithubClient
         }
 
         return new TagCollection($tags);
-    }
-
-    private function applyCredentials(RequestInterface $request): RequestInterface
-    {
-        if ($this->credentials->getToken() !== '') {
-            $request = $request->withHeader('Authorization', 'bearer ' . $this->credentials->getToken());
-        }
-
-        return $request;
     }
 }

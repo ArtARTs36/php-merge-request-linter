@@ -22,7 +22,15 @@ try-gitlab:
 	CI_MERGE_REQUEST_IID=${MR_ID} \
 	CI_MERGE_REQUEST_PROJECT_ID=41749211 \
 	CI_SERVER_URL=https://gitlab.com \
- 	MR_LINTER_GITLAB_HTTP_TOKEN=${TOKEN} ./bin/mr-linter lint --debug --metrics
+ 	./bin/mr-linter lint --debug --metrics
+
+# usage as `make try-bitbucket MR_ID=2`
+try-bitbucket:
+	BITBUCKET_PROJECT_KEY=aukrainsky \
+	BITBUCKET_PR_ID=6 \
+	BITBUCKET_WORKSPACE=aukrainsky \
+	BITBUCKET_REPO_SLUG=a1 \
+ 	./bin/mr-linter lint --debug --metrics
 
 docker-build:
 	docker build . -t artarts36/merge-request-linter

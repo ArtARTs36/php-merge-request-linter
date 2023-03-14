@@ -19,7 +19,7 @@ class ContainsChecker implements DiffChecker
             [] :
             [
                 new LintNote(
-                    sprintf('Request must contain change "%s" in file: %s', $needChange->contains, $needChange->file),
+                    sprintf('The request must contain a change "%s" in file: %s', $needChange->contains, $needChange->file),
                 ),
             ];
     }

@@ -53,6 +53,14 @@ class Arrayee implements Collection, HasDebugInfo
         return $item;
     }
 
+    /**
+     * @return Arrayee<K, V>
+     */
+    public function firsts(int $count): Arrayee
+    {
+        return new Arrayee(array_slice($this->items, 0, $count));
+    }
+
     public function implode(string $sep): string
     {
         return implode($sep, $this->items);

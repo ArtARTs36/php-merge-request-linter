@@ -28,16 +28,82 @@ class Generator
             'additionalProperties' => false,
         ]);
 
-        $schema->addProperty('credentials', [
+        $schema->addProperty('ci', [
             'type' => 'object',
             'properties' => [
                 'gitlab_ci' => [
-                    'description' => 'Token',
-                    'type' => 'string',
+                    'description' => 'Gitlab CI settings',
+                    'type' => 'object',
+                    'properties' => [
+                        'credentials' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'token' => [
+                                    'type' => 'string',
+                                    'description' => 'API Token',
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
                 'github_actions' => [
-                    'description' => 'Token',
-                    'type' => 'string',
+                    'description' => 'Github Actions settings',
+                    'type' => 'object',
+                    'properties' => [
+                        'credentials' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'token' => [
+                                    'type' => 'string',
+                                    'description' => 'API Token',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'bitbucket_pipelines' => [
+                    'description' => 'Bitbucket Pipelines settings',
+                    'type' => 'object',
+                    'properties' => [
+                        'credentials' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'app_password' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'user' => [
+                                            'type' => 'string',
+                                        ],
+                                        'password' => [
+                                            'type' => 'string',
+                                        ],
+                                    ],
+                                ],
+                                'host' => [
+                                    'type' => 'string',
+                                    'description' => 'API Host',
+                                ],
+                            ],
+                        ],
+                        'labels' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'of_description' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'line_starts_with' => [
+                                            'type' => 'string',
+                                            'description' => 'Line Prefix',
+                                        ],
+                                        'separator' => [
+                                            'type' => 'string',
+                                            'description' => 'Labels separator',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
             'additionalProperties' => false,

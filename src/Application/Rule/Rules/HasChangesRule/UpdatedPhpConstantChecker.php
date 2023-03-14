@@ -17,7 +17,7 @@ class UpdatedPhpConstantChecker implements DiffChecker
             [] :
             [
                 new LintNote(
-                    sprintf('Request must contain change php constant "%s" in file: %s', $needChange->updatedPhpConstant, $needChange->file),
+                    sprintf('The request must contain a change on php-constant "%s" in file: %s', $needChange->updatedPhpConstant, $needChange->file),
                 ),
             ];
     }

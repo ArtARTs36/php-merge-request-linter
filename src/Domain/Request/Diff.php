@@ -3,16 +3,17 @@
 namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\Str\Exceptions\InvalidRegexException;
 
 /**
  * @template-extends Arrayee<int, DiffLine>
  */
 class Diff extends Arrayee
 {
-    public function hasChangeByContentContains(string $content, bool $regex = false): bool
+    public function hasChangeByContentContains(string $content): bool
     {
         foreach ($this->items as $item) {
-            if ($item->hasChanges() && $item->content->contains($content, $regex)) {
+            if ($item->hasChanges() && $item->content->contains($content)) {
                 return true;
             }
         }
@@ -20,10 +21,13 @@ class Diff extends Arrayee
         return false;
     }
 
-    public function hasChangeByContentContainsByRegex(string $content): bool
+    /**
+     * @throws InvalidRegexException
+     */
+    public function hasChangeByContentContainsByRegex(string $regex): bool
     {
         foreach ($this->items as $item) {
-            if ($item->hasChanges() && $item->content->match($content)->isNotEmpty()) {
+            if ($item->hasChanges() && $item->content->match($regex)->isNotEmpty()) {
                 return true;
             }
         }

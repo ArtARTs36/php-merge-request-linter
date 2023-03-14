@@ -12,8 +12,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigI
 class ArrayConfigHydrator
 {
     public function __construct(
-        private readonly CredentialMapper $credentialMapper,
-        private readonly RulesMapper $rulesMapper,
+        private readonly CiSettingsMapper    $credentialMapper,
+        private readonly RulesMapper         $rulesMapper,
         private readonly NotificationsMapper $notificationsMapper,
     ) {
         //
@@ -31,8 +31,17 @@ class ArrayConfigHydrator
 
         $rules = $this->rulesMapper->map($data['rules']);
 
-        $credentials = new MapProxy(function () use ($data) {
-            return $this->credentialMapper->map($data['credentials']);
+        $ciSettings = new MapProxy(function () use ($data) {
+            // For save compatibility. Will be removed in next version.
+            $settings = $data['ci'] ?? [];
+
+            if (empty($settings) && ! empty($data['credentials'])) {
+                foreach ($data['credentials'] as $ciName => $token) {
+                    $settings[$ciName]['credentials']['token'] = $token;
+                }
+            }
+
+            return $this->credentialMapper->map($settings);
         });
 
         if (isset($data['notifications'])) {
@@ -41,7 +50,7 @@ class ArrayConfigHydrator
             $notifications = new NotificationsConfig(new ArrayMap([]), new ArrayMap([]));
         }
 
-        return new Config($rules, $credentials, new HttpClientConfig(
+        return new Config($rules, $ciSettings, new HttpClientConfig(
             $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
             $data['http_client']['params'] ?? [],
         ), $notifications);

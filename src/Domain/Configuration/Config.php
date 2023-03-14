@@ -4,19 +4,20 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
-use ArtARTs36\MergeRequestLinter\Domain\CI\RemoteCredentials;
 
+/**
+ * @phpstan-type CiName = string
+ */
 class Config
 {
     /**
-     * @param Map<class-string<CiSystem>, RemoteCredentials> $credentials
+     * @param Map<string, CiSettings> $settings
      */
     public function __construct(
-        private Rules            $rules,
-        private Map         $credentials,
-        private HttpClientConfig $httpClient,
-        private NotificationsConfig $notifications,
+        private readonly Rules               $rules,
+        private readonly Map                 $settings,
+        private readonly HttpClientConfig    $httpClient,
+        private readonly NotificationsConfig $notifications,
     ) {
         //
     }
@@ -27,11 +28,11 @@ class Config
     }
 
     /**
-     * @return Map<class-string<CiSystem>, RemoteCredentials>
+     * @return Map<CiName, CiSettings>
      */
-    public function getCredentials(): Map
+    public function getSettings(): Map
     {
-        return $this->credentials;
+        return $this->settings;
     }
 
     public function getHttpClient(): HttpClientConfig

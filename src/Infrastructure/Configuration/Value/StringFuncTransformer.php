@@ -24,4 +24,9 @@ abstract class StringFuncTransformer implements ConfigValueTransformer
     {
         return $this->doTransform(Str::between($value, static::FUNC_NAME . '(', ')'));
     }
+
+    public function tryTransform(string $value): string
+    {
+        return $this->supports($value) ? $this->transform($value) : $value;
+    }
 }
