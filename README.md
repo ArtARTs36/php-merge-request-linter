@@ -9,7 +9,7 @@
 
 This project provides tools for validating merge/pull requests.
 
-Supported CI Systems: **GitHub Actions**, **Gitlab CI**.
+Supported CI Systems: **GitHub Actions**, **Gitlab CI**, **Bitbucket Pipelines**.
 
 [Read more about MR Linter »](https://mr-linter.dev)
 

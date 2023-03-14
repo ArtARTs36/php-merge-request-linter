@@ -62,3 +62,32 @@ build:
      script:
        - mr-linter lint
    ```
+
+## Usage with Bitbucket Pipelines
+
+1. Create App Password on `https://bitbucket.org/account/settings/app-passwords/new` with permissions: 
+   * Account: read
+   * Repositories: read
+   * Pull requests: read
+
+2. Add new repository variable `MR_LINTER_APP_PASSWORD` on `https://bitbucket.org/{repository-owner}/{repository-name}/admin/addon/admin/pipelines/repository-variables`
+
+3. Add new step into **bitbucket-pipelines.yaml**
+   ```yaml
+   pipelines:
+      pull-requests:
+         '**':
+            - step:
+                 name: PR Review
+                 script:
+                    - ./vendor/bin/mr-linter lint
+   ```
+
+4. Setup credentials in `mr-linter.yaml` as:
+   ```yaml
+   credentials:
+     bitbucket_pipelines:
+       app_password:
+         user: your-login
+         password: 'env(MR_LINTER_APP_PASSWORD)'
+   ```
