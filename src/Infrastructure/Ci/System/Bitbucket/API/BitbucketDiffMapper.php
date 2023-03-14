@@ -14,8 +14,7 @@ class BitbucketDiffMapper
 
     public function __construct(
         private readonly DiffMapper $mapper = new DiffMapper(),
-    )
-    {
+    ) {
         //
     }
 
@@ -38,14 +37,14 @@ class BitbucketDiffMapper
             if ($oldPath === null && $line->startsWith('---')) {
                 // 4 = "---" + space
                 $oldPath = $line->cut(null, 4);
-            } else if ($newPath === null && $line->startsWith('+++')) {
+            } elseif ($newPath === null && $line->startsWith('+++')) {
                 // 4 = "---" + space
                 $newPath = $line->cut(null, 4);
 
                 if ($newPath->startsWith(self::FILE_UNLESS_PREFIX)) {
                     $newPath = $newPath->cut(null, self::FILE_UNLESS_PREFIX_LENGTH);
                 }
-            } else if ($change->isNotEmpty() && $line->startsWith(self::FILE_BREAK_LINE_START) || $index === $lastIndex) {
+            } elseif ($change->isNotEmpty() && $line->startsWith(self::FILE_BREAK_LINE_START) || $index === $lastIndex) {
                 foreach ($this->mapper->map([$change]) as $diffLine) {
                     $diff[(string) $newPath][] = $diffLine;
                 }
@@ -53,7 +52,7 @@ class BitbucketDiffMapper
                 $change = Str::fromEmpty();
                 $newPath = null;
                 $oldPath = null;
-            } else if ($oldPath !== null && $newPath !== null) {
+            } elseif ($oldPath !== null && $newPath !== null) {
                 $change = $change->appendLine($line);
             }
         }

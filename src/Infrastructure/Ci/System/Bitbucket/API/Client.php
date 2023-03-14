@@ -75,7 +75,7 @@ class Client
 
     /**
      * @param array<string, mixed> $data
-     * @param ArrayMap<string, array<DiffLine>> $changes
+     * @param Map<string, array<DiffLine>> $changes
      */
     private function makePullRequest(array $data, Map $changes): PullRequest
     {

@@ -22,7 +22,7 @@ class CredentialMapper
     }
 
     /**
-     * @param array<string, string|array<string, string>> $credentials
+     * @param array<string, array<string, array{credentials: array<string, mixed>}>> $credentials
      * @return ArrayMap<class-string<CiSystem>, Authenticator>
      */
     public function map(array $credentials): ArrayMap
