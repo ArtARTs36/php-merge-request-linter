@@ -18,26 +18,26 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
         //
     }
 
-    public function map(array|string $value): Authenticator
+    public function map(array $credentials): Authenticator
     {
         $authenticators = [];
 
-        if (array_key_exists('token', $value)) {
-            $authenticators[] = TokenAuthenticator::bearer($this->valueTransformer->tryTransform($value['token']));
+        if (array_key_exists('token', $credentials)) {
+            $authenticators[] = TokenAuthenticator::bearer($this->valueTransformer->tryTransform($credentials['token']));
         }
 
-        if (array_key_exists('host', $value)) {
-            $authenticators[] = new HostAuthenticator($this->valueTransformer->tryTransform($value['host']));
+        if (array_key_exists('host', $credentials)) {
+            $authenticators[] = new HostAuthenticator($this->valueTransformer->tryTransform($credentials['host']));
         }
 
-        if (array_key_exists('app_password', $value) && count($value['app_password']) === 2) {
-            foreach ($value['app_password'] as &$v) {
+        if (array_key_exists('app_password', $credentials) && count($credentials['app_password']) === 2) {
+            foreach ($credentials['app_password'] as &$v) {
                 if ($this->valueTransformer->supports($v)) {
                     $v = $this->valueTransformer->transform($v);
                 }
             }
 
-            $authenticators[] = new BasicBase64Authenticator($value['app_password']['user'], $value['app_password']['password']);
+            $authenticators[] = new BasicBase64Authenticator($credentials['app_password']['user'], $credentials['app_password']['password']);
         }
 
         return new CompositeAuthenticator($authenticators);
