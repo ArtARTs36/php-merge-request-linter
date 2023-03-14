@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\VarName;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\CompositeResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
@@ -84,6 +87,8 @@ final class BitbucketPipelinesTest extends TestCase
                 new ArrayMap($env),
             )),
             new MockMarkdownCleaner(),
+            new BitbucketPipelinesSettings(new LabelsSettings(null)),
+            new CompositeResolver([]),
         );
     }
 }

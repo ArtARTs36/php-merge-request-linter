@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
+use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
 
@@ -87,7 +88,7 @@ class Client
             $data['destination']['branch']['name'] ?? '',
             new \DateTimeImmutable($data['created_on']),
             $data['links']['html']['href'] ?? '',
-            $data['description'] ?? '',
+            Str::make($data['description'] ?? ''),
             PullRequestState::create($data['state'] ?? ''),
             $changes,
         );

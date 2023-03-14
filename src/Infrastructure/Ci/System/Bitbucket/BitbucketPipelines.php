@@ -11,6 +11,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\LabelsResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
@@ -28,6 +30,8 @@ class BitbucketPipelines implements CiSystem
         private readonly Client $client,
         private readonly BitbucketEnvironment $environment,
         private readonly MarkdownCleaner $markdownCleaner,
+        private readonly BitbucketPipelinesSettings $settings,
+        private readonly LabelsResolver $labelsResolver,
     ) {
         //
     }
@@ -68,7 +72,7 @@ class BitbucketPipelines implements CiSystem
             Str::make($pr->title),
             new Markdown($description),
             $this->markdownCleaner->clean($description),
-            new Set([]),
+            Set::fromList($this->labelsResolver->resolve($pr, $this->settings->labels)),
             false,
             Str::make($pr->sourceBranch),
             Str::make($pr->targetBranch),

@@ -62,6 +62,7 @@ class Generator
                     ],
                 ],
                 'bitbucket_pipelines' => [
+                    'description' => 'Bitbucket Pipelines settings',
                     'type' => 'object',
                     'properties' => [
                         'credentials' => [
@@ -81,6 +82,24 @@ class Generator
                                 'host' => [
                                     'type' => 'string',
                                     'description' => 'API Host',
+                                ],
+                            ],
+                        ],
+                        'labels' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'of_description' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'line_starts_with' => [
+                                            'type' => 'string',
+                                            'description' => 'Line Prefix',
+                                        ],
+                                        'separator' => [
+                                            'type' => 'string',
+                                            'description' => 'Labels separator',
+                                        ],
+                                    ],
                                 ],
                             ],
                         ],

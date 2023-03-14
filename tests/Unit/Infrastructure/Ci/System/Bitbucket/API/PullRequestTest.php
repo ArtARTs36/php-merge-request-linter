@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbu
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestState;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\BitbucketPR;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class PullRequestTest extends TestCase
@@ -13,32 +14,14 @@ final class PullRequestTest extends TestCase
     {
         return [
             [
-                new PullRequest(
-                    1,
-                    'PR',
-                    'Dev',
-                    'dev',
-                    'master',
-                    new \DateTimeImmutable(),
-                    '',
-                    '',
-                    PullRequestState::Open,
-                    new ArrayMap([]),
+                BitbucketPR::create(
+                    state: PullRequestState::Open,
                 ),
                 true,
             ],
             [
-                new PullRequest(
-                    1,
-                    'PR',
-                    'Dev',
-                    'dev',
-                    'master',
-                    new \DateTimeImmutable(),
-                    '',
-                    '',
-                    PullRequestState::Declined,
-                    new ArrayMap([]),
+                BitbucketPR::create(
+                    state: PullRequestState::Declined,
                 ),
                 false,
             ],
@@ -59,32 +42,14 @@ final class PullRequestTest extends TestCase
     {
         return [
             [
-                new PullRequest(
-                    1,
-                    'Draft: PR',
-                    'Dev',
-                    'dev',
-                    'master',
-                    new \DateTimeImmutable(),
-                    '',
-                    '',
-                    PullRequestState::Open,
-                    new ArrayMap([]),
+                BitbucketPR::create(
+                    title: 'Draft: PR',
                 ),
                 true,
             ],
             [
-                new PullRequest(
-                    1,
-                    'PR',
-                    'Dev',
-                    'dev',
-                    'master',
-                    new \DateTimeImmutable(),
-                    '',
-                    '',
-                    PullRequestState::Declined,
-                    new ArrayMap([]),
+                BitbucketPR::create(
+                    title: 'PR',
                 ),
                 false,
             ],

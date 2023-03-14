@@ -19,7 +19,7 @@ class PullRequest
         public readonly string             $targetBranch,
         public readonly \DateTimeImmutable $createdAt,
         public readonly string             $uri,
-        public readonly string             $description,
+        public readonly \ArtARTs36\Str\Str             $description,
         public readonly PullRequestState  $state,
         public readonly Map                $changes,
     ) {
