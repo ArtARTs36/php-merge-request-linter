@@ -22,7 +22,7 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
     {
         $authenticators = [];
 
-        if (array_key_exists('token', $credentials)) {
+        if (! empty($credentials['token'])) {
             $authenticators[] = TokenAuthenticator::bearer($this->valueTransformer->tryTransform($credentials['token']));
         }
 

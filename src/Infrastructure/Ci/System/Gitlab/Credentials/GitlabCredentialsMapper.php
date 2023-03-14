@@ -18,7 +18,7 @@ class GitlabCredentialsMapper implements AuthenticatorMapper
 
     public function map(array $credentials): Authenticator
     {
-        if (! isset($credentials['token'])) {
+        if (empty($credentials['token'])) {
             throw new InvalidCredentialsException(sprintf(
                 'Gitlab CI supported only token',
             ));
