@@ -36,6 +36,10 @@ index 0000000..c66bfc1
         '.gitignore' => [
             new \ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine(
                 \ArtARTs36\MergeRequestLinter\Domain\Request\DiffType::NOT_CHANGES,
+                \ArtARTs36\Str\Str::make(''),
+            ),
+            new \ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine(
+                \ArtARTs36\MergeRequestLinter\Domain\Request\DiffType::NOT_CHANGES,
                 \ArtARTs36\Str\Str::make('@@ -48,3 +48,5 @@ Thumbs.db'),
             ),
             new \ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine(
@@ -60,6 +64,10 @@ index 0000000..c66bfc1
             ),
         ],
         '.mr-linter.yml' => [
+            new \ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine(
+                \ArtARTs36\MergeRequestLinter\Domain\Request\DiffType::NOT_CHANGES,
+                \ArtARTs36\Str\Str::make(''),
+            ),
             new \ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine(
                 \ArtARTs36\MergeRequestLinter\Domain\Request\DiffType::NOT_CHANGES,
                 \ArtARTs36\Str\Str::make('@@ -0,0 +1,14 @@'),

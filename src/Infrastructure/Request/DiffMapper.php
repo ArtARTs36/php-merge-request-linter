@@ -9,33 +9,28 @@ use ArtARTs36\Str\Str;
 class DiffMapper
 {
     /**
-     * @param array<string> $response
      * @return array<DiffLine>
      */
-    public function map(array $response): array
+    public function map(string $response): array
     {
         $diff = [];
 
-        foreach ($response as $respDiff) {
-            $respDiffStr = Str::make($respDiff)->trim();
+        /** @var Str $respLine */
+        foreach (Str::make($response)->lines() as $respLine) {
+            $type = DiffType::NOT_CHANGES;
 
-            /** @var Str $respLine */
-            foreach ($respDiffStr->lines() as $respLine) {
-                $type = DiffType::NOT_CHANGES;
-
-                if ($respLine->startsWith('+')) {
-                    $type = DiffType::NEW;
-                    $respLine = $respLine->cut(null, start: 1);
-                } elseif ($respLine->startsWith('-')) {
-                    $type = DiffType::OLD;
-                    $respLine = $respLine->cut(null, start: 1);
-                }
-
-                $diff[] = new DiffLine(
-                    $type,
-                    $respLine,
-                );
+            if ($respLine->startsWith('+')) {
+                $type = DiffType::NEW;
+                $respLine = $respLine->cut(null, start: 1);
+            } elseif ($respLine->startsWith('-')) {
+                $type = DiffType::OLD;
+                $respLine = $respLine->cut(null, start: 1);
             }
+
+            $diff[] = new DiffLine(
+                $type,
+                $respLine,
+            );
         }
 
         return $diff;

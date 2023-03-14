@@ -45,7 +45,7 @@ class BitbucketDiffMapper
                     $newPath = $newPath->cut(null, self::FILE_UNLESS_PREFIX_LENGTH);
                 }
             } elseif ($change->isNotEmpty() && $line->startsWith(self::FILE_BREAK_LINE_START) || $index === $lastIndex) {
-                foreach ($this->mapper->map([$change]) as $diffLine) {
+                foreach ($this->mapper->map($change) as $diffLine) {
                     $diff[(string) $newPath][] = $diffLine;
                 }
 
