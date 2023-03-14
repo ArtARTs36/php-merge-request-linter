@@ -51,7 +51,7 @@
                     ]
                 },
                 "@mr-linter/description_not_empty": {
-                    "description": "Description must be filled.",
+                    "description": "The description must be filled.",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_description_not_empty"
