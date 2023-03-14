@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use Psr\Http\Message\RequestInterface;
 
-class CompositeAuthenticator implements Authenticator
+final class CompositeAuthenticator implements Authenticator
 {
     /**
      * @param iterable<Authenticator> $authenticators
@@ -23,5 +23,13 @@ class CompositeAuthenticator implements Authenticator
         }
 
         return $request;
+    }
+
+    /**
+     * @return iterable<Authenticator>
+     */
+    public function getAuthenticators(): iterable
+    {
+        return $this->authenticators;
     }
 }
