@@ -86,11 +86,12 @@ build:
 
 4. Setup credentials in `mr-linter.yaml` as:
    ```yaml
-   credentials:
+   ci:
      bitbucket_pipelines:
-       app_password:
-         user: your-login
-         password: 'env(MR_LINTER_APP_PASSWORD)'
+       credentials:
+         app_password:
+           user: your-login
+           password: 'env(MR_LINTER_APP_PASSWORD)'
    ```
 
 ### Labels
