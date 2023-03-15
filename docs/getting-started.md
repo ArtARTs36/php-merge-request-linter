@@ -75,12 +75,13 @@ build:
 3. Add new step into **bitbucket-pipelines.yaml**
    ```yaml
    pipelines:
-      pull-requests:
-         '**':
-            - step:
-                 name: PR Review
-                 script:
-                    - ./vendor/bin/mr-linter lint
+     pull-requests:
+       '**':
+         - step:
+             image: "artarts36/merge-request-linter:0.11.0"
+             name: PR Review
+             script:
+               - mr-linter lint
    ```
 
 4. Setup credentials in `mr-linter.yaml` as:
