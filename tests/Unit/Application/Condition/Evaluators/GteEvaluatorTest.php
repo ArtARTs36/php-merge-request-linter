@@ -23,6 +23,7 @@ final class GteEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\GteEvaluator::doEvaluate
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\GteEvaluator::evaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\GteEvaluator::__construct
      * @dataProvider providerForEvaluate
      */
     public function testEvaluate(int|float $propertyValue, int|float $value, bool $expected): void
