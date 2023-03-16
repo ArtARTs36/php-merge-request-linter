@@ -4,6 +4,18 @@ This file contains changelogs.
 
 [View all Releases](https://github.com/ArtARTs36/php-merge-request-linter/releases)
 
+## [v0.11.1 (2023-03-17)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.11.0..0.11.1)
+
+### Added
+* Added Rule "Branch starts with task number"
+
+### Internal
+* Up test coverage
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.11.1)
+
+-----------------------------------------------------------------
+
 ## [v0.11.0 (2023-03-14)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.10.1..0.11.0)
 
 ### Added
