@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Operator
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Operators\PropertyOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
-use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectFactory;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;

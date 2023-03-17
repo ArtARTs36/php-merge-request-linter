@@ -18,6 +18,7 @@ final class MapProxyTest extends TestCase
             ['get', [1], 1],
             ['isEmpty', [], 1],
             ['keys', [], 1],
+            ['has', ['key'], 1],
         ];
     }
 
@@ -29,6 +30,7 @@ final class MapProxyTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::get
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::isEmpty
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::keys
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::has
      * @dataProvider providerForTestCallMethodWithForwardToMap
      */
     public function testCallMethodWithForwardToMap(string $methodName, array $args, int $expectedCalls): void

@@ -82,4 +82,11 @@ class CallsCounterMap implements Map
 
         return [];
     }
+
+    public function has(string $id): bool
+    {
+        ++$this->counter;
+
+        return true;
+    }
 }

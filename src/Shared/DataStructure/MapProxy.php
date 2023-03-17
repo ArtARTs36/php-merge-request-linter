@@ -48,6 +48,11 @@ class MapProxy implements Map
         return $this->retrieveMap()->containsAny($values);
     }
 
+    public function has(string $id): bool
+    {
+        return $this->retrieveMap()->has($id);
+    }
+
     public function contains(mixed $value): bool
     {
         return $this->retrieveMap()->contains($value);

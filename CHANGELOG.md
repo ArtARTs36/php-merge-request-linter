@@ -8,6 +8,7 @@ This file contains changelogs.
 
 ### Added
 * Added Rule "Branch starts with task number"
+* Added Rule "Forbid changes"
 
 ### Internal
 * Up test coverage
