@@ -199,6 +199,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/branch_starts_with_task_number": {
+                    "description": "Source branch must starts with task number of project {projectName}. Mask: {projectName}-number",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_branch_starts_with_task_number"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_branch_starts_with_task_number"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -3542,6 +3557,22 @@
             ]
         },
         "rules_properties_@mr-linter_title_starts_with_task_number": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "projectName": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "projectName"
+            ]
+        },
+        "rules_properties_@mr-linter_branch_starts_with_task_number": {
             "type": "object",
             "properties": {
                 "when": {
