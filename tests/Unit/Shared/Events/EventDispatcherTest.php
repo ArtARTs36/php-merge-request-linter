@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Events;
 
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class EventDispatcherTest extends TestCase
@@ -48,6 +49,34 @@ final class EventDispatcherTest extends TestCase
         $dispatcher->dispatch($event);
 
         self::assertEquals($expectedCalls, $calls);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher::subscribe
+     */
+    public function testSubscribe(): void
+    {
+        $dispatcher = new EventDispatcher();
+
+        $dispatcher->subscribe($subscriber = new class () implements EventSubscriber {
+            public int $calls = 0;
+
+            public function getSubscribedEvents(): array
+            {
+                return [
+                    TestEvent::class => 'handleEvent',
+                ];
+            }
+
+            public function handleEvent(TestEvent $event): void
+            {
+                ++$this->calls;
+            }
+        });
+
+        $dispatcher->dispatch(new TestEvent());
+
+        self::assertEquals(1, $subscriber->calls);
     }
 }
 
