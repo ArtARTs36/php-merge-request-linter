@@ -39,4 +39,16 @@ final class NativeJsonDecoderTest extends TestCase
 
         $decoder->decode('');
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder::decode
+     */
+    public function testDecodeOnJsonInvalid(): void
+    {
+        self::expectExceptionMessage('JSON content invalid');
+
+        $decoder = new NativeJsonDecoder();
+
+        $decoder->decode('null');
+    }
 }
