@@ -18,6 +18,11 @@ final class MockConditionEvaluator implements ConditionEvaluator
         return new self(true);
     }
 
+    public static function failed(): self
+    {
+        return new self(false);
+    }
+
     public function evaluate(EvaluatingSubject $subject): bool
     {
         return $this->value;

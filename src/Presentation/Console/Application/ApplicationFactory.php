@@ -26,6 +26,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
@@ -34,6 +35,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
@@ -72,17 +74,20 @@ class ApplicationFactory
             $metrics,
         );
 
-        $events = new EventDispatcher();
+        $events = new EventDispatcher($logger);
 
-        $events->listen(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container) {
+        $notificationsListener = function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container, $logger) {
             (new ListenerRegistrar(
                 $event->config->config->getNotifications(),
                 new ListenerFactory(
-                    (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient())))->create(),
+                    (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient()), $logger))->create(),
                     $container->get(OperatorResolver::class),
+                    new MessageCreator(),
                 ),
             ))->register($events);
-        });
+        };
+
+        $events->listen(ConfigResolvedEvent::class, new CallbackListener('registration notifications', $notificationsListener));
 
         $application->add(new LintCommand($metrics, $events, new LintTaskHandler(
             $configResolver,

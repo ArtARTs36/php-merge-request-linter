@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ConditionListe
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\NotifyListener;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockOperatorResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -42,7 +43,7 @@ final class ListenerFactoryTest extends TestCase
             {
                 //
             }
-        }, new MockOperatorResolver());
+        }, new MockOperatorResolver(), new MessageCreator());
 
         $listener = $factory->create($message);
 

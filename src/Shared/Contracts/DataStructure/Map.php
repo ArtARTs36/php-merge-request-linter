@@ -20,6 +20,11 @@ interface Map extends Collection, HasDebugInfo
     public function get(string $id);
 
     /**
+     * Check id exists.
+     */
+    public function has(string $id): bool;
+
+    /**
      * Get keys.
      * @return Arrayee<int, K>
      */

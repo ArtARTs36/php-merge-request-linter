@@ -2,24 +2,24 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\AbstractRule;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NamedRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class AbstractRuleTest extends TestCase
+final class NamedRuleTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\AbstractRule::getName
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NamedRule::getName
      */
     public function testGetName(): void
     {
-        $rule = new class () extends AbstractRule {
+        $rule = new class () extends NamedRule {
             public const NAME = 'test-rule';
 
-            protected function doLint(MergeRequest $request): bool
+            public function lint(MergeRequest $request): array
             {
-                // TODO: Implement doLint() method.
+                // TODO: Implement lint() method.
             }
 
             public function getDefinition(): RuleDefinition

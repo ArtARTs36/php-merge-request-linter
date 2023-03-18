@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Tasks\CreateConfigTask;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\InvalidInputException;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,10 +47,18 @@ class InstallCommand extends Command
 
     private function resolveConfigFormat(InputInterface $input): ConfigFormat
     {
-        if ($input->getOption('format') !== null && is_string($input->getOption('format'))) {
-            return ConfigFormat::from($input->getOption('format'));
+        $userFormat = $input->getOption('format');
+
+        if (! is_string($userFormat)) {
+            return ConfigFormat::YAML;
         }
 
-        return ConfigFormat::YAML;
+        $format = ConfigFormat::tryFrom($input->getOption('format'));
+
+        if ($format === null) {
+            throw new InvalidInputException(sprintf('Format "%s" not supported', $userFormat));
+        }
+
+        return $format;
     }
 }

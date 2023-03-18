@@ -106,6 +106,33 @@ final class ArrayeeTest extends TestCase
         self::assertEquals('1 2 3', $arrayee->implode(' '));
     }
 
+    public function providerForTestFirsts(): array
+    {
+        return [
+            [
+                [1, 2, 3],
+                2,
+                [1, 2],
+            ],
+            [
+                [],
+                2,
+                [],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee::firsts
+     * @dataProvider providerForTestFirsts
+     */
+    public function testFirsts(array $values, int $count, array $expected): void
+    {
+        $arrayee = new Arrayee($values);
+
+        self::assertEquals($expected, $arrayee->firsts($count)->mapToArray(fn ($item) => $item));
+    }
+
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee::mapToArray
      */

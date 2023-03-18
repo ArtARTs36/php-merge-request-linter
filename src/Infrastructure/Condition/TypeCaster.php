@@ -2,11 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ValueHasDifferentTypeException;
 use ArtARTs36\Str\Str;
@@ -23,27 +20,6 @@ class TypeCaster
                 $this->getType($val),
                 'int|float|string|bool',
             );
-        }
-
-        return $val;
-    }
-
-    /**
-     * Extract iterable property.
-     * @return Arrayee<int|string, mixed>|ArrayMap<string, mixed>|Set<mixed>
-     * @throws ValueHasDifferentTypeException
-     */
-    public function collection(mixed $val): Collection
-    {
-        if (! is_array($val) && ! $val instanceof Set && ! $val instanceof ArrayMap) {
-            throw ValueHasDifferentTypeException::make(
-                $this->getType($val),
-                'array|Set|Map',
-            );
-        }
-
-        if (is_array($val)) {
-            return new Arrayee($val);
         }
 
         return $val;

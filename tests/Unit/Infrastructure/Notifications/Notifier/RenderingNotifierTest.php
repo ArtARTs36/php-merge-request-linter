@@ -26,7 +26,7 @@ final class RenderingNotifierTest extends TestCase
 
         $notifier->notify(
             new Channel(ChannelType::TelegramBot, new ArrayMap([])),
-            new Message('', new ArrayMap([])),
+            new Message('', new ArrayMap([]), ''),
         );
     }
 
@@ -56,7 +56,7 @@ final class RenderingNotifierTest extends TestCase
             new ArrayMap([ChannelType::TelegramBot->value => $messenger]),
         );
 
-        $notifier->notify($channel, new Message($message, new ArrayMap([])));
+        $notifier->notify($channel, new Message($message, new ArrayMap([]), ''));
 
         self::assertEquals($queue, $messenger->getQueue());
     }

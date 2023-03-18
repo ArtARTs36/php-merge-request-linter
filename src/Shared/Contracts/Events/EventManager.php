@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Contracts\Events;
 
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventListener;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventListenerWasFailedException;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -12,11 +14,11 @@ interface EventManager extends EventDispatcherInterface
 {
     /**
      * Add Listener to event.
-     * @template E as object
-     * @param string|class-string<E> $event
-     * @param callable(E): void $listener
+     * @param string|class-string $event
+     * @param EventListener $listener
+     * @throws EventListenerWasFailedException
      */
-    public function listen(string $event, callable $listener): void;
+    public function listen(string $event, EventListener $listener): void;
 
     /**
      * Add subscriber.

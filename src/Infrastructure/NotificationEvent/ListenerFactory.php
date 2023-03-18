@@ -5,12 +5,14 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 
 class ListenerFactory
 {
     public function __construct(
         private readonly Notifier $notifier,
         private readonly OperatorResolver $operator,
+        private readonly MessageCreator $messageCreator,
     ) {
         //
     }
@@ -20,6 +22,7 @@ class ListenerFactory
         $notifyListener = new NotifyListener(
             $this->notifier,
             $message,
+            $this->messageCreator,
         );
 
         if (empty($message->conditions)) {
