@@ -4,15 +4,29 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
-use Symfony\Component\Console\Logger\ConsoleLogger as SymfonyConsoleLogger;
+use Psr\Log\LogLevel;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ConsoleLogger implements LoggerInterface
 {
     use LoggerTrait;
 
+    /** @var array<string, string> */
+    private array $formatLevelMap = [
+        LogLevel::EMERGENCY => LogLevel::ERROR,
+        LogLevel::ALERT => LogLevel::ERROR,
+        LogLevel::CRITICAL => LogLevel::ERROR,
+        LogLevel::ERROR => LogLevel::ERROR,
+        LogLevel::WARNING => LogLevel::INFO,
+        LogLevel::NOTICE => LogLevel::INFO,
+        LogLevel::INFO => LogLevel::INFO,
+        LogLevel::DEBUG => LogLevel::INFO,
+    ];
+
+    private bool $hasLogs = false;
+
     public function __construct(
-        private SymfonyConsoleLogger $logger,
         private OutputInterface      $output,
     ) {
         //
@@ -20,19 +34,33 @@ class ConsoleLogger implements LoggerInterface
 
     public function log($level, \Stringable|string $message, array $context = []): void
     {
-        if (is_string($level) && $this->willBeLogged($level)) {
-            $this->output->write("\n");
-            $this->logger->log($level, $message, $context);
+        if (! is_string($level)) {
+            return;
         }
-    }
 
-    private function willBeLogged(string $level): bool
-    {
-        /** @var array<string, int> $verbosityLevelMap */
-        $verbosityLevelMap = (function () {
-            return $this->verbosityLevelMap ?? [];
-        })->call($this->logger);
+        if ($this->hasLogs) {
+            $this->output->write("\n");
+        }
 
-        return isset($verbosityLevelMap[$level]) && $this->output->getVerbosity() >= $verbosityLevelMap[$level];
+        $output = $this->output;
+
+        if (LogLevel::ERROR === $this->formatLevelMap[$level]) {
+            if ($output instanceof ConsoleOutputInterface) {
+                $output = $output->getErrorOutput();
+            }
+        }
+
+        $output->writeln(
+            sprintf(
+                '<%1$s>[%2$s] %3$s %4$s</%1$s>',
+                $this->formatLevelMap[$level],
+                $level,
+                $message,
+                json_encode($context, JSON_FORCE_OBJECT),
+            ),
+            OutputInterface::VERBOSITY_VERY_VERBOSE
+        );
+
+        $this->hasLogs = true;
     }
 }
