@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Notifications\Message;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockOperatorResolver;
@@ -52,7 +53,7 @@ final class ListenerRegistrarTest extends TestCase
                 {
                     //
                 }
-            }, new MockOperatorResolver()),
+            }, new MockOperatorResolver(), new MessageCreator()),
         );
 
         $mockDispatcher = new MockEventDispatcher();

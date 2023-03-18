@@ -26,6 +26,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
@@ -81,6 +82,7 @@ class ApplicationFactory
                 new ListenerFactory(
                     (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient()), $logger))->create(),
                     $container->get(OperatorResolver::class),
+                    new MessageCreator(),
                 ),
             ))->register($events);
         };

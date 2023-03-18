@@ -32,7 +32,7 @@ final class LoggableNotifierTest extends TestCase
 
         $notifier->notify(
             new Channel(ChannelType::TelegramBot, new ArrayMap([])),
-            new Message('', new ArrayMap([])),
+            new Message('', new ArrayMap([]), ''),
         );
 
         self::assertEquals(2, $logger->getMessagesCount());

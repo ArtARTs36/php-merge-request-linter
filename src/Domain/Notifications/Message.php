@@ -15,6 +15,7 @@ class Message
     public function __construct(
         public readonly string $template,
         public readonly Map    $data,
+        public readonly string $id,
     ) {
         //
     }
