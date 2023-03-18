@@ -70,7 +70,7 @@
             "XDEBUG_MODE=coverage ./vendor/bin/phpunit -v --coverage-text --colors=always --configuration phpunit.xml --coverage-clover ./coverage.xml"
         ],
         "stat-analyse": [
-            "./vendor/bin/phpstan analyse -l 8 src"
+            "./vendor/bin/phpstan analyse src"
         ],
         "mr-lint": [
             "./bin/mr-linter lint"
