@@ -75,15 +75,17 @@ class ApplicationFactory
 
         $events = new EventDispatcher($logger);
 
-        $events->listen(ConfigResolvedEvent::class, new CallbackListener('registration notifications', function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container) {
+        $notificationsListener = function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container, $logger) {
             (new ListenerRegistrar(
                 $event->config->config->getNotifications(),
                 new ListenerFactory(
-                    (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient())))->create(),
+                    (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient()), $logger))->create(),
                     $container->get(OperatorResolver::class),
                 ),
             ))->register($events);
-        }));
+        };
+
+        $events->listen(ConfigResolvedEvent::class, new CallbackListener('registration notifications', $notificationsListener));
 
         $application->add(new LintCommand($metrics, $events, new LintTaskHandler(
             $configResolver,
