@@ -23,7 +23,10 @@ class EventDispatcher implements EventManager
         $eventName = defined("$eventClass::NAME") ? $eventClass::NAME : null;
         $eventLogName = $eventName ?? $eventClass;
 
-        $this->logger->info(sprintf('[EventDispatcher][event: %s] Dispatching event "%s"', $eventLogName, $eventLogName));
+        $this->logger->info(
+            sprintf('[EventDispatcher][event: %s] Dispatching event "%s"', $eventLogName, $eventLogName),
+            ['event_data' => get_object_vars($event)],
+        );
 
         $this->callListeners($this->listeners[$eventClass] ?? [], $event, $eventLogName);
 
