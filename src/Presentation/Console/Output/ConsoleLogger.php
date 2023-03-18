@@ -27,7 +27,7 @@ class ConsoleLogger implements LoggerInterface
     private bool $hasLogs = false;
 
     public function __construct(
-        private OutputInterface      $output,
+        private readonly OutputInterface $output,
     ) {
         //
     }
@@ -44,10 +44,8 @@ class ConsoleLogger implements LoggerInterface
 
         $output = $this->output;
 
-        if (LogLevel::ERROR === $this->formatLevelMap[$level]) {
-            if ($output instanceof ConsoleOutputInterface) {
-                $output = $output->getErrorOutput();
-            }
+        if (LogLevel::ERROR === $this->formatLevelMap[$level] && $output instanceof ConsoleOutputInterface) {
+            $output = $output->getErrorOutput();
         }
 
         $output->writeln(
@@ -58,7 +56,7 @@ class ConsoleLogger implements LoggerInterface
                 $message,
                 json_encode($context, JSON_FORCE_OBJECT),
             ),
-            OutputInterface::VERBOSITY_VERY_VERBOSE
+            OutputInterface::VERBOSITY_VERY_VERBOSE,
         );
 
         $this->hasLogs = true;
