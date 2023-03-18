@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Events;
 
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventListenerWasFailedException;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\CounterLogger;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -76,7 +77,7 @@ final class EventDispatcherTest extends TestCase
             '[EventDispatcher][event: test] Listener "t" was failed: test-exception',
         ]);
 
-        self::expectException(\LogicException::class);
+        self::expectException(EventListenerWasFailedException::class);
 
         $dispatcher->dispatch(new TestEventWithName());
     }

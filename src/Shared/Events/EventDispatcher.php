@@ -56,6 +56,7 @@ class EventDispatcher implements EventManager
 
     /**
      * @param iterable<EventListener> $listeners
+     * @throws EventListenerWasFailedException
      */
     private function callListeners(iterable $listeners, object $event, string $eventLogName): void
     {
@@ -74,7 +75,11 @@ class EventDispatcher implements EventManager
                     $e->getMessage(),
                 ));
 
-                throw $e;
+                throw new EventListenerWasFailedException(
+                    $e->getMessage(),
+                    $e->getCode(),
+                    $e,
+                );
             }
 
             $this->logger->info(
