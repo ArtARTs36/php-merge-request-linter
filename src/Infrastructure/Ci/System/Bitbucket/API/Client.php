@@ -51,7 +51,7 @@ class Client
 
         $diffUrl = $responseArray['links']['diff']['href'] ?? null;
 
-        if ($diffUrl !== null) {
+        if (is_string($diffUrl)) {
             $changes = new MapProxy(function () use ($diffUrl) {
                 return new ArrayMap($this->fetchChanges($diffUrl));
             });
