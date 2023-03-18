@@ -35,7 +35,7 @@ abstract class Command extends \Symfony\Component\Console\Command\Command
         return $option;
     }
 
-    protected function getBoolFromOption(InputInterface $input, string $key, bool $default = false): bool
+    final protected function getBoolFromOption(InputInterface $input, string $key, bool $default = false): bool
     {
         $option = $input->getOption($key);
 

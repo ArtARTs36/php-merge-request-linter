@@ -53,4 +53,18 @@ final class InstallCommandTest extends TestCase
 
         $cwd->revert();
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand::execute
+     * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand::resolveConfigFormat
+     */
+    public function testExecuteOnConfigFormatNotSupported(): void
+    {
+        $command = new InstallCommand(new CreateConfigTaskHandler(new Copier(new Directory(__DIR__ . '/../../../../stubs/'))));
+        $tester = new CommandTester($command);
+
+        self::expectExceptionMessage('Format "ee" not supported');
+
+        $tester->execute(['--format' => 'ee']);
+    }
 }
