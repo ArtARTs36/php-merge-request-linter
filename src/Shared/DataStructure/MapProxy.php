@@ -18,6 +18,7 @@ class MapProxy implements Map
 
     /**
      * @param \Closure(): Map<K, V> $mapFetcher
+     * @param int<0, max>|null $count
      */
     public function __construct(
         private \Closure $mapFetcher,
