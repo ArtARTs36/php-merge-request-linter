@@ -30,6 +30,7 @@ final class PropertyOperatorTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Operators\PropertyOperator::check
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Operators\PropertyOperator::__construct
      * @dataProvider providerForTestCheck
      */
     public function testCheck(ConditionEvaluator $evaluator, EvaluatingSubjectFactory $subjectFactory, bool $expected): void
