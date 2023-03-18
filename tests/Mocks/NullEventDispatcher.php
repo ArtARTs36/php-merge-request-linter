@@ -3,12 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class NullEventDispatcher implements EventManager
 {
-    public function listen(string $event, callable $listener): void
+    public function listen(string $event, EventListener $listener): void
     {
         // TODO: Implement listen() method.
     }
@@ -18,7 +19,7 @@ class NullEventDispatcher implements EventManager
         // TODO: Implement subscribe() method.
     }
 
-    public function dispatch(object $event, string $eventName = null): object
+    public function dispatch(object $event): object
     {
         return $event;
     }

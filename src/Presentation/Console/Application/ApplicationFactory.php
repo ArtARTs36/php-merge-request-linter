@@ -34,6 +34,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
@@ -72,9 +73,9 @@ class ApplicationFactory
             $metrics,
         );
 
-        $events = new EventDispatcher();
+        $events = new EventDispatcher($logger);
 
-        $events->listen(ConfigResolvedEvent::class, function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container) {
+        $events->listen(ConfigResolvedEvent::class, new CallbackListener('registration notifications', function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container) {
             (new ListenerRegistrar(
                 $event->config->config->getNotifications(),
                 new ListenerFactory(
@@ -82,7 +83,7 @@ class ApplicationFactory
                     $container->get(OperatorResolver::class),
                 ),
             ))->register($events);
-        });
+        }));
 
         $application->add(new LintCommand($metrics, $events, new LintTaskHandler(
             $configResolver,

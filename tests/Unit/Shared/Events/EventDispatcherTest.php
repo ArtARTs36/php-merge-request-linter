@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Events;
 
+use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -32,6 +33,8 @@ final class EventDispatcherTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher::dispatch
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher::listen
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher::callListeners
      * @dataProvider providerForTestDispatch
      */
     public function testDispatch(string $listenEventName, object $event, int $expectedCalls): void
@@ -44,7 +47,7 @@ final class EventDispatcherTest extends TestCase
             $calls++;
         };
 
-        $dispatcher->listen($listenEventName, $listener);
+        $dispatcher->listen($listenEventName, new CallbackListener('', $listener));
 
         $dispatcher->dispatch($event);
 
