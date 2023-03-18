@@ -40,8 +40,16 @@ class ClientGuzzleWrapper implements Client
         $responses = Utils::settle($promises)->wait();
         $preparedResponses = [];
 
+        if (! is_array($responses)) {
+            throw new \LogicException(sprintf('Failed send request: %s', var_export($responses, true)));
+        }
+
         /** @var int|string $key */
         foreach ($responses as $key => $response) {
+            if (! array_key_exists('value', $response)) {
+                throw new \LogicException(sprintf('Failed send request: %s', var_export($response, true)));
+            }
+
             if (! $response['value'] instanceof ResponseInterface) {
                 throw new \LogicException(sprintf('Failed send request: %s', var_export($response['value'], true)));
             }
