@@ -3,12 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsOfDescriptionSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\Str\Str;
 
-/**
- * @phpstan-import-type OfDescription from LabelsSettings
- */
 class DescriptionLabelsResolver implements LabelsResolver
 {
     public function resolve(PullRequest $pr, LabelsSettings $settings): array
@@ -19,7 +17,7 @@ class DescriptionLabelsResolver implements LabelsResolver
             return [];
         }
 
-        $prefix = $params['line_starts_with'];
+        $prefix = $params->lineStartsWith;
 
         /** @var Str $line */
         foreach ($pr->description->lines() as $line) {
@@ -35,11 +33,11 @@ class DescriptionLabelsResolver implements LabelsResolver
      * @param OfDescription $settings
      * @return array<string>
      */
-    private function findLabels(Str $line, array $settings): array
+    private function findLabels(Str $line, LabelsOfDescriptionSettings $settings): array
     {
         return $line
-            ->deleteWhenStarts($settings['line_starts_with'])
-            ->explode($settings['separator'])
+            ->deleteWhenStarts($settings->lineStartsWith)
+            ->explode($settings->separator)
             ->trim()
             ->toStrings();
     }
