@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructor;
 
+/**
+ * @phpstan-import-type ArgumentValue from ArgumentResolver
+ */
 class Builder
 {
     public function __construct(
@@ -14,7 +17,7 @@ class Builder
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @param array<string, ArgumentValue> $params
      * @return array<string, mixed>
      */
     public function build(RuleConstructor $constructor, array $params): array
