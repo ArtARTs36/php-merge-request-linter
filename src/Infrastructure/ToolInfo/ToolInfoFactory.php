@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientGuzzleWrapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
 use Psr\Log\NullLogger;
 
 class ToolInfoFactory
@@ -20,6 +21,7 @@ class ToolInfoFactory
                 new PullRequestSchema(),
                 new DiffMapper(),
                 new NullLogger(),
+                new NativeJsonDecoder(),
             ),
         );
     }

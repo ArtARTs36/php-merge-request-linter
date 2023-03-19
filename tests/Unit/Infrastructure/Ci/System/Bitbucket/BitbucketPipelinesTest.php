@@ -11,6 +11,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\Compo
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockMarkdownCleaner;
@@ -82,6 +83,7 @@ final class BitbucketPipelinesTest extends TestCase
                 new NullAuthenticator(),
                 new MockClient(),
                 new NullLogger(),
+                new NativeJsonDecoder(),
             ),
             new BitbucketEnvironment(new MapEnvironment(
                 new ArrayMap($env),

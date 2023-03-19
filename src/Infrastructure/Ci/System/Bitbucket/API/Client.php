@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
@@ -14,12 +14,11 @@ use Psr\Log\LoggerInterface;
 
 class Client
 {
-    use InteractsWithResponse;
-
     public function __construct(
         private readonly Authenticator                                                      $credentials,
         private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client $http,
         private readonly LoggerInterface                                                    $logger,
+        private readonly TextDecoder                                                        $textDecoder,
         private readonly BitbucketDiffMapper                                                $diffMapper = new BitbucketDiffMapper(),
     ) {
         //
@@ -47,7 +46,7 @@ class Client
         $request = $this->credentials->authenticate($request);
 
         $response = $this->http->sendRequest($request);
-        $responseArray = $this->responseToJsonArray($response);
+        $responseArray = $this->textDecoder->decode($response->getBody()->getContents());
 
         $diffUrl = $responseArray['links']['diff']['href'] ?? null;
 

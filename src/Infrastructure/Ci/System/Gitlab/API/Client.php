@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
@@ -12,13 +12,12 @@ use Psr\Log\LoggerInterface;
 
 class Client implements GitlabClient
 {
-    use InteractsWithResponse;
-
     public function __construct(
         private readonly Authenticator   $credentials,
         private readonly ClientInterface $client,
         private readonly DiffMapper      $diffMapper,
         private readonly LoggerInterface $logger,
+        private readonly TextDecoder     $textDecoder,
     ) {
         //
     }
@@ -39,7 +38,7 @@ class Client implements GitlabClient
 
         $resp = $this->client->sendRequest($request);
 
-        $response = $this->responseToJsonArray($resp);
+        $response = $this->textDecoder->decode($resp->getBody()->getContents());
 
         $mergeRequest = new MergeRequest(
             $response['title'],

@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
@@ -14,7 +15,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullReq
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\Tag;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
@@ -26,8 +26,6 @@ use Psr\Log\LoggerInterface;
 
 class Client implements GithubClient
 {
-    use InteractsWithResponse;
-
     private const PAGE_ITEMS_LIMIT = 30;
 
     public function __construct(
@@ -36,6 +34,7 @@ class Client implements GithubClient
         private readonly PullRequestSchema $pullRequestSchema,
         private readonly DiffMapper        $diffMapper,
         private readonly LoggerInterface   $logger,
+        private readonly TextDecoder       $textDecoder,
     ) {
         //
     }
@@ -44,8 +43,10 @@ class Client implements GithubClient
     {
         $this->logger->info(sprintf('[GithubClient] Fetching Pull Request with id %d', $input->requestId));
 
+        $prResponse = $this->client->sendRequest($this->createGetPullRequest($input));
+
         $pullRequest = $this->pullRequestSchema->createPullRequest(
-            $this->responseToJsonArray($this->client->sendRequest($this->createGetPullRequest($input))),
+            $this->textDecoder->decode($prResponse->getBody()->getContents()),
         );
 
         $this->logger->info(sprintf('[GithubClient] Pull Request with id %d was fetched', $input->requestId));
@@ -84,7 +85,7 @@ class Client implements GithubClient
         $changes = [];
 
         foreach ($changesResponses as $response) {
-            foreach ($this->responseToJsonArray($response) as $respChange) {
+            foreach ($this->textDecoder->decode($response->getBody()->getContents()) as $respChange) {
                 $change = $this->mapChange($respChange);
 
                 $changes[$change->filename] = $change;
@@ -120,7 +121,7 @@ class Client implements GithubClient
 
         $response = $this->client->sendRequest($request);
 
-        return $this->hydrateTags($this->responseToJsonArray($response));
+        return $this->hydrateTags($this->textDecoder->decode($response->getBody()->getContents()));
     }
 
     private function createGetPullRequest(PullRequestInput $input): RequestInterface
