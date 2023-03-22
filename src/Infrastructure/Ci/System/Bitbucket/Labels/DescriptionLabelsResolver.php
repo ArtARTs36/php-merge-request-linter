@@ -30,7 +30,6 @@ class DescriptionLabelsResolver implements LabelsResolver
     }
 
     /**
-     * @param OfDescription $settings
      * @return array<string>
      */
     private function findLabels(Str $line, LabelsOfDescriptionSettings $settings): array

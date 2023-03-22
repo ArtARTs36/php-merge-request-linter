@@ -64,14 +64,14 @@ final class BitbucketPipelinesCreator implements SystemCreator
             return null;
         }
 
-        if (! isset($data['line_starts_with']) || ! is_string($data['line_starts_with']) || $data['line_starts_with'] === '' ) {
+        if (! isset($data['line_starts_with']) || ! is_string($data['line_starts_with']) || $data['line_starts_with'] === '') {
             throw new CiInvalidParamsException(
                 'labels.of_description.line_starts_with',
                 'labels.of_description.line_starts_with must be non empty string',
             );
         }
 
-        if (! isset($data['separator']) || ! is_string($data['separator']) || $data['separator'] === '' ) {
+        if (! isset($data['separator']) || ! is_string($data['separator']) || $data['separator'] === '') {
             throw new CiInvalidParamsException(
                 'labels.of_description.separator',
                 'labels.of_description.separator must be non empty string',

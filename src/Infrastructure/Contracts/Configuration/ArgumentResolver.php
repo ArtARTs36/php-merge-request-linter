@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedE
 
 /**
  * Argument resolver.
- * @phpstan-type ArgumentValue = scalar|array<mixed>
+ * @phpstan-type ArgumentValue = scalar|null|array<mixed>
  */
 interface ArgumentResolver
 {

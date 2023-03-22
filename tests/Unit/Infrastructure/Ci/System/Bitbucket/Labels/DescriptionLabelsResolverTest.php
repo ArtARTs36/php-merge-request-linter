@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbu
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\DescriptionLabelsResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsOfDescriptionSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\BitbucketPR;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -18,14 +19,14 @@ final class DescriptionLabelsResolverTest extends TestCase
                 BitbucketPR::create(
                     description: Str::make("Text \nSuperPrefix: Feature, Bug"),
                 ),
-                ['line_starts_with' => 'SuperPrefix: ', 'separator' => ', '],
+                new LabelsOfDescriptionSettings('SuperPrefix: ', ', '),
                 ['Feature', 'Bug'],
             ],
             [
                 BitbucketPR::create(
                     description: Str::make("Text \nSuperPrefix|: Feature, Bug"),
                 ),
-                ['line_starts_with' => 'SuperPrefix: ', 'separator' => ', '],
+                new LabelsOfDescriptionSettings('SuperPrefix: ', ', '),
                 [],
             ],
             [
@@ -43,7 +44,7 @@ final class DescriptionLabelsResolverTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\DescriptionLabelsResolver::findLabels
      * @dataProvider providerForTestResolve
      */
-    public function testResolve(PullRequest $pr, ?array $settings, array $expected): void
+    public function testResolve(PullRequest $pr, ?LabelsOfDescriptionSettings $settings, array $expected): void
     {
         $resolver = new DescriptionLabelsResolver();
 
