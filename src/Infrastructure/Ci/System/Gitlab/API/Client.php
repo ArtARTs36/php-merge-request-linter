@@ -6,6 +6,8 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\Normalizer\Contracts\Denormalizer;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
@@ -18,6 +20,7 @@ class Client implements GitlabClient
         private readonly DiffMapper      $diffMapper,
         private readonly LoggerInterface $logger,
         private readonly TextDecoder     $textDecoder,
+        private readonly Denormalizer    $denormalizer,
     ) {
         //
     }
@@ -40,20 +43,8 @@ class Client implements GitlabClient
 
         $response = $this->textDecoder->decode($resp->getBody()->getContents());
 
-        $mergeRequest = new MergeRequest(
-            $response['title'],
-            $response['description'],
-            $response['labels'],
-            $response['has_conflicts'],
-            $response['source_branch'],
-            $response['target_branch'],
-            $response['author']['username'],
-            $response['draft'] ?? false,
-            $response['merge_status'],
-            $this->mapChanges($response['changes']),
-            new \DateTimeImmutable($response['created_at']),
-            $response['web_url'] ?? '',
-        );
+        $mergeRequest = $this->denormalizer->denormalize(MergeRequest::class, $response);
+        $mergeRequest->changes = $this->mapChanges($response);
 
         $this->logger->info(sprintf('[GitlabClient] Merge Request with id %d was fetched', $input->requestId));
 
