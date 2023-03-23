@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "849fb89583528fde66adc8282e3ca8a7",
+    "content-hash": "758257776ebe1cdd388bf6bcdfefbfe1",
     "packages": [
         {
             "name": "artarts36/empty-contracts",
@@ -126,6 +126,38 @@
                 "source": "https://github.com/ArtARTs36/php-local-file-system/tree/0.1.2"
             },
             "time": "2022-02-11T16:08:18+00:00"
+        },
+        {
+            "name": "artarts36/normalizer",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "/home/artem/PhpstormProjects/normalizer",
+                "reference": "2765386a677a52c586df9360fc61c1b9846c4298"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ArtARTs36\\Normalizer\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "ArtARTs36\\Normalizer\\Tests\\": "tests/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "artarts36",
+                    "email": "temicska99@mail.ru"
+                }
+            ],
+            "transport-options": {
+                "relative": false
+            }
         },
         {
             "name": "artarts36/str",
@@ -6243,6 +6275,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "artarts36/normalizer": 20,
         "artarts36/docs-retriever": 20
     },
     "prefer-stable": false,

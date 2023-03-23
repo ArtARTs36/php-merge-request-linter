@@ -12,6 +12,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environmen
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
+use ArtARTs36\Normalizer\NormalizerFactory;
 use Psr\Log\LoggerInterface;
 
 final class GithubActionsCreator implements SystemCreator
@@ -29,7 +30,7 @@ final class GithubActionsCreator implements SystemCreator
         return new GithubActions(new GithubEnvironment($this->environment), new Client(
             $this->httpClient,
             $settings->credentials,
-            new PullRequestSchema(),
+            new PullRequestSchema((new NormalizerFactory())->create()),
             new DiffMapper(),
             $this->logger,
             new NativeJsonDecoder(),
