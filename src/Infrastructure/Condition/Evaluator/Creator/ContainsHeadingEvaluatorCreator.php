@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creato
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\InvalidEvaluatorValueException;
 
 final class ContainsHeadingEvaluatorCreator implements EvaluatorCreator
 {
@@ -12,6 +13,13 @@ final class ContainsHeadingEvaluatorCreator implements EvaluatorCreator
     {
         if (! str_contains($type, ContainsHeadingEvaluator::PREFIX_NAME)) {
             return null;
+        }
+
+        if (! is_string($value)) {
+            throw new InvalidEvaluatorValueException(sprintf(
+                'Value for evaluator "%s" must be string. ',
+                ContainsHeadingEvaluator::PREFIX_NAME,
+            ));
         }
 
         $level = $this->extractHeadingLevel($type);
