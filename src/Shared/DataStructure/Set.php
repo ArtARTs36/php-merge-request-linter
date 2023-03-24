@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\CountProxy;
 use ArtARTs36\MergeRequestLinter\Shared\Iterators\ArrayKeyIterator;
 
 /**
- * @template V as string|int
+ * @template V of array-key
  * @template-implements Collection<int, V>
  */
 class Set implements Collection, HasDebugInfo

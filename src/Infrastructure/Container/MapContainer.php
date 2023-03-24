@@ -16,7 +16,9 @@ class MapContainer implements ContainerInterface
     }
 
     /**
-     * @param class-string $id
+     * @template T as object
+     * @param class-string<T> $id
+     * @return T
      */
     public function get(string $id)
     {
