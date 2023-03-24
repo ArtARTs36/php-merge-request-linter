@@ -17,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environmen
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Cleaner\LeagueMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Normalizer\NormalizerFactory;
 use League\CommonMark\CommonMarkConverter;
 use Psr\Log\LoggerInterface;
 
@@ -26,6 +27,7 @@ final class BitbucketPipelinesCreator implements SystemCreator
         private readonly Environment $environment,
         private readonly HttpClient $httpClient,
         private readonly LoggerInterface $logger,
+        private readonly NormalizerFactory $normalizerFactory,
     ) {
         //
     }
@@ -37,7 +39,7 @@ final class BitbucketPipelinesCreator implements SystemCreator
         );
 
         return new BitbucketPipelines(
-            new APIClient($settings->credentials, $this->httpClient, $this->logger, new NativeJsonDecoder()),
+            new APIClient($settings->credentials, $this->httpClient, $this->logger, new NativeJsonDecoder(), $this->normalizerFactory->create()),
             new BitbucketEnvironment($this->environment),
             new LeagueMarkdownCleaner(new CommonMarkConverter()),
             new BitbucketPipelinesSettings($labelsSettings),

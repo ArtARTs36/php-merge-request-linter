@@ -8,18 +8,20 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
-use ArtARTs36\Str\Str;
+use ArtARTs36\Normalizer\Contracts\Denormalizer;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 
 class Client
 {
     public function __construct(
-        private readonly Authenticator                                                      $credentials,
-        private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client $http,
-        private readonly LoggerInterface                                                    $logger,
-        private readonly TextDecoder                                                        $textDecoder,
-        private readonly BitbucketDiffMapper                                                $diffMapper = new BitbucketDiffMapper(),
+        private readonly Authenticator          $credentials,
+        private readonly HttpClient             $http,
+        private readonly LoggerInterface        $logger,
+        private readonly TextDecoder            $textDecoder,
+        private readonly Denormalizer           $denormalizer,
+        private readonly BitbucketDiffMapper    $diffMapper = new BitbucketDiffMapper(),
     ) {
         //
     }
@@ -79,17 +81,10 @@ class Client
      */
     private function makePullRequest(array $data, Map $changes): PullRequest
     {
-        return new PullRequest(
-            $data['id'],
-            $data['title'],
-            $data['author']['nickname'] ?? '',
-            $data['source']['branch']['name'] ?? '',
-            $data['destination']['branch']['name'] ?? '',
-            new \DateTimeImmutable($data['created_on']),
-            $data['links']['html']['href'] ?? '',
-            Str::make($data['description'] ?? ''),
-            PullRequestState::create($data['state'] ?? ''),
-            $changes,
-        );
+        $pr = $this->denormalizer->denormalize(PullRequest::class, $data);
+
+        $pr->changes = $changes;
+
+        return $pr;
     }
 }

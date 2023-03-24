@@ -18,6 +18,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environmen
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Normalizer\NormalizerFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
@@ -51,12 +52,13 @@ class RunnerFactory implements LinterRunnerFactory
     private function createSystemFactory(Config $config): SystemFactory
     {
         $httpClient = (new ClientFactory($this->metrics))->create($config->getHttpClient());
+        $normalizerFactory = new NormalizerFactory();
 
         /** @var Map<string, SystemCreator> $creators */
         $creators = new ArrayMap([
             GithubActions::NAME => new GithubActionsCreator($this->environment, $httpClient, $this->logger),
             GitlabCi::NAME => new GitlabCiCreator($this->environment, $httpClient, $this->logger),
-            BitbucketPipelines::NAME => new BitbucketPipelinesCreator($this->environment, $httpClient, $this->logger),
+            BitbucketPipelines::NAME => new BitbucketPipelinesCreator($this->environment, $httpClient, $this->logger, $normalizerFactory),
         ]);
 
         return new SystemFactory($config, $creators);

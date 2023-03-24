@@ -16,6 +16,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use ArtARTs36\Normalizer\NormalizerFactory;
 use Psr\Log\NullLogger;
 
 final class BitbucketPipelinesTest extends TestCase
@@ -84,6 +85,7 @@ final class BitbucketPipelinesTest extends TestCase
                 new MockClient(),
                 new NullLogger(),
                 new NativeJsonDecoder(),
+                (new NormalizerFactory())->create(),
             ),
             new BitbucketEnvironment(new MapEnvironment(
                 new ArrayMap($env),
