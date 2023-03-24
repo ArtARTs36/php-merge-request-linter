@@ -22,6 +22,7 @@ class BitbucketPR
             $values['description'] ?? Str::fromEmpty(),
             $values['state'] ?? PullRequestState::Open,
             $values['changes'] ?? new ArrayMap([]),
+            $values['diff_url'] ?? '',
         );
     }
 }
