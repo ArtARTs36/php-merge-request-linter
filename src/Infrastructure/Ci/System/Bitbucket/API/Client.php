@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\Normalizer\Contracts\Denormalizer;
@@ -50,17 +49,19 @@ class Client
         $response = $this->http->sendRequest($request);
         $responseArray = $this->textDecoder->decode($response->getBody()->getContents());
 
-        $diffUrl = $responseArray['links']['diff']['href'] ?? null;
+        $pr = $this->denormalizer->denormalize(PullRequest::class, $responseArray);
 
-        if (is_string($diffUrl)) {
-            $changes = new MapProxy(function () use ($diffUrl) {
-                return new ArrayMap($this->fetchChanges($diffUrl));
+        if ($pr->diffUrl !== null) {
+            $changes = new MapProxy(function () use ($pr) {
+                return new ArrayMap($this->fetchChanges($pr->diffUrl));
             });
         } else {
             $changes = new ArrayMap([]);
         }
 
-        return $this->makePullRequest($responseArray, $changes);
+        $pr->changes = $changes;
+
+        return $pr;
     }
 
     /**
@@ -73,18 +74,5 @@ class Client
         $resp = $this->http->sendRequest($req);
 
         return $this->diffMapper->map($resp->getBody()->getContents());
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     * @param Map<string, array<DiffLine>> $changes
-     */
-    private function makePullRequest(array $data, Map $changes): PullRequest
-    {
-        $pr = $this->denormalizer->denormalize(PullRequest::class, $data);
-
-        $pr->changes = $changes;
-
-        return $pr;
     }
 }
