@@ -21,7 +21,7 @@ class DumpTaskHandler
     {
         $config = $this
             ->config
-            ->resolve(new User($task->workingDirectory, $task->customPath));
+            ->resolve(new User($task->workingDirectory, $task->customConfigPath));
 
         return new DumpInfo($config->path, $this->dumper->dump($config->config->getRules()));
     }

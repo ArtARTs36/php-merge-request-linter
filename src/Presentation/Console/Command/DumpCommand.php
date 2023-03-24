@@ -37,7 +37,7 @@ class DumpCommand extends Command
         $info = $this->handler->handle(
             new DumpTask(
                 $this->getWorkDir($input),
-                $input->getOption('config'),
+                $this->getStringOptionFromInput($input, 'config'),
             ),
         );
 
