@@ -6,7 +6,6 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\Normalizer\Contracts\Denormalizer;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;

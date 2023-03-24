@@ -26,6 +26,7 @@ class MapContainer implements ContainerInterface
             throw EntryNotFoundException::create($id);
         }
 
+        // @phpstan-ignore-next-line
         return $this->map[$id];
     }
 
