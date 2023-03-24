@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Environment;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Environment\Exceptions;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
