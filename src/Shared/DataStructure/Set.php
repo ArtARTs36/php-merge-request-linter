@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\CountProxy;
 use ArtARTs36\MergeRequestLinter\Shared\Iterators\ArrayKeyIterator;
 
 /**
- * @template V
+ * @template V as string|int
  * @template-implements Collection<int, V>
  */
 class Set implements Collection, HasDebugInfo
@@ -26,7 +26,7 @@ class Set implements Collection, HasDebugInfo
     }
 
     /**
-     * @param list<V> $list
+     * @param iterable<V> $list
      * @return Set<V>
      */
     public static function fromList(iterable $list): self
@@ -76,7 +76,6 @@ class Set implements Collection, HasDebugInfo
             unset($items[$key]);
         }
 
-        //@phpstan-ignore-next-line
         return new self($items);
     }
 
