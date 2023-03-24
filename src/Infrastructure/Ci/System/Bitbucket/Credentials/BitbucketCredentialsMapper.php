@@ -49,6 +49,10 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
             return null;
         }
 
+        if (! is_string($credentials['token'])) {
+            throw new InvalidCredentialsException('Bitbucket token must be string');
+        }
+
         $token = $this->valueTransformer->tryTransform($credentials['token']);
 
         if (empty($token)) {
@@ -65,6 +69,10 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
     {
         if (! array_key_exists('host', $credentials)) {
             return null;
+        }
+
+        if (! is_string($credentials['host'])) {
+            throw new InvalidCredentialsException('Bitbucket host must be string');
         }
 
         $host = $this->valueTransformer->tryTransform($credentials['host']);
