@@ -12,7 +12,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpCli
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Cleaner\LeagueMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
-use ArtARTs36\Normalizer\NormalizerFactory;
 use League\CommonMark\CommonMarkConverter;
 use Psr\Log\LoggerInterface;
 
@@ -36,7 +35,6 @@ class GitlabCiCreator implements SystemCreator
                 new DiffMapper(),
                 $this->logger,
                 new NativeJsonDecoder(),
-                (new NormalizerFactory())->create(),
             ),
             new LeagueMarkdownCleaner(new CommonMarkConverter()),
         );
