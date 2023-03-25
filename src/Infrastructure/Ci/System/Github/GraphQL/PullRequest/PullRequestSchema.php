@@ -2,24 +2,29 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest;
 
-use ArtARTs36\Normalizer\Contracts\Denormalizer;
-
 class PullRequestSchema
 {
-    public function __construct(
-        private readonly Denormalizer $denormalizer,
-    ) {
-        //
-    }
-
     /**
      * @param array<string, mixed> $pullRequest
      */
     public function createPullRequest(array $pullRequest): PullRequest
     {
-        return $this
-            ->denormalizer
-            ->denormalize(PullRequest::class, $pullRequest['data']['repository']['pullRequest'] ?? []);
+        $pullRequest = $pullRequest['data']['repository']['pullRequest'];
+
+        return new PullRequest(
+            $pullRequest['title'],
+            $pullRequest['body'],
+            $pullRequest['bodyText'],
+            array_map(fn (array $item) => $item['name'], $pullRequest['labels']['nodes']),
+            $pullRequest['mergeable'],
+            $pullRequest['headRefName'],
+            $pullRequest['baseRefName'],
+            $pullRequest['changedFiles'],
+            $pullRequest['author']['login'],
+            $pullRequest['isDraft'] ?? false,
+            new \DateTimeImmutable($pullRequest['createdAt']),
+            $pullRequest['url'],
+        );
     }
 
     public function createQuery(PullRequestInput $input): string
