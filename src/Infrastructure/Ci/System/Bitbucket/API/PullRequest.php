@@ -28,8 +28,6 @@ class PullRequest
         public readonly \ArtARTs36\Str\Str             $description,
         public readonly PullRequestState  $state,
         public Map                $changes,
-        #[Key('links.diff.href')]
-        public readonly ?string $diffUrl,
     ) {
         //
     }
