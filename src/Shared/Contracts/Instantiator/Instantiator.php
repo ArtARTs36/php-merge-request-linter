@@ -1,14 +1,14 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule;
+namespace ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 
 /**
- * Constructor for Rule.
+ * Instantiator for class.
+ * @template T of object
  */
-interface RuleConstructor
+interface Instantiator
 {
     /**
      * Get required params.
@@ -19,6 +19,7 @@ interface RuleConstructor
     /**
      * Create Rule instance.
      * @param array<string, mixed> $args
+     * @return T
      */
-    public function construct(array $args): Rule;
+    public function construct(array $args): object;
 }

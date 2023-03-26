@@ -1,56 +1,56 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Constructor;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructor;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\EmptyConstructor;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\NativeConstructor;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\StaticConstructor;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator\Instantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\EmptyInstantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class ConstructorFinderTest extends TestCase
+final class InstantiatorFinderTest extends TestCase
 {
     public function providerForTestFind(): array
     {
         return [
             [
                 TestRuleForEmptyConstructor::class,
-                EmptyConstructor::class,
+                EmptyInstantiator::class,
             ],
             [
                 TestRuleForNativeConstructor::class,
-                NativeConstructor::class,
+                NativeConstructorInstantiator::class,
             ],
             [
                 TestRuleForStaticConstructor::class,
-                StaticConstructor::class,
+                StaticMethodInstantiator::class,
             ],
         ];
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder::find
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder::find
      * @dataProvider providerForTestFind
      * @param class-string<Rule> $ruleClass
-     * @param class-string<RuleConstructor> $expectedConstructorClass
+     * @param class-string<Instantiator> $expectedConstructorClass
      */
     public function testFind(string $ruleClass, string $expectedConstructorClass): void
     {
-        $finder = new ConstructorFinder();
+        $finder = new Finder(Rule::class);
 
         self::assertInstanceOf($expectedConstructorClass, $finder->find($ruleClass));
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder::find
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder::find
      */
     public function testFindOnClassNonExists(): void
     {
-        $finder = new ConstructorFinder();
+        $finder = new Finder(Rule::class);
 
         self::expectExceptionMessage('Class "test-class" not found');
 

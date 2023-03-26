@@ -1,14 +1,14 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Constructor;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\NativeConstructor;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class NativeConstructorTest extends TestCase
+final class NativeConstructorInstantiatorTest extends TestCase
 {
     public function providerForTestConstruct(): array
     {
@@ -26,13 +26,13 @@ final class NativeConstructorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\NativeConstructor::construct
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\NativeConstructor::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator::construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator::__construct
      * @dataProvider providerForTestConstruct
      */
     public function testConstruct(string $class, array $args): void
     {
-        $constructor = new NativeConstructor(
+        $constructor = new NativeConstructorInstantiator(
             $rc = new \ReflectionClass($class),
             $rc->getConstructor(),
         );

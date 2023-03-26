@@ -1,14 +1,14 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Constructor;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\StaticConstructor;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class StaticConstructorTest extends TestCase
+final class StaticMethodInstantiatorTest extends TestCase
 {
     public function providerForTestConstruct(): array
     {
@@ -45,13 +45,13 @@ final class StaticConstructorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\StaticConstructor::construct
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\StaticConstructor::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator::construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator::__construct
      * @dataProvider providerForTestConstruct
      */
     public function testConstruct(string $class, string $method, array $arts, array $expected): void
     {
-        $constructor = new StaticConstructor((new \ReflectionClass($class))->getMethod($method), $class);
+        $constructor = new StaticMethodInstantiator((new \ReflectionClass($class))->getMethod($method), $class);
 
         self::assertSame($expected, get_object_vars($constructor->construct($arts)));
     }

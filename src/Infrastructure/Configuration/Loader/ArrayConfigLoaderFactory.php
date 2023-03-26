@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\OperatorRules
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\RulesExecutor;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Credentials\BitbucketCredentialsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Credentials\GithubActionsCredentialsMapper;
@@ -33,11 +34,11 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLo
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Constructor\ConstructorFinder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 
 class ArrayConfigLoaderFactory
@@ -72,7 +73,7 @@ class ArrayConfigLoaderFactory
             new Builder(
                 $this->argumentResolverFactory->create(),
             ),
-            new ConstructorFinder(),
+            new Finder(Rule::class),
         );
 
         $propExtractor = new CallbackPropertyExtractor();
