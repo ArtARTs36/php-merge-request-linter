@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\FetchTagsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
@@ -164,13 +165,17 @@ class Client implements GithubClient
     }
 
     /**
-     * @param array<array{name: string}> $response
+     * @param array<mixed> $response
      */
     private function hydrateTags(array $response): TagCollection
     {
         $tags = [];
 
         foreach ($response as $resp) {
+            if (! is_array($resp) || ! array_key_exists('name', $resp) || ! is_string($resp['name'])) {
+                throw new FetchTagsException('Tag name not found in response');
+            }
+
             $name = Str::make($resp['name']);
 
             if ($name->startsWith('v')) {
