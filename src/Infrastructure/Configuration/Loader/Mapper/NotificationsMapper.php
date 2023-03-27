@@ -78,6 +78,16 @@ class NotificationsMapper
                 );
             }
 
+            $template = $notification['template'] ?? null;
+
+            if ($template === null) {
+                throw ConfigInvalidException::keyNotSet(sprintf('notifications.on.%s.template', $eventName));
+            }
+
+            if (! is_string($template)) {
+                throw ConfigInvalidException::invalidType(sprintf('notifications.on.%s.template', $eventName), 'string', gettype($template));
+            }
+
             $channel = $channels->get($channelName);
 
             if ($channel === null) {
@@ -90,7 +100,7 @@ class NotificationsMapper
             $notifications[$eventName][] = new NotificationEventMessage(
                 $eventName,
                 $channel,
-                $notification['template'],
+                $template,
                 $notification['when'] ?? [],
             );
         }
