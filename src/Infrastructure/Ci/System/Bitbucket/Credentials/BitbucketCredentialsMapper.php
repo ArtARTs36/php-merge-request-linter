@@ -89,18 +89,42 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
      */
     private function createAppPasswordAuthenticator(array $credentials): ?Authenticator
     {
-        if (! array_key_exists('app_password', $credentials) || count($credentials['app_password']) !== 2) {
+        if (! array_key_exists('app_password', $credentials)) {
             return null;
         }
 
-        foreach ($credentials['app_password'] as $k => &$v) {
-            $v = $this->valueTransformer->tryTransform($v);
-
-            if (empty($v)) {
-                throw new InvalidCredentialsException(sprintf('Given empty bitbucket app_password.%s', $k));
-            }
+        if (! is_array($credentials['app_password'])) {
+            throw new InvalidCredentialsException('Value of key "app_password" must be array');
         }
 
-        return new BasicBase64Authenticator($credentials['app_password']['user'], $credentials['app_password']['password']);
+        $user = $this->getAppPasswordSubject($credentials['app_password'], 'user');
+        $password = $this->getAppPasswordSubject($credentials['app_password'], 'password');
+
+        return new BasicBase64Authenticator($user, $password);
+    }
+
+    /**
+     * @param array<mixed> $credentials
+     * @throws InvalidCredentialsException
+     */
+    private function getAppPasswordSubject(array $credentials, string $subject): string
+    {
+        if (! array_key_exists($subject, $credentials)) {
+            throw new InvalidCredentialsException(sprintf('Key "app_password.%s" not found', $subject));
+        }
+
+        $v = $credentials[$subject];
+
+        if (! is_string($v)) {
+            throw new InvalidCredentialsException(sprintf('Value of key "app_password.%s" must be string', $subject));
+        }
+
+        $v = $this->valueTransformer->tryTransform($v);
+
+        if (empty($v)) {
+            throw new InvalidCredentialsException(sprintf('Given empty bitbucket app_password.%s', $subject));
+        }
+
+        return $v;
     }
 }
