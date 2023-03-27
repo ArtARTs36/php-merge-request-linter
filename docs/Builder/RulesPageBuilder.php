@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\JsonType;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
@@ -19,7 +18,7 @@ class RulesPageBuilder
     protected string $dir = __DIR__ . '/../../src/Application/Rule/Rules';
 
     public function __construct(
-        private InstantiatorFinder $ruleConstructorFinder = new Finder(Rule::class),
+        private InstantiatorFinder $ruleConstructorFinder = new Finder(),
     ) {
         //
     }

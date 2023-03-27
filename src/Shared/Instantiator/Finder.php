@@ -10,15 +10,6 @@ class Finder implements InstantiatorFinder
     private const MAKE_METHOD = 'make';
 
     /**
-     * @param class-string $interface
-     */
-    public function __construct(
-        private readonly string $interface,
-    ) {
-        //
-    }
-
-    /**
      * @template T of object
      * @param class-string<T> $class
      * @return Instantiator<T>
@@ -31,10 +22,6 @@ class Finder implements InstantiatorFinder
         }
 
         $reflector = new \ReflectionClass($class);
-
-        if (! $reflector->implementsInterface($this->interface)) {
-            throw new InstantiatorFindException(sprintf('Class %s not implemented %s', $class, $this->interface));
-        }
 
         if ($reflector->hasMethod(self::MAKE_METHOD)) {
             return new StaticMethodInstantiator($reflector->getMethod(self::MAKE_METHOD), $reflector->getName());

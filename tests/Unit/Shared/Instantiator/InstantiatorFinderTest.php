@@ -40,7 +40,7 @@ final class InstantiatorFinderTest extends TestCase
      */
     public function testFind(string $ruleClass, string $expectedConstructorClass): void
     {
-        $finder = new Finder(Rule::class);
+        $finder = new Finder();
 
         self::assertInstanceOf($expectedConstructorClass, $finder->find($ruleClass));
     }
@@ -50,7 +50,7 @@ final class InstantiatorFinderTest extends TestCase
      */
     public function testFindOnClassNonExists(): void
     {
-        $finder = new Finder(Rule::class);
+        $finder = new Finder();
 
         self::expectExceptionMessage('Class "test-class" not found');
 

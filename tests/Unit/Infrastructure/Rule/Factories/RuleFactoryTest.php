@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Factories;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\AbstractRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver;
@@ -36,7 +35,7 @@ final class RuleFactoryTest extends TestCase
                     ArrayMap::class => new MapResolver(),
                 ]),
             ])),
-            new Finder(Rule::class),
+            new Finder(),
         );
 
         $rule = $factory->create(TestRuleForRuleFactory::class, [

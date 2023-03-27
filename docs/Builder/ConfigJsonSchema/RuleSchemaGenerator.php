@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
@@ -22,7 +21,7 @@ class RuleSchemaGenerator
     ];
 
     public function __construct(
-        private InstantiatorFinder $constructorFinder = new Finder(Rule::class),
+        private InstantiatorFinder $constructorFinder = new Finder(),
     ) {
         //
     }
