@@ -31,8 +31,16 @@ class NotificationsMapper
             throw ConfigInvalidException::keyNotSet('notifications.channels');
         }
 
+        if (! is_array($data['channels'])) {
+            throw ConfigInvalidException::invalidType('notifications.channels', 'array', gettype($data['channels']));
+        }
+
         if (! isset($data['on'])) {
             throw ConfigInvalidException::keyNotSet('notifications.on');
+        }
+
+        if (! is_array($data['on'])) {
+            throw ConfigInvalidException::invalidType('notifications.on', 'array', gettype($data['channels']));
         }
 
         $channels = $this->mapChannels($data['channels']);
