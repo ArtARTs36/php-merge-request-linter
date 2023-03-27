@@ -81,8 +81,7 @@
     },
     "config": {
         "allow-plugins": {
-            "php-http/discovery": false,
-            "ergebnis/composer-normalize": false
+            "php-http/discovery": false
         }
     }
 }
