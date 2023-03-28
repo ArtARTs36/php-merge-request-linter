@@ -88,6 +88,16 @@ class NotificationsMapper
                 throw ConfigInvalidException::invalidType(sprintf('notifications.on.%s.template', $eventName), 'string', gettype($template));
             }
 
+            $when = [];
+
+            if (array_key_exists('when', $notification)) {
+                if (is_array($notification['when'])) {
+                    $when = $notification['when'];
+                } else {
+                    throw ConfigInvalidException::invalidType(sprintf('notifications.on.%s.when', $eventName), 'array', gettype($when));
+                }
+            }
+
             $channel = $channels->get($channelName);
 
             if ($channel === null) {
@@ -101,7 +111,7 @@ class NotificationsMapper
                 $eventName,
                 $channel,
                 $template,
-                $notification['when'] ?? [],
+                $when,
             );
         }
 
