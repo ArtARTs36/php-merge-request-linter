@@ -51,6 +51,18 @@ final class NotificationsMapperTest extends TestCase
                         ],
                     ],
                 ],
+                'Config[notifications.on.super_event.template] must be provided',
+            ],
+            [
+                [
+                    'channels' => [],
+                    'on' => [
+                        'super_event' => [
+                            'channel' => 'tg_channel',
+                            'template' => 'template',
+                        ],
+                    ],
+                ],
                 'Config[notifications.on.super_event.channel] invalid!',
             ],
         ];
