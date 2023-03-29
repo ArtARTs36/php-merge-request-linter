@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\Str\Facade\Str;
 
 class PullRequest
@@ -21,7 +22,8 @@ class PullRequest
         public readonly string             $uri,
         public readonly \ArtARTs36\Str\Str             $description,
         public readonly PullRequestState  $state,
-        public readonly Map                $changes,
+        public readonly string            $diffUrl,
+        public Map $changes = new ArrayMap([]),
     ) {
         //
     }
