@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Message;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\NullContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
@@ -53,7 +54,7 @@ final class ListenerRegistrarTest extends TestCase
                 {
                     //
                 }
-            }, new MockOperatorResolver(), new MessageCreator()),
+            }, new MockOperatorResolver(), new MessageCreator(), new NullContextLogger()),
         );
 
         $mockDispatcher = new MockEventDispatcher();

@@ -18,20 +18,14 @@ final class LoggableNotifier implements Notifier
 
     public function notify(Channel $channel, Message $message): void
     {
-        $context = [
-            'message_id' => $message->id,
-        ];
-
         $this->logger->info(
             sprintf('[Notifier] Sending notification to %s', $channel->type->value),
-            $context,
         );
 
         $this->notifier->notify($channel, $message);
 
         $this->logger->info(
             sprintf('[Notifier] Notification to %s was sent', $channel->type->value),
-            $context,
         );
     }
 }

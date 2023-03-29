@@ -24,6 +24,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEn
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory as LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
@@ -49,7 +50,7 @@ class ApplicationFactory
 
         $application = new Application($metrics);
 
-        $logger = (new ConsoleLoggerFactory())->create($output);
+        $logger = new ContextLogger((new ConsoleLoggerFactory())->create($output));
 
         $filesystem = new LocalFileSystem();
         $environment = new LocalEnvironment();
@@ -83,6 +84,7 @@ class ApplicationFactory
                     (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient()), $logger))->create(),
                     $container->get(OperatorResolver::class),
                     new MessageCreator(),
+                    $logger,
                 ),
             ))->register($events);
         };
