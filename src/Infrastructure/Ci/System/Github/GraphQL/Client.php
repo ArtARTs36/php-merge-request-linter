@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\ChangeSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\FetchTagsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
@@ -18,7 +20,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\Tag
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
@@ -33,9 +34,9 @@ class Client implements GithubClient
         private readonly HttpClient        $client,
         private readonly Authenticator     $credentials,
         private readonly PullRequestSchema $pullRequestSchema,
-        private readonly DiffMapper        $diffMapper,
         private readonly LoggerInterface   $logger,
         private readonly TextDecoder       $textDecoder,
+        private readonly ChangeSchema      $changeSchema,
     ) {
         //
     }
@@ -85,9 +86,15 @@ class Client implements GithubClient
 
         $changes = [];
 
+        $index = 0;
+
         foreach ($changesResponses as $response) {
             foreach ($this->textDecoder->decode($response->getBody()->getContents()) as $respChange) {
-                $change = $this->mapChange($respChange);
+                if (! is_array($respChange)) {
+                    throw GivenInvalidPullRequestDataException::invalidType('changes.' . $index, 'array');
+                }
+
+                $change = $this->changeSchema->createChange($respChange, $index++);
 
                 $changes[$change->filename] = $change;
             }
@@ -150,18 +157,6 @@ class Client implements GithubClient
         $request = new Request('GET', $url);
 
         return $this->credentials->authenticate($request);
-    }
-
-    /**
-     * @param array{filename: string, patch: string|null, status: string} $respChange
-     */
-    private function mapChange(array $respChange): Change
-    {
-        return new Change(
-            $respChange['filename'],
-            $this->diffMapper->map($respChange['patch'] ?? ''),
-            Status::create($respChange['status']),
-        );
     }
 
     /**
