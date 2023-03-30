@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 
-abstract class AbstractNote implements Note
+abstract class AbstractNote implements Note, \JsonSerializable
 {
     protected const SEVERITY = NoteSeverity::Normal;
 
@@ -14,5 +14,16 @@ abstract class AbstractNote implements Note
     public function __toString(): string
     {
         return $this->getDescription();
+    }
+
+    /**
+     * @return array{severity: string, description: string}
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'severity' => $this->getSeverity()->value,
+            'description' => $this->getDescription(),
+        ];
     }
 }

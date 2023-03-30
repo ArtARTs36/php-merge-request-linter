@@ -12,7 +12,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Iterators\ArrayKeyIterator;
  * @template V of array-key
  * @template-implements Collection<int, V>
  */
-class Set implements Collection, HasDebugInfo
+class Set implements Collection, HasDebugInfo, \JsonSerializable
 {
     use CountProxy;
     use ContainsAny;
@@ -43,6 +43,14 @@ class Set implements Collection, HasDebugInfo
         $set->count = $count;
 
         return $set;
+    }
+
+    /**
+     * @return array<V>
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->values();
     }
 
     /**
