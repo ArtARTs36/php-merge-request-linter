@@ -38,7 +38,7 @@ class EventDispatcher implements EventManager
             $this->callListeners($this->listeners[$eventName] ?? [], $event, $eventLogName);
         }
 
-        $this->logger->info(sprintf('[EventDispatcher][event: %s] All listeners called', $eventLogName));
+        $this->logger->info(sprintf('[EventDispatcher][event: %s] All listeners was called', $eventLogName));
 
         $this->logger->clearContext('event_id');
 
@@ -89,7 +89,7 @@ class EventDispatcher implements EventManager
             }
 
             $this->logger->info(
-                sprintf('[EventDispatcher][event: %s] Listener "%s" called', $eventLogName, $listener->name()),
+                sprintf('[EventDispatcher][event: %s] Listener "%s" was called', $eventLogName, $listener->name()),
             );
         }
     }
