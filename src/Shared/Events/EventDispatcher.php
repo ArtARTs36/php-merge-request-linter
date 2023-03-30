@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Events;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Logger\ContextLogger;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\NullContextLogger;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class EventDispatcher implements EventManager
 {
@@ -12,13 +12,17 @@ class EventDispatcher implements EventManager
     private array $listeners = [];
 
     public function __construct(
-        private readonly LoggerInterface $logger = new NullLogger(),
+        private readonly ContextLogger $logger = new NullContextLogger(),
     ) {
         //
     }
 
     public function dispatch(object $event): object
     {
+        $eventId = uniqid();
+
+        $this->logger->shareContext('event_id', $eventId);
+
         $eventClass = $event::class;
         $eventName = defined("$eventClass::NAME") ? $eventClass::NAME : null;
         $eventLogName = $eventName ?? $eventClass;
@@ -35,6 +39,8 @@ class EventDispatcher implements EventManager
         }
 
         $this->logger->info(sprintf('[EventDispatcher][event: %s] All listeners called', $eventLogName));
+
+        $this->logger->clearContext('event_id');
 
         return $event;
     }
