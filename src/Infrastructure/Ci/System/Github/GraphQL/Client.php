@@ -6,12 +6,12 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPul
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\ChangeSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\FetchTagsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Logger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Change;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Status;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
@@ -24,7 +24,6 @@ use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
 use Psr\Http\Message\RequestInterface;
-use Psr\Log\LoggerInterface;
 
 class Client implements GithubClient
 {
@@ -34,7 +33,7 @@ class Client implements GithubClient
         private readonly HttpClient        $client,
         private readonly Authenticator     $credentials,
         private readonly PullRequestSchema $pullRequestSchema,
-        private readonly LoggerInterface   $logger,
+        private readonly ContextLogger   $logger,
         private readonly TextDecoder       $textDecoder,
         private readonly ChangeSchema      $changeSchema,
     ) {
@@ -68,6 +67,8 @@ class Client implements GithubClient
     {
         $changesPages = $this->calculateChangesPages($pullRequest->changedFiles);
         $reqs = [];
+
+        $this->logger->shareContext('pull_request_id', $pullRequest->uri);
 
         $this->logger->info(
             sprintf(
@@ -107,6 +108,8 @@ class Client implements GithubClient
                 $input->requestId,
             ),
         );
+
+        $this->logger->clearContext('pull_request_id');
 
         return new ArrayMap($changes);
     }

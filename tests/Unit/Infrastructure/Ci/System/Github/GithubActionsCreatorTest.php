@@ -8,8 +8,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActionsCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\NullEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\NullClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\NullContextLogger;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
-use Psr\Log\NullLogger;
 
 final class GithubActionsCreatorTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class GithubActionsCreatorTest extends TestCase
         $creator = new GithubActionsCreator(
             new NullEnvironment(),
             new NullClient(),
-            new NullLogger(),
+            new NullContextLogger(),
         );
 
         self::assertInstanceOf(GithubActions::class, $creator->create(new CiSettings(new NullAuthenticator(), [])));

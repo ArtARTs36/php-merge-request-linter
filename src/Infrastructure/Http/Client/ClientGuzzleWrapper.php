@@ -11,11 +11,13 @@ use Psr\Http\Client\ClientInterface as PsrClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use Psr\Log\LoggerInterface;
 
 class ClientGuzzleWrapper implements Client
 {
     public function __construct(
         private readonly PsrClient&GuzzleClient $http,
+        private readonly LoggerInterface $logger,
     ) {
         //
     }
@@ -32,12 +34,24 @@ class ClientGuzzleWrapper implements Client
     public function sendAsyncRequests(array $requests): array
     {
         $promises = [];
+        $logContext = ['async_request_urls' => array_map(fn (RequestInterface $request) => $request->getUri()->__toString(), $requests)];
+
+        $this->logger->info(
+            sprintf('Sending %d async requests. Waiting', count($requests)),
+            $logContext,
+        );
 
         foreach ($requests as $key => $request) {
             $promises[$key] = $this->http->sendAsync($request);
         }
 
         $responses = Utils::settle($promises)->wait();
+
+        $this->logger->info(
+            sprintf('Responses for %d async requests was given', count($requests)),
+            $logContext,
+        );
+
         $preparedResponses = [];
 
         if (! is_array($responses)) {

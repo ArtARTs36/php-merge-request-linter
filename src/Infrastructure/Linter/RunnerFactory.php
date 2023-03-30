@@ -16,12 +16,12 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Logger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use Psr\Log\LoggerInterface;
 
 class RunnerFactory implements LinterRunnerFactory
 {
@@ -31,7 +31,7 @@ class RunnerFactory implements LinterRunnerFactory
     public function __construct(
         protected Environment $environment,
         protected Map $ciSystems,
-        protected LoggerInterface $logger,
+        protected ContextLogger $logger,
         protected MetricManager $metrics,
         protected ClientFactory $clientFactory,
     ) {
@@ -50,7 +50,7 @@ class RunnerFactory implements LinterRunnerFactory
 
     private function createSystemFactory(Config $config): SystemFactory
     {
-        $httpClient = (new ClientFactory($this->metrics))->create($config->getHttpClient());
+        $httpClient = $this->clientFactory->create($config->getHttpClient());
 
         /** @var Map<string, SystemCreator> $creators */
         $creators = new ArrayMap([

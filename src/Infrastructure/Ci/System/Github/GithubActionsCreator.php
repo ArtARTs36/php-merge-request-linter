@@ -11,16 +11,16 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullReq
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Logger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
-use Psr\Log\LoggerInterface;
 
 final class GithubActionsCreator implements SystemCreator
 {
     public function __construct(
         private readonly Environment $environment,
         private readonly HttpClient $httpClient,
-        private readonly LoggerInterface $logger,
+        private readonly ContextLogger $logger,
     ) {
         //
     }

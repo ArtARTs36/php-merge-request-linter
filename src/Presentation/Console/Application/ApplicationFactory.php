@@ -55,7 +55,7 @@ class ApplicationFactory
         $filesystem = new LocalFileSystem();
         $environment = new LocalEnvironment();
         $ciSystemsMap = DefaultSystems::map();
-        $httpClientFactory = new ClientFactory($metrics);
+        $httpClientFactory = new ClientFactory($metrics, $logger);
         $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics, $httpClientFactory);
 
         $container = new MapContainer();
