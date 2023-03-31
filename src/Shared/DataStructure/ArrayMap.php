@@ -26,6 +26,15 @@ class ArrayMap implements Map
     }
 
     /**
+     * @param array<K, V> $items
+     * @return self<K, V>
+     */
+    public static function create(array $items): self
+    {
+        return new self($items);
+    }
+
+    /**
      * @return V|null
      */
     public function get(string $id)
