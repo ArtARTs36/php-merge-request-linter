@@ -125,9 +125,6 @@ final class Set implements Collection, HasDebugInfo, \JsonSerializable
         ];
     }
 
-    /**
-     * @param V $value
-     */
     private static function hash(mixed $value): string
     {
         if (is_string($value)) {
