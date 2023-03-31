@@ -6,9 +6,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\Argument
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator\Instantiator;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 
-/**
- * @phpstan-import-type ArgumentValue from ArgumentResolver
- */
 class Builder
 {
     public function __construct(
@@ -19,7 +16,7 @@ class Builder
 
     /**
      * @param Instantiator<Rule> $constructor
-     * @param array<string, ArgumentValue> $params
+     * @param array<string, mixed> $params
      * @return array<string, mixed>
      */
     public function build(Instantiator $constructor, array $params): array

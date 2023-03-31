@@ -7,13 +7,12 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedE
 
 /**
  * Argument resolver.
- * @phpstan-type ArgumentValue = scalar|null|array<mixed>
  */
 interface ArgumentResolver
 {
     /**
      * Resolve argument.
-     * @param ArgumentValue $value
+     * @param mixed $value
      * @throws ArgNotSupportedException
      */
     public function resolve(Type $type, mixed $value): mixed;
