@@ -9,12 +9,13 @@ use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
  * @phpstan-type EvaluatorName string
  * @phpstan-type ConditionValue mixed
  * @phpstan-type Condition array<EvaluatorName, ConditionValue>
+ * @phpstan-type Conditions array<Field, Condition>
  * @codeCoverageIgnore
  */
 class NotificationEventMessage
 {
     /**
-     * @param array<Field, ConditionValue> $conditions
+     * @param Conditions $conditions
      */
     public function __construct(
         public readonly string $event,
