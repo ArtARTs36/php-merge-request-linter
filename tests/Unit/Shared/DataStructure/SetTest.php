@@ -49,6 +49,7 @@ final class SetTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::first
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::__construct
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::fromList
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::hash
      * @dataProvider providerForTestFirst
      */
     public function testFirst(array $set, mixed $expected): void
@@ -93,5 +94,32 @@ final class SetTest extends TestCase
         $set = Set::fromList($set);
 
         self::assertEquals($expected, $set->contains($value));
+    }
+
+    public function providerForTestContainsAll(): array
+    {
+        return [
+            [
+                [1, 2, 3],
+                [1, 2],
+                true,
+            ],
+            [
+                [1, 2, 3],
+                [1, 4],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::containsAll
+     * @dataProvider providerForTestContainsAll
+     */
+    public function testContainsAll(array $items, array $values, bool $expected): void
+    {
+        $set = Set::fromList($items);
+
+        self::assertEquals($expected, $set->containsAll($values));
     }
 }
