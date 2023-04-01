@@ -202,4 +202,14 @@ final class ArrayeeTest extends TestCase
         self::assertInstanceOf(\ArrayIterator::class, $iterator);
         self::assertEquals($items, $iterator->getArrayCopy());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee::jsonSerialize
+     */
+    public function testJsonSerialize(): void
+    {
+        $arrayee = new Arrayee($items = [1, 2]);
+
+        self::assertEquals($items, $arrayee->jsonSerialize());
+    }
 }
