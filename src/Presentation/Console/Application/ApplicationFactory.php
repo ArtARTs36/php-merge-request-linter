@@ -24,7 +24,9 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEn
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory as LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\ContextLogger;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\MetricableLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
@@ -35,11 +37,13 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
-use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactory;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
@@ -50,7 +54,7 @@ class ApplicationFactory
 
         $application = new Application($metrics);
 
-        $logger = new ContextLogger((new ConsoleLoggerFactory())->create($output));
+        $logger = $this->createLogger($output, $metrics);
 
         $filesystem = new LocalFileSystem();
         $environment = new LocalEnvironment();
@@ -102,5 +106,17 @@ class ApplicationFactory
         $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory())));
 
         return $application;
+    }
+
+    private function createLogger(OutputInterface $output, MetricManager $metricManager): ContextLogger
+    {
+        $loggers = [
+            MetricableLogger::create($metricManager),
+            new ConsoleLogger($output),
+        ];
+
+        $compositeLogger = new CompositeLogger($loggers);
+
+        return new ContextLogger($compositeLogger);
     }
 }
