@@ -4,6 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CiSettings
 {
     /**
