@@ -210,4 +210,23 @@ final class SetTest extends TestCase
     {
         self::assertEquals($expected, Set::fromList($items)->values());
     }
+
+    public function providerForTestJsonSerialize(): array
+    {
+        return [
+            [
+                [1, 2],
+                [1, 2],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::jsonSerialize
+     * @dataProvider providerForTestJsonSerialize
+     */
+    public function testJsonSerialize(array $items, array $expected): void
+    {
+        self::assertEquals($expected, Set::fromList($items)->jsonSerialize());
+    }
 }
