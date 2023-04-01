@@ -17,12 +17,13 @@ final class GenericResolver implements ArgumentResolver
 
     public function resolve(Type $type, mixed $value): mixed
     {
-        if ($type->isGenericOfObject() && is_array($value) && is_array(reset($value))) {
+        $generic = $type->getObjectGeneric();
+
+        if ($generic !== null && is_array($value) && is_array(reset($value))) {
             $values = [];
 
             foreach ($value as $val) {
-                //@phpstan-ignore-next-line
-                $values[] = $this->arrayObjectConverter->convert($val, $type->generic);
+                $values[] = $this->arrayObjectConverter->convert($val, $generic);
             }
 
             $value = $values;

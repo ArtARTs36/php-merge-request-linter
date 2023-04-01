@@ -26,9 +26,14 @@ class Type
         return $this->generic !== null;
     }
 
-    public function isGenericOfObject(): bool
+    /**
+     * @return class-string|null
+     */
+    public function getObjectGeneric(): ?string
     {
-        return $this->generic !== null && (class_exists($this->generic) || interface_exists($this->generic));
+        return $this->generic !== null && (class_exists($this->generic) || interface_exists($this->generic)) ?
+            $this->generic :
+            null;
     }
 
     public function isClass(): bool
