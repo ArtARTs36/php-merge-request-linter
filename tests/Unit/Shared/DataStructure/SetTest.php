@@ -20,8 +20,6 @@ final class SetTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::implode
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::__construct
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::fromList
      * @dataProvider providerTestImplode
      */
     public function testImplode(array $set, string $separator, string $expected): void
@@ -47,26 +45,11 @@ final class SetTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::first
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::__construct
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::fromList
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::hash
      * @dataProvider providerForTestFirst
      */
     public function testFirst(array $set, mixed $expected): void
     {
         self::assertEquals($expected, Set::fromList($set)->first());
-    }
-
-    /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::values
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::__construct
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::fromList
-     */
-    public function testValues(): void
-    {
-        $set = Set::fromList($values = ['value1', 'value2']);
-
-        self::assertEquals($values, $set->values());
     }
 
     public function providerForTestContains(): array
@@ -121,5 +104,110 @@ final class SetTest extends TestCase
         $set = Set::fromList($items);
 
         self::assertEquals($expected, $set->containsAll($values));
+    }
+
+    public function providerForTestFromList(): array
+    {
+        return [
+            [
+                [1, 2],
+                [1, 2],
+            ],
+            [
+                [1, 2, 2],
+                [1, 2],
+            ],
+
+            [
+                [1.2, 1.3],
+                [1.2, 1.3],
+            ],
+            [
+                [1.2, 1.3, 1.3],
+                [1.2, 1.3],
+            ],
+
+            [
+                [false, true],
+                [false, true],
+            ],
+            [
+                [false, true, true],
+                [false, true],
+            ],
+
+            [
+                [[1, 2], [1, 3]],
+                [[1, 2], [1, 3]],
+            ],
+            [
+                [[1, 2], [1, 3], [1, 3]],
+                [[1, 2], [1, 3]],
+            ],
+
+            [
+                ['test1', 'test2'],
+                ['test1', 'test2'],
+            ],
+            [
+                ['test1', 'test2', 'test2'],
+                ['test1', 'test2'],
+            ],
+
+            [
+                [
+                    (object)['k' => 'v'],
+                    (object)['k' => 'v1'],
+                ],
+                [
+                    (object)['k' => 'v'],
+                    (object)['k' => 'v1'],
+                ],
+            ],
+
+            [
+                [
+                    (object)['k' => 'v'],
+                    $o = (object)['k' => 'v1'],
+                    $o,
+                ],
+                [
+                    (object)['k' => 'v'],
+                    (object)['k' => 'v1'],
+                ],
+            ],
+
+            [
+                $ss = [
+                    fopen('data://text/plain,str1','r'),
+                    fopen('data://text/plain,str2','r'),
+                ],
+                $ss,
+            ],
+
+            [
+                [
+                    $s1 = fopen('data://text/plain,str1','r'),
+                    $s2 = fopen('data://text/plain,str2','r'),
+                    $s2,
+                ],
+                [
+                    $s1,
+                    $s2,
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::fromList
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::hash
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::values
+     * @dataProvider providerForTestFromList
+     */
+    public function testFromList(array $items, array $expected): void
+    {
+        self::assertEquals($expected, Set::fromList($items)->values());
     }
 }

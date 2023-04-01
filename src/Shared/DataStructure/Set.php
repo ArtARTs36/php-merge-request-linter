@@ -139,6 +139,8 @@ final class Set implements Collection, HasDebugInfo, \JsonSerializable
             return 'f_' . $value;
         } else if (is_array($value)) {
             return 'a_' . md5(serialize($value));
+        } else if (is_bool($value)) {
+            return 'b_' . ($value ? 'true' : 'false');
         }
 
         return '0';
