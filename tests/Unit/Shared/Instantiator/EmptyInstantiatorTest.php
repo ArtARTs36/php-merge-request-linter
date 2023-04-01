@@ -9,14 +9,14 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 final class EmptyInstantiatorTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\EmptyInstantiator::construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\EmptyInstantiator::instantiate
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\EmptyInstantiator::__construct
      */
-    public function testConstruct(): void
+    public function testInstantiate(): void
     {
         $constructor = new EmptyInstantiator(SuccessRule::class);
 
-        $result = $constructor->construct([]);
+        $result = $constructor->instantiate([]);
 
         self::assertInstanceOf(SuccessRule::class, $result);
     }

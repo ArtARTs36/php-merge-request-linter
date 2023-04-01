@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class NativeConstructorInstantiatorTest extends TestCase
 {
-    public function providerForTestConstruct(): array
+    public function providerForTestInstantiate(): array
     {
         return [
             [
@@ -26,18 +26,18 @@ final class NativeConstructorInstantiatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator::construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator::instantiate
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator::__construct
-     * @dataProvider providerForTestConstruct
+     * @dataProvider providerForTestInstantiate
      */
-    public function testConstruct(string $class, array $args): void
+    public function testInstantiate(string $class, array $args): void
     {
         $constructor = new NativeConstructorInstantiator(
             $rc = new \ReflectionClass($class),
             $rc->getConstructor(),
         );
 
-        $givenObject = $constructor->construct($args);
+        $givenObject = $constructor->instantiate($args);
 
         self::assertInstanceOf($class, $givenObject);
         self::assertEquals($args, get_object_vars($givenObject));

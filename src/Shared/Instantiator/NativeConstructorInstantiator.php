@@ -29,7 +29,7 @@ final class NativeConstructorInstantiator implements Instantiator
     /**
      * @return T
      */
-    public function construct(array $args): object
+    public function instantiate(array $args): object
     {
         /** @var class-string<T> $class */
         $class = $this->classReflector->getName();

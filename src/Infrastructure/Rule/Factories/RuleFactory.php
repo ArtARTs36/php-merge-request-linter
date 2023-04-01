@@ -23,6 +23,6 @@ class RuleFactory
     {
         $constructor = $this->constructor->find($class);
 
-        return $constructor->construct($this->argBuilder->build($constructor, $params));
+        return $constructor->instantiate($this->argBuilder->build($constructor, $params));
     }
 }

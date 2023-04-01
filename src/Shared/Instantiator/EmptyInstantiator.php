@@ -27,7 +27,7 @@ final class EmptyInstantiator implements Instantiator
     /**
      * @return T
      */
-    public function construct(array $args): object
+    public function instantiate(array $args): object
     {
         $class = $this->class;
 

@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class StaticMethodInstantiatorTest extends TestCase
 {
-    public function providerForTestConstruct(): array
+    public function providerForTestInstantiate(): array
     {
         return [
             [
@@ -45,15 +45,15 @@ final class StaticMethodInstantiatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator::construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator::instantiate
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator::__construct
-     * @dataProvider providerForTestConstruct
+     * @dataProvider providerForTestInstantiate
      */
-    public function testConstruct(string $class, string $method, array $arts, array $expected): void
+    public function testInstantiate(string $class, string $method, array $arts, array $expected): void
     {
         $constructor = new StaticMethodInstantiator((new \ReflectionClass($class))->getMethod($method), $class);
 
-        self::assertSame($expected, get_object_vars($constructor->construct($arts)));
+        self::assertSame($expected, get_object_vars($constructor->instantiate($arts)));
     }
 }
 

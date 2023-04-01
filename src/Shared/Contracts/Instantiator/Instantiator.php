@@ -21,5 +21,5 @@ interface Instantiator
      * @param array<string, mixed> $args
      * @return T
      */
-    public function construct(array $args): object;
+    public function instantiate(array $args): object;
 }

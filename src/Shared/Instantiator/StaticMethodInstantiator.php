@@ -29,7 +29,7 @@ class StaticMethodInstantiator implements Instantiator
     /**
      * @return T
      */
-    public function construct(array $args): object
+    public function instantiate(array $args): object
     {
         return ($this->createCallback())(...$args);
     }
