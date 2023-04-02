@@ -9,6 +9,7 @@ class PullRequestSchema
 {
     /**
      * @param array<mixed> $data
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Exceptions\GivenInvalidPullRequestDataException
      */
     public function createPullRequest(array $data): PullRequest
     {
@@ -17,7 +18,7 @@ class PullRequestSchema
             $this->getString($data, 'title'),
             $this->getAuthorNickname($data),
             $this->getBranch($data, 'source'),
-            $this->getBranch($data, 'target'),
+            $this->getBranch($data, 'destination'),
             $this->getDate($data, 'created_on'),
             $this->getLink($data, 'html'),
             Str::make($this->getString($data, 'description')),

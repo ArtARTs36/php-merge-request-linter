@@ -121,7 +121,7 @@ final class Set implements Collection, HasDebugInfo, \JsonSerializable
     {
         return [
             'count' => $this->count(),
-            'items' => array_keys($this->items),
+            'items' => $this->values(),
         ];
     }
 
