@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Events;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\NullContextLogger;
+use ArtARTs36\ContextLogger\NullContextLogger;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventListenerWasFailedException;

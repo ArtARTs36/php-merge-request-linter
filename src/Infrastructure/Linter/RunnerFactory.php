@@ -16,7 +16,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Logger\ContextLogger;
+use ArtARTs36\ContextLogger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;

@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPul
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\ChangeSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\FetchTagsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Logger\ContextLogger;
+use ArtARTs36\ContextLogger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;

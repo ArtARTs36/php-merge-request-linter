@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
+use ArtARTs36\ContextLogger\MemoryContextLogger;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
@@ -25,7 +26,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\MetricableLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
@@ -108,7 +108,7 @@ class ApplicationFactory
         return $application;
     }
 
-    private function createLogger(OutputInterface $output, MetricManager $metricManager): ContextLogger
+    private function createLogger(OutputInterface $output, MetricManager $metricManager): MemoryContextLogger
     {
         $loggers = [
             MetricableLogger::create($metricManager),
@@ -117,6 +117,6 @@ class ApplicationFactory
 
         $compositeLogger = new CompositeLogger($loggers);
 
-        return new ContextLogger($compositeLogger);
+        return new MemoryContextLogger($compositeLogger);
     }
 }

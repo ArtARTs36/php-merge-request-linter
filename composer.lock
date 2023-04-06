@@ -4,8 +4,35 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e4d7bab1af340d65ceebbd245c619f5",
+    "content-hash": "9779c3eb93f54a33779d66fcb1b9ca19",
     "packages": [
+        {
+            "name": "artarts36/context-logger",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ArtARTs36/php-context-logger",
+                "reference": "bb9d6954e00c303514e1ca2fca777666064dd9fb"
+            },
+            "require": {
+                "php": "^8.1",
+                "psr/log": "^3.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ArtARTs36\\ContextLogger\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "artarts36",
+                    "email": "temicska99@mail.ru"
+                }
+            ],
+            "time": "2023-04-06T12:23:12+00:00"
+        },
         {
             "name": "artarts36/empty-contracts",
             "version": "0.1.0",
@@ -6246,6 +6273,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "artarts36/context-logger": 20,
         "artarts36/docs-retriever": 20
     },
     "prefer-stable": false,
