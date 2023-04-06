@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
-use ArtARTs36\ContextLogger\ContextLogger;
+use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;

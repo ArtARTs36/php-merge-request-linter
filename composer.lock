@@ -12,11 +12,14 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArtARTs36/php-context-logger",
-                "reference": "bb9d6954e00c303514e1ca2fca777666064dd9fb"
+                "reference": "08f3cba010568a2876220c4746d724c211877293"
             },
             "require": {
                 "php": "^8.1",
                 "psr/log": "^3.0"
+            },
+            "require-dev": {
+                "ext-apcu": "*"
             },
             "default-branch": true,
             "type": "library",
@@ -31,7 +34,7 @@
                     "email": "temicska99@mail.ru"
                 }
             ],
-            "time": "2023-04-06T12:23:12+00:00"
+            "time": "2023-04-06T22:00:55+00:00"
         },
         {
             "name": "artarts36/empty-contracts",

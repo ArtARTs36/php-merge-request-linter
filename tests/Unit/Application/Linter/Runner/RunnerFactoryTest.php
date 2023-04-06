@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter\Runner;
 
-use ArtARTs36\ContextLogger\NullContextLogger;
+use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
 use ArtARTs36\MergeRequestLinter\Application\Linter\RunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\NullEnvironment;
@@ -23,9 +23,9 @@ final class RunnerFactoryTest extends TestCase
         $factory = new RunnerFactory(
             new NullEnvironment(),
             new ArrayMap([]),
-            new NullContextLogger(),
+            LoggerFactory::null(),
             new NullMetricManager(),
-            new ClientFactory(new NullMetricManager(), new NullContextLogger()),
+            new ClientFactory(new NullMetricManager(), LoggerFactory::null()),
         );
 
         self::assertInstanceOf(Runner::class, $factory->create(

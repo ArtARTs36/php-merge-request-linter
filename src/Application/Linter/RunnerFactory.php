@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
-use ArtARTs36\ContextLogger\ContextLogger;
+use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;

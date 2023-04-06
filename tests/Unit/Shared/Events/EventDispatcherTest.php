@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Events;
 
-use ArtARTs36\ContextLogger\NullContextLogger;
+use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventListenerWasFailedException;
@@ -68,7 +68,7 @@ final class EventDispatcherTest extends TestCase
         })(...);
 
         $logger = new CounterLogger();
-        $dispatcher = new EventDispatcher(new NullContextLogger());
+        $dispatcher = new EventDispatcher(LoggerFactory::null());
 
         $dispatcher->listen(TestEventWithName::class, new CallbackListener('t', $callback));
 

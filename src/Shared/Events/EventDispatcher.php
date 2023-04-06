@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Events;
 
-use ArtARTs36\ContextLogger\ContextLogger;
-use ArtARTs36\ContextLogger\NullContextLogger;
+use ArtARTs36\ContextLogger\Contracts\ContextLogger;
+use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 
 class EventDispatcher implements EventManager
@@ -11,10 +11,12 @@ class EventDispatcher implements EventManager
     /** @var array<string|class-string, array<EventListener>> */
     private array $listeners = [];
 
+    private readonly ContextLogger $logger;
+
     public function __construct(
-        private readonly ContextLogger $logger = new NullContextLogger(),
+        ?ContextLogger $logger = null,
     ) {
-        //
+        $this->logger = $logger ?? LoggerFactory::null();
     }
 
     public function dispatch(object $event): object

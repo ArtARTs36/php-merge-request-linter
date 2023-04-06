@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
-use ArtARTs36\ContextLogger\ContextLogger;
-use ArtARTs36\ContextLogger\MemoryContextLogger;
+use ArtARTs36\ContextLogger\Contracts\ContextLogger;
+use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
@@ -183,7 +183,7 @@ class ApplicationFactory
         return $fs;
     }
 
-    private function createLogger(OutputInterface $output, MetricManager $metricManager): MemoryContextLogger
+    private function createLogger(OutputInterface $output, MetricManager $metricManager): ContextLogger
     {
         $loggers = [
             MetricableLogger::create($metricManager),
@@ -192,7 +192,7 @@ class ApplicationFactory
 
         $compositeLogger = new CompositeLogger($loggers);
 
-        $logger = new MemoryContextLogger($compositeLogger);
+        $logger = LoggerFactory::wrapInMemory($compositeLogger);
 
         $this->container->set(LoggerInterface::class, $logger);
         $this->container->set(ContextLogger::class, $logger);
