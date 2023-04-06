@@ -6,6 +6,8 @@ use ArtARTs36\ContextLogger\MemoryContextLogger;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
+use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
+use ArtARTs36\MergeRequestLinter\Application\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
@@ -23,8 +25,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\MetricableLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
@@ -43,7 +43,6 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory

@@ -1,8 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Linter;
+namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
-use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
+use ArtARTs36\ContextLogger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
@@ -16,7 +16,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
-use ArtARTs36\ContextLogger\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
