@@ -4,11 +4,11 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

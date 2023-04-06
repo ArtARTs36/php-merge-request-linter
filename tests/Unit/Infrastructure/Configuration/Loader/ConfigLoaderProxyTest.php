@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Configuration\Loader;
 
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Loaders\Proxy;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;

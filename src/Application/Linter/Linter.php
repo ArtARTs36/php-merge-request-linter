@@ -24,9 +24,9 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
 {
     public function __construct(
-        protected Rules $rules,
+        protected Rules           $rules,
         protected EventDispatcherInterface $events,
-        private readonly MetricManager $metrics,
+        private readonly MetricManager     $metrics,
     ) {
         //
     }

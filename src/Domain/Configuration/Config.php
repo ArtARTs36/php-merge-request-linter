@@ -14,7 +14,7 @@ class Config
      * @param Map<CiName, CiSettings> $settings
      */
     public function __construct(
-        private readonly Rules               $rules,
+        private readonly Rules      $rules,
         private readonly Map                 $settings,
         private readonly HttpClientConfig    $httpClient,
         private readonly NotificationsConfig $notifications,
