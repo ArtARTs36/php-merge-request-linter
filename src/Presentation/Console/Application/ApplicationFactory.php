@@ -68,7 +68,6 @@ class ApplicationFactory
 
         $filesystem = $this->registerFileSystem();
 
-        $environment = new LocalEnvironment();
         $ciSystemsMap = DefaultSystems::map();
         $httpClientFactory = $this->registerHttpClientFactory();
         $runnerFactory = new LinterRunnerFactory(
@@ -81,15 +80,12 @@ class ApplicationFactory
 
         $argResolverFactory = new ArgumentResolverFactory($this->container);
 
-        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics, $argResolverFactory, $this->container);
-        $argResolverFactory = new ArgumentResolverFactory($container);
-
         $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory(
             $filesystem,
             $this->environment,
             $metrics,
             $argResolverFactory,
-            $container,
+            $this->container,
         );
 
         $configLoader = new CompositeLoader([
@@ -106,8 +102,6 @@ class ApplicationFactory
         $events = $this->registerEventDispatcher();
 
         $this->registerNotifications();
-
-        $events->listen(ConfigResolvedEvent::class, new CallbackListener('registration notifications', $notificationsListener));
 
         $application = new Application($metrics);
 
@@ -145,8 +139,10 @@ class ApplicationFactory
     {
         $logger = $this->container->get(ContextLogger::class);
 
-        $notifier = (new NotifierFactory($this->container->get(HttpClientFactory::class)->create(
-            $config->getHttpClient()),
+        $notifier = (new NotifierFactory(
+            $this->container->get(HttpClientFactory::class)->create(
+            $config->getHttpClient()
+        ),
             $logger,
         ))->create();
 
