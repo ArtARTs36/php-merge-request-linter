@@ -141,8 +141,8 @@ class ApplicationFactory
 
         $notifier = (new NotifierFactory(
             $this->container->get(HttpClientFactory::class)->create(
-            $config->getHttpClient()
-        ),
+                $config->getHttpClient()
+            ),
             $logger,
         ))->create();
 
