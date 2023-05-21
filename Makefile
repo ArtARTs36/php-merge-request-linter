@@ -72,7 +72,7 @@ docs:
 	php docs/Builder/build_config_json_schema.php
 	php docs/Builder/build_conditions.php
 
-docs-docker:
+docs-docker: docker-build
 	docker run \
 		--volume ./:/app \
 		--env-file .env \
