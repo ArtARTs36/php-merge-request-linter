@@ -90,3 +90,35 @@ dump:
 
 push-docs:
 	php ./vendor/bin/docs-retriever
+
+lint-docker: docker-build
+	docker run \
+		--env-file .env \
+		--entrypoint "composer" \
+		artarts36/merge-request-linter "lint"
+
+stat-analyse-docker: docker-build
+	docker run \
+		--env-file .env \
+		--entrypoint "composer" \
+		artarts36/merge-request-linter "stat-analyse"
+
+test-e2e-docker: docker-build
+	docker run \
+		--env-file .env \
+		--entrypoint "composer" \
+		artarts36/merge-request-linter "test-e2e"
+
+test-docker: docker-build
+	docker run \
+		--env-file .env \
+		--entrypoint "composer" \
+		artarts36/merge-request-linter "test"
+
+deptrac-docker: docker-build
+	docker run \
+		--env-file .env \
+		--entrypoint "composer" \
+		artarts36/merge-request-linter "deptrac"
+
+check-docker: lint-docker stat-analyse-docker test-docker deptrac-docker

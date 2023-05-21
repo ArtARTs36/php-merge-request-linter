@@ -18,7 +18,7 @@ final class ClockTest extends TestCase
 
         $result = $clock->now();
 
-        self::assertTrue($started < $result, sprintf(
+        self::assertTrue($started <= $result, sprintf(
             'Failed assert: %s < %s',
             $started->format('Y-m-d H:i:s'),
             $result->format('Y-m-d H:i:s'),

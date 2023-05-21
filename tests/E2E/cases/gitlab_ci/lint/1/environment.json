@@ -1,0 +1,6 @@
+{
+  "GITLAB_CI": true,
+  "CI_MERGE_REQUEST_IID": 1,
+  "CI_MERGE_REQUEST_PROJECT_ID": 41749211,
+  "CI_SERVER_URL": "https://gitlab.com"
+}
