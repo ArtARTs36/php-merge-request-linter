@@ -4,29 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9779c3eb93f54a33779d66fcb1b9ca19",
+    "content-hash": "a817862f7148230614c47c922a5ffcbc",
     "packages": [
         {
             "name": "artarts36/context-logger",
-            "version": "dev-master",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArtARTs36/php-context-logger",
-                "reference": "08f3cba010568a2876220c4746d724c211877293"
+                "reference": "db5e37712302b340e2006a67bd4d5a0566e66e53"
             },
             "require": {
                 "php": "^8.1",
                 "psr/log": "^3.0"
             },
             "require-dev": {
-                "ext-apcu": "*"
+                "artarts36/php-cs-fixer-good-fixers": "^0.1.2",
+                "ext-apcu": "*",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^10.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "ArtARTs36\\ContextLogger\\": "src/"
                 }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "ArtARTs36\\ContextLogger\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "lint": [
+                    "php-cs-fixer fix --dry-run --verbose --diff --ansi"
+                ],
+                "test": [
+                    "./vendor/bin/phpunit -v --colors=always --configuration phpunit.xml"
+                ],
+                "stat-analyse": [
+                    "./vendor/bin/phpstan analyse src"
+                ]
             },
             "authors": [
                 {
@@ -34,7 +52,7 @@
                     "email": "temicska99@mail.ru"
                 }
             ],
-            "time": "2023-04-06T22:00:55+00:00"
+            "time": "2023-05-21T17:08:13+00:00"
         },
         {
             "name": "artarts36/empty-contracts",
@@ -6276,7 +6294,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "artarts36/context-logger": 20,
         "artarts36/docs-retriever": 20
     },
     "prefer-stable": false,
