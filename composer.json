@@ -70,13 +70,16 @@
             "XDEBUG_MODE=coverage ./vendor/bin/phpunit -v --coverage-text --colors=always --configuration phpunit.xml --coverage-clover ./coverage.xml"
         ],
         "stat-analyse": [
-            "./vendor/bin/phpstan analyse src"
+            "./vendor/bin/phpstan analyse src --memory-limit 2G"
         ],
         "mr-lint": [
             "./bin/mr-linter lint"
         ],
         "deptrac": [
             "./vendor/bin/deptrac"
+        ],
+        "test-e2e": [
+            "./vendor/bin/phpunit --filter testLint ./tests/E2E/LintE2ETest.php"
         ]
     },
     "config": {

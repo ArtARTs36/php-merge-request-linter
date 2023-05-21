@@ -1,0 +1,2 @@
+Merge Request must have any labels of: [Feature, Bug, Docs, Tests, Optimization]
+The title must starts with any prefix of: [[Feature],[Bug],[Docs],[Tests],[Optimization]]

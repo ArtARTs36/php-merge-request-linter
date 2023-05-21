@@ -60,6 +60,14 @@ jobs:
           XDEBUG_MODE: coverage
         run: composer test-coverage
 
+      - name: E2E Tests
+        env:
+          E2E_MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          E2E_MR_LINTER_GITLAB_HTTP_TOKEN: ${{ secrets.E2E_MR_LINTER_GITLAB_HTTP_TOKEN }}
+          E2E_MR_LINTER_BITBUCKET_APP_USER: ${{ secrets.E2E_MR_LINTER_BITBUCKET_APP_USER }}
+          E2E_MR_LINTER_BITBUCKET_APP_PASSWORD: ${{ secrets.E2E_MR_LINTER_BITBUCKET_APP_PASSWORD }}
+        run: composer test-e2e
+
       - name: Upload to Codecov
         uses: codecov/codecov-action@v2
         with:

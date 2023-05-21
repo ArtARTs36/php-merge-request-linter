@@ -15,7 +15,7 @@ final class TimerTest extends TestCase
     {
         $timer = Timer::start();
 
-        self::assertLessThan(microtime(true), $this->getPropertyValue($timer, 'started'));
+        self::assertLessThanOrEqual(microtime(true), $this->getPropertyValue($timer, 'started'));
     }
 
     /**

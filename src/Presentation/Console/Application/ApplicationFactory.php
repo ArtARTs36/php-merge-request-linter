@@ -20,6 +20,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\Metricabl
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
@@ -43,11 +44,16 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
 {
+    public function __construct(
+        private readonly Environment $environment = new LocalEnvironment(),
+    ) {
+        //
+    }
+
     public function create(OutputInterface $output): Application
     {
         $metrics = new MemoryMetricManager();
@@ -57,16 +63,27 @@ class ApplicationFactory
         $logger = $this->createLogger($output, $metrics);
 
         $filesystem = new LocalFileSystem();
-        $environment = new LocalEnvironment();
         $ciSystemsMap = DefaultSystems::map();
         $httpClientFactory = new ClientFactory($metrics, $logger);
-        $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics, $httpClientFactory);
+        $runnerFactory = new LinterRunnerFactory(
+            $this->environment,
+            $ciSystemsMap,
+            $logger,
+            $metrics,
+            $httpClientFactory,
+        );
 
         $container = new MapContainer();
 
         $argResolverFactory = new ArgumentResolverFactory($container);
 
-        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics, $argResolverFactory, $container);
+        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory(
+            $filesystem,
+            $this->environment,
+            $metrics,
+            $argResolverFactory,
+            $container,
+        );
 
         $configLoader = new CompositeLoader([
             'json' => new Proxy(static fn () => $arrayConfigLoaderFactory->create(ConfigFormat::JSON)),
