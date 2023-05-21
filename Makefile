@@ -72,6 +72,13 @@ docs:
 	php docs/Builder/build_config_json_schema.php
 	php docs/Builder/build_conditions.php
 
+docs-docker:
+	docker run \
+		--volume ./:/app \
+		--env-file .env \
+		--entrypoint "make" \
+		artarts36/merge-request-linter "docs"
+
 deps-check:
 	@test -f composer-require-checker.phar || wget \
 		https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar -O composer-require-checker.phar && \
