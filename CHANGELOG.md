@@ -4,6 +4,12 @@ This file contains changelogs.
 
 [View all Releases](https://github.com/ArtARTs36/php-merge-request-linter/releases)
 
+## [v0.12.0 (2023-05-21)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.11.1..0.12.0)
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.12.0)
+
+-----------------------------------------------------------------
+
 ## [v0.11.1 (2023-03-17)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.11.0..0.11.1)
 
 ### Added

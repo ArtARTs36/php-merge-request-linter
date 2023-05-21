@@ -27,6 +27,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResol
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
@@ -48,13 +49,14 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Psr\Log\LoggerInterface;
 
 class ApplicationFactory
 {
     public function __construct(
         private readonly MapContainer $container = new MapContainer(),
+        private readonly Environment $environment = new LocalEnvironment(),
     ) {
         //
     }
@@ -69,11 +71,26 @@ class ApplicationFactory
         $environment = new LocalEnvironment();
         $ciSystemsMap = DefaultSystems::map();
         $httpClientFactory = $this->registerHttpClientFactory();
-        $runnerFactory = new LinterRunnerFactory($environment, $ciSystemsMap, $logger, $metrics, $httpClientFactory);
+        $runnerFactory = new LinterRunnerFactory(
+            $this->environment,
+            $ciSystemsMap,
+            $logger,
+            $metrics,
+            $httpClientFactory,
+        );
 
         $argResolverFactory = new ArgumentResolverFactory($this->container);
 
         $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory($filesystem, $environment, $metrics, $argResolverFactory, $this->container);
+        $argResolverFactory = new ArgumentResolverFactory($container);
+
+        $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory(
+            $filesystem,
+            $this->environment,
+            $metrics,
+            $argResolverFactory,
+            $container,
+        );
 
         $configLoader = new CompositeLoader([
             'json' => new Proxy(static fn () => $arrayConfigLoaderFactory->create(ConfigFormat::JSON)),
@@ -89,6 +106,8 @@ class ApplicationFactory
         $events = $this->registerEventDispatcher();
 
         $this->registerNotifications();
+
+        $events->listen(ConfigResolvedEvent::class, new CallbackListener('registration notifications', $notificationsListener));
 
         $application = new Application($metrics);
 
