@@ -97,6 +97,13 @@ lint-docker: docker-build
 		--entrypoint "composer" \
 		artarts36/merge-request-linter "lint"
 
+lint-fix-docker: docker-build
+	docker run \
+		--volume ./:/app/ \
+		--env-file .env \
+		--entrypoint "composer" \
+		artarts36/merge-request-linter "lint-fix"
+
 stat-analyse-docker: docker-build
 	docker run \
 		--env-file .env \

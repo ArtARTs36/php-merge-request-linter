@@ -129,17 +129,17 @@ final class Set implements Collection, HasDebugInfo, \JsonSerializable
     {
         if (is_string($value)) {
             return 's_' . $value;
-        } else if (is_object($value)) {
+        } elseif (is_object($value)) {
             return 'o_' . spl_object_hash($value);
-        } else if (is_resource($value)) {
+        } elseif (is_resource($value)) {
             return 'r_' . get_resource_id($value);
-        } else if (is_int($value)) {
+        } elseif (is_int($value)) {
             return 'i_' . $value;
-        } else if (is_float($value)) {
+        } elseif (is_float($value)) {
             return 'f_' . $value;
-        } else if (is_array($value)) {
+        } elseif (is_array($value)) {
             return 'a_' . md5(serialize($value));
-        } else if (is_bool($value)) {
+        } elseif (is_bool($value)) {
             return 'b_' . ($value ? 'true' : 'false');
         }
 

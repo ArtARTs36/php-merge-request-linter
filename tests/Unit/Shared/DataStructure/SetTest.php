@@ -179,16 +179,16 @@ final class SetTest extends TestCase
 
             [
                 $ss = [
-                    fopen('data://text/plain,str1','r'),
-                    fopen('data://text/plain,str2','r'),
+                    fopen('data://text/plain,str1', 'r'),
+                    fopen('data://text/plain,str2', 'r'),
                 ],
                 $ss,
             ],
 
             [
                 [
-                    $s1 = fopen('data://text/plain,str1','r'),
-                    $s2 = fopen('data://text/plain,str2','r'),
+                    $s1 = fopen('data://text/plain,str1', 'r'),
+                    $s2 = fopen('data://text/plain,str2', 'r'),
                     $s2,
                 ],
                 [
