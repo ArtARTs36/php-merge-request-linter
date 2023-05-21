@@ -6,6 +6,13 @@ This file contains changelogs.
 
 ## [v0.12.0 (2023-05-21)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.11.1..0.12.0)
 
+### Added
+* Add logs for HTTP Client
+* Validate BitBucket PR data
+
+## Changed
+* Update PHPStan level to 9
+
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.12.0)
 
 -----------------------------------------------------------------
