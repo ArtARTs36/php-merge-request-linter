@@ -19,6 +19,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\HasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LinesMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LteEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsCamelCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsKebabCaseEvaluator;
@@ -104,6 +105,7 @@ class OperatorSchemaArrayGenerator
             HasEvaluator::class,
             NotHasEvaluator::class,
             HasAnyEvaluator::class,
+            NotHasAnyEvaluator::class,
             IsEmptyEvaluator::class,
             AllEvaluator::class,
             AnyEvaluator::class,
@@ -117,6 +119,7 @@ class OperatorSchemaArrayGenerator
             HasEvaluator::class,
             NotHasEvaluator::class,
             HasAnyEvaluator::class,
+            NotHasAnyEvaluator::class,
             IsEmptyEvaluator::class,
             AllEvaluator::class,
             AnyEvaluator::class,
@@ -129,6 +132,7 @@ class OperatorSchemaArrayGenerator
             CountEqualsAnyEvaluator::class,
             HasEvaluator::class,
             NotHasEvaluator::class,
+            NotHasAnyEvaluator::class,
             HasAnyEvaluator::class,
             IsEmptyEvaluator::class,
             AllEvaluator::class,
