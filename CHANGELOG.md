@@ -6,7 +6,7 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
-## [v0.12.1 (2023-05-21)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.12.0..0.12.1)
+## [v0.12.1 (2023-05-22)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.12.0..0.12.1)
 
 ### Added
 * Add evaluator "not has any"
