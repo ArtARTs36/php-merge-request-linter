@@ -1,0 +1,3 @@
+Request must contain change in file: src/Version.php
+Request must contain change in file: CHANGELOG.md
+Description must have list of features

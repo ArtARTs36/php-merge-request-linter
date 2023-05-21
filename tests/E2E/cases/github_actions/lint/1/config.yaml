@@ -19,15 +19,13 @@ rules:
 
   "@mr-linter/has_changes":
     - changes:
-      - file: "src/Version.php"
-        updatedPhpConstant: "VERSION"
+        - file: "src/Version.php"
+          updatedPhpConstant: "VERSION"
       when:
         targetBranch:
           equals: "master"
         title:
           notStarts: '[Docs]'
-        labels:
-          notHas: 'Tests'
 
     - changes:
         - file: "CHANGELOG.md"
@@ -36,8 +34,6 @@ rules:
           equals: "master"
         title:
           notStarts: '[Docs]'
-        labels:
-          notHas: 'Tests'
 
   custom:
     - definition: "Branch must be in kebab-case"
@@ -67,29 +63,7 @@ rules:
         labels:
           has: "Feature"
 
-notifications:
-  channels:
-    dev:
-      type: 'telegram_bot'
-      chat_id: 'env(MR_LINTER_TELEGRAM_CHAT_ID)'
-      bot_token: 'env(MR_LINTER_TELEGRAM_BOT_TOKEN)'
-  on:
-    lint_finished:
-      channel: 'dev'
-      template: |
-        👀 Review on PR "{{ request.title }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
-        
-        🌲 {{ request.sourceBranch }} ➡ {{ request.targetBranch }}
-        
-        🌐 {{ request.uri }}
-        
-        📉 Notes: {{ result.notes.count }}
-        
-        {% for note in result.notes %}
-        - {{ note.description }}
-        {% endfor %}
-
 ci:
   github_actions:
     credentials:
-      token: 'env(MR_LINTER_GITHUB_HTTP_TOKEN)'
+      token: 'env(E2E_MR_LINTER_GITHUB_HTTP_TOKEN)'
