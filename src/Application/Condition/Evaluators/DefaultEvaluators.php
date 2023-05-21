@@ -60,6 +60,7 @@ final class DefaultEvaluators
         NotHasEvaluator::NAME => NotHasEvaluator::class,
         EqualsAnyEvaluator::NAME => EqualsAnyEvaluator::class,
         HasAnyEvaluator::NAME => HasAnyEvaluator::class,
+        NotHasAnyEvaluator::NAME => NotHasAnyEvaluator::class,
         CountEqualsEvaluator::NAME => CountEqualsEvaluator::class,
         CountNotEqualsEvaluator::NAME => CountNotEqualsEvaluator::class,
         CountEqualsAnyEvaluator::NAME => CountEqualsAnyEvaluator::class,

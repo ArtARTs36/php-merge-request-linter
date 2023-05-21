@@ -1,6 +1,6 @@
 FROM php:8.1
 
-RUN apt update && apt install -y zip
+RUN apt update && apt install -y git zip
 
 COPY --from=composer:2.4.0 /usr/bin/composer /usr/bin/composer
 

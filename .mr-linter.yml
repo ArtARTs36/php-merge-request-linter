@@ -24,20 +24,20 @@ rules:
       when:
         targetBranch:
           equals: "master"
-        title:
-          notStarts: '[Docs]'
         labels:
-          notHas: 'Tests'
+          notHasAny:
+            - 'Tests'
+            - 'Docs'
 
     - changes:
         - file: "CHANGELOG.md"
       when:
         targetBranch:
           equals: "master"
-        title:
-          notStarts: '[Docs]'
         labels:
-          notHas: 'Tests'
+          notHasAny:
+            - 'Tests'
+            - 'Docs'
 
   custom:
     - definition: "Branch must be in kebab-case"

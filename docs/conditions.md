@@ -25,6 +25,7 @@ Currently is available that operators:
 | notHas | Check if an array not contains some value. | string / integer / number / boolean |
 | equalsAny | Check if the field is equal to one of the values. | array of strings |
 | hasAny | Check if an array contains some value of list. | array of strings |
+| notHasAny | Check if an array not contains values of list. | array of strings |
 | countEquals | Check count equals. | integer |
 | countNotEquals | Check count not equals. | integer |
 | countEqualsAny | Check count equals. | array of integers |
