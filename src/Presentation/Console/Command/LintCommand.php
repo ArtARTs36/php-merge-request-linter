@@ -51,7 +51,7 @@ class LintCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $isDebug = $input->getOption('debug');
+        $isDebug = $this->getBoolFromOption($input, 'debug');
 
         if ($isDebug) {
             $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
@@ -62,7 +62,7 @@ class LintCommand extends Command
         $this->events->subscribe(new LintEventsSubscriber(
             new SymfonyProgressBar(new ProgressBar($output)),
             new ConsolePrinter($style),
-            $input->getOption('debug'),
+            $isDebug,
         ));
 
         $result = $this->handler->handle(new LintTask(

@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 
 /**
  * @phpstan-type EventName string
+ * @codeCoverageIgnore
  */
 class NotificationsConfig
 {

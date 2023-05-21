@@ -24,6 +24,12 @@ class GithubActionsCredentialsMapper implements AuthenticatorMapper
             ));
         }
 
+        if (! is_string($credentials['token'])) {
+            throw new InvalidCredentialsException(sprintf(
+                'Github Actions need token as string',
+            ));
+        }
+
         return TokenAuthenticator::bearer($this->value->tryTransform($credentials['token']));
     }
 }

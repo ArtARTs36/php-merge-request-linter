@@ -2,13 +2,19 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
+use ArtARTs36\ContextLogger\Contracts\ContextLogger;
+use ArtARTs36\ContextLogger\LoggerFactory;
+use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
+use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
+use ArtARTs36\MergeRequestLinter\Application\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
@@ -20,11 +26,12 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\Metricabl
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\LinterFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Linter\RunnerFactory as LinterRunnerFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\MetricableLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
@@ -35,16 +42,20 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
-use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLoggerFactory;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use Symfony\Component\Console\Output\OutputInterface;
+use Psr\Log\LoggerInterface;
 
 class ApplicationFactory
 {
     public function __construct(
+        private readonly MapContainer $container = new MapContainer(),
         private readonly Environment $environment = new LocalEnvironment(),
     ) {
         //
@@ -52,15 +63,13 @@ class ApplicationFactory
 
     public function create(OutputInterface $output): Application
     {
-        $metrics = new MemoryMetricManager();
+        $metrics = $this->registerMetricManager();
+        $logger = $this->createLogger($output, $metrics);
 
-        $application = new Application($metrics);
+        $filesystem = $this->registerFileSystem();
 
-        $logger = (new ConsoleLoggerFactory())->create($output);
-
-        $filesystem = new LocalFileSystem();
         $ciSystemsMap = DefaultSystems::map();
-        $httpClientFactory = new ClientFactory($metrics);
+        $httpClientFactory = $this->registerHttpClientFactory();
         $runnerFactory = new LinterRunnerFactory(
             $this->environment,
             $ciSystemsMap,
@@ -69,16 +78,14 @@ class ApplicationFactory
             $httpClientFactory,
         );
 
-        $container = new MapContainer();
-
-        $argResolverFactory = new ArgumentResolverFactory($container);
+        $argResolverFactory = new ArgumentResolverFactory($this->container);
 
         $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory(
             $filesystem,
             $this->environment,
             $metrics,
             $argResolverFactory,
-            $container,
+            $this->container,
         );
 
         $configLoader = new CompositeLoader([
@@ -92,20 +99,11 @@ class ApplicationFactory
             $metrics,
         );
 
-        $events = new EventDispatcher($logger);
+        $events = $this->registerEventDispatcher();
 
-        $notificationsListener = function (ConfigResolvedEvent $event) use ($httpClientFactory, $events, $container, $logger) {
-            (new ListenerRegistrar(
-                $event->config->config->getNotifications(),
-                new ListenerFactory(
-                    (new NotifierFactory($httpClientFactory->create($event->config->config->getHttpClient()), $logger))->create(),
-                    $container->get(OperatorResolver::class),
-                    new MessageCreator(),
-                ),
-            ))->register($events);
-        };
+        $this->registerNotifications();
 
-        $events->listen(ConfigResolvedEvent::class, new CallbackListener('registration notifications', $notificationsListener));
+        $application = new Application($metrics);
 
         $application->add(new LintCommand($metrics, $events, new LintTaskHandler(
             $configResolver,
@@ -118,5 +116,102 @@ class ApplicationFactory
         $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory())));
 
         return $application;
+    }
+
+    private function registerNotifications(): void
+    {
+        $notificationsListener = function (ConfigResolvedEvent $event) {
+            $this
+                ->createNotificationsListenerRegistrar($event->config->config)
+                ->register($this->container->get(EventManager::class));
+        };
+
+        $this
+            ->container
+            ->get(EventManager::class)
+            ->listen(ConfigResolvedEvent::class, new CallbackListener(
+                'registration notifications',
+                $notificationsListener,
+            ));
+    }
+
+    private function createNotificationsListenerRegistrar(Config $config): ListenerRegistrar
+    {
+        $logger = $this->container->get(ContextLogger::class);
+
+        $notifier = (new NotifierFactory(
+            $this->container->get(HttpClientFactory::class)->create(
+                $config->getHttpClient()
+            ),
+            $logger,
+        ))->create();
+
+        return new ListenerRegistrar(
+            $config->getNotifications(),
+            new ListenerFactory(
+                $notifier,
+                $this->container->get(OperatorResolver::class),
+                new MessageCreator(),
+                $logger,
+            ),
+        );
+    }
+
+    private function registerHttpClientFactory(): ClientFactory
+    {
+        $factory = new ClientFactory(
+            $this->container->get(MetricManager::class),
+            $this->container->get(LoggerInterface::class),
+        );
+
+        $this->container->set(HttpClientFactory::class, $factory);
+        $this->container->set(ClientFactory::class, $factory);
+
+        return $factory;
+    }
+
+    private function registerEventDispatcher(): EventDispatcher
+    {
+        $ed = new EventDispatcher($this->container->get(ContextLogger::class));
+
+        $this->container->set(EventDispatcher::class, $ed);
+        $this->container->set(EventManager::class, $ed);
+
+        return $ed;
+    }
+
+    private function registerMetricManager(): MetricManager
+    {
+        $metrics = new MemoryMetricManager();
+
+        $this->container->set(MetricManager::class, $metrics);
+
+        return $metrics;
+    }
+
+    private function registerFileSystem(): FileSystem
+    {
+        $fs = new LocalFileSystem();
+
+        $this->container->set(FileSystem::class, $fs);
+
+        return $fs;
+    }
+
+    private function createLogger(OutputInterface $output, MetricManager $metricManager): ContextLogger
+    {
+        $loggers = [
+            MetricableLogger::create($metricManager),
+            new ConsoleLogger($output),
+        ];
+
+        $compositeLogger = new CompositeLogger($loggers);
+
+        $logger = LoggerFactory::wrapInMemory($compositeLogger);
+
+        $this->container->set(LoggerInterface::class, $logger);
+        $this->container->set(ContextLogger::class, $logger);
+
+        return $logger;
     }
 }

@@ -4,10 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter\Runner;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;

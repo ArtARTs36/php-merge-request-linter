@@ -14,7 +14,7 @@ use Traversable;
  * @template V
  * @template-implements Collection<K, V>
  */
-class Arrayee implements Collection, HasDebugInfo
+class Arrayee implements Collection, HasDebugInfo, \JsonSerializable
 {
     use CountProxy;
     use ContainsAll;
@@ -27,6 +27,14 @@ class Arrayee implements Collection, HasDebugInfo
         protected array $items,
     ) {
         //
+    }
+
+    /**
+     * @return array<K, V>
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->items;
     }
 
     public function getIterator(): Traversable

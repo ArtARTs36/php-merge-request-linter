@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Http;
 
+use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient;
@@ -27,7 +28,7 @@ final class ClientFactoryTest extends TestCase
      */
     public function testCreate(HttpClientConfig $config, string $expectedClass): void
     {
-        $factory = new ClientFactory(new NullMetricManager());
+        $factory = new ClientFactory(new NullMetricManager(), LoggerFactory::null());
 
         self::assertInstanceOf($expectedClass, $factory->create($config));
     }
@@ -41,7 +42,7 @@ final class ClientFactoryTest extends TestCase
     {
         self::expectExceptionMessage('HTTP Client with type "non-exists-client-type" not supported');
 
-        $factory = new ClientFactory(new NullMetricManager());
+        $factory = new ClientFactory(new NullMetricManager(), LoggerFactory::null());
 
         $factory->create(new HttpClientConfig('non-exists-client-type', []));
     }

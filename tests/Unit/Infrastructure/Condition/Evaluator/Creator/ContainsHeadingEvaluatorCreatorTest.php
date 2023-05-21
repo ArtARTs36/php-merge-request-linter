@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Condition\Evalu
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ContainsHeadingEvaluatorCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ConditionEvaluatorNotFound;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\InvalidEvaluatorValueException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ContainsHeadingEvaluatorCreatorTest extends TestCase
@@ -56,6 +57,18 @@ final class ContainsHeadingEvaluatorCreatorTest extends TestCase
 
         self::expectException(ConditionEvaluatorNotFound::class);
 
-        $creator->create('containsHeadingThree', 1);
+        $creator->create('containsHeadingThree', '1');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Evaluator\Creator\ContainsHeadingEvaluatorCreator::create
+     */
+    public function testCreateOnInvalidValueType(): void
+    {
+        $creator = new ContainsHeadingEvaluatorCreator();
+
+        self::expectException(InvalidEvaluatorValueException::class);
+
+        $creator->create('containsHeading1', 1);
     }
 }

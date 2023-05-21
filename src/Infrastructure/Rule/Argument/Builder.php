@@ -3,7 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleConstructor;
+use ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator\Instantiator;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 
 class Builder
 {
@@ -14,10 +15,11 @@ class Builder
     }
 
     /**
+     * @param Instantiator<Rule> $constructor
      * @param array<string, mixed> $params
      * @return array<string, mixed>
      */
-    public function build(RuleConstructor $constructor, array $params): array
+    public function build(Instantiator $constructor, array $params): array
     {
         $args = [];
 

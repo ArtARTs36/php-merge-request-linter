@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions;
 
 use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
 
-class ConditionEvaluatorNotFound extends MergeRequestLinterException
+final class ConditionEvaluatorNotFound extends MergeRequestLinterException
 {
     public static function make(string $operator): self
     {

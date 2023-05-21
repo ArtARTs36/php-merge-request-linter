@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators\Strings;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\MatchEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\InvalidEvaluatorValueException;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\EvaluatorCrashedException;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -34,7 +34,7 @@ class MatchEvaluatorTest extends TestCase
      */
     public function testEvaluateOnInvalidRegexValueException(): void
     {
-        self::expectException(InvalidEvaluatorValueException::class);
+        self::expectException(EvaluatorCrashedException::class);
 
         $evaluator = new MatchEvaluator('test');
 

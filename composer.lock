@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "849fb89583528fde66adc8282e3ca8a7",
+    "content-hash": "a817862f7148230614c47c922a5ffcbc",
     "packages": [
+        {
+            "name": "artarts36/context-logger",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ArtARTs36/php-context-logger",
+                "reference": "db5e37712302b340e2006a67bd4d5a0566e66e53"
+            },
+            "require": {
+                "php": "^8.1",
+                "psr/log": "^3.0"
+            },
+            "require-dev": {
+                "artarts36/php-cs-fixer-good-fixers": "^0.1.2",
+                "ext-apcu": "*",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ArtARTs36\\ContextLogger\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "ArtARTs36\\ContextLogger\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "lint": [
+                    "php-cs-fixer fix --dry-run --verbose --diff --ansi"
+                ],
+                "test": [
+                    "./vendor/bin/phpunit -v --colors=always --configuration phpunit.xml"
+                ],
+                "stat-analyse": [
+                    "./vendor/bin/phpstan analyse src"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "artarts36",
+                    "email": "temicska99@mail.ru"
+                }
+            ],
+            "time": "2023-05-21T17:08:13+00:00"
+        },
         {
             "name": "artarts36/empty-contracts",
             "version": "0.1.0",
@@ -129,16 +177,16 @@
         },
         {
             "name": "artarts36/str",
-            "version": "2.2.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArtARTs36/str.git",
-                "reference": "820e5f5ab5b3df64e2987b4bb10cdfe23bb90bd2"
+                "reference": "67ffed47361c4f64f3547b718ee22f7caed9290e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ArtARTs36/str/zipball/820e5f5ab5b3df64e2987b4bb10cdfe23bb90bd2",
-                "reference": "820e5f5ab5b3df64e2987b4bb10cdfe23bb90bd2",
+                "url": "https://api.github.com/repos/ArtARTs36/str/zipball/67ffed47361c4f64f3547b718ee22f7caed9290e",
+                "reference": "67ffed47361c4f64f3547b718ee22f7caed9290e",
                 "shasum": ""
             },
             "require": {
@@ -170,9 +218,9 @@
             "description": "String Wrapper",
             "support": {
                 "issues": "https://github.com/ArtARTs36/str/issues",
-                "source": "https://github.com/ArtARTs36/str/tree/2.2.1"
+                "source": "https://github.com/ArtARTs36/str/tree/2.3.0"
             },
-            "time": "2023-03-14T20:39:41+00:00"
+            "time": "2023-03-30T00:02:20+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -3920,16 +3968,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.17",
+            "version": "1.10.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "204e459e7822f2c586463029f5ecec31bb45a1f2"
+                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/204e459e7822f2c586463029f5ecec31bb45a1f2",
-                "reference": "204e459e7822f2c586463029f5ecec31bb45a1f2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9b13dafe3d66693d20fe5729c3dde1d31bb64703",
+                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703",
                 "shasum": ""
             },
             "require": {
@@ -3958,8 +4006,11 @@
                 "static analysis"
             ],
             "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.17"
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
             },
             "funding": [
                 {
@@ -3975,7 +4026,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-08T12:25:00+00:00"
+            "time": "2023-03-30T08:58:01+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

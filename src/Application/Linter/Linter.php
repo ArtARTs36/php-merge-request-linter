@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
-use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\InvalidEvaluatorValueException;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\EvaluatorCrashedException;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
@@ -24,9 +24,9 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
 {
     public function __construct(
-        protected Rules $rules,
+        protected Rules           $rules,
         protected EventDispatcherInterface $events,
-        private readonly MetricManager $metrics,
+        private readonly MetricManager     $metrics,
     ) {
         //
     }
@@ -59,7 +59,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
                 } else {
                     $this->events->dispatch(new RuleWasFailedEvent($rule->getName()));
                 }
-            } catch (InvalidEvaluatorValueException $e) {
+            } catch (EvaluatorCrashedException $e) {
                 $notes[] = new LintNote(sprintf('[%s] Invalid condition value: %s', $rule->getName(), $e->getMessage()));
 
                 $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));

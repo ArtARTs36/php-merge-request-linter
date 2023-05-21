@@ -6,7 +6,9 @@ endif
 .PHONY: docs
 
 env:
-	echo "MR_LINTER_GITHUB_HTTP_TOKEN=token\nMR_LINTER_GITLAB_HTTP_TOKEN=token" > .env
+	echo "MR_LINTER_GITHUB_HTTP_TOKEN=token\nMR_LINTER_GITLAB_HTTP_TOKEN=token\n" > .env
+	echo "E2E_MR_LINTER_GITHUB_HTTP_TOKEN=token\nE2E_MR_LINTER_GITLAB_HTTP_TOKEN=token" >> .env
+	echo "E2E_MR_LINTER_BITBUCKET_APP_USER=token\nE2E_MR_LINTER_BITBUCKET_APP_PASSWORD=token\n" >> .env
 
 # usage as `make try MR_ID=1`
 try:
@@ -97,11 +99,21 @@ lint-docker: docker-build
 		--entrypoint "composer" \
 		artarts36/merge-request-linter "lint"
 
+lint-fix-docker: docker-build
+	docker run \
+		--volume ./:/app/ \
+		--env-file .env \
+		--entrypoint "composer" \
+		artarts36/merge-request-linter "lint-fix"
+
 stat-analyse-docker: docker-build
 	docker run \
 		--env-file .env \
 		--entrypoint "composer" \
 		artarts36/merge-request-linter "stat-analyse"
+
+test-e2e:
+	composer test-e2e
 
 test-e2e-docker: docker-build
 	docker run \

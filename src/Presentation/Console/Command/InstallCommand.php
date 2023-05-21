@@ -53,7 +53,7 @@ class InstallCommand extends Command
             return ConfigFormat::YAML;
         }
 
-        $format = ConfigFormat::tryFrom($input->getOption('format'));
+        $format = ConfigFormat::tryFrom($userFormat);
 
         if ($format === null) {
             throw new InvalidInputException(sprintf('Format "%s" not supported', $userFormat));

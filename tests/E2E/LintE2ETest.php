@@ -57,7 +57,7 @@ final class LintE2ETest extends TestCase
     public function testLint(array $env, string $configPath, array $expectResult): void
     {
         $appFactory = new ApplicationFactory(
-            new ChainEnvironment([
+            environment: new ChainEnvironment([
                 new MapEnvironment(new ArrayMap($env)),
                 new LocalEnvironment(),
             ]),

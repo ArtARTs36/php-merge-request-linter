@@ -2,8 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\Rules as RuleCollection;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules as RuleCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 
 class RulesMapper
@@ -17,7 +16,7 @@ class RulesMapper
     /**
      * @param array<string, mixed> $rulesData
      */
-    public function map(array $rulesData): Rules
+    public function map(array $rulesData): RuleCollection
     {
         $rules = new RuleCollection([]);
 

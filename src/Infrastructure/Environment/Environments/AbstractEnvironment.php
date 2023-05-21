@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 
 abstract class AbstractEnvironment implements Environment
@@ -11,12 +12,24 @@ abstract class AbstractEnvironment implements Environment
 
     public function getInt(string $key): int
     {
-        return (int) $this->doGet($key);
+        $value = $this->doGet($key);
+
+        if (! is_numeric($value)) {
+            throw VarHasDifferentTypeException::make($key, 'int|float', gettype($value));
+        }
+
+        return (int) $value;
     }
 
     public function getString(string $key): string
     {
-        return (string) $this->doGet($key);
+        $value = $this->doGet($key);
+
+        if (! is_scalar($value)) {
+            throw VarHasDifferentTypeException::make($key, 'string', gettype($value));
+        }
+
+        return (string) $value;
     }
 
     public function has(string $key): bool

@@ -4,22 +4,20 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
-use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use Psr\Log\LoggerInterface;
 
 class Client
 {
-    use InteractsWithResponse;
-
     public function __construct(
         private readonly Authenticator                                                      $credentials,
         private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client $http,
         private readonly LoggerInterface                                                    $logger,
+        private readonly TextDecoder                                                        $textDecoder,
+        private readonly PullRequestSchema                                                  $pullRequestSchema = new PullRequestSchema(),
         private readonly BitbucketDiffMapper                                                $diffMapper = new BitbucketDiffMapper(),
     ) {
         //
@@ -47,19 +45,14 @@ class Client
         $request = $this->credentials->authenticate($request);
 
         $response = $this->http->sendRequest($request);
-        $responseArray = $this->responseToJsonArray($response);
+        $responseArray = $this->textDecoder->decode($response->getBody()->getContents());
 
-        $diffUrl = $responseArray['links']['diff']['href'] ?? null;
+        $pr = $this->pullRequestSchema->createPullRequest($responseArray);
+        $pr->changes = new MapProxy(function () use ($pr) {
+            return new ArrayMap($this->fetchChanges($pr->diffUrl));
+        });
 
-        if ($diffUrl !== null) {
-            $changes = new MapProxy(function () use ($diffUrl) {
-                return new ArrayMap($this->fetchChanges($diffUrl));
-            });
-        } else {
-            $changes = new ArrayMap([]);
-        }
-
-        return $this->makePullRequest($responseArray, $changes);
+        return $pr;
     }
 
     /**
@@ -72,25 +65,5 @@ class Client
         $resp = $this->http->sendRequest($req);
 
         return $this->diffMapper->map($resp->getBody()->getContents());
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     * @param Map<string, array<DiffLine>> $changes
-     */
-    private function makePullRequest(array $data, Map $changes): PullRequest
-    {
-        return new PullRequest(
-            $data['id'],
-            $data['title'],
-            $data['author']['nickname'] ?? '',
-            $data['source']['branch']['name'] ?? '',
-            $data['destination']['branch']['name'] ?? '',
-            new \DateTimeImmutable($data['created_on']),
-            $data['links']['html']['href'] ?? '',
-            Str::make($data['description'] ?? ''),
-            PullRequestState::create($data['state'] ?? ''),
-            $changes,
-        );
     }
 }

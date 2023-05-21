@@ -2,40 +2,40 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\ChangeSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\FetchTagsException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
+use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Change;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Status;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\Tag;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\InteractsWithResponse;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
 use Psr\Http\Message\RequestInterface;
-use Psr\Log\LoggerInterface;
 
 class Client implements GithubClient
 {
-    use InteractsWithResponse;
-
     private const PAGE_ITEMS_LIMIT = 30;
 
     public function __construct(
         private readonly HttpClient        $client,
         private readonly Authenticator     $credentials,
         private readonly PullRequestSchema $pullRequestSchema,
-        private readonly DiffMapper        $diffMapper,
-        private readonly LoggerInterface   $logger,
+        private readonly ContextLogger   $logger,
+        private readonly TextDecoder       $textDecoder,
+        private readonly ChangeSchema      $changeSchema,
     ) {
         //
     }
@@ -44,8 +44,10 @@ class Client implements GithubClient
     {
         $this->logger->info(sprintf('[GithubClient] Fetching Pull Request with id %d', $input->requestId));
 
+        $prResponse = $this->client->sendRequest($this->createGetPullRequest($input));
+
         $pullRequest = $this->pullRequestSchema->createPullRequest(
-            $this->responseToJsonArray($this->client->sendRequest($this->createGetPullRequest($input))),
+            $this->textDecoder->decode($prResponse->getBody()->getContents()),
         );
 
         $this->logger->info(sprintf('[GithubClient] Pull Request with id %d was fetched', $input->requestId));
@@ -66,6 +68,8 @@ class Client implements GithubClient
         $changesPages = $this->calculateChangesPages($pullRequest->changedFiles);
         $reqs = [];
 
+        $this->logger->shareContext('pull_request_id', $pullRequest->uri);
+
         $this->logger->info(
             sprintf(
                 '[GithubClient] Fetching changes for Pull Request with id %d. PR has %d changes, defined %d pages for loading changes',
@@ -83,9 +87,15 @@ class Client implements GithubClient
 
         $changes = [];
 
+        $index = 0;
+
         foreach ($changesResponses as $response) {
-            foreach ($this->responseToJsonArray($response) as $respChange) {
-                $change = $this->mapChange($respChange);
+            foreach ($this->textDecoder->decode($response->getBody()->getContents()) as $respChange) {
+                if (! is_array($respChange)) {
+                    throw GivenInvalidPullRequestDataException::invalidType('changes.' . $index, 'array');
+                }
+
+                $change = $this->changeSchema->createChange($respChange, $index++);
 
                 $changes[$change->filename] = $change;
             }
@@ -98,6 +108,8 @@ class Client implements GithubClient
                 $input->requestId,
             ),
         );
+
+        $this->logger->clearContext('pull_request_id');
 
         return new ArrayMap($changes);
     }
@@ -120,7 +132,7 @@ class Client implements GithubClient
 
         $response = $this->client->sendRequest($request);
 
-        return $this->hydrateTags($this->responseToJsonArray($response));
+        return $this->hydrateTags($this->textDecoder->decode($response->getBody()->getContents()));
     }
 
     private function createGetPullRequest(PullRequestInput $input): RequestInterface
@@ -151,25 +163,17 @@ class Client implements GithubClient
     }
 
     /**
-     * @param array{filename: string, patch: string|null, status: string} $respChange
-     */
-    private function mapChange(array $respChange): Change
-    {
-        return new Change(
-            $respChange['filename'],
-            $this->diffMapper->map($respChange['patch'] ?? ''),
-            Status::create($respChange['status']),
-        );
-    }
-
-    /**
-     * @param array<array{name: string}> $response
+     * @param array<mixed> $response
      */
     private function hydrateTags(array $response): TagCollection
     {
         $tags = [];
 
         foreach ($response as $resp) {
+            if (! is_array($resp) || ! array_key_exists('name', $resp) || ! is_string($resp['name'])) {
+                throw new FetchTagsException('Tag name not found in response');
+            }
+
             $name = Str::make($resp['name']);
 
             if ($name->startsWith('v')) {

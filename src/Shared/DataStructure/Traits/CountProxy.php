@@ -4,8 +4,12 @@ namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits;
 
 trait CountProxy
 {
+    /** @var int<0, max>|null */
     protected ?int $count = null;
 
+    /**
+     * @return int<0, max>
+     */
     public function count(): int
     {
         if ($this->count === null) {

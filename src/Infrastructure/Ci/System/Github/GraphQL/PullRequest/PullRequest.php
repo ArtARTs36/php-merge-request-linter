@@ -14,6 +14,7 @@ class PullRequest
     /**
      * @param array<string> $labels
      * @param Map<string, Change> $changes
+     * @param int<0, max> $changedFiles
      */
     public function __construct(
         public readonly string $title,

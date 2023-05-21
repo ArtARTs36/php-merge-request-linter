@@ -31,8 +31,16 @@ class NotificationsMapper
             throw ConfigInvalidException::keyNotSet('notifications.channels');
         }
 
+        if (! is_array($data['channels'])) {
+            throw ConfigInvalidException::invalidType('notifications.channels', 'array', gettype($data['channels']));
+        }
+
         if (! isset($data['on'])) {
             throw ConfigInvalidException::keyNotSet('notifications.on');
+        }
+
+        if (! is_array($data['on'])) {
+            throw ConfigInvalidException::invalidType('notifications.on', 'array', gettype($data['channels']));
         }
 
         $channels = $this->mapChannels($data['channels']);
@@ -70,6 +78,26 @@ class NotificationsMapper
                 );
             }
 
+            $template = $notification['template'] ?? null;
+
+            if ($template === null) {
+                throw ConfigInvalidException::keyNotSet(sprintf('notifications.on.%s.template', $eventName));
+            }
+
+            if (! is_string($template)) {
+                throw ConfigInvalidException::invalidType(sprintf('notifications.on.%s.template', $eventName), 'string', gettype($template));
+            }
+
+            $when = [];
+
+            if (array_key_exists('when', $notification)) {
+                if (is_array($notification['when'])) {
+                    $when = $notification['when'];
+                } else {
+                    throw ConfigInvalidException::invalidType(sprintf('notifications.on.%s.when', $eventName), 'array', gettype($when));
+                }
+            }
+
             $channel = $channels->get($channelName);
 
             if ($channel === null) {
@@ -82,8 +110,8 @@ class NotificationsMapper
             $notifications[$eventName][] = new NotificationEventMessage(
                 $eventName,
                 $channel,
-                $notification['template'],
-                $notification['when'] ?? [],
+                $template,
+                $when,
             );
         }
 

@@ -2,23 +2,29 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Events;
 
+use ArtARTs36\ContextLogger\Contracts\ContextLogger;
+use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class EventDispatcher implements EventManager
 {
     /** @var array<string|class-string, array<EventListener>> */
     private array $listeners = [];
 
+    private readonly ContextLogger $logger;
+
     public function __construct(
-        private readonly LoggerInterface $logger = new NullLogger(),
+        ?ContextLogger $logger = null,
     ) {
-        //
+        $this->logger = $logger ?? LoggerFactory::null();
     }
 
     public function dispatch(object $event): object
     {
+        $eventId = uniqid();
+
+        $this->logger->shareContext('event_id', $eventId);
+
         $eventClass = $event::class;
         $eventName = defined("$eventClass::NAME") ? $eventClass::NAME : null;
         $eventLogName = $eventName ?? $eventClass;
@@ -34,7 +40,9 @@ class EventDispatcher implements EventManager
             $this->callListeners($this->listeners[$eventName] ?? [], $event, $eventLogName);
         }
 
-        $this->logger->info(sprintf('[EventDispatcher][event: %s] All listeners called', $eventLogName));
+        $this->logger->info(sprintf('[EventDispatcher][event: %s] All listeners was called', $eventLogName));
+
+        $this->logger->clearContext('event_id');
 
         return $event;
     }
@@ -83,7 +91,7 @@ class EventDispatcher implements EventManager
             }
 
             $this->logger->info(
-                sprintf('[EventDispatcher][event: %s] Listener "%s" called', $eventLogName, $listener->name()),
+                sprintf('[EventDispatcher][event: %s] Listener "%s" was called', $eventLogName, $listener->name()),
             );
         }
     }

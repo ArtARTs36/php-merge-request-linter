@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\InvalidInputException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\WorkDirResolver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -29,7 +30,7 @@ abstract class Command extends \Symfony\Component\Console\Command\Command
         }
 
         if (! is_string($option)) {
-            throw new \RuntimeException(sprintf('Input option "%s" must be string', $key));
+            throw new InvalidInputException(sprintf('Input option "%s" must be string', $key));
         }
 
         return $option;

@@ -12,7 +12,7 @@ interface RuleResolver
 {
     /**
      * Resolve Rule.
-     * @param array<string, mixed>|array<int, array<string, mixed>> $params
+     * @param array<mixed> $params
      * @throws RuleNotFound
      */
     public function resolve(string $ruleName, array $params): Rule;

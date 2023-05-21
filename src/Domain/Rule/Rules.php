@@ -2,19 +2,48 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Rule;
 
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+
 /**
- * Interface for Collection of Rules.
- * @template-extends \Traversable<int, Rule>
+ * @template-extends Arrayee<int, Rule>
  */
-interface Rules extends \Traversable, \Countable
+class Rules extends Arrayee
 {
     /**
-     * Add Rule to Collection.
+     * @param iterable<Rule> $rules
      */
-    public function add(Rule $rule): self;
+    public static function make(iterable $rules): self
+    {
+        $instance = new self([]);
 
-    /**
-     * Implode names of rules to string.
-     */
-    public function implodeNames(string $sep): string;
+        foreach ($rules as $rule) {
+            $instance->add($rule);
+        }
+
+        return $instance;
+    }
+
+    public function add(Rule $rule): self
+    {
+        $this->items[] = $rule;
+
+        $this->count++;
+
+        return $this;
+    }
+
+    public function implodeNames(string $sep): string
+    {
+        $str = '';
+
+        foreach ($this->items as $item) {
+            $str .= $item->getName();
+
+            if (next($this->items) !== false) {
+                $str .= $sep;
+            }
+        }
+
+        return $str;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\NotificationEvent;
 
+use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
@@ -43,7 +44,7 @@ final class ListenerFactoryTest extends TestCase
             {
                 //
             }
-        }, new MockOperatorResolver(), new MessageCreator());
+        }, new MockOperatorResolver(), new MessageCreator(), LoggerFactory::null());
 
         $listener = $factory->create($message);
 
