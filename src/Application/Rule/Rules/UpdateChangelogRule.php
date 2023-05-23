@@ -64,6 +64,8 @@ class UpdateChangelogRule extends NamedRule implements Rule
                 foreach ($headings as $heading) {
                     if ($heading->title->contains($this->tags->heading->regex->expression, true)) {
                         $newTagFound = true;
+
+                        break;
                     } else {
                         $hasHeadingsWithoutRegexMatch = true;
                     }

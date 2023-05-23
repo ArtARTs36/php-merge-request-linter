@@ -2,9 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYouTrackIssueRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\UpdateChangelogRule;
-use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
@@ -22,6 +20,18 @@ final class UpdateChangelogRuleTest extends TestCase
                 $this->makeMergeRequest(),
                 [
                     'ch.md',
+                    new UpdateChangelogRule\Tags(
+                        new UpdateChangelogRule\TagsHeading(2),
+                    ),
+                ],
+                [
+                    'Changelog must be contained new tag',
+                ],
+            ],
+            'request not contains changes in changelog by default filenames' => [
+                $this->makeMergeRequest(),
+                [
+                    null,
                     new UpdateChangelogRule\Tags(
                         new UpdateChangelogRule\TagsHeading(2),
                     ),
