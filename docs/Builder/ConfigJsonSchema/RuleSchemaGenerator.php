@@ -67,6 +67,10 @@ class RuleSchemaGenerator
                             continue;
                         }
 
+                        if ($param->description !== '') {
+                            $typeSchema['description'] = $param->description;
+                        }
+
                         if ($paramType->isGeneric()) {
                             $generic = $paramType->getObjectGeneric();
 
@@ -77,10 +81,6 @@ class RuleSchemaGenerator
                                     $genericProps[$property->name] = [
                                         'type' => JsonType::to($property->type->class ?? $property->type->name->value),
                                     ];
-
-                                    if ($property->description !== '') {
-                                        $genericProps[$property->name]['description'] = $property->description;
-                                    }
                                 }
 
                                 $typeSchema['items'] = [

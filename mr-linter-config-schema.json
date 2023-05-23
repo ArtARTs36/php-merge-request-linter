@@ -229,6 +229,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/forbid_changes": {
+                    "description": "Forbid changes for files.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_forbid_changes"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_forbid_changes"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -3969,20 +3984,16 @@
                         "type": "object",
                         "properties": {
                             "file": {
-                                "type": "string",
-                                "description": "Relative path to file"
+                                "type": "string"
                             },
                             "contains": {
-                                "type": "string",
-                                "description": "Check contains string"
+                                "type": "string"
                             },
                             "containsRegex": {
-                                "type": "string",
-                                "description": "Check contains by regex"
+                                "type": "string"
                             },
                             "updatedPhpConstant": {
-                                "type": "string",
-                                "description": "Check contains updated PHP constant"
+                                "type": "string"
                             }
                         },
                         "additionalProperties": false
@@ -4058,6 +4069,29 @@
                 }
             },
             "additionalProperties": false
+        },
+        "rules_properties_@mr-linter_forbid_changes": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "files": {
+                    "type": "array",
+                    "description": "A set of files forbidden to be changed.",
+                    "items": [
+                        {
+                            "type": "string",
+                            "description": "A set of files forbidden to be changed."
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "files"
+            ]
         },
         "notifications_channel_telegram_bot": {
             "properties": {

@@ -18,3 +18,4 @@ Currently is available that rules:
 | @mr-linter/title_starts_with_task_number | Title must starts with task number of project {projectName}. Mask: {projectName}-number | `projectName` - string   <br/>  |
 | @mr-linter/branch_starts_with_task_number | Source branch must starts with task number of project {projectName}. Mask: {projectName}-number | `projectName` - string   <br/>  |
 | @mr-linter/update_changelog | Changelog must be contained new tag. | `file` - string   <br/>  `tags` -    <br/>  |
+| @mr-linter/forbid_changes | Forbid changes for files. | `files` - array  of strings   <br/>  |
