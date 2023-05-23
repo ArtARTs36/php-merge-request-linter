@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflector;
 
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 
 class Reflector
@@ -71,6 +72,8 @@ class Reflector
                 $generic = current($genericAttr->getArguments());
             }
 
+            $description = self::findDescription($property);
+
             $type = $property->getType();
 
             if (! $type instanceof \ReflectionNamedType) {
@@ -80,10 +83,18 @@ class Reflector
             $map[$property->getName()] = new Property(
                 $property->getName(),
                 self::createType($type->getName(), $generic, $type->allowsNull()),
+                $description?->description ?? '',
             );
         }
 
         return $map;
+    }
+
+    public static function findDescription(\ReflectionParameter|\ReflectionProperty $reflector): ?Description
+    {
+        $attributes = $reflector->getAttributes(Description::class);
+
+        return count($attributes) > 0 ? $attributes[0]->newInstance() : null;
     }
 
     public static function findParamByName(\ReflectionMethod $method, string $name): ?\ReflectionParameter

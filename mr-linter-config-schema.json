@@ -3969,16 +3969,20 @@
                         "type": "object",
                         "properties": {
                             "file": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Relative path to file"
                             },
                             "contains": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Check contains string"
                             },
                             "containsRegex": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Check contains by regex"
                             },
                             "updatedPhpConstant": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Check contains updated PHP constant"
                             }
                         },
                         "additionalProperties": false

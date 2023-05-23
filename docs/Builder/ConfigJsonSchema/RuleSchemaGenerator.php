@@ -75,6 +75,10 @@ class RuleSchemaGenerator
                                     $genericProps[$property->name] = [
                                         'type' => JsonType::to($property->type->class ?? $property->type->name->value),
                                     ];
+
+                                    if ($property->description !== '') {
+                                        $genericProps[$property->name]['description'] = $property->description;
+                                    }
                                 }
 
                                 $typeSchema['items'] = [
