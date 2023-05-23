@@ -23,6 +23,7 @@ final class DefaultRules
         CustomRule::NAME => CustomRule::class,
         TitleStartsWithTaskNumberRule::NAME => TitleStartsWithTaskNumberRule::class,
         BranchStartsWithTaskNumberRule::NAmE => BranchStartsWithTaskNumberRule::class,
+        UpdateChangelogRule::NAME => UpdateChangelogRule::class,
     ];
 
     /**

@@ -214,6 +214,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/update_changelog": {
+                    "description": "Changelog must be contained new tag.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_update_changelog"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_update_changelog"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -3861,6 +3876,22 @@
             "additionalProperties": false,
             "required": [
                 "projectName"
+            ]
+        },
+        "rules_properties_@mr-linter_update_changelog": {
+            "type": "object",
+            "properties": {
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "file": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "file"
             ]
         },
         "notifications_channel_telegram_bot": {

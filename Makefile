@@ -18,6 +18,15 @@ try:
 	GITHUB_REF_NAME=${MR_ID}/merge \
 	./bin/mr-linter lint --debug --metrics
 
+# usage as `make try MR_ID=1`
+try-docker: docker-build
+	docker run \
+		--env GITHUB_ACTIONS=1 \
+		--env GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
+		--env GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
+		--env GITHUB_REF_NAME=${MR_ID}/merge \
+		artarts36/merge-request-linter "lint" --debug --metrics
+
 # usage as `make try-gitlab MR_ID=1`
 try-gitlab:
 	GITLAB_CI=1 \
