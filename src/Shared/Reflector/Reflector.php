@@ -119,4 +119,38 @@ class Reflector
 
         return ClassSummary::findInPhpDocComment($comment);
     }
+
+    /**
+     * @param class-string $class
+     */
+    public static function canConstructWithoutParameters(string $class): bool
+    {
+        $reflector = new \ReflectionClass($class);
+
+        $constructor = $reflector->getConstructor();
+
+        if ($constructor === null) {
+            return true;
+        }
+
+        $params = $constructor->getParameters();
+
+        if (count($params) === 0) {
+            return true;
+        }
+
+        foreach ($constructor->getParameters() as $parameter) {
+            if ($parameter->allowsNull()) {
+                continue;
+            }
+
+            if ($parameter->isDefaultValueAvailable()) {
+                continue;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
 }

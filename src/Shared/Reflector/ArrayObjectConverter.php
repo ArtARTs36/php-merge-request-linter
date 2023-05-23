@@ -34,13 +34,20 @@ class ArrayObjectConverter
 
         $position = 0;
 
-        foreach ($constructor->getParameters() as $property) {
-            if (isset($params[$property->name])) {
-                $paramsArray[$position] = $params[$property->name];
-            } elseif ($property->getType() !== null && $property->getType()->allowsNull()) {
-                $params[$property->name] = null;
-                $paramsArray[$position] = null;
+        foreach ($constructor->getParameters() as $parameter) {
+            $type = $parameter->getType();
+
+            if (! isset($params[$parameter->name])) {
+                if ($parameter->isDefaultValueAvailable()) {
+                    $params[$parameter->name] = $parameter->getDefaultValue();
+                } elseif ($type !== null && $type->allowsNull()) {
+                    $params[$parameter->name] = null;
+                } elseif ($type !== null && class_exists($type) && Reflector::canConstructWithoutParameters($type->getName())) {
+                    $params[$parameter->name] = $this->convert([], $type->getName());
+                }
             }
+
+            $paramsArray[$position] = $params[$parameter->name];
 
             ++$position;
         }

@@ -22,6 +22,8 @@ final class ArrayObjectConverterTest extends TestCase
                     'age' => 20,
                     'isProgrammer' => true,
                     'phone' => null,
+                    'stack' => 'php',
+                    'company' => new TestCompany(null),
                 ],
             ],
             [
@@ -60,7 +62,18 @@ class TestPeople
         public readonly int $age,
         public readonly bool $isProgrammer,
         public readonly ?string $phone,
+        public readonly TestCompany $company,
+        public readonly string $stack = 'php',
     ) {
         //
+    }
+}
+
+class TestCompany
+{
+    public function __construct(
+        public readonly ?int $id,
+        public readonly string $name = 'google',
+    ) {
     }
 }
