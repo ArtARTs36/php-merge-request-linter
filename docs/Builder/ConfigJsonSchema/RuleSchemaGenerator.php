@@ -93,7 +93,10 @@ class RuleSchemaGenerator
                     }
 
                     $definition['properties'][$paramName] = $typeSchema;
-                    $definition['required'][] = $paramName;
+
+                    if (! $paramType->nullable) {
+                        $definition['required'][] = $paramName;
+                    }
                 }
             }
 

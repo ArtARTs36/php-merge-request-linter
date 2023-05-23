@@ -717,6 +717,10 @@
                                                         "containsLine": {
                                                             "description": "Check if a string contains a line.",
                                                             "type": "string"
+                                                        },
+                                                        "notStartsAny": {
+                                                            "description": "Check if a string not contains a prefixes.",
+                                                            "type": "string"
                                                         }
                                                     },
                                                     "additionalProperties": false
@@ -811,6 +815,10 @@
                                                         },
                                                         "containsLine": {
                                                             "description": "Check if a string contains a line.",
+                                                            "type": "string"
+                                                        },
+                                                        "notStartsAny": {
+                                                            "description": "Check if a string not contains a prefixes.",
                                                             "type": "string"
                                                         }
                                                     },
@@ -1457,6 +1465,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -1858,6 +1873,10 @@
                                                         "containsLine": {
                                                             "description": "Check if a string contains a line.",
                                                             "type": "string"
+                                                        },
+                                                        "notStartsAny": {
+                                                            "description": "Check if a string not contains a prefixes.",
+                                                            "type": "string"
                                                         }
                                                     },
                                                     "additionalProperties": false
@@ -1952,6 +1971,10 @@
                                                         },
                                                         "containsLine": {
                                                             "description": "Check if a string contains a line.",
+                                                            "type": "string"
+                                                        },
+                                                        "notStartsAny": {
+                                                            "description": "Check if a string not contains a prefixes.",
                                                             "type": "string"
                                                         }
                                                     },
@@ -2705,6 +2728,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -3103,6 +3133,10 @@
                                 "containsLine": {
                                     "description": "Check if a string contains a line.",
                                     "type": "string"
+                                },
+                                "notStartsAny": {
+                                    "description": "Check if a string not contains a prefixes.",
+                                    "type": "string"
                                 }
                             },
                             "additionalProperties": false
@@ -3197,6 +3231,10 @@
                                 },
                                 "containsLine": {
                                     "description": "Check if a string contains a line.",
+                                    "type": "string"
+                                },
+                                "notStartsAny": {
+                                    "description": "Check if a string not contains a prefixes.",
                                     "type": "string"
                                 }
                             },
@@ -4015,10 +4053,7 @@
                     "type": "string"
                 }
             },
-            "additionalProperties": false,
-            "required": [
-                "file"
-            ]
+            "additionalProperties": false
         },
         "notifications_channel_telegram_bot": {
             "properties": {
