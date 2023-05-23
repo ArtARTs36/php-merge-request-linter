@@ -34,6 +34,6 @@ class RenderingNotifier implements Notifier
 
         $text = $this->renderer->render($message->template, $message->data);
 
-        $messenger->send($channel, $text, $channel->sound->canAt($this->clock->now()));
+        $messenger->send($channel, $text, $channel->sound->input($this->clock->now()));
     }
 }

@@ -1,10 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Domain\Notifications;
+namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 
-use ArtARTs36\MergeRequestLinter\Shared\Time\HourMinute;
-
-class SoundPeriod
+class TimePeriod
 {
     public function __construct(
         public readonly HourMinute $from,
@@ -37,7 +35,7 @@ class SoundPeriod
         );
     }
 
-    public function canAt(\DateTimeInterface $dateTime): bool
+    public function input(\DateTimeInterface $dateTime): bool
     {
         $hourMinute = HourMinute::fromDateTime($dateTime);
 
