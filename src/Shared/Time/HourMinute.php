@@ -23,8 +23,19 @@ class HourMinute
         return self::make(23, 59);
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function make(int $hour, int $minute): self
     {
+        if ($hour < 0 || $hour > 23) {
+            throw new \Exception('Hour must be >= 0 and <= 23');
+        }
+
+        if ($minute < 0 || $minute > 59) {
+            throw new \Exception('Hour must be >= 0 and <= 59');
+        }
+
         return new self(new Number($hour), new Number($minute));
     }
 
@@ -39,7 +50,7 @@ class HourMinute
             throw new \Exception('Value must be follows mask "hh:mm"');
         }
 
-        return new self(new Number($parts[0]), new Number($parts[1]));
+        return self::make($parts[0], $parts[1]);
     }
 
     public static function fromDateTime(\DateTimeInterface $dateTime): self
