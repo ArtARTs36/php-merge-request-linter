@@ -14,5 +14,5 @@ interface Messenger
      * Send message to channel.
      * @throws NotificationSendException
      */
-    public function send(Channel $channel, string $message): void;
+    public function send(Channel $channel, string $message, bool $withSound): void;
 }

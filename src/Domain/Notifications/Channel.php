@@ -15,6 +15,7 @@ class Channel
     public function __construct(
         public readonly ChannelType $type,
         public readonly Map $params,
+        public readonly SoundPeriod $sound,
     ) {
         //
     }

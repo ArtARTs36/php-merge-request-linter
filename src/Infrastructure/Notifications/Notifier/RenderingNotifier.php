@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Messenge
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\MessengerNotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use Psr\Clock\ClockInterface;
 
 class RenderingNotifier implements Notifier
 {
@@ -18,6 +19,7 @@ class RenderingNotifier implements Notifier
     public function __construct(
         private readonly TextRenderer $renderer,
         private readonly Map $messengers,
+        private readonly ClockInterface $clock,
     ) {
         //
     }
@@ -32,6 +34,6 @@ class RenderingNotifier implements Notifier
 
         $text = $this->renderer->render($message->template, $message->data);
 
-        $messenger->send($channel, $text);
+        $messenger->send($channel, $text, $channel->sound->canAt($this->clock->now()));
     }
 }

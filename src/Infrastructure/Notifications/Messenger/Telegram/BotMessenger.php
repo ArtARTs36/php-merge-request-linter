@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Te
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Messenger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\NotificationSendException;
+use Psr\Clock\ClockInterface;
 
 class BotMessenger implements Messenger
 {
@@ -14,7 +15,7 @@ class BotMessenger implements Messenger
         //
     }
 
-    public function send(Channel $channel, string $message): void
+    public function send(Channel $channel, string $message, bool $withSound): void
     {
         $chatId = $channel->params->get('chat_id');
 
@@ -32,6 +33,7 @@ class BotMessenger implements Messenger
             $token,
             $chatId,
             $message,
+            ! $withSound,
         ));
     }
 }

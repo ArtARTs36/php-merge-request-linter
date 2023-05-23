@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
+use ArtARTs36\MergeRequestLinter\Domain\Notifications\SoundPeriod;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
@@ -129,10 +130,16 @@ class NotificationsMapper
 
         foreach ($data as $name => $channel) {
             $type = ChannelType::from($channel['type']);
+            $sound = SoundPeriod::make($channel['sound_at'] ?? '');
 
             unset($channel['type']);
+            unset($channel['sound_at']);
 
-            $channels[$name] = new Channel($type, new ArrayMap($this->transformValues($channel)));
+            $channels[$name] = new Channel(
+                $type,
+                new ArrayMap($this->transformValues($channel)),
+                $sound,
+            );
         }
 
         return new ArrayMap($channels);
