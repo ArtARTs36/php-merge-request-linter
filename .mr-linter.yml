@@ -21,10 +21,10 @@ rules:
     when:
       targetBranch:
         equals: "master"
-      labels:
-        notHasAny:
-          - 'Tests'
-          - 'Docs'
+      title:
+        notStartsAny:
+          - '[Tests]'
+          - '[Docs]'
 
   "@mr-linter/has_changes":
     - changes:
