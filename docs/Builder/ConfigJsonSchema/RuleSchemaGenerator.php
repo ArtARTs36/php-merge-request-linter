@@ -53,7 +53,9 @@ class RuleSchemaGenerator
             ];
 
             if (count($params) > 0) {
-                foreach ($constructor->params() as $paramName => $paramType) {
+                foreach ($constructor->params() as $paramName => $param) {
+                    $paramType = $param->type;
+
                     if (isset(self::OVERWRITE_PARAMS[$rule][$paramName])) {
                         $typeSchema = self::OVERWRITE_PARAMS[$rule][$paramName];
                     } else {
@@ -87,10 +89,16 @@ class RuleSchemaGenerator
                                     'additionalProperties' => false,
                                 ];
                             } else {
+                                $item = [
+                                    'type' => $paramType->generic,
+                                ];
+
+                                if ($param->description !== '') {
+                                    $item['description'] = $param->description;
+                                }
+
                                 $typeSchema['items'] = [
-                                    [
-                                        'type' => $paramType->generic,
-                                    ],
+                                    $item,
                                 ];
                             }
                         }

@@ -23,7 +23,7 @@ class StaticMethodInstantiator implements Instantiator
 
     public function params(): array
     {
-        return Reflector::mapMethodParamTypeOnParam($this->constructor);
+        return Reflector::mapParamNameOnParam($this->constructor);
     }
 
     /**

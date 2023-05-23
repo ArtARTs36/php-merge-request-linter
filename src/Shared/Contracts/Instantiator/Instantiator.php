@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator;
 
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Parameter;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 
 /**
@@ -12,7 +13,7 @@ interface Instantiator
 {
     /**
      * Get required params.
-     * @return array<string, Type>
+     * @return array<string, Parameter>
      */
     public function params(): array;
 

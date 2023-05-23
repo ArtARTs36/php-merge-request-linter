@@ -23,8 +23,8 @@ class Builder
     {
         $args = [];
 
-        foreach ($constructor->params() as $paramName => $paramType) {
-            $args[$paramName] = $this->argResolver->resolve($paramType, $params[$paramName] ?? null);
+        foreach ($constructor->params() as $paramName => $param) {
+            $args[$paramName] = $this->argResolver->resolve($param->type, $params[$paramName] ?? null);
         }
 
         return $args;

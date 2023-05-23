@@ -43,8 +43,8 @@ class RulesPageBuilder
             foreach ($this->ruleConstructorFinder->find($ruleClass)->params() as $paramName => $param) {
                 $params[] = [
                     'name' => $paramName,
-                    'type' => JsonType::to($param->name()),
-                    'generic' => $param->isGeneric() ? JsonType::to($param->generic) : null,
+                    'type' => JsonType::to($param->type->name()),
+                    'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                 ];
             }
 

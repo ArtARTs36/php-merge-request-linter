@@ -23,7 +23,7 @@ final class NativeConstructorInstantiator implements Instantiator
 
     public function params(): array
     {
-        return Reflector::mapMethodParamTypeOnParam($this->constructorReflector);
+        return Reflector::mapParamNameOnParam($this->constructorReflector);
     }
 
     /**

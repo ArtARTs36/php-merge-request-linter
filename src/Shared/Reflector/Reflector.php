@@ -8,10 +8,10 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 class Reflector
 {
     /**
-     * @return array<string, Type>
+     * @return array<string, Parameter>
      * @throws \Exception
      */
-    public static function mapMethodParamTypeOnParam(\ReflectionMethod $method): array
+    public static function mapParamNameOnParam(\ReflectionMethod $method): array
     {
         $params = [];
 
@@ -30,10 +30,14 @@ class Reflector
                 $generic = current($genericAttr->getArguments());
             }
 
-            $params[$parameter->getName()] = self::createType(
-                $type->getName(),
-                $generic,
-                $parameter->allowsNull(),
+            $params[$parameter->getName()] = new Parameter(
+                $parameter->getName(),
+                self::findDescription($parameter)?->description ?? '',
+                self::createType(
+                    $type->getName(),
+                    $generic,
+                    $parameter->allowsNull(),
+                ),
             );
         }
 
