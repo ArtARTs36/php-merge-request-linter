@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
 
 class HourMinute
 {
-    public function __construct(
+    private function __construct(
         public readonly Number $hour,
         public readonly Number $minute,
     ) {
