@@ -11,6 +11,11 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedE
 interface ArgumentResolver
 {
     /**
+     * Check can resolve object.
+     */
+    public function canResolve(Type $type, mixed $value): bool;
+
+    /**
      * Resolve argument.
      * @param mixed $value
      * @throws ArgNotSupportedException

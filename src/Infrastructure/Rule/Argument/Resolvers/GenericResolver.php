@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 
 final class GenericResolver implements ArgumentResolver
 {
@@ -13,6 +13,11 @@ final class GenericResolver implements ArgumentResolver
         private readonly ArrayObjectConverter $arrayObjectConverter = new ArrayObjectConverter(),
     ) {
         //
+    }
+
+    public function canResolve(Type $type, mixed $value): bool
+    {
+        return $this->resolver->canResolve($type, $value);
     }
 
     public function resolve(Type $type, mixed $value): mixed

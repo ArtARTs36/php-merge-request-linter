@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\DataObjectResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ArrayeeResolver;
@@ -28,10 +29,11 @@ class ArgumentResolverFactory
         $arrayObjectConverter = new ArrayObjectConverter();
         $genericAsIsResolver = new GenericResolver($asIsResolver, $arrayObjectConverter);
         $objectResolvers = [
-            MapResolver::SUPPORT_TYPE => new GenericResolver(new MapResolver(), $arrayObjectConverter),
-            SetResolver::SUPPORT_TYPE => new GenericResolver(new SetResolver(), $arrayObjectConverter),
-            ArrayeeResolver::SUPPORT_TYPE => new GenericResolver(new ArrayeeResolver(), $arrayObjectConverter),
-            ContainerResolver::NAME => new ContainerResolver($this->container),
+            new GenericResolver(new MapResolver(), $arrayObjectConverter),
+            new GenericResolver(new SetResolver(), $arrayObjectConverter),
+            new GenericResolver(new ArrayeeResolver(), $arrayObjectConverter),
+            new ContainerResolver($this->container),
+            new DataObjectResolver($arrayObjectConverter),
         ];
 
         $resolvers = [

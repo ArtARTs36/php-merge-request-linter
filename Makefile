@@ -21,6 +21,7 @@ try:
 # usage as `make try MR_ID=1`
 try-docker: docker-build
 	docker run \
+		--env-file .env \
 		--env GITHUB_ACTIONS=1 \
 		--env GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
 		--env GITHUB_GRAPHQL_URL=https://api.github.com/graphql \

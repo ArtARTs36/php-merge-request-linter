@@ -18,6 +18,11 @@ final class ContainerResolver implements ArgumentResolver
         //
     }
 
+    public function canResolve(Type $type, mixed $value): bool
+    {
+        return $type->class !== null && $this->container->has($type->class);
+    }
+
     public function resolve(Type $type, mixed $value): mixed
     {
         $class = $type->class;

@@ -11,6 +11,11 @@ final class SetResolver implements ArgumentResolver
 {
     public const SUPPORT_TYPE = Set::class;
 
+    public function canResolve(Type $type, mixed $value): bool
+    {
+        return $type->class === self::SUPPORT_TYPE;
+    }
+
     public function resolve(Type $type, mixed $value): mixed
     {
         if (! is_array($value)) {

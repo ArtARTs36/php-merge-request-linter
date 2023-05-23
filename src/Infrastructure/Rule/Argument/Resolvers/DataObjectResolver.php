@@ -2,36 +2,37 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\ArrayObjectConverter;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 
-final class CompositeResolver implements ArgumentResolver
+final class DataObjectResolver implements ArgumentResolver
 {
-    /**
-     * @param array<string, ArgumentResolver> $resolvers
-     */
+    public const NAME = 'data_object';
+
     public function __construct(
-        private readonly array $resolvers,
+        private readonly ArrayObjectConverter $converter,
     ) {
         //
     }
 
     public function canResolve(Type $type, mixed $value): bool
     {
-        return isset($this->resolvers[$type->name->value]) &&
-            $this->resolvers[$type->name->value]->canResolve($type, $value);
+        return $type->class !== null;
     }
 
     public function resolve(Type $type, mixed $value): mixed
     {
-        if (! isset($this->resolvers[$type->name->value])) {
+        $class = $type->class;
+
+        if ($class === null || ! class_exists($class)) {
             throw new ArgNotSupportedException(sprintf(
-                'Resolver for type "%s" not found',
+                'Type with name "%s" not supported',
                 $type->name->value,
             ));
         }
 
-        return $this->resolvers[$type->name->value]->resolve($type, $value);
+        return $this->converter->convert($value ?? [], $class);
     }
 }

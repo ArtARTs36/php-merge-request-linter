@@ -7,6 +7,11 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\Argument
 
 final class AsIsResolver implements ArgumentResolver
 {
+    public function canResolve(Type $type, mixed $value): bool
+    {
+        return true;
+    }
+
     public function resolve(Type $type, mixed $value): mixed
     {
         return $value;

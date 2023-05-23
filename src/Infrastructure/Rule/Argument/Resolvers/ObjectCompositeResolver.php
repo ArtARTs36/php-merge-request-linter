@@ -11,7 +11,7 @@ final class ObjectCompositeResolver implements ArgumentResolver
     public const NAME = 'object';
 
     /**
-     * @param array<string, ArgumentResolver> $resolvers
+     * @param array<ArgumentResolver> $resolvers
      */
     public function __construct(
         private readonly array $resolvers,
@@ -19,17 +19,28 @@ final class ObjectCompositeResolver implements ArgumentResolver
         //
     }
 
-    public function resolve(Type $type, mixed $value): mixed
+    public function canResolve(Type $type, mixed $value): bool
     {
-        $resolver = $this->resolvers[$type->class] ?? $this->resolvers[ContainerResolver::NAME] ?? null;
-
-        if ($resolver === null) {
-            throw new ArgNotSupportedException(sprintf(
-                'Resolver for type "%s" not found',
-                $type->class,
-            ));
+        foreach ($this->resolvers as $resolver) {
+            if ($resolver->canResolve($type, $value)) {
+                return true;
+            }
         }
 
-        return $resolver->resolve($type, $value);
+        return false;
+    }
+
+    public function resolve(Type $type, mixed $value): mixed
+    {
+        foreach ($this->resolvers as $resolver) {
+            if ($resolver->canResolve($type, $value)) {
+                return $resolver->resolve($type, $value);
+            }
+        }
+
+        throw new ArgNotSupportedException(sprintf(
+            'Resolver for type "%s" not found',
+            $type->class,
+        ));
     }
 }
