@@ -29,13 +29,17 @@ class Reflector
                 $generic = current($genericAttr->getArguments());
             }
 
-            $params[$parameter->getName()] = self::createType($type->getName(), $generic);
+            $params[$parameter->getName()] = self::createType(
+                $type->getName(),
+                $generic,
+                $parameter->allowsNull(),
+            );
         }
 
         return $params;
     }
 
-    private static function createType(string $name, ?string $generic): Type
+    private static function createType(string $name, ?string $generic, bool $nullable = false): Type
     {
         $typeName = $name;
         $class = null;
@@ -45,7 +49,7 @@ class Reflector
             $class = $name;
         }
 
-        return new Type(TypeName::from($typeName), $class, $generic);
+        return new Type(TypeName::from($typeName), $class, $generic, $nullable);
     }
 
     /**
@@ -75,7 +79,7 @@ class Reflector
 
             $map[$property->getName()] = new Property(
                 $property->getName(),
-                self::createType($type->getName(), $generic),
+                self::createType($type->getName(), $generic, $type->allowsNull()),
             );
         }
 

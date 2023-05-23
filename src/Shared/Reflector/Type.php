@@ -12,6 +12,7 @@ class Type
         public readonly TypeName $name,
         public readonly ?string  $class = null,
         public readonly ?string  $generic = null,
+        public readonly bool $nullable = false,
     ) {
         //
     }
