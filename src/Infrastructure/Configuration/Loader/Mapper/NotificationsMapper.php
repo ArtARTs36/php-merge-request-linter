@@ -130,10 +130,16 @@ class NotificationsMapper
 
         foreach ($data as $name => $channel) {
             $type = ChannelType::from($channel['type']);
-            $sound = TimePeriod::make($channel['sound_at'] ?? '');
+
+            if (array_key_exists('sound_at', $channel) && $channel['sound_at'] !== '') {
+                $sound = TimePeriod::make($channel['sound_at']);
+
+                unset($channel['sound_at']);
+            } else {
+                $sound = TimePeriod::day();
+            }
 
             unset($channel['type']);
-            unset($channel['sound_at']);
 
             $channels[$name] = new Channel(
                 $type,

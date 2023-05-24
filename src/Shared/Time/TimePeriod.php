@@ -11,18 +11,19 @@ class TimePeriod
         //
     }
 
+    public static function day(): self
+    {
+        return new self (
+            Time::min(),
+            Time::max(),
+        );
+    }
+
     /**
      * @throws \Exception
      */
-    public static function make(?string $value): self
+    public static function make(string $value): self
     {
-        if ($value === null || $value === '') {
-            return new self(
-                Time::min(),
-                Time::max(),
-            );
-        }
-
         $parts = explode('-', $value);
 
         if (count($parts) !== 2) {
