@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
 use ArtARTs36\Str\Str;
 

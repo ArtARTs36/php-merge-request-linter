@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Messenger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\MessengerNotFoundException;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use Psr\Clock\ClockInterface;
 
 class RenderingNotifier implements Notifier

@@ -1,9 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure;
+namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\HasDebugInfo;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
  * Interface for Collections.

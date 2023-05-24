@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\ContainsAll;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\ContainsAny;

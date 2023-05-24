@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 

@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier;
 
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Message;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
 class MessageCreator
 {
