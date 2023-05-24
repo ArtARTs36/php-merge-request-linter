@@ -38,4 +38,21 @@ final class LocalClockTest extends TestCase
 
         self::assertEquals($tz, $date->getTimezone());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock::create
+     */
+    public function testCreate(): void
+    {
+        $prevTimeZone = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+
+        $clock = new LocalClock($tz = new \DateTimeZone('Europe/Moscow'));
+
+        $date = $clock->create('now')->getTimezone();
+
+        date_default_timezone_set($prevTimeZone);
+
+        self::assertEquals($tz, $date);
+    }
 }
