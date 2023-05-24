@@ -21,6 +21,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 
 class RunnerFactory implements LinterRunnerFactory
 {
@@ -33,6 +34,7 @@ class RunnerFactory implements LinterRunnerFactory
         protected ContextLogger $logger,
         protected MetricManager $metrics,
         protected ClientFactory $clientFactory,
+        protected Clock $clock,
     ) {
         //
     }
@@ -53,7 +55,7 @@ class RunnerFactory implements LinterRunnerFactory
 
         /** @var Map<string, SystemCreator> $creators */
         $creators = new ArrayMap([
-            GithubActions::NAME => new GithubActionsCreator($this->environment, $httpClient, $this->logger),
+            GithubActions::NAME => new GithubActionsCreator($this->environment, $httpClient, $this->logger, $this->clock),
             GitlabCi::NAME => new GitlabCiCreator($this->environment, $httpClient, $this->logger),
             BitbucketPipelines::NAME => new BitbucketPipelinesCreator($this->environment, $httpClient, $this->logger),
         ]);

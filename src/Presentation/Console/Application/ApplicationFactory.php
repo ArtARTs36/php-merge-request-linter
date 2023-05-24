@@ -49,6 +49,8 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
+use Psr\Clock\ClockInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Psr\Log\LoggerInterface;
 
@@ -63,6 +65,7 @@ class ApplicationFactory
 
     public function create(OutputInterface $output): Application
     {
+        $clock = $this->registerClock();
         $metrics = $this->registerMetricManager();
         $logger = $this->createLogger($output, $metrics);
 
@@ -76,6 +79,7 @@ class ApplicationFactory
             $logger,
             $metrics,
             $httpClientFactory,
+            $clock,
         );
 
         $argResolverFactory = new ArgumentResolverFactory($this->container);
@@ -118,6 +122,30 @@ class ApplicationFactory
         return $application;
     }
 
+    /**
+     * @throws \Exception
+     */
+    private function registerClock(): ClockInterface
+    {
+        if (! $this->environment->has('MR_LINTER_TIMEZONE')) {
+            $clock = Clock::utc();
+        } else {
+            $tzId = $this->environment->getString('MR_LINTER_TIMEZONE');
+
+            try {
+                $tz = new \DateTimeZone(trim($tzId));
+            } catch (\Throwable) {
+                throw new \Exception(sprintf('TimeZone "%s" invalid', $tzId));
+            }
+
+            $clock = new Clock($tz);
+        }
+
+        $this->container->set(ClockInterface::class, $clock);
+
+        return $clock;
+    }
+
     private function registerNotifications(): void
     {
         $notificationsListener = function (ConfigResolvedEvent $event) {
@@ -143,6 +171,7 @@ class ApplicationFactory
             $this->container->get(HttpClientFactory::class)->create(
                 $config->getHttpClient()
             ),
+            $this->container->get(ClockInterface::class),
             $logger,
         ))->create();
 
@@ -182,7 +211,7 @@ class ApplicationFactory
 
     private function registerMetricManager(): MetricManager
     {
-        $metrics = new MemoryMetricManager();
+        $metrics = new MemoryMetricManager($this->container->get(ClockInterface::class));
 
         $this->container->set(MetricManager::class, $metrics);
 

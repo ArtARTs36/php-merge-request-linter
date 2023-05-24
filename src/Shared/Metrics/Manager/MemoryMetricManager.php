@@ -18,7 +18,7 @@ class MemoryMetricManager implements MetricManager
     private array $records = [];
 
     public function __construct(
-        private readonly ClockInterface $clock = new Clock(),
+        private readonly ClockInterface $clock,
     ) {
         //
     }

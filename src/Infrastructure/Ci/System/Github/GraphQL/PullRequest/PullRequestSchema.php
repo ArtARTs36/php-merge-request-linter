@@ -3,9 +3,16 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 
 class PullRequestSchema
 {
+    public function __construct(
+        private readonly Clock $clock,
+    ) {
+        //
+    }
+
     /**
      * @param array<string, mixed> $pullRequest
      * @throws \Exception
@@ -37,7 +44,7 @@ class PullRequestSchema
             $pullRequest['changedFiles'],
             $pullRequest['author']['login'],
             $pullRequest['isDraft'] ?? false,
-            new \DateTimeImmutable($pullRequest['createdAt']),
+            $this->clock->localize(new \DateTimeImmutable($pullRequest['createdAt'])),
             $pullRequest['url'],
         );
     }

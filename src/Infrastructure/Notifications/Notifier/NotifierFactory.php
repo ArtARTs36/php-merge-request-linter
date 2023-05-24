@@ -12,6 +12,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
+use Psr\Clock\ClockInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -19,6 +20,7 @@ class NotifierFactory
 {
     public function __construct(
         private readonly Client $client,
+        private readonly ClockInterface $clock,
         private readonly LoggerInterface $logger = new NullLogger(),
     ) {
         //
@@ -29,7 +31,7 @@ class NotifierFactory
         return new LoggableNotifier($this->logger, new RenderingNotifier(
             TwigRenderer::create(),
             $this->createMessengers(),
-            new Clock(),
+            $this->clock,
         ));
     }
 
