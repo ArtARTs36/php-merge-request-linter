@@ -121,6 +121,10 @@ class Generator
                 'chat_id' => [
                     'type' => 'string',
                 ],
+                'sound_at' => [
+                    'type' => 'string',
+                    'description' => 'Time Period for enable sound. Example: 09:00-21:00',
+                ],
             ],
         ]);
 
