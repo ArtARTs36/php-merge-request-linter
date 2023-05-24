@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventListener;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 
 class MockEventDispatcher implements EventManager

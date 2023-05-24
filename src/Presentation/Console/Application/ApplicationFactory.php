@@ -26,8 +26,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\Metricabl
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
@@ -43,17 +43,17 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use Psr\Clock\ClockInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
 {
