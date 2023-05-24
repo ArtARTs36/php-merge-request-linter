@@ -118,7 +118,7 @@ class ApplicationFactory
         )));
         $application->add(new InstallCommand(new CreateConfigTaskHandler(new Copier(new Directory(__DIR__ . '/../../../../stubs')))));
         $application->add(new DumpCommand(new DumpTaskHandler($configResolver, new RuleDumper())));
-        $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory())));
+        $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory($clock))));
 
         return $application;
     }

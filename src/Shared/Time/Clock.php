@@ -12,5 +12,5 @@ interface Clock extends ClockInterface
     /**
      * Localize date time.
      */
-    public function localize(\DateTimeImmutable $dateTime): \DateTimeInterface;
+    public function localize(\DateTimeImmutable $dateTime): \DateTimeImmutable;
 }
