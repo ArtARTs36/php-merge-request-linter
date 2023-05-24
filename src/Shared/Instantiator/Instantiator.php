@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator;
+namespace ArtARTs36\MergeRequestLinter\Shared\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 

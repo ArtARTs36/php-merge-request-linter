@@ -1,8 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator;
-
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\InstantiatorFindException;
+namespace ArtARTs36\MergeRequestLinter\Shared\Instantiator;
 
 /**
  * Instantiator Finder for class
