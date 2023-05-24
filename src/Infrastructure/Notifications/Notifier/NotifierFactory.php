@@ -27,8 +27,7 @@ class NotifierFactory
 
     public function create(): Notifier
     {
-        return new LoggableNotifier($this->logger, new RenderingNotifier(
-            TwigRenderer::create(),
+        return new LoggableNotifier($this->logger, new MessengerNotifier(
             $this->createMessengers(),
             $this->clock,
         ));
