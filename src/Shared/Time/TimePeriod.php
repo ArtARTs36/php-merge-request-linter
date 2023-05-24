@@ -13,7 +13,7 @@ class TimePeriod
 
     public static function day(): self
     {
-        return new self (
+        return new self(
             Time::min(),
             Time::max(),
         );

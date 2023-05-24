@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Te
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Messenger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Exceptions\NotificationSendException;
-use Psr\Clock\ClockInterface;
 
 class BotMessenger implements Messenger
 {
