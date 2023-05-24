@@ -114,4 +114,42 @@ final class TimeTest extends TestCase
             ],
         );
     }
+
+
+    public function providerForTestMakeOnInvalidTimeValue(): array
+    {
+        return [
+            [
+                -1,
+                0,
+                'Hour must be >= 0 and <= 23. Given: -1',
+            ],
+            [
+                24,
+                0,
+                'Hour must be >= 0 and <= 23. Given: 24',
+            ],
+            [
+                2,
+                -1,
+                'Minute must be >= 0 and <= 59. Given: -1',
+            ],
+            [
+                2,
+                60,
+                'Minute must be >= 0 and <= 59. Given: 60',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::make
+     * @dataProvider providerForTestMakeOnInvalidTimeValue
+     */
+    public function testMakeOnInvalidTimeValue(int $hour, int $minute, string $expectedException): void
+    {
+        self::expectExceptionMessage($expectedException);
+
+        Time::make($hour, $minute);
+    }
 }

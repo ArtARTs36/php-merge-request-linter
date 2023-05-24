@@ -27,11 +27,17 @@ class Time
     public static function make(int $hour, int $minute): self
     {
         if ($hour < 0 || $hour > 23) {
-            throw new \Exception('Hour must be >= 0 and <= 23');
+            throw new InvalidTimeValueException(sprintf(
+                'Hour must be >= 0 and <= 23. Given: %d',
+                $hour,
+            ));
         }
 
         if ($minute < 0 || $minute > 59) {
-            throw new \Exception('Hour must be >= 0 and <= 59');
+            throw new InvalidTimeValueException(sprintf(
+                'Minute must be >= 0 and <= 59. Given: %d',
+                $minute,
+            ));
         }
 
         return new self($hour, $minute);
