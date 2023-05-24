@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Tasks\LintTask;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;
@@ -65,10 +66,16 @@ class LintCommand extends Command
             $isDebug,
         ));
 
-        $result = $this->handler->handle(new LintTask(
-            $this->getWorkDir($input),
-            $this->getStringOptionFromInput($input, 'config'),
-        ));
+        try {
+            $result = $this->handler->handle(new LintTask(
+                $this->getWorkDir($input),
+                $this->getStringOptionFromInput($input, 'config'),
+            ));
+        } catch (ConfigInvalidException $e) {
+            $style->error($e->getMessage());
+
+            return self::FAILURE;
+        }
 
         $style->newLine(2);
 

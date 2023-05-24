@@ -132,7 +132,15 @@ class NotificationsMapper
             $type = ChannelType::from($channel['type']);
 
             if (array_key_exists('sound_at', $channel) && $channel['sound_at'] !== '') {
-                $sound = TimePeriod::make($channel['sound_at']);
+                try {
+                    $sound = TimePeriod::make($channel['sound_at']);
+                } catch (\Exception $e) {
+                    throw new ConfigInvalidException(sprintf(
+                        'Config[notifications.channels.%s] invalid: %s',
+                        $name,
+                        $e->getMessage(),
+                    ));
+                }
 
                 unset($channel['sound_at']);
             } else {
