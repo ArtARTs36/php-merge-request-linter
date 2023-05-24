@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
 
-class HourMinute
+class Time
 {
     private function __construct(
         public readonly Number $hour,

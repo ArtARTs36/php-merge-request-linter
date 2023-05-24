@@ -2,18 +2,18 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Time;
 
-use ArtARTs36\MergeRequestLinter\Shared\Time\HourMinute;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Time;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class HourMinuteTest extends TestCase
+final class TimeTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\HourMinute::fromString
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::fromString
      * @dataProvider providerForTestFromString
      */
     public function testFromString(string $string, int $expectedHour, int $expectedMinute): void
     {
-        $hourMinute = HourMinute::fromString($string);
+        $time = Time::fromString($string);
 
         self::assertEquals(
             [
@@ -21,8 +21,8 @@ final class HourMinuteTest extends TestCase
                 'minute' => $expectedMinute,
             ],
             [
-                'hour' => $hourMinute->hour->value(),
-                'minute' => $hourMinute->minute->value(),
+                'hour' => $time->hour->value(),
+                'minute' => $time->minute->value(),
             ],
         );
     }

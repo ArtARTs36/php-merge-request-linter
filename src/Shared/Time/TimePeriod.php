@@ -5,8 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 class TimePeriod
 {
     public function __construct(
-        public readonly HourMinute $from,
-        public readonly HourMinute $to,
+        public readonly Time $from,
+        public readonly Time $to,
     ) {
         //
     }
@@ -18,8 +18,8 @@ class TimePeriod
     {
         if ($value === null || $value === '') {
             return new self(
-                HourMinute::min(),
-                HourMinute::max(),
+                Time::min(),
+                Time::max(),
             );
         }
 
@@ -30,15 +30,15 @@ class TimePeriod
         }
 
         return new self(
-            HourMinute::fromString($parts[0]),
-            HourMinute::fromString($parts[1]),
+            Time::fromString($parts[0]),
+            Time::fromString($parts[1]),
         );
     }
 
     public function input(\DateTimeInterface $dateTime): bool
     {
-        $hourMinute = HourMinute::fromDateTime($dateTime);
+        $time = Time::fromDateTime($dateTime);
 
-        return $this->from->gte($hourMinute) && $this->to->lte($hourMinute);
+        return $this->from->gte($time) && $this->to->lte($time);
     }
 }
