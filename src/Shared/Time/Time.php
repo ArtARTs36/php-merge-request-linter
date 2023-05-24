@@ -7,8 +7,8 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
 class Time
 {
     private function __construct(
-        public readonly Number $hour,
-        public readonly Number $minute,
+        public readonly int $hour,
+        public readonly int $minute,
     ) {
         //
     }
@@ -36,7 +36,7 @@ class Time
             throw new \Exception('Hour must be >= 0 and <= 59');
         }
 
-        return new self(new Number($hour), new Number($minute));
+        return new self($hour, $minute);
     }
 
     /**
@@ -63,19 +63,15 @@ class Time
 
     public function gte(self $that): bool
     {
-        if ($this->hour->lt($that->hour)) {
-            return false;
-        }
-
-        return $this->minute->gte($that->minute);
+        return $this->hour < $that->hour ||
+            $this->hour > $that->hour ||
+            $this->minute >= $that->minute;
     }
 
     public function lte(self $that): bool
     {
-        if ($this->hour->gt($that->hour)) {
-            return false;
-        }
-
-        return $this->minute->lte($that->minute);
+        return $this->hour > $that->hour ||
+            $this->hour < $that->hour ||
+            $this->minute <= $that->minute;
     }
 }

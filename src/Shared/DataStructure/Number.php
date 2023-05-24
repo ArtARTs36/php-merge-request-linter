@@ -34,17 +34,6 @@ class Number
         return $this->number >= $thatValue;
     }
 
-
-    /**
-     * @param Number<T>|T $that
-     */
-    public function gt(self|int|float $that): bool
-    {
-        $thatValue = $that instanceof self ? $that->value() : $that;
-
-        return $this->number > $thatValue;
-    }
-
     /**
      * @param Number<T>|T $that
      */
@@ -53,15 +42,5 @@ class Number
         $thatValue = $that instanceof self ? $that->value() : $that;
 
         return $this->number <= $thatValue;
-    }
-
-    /**
-     * @param Number<T>|T $that
-     */
-    public function lt(self|int|float $that): bool
-    {
-        $thatValue = $that instanceof self ? $that->value() : $that;
-
-        return $this->number < $thatValue;
     }
 }
