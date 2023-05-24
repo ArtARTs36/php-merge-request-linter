@@ -9,6 +9,7 @@ interface Listener
 {
     /**
      * Handle event.
+     * @throws NotifyFailedException
      */
     public function handle(object $event): void;
 }

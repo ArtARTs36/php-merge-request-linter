@@ -3,8 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextRenderingFailedException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use Twig\Environment;
+use Twig\Error\Error;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Loader\ArrayLoader;
 
 class TwigRenderer implements TextRenderer
@@ -29,6 +34,15 @@ class TwigRenderer implements TextRenderer
 
         $this->loader->setTemplate($templateName, $text);
 
-        return $this->environment->render($templateName, $data->toArray());
+        try {
+            return $this->environment->render($templateName, $data->toArray());
+        } catch (SyntaxError $e) {
+            throw new TextRenderingFailedException(
+                sprintf('invalid template: %s', $e->getMessage()),
+                previous: $e,
+            );
+        } catch (LoaderError|RuntimeError $e) {
+            throw new TextRenderingFailedException($e->getMessage(), previous: $e);
+        }
     }
 }
