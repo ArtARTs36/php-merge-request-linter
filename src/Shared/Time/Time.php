@@ -48,7 +48,19 @@ class Time
             throw new \Exception('Value must be follows mask "hh:mm"');
         }
 
-        return self::make($parts[0], $parts[1]);
+        if (! is_numeric($parts[0])) {
+            throw new \Exception('Value must be follows mask "hh:mm"');
+        }
+
+        $hour = (int) $parts[0];
+
+        if (! is_numeric($parts[1])) {
+            throw new \Exception('Value must be follows mask "hh:mm"');
+        }
+
+        $minute = (int) $parts[1];
+
+        return self::make($hour, $minute);
     }
 
     public static function fromDateTime(\DateTimeInterface $dateTime): self
