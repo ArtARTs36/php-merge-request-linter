@@ -13,4 +13,9 @@ interface Clock extends ClockInterface
      * Localize date time.
      */
     public function localize(\DateTimeImmutable $dateTime): \DateTimeImmutable;
+
+    /**
+     * Create DateTime with default timezone.
+     */
+    public function create(string $datetime): \DateTimeImmutable;
 }

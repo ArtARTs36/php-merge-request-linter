@@ -44,7 +44,7 @@ class PullRequestSchema
             $pullRequest['changedFiles'],
             $pullRequest['author']['login'],
             $pullRequest['isDraft'] ?? false,
-            $this->clock->localize(new \DateTimeImmutable($pullRequest['createdAt'])),
+            $this->clock->create($pullRequest['createdAt']),
             $pullRequest['url'],
         );
     }

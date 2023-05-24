@@ -22,6 +22,11 @@ final class LocalClock implements Clock
         return new self(new \DateTimeZone($timezone));
     }
 
+    public function create(string $datetime): DateTimeImmutable
+    {
+        return $this->localize(new DateTimeImmutable($datetime));
+    }
+
     public function localize(DateTimeImmutable $dateTime): DateTimeImmutable
     {
         return $dateTime->setTimezone($this->tz);
