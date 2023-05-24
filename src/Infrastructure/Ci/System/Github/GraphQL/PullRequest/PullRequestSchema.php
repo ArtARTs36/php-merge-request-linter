@@ -3,12 +3,12 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
-use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 
 class PullRequestSchema
 {
     public function __construct(
-        private readonly LocalClock $clock,
+        private readonly Clock $clock,
     ) {
         //
     }

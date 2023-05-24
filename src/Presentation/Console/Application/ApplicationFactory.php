@@ -126,7 +126,7 @@ class ApplicationFactory
     /**
      * @throws \Exception
      */
-    private function registerClock(): ClockInterface
+    private function registerClock(): Clock
     {
         if (! $this->environment->has('MR_LINTER_TIMEZONE')) {
             $clock = LocalClock::utc();

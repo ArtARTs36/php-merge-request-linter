@@ -21,7 +21,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 
 class RunnerFactory implements LinterRunnerFactory
 {
@@ -34,7 +34,7 @@ class RunnerFactory implements LinterRunnerFactory
         protected ContextLogger $logger,
         protected MetricManager $metrics,
         protected ClientFactory $clientFactory,
-        protected LocalClock    $clock,
+        protected Clock    $clock,
     ) {
         //
     }

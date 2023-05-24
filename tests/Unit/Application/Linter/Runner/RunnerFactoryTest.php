@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\NullEnv
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class RunnerFactoryTest extends TestCase
@@ -26,6 +27,7 @@ final class RunnerFactoryTest extends TestCase
             LoggerFactory::null(),
             new NullMetricManager(),
             new ClientFactory(new NullMetricManager(), LoggerFactory::null()),
+            LocalClock::utc(),
         );
 
         self::assertInstanceOf(Runner::class, $factory->create(
