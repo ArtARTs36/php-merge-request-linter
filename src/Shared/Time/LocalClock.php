@@ -17,9 +17,20 @@ final class LocalClock implements Clock
         return self::on('UTC');
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function on(string $timezone): self
     {
-        return new self(new \DateTimeZone($timezone));
+        try {
+            return new self(new \DateTimeZone($timezone));
+        } catch (\Throwable) {
+            throw new \Exception(sprintf(
+                'TimeZone "%s" invalid. Available values: [%s]',
+                $timezone,
+                implode(', ', \DateTimeZone::listIdentifiers()),
+            ));
+        }
     }
 
     public function create(string $datetime): DateTimeImmutable

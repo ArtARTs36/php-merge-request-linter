@@ -139,12 +139,10 @@ class ApplicationFactory
             $tzId = $this->environment->getString('MR_LINTER_TIMEZONE');
 
             try {
-                $tz = new \DateTimeZone(trim($tzId));
-            } catch (\Throwable) {
-                throw new ApplicationNotCreatedException(sprintf('TimeZone "%s" invalid', $tzId));
+                $clock = LocalClock::on(trim($tzId));
+            } catch (\Throwable $e) {
+                throw new ApplicationNotCreatedException($e->getMessage(), previous: $e);
             }
-
-            $clock = new LocalClock($tz);
         }
 
         $this->container->set(ClockInterface::class, $clock);
