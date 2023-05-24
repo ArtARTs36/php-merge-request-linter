@@ -26,6 +26,8 @@ jobs:
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v2
+        env:
+          MR_LINTER_TIMEZONE: 'Europe/Moscow'
         with:
           path: vendor
           key: ${{ runner.os }}-php-mr-linter-$GITHUB_REF-${{ hashFiles('**/composer.lock') }}
