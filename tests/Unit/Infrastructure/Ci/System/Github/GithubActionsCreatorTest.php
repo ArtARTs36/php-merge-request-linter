@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActionsCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\NullEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\NullClient;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GithubActionsCreatorTest extends TestCase
@@ -23,6 +24,7 @@ final class GithubActionsCreatorTest extends TestCase
             new NullEnvironment(),
             new NullClient(),
             LoggerFactory::null(),
+            LocalClock::utc(),
         );
 
         self::assertInstanceOf(GithubActions::class, $creator->create(new CiSettings(new NullAuthenticator(), [])));

@@ -2,8 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Notifications;
 
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
-
 /**
  * @codeCoverageIgnore
  */

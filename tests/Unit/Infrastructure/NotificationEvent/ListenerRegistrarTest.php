@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegist
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockOperatorResolver;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullRenderer;
@@ -28,7 +29,7 @@ final class ListenerRegistrarTest extends TestCase
                     'test-event' => [
                         new NotificationEventMessage(
                             'test-event',
-                            new Channel(ChannelType::TelegramBot, new ArrayMap([])),
+                            new Channel(ChannelType::TelegramBot, new ArrayMap([]), TimePeriod::day()),
                             'test-template',
                         ),
                     ],

@@ -10,11 +10,10 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\Messenger
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullRenderer;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\QueueMessenger;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class RenderingNotifierTest extends TestCase
+final class MessengerNotifierTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessengerNotifier::notify
@@ -36,7 +35,7 @@ final class RenderingNotifierTest extends TestCase
     {
         return [
             [
-                'channel' => $ch1 = new Channel(ChannelType::TelegramBot, new ArrayMap([])),
+                'channel' => $ch1 = new Channel(ChannelType::TelegramBot, new ArrayMap([]), TimePeriod::day()),
                 'message' => 'test-message',
                 'queue' => [
                     [$ch1, 'test-message']

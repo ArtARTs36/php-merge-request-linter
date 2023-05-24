@@ -37,6 +37,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegist
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
@@ -182,7 +183,7 @@ class ApplicationFactory
             new ListenerFactory(
                 $notifier,
                 $this->container->get(OperatorResolver::class),
-                new MessageCreator(),
+                new MessageCreator(TwigRenderer::create()),
                 $logger,
             ),
         );

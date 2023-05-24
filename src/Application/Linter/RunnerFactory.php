@@ -57,7 +57,7 @@ class RunnerFactory implements LinterRunnerFactory
         $creators = new ArrayMap([
             GithubActions::NAME => new GithubActionsCreator($this->environment, $httpClient, $this->logger, $this->clock),
             GitlabCi::NAME => new GitlabCiCreator($this->environment, $httpClient, $this->logger),
-            BitbucketPipelines::NAME => new BitbucketPipelinesCreator($this->environment, $httpClient, $this->logger),
+            BitbucketPipelines::NAME => new BitbucketPipelinesCreator($this->environment, $httpClient, $this->logger, $this->clock),
         ]);
 
         return new SystemFactory($config, $creators);

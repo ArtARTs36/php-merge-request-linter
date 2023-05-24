@@ -17,7 +17,7 @@ class Client
         private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client $http,
         private readonly LoggerInterface                                                    $logger,
         private readonly TextDecoder                                                        $textDecoder,
-        private readonly PullRequestSchema                                                  $pullRequestSchema = new PullRequestSchema(),
+        private readonly PullRequestSchema                                                  $pullRequestSchema,
         private readonly BitbucketDiffMapper                                                $diffMapper = new BitbucketDiffMapper(),
     ) {
         //
