@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Presentation\Console\Output;
 
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use Psr\Log\LogLevel;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -54,7 +55,7 @@ final class ConsoleLoggerTest extends TestCase
     {
         $output = new BufferedOutput(OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-        $logger = new ConsoleLogger($output);
+        $logger = new ConsoleLogger($output, LocalClock::utc());
 
         foreach ($messages as [$level, $message, $context]) {
             $logger->log($level, $message, $context);

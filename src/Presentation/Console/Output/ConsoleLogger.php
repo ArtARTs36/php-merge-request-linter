@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
+use Psr\Clock\ClockInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
 use Psr\Log\LogLevel;
@@ -28,6 +29,7 @@ class ConsoleLogger implements LoggerInterface
 
     public function __construct(
         private readonly OutputInterface $output,
+        private readonly ClockInterface $clock,
     ) {
         //
     }
@@ -50,8 +52,9 @@ class ConsoleLogger implements LoggerInterface
 
         $output->writeln(
             sprintf(
-                '<%1$s>[%2$s] %3$s %4$s</%1$s>',
+                '<%1$s>[%2$s] [%3$s] %4$s %5$s</%1$s>',
                 $this->formatLevelMap[$level],
+                $this->clock->now()->format('Y-m-d H:i:s'),
                 $level,
                 $message,
                 json_encode($context, JSON_FORCE_OBJECT),

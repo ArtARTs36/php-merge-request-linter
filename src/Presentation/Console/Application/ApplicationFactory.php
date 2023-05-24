@@ -234,7 +234,7 @@ class ApplicationFactory
     {
         $loggers = [
             MetricableLogger::create($metricManager),
-            new ConsoleLogger($output),
+            new ConsoleLogger($output, $this->container->get(ClockInterface::class)),
         ];
 
         $compositeLogger = new CompositeLogger($loggers);
