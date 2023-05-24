@@ -50,6 +50,7 @@ use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use Psr\Clock\ClockInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Psr\Log\LoggerInterface;
@@ -128,7 +129,7 @@ class ApplicationFactory
     private function registerClock(): ClockInterface
     {
         if (! $this->environment->has('MR_LINTER_TIMEZONE')) {
-            $clock = Clock::utc();
+            $clock = LocalClock::utc();
         } else {
             $tzId = $this->environment->getString('MR_LINTER_TIMEZONE');
 
@@ -138,10 +139,11 @@ class ApplicationFactory
                 throw new \Exception(sprintf('TimeZone "%s" invalid', $tzId));
             }
 
-            $clock = new Clock($tz);
+            $clock = new LocalClock($tz);
         }
 
         $this->container->set(ClockInterface::class, $clock);
+        $this->container->set(Clock::class, $clock);
 
         return $clock;
     }

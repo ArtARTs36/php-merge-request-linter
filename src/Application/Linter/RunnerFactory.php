@@ -21,7 +21,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 
 class RunnerFactory implements LinterRunnerFactory
 {
@@ -29,12 +29,12 @@ class RunnerFactory implements LinterRunnerFactory
      * @param Map<string, class-string<CiSystem>> $ciSystems
      */
     public function __construct(
-        protected Environment $environment,
-        protected Map $ciSystems,
+        protected Environment   $environment,
+        protected Map           $ciSystems,
         protected ContextLogger $logger,
         protected MetricManager $metrics,
         protected ClientFactory $clientFactory,
-        protected Clock $clock,
+        protected LocalClock    $clock,
     ) {
         //
     }

@@ -2,19 +2,19 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Time;
 
-use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ClockTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Clock::now
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock::now
      */
     public function testNow(): void
     {
         $started = new \DateTimeImmutable();
 
-        $clock = new Clock();
+        $clock = LocalClock::utc();
 
         $result = $clock->now();
 

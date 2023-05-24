@@ -14,15 +14,15 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpCli
 use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
-use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 
 final class GithubActionsCreator implements SystemCreator
 {
     public function __construct(
-        private readonly Environment $environment,
-        private readonly HttpClient $httpClient,
+        private readonly Environment   $environment,
+        private readonly HttpClient    $httpClient,
         private readonly ContextLogger $logger,
-        private readonly Clock $clock,
+        private readonly LocalClock    $clock,
     ) {
         //
     }
