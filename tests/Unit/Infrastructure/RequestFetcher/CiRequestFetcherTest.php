@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -40,7 +41,7 @@ final class CiRequestFetcherTest extends TestCase
             new MockCiSystemFactory(new MockCi([
                 'is_pull_request' => true,
             ], $this->makeMergeRequest())),
-            $metrics = new MemoryMetricManager(),
+            $metrics = new MemoryMetricManager(LocalClock::utc()),
         );
 
         $fetcher->fetch();

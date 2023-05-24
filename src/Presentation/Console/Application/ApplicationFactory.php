@@ -26,8 +26,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\Metricabl
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
@@ -37,20 +37,24 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegist
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use Symfony\Component\Console\Output\OutputInterface;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
+use Psr\Clock\ClockInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
 {
@@ -63,6 +67,7 @@ class ApplicationFactory
 
     public function create(OutputInterface $output): Application
     {
+        $clock = $this->registerClock();
         $metrics = $this->registerMetricManager();
         $logger = $this->createLogger($output, $metrics);
 
@@ -76,6 +81,7 @@ class ApplicationFactory
             $logger,
             $metrics,
             $httpClientFactory,
+            $clock,
         );
 
         $argResolverFactory = new ArgumentResolverFactory($this->container);
@@ -113,9 +119,34 @@ class ApplicationFactory
         )));
         $application->add(new InstallCommand(new CreateConfigTaskHandler(new Copier(new Directory(__DIR__ . '/../../../../stubs')))));
         $application->add(new DumpCommand(new DumpTaskHandler($configResolver, new RuleDumper())));
-        $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory())));
+        $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory($clock))));
 
         return $application;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function registerClock(): Clock
+    {
+        if (! $this->environment->has('MR_LINTER_TIMEZONE')) {
+            $clock = LocalClock::utc();
+        } else {
+            $tzId = $this->environment->getString('MR_LINTER_TIMEZONE');
+
+            try {
+                $tz = new \DateTimeZone(trim($tzId));
+            } catch (\Throwable) {
+                throw new \Exception(sprintf('TimeZone "%s" invalid', $tzId));
+            }
+
+            $clock = new LocalClock($tz);
+        }
+
+        $this->container->set(ClockInterface::class, $clock);
+        $this->container->set(Clock::class, $clock);
+
+        return $clock;
     }
 
     private function registerNotifications(): void
@@ -143,6 +174,7 @@ class ApplicationFactory
             $this->container->get(HttpClientFactory::class)->create(
                 $config->getHttpClient()
             ),
+            $this->container->get(ClockInterface::class),
             $logger,
         ))->create();
 
@@ -151,7 +183,7 @@ class ApplicationFactory
             new ListenerFactory(
                 $notifier,
                 $this->container->get(OperatorResolver::class),
-                new MessageCreator(),
+                new MessageCreator(TwigRenderer::create()),
                 $logger,
             ),
         );
@@ -182,7 +214,7 @@ class ApplicationFactory
 
     private function registerMetricManager(): MetricManager
     {
-        $metrics = new MemoryMetricManager();
+        $metrics = new MemoryMetricManager($this->container->get(ClockInterface::class));
 
         $this->container->set(MetricManager::class, $metrics);
 

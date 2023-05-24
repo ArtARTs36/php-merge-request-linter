@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Notifications\N
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullRenderer;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class MessageCreatorTest extends TestCase
@@ -13,12 +14,11 @@ final class MessageCreatorTest extends TestCase
      */
     public function testCreate(): void
     {
-        $creator = new MessageCreator();
+        $creator = new MessageCreator(new NullRenderer());
 
-        $message = $creator->create('test-template', new ArrayMap($data = ['k' => 'v']));
+        $message = $creator->create('test-template', new ArrayMap([]));
 
-        self::assertEquals('test-template', $message->template);
-        self::assertEquals($data, $message->data->toArray());
+        self::assertEquals('test-template', $message->text);
         self::assertNotEmpty($message->id);
     }
 }

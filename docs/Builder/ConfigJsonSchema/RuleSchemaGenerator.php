@@ -5,8 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 use ArtARTs36\Str\Facade\Str;
 

@@ -2,13 +2,20 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 
-use DateTimeImmutable;
 use Psr\Clock\ClockInterface;
 
-final class Clock implements ClockInterface
+/**
+ * Interface for clocks.
+ */
+interface Clock extends ClockInterface
 {
-    public function now(): DateTimeImmutable
-    {
-        return new DateTimeImmutable();
-    }
+    /**
+     * Localize date time.
+     */
+    public function localize(\DateTimeImmutable $dateTime): \DateTimeImmutable;
+
+    /**
+     * Create DateTime with default timezone.
+     */
+    public function create(string $datetime): \DateTimeImmutable;
 }

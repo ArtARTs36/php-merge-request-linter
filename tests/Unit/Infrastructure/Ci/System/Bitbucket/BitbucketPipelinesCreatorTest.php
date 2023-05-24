@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPip
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelinesCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\NullEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\NullClient;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use Psr\Log\NullLogger;
 
@@ -23,6 +24,7 @@ final class BitbucketPipelinesCreatorTest extends TestCase
             new NullEnvironment(),
             new NullClient(),
             new NullLogger(),
+            LocalClock::utc(),
         );
 
         self::assertInstanceOf(BitbucketPipelines::class, $creator->create(new CiSettings(new NullAuthenticator(), [])));

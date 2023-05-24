@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
 class SystemFactory implements CiSystemFactory
 {

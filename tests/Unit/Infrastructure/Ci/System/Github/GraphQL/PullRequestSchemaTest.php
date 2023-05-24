@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Github\GraphQL;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class PullRequestSchemaTest extends TestCase
@@ -40,7 +41,7 @@ final class PullRequestSchemaTest extends TestCase
      */
     public function testCreatePullRequestOnInvalidData(array $data, string $expectedException): void
     {
-        $schema = new PullRequestSchema();
+        $schema = new PullRequestSchema(LocalClock::utc());
 
         self::expectExceptionMessage($expectedException);
 

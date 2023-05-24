@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite;
 
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 
 /**
  * True if all values of array matched conditions.

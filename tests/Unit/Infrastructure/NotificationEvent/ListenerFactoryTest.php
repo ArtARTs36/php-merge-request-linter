@@ -13,7 +13,9 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\NotifyListener
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockOperatorResolver;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullRenderer;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ListenerFactoryTest extends TestCase
@@ -22,11 +24,11 @@ final class ListenerFactoryTest extends TestCase
     {
         return [
             [
-                new NotificationEventMessage('name', new Channel(ChannelType::TelegramBot, new ArrayMap([])), ''),
+                new NotificationEventMessage('name', new Channel(ChannelType::TelegramBot, new ArrayMap([]), TimePeriod::day()), ''),
                 NotifyListener::class,
             ],
             [
-                new NotificationEventMessage('name', new Channel(ChannelType::TelegramBot, new ArrayMap([])), '', ['field' => ['equals' => 1]]),
+                new NotificationEventMessage('name', new Channel(ChannelType::TelegramBot, new ArrayMap([]), TimePeriod::day()), '', ['field' => ['equals' => 1]]),
                 ConditionListener::class,
             ],
         ];
@@ -44,7 +46,7 @@ final class ListenerFactoryTest extends TestCase
             {
                 //
             }
-        }, new MockOperatorResolver(), new MessageCreator(), LoggerFactory::null());
+        }, new MockOperatorResolver(), new MessageCreator(new NullRenderer()), LoggerFactory::null());
 
         $listener = $factory->create($message);
 

@@ -1,10 +1,7 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Contracts\Events;
+namespace ArtARTs36\MergeRequestLinter\Shared\Events;
 
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventListener;
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventListenerWasFailedException;
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**

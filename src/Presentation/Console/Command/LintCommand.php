@@ -12,8 +12,8 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyTablePrinter
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\Metric;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\MetricPrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\NotePrinter;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
@@ -65,10 +65,16 @@ class LintCommand extends Command
             $isDebug,
         ));
 
-        $result = $this->handler->handle(new LintTask(
-            $this->getWorkDir($input),
-            $this->getStringOptionFromInput($input, 'config'),
-        ));
+        try {
+            $result = $this->handler->handle(new LintTask(
+                $this->getWorkDir($input),
+                $this->getStringOptionFromInput($input, 'config'),
+            ));
+        } catch (\Throwable $e) {
+            $style->error($e->getMessage());
+
+            return self::FAILURE;
+        }
 
         $style->newLine(2);
 

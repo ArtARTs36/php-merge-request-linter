@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class PullRequestSchemaTest extends TestCase
@@ -45,7 +46,7 @@ final class PullRequestSchemaTest extends TestCase
      */
     public function testCreatePullRequestFailed(array $data, string $exception): void
     {
-        $schema = new PullRequestSchema();
+        $schema = new PullRequestSchema(LocalClock::utc());
 
         self::expectExceptionMessage($exception);
 

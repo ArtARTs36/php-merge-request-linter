@@ -73,3 +73,17 @@ notifications:
         - {{ note.description }}
         {% endfor %}
 ```
+
+#### Notification Sound
+
+You can enable notification sound for time period.
+
+```yaml
+notifications:
+  channels:
+    dev:
+      type: 'telegram_bot'
+      chat_id: 'env(MR_LINTER_TELEGRAM_CHAT_ID)'
+      bot_token: 'env(MR_LINTER_TELEGRAM_BOT_TOKEN)'
+      sound_at: '09:00-21:00'
+```

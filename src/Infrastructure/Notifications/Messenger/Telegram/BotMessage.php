@@ -11,6 +11,7 @@ class BotMessage
         public readonly string $token,
         public readonly string $chatId,
         public readonly string $message,
+        public readonly bool $background,
     ) {
         //
     }

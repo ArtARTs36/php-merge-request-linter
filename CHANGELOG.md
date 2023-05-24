@@ -6,6 +6,19 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.13.0 (2023-05-25)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.12.1..0.13.0)
+
+### Added
+* Added option for disable notification sound by time period
+* Added environment variable `MR_LINTER_TIMEZONE` for set timezone
+
+### Changed
+* Moved shared contracts from common folder to self folders
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.13.0)
+
+-----------------------------------------------------------------
+
 ## [v0.12.1 (2023-05-22)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.12.0..0.12.1)
 
 ### Added

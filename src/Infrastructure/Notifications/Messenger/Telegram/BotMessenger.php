@@ -14,7 +14,7 @@ class BotMessenger implements Messenger
         //
     }
 
-    public function send(Channel $channel, string $message): void
+    public function send(Channel $channel, string $message, bool $withSound): void
     {
         $chatId = $channel->params->get('chat_id');
 
@@ -32,6 +32,7 @@ class BotMessenger implements Messenger
             $token,
             $chatId,
             $message,
+            ! $withSound,
         ));
     }
 }
