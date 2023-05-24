@@ -95,4 +95,23 @@ final class TimeTest extends TestCase
     {
         self::assertEquals($expected, Time::fromString($time1Val)->gte(Time::fromString($time2Val)));
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::fromDateTime
+     */
+    public function testFromDateTime(): void
+    {
+        $time = Time::fromDateTime(new \DateTime('2022-02-02 01:59'));
+
+        self::assertEquals(
+            [
+                'hour' => 01,
+                'minute' => 59,
+            ],
+            [
+                'hour' => $time->hour,
+                'minute' => $time->minute,
+            ],
+        );
+    }
 }
