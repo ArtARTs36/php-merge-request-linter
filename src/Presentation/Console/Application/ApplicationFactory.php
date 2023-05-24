@@ -43,6 +43,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\ApplicationNotCreatedException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
@@ -65,6 +66,9 @@ class ApplicationFactory
         //
     }
 
+    /**
+     * @throws ApplicationNotCreatedException
+     */
     public function create(OutputInterface $output): Application
     {
         $clock = $this->registerClock();
@@ -125,7 +129,7 @@ class ApplicationFactory
     }
 
     /**
-     * @throws \Exception
+     * @throws ApplicationNotCreatedException
      */
     private function registerClock(): Clock
     {
@@ -137,7 +141,7 @@ class ApplicationFactory
             try {
                 $tz = new \DateTimeZone(trim($tzId));
             } catch (\Throwable) {
-                throw new \Exception(sprintf('TimeZone "%s" invalid', $tzId));
+                throw new ApplicationNotCreatedException(sprintf('TimeZone "%s" invalid', $tzId));
             }
 
             $clock = new LocalClock($tz);
