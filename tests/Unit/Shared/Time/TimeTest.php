@@ -21,8 +21,8 @@ final class TimeTest extends TestCase
                 'minute' => $expectedMinute,
             ],
             [
-                'hour' => $time->hour->value(),
-                'minute' => $time->minute->value(),
+                'hour' => $time->hour,
+                'minute' => $time->minute,
             ],
         );
     }

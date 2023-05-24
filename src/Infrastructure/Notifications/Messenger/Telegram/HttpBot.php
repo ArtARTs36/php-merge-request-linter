@@ -34,7 +34,7 @@ class HttpBot implements Bot
             [
                 'chat_id' => $message->chatId,
                 'text' => $message->message,
-                'disable_notification' => $message->background,
+                'disable_notification' => $message->background ? '1' : '0',
             ],
         );
     }
