@@ -47,4 +47,36 @@ final class TimePeriodTest extends TestCase
             ],
         );
     }
+
+    public function providerForTestInput(): array
+    {
+        return [
+            [
+                '09:00-21:00',
+                '2022-02-02 23:21',
+                false,
+            ],
+            [
+                '09:00-21:00',
+                '2022-02-02 09:21',
+                true,
+            ],
+            [
+                '09:00-21:00',
+                '2022-02-02 08:21',
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::input
+     * @dataProvider providerForTestInput
+     */
+    public function testInput(string $periodValue, string $dateTime, bool $expected): void
+    {
+        $period = TimePeriod::make($periodValue);
+
+        self::assertEquals($expected, $period->input(new \DateTimeImmutable($dateTime)));
+    }
 }

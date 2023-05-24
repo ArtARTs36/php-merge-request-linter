@@ -71,17 +71,13 @@ class Time
         );
     }
 
-    public function gte(self $that): bool
-    {
-        return $this->hour < $that->hour ||
-            $this->hour > $that->hour ||
-            $this->minute >= $that->minute;
-    }
-
     public function lte(self $that): bool
     {
-        return $this->hour > $that->hour ||
-            $this->hour < $that->hour ||
-            $this->minute <= $that->minute;
+        return $this->hour < $that->hour || ($this->hour === $that->hour && $this->minute <= $that->minute);
+    }
+
+    public function gte(self $that): bool
+    {
+        return $this->hour > $that->hour || ($this->hour === $that->hour && $this->minute >= $that->minute);
     }
 }

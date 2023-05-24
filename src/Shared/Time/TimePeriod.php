@@ -40,6 +40,6 @@ class TimePeriod
     {
         $time = Time::fromDateTime($dateTime);
 
-        return $this->from->gte($time) && $this->to->lte($time);
+        return $time->gte($this->from) && $time->lte($this->to);
     }
 }
