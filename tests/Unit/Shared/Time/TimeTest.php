@@ -17,6 +17,7 @@ final class TimeTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::fromString
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::__construct
      * @dataProvider providerForTestFromString
      */
     public function testFromString(string $string, int $expectedHour, int $expectedMinute): void
