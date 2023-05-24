@@ -57,7 +57,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
                 if (count($ruleNotes) === 0) {
                     $this->events->dispatch(new RuleWasSuccessfulEvent($rule->getName()));
                 } else {
-                    $this->events->dispatch(new RuleWasFailedEvent($rule->getName()));
+                    $this->events->dispatch(new RuleWasFailedEvent($rule->getName(), $ruleNotes));
                 }
             } catch (EvaluatorCrashedException $e) {
                 $notes[] = new LintNote(sprintf('[%s] Invalid condition value: %s', $rule->getName(), $e->getMessage()));
