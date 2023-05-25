@@ -11,6 +11,7 @@ final class MessageCreatorTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator::__construct
      */
     public function testCreate(): void
     {
