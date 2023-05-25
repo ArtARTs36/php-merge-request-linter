@@ -43,6 +43,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\ApplicationNotCreatedException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
@@ -65,6 +66,9 @@ class ApplicationFactory
         //
     }
 
+    /**
+     * @throws ApplicationNotCreatedException
+     */
     public function create(OutputInterface $output): Application
     {
         $clock = $this->registerClock();
@@ -125,7 +129,7 @@ class ApplicationFactory
     }
 
     /**
-     * @throws \Exception
+     * @throws ApplicationNotCreatedException
      */
     private function registerClock(): Clock
     {
@@ -135,12 +139,10 @@ class ApplicationFactory
             $tzId = $this->environment->getString('MR_LINTER_TIMEZONE');
 
             try {
-                $tz = new \DateTimeZone(trim($tzId));
-            } catch (\Throwable) {
-                throw new \Exception(sprintf('TimeZone "%s" invalid', $tzId));
+                $clock = LocalClock::on(trim($tzId));
+            } catch (\Throwable $e) {
+                throw new ApplicationNotCreatedException($e->getMessage(), previous: $e);
             }
-
-            $clock = new LocalClock($tz);
         }
 
         $this->container->set(ClockInterface::class, $clock);
@@ -234,7 +236,7 @@ class ApplicationFactory
     {
         $loggers = [
             MetricableLogger::create($metricManager),
-            new ConsoleLogger($output),
+            new ConsoleLogger($output, $this->container->get(ClockInterface::class)),
         ];
 
         $compositeLogger = new CompositeLogger($loggers);

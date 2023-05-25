@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Presentation\Console\Output;
 
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use Psr\Log\LogLevel;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -17,29 +18,34 @@ final class ConsoleLoggerTest extends TestCase
                 'messages' => [
                     [LogLevel::INFO, 'test-message', []],
                 ],
-                'expected-log' => "[info] test-message {}\n",
+                'current-time' => '2020-02-02 14:32:01',
+                'expected-log' => "[2020-02-02 14:32:01] [info] test-message {}\n",
             ],
             [
                 'messages' => [
                     [LogLevel::INFO, 'test-message', ['k' => 'v']],
                 ],
-                'expected-log' => "[info] test-message {\"k\":\"v\"}\n",
+                'current-time' => '2020-02-02 14:32:01',
+                'expected-log' => "[2020-02-02 14:32:01] [info] test-message {\"k\":\"v\"}\n",
             ],
             [
                 'messages' => [
                     [LogLevel::INFO, 'test-message-1', []],
                     [LogLevel::INFO, 'test-message-2', ['k' => 'v']],
                 ],
-                'expected-log' => "[info] test-message-1 {}\n\n[info] test-message-2 {\"k\":\"v\"}\n",
+                'current-time' => '2020-02-02 14:32:01',
+                'expected-log' => "[2020-02-02 14:32:01] [info] test-message-1 {}\n\n[2020-02-02 14:32:01] [info] test-message-2 {\"k\":\"v\"}\n",
             ],
             [
                 'messages' => [],
+                'current-time' => '2020-02-02 14:32:01',
                 'expected-log' => '',
             ],
             'ignore-non-string-level' => [
                 'messages' => [[
                     1, 'test-message', [],
                 ]],
+                'current-time' => '2020-02-02 14:32:01',
                 'expected-log' => '',
             ],
         ];
@@ -50,11 +56,11 @@ final class ConsoleLoggerTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger::__construct
      * @dataProvider providerForTestLog
      */
-    public function testLog(array $messages, string $expectedLog): void
+    public function testLog(array $messages, string $currentTime, string $expectedLog): void
     {
         $output = new BufferedOutput(OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-        $logger = new ConsoleLogger($output);
+        $logger = new ConsoleLogger($output, new MockClock($currentTime));
 
         foreach ($messages as [$level, $message, $context]) {
             $logger->log($level, $message, $context);

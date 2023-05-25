@@ -6,6 +6,8 @@ use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
 use ArtARTs36\MergeRequestLinter\DocBuilder\EventFinder;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 
 class Generator
 {
@@ -183,6 +185,13 @@ class Generator
                     'when' => $this->operatorSchemaArrayGenerator->generate($class),
                 ],
             ];
+
+            $reflector = new \ReflectionClass($class);
+            $description = Reflector::findPHPDocSummary($reflector);
+
+            if (! empty($description)) {
+                $map[$eventName]['description'] = $description;
+            }
         }
 
         return $map;

@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
 use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextRenderingFailedException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 
 class NotifyListener implements Listener
@@ -21,10 +22,18 @@ class NotifyListener implements Listener
 
     public function handle(object $event): void
     {
-        $message = $this->messageCreator->create(
-            $this->message->template,
-            new ArrayMap(get_object_vars($event)),
-        );
+        try {
+            $message = $this->messageCreator->create(
+                $this->message->template,
+                new ArrayMap(get_object_vars($event)),
+            );
+        } catch (TextRenderingFailedException $e) {
+            throw new NotifyFailedException(sprintf(
+                'Rendering template for notification on event "%s" was failed: %s',
+                $this->message->event,
+                $e->getMessage(),
+            ), previous: $e);
+        }
 
         $this->logger->shareContext('message_id', $message->id);
 

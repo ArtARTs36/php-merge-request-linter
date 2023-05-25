@@ -1294,7 +1294,8 @@
                                     },
                                     "additionalProperties": false
                                 }
-                            }
+                            },
+                            "description": "The event is created at the moment when the linter has just started."
                         },
                         "rule_was_failed": {
                             "type": "object",
@@ -1403,11 +1404,17 @@
                                                 }
                                             },
                                             "additionalProperties": false
+                                        },
+                                        "notes": {
+                                            "type": "object",
+                                            "properties": [],
+                                            "additionalProperties": false
                                         }
                                     },
                                     "additionalProperties": false
                                 }
-                            }
+                            },
+                            "description": "The event is created at the moment when the linter rule was failed."
                         },
                         "lint_finished": {
                             "type": "object",
@@ -2500,7 +2507,8 @@
                                     },
                                     "additionalProperties": false
                                 }
-                            }
+                            },
+                            "description": "The event is created at the moment when the linter has completed its work."
                         },
                         "rule_was_successful": {
                             "type": "object",
@@ -2613,7 +2621,8 @@
                                     },
                                     "additionalProperties": false
                                 }
-                            }
+                            },
+                            "description": "The event is created at the moment when the linter rule was successful."
                         }
                     }
                 }

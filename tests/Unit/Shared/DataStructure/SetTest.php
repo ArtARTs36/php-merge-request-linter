@@ -229,4 +229,27 @@ final class SetTest extends TestCase
     {
         self::assertEquals($expected, Set::fromList($items)->jsonSerialize());
     }
+
+    public function providerForTestDiff(): array
+    {
+        return [
+            [
+                [1, 2, 3, 4],
+                [3, 4],
+                [1, 2],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::diff
+     * @dataProvider providerForTestDiff
+     */
+    public function testDiff(array $items, array $thatItems, array $expectedItems): void
+    {
+        self::assertEquals(
+            $expectedItems,
+            Set::fromList($items)->diff(Set::fromList($thatItems))->values(),
+        );
+    }
 }

@@ -6,6 +6,19 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.13.1 (2023-05-26)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.13.0..0.13.1)
+
+### Added
+* [Logger] Print date and time in logs
+* Added array of notes in event `rule_was_failed`
+
+### Internal
+* [Docs] Added event descriptions into config JSON Schema
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.13.1)
+
+-----------------------------------------------------------------
+
 ## [v0.13.0 (2023-05-25)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.12.1..0.13.0)
 
 ### Added

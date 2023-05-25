@@ -79,4 +79,33 @@ final class EnvTransformerTest extends TestCase
 
         $transformer->transform('var');
     }
+
+    public function providerForTestTryTransform(): array
+    {
+        return [
+            [
+                [
+                    'super-secret-password' => 'a1b2c3',
+                ],
+                'env(super-secret-password)',
+                'a1b2c3',
+            ],
+            [
+                [],
+                'en2v(super-secret-password)',
+                'en2v(super-secret-password)',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\EnvTransformer::tryTransform
+     * @dataProvider providerForTestTryTransform
+     */
+    public function testTryTransform(array $env, string $input, string $expected): void
+    {
+        $transformer = new EnvTransformer(new MapEnvironment(new ArrayMap($env)));
+
+        self::assertEquals($expected, $transformer->tryTransform($input));
+    }
 }
