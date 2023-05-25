@@ -1403,6 +1403,11 @@
                                                 }
                                             },
                                             "additionalProperties": false
+                                        },
+                                        "notes": {
+                                            "type": "object",
+                                            "properties": [],
+                                            "additionalProperties": false
                                         }
                                     },
                                     "additionalProperties": false
