@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 
 /**
+ * The event is created at the moment when the linter rule was failed.
  * @codeCoverageIgnore
  */
 class RuleWasFailedEvent

@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 
 /**
+ * The event is created at the moment when the linter rule was successful.
  * @codeCoverageIgnore
  */
 class RuleWasSuccessfulEvent
