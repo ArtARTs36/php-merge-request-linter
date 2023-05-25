@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Text\Renderer;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextRenderingFailedException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -32,5 +33,21 @@ final class TwigRendererTest extends TestCase
         $renderer = TwigRenderer::create();
 
         self::assertEquals($expected, $renderer->render($text, new ArrayMap($data)));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer::render
+     */
+    public function testRenderOnExceptionOnTwigSyntaxError(): void
+    {
+        $renderer = TwigRenderer::create();
+
+        try {
+            $renderer->render('{{ $.sd }}', new ArrayMap([]));
+
+            self::fail('TwigRender not throws invalid template exception');
+        } catch (TextRenderingFailedException $e) {
+            self::assertStringStartsWith('invalid template: ', $e->getMessage());
+        }
     }
 }
