@@ -40,7 +40,7 @@ class TwigRenderer implements TextRenderer
                 sprintf('invalid template: %s', $e->getMessage()),
                 previous: $e,
             );
-        } catch (LoaderError|RuntimeError $e) {
+        } catch (LoaderError|RuntimeError|\TypeError $e) {
             throw new TextRenderingFailedException($e->getMessage(), previous: $e);
         }
     }

@@ -50,4 +50,19 @@ final class TwigRendererTest extends TestCase
             self::assertStringStartsWith('invalid template: ', $e->getMessage());
         }
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer::render
+     */
+    public function testRenderOnExceptionOnTypeError(): void
+    {
+        $renderer = TwigRenderer::create();
+
+        self::expectExceptionMessage('Unsupported operand types: int + string');
+
+        $renderer->render('{{ var1 + var2 }}', new ArrayMap([
+            'var1' => 12,
+            'var2' => 'dddsdwsds',
+        ]));
+    }
 }
