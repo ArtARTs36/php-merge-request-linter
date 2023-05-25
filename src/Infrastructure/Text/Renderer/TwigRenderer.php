@@ -6,7 +6,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextRenderingFailedException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use Twig\Environment;
-use Twig\Error\Error;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
