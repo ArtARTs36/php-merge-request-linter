@@ -18,6 +18,7 @@ class Config
         private readonly Map                 $settings,
         private readonly HttpClientConfig    $httpClient,
         private readonly NotificationsConfig $notifications,
+        private readonly LinterConfig $linterConfig,
     ) {
         //
     }
@@ -43,5 +44,10 @@ class Config
     public function getNotifications(): NotificationsConfig
     {
         return $this->notifications;
+    }
+
+    public function getLinter(): LinterConfig
+    {
+        return $this->linterConfig;
     }
 }

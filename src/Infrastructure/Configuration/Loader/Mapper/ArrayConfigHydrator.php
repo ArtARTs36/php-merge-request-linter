@@ -2,7 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
@@ -50,9 +52,37 @@ class ArrayConfigHydrator
             $notifications = new NotificationsConfig(new ArrayMap([]), new ArrayMap([]));
         }
 
-        return new Config($rules, $ciSettings, new HttpClientConfig(
+        return new Config(
+            $rules,
+            $ciSettings,
+            new HttpClientConfig(
             $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
             $data['http_client']['params'] ?? [],
-        ), $notifications);
+            ),
+            $notifications,
+            $this->createLinterConfig($data['linter'] ?? [])
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function createLinterConfig(array $config): LinterConfig
+    {
+        $stopOnFirstFailure = false;
+
+        if (isset($config['options']) && is_array($config['options'])) {
+            if (isset($config['options']['stop_on_first_failure'])) {
+                if (!is_bool($config['options']['stop_on_first_failure'])) {
+                    throw ConfigInvalidException::fromKey('linter.options.stop_on_first_failure');
+                }
+
+                $stopOnFirstFailure = $config['options']['stop_on_first_failure'];
+            }
+        }
+
+        return new LinterConfig(
+            new LinterOptions($stopOnFirstFailure),
+        );
     }
 }

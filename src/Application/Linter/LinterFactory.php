@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -16,10 +16,11 @@ class LinterFactory
         //
     }
 
-    public function create(Rules $rules): Linter
+    public function create(Config $config): Linter
     {
         return new \ArtARTs36\MergeRequestLinter\Application\Linter\Linter(
-            $rules,
+            $config->getRules(),
+            $config->getLinter()->options,
             $this->events,
             $this->metrics,
         );

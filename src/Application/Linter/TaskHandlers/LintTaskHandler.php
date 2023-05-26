@@ -37,7 +37,7 @@ class LintTaskHandler
 
         return $this
             ->createLinterRunner($config)
-            ->run($this->linterFactory->create($config->config->getRules()));
+            ->run($this->linterFactory->create($config->config));
     }
 
     private function createLinterRunner(ResolvedConfig $config): LinterRunner

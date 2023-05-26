@@ -2707,6 +2707,20 @@
                     }
                 }
             }
+        },
+        "linter": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "object",
+                    "properties": {
+                        "stop_on_first_failure": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -4037,6 +4051,7 @@
     },
     "required": [
         "rules",
-        "ci"
+        "ci",
+        "linter"
     ]
 }

@@ -40,6 +40,11 @@ rules:
             - 'Docs'
 
   custom:
+    - definition: "kuku"
+      rules:
+        sourceBranch:
+          equals: "aaa"
+
     - definition: "Branch must be in kebab-case"
       rules:
         sourceBranch:
@@ -94,3 +99,7 @@ ci:
   github_actions:
     credentials:
       token: 'env(MR_LINTER_GITHUB_HTTP_TOKEN)'
+
+linter:
+  options:
+    stop_on_first_failure: false
