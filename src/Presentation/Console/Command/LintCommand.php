@@ -93,17 +93,15 @@ class LintCommand extends Command
             return self::FAILURE;
         }
 
-        if ($result->state === LintState::Risky) {
-            $style->warning(
-                sprintf('Ok but has %d warnings', $result->notes->filter(function (Note $note) {
-                    return $note->getSeverity() === NoteSeverity::Warning;
-                })->count())
-            );
+        $warnings = $result->notes->filter(function (Note $note) {
+            return $note->getSeverity() === NoteSeverity::Warning;
+        });
 
-            return self::SUCCESS;
+        if ($warnings->isEmpty()) {
+            $style->success('No notes');
+        } else {
+            $style->warning(sprintf('Ok but has %d warnings', $warnings->count()));
         }
-
-        $style->success('No notes');
 
         return self::SUCCESS;
     }

@@ -47,7 +47,6 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         $notes = [];
 
         $ok = true;
-        $risky = false;
 
         /** @var Rule $rule */
         foreach ($this->rules as $rule) {
@@ -57,9 +56,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
                 foreach ($ruleNotes as $ruleNote) {
                     $notes[] = $ruleNote;
 
-                    if ($ruleNote->getSeverity() === NoteSeverity::Warning) {
-                        $risky = true;
-                    } else {
+                    if ($ruleNote->getSeverity() !== NoteSeverity::Warning) {
                         $ok = false;
                     }
                 }
@@ -83,7 +80,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         $duration = $timer->finish();
 
         $notes = new Arrayee($notes);
-        $result = new LintResult($this->createState($ok, $risky), $notes, $duration);
+        $result = new LintResult($this->createState($ok), $notes, $duration);
 
         $this->events->dispatch(new LintFinishedEvent($request, $result));
 
@@ -113,14 +110,10 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         }
     }
 
-    private function createState(bool $ok, bool $risky): LintState
+    private function createState(bool $ok): LintState
     {
         if (! $ok) {
             return LintState::Fail;
-        }
-
-        if ($risky) {
-            return LintState::Risky;
         }
 
         return LintState::Success;
