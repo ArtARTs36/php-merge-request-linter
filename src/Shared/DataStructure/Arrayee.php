@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\Contracts\HasDebugInfo;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\ContainsAll;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\ContainsAny;
@@ -93,6 +92,15 @@ class Arrayee implements Collection, HasDebugInfo, \JsonSerializable
         $items = is_array($that) ? $that : $that->items;
 
         return new Arrayee(array_merge($this->items, $items));
+    }
+
+    /**
+     * @param callable(V): bool $filter
+     * @return Arrayee<K, V>
+     */
+    public function filter(callable $filter): Arrayee
+    {
+        return new Arrayee(array_filter($this->items, $filter));
     }
 
     public function __debugInfo(): array

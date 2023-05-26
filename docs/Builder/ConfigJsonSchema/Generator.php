@@ -6,6 +6,8 @@ use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
 use ArtARTs36\MergeRequestLinter\DocBuilder\EventFinder;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 
 class Generator
 {
@@ -121,6 +123,10 @@ class Generator
                 'chat_id' => [
                     'type' => 'string',
                 ],
+                'sound_at' => [
+                    'type' => 'string',
+                    'description' => 'Time Period for enable sound. Example: 09:00-21:00',
+                ],
             ],
         ]);
 
@@ -145,6 +151,25 @@ class Generator
                 'on' => [
                     'type' => 'object',
                     'properties' => $this->mapEvents(),
+                ],
+            ],
+        ], false);
+
+        $schema->addProperty('linter', [
+            'type' => 'object',
+            'properties' => [
+                'options' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'stop_on_failure' => [
+                            'type' => 'boolean',
+                            'default' => false,
+                        ],
+                        'stop_on_warning' => [
+                            'type' => 'boolean',
+                            'default' => false,
+                        ],
+                    ],
                 ],
             ],
         ], false);
@@ -179,6 +204,13 @@ class Generator
                     'when' => $this->operatorSchemaArrayGenerator->generate($class),
                 ],
             ];
+
+            $reflector = new \ReflectionClass($class);
+            $description = Reflector::findPHPDocSummary($reflector);
+
+            if (! empty($description)) {
+                $map[$eventName]['description'] = $description;
+            }
         }
 
         return $map;

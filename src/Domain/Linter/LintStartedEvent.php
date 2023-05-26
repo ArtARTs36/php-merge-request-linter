@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 /**
- * Event for lint starting.
+ * The event is created at the moment when the linter has just started.
  * @codeCoverageIgnore
  */
 class LintStartedEvent

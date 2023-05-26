@@ -13,8 +13,8 @@ final class TelegramBotTest extends TestCase
     {
         return [
             [
-                'message' => new BotMessage('secretToken', '-123', 'Test'),
-                'expectedUri' => 'https://api.telegram.org/botsecretToken/sendMessage?chat_id=-123&text=Test',
+                'message' => new BotMessage('secretToken', '-123', 'Test', false),
+                'expectedUri' => 'https://api.telegram.org/botsecretToken/sendMessage?chat_id=-123&text=Test&disable_notification=0',
             ],
         ];
     }

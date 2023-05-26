@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\Str\Facade\Str;
 
 class PullRequest

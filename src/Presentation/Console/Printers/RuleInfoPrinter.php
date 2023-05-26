@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\TablePrinter;
 
 class RuleInfoPrinter
 {
-    private const HEADERS = ['#', 'Definition', 'Class'];
+    private const HEADERS = ['#', 'Name', 'Definition', 'Critical'];
 
     /**
      * @param iterable<RuleInfo> $rules
@@ -20,8 +20,9 @@ class RuleInfoPrinter
         foreach ($rules as $rule) {
             $rows[] = [
                 ++$i,
+                $rule->name,
                 $rule->definition,
-                $rule->class,
+                $rule->critical ? 'true' : 'false',
             ];
         }
 

@@ -3,13 +3,14 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CompositeRule;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NonCriticalRule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
 class Resolver implements RuleResolver
 {
@@ -62,6 +63,10 @@ class Resolver implements RuleResolver
     private function resolveRule(string $ruleName, string $ruleClass, array $params): Rule
     {
         $rule = $this->factory->create($ruleClass, $params);
+
+        if (isset($params['critical']) && $params['critical'] === false) {
+            $rule = new NonCriticalRule($rule);
+        }
 
         if (! isset($params['when'])) {
             return $rule;

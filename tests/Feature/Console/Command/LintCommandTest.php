@@ -13,7 +13,7 @@ use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
-use Symfony\Component\Console\Tester\CommandTester;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\CommandTester;
 
 final class LintCommandTest extends TestCase
 {
@@ -42,6 +42,6 @@ final class LintCommandTest extends TestCase
 
         $tester->assertCommandIsSuccessful();
 
-        self::assertStringContainsString('No notes', $tester->getDisplay());
+        $tester->assertDisplayContainsString('No notes');
     }
 }

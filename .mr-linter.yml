@@ -72,6 +72,7 @@ notifications:
       type: 'telegram_bot'
       chat_id: 'env(MR_LINTER_TELEGRAM_CHAT_ID)'
       bot_token: 'env(MR_LINTER_TELEGRAM_BOT_TOKEN)'
+      sound_at: '09:00-21:00'
   on:
     lint_finished:
       channel: 'dev'

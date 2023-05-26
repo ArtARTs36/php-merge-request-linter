@@ -8,8 +8,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod;
 
 class NotificationsMapper
 {
@@ -130,9 +131,29 @@ class NotificationsMapper
         foreach ($data as $name => $channel) {
             $type = ChannelType::from($channel['type']);
 
+            if (array_key_exists('sound_at', $channel) && $channel['sound_at'] !== '') {
+                try {
+                    $sound = TimePeriod::make($channel['sound_at']);
+                } catch (\Exception $e) {
+                    throw new ConfigInvalidException(sprintf(
+                        'Config[notifications.channels.%s] invalid: %s',
+                        $name,
+                        $e->getMessage(),
+                    ));
+                }
+
+                unset($channel['sound_at']);
+            } else {
+                $sound = TimePeriod::day();
+            }
+
             unset($channel['type']);
 
-            $channels[$name] = new Channel($type, new ArrayMap($this->transformValues($channel)));
+            $channels[$name] = new Channel(
+                $type,
+                new ArrayMap($this->transformValues($channel)),
+                $sound,
+            );
         }
 
         return new ArrayMap($channels);

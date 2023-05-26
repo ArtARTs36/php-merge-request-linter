@@ -2,13 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
+use Psr\Clock\ClockInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
 use Psr\Log\LogLevel;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ConsoleLogger implements LoggerInterface
+final class ConsoleLogger implements LoggerInterface
 {
     use LoggerTrait;
 
@@ -24,10 +25,9 @@ class ConsoleLogger implements LoggerInterface
         LogLevel::DEBUG => LogLevel::INFO,
     ];
 
-    private bool $hasLogs = false;
-
     public function __construct(
         private readonly OutputInterface $output,
+        private readonly ClockInterface $clock,
     ) {
         //
     }
@@ -38,10 +38,6 @@ class ConsoleLogger implements LoggerInterface
             return;
         }
 
-        if ($this->hasLogs) {
-            $this->output->write("\n");
-        }
-
         $output = $this->output;
 
         if (LogLevel::ERROR === $this->formatLevelMap[$level] && $output instanceof ConsoleOutputInterface) {
@@ -50,15 +46,14 @@ class ConsoleLogger implements LoggerInterface
 
         $output->writeln(
             sprintf(
-                '<%1$s>[%2$s] %3$s %4$s</%1$s>',
+                '<%1$s>[%2$s] [%3$s] %4$s %5$s</%1$s>',
                 $this->formatLevelMap[$level],
+                $this->clock->now()->format('Y-m-d H:i:s'),
                 $level,
                 $message,
                 json_encode($context, JSON_FORCE_OBJECT),
             ),
             OutputInterface::VERBOSITY_VERY_VERBOSE,
         );
-
-        $this->hasLogs = true;
     }
 }

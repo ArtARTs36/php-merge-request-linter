@@ -5,10 +5,12 @@
 
 #### The following events are currently available for notifications:
 
-| Event         | Description                                                                | Arguments       |
-|---------------|----------------------------------------------------------------------------|-----------------|
-| lint_started  | The event is created at the moment when the linter has just started        | request         |
-| lint_finished | The event is created at the moment when the linter has completed its work. | request, result |
+| Event               | Description                                                                | Arguments       |
+|---------------------|----------------------------------------------------------------------------|-----------------|
+| lint_started        | The event is created at the moment when the linter has just started.       | request         |
+| lint_finished       | The event is created at the moment when the linter has completed its work. | request, result |
+| rule_was_failed     | The event is created at the moment when the linter rule was failed.        | rule, notes     |
+| rule_was_successful | The event is created at the moment when the linter rule was successful.    | rule            |
 
 #### Templating
 
@@ -72,4 +74,18 @@ notifications:
         {% for note in result.notes %}
         - {{ note.description }}
         {% endfor %}
+```
+
+#### Notification Sound
+
+You can enable notification sound for time period.
+
+```yaml
+notifications:
+  channels:
+    dev:
+      type: 'telegram_bot'
+      chat_id: 'env(MR_LINTER_TELEGRAM_CHAT_ID)'
+      bot_token: 'env(MR_LINTER_TELEGRAM_BOT_TOKEN)'
+      sound_at: '09:00-21:00'
 ```

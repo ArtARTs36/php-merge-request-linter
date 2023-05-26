@@ -10,7 +10,7 @@ class QueueMessenger implements Messenger
     /** @var array<array{Channel, string}> */
     private array $queue = [];
 
-    public function send(Channel $channel, string $message): void
+    public function send(Channel $channel, string $message, bool $withSound): void
     {
         $this->queue[] = [
             $channel,

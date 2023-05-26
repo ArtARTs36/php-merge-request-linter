@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use Traversable;
 
 /**

@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Counts;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Evaluator;
-use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 
 /**
  * Check count equals.

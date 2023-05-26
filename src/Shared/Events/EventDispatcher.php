@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Events;
 
 use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\ContextLogger\LoggerFactory;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 
 class EventDispatcher implements EventManager
 {

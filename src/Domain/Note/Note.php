@@ -8,6 +8,11 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 interface Note
 {
     /**
+     * Create note with other severity.
+     */
+    public function withSeverity(NoteSeverity $severity): Note;
+
+    /**
      * Get Note Color.
      */
     public function getSeverity(): NoteSeverity;

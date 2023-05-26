@@ -8,7 +8,7 @@ namespace ArtARTs36\MergeRequestLinter;
  */
 final class Version
 {
-    public const VERSION = '0.12.1';
+    public const VERSION = '0.14.0';
 
     private function __construct()
     {

@@ -2,6 +2,7 @@
 <?php
 
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Application\ApplicationFactory;
+use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\ApplicationNotCreatedException;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 $loaded = false;
@@ -28,6 +29,15 @@ if ($loaded === false) {
 
 $output = new ConsoleOutput();
 
-$application = (new ApplicationFactory())->create($output);
+try {
+    $application = (new ApplicationFactory())->create($output);
+} catch (ApplicationNotCreatedException $e) {
+    $output->writeln(sprintf(
+        'Error: Application not created: %s',
+        $e->getMessage(),
+    ));
+
+    exit(1);
+}
 
 $application->run(output: $output);

@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class DefaultRules
 {
     /** @var array<string, class-string<Rule>> */

@@ -3,10 +3,17 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Exceptions\GivenInvalidPullRequestDataException;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 use ArtARTs36\Str\Str;
 
 class PullRequestSchema
 {
+    public function __construct(
+        private readonly Clock $clock,
+    ) {
+        //
+    }
+
     /**
      * @param array<mixed> $data
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Exceptions\GivenInvalidPullRequestDataException
@@ -73,7 +80,7 @@ class PullRequestSchema
         }
 
         try {
-            return new \DateTimeImmutable($data[$key]);
+            return $this->clock->create($data[$key]);
         } catch (\Exception $e) {
             throw GivenInvalidPullRequestDataException::invalidType($key, 'string of date', $e);
         }

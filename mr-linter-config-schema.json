@@ -1374,7 +1374,8 @@
                                     },
                                     "additionalProperties": false
                                 }
-                            }
+                            },
+                            "description": "The event is created at the moment when the linter has just started."
                         },
                         "rule_was_failed": {
                             "type": "object",
@@ -1490,11 +1491,17 @@
                                                 }
                                             },
                                             "additionalProperties": false
+                                        },
+                                        "notes": {
+                                            "type": "object",
+                                            "properties": [],
+                                            "additionalProperties": false
                                         }
                                     },
                                     "additionalProperties": false
                                 }
-                            }
+                            },
+                            "description": "The event is created at the moment when the linter rule was failed."
                         },
                         "lint_finished": {
                             "type": "object",
@@ -2527,26 +2534,106 @@
                                             },
                                             "additionalProperties": false
                                         },
-                                        "result.state": {
+                                        "result.state.name": {
                                             "type": "object",
                                             "properties": {
                                                 "equals": {
                                                     "description": "Check if value are equal.",
-                                                    "type": "boolean"
+                                                    "type": "string"
                                                 },
                                                 "=": {
                                                     "description": "Check if value are equal.",
-                                                    "type": "boolean"
+                                                    "type": "string"
+                                                },
+                                                "lengthMin": {
+                                                    "description": "Check the minimum string length.",
+                                                    "type": "integer"
+                                                },
+                                                "lengthMax": {
+                                                    "description": "Check the maximum string length.",
+                                                    "type": "integer"
+                                                },
+                                                "starts": {
+                                                    "description": "Check if a string contains a prefix.",
+                                                    "type": "string"
+                                                },
+                                                "notStarts": {
+                                                    "description": "Check if a string not contains a prefix.",
+                                                    "type": "string"
+                                                },
+                                                "ends": {
+                                                    "description": "Check if a string contains a suffix.",
+                                                    "type": "string"
+                                                },
+                                                "notEnds": {
+                                                    "description": "Check if a string not contains a suffix.",
+                                                    "type": "string"
+                                                },
+                                                "contains": {
+                                                    "description": "Check if a string contains a substring.",
+                                                    "type": "string"
                                                 },
                                                 "notEquals": {
                                                     "description": "Check if value are not equal.",
-                                                    "type": "boolean"
+                                                    "type": "string"
                                                 },
                                                 "!=": {
                                                     "description": "Check if value are not equal.",
+                                                    "type": "string"
+                                                },
+                                                "equalsAny": {
+                                                    "description": "Check if the field is equal to one of the values.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "match": {
+                                                    "description": "Check if a string match a regex.",
+                                                    "type": "string"
+                                                },
+                                                "isEmpty": {
+                                                    "description": "Check if a value is empty.",
                                                     "type": "boolean"
+                                                },
+                                                "isCamelCase": {
+                                                    "description": "Check if a string is camelCase.",
+                                                    "type": "boolean"
+                                                },
+                                                "isStudlyCase": {
+                                                    "description": "Check if a string is StudlyCase.",
+                                                    "type": "boolean"
+                                                },
+                                                "isUpperCase": {
+                                                    "description": "Check if a string is upper case.",
+                                                    "type": "boolean"
+                                                },
+                                                "isLowerCase": {
+                                                    "description": "Check if a string is lower case.",
+                                                    "type": "boolean"
+                                                },
+                                                "isSnakeCase": {
+                                                    "description": "Check if a string is snake_case.",
+                                                    "type": "boolean"
+                                                },
+                                                "isKebabCase": {
+                                                    "description": "Check if a string is kebab-case.",
+                                                    "type": "boolean"
+                                                },
+                                                "linesMax": {
+                                                    "description": "Check the maximum string lines.",
+                                                    "type": "integer"
+                                                },
+                                                "containsLine": {
+                                                    "description": "Check if a string contains a line.",
+                                                    "type": "string"
                                                 }
                                             },
+                                            "additionalProperties": false
+                                        },
+                                        "result.state.value": {
+                                            "type": "object",
+                                            "properties": [],
                                             "additionalProperties": false
                                         },
                                         "result.notes": {
@@ -2637,7 +2724,8 @@
                                     },
                                     "additionalProperties": false
                                 }
-                            }
+                            },
+                            "description": "The event is created at the moment when the linter has completed its work."
                         },
                         "rule_was_successful": {
                             "type": "object",
@@ -2757,7 +2845,26 @@
                                     },
                                     "additionalProperties": false
                                 }
-                            }
+                            },
+                            "description": "The event is created at the moment when the linter rule was successful."
+                        }
+                    }
+                }
+            }
+        },
+        "linter": {
+            "type": "object",
+            "properties": {
+                "options": {
+                    "type": "object",
+                    "properties": {
+                        "stop_on_failure": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "stop_on_warning": {
+                            "type": "boolean",
+                            "default": false
                         }
                     }
                 }
@@ -3793,6 +3900,10 @@
         "rules_properties_@mr-linter_changed_files_limit": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3809,6 +3920,10 @@
         "rules_properties_@mr-linter_description_contains_links_of_any_domains": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3830,6 +3945,10 @@
         "rules_properties_@mr-linter_description_contains_links_of_all_domains": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3851,6 +3970,10 @@
         "rules_properties_@mr-linter_description_not_empty": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3861,6 +3984,10 @@
         "rules_properties_@mr-linter_has_all_labels": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3882,6 +4009,10 @@
         "rules_properties_@mr-linter_has_any_labels": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3892,6 +4023,10 @@
         "rules_properties_@mr-linter_has_any_labels_of": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3913,6 +4048,10 @@
         "rules_properties_@mr-linter_jira_has_issue_link": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3933,6 +4072,10 @@
         "rules_properties_@mr-linter_youtrack_has_issue_link": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3953,6 +4096,10 @@
         "rules_properties_@mr-linter_title_must_starts_with_any_prefix": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -3974,6 +4121,10 @@
         "rules_properties_@mr-linter_has_changes": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -4008,6 +4159,10 @@
         "rules_properties_custom": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -4028,6 +4183,10 @@
         "rules_properties_@mr-linter_title_starts_with_task_number": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -4044,6 +4203,10 @@
         "rules_properties_@mr-linter_branch_starts_with_task_number": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
@@ -4104,6 +4267,10 @@
                 },
                 "chat_id": {
                     "type": "string"
+                },
+                "sound_at": {
+                    "type": "string",
+                    "description": "Time Period for enable sound. Example: 09:00-21:00"
                 }
             }
         },

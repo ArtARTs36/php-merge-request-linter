@@ -4,7 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Tests;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
@@ -28,6 +30,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             new ArrayMap([]),
             new HttpClientConfig(HttpClientConfig::TYPE_NULL, []),
             new NotificationsConfig(new ArrayMap([]), new ArrayMap([])),
+            new LinterConfig(
+                new LinterOptions(false),
+            ),
         );
     }
 

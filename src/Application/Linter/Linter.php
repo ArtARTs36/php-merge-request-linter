@@ -3,14 +3,18 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\EvaluatorCrashedException;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
@@ -25,6 +29,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
 {
     public function __construct(
         protected Rules           $rules,
+        protected LinterOptions   $options,
         protected EventDispatcherInterface $events,
         private readonly MetricManager     $metrics,
     ) {
@@ -35,6 +40,62 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
     {
         $timer = Timer::start();
 
+        $this->addMetricUsedRules();
+
+        $this->events->dispatch(new LintStartedEvent($request));
+
+        $notes = [];
+
+        $ok = true;
+        $warning = false;
+
+        /** @var Rule $rule */
+        foreach ($this->rules as $rule) {
+            try {
+                $ruleNotes = $rule->lint($request);
+
+                foreach ($ruleNotes as $ruleNote) {
+                    $notes[] = $ruleNote;
+
+                    if ($ruleNote->getSeverity() === NoteSeverity::Warning) {
+                        $warning = true;
+                    } else {
+                        $ok = false;
+                    }
+                }
+
+                $this->dispatchRuleEvent($rule, $ruleNotes);
+            } catch (EvaluatorCrashedException $e) {
+                $notes[] = new LintNote(sprintf('[%s] Invalid condition value: %s', $rule->getName(), $e->getMessage()));
+
+                $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));
+
+                $ok = false;
+            } catch (\Throwable $e) {
+                $notes[] = new ExceptionNote($e);
+
+                $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));
+
+                $ok = false;
+            }
+
+            if (($this->options->stopOnFailure && ! $ok) || ($this->options->stopOnWarning && $warning)) {
+                break;
+            }
+        }
+
+        $duration = $timer->finish();
+
+        $notes = new Arrayee($notes);
+        $result = new LintResult($this->createState($ok), $notes, $duration);
+
+        $this->events->dispatch(new LintFinishedEvent($request, $result));
+
+        return $result;
+    }
+
+    private function addMetricUsedRules(): void
+    {
         $this->metrics->add(
             new MetricSubject(
                 'linter_used_rules',
@@ -42,41 +103,26 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
             ),
             IncCounter::create($this->rules),
         );
+    }
 
-        $this->events->dispatch(new LintStartedEvent($request));
+    /**
+     * @param array<Note> $notes
+     */
+    private function dispatchRuleEvent(Rule $rule, array $notes): void
+    {
+        if (count($notes) === 0) {
+            $this->events->dispatch(new RuleWasSuccessfulEvent($rule->getName()));
+        } else {
+            $this->events->dispatch(new RuleWasFailedEvent($rule->getName(), $notes));
+        }
+    }
 
-        $notes = [];
-
-        /** @var Rule $rule */
-        foreach ($this->rules as $rule) {
-            try {
-                $ruleNotes = $rule->lint($request);
-
-                array_push($notes, ...$ruleNotes);
-
-                if (count($ruleNotes) === 0) {
-                    $this->events->dispatch(new RuleWasSuccessfulEvent($rule->getName()));
-                } else {
-                    $this->events->dispatch(new RuleWasFailedEvent($rule->getName()));
-                }
-            } catch (EvaluatorCrashedException $e) {
-                $notes[] = new LintNote(sprintf('[%s] Invalid condition value: %s', $rule->getName(), $e->getMessage()));
-
-                $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));
-            } catch (\Throwable $e) {
-                $notes[] = new ExceptionNote($e);
-
-                $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));
-            }
+    private function createState(bool $ok): LintState
+    {
+        if (! $ok) {
+            return LintState::Fail;
         }
 
-        $duration = $timer->finish();
-
-        $notes = new Arrayee($notes);
-        $result = new LintResult($notes->isEmpty(), $notes, $duration);
-
-        $this->events->dispatch(new LintFinishedEvent($request, $result));
-
-        return $result;
+        return LintState::Success;
     }
 }

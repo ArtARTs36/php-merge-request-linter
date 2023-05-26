@@ -6,9 +6,9 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\JsonType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
 
 class RulesPageBuilder

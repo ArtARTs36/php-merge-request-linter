@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
+use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\QueueClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -17,7 +18,7 @@ final class MemoryMetricManagerTest extends TestCase
      */
     public function testAdd(): void
     {
-        $manager = new MemoryMetricManager();
+        $manager = new MemoryMetricManager(LocalClock::utc());
 
         self::assertCount(0, $manager->describe());
 

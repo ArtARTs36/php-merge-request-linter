@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 
 final class ExceptionNote extends AbstractNote implements Note
 {
-    protected const SEVERITY = NoteSeverity::Fatal;
+    protected NoteSeverity $severity = NoteSeverity::Fatal;
 
     public function __construct(
         private readonly \Throwable $exception,
@@ -25,5 +25,16 @@ final class ExceptionNote extends AbstractNote implements Note
         }
 
         return sprintf('Exception %s', $this->exception::class);
+    }
+
+    public function withSeverity(NoteSeverity $severity): Note
+    {
+        $note = new ExceptionNote(
+            $this->exception,
+        );
+
+        $note->severity = $severity;
+
+        return $note;
     }
 }

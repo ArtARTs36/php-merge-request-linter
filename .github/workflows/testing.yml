@@ -7,7 +7,7 @@ on:
     branches: [ master, 'dev' ]
 
 jobs:
-  build:
+  testing:
 
     runs-on: ubuntu-latest
 
@@ -38,13 +38,6 @@ jobs:
 
       - name: Check dependencies
         run: make deps-check
-
-      - name: MR Lint
-        env:
-          MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MR_LINTER_TELEGRAM_BOT_TOKEN: ${{ secrets.MR_LINTER_TELEGRAM_BOT_TOKEN }}
-          MR_LINTER_TELEGRAM_CHAT_ID: ${{ secrets.MR_LINTER_TELEGRAM_CHAT_ID }}
-        run: composer mr-lint
 
       - name: Lint
         run: composer lint

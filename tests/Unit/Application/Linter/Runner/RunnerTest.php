@@ -5,6 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter\Runner;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
@@ -33,9 +35,9 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run(new Linter(new Rules([]), new NullEventDispatcher(), new NullMetricManager()));
+        $result = $runner->run($this->createLinter());
 
-        self::assertEquals(false, $result->state);
+        self::assertEquals(LintState::Fail, $result->state);
         self::assertInstanceOf(ExceptionNote::class, $result->notes->first());
     }
 
@@ -54,9 +56,9 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run(new Linter(new Rules([]), new NullEventDispatcher(), new NullMetricManager()));
+        $result = $runner->run($this->createLinter());
 
-        self::assertTrue($result->state);
+        self::assertEquals(LintState::Success, $result->state);
         self::assertEquals('Currently is not merge request', $result->notes->first());
     }
 
@@ -73,9 +75,9 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run((new Linter(new Rules([]), new NullEventDispatcher(), new NullMetricManager())));
+        $result = $runner->run($this->createLinter());
 
-        self::assertFalse($result->state);
+        self::assertEquals(LintState::Fail, $result->state);
         self::assertEquals(
             'Exception ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException',
             $result->notes->first()->getDescription()
@@ -100,10 +102,20 @@ final class RunnerTest extends TestCase
             }
         }, new NullMetricManager()));
 
-        $result = $runner->run(new Linter(Rules::make([
+        $result = $runner->run($this->createLinter([
             new SuccessRule(),
-        ]), new NullEventDispatcher(), new NullMetricManager()));
+        ]));
 
-        self::assertTrue($result->state);
+        self::assertEquals(LintState::Success, $result->state);
+    }
+
+    private function createLinter(array $rules = []): Linter
+    {
+        return new Linter(
+            Rules::make($rules),
+            new LinterOptions(false),
+            new NullEventDispatcher(),
+            new NullMetricManager(),
+        );
     }
 }

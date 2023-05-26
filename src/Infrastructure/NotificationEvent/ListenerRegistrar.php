@@ -4,8 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationEventMessage;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
+use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 
 class ListenerRegistrar
 {

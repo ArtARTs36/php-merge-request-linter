@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AllE
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubjectFactory;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
 class ChainFactory
 {

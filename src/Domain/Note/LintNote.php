@@ -14,4 +14,15 @@ final class LintNote extends AbstractNote implements Note
     {
         return $this->description;
     }
+
+    public function withSeverity(NoteSeverity $severity): Note
+    {
+        $note = new LintNote(
+            $this->description,
+        );
+
+        $note->severity = $severity;
+
+        return $note;
+    }
 }

@@ -30,8 +30,8 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotSta
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
-use ArtARTs36\MergeRequestLinter\Shared\Contracts\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
 /**
  * @codeCoverageIgnore
