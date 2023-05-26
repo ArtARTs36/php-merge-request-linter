@@ -26,7 +26,7 @@ final class NonCriticalRule implements RuleDecorator
         $notes = $this->rule->lint($request);
 
         foreach ($notes as $i => $note) {
-            if ($note->getSeverity() === NoteSeverity::Normal) {
+            if ($note->getSeverity() === NoteSeverity::Error) {
                 $notes[$i] = $note->withSeverity(NoteSeverity::Warning);
             }
         }

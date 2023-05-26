@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Note;
 
 abstract class AbstractNote implements Note, \JsonSerializable
 {
-    protected NoteSeverity $severity = NoteSeverity::Normal;
+    protected NoteSeverity $severity = NoteSeverity::Error;
 
     public function getSeverity(): NoteSeverity
     {

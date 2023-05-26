@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Tasks\LintTask;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;
@@ -84,10 +87,20 @@ class LintCommand extends Command
 
         $this->printMetrics($style, $result, $this->getBoolFromOption($input, 'metrics'));
 
-        if ($result->isFail()) {
+        if ($result->state === LintState::Fail) {
             $style->error(sprintf('Found %d notes', $result->notes->count()));
 
             return self::FAILURE;
+        }
+
+        if ($result->state === LintState::Risky) {
+            $style->warning(
+                sprintf('Ok but has %d warnings', $result->notes->filter(function (Note $note) {
+                    return $note->getSeverity() === NoteSeverity::Warning;
+                })->count())
+            );
+
+            return self::SUCCESS;
         }
 
         $style->success('No notes');

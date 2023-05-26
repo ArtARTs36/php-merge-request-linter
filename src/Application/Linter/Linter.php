@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\EvaluatorCrash
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintStartedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
@@ -48,7 +49,8 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
 
         $notes = [];
 
-        $state = true;
+        $ok = true;
+        $risky = false;
 
         /** @var Rule $rule */
         foreach ($this->rules as $rule) {
@@ -58,8 +60,10 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
                 foreach ($ruleNotes as $ruleNote) {
                     $notes[] = $ruleNote;
 
-                    if ($ruleNote->getSeverity() !== NoteSeverity::Warning) {
-                        $state = false;
+                    if ($ruleNote->getSeverity() === NoteSeverity::Warning) {
+                        $risky = true;
+                    } else {
+                        $ok = false;
                     }
                 }
 
@@ -82,10 +86,23 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         $duration = $timer->finish();
 
         $notes = new Arrayee($notes);
-        $result = new LintResult($state, $notes, $duration);
+        $result = new LintResult($this->createState($ok, $risky), $notes, $duration);
 
         $this->events->dispatch(new LintFinishedEvent($request, $result));
 
         return $result;
+    }
+
+    private function createState(bool $ok, bool $risky): LintState
+    {
+        if (! $ok) {
+            return LintState::Fail;
+        }
+
+        if ($risky) {
+            return LintState::Risky;
+        }
+
+        return LintState::Success;
     }
 }

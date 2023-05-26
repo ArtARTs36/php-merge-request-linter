@@ -32,7 +32,7 @@ class NotePrinter
                     'fg' => 'yellow',
                 ]),
             ],
-            NoteSeverity::Normal->value => [],
+            NoteSeverity::Error->value => [],
         ];
 
         $counter = 0;

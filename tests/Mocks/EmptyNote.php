@@ -10,7 +10,7 @@ final class EmptyNote extends AbstractNote
 {
     public function getSeverity(): NoteSeverity
     {
-        return NoteSeverity::Normal;
+        return NoteSeverity::Error;
     }
 
     public function getDescription(): string
