@@ -56,8 +56,8 @@ class ArrayConfigHydrator
             $rules,
             $ciSettings,
             new HttpClientConfig(
-            $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
-            $data['http_client']['params'] ?? [],
+                $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
+                $data['http_client']['params'] ?? [],
             ),
             $notifications,
             $this->createLinterConfig($data['linter'] ?? [])
