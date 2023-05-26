@@ -107,6 +107,12 @@ info:
 dump:
 	./bin/mr-linter dump
 
+dump-docker: docker-build
+	docker run \
+		--volume ./:/app \
+		--entrypoint "make" \
+		artarts36/merge-request-linter "dump"
+
 push-docs:
 	php ./vendor/bin/docs-retriever
 
