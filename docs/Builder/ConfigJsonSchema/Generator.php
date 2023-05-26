@@ -161,7 +161,7 @@ class Generator
                 'options' => [
                     'type' => 'object',
                     'properties' => [
-                        'stop_on_first_failure' => [
+                        'stop_on_failure' => [
                             'type' => 'boolean',
                             'default' => false,
                         ],

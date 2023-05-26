@@ -40,11 +40,6 @@ rules:
             - 'Docs'
 
   custom:
-    - definition: "kuku"
-      rules:
-        sourceBranch:
-          equals: "aaa"
-
     - definition: "Branch must be in kebab-case"
       rules:
         sourceBranch:
@@ -102,4 +97,4 @@ ci:
 
 linter:
   options:
-    stop_on_first_failure: false
+    stop_on_failure: false

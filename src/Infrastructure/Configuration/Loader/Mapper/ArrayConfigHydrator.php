@@ -72,12 +72,12 @@ class ArrayConfigHydrator
         $stopOnFirstFailure = false;
 
         if (isset($config['options']) && is_array($config['options'])) {
-            if (isset($config['options']['stop_on_first_failure'])) {
-                if (!is_bool($config['options']['stop_on_first_failure'])) {
-                    throw ConfigInvalidException::fromKey('linter.options.stop_on_first_failure');
+            if (isset($config['options']['stop_on_failure'])) {
+                if (!is_bool($config['options']['stop_on_failure'])) {
+                    throw ConfigInvalidException::fromKey('linter.options.stop_on_failure');
                 }
 
-                $stopOnFirstFailure = $config['options']['stop_on_first_failure'];
+                $stopOnFirstFailure = $config['options']['stop_on_failure'];
             }
         }
 
