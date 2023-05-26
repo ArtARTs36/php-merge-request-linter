@@ -39,7 +39,6 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotSta
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
