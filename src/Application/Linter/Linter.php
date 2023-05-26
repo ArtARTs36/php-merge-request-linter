@@ -65,14 +65,6 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
                 }
 
                 $this->dispatchRuleEvent($rule, $ruleNotes);
-
-                if ($this->options->stopOnFailure && ! $ok) {
-                    break;
-                }
-
-                if ($this->options->stopOnWarning && $warning) {
-                    break;
-                }
             } catch (EvaluatorCrashedException $e) {
                 $notes[] = new LintNote(sprintf('[%s] Invalid condition value: %s', $rule->getName(), $e->getMessage()));
 
@@ -81,6 +73,10 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
                 $notes[] = new ExceptionNote($e);
 
                 $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));
+            }
+
+            if (($this->options->stopOnFailure && ! $ok) || ($this->options->stopOnWarning && $warning)) {
+                break;
             }
         }
 
