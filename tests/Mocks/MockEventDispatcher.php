@@ -45,12 +45,18 @@ class MockEventDispatcher implements EventManager
             $similar[] = $data;
         }
 
-        Assert::assertTrue($dispatched, sprintf(
-            'Event %s not dispatched, but have %d similar dispatched events: %s',
-            $eventName,
-            count($similar),
-            json_encode($similar, JSON_PRETTY_PRINT),
-        ));
+        if (count($similar) === 0) {
+            $msg = sprintf('Event %s not dispatched', $eventName);
+        } else {
+            $msg = sprintf(
+                'Event %s not dispatched, but have %d similar dispatched events: %s',
+                $eventName,
+                count($similar),
+                json_encode($similar, JSON_PRETTY_PRINT),
+            );
+        }
+
+        Assert::assertTrue($dispatched, $msg);
     }
 
     public function assertDispatchedObject(object $event): void

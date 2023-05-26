@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleFatalEndedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
@@ -17,6 +18,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\ExceptionRule;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
@@ -98,6 +100,18 @@ final class LinterTest extends TestCase
                 new LintResult(LintState::Success, new Arrayee([
                     new WarningNote('warning_note'),
                 ]), new Duration(1)),
+            ],
+            'test exception note' => [
+                'rules' => new Rules([
+                    new ExceptionRule('exception msg'),
+                ]),
+                new LinterOptions(false),
+                [
+                    new RuleFatalEndedEvent('exception_rule'),
+                ],
+                new LintResult(LintState::Fail, new Arrayee([
+                    new ExceptionNote(new \Exception('exception msg')),
+                ]), new Duration(1))
             ],
         ];
     }

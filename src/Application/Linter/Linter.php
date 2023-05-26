@@ -69,10 +69,14 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
                 $notes[] = new LintNote(sprintf('[%s] Invalid condition value: %s', $rule->getName(), $e->getMessage()));
 
                 $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));
+
+                $ok = false;
             } catch (\Throwable $e) {
                 $notes[] = new ExceptionNote($e);
 
                 $this->events->dispatch(new RuleFatalEndedEvent($rule->getName()));
+
+                $ok = false;
             }
 
             if (($this->options->stopOnFailure && ! $ok) || ($this->options->stopOnWarning && $warning)) {
