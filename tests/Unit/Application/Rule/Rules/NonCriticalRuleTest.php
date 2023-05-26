@@ -42,4 +42,3 @@ final class NonCriticalRuleTest extends TestCase
         );
     }
 }
-
