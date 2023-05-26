@@ -9,7 +9,7 @@ use Psr\Log\LogLevel;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ConsoleLogger implements LoggerInterface
+final class ConsoleLogger implements LoggerInterface
 {
     use LoggerTrait;
 

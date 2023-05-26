@@ -26,7 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class LintCommand extends Command
+final class LintCommand extends Command
 {
     use HasConfigFileOption;
 
@@ -93,7 +93,7 @@ class LintCommand extends Command
             return self::FAILURE;
         }
 
-        $warnings = $result->notes->filter(function (Note $note) {
+        $warnings = $result->notes->filter(static function (Note $note) {
             return $note->getSeverity() === NoteSeverity::Warning;
         });
 
