@@ -37,7 +37,7 @@ final class RunnerTest extends TestCase
 
         $result = $runner->run($this->createLinter());
 
-        self::assertEquals(false, $result->state);
+        self::assertEquals(LintState::Fail, $result->state);
         self::assertInstanceOf(ExceptionNote::class, $result->notes->first());
     }
 
@@ -77,7 +77,7 @@ final class RunnerTest extends TestCase
 
         $result = $runner->run($this->createLinter());
 
-        self::assertFalse($result->state);
+        self::assertEquals(LintState::Fail, $result->state);
         self::assertEquals(
             'Exception ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException',
             $result->notes->first()->getDescription()
