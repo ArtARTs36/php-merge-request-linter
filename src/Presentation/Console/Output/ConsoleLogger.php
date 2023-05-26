@@ -25,8 +25,6 @@ class ConsoleLogger implements LoggerInterface
         LogLevel::DEBUG => LogLevel::INFO,
     ];
 
-    private bool $hasLogs = false;
-
     public function __construct(
         private readonly OutputInterface $output,
         private readonly ClockInterface $clock,
@@ -38,10 +36,6 @@ class ConsoleLogger implements LoggerInterface
     {
         if (! is_string($level)) {
             return;
-        }
-
-        if ($this->hasLogs) {
-            $this->output->write("\n");
         }
 
         $output = $this->output;
@@ -61,7 +55,5 @@ class ConsoleLogger implements LoggerInterface
             ),
             OutputInterface::VERBOSITY_VERY_VERBOSE,
         );
-
-        $this->hasLogs = true;
     }
 }
