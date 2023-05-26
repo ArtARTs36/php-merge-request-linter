@@ -165,6 +165,10 @@ class Generator
                             'type' => 'boolean',
                             'default' => false,
                         ],
+                        'stop_on_warning' => [
+                            'type' => 'boolean',
+                            'default' => false,
+                        ],
                     ],
                 ],
             ],

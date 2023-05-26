@@ -69,7 +69,8 @@ class ArrayConfigHydrator
      */
     private function createLinterConfig(array $config): LinterConfig
     {
-        $stopOnFirstFailure = false;
+        $stopOnFailure = false;
+        $stopOnWarning = false;
 
         if (isset($config['options']) && is_array($config['options'])) {
             if (isset($config['options']['stop_on_failure'])) {
@@ -77,12 +78,20 @@ class ArrayConfigHydrator
                     throw ConfigInvalidException::fromKey('linter.options.stop_on_failure');
                 }
 
-                $stopOnFirstFailure = $config['options']['stop_on_failure'];
+                $stopOnFailure = $config['options']['stop_on_failure'];
+            }
+
+            if (isset($config['options']['stop_on_warning'])) {
+                if (!is_bool($config['options']['stop_on_warning'])) {
+                    throw ConfigInvalidException::fromKey('linter.options.stop_on_warning');
+                }
+
+                $stopOnWarning = $config['options']['stop_on_warning'];
             }
         }
 
         return new LinterConfig(
-            new LinterOptions($stopOnFirstFailure),
+            new LinterOptions($stopOnFailure, $stopOnWarning),
         );
     }
 }

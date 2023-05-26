@@ -47,23 +47,30 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         $notes = [];
 
         $ok = true;
-
         /** @var Rule $rule */
         foreach ($this->rules as $rule) {
+            $warning = false;
+
             try {
                 $ruleNotes = $rule->lint($request);
 
                 foreach ($ruleNotes as $ruleNote) {
                     $notes[] = $ruleNote;
 
-                    if ($ruleNote->getSeverity() !== NoteSeverity::Warning) {
+                    if ($ruleNote->getSeverity() === NoteSeverity::Warning) {
+                        $warning = true;
+                    } else {
                         $ok = false;
                     }
                 }
 
                 $this->dispatchRuleEvent($rule, $ruleNotes);
 
-                if ($this->options->stopOnFirstFailure && ! $ok) {
+                if ($this->options->stopOnFailure && ! $ok) {
+                    break;
+                }
+
+                if ($this->options->stopOnWarning && $warning) {
                     break;
                 }
             } catch (EvaluatorCrashedException $e) {
