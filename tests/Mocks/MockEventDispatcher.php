@@ -5,14 +5,18 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventSubscriber;
+use PHPUnit\Framework\Assert;
 
 class MockEventDispatcher implements EventManager
 {
     public array $listeners = [];
 
+    /** @var array<class-string, array<array>> */
+    private array $dispatchedEvents = [];
+
     public function dispatch(object $event)
     {
-        // TODO: Implement dispatch() method.
+        $this->dispatchedEvents[get_class($event)][] = get_object_vars($event);
     }
 
     public function listen(string $event, EventListener $listener): void
@@ -23,5 +27,43 @@ class MockEventDispatcher implements EventManager
     public function subscribe(EventSubscriber $subscriber): void
     {
         // TODO: Implement subscribe() method.
+    }
+
+    public function assertDispatched(string $eventName, array $eventData): void
+    {
+        $dispatched = false;
+        $similar = [];
+
+        foreach ($this->dispatchedEvents[$eventName] ?? [] as $data) {
+            if ($eventData === $data) {
+                $dispatched = true;
+
+                break;
+            }
+
+            $similar[] = $data;
+        }
+
+        Assert::assertTrue($dispatched, sprintf(
+            'Event %s not dispatched, but have %d similar dispatched events: %s',
+            $eventName,
+            count($similar),
+            json_encode($similar, JSON_PRETTY_PRINT),
+        ));
+    }
+
+    public function assertDispatchedObject(object $event): void
+    {
+        $this->assertDispatched(get_class($event), get_object_vars($event));
+    }
+
+    /**
+     * @param array<object> $events
+     */
+    public function assertDispatchedObjectList(array $events): void
+    {
+        foreach ($events as $event) {
+            $this->assertDispatchedObject($event);
+        }
     }
 }

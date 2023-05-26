@@ -5,13 +5,20 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class LinterTest extends TestCase
@@ -54,5 +61,54 @@ final class LinterTest extends TestCase
                 return new Definition('');
             }
         };
+    }
+
+    public function providerForTestRun(): array
+    {
+        return [
+            'test success result' => [
+                'rules' => new Rules([
+                    new SuccessRule(),
+                    new SuccessRule(),
+                ]),
+                new LinterOptions(false),
+                [
+                    new RuleWasSuccessfulEvent('success_rule'),
+                    new RuleWasSuccessfulEvent('success_rule'),
+                ],
+                new LintResult(LintState::Success, new Arrayee([]), new Duration(1)),
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::run
+     * @dataProvider providerForTestRun
+     */
+    public function testRun(Rules $rules, LinterOptions $options, array $expectedEvents, LintResult $expectedResult): void
+    {
+        $eventDispatcher = new MockEventDispatcher();
+
+        $linter = new Linter(
+            $rules,
+            $options,
+            $eventDispatcher,
+            new NullMetricManager(),
+        );
+
+        $result = $linter->run($this->makeMergeRequest());
+
+        $eventDispatcher->assertDispatchedObjectList($expectedEvents);
+
+        self::assertEquals(
+            [
+                'state' => $expectedResult->state,
+                'notes' => $expectedResult->notes,
+            ],
+            [
+                'state' => $result->state,
+                'notes' => $result->notes,
+            ],
+        );
     }
 }
