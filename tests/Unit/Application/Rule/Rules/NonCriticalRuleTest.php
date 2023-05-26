@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\MockRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NonCriticalRule;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class NonCriticalRuleTest extends TestCase
