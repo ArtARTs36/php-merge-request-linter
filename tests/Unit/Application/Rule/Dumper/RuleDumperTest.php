@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Dumper;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleInfo;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NonCriticalRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDecorator;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
@@ -22,10 +23,12 @@ final class RuleDumperTest extends TestCase
                     new TestRuleDecorator([
                         new FailRule(),
                     ]),
+                    new NonCriticalRule(new FailRule())
                 ],
                 [
-                    new RuleInfo('Success rule', SuccessRule::class),
-                    new RuleInfo('Fail rule', FailRule::class),
+                    new RuleInfo('success_rule', 'Success rule', true),
+                    new RuleInfo('fail_rule', 'Fail rule', true),
+                    new RuleInfo('fail_rule', 'Fail rule', false),
                 ],
             ],
         ];

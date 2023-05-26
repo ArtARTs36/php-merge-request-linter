@@ -35,7 +35,7 @@ final class DumpCommandTest extends TestCase
         $tester->assertCommandIsSuccessful();
 
         self::assertStringContainsString(
-            '1 Success rule ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule',
+            'success_rule Success rule true',
             Str::deleteUnnecessarySpaces($tester->getDisplay())
         );
     }
