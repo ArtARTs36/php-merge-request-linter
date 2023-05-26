@@ -7,9 +7,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\CommandTester;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\Cwd;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
-use Symfony\Component\Console\Tester\CommandTester;
 
 final class InstallCommandTest extends TestCase
 {
@@ -47,7 +47,8 @@ final class InstallCommandTest extends TestCase
 
         $tester->assertCommandIsSuccessful();
         self::assertFileExists($expectedFilename);
-        self::assertStringContainsString('Was copied configuration file to:', $tester->getDisplay());
+
+        $tester->assertDisplayContainsString('Was copied configuration file to:');
 
         @unlink($expectedFilename);
 

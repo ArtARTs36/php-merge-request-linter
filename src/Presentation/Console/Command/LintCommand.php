@@ -5,6 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Command;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Tasks\LintTask;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Interaction\LintEventsSubscriber;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsolePrinter;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\SymfonyProgressBar;
@@ -23,7 +26,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class LintCommand extends Command
+final class LintCommand extends Command
 {
     use HasConfigFileOption;
 
@@ -84,13 +87,21 @@ class LintCommand extends Command
 
         $this->printMetrics($style, $result, $this->getBoolFromOption($input, 'metrics'));
 
-        if ($result->isFail()) {
+        if ($result->state === LintState::Fail) {
             $style->error(sprintf('Found %d notes', $result->notes->count()));
 
             return self::FAILURE;
         }
 
-        $style->success('No notes');
+        $warnings = $result->notes->filter(static function (Note $note) {
+            return $note->getSeverity() === NoteSeverity::Warning;
+        });
+
+        if ($warnings->isEmpty()) {
+            $style->success('No notes');
+        } else {
+            $style->warning(sprintf('Ok but has %d warnings', $warnings->count()));
+        }
 
         return self::SUCCESS;
     }

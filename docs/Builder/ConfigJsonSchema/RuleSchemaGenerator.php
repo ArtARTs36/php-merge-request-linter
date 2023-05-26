@@ -44,6 +44,10 @@ class RuleSchemaGenerator
             $definition = [
                 'type' => 'object',
                 'properties' => [
+                    'critical' => [
+                        'type' => 'boolean',
+                        'default' => true,
+                    ],
                     'when' => [
                         'description' => 'Conditions that determine whether the rule should run.',
                         '$ref' => '#/definitions/rule_conditions',

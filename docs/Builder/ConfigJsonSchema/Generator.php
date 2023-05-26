@@ -155,6 +155,25 @@ class Generator
             ],
         ], false);
 
+        $schema->addProperty('linter', [
+            'type' => 'object',
+            'properties' => [
+                'options' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'stop_on_failure' => [
+                            'type' => 'boolean',
+                            'default' => false,
+                        ],
+                        'stop_on_warning' => [
+                            'type' => 'boolean',
+                            'default' => false,
+                        ],
+                    ],
+                ],
+            ],
+        ], false);
+
         return $schema;
     }
 

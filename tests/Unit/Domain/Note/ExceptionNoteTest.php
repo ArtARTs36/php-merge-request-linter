@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Domain\Note;
 
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ExceptionNoteTest extends TestCase
@@ -32,5 +33,38 @@ final class ExceptionNoteTest extends TestCase
         $note = new ExceptionNote($exception);
 
         self::assertEquals($expected, $note->__toString());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote::withSeverity
+     */
+    public function testWithSeverity(): void
+    {
+        $note = new ExceptionNote(new \Exception(''));
+
+        self::assertEquals(
+            NoteSeverity::Warning,
+            $note->withSeverity(NoteSeverity::Warning)->getSeverity(),
+        );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote::jsonSerialize
+     */
+    public function testJsonSerialize(): void
+    {
+        $note = new ExceptionNote($e = new \Exception('exception msg'));
+
+        self::assertEquals(
+            [
+                'description' => sprintf(
+                    'exception msg (exception Exception on %s#%s)',
+                    $e->getFile(),
+                    $e->getLine(),
+                ),
+                'severity' => NoteSeverity::Fatal->value,
+            ],
+            $note->jsonSerialize(),
+        );
     }
 }

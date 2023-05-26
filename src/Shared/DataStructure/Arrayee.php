@@ -94,6 +94,15 @@ class Arrayee implements Collection, HasDebugInfo, \JsonSerializable
         return new Arrayee(array_merge($this->items, $items));
     }
 
+    /**
+     * @param callable(V): bool $filter
+     * @return Arrayee<K, V>
+     */
+    public function filter(callable $filter): Arrayee
+    {
+        return new Arrayee(array_filter($this->items, $filter));
+    }
+
     public function __debugInfo(): array
     {
         return [

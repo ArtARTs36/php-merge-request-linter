@@ -13,7 +13,7 @@ class LintResult
      * @param Arrayee<int, Note> $notes
      */
     public function __construct(
-        public bool $state,
+        public LintState $state,
         #[Generic(Note::class)]
         public Arrayee $notes,
         public Duration $duration,
@@ -23,16 +23,11 @@ class LintResult
 
     public static function successWithNote(Note $note, Duration $duration): self
     {
-        return new self(true, new Arrayee([$note]), $duration);
+        return new self(LintState::Success, new Arrayee([$note]), $duration);
     }
 
     public static function fail(Note $note, Duration $duration): self
     {
-        return new self(false, new Arrayee([$note]), $duration);
-    }
-
-    public function isFail(): bool
-    {
-        return ! $this->state;
+        return new self(LintState::Fail, new Arrayee([$note]), $duration);
     }
 }

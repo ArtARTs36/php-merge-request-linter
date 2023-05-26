@@ -34,7 +34,7 @@ final class ConsoleLoggerTest extends TestCase
                     [LogLevel::INFO, 'test-message-2', ['k' => 'v']],
                 ],
                 'current-time' => '2020-02-02 14:32:01',
-                'expected-log' => "[2020-02-02 14:32:01] [info] test-message-1 {}\n\n[2020-02-02 14:32:01] [info] test-message-2 {\"k\":\"v\"}\n",
+                'expected-log' => "[2020-02-02 14:32:01] [info] test-message-1 {}\n[2020-02-02 14:32:01] [info] test-message-2 {\"k\":\"v\"}\n",
             ],
             [
                 'messages' => [],

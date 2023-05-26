@@ -6,6 +6,18 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.14.0 (2023-05-27)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.13.1..0.14.0)
+
+## Added
+* Suppress error on non-critical rules via rule option `critical: false`
+* Added option `stop_on_failure` for stop linter on first failure
+* Added option `stop_on_warning` for stop linter on first warning
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.14.0)
+
+
+-----------------------------------------------------------------
+
 ## [v0.13.1 (2023-05-26)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.13.0..0.13.1)
 
 ### Added
