@@ -11,6 +11,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
@@ -47,12 +48,20 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
 
         $notes = [];
 
+        $state = true;
+
         /** @var Rule $rule */
         foreach ($this->rules as $rule) {
             try {
                 $ruleNotes = $rule->lint($request);
 
-                array_push($notes, ...$ruleNotes);
+                foreach ($ruleNotes as $ruleNote) {
+                    $notes[] = $ruleNote;
+
+                    if ($ruleNote->getSeverity() !== NoteSeverity::Warning) {
+                        $state = false;
+                    }
+                }
 
                 if (count($ruleNotes) === 0) {
                     $this->events->dispatch(new RuleWasSuccessfulEvent($rule->getName()));
@@ -73,7 +82,7 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         $duration = $timer->finish();
 
         $notes = new Arrayee($notes);
-        $result = new LintResult($notes->isEmpty(), $notes, $duration);
+        $result = new LintResult($state, $notes, $duration);
 
         $this->events->dispatch(new LintFinishedEvent($request, $result));
 
