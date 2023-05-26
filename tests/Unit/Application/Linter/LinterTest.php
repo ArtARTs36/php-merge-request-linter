@@ -104,6 +104,9 @@ final class LinterTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::run
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::addMetricUsedRules
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::dispatchRuleEvent
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::createState
      * @dataProvider providerForTestRun
      */
     public function testRun(Rules $rules, LinterOptions $options, array $expectedEvents, LintResult $expectedResult): void
