@@ -33,6 +33,7 @@ final class NotStartsAnyEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsAnyEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsAnyEvaluator::doEvaluate
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsAnyEvaluator::__construct
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $propertyValue, array $value, bool $expected): void
