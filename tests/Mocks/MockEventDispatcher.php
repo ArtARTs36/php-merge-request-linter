@@ -16,7 +16,7 @@ class MockEventDispatcher implements EventManager
 
     public function dispatch(object $event)
     {
-        $this->dispatchedEvents[get_class($event)][] = get_object_vars($event);
+        $this->dispatchedEvents[get_class($event)][] = json_encode($event);
     }
 
     public function listen(string $event, EventListener $listener): void
@@ -33,6 +33,7 @@ class MockEventDispatcher implements EventManager
     {
         $dispatched = false;
         $similar = [];
+        $eventData = json_encode($eventData);
 
         foreach ($this->dispatchedEvents[$eventName] ?? [] as $data) {
             if ($eventData === $data) {
