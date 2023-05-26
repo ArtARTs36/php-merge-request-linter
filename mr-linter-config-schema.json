@@ -214,6 +214,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/forbid_changes": {
+                    "description": null,
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_forbid_changes"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_forbid_changes"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -414,6 +429,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -541,6 +563,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -688,6 +717,10 @@
                                                         "containsLine": {
                                                             "description": "Check if a string contains a line.",
                                                             "type": "string"
+                                                        },
+                                                        "notStartsAny": {
+                                                            "description": "Check if a string not contains a prefixes.",
+                                                            "type": "string"
                                                         }
                                                     },
                                                     "additionalProperties": false
@@ -782,6 +815,10 @@
                                                         },
                                                         "containsLine": {
                                                             "description": "Check if a string contains a line.",
+                                                            "type": "string"
+                                                        },
+                                                        "notStartsAny": {
+                                                            "description": "Check if a string not contains a prefixes.",
                                                             "type": "string"
                                                         }
                                                     },
@@ -905,6 +942,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -1002,6 +1046,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -1099,6 +1150,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -1287,6 +1345,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -1401,6 +1466,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -1520,6 +1592,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -1647,6 +1726,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -1794,6 +1880,10 @@
                                                         "containsLine": {
                                                             "description": "Check if a string contains a line.",
                                                             "type": "string"
+                                                        },
+                                                        "notStartsAny": {
+                                                            "description": "Check if a string not contains a prefixes.",
+                                                            "type": "string"
                                                         }
                                                     },
                                                     "additionalProperties": false
@@ -1888,6 +1978,10 @@
                                                         },
                                                         "containsLine": {
                                                             "description": "Check if a string contains a line.",
+                                                            "type": "string"
+                                                        },
+                                                        "notStartsAny": {
+                                                            "description": "Check if a string not contains a prefixes.",
                                                             "type": "string"
                                                         }
                                                     },
@@ -2011,6 +2105,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2108,6 +2209,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2205,6 +2313,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2393,6 +2508,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2490,6 +2612,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2694,6 +2823,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2823,6 +2959,13 @@
                         "containsLine": {
                             "description": "Check if a string contains a line.",
                             "type": "string"
+                        },
+                        "notStartsAny": {
+                            "description": "Check if a string not contains a prefixes.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": false
@@ -2950,6 +3093,13 @@
                         "containsLine": {
                             "description": "Check if a string contains a line.",
                             "type": "string"
+                        },
+                        "notStartsAny": {
+                            "description": "Check if a string not contains a prefixes.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": false
@@ -3097,6 +3247,10 @@
                                 "containsLine": {
                                     "description": "Check if a string contains a line.",
                                     "type": "string"
+                                },
+                                "notStartsAny": {
+                                    "description": "Check if a string not contains a prefixes.",
+                                    "type": "string"
                                 }
                             },
                             "additionalProperties": false
@@ -3191,6 +3345,10 @@
                                 },
                                 "containsLine": {
                                     "description": "Check if a string contains a line.",
+                                    "type": "string"
+                                },
+                                "notStartsAny": {
+                                    "description": "Check if a string not contains a prefixes.",
                                     "type": "string"
                                 }
                             },
@@ -3314,6 +3472,13 @@
                         "containsLine": {
                             "description": "Check if a string contains a line.",
                             "type": "string"
+                        },
+                        "notStartsAny": {
+                            "description": "Check if a string not contains a prefixes.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": false
@@ -3411,6 +3576,13 @@
                         "containsLine": {
                             "description": "Check if a string contains a line.",
                             "type": "string"
+                        },
+                        "notStartsAny": {
+                            "description": "Check if a string not contains a prefixes.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": false
@@ -3508,6 +3680,13 @@
                         "containsLine": {
                             "description": "Check if a string contains a line.",
                             "type": "string"
+                        },
+                        "notStartsAny": {
+                            "description": "Check if a string not contains a prefixes.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": false
@@ -3696,6 +3875,13 @@
                         "containsLine": {
                             "description": "Check if a string contains a line.",
                             "type": "string"
+                        },
+                        "notStartsAny": {
+                            "description": "Check if a string not contains a prefixes.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": false
@@ -4024,6 +4210,31 @@
             "additionalProperties": false,
             "required": [
                 "projectName"
+            ]
+        },
+        "rules_properties_@mr-linter_forbid_changes": {
+            "type": "object",
+            "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "files": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "files"
             ]
         },
         "notifications_channel_telegram_bot": {

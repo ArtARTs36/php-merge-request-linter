@@ -26,6 +26,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Length
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\MatchEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotEndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionEvaluator;
@@ -43,6 +44,7 @@ final class DefaultEvaluators
         EqualsEvaluator::SYMBOL => EqualsEvaluator::class,
         StartsEvaluator::NAME => StartsEvaluator::class,
         NotStartsEvaluator::NAME => NotStartsEvaluator::class,
+        NotStartsAnyEvaluator::NAME => NotStartsAnyEvaluator::class,
         HasEvaluator::NAME => HasEvaluator::class,
         EndsEvaluator::NAME => EndsEvaluator::class,
         NotEndsEvaluator::NAME => NotEndsEvaluator::class,
