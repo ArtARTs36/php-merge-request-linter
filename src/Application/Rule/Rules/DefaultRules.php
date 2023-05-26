@@ -25,7 +25,8 @@ final class DefaultRules
         HasChangesRule::NAME => HasChangesRule::class,
         CustomRule::NAME => CustomRule::class,
         TitleStartsWithTaskNumberRule::NAME => TitleStartsWithTaskNumberRule::class,
-        BranchStartsWithTaskNumberRule::NAmE => BranchStartsWithTaskNumberRule::class,
+        BranchStartsWithTaskNumberRule::NAME => BranchStartsWithTaskNumberRule::class,
+        ForbidChangesRule::NAME => ForbidChangesRule::class,
     ];
 
     /**
