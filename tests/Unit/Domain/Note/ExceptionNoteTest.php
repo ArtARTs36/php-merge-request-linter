@@ -53,11 +53,15 @@ final class ExceptionNoteTest extends TestCase
      */
     public function testJsonSerialize(): void
     {
-        $note = new ExceptionNote(new \Exception('exception msg'));
+        $note = new ExceptionNote($e = new \Exception('exception msg'));
 
         self::assertEquals(
             [
-                'description' => 'exception msg (exception Exception on /Users/avukrainskiy/PhpstormProjects/php-merge-request-linter/tests/Unit/Domain/Note/ExceptionNoteTest.php#56)',
+                'description' => sprintf(
+                    'exception msg (exception Exception on %s#%s)',
+                    $e->getFile(),
+                    $e->getLine(),
+                ),
                 'severity' => NoteSeverity::Fatal->value,
             ],
             $note->jsonSerialize(),
