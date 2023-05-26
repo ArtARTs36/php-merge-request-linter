@@ -168,7 +168,7 @@ class Generator
                     ],
                 ],
             ],
-        ]);
+        ], false);
 
         return $schema;
     }

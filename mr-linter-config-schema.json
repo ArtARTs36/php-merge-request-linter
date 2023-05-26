@@ -4051,7 +4051,6 @@
     },
     "required": [
         "rules",
-        "ci",
-        "linter"
+        "ci"
     ]
 }
