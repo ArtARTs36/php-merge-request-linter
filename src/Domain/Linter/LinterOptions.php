@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 
+/**
+ * @codeCoverageIgnore
+ */
 class LinterOptions
 {
     public function __construct(
