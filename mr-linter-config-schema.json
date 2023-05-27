@@ -215,23 +215,8 @@
                         }
                     ]
                 },
-                "@mr-linter/update_changelog": {
-                    "description": "Changelog must be contained new tag.",
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/rules_properties_@mr-linter_update_changelog"
-                        },
-                        {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/rules_properties_@mr-linter_update_changelog"
-                            },
-                            "minItems": 1
-                        }
-                    ]
-                },
                 "@mr-linter/forbid_changes": {
-                    "description": "Forbid changes for files.",
+                    "description": null,
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_forbid_changes"
@@ -2627,6 +2612,13 @@
                                                 "containsLine": {
                                                     "description": "Check if a string contains a line.",
                                                     "type": "string"
+                                                },
+                                                "notStartsAny": {
+                                                    "description": "Check if a string not contains a prefixes.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4220,33 +4212,22 @@
                 "projectName"
             ]
         },
-        "rules_properties_@mr-linter_update_changelog": {
-            "type": "object",
-            "properties": {
-                "when": {
-                    "description": "Conditions that determine whether the rule should run.",
-                    "$ref": "#/definitions/rule_conditions"
-                },
-                "file": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false
-        },
         "rules_properties_@mr-linter_forbid_changes": {
             "type": "object",
             "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "files": {
                     "type": "array",
-                    "description": "A set of files forbidden to be changed.",
                     "items": [
                         {
-                            "type": "string",
-                            "description": "A set of files forbidden to be changed."
+                            "type": "string"
                         }
                     ]
                 }

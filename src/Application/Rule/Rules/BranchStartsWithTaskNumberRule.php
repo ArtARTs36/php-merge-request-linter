@@ -11,7 +11,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
  */
 final class BranchStartsWithTaskNumberRule extends AbstractRule
 {
-    public const NAmE = '@mr-linter/branch_starts_with_task_number';
+    public const NAME = '@mr-linter/branch_starts_with_task_number';
 
     public function __construct(
         private readonly string $projectName,
