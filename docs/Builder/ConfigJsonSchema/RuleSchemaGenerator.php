@@ -148,6 +148,12 @@ class RuleSchemaGenerator
                     $item,
                 ];
             }
+        } else if ($param->type->class !== null) {
+            $subClassConstructor = $this->constructorFinder->find($param->type->class);
+
+            foreach ($subClassConstructor->params() as $subClassParam) {
+                $paramSchema['properties'][$subClassParam->name] = $this->createRuleParamSchema($ruleClass, $subClassParam);
+            }
         }
 
         return $paramSchema;

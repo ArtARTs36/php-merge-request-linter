@@ -4295,7 +4295,31 @@
                 },
                 "tags": {
                     "type": "object",
-                    "description": "Tags parsing options"
+                    "description": "Tags parsing options",
+                    "properties": {
+                        "heading": {
+                            "type": "object",
+                            "properties": {
+                                "level": {
+                                    "type": "integer",
+                                    "description": "Markdown heading level for tags"
+                                },
+                                "regex": {
+                                    "type": "object",
+                                    "properties": {
+                                        "expression": {
+                                            "type": "string",
+                                            "description": "Regex expression for match tags"
+                                        },
+                                        "example": {
+                                            "type": "string",
+                                            "description": "Example for need tag title"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             },
             "additionalProperties": false,
