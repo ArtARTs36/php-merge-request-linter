@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Domain\Linter;
 
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyNote;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
