@@ -4330,10 +4330,7 @@
                     }
                 }
             },
-            "additionalProperties": false,
-            "required": [
-                "tags"
-            ]
+            "additionalProperties": false
         },
         "notifications_channel_telegram_bot": {
             "properties": {

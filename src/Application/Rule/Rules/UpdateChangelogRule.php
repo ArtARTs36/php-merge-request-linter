@@ -107,7 +107,10 @@ class UpdateChangelogRule extends NamedRule implements Rule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition('Changelog must be contained new tag');
+        return new Definition(sprintf(
+            'Changelog must be contained new tag with heading level %d',
+            $this->tags->heading->level->value,
+        ));
     }
 
     private function getChangelog(MergeRequest $request): ?Change

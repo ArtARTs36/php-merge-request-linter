@@ -38,6 +38,7 @@ class Reflector
                     $generic,
                     $parameter->allowsNull(),
                 ),
+                $parameter->isDefaultValueAvailable(),
             );
         }
 
@@ -160,6 +161,16 @@ class Reflector
             }
 
             if ($parameter->isDefaultValueAvailable()) {
+                continue;
+            }
+
+            $type = $parameter->getType();
+
+            if ($type === null) {
+                continue;
+            }
+
+            if (class_exists($type->getName()) && self::canConstructWithoutParameters($type->getName())) {
                 continue;
             }
 

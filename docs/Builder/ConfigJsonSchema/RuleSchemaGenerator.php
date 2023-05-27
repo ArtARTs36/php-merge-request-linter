@@ -69,7 +69,9 @@ class RuleSchemaGenerator
 
                     $definition['properties'][$param->name] = $paramSchema;
 
-                    if (! $param->type->nullable) {
+                    if ($param->type->class !== null && Reflector::canConstructWithoutParameters($param->type->class)) {
+                        // skipped
+                    } else if ($param->isRequired()) {
                         $definition['required'][] = $param->name;
                     }
                 }
