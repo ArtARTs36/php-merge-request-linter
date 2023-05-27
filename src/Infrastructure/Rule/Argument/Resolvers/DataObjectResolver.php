@@ -26,10 +26,18 @@ final class DataObjectResolver implements ArgumentResolver
     {
         $class = $type->class;
 
-        if ($class === null || ! class_exists($class) || (! is_array($value) && $value !== null)) {
+        if ($class === null || ! class_exists($class)) {
             throw new ArgNotSupportedException(sprintf(
                 'Type with name "%s" not supported',
-                $type->name->value,
+                $class ?? $type->name->value,
+            ));
+        }
+
+        if (! is_array($value) && $value !== null) {
+            throw new ArgNotSupportedException(sprintf(
+                'Value for type with name "%s" must be array or null, given %s',
+                $class,
+                gettype($value),
             ));
         }
 
