@@ -1246,6 +1246,14 @@
                                                         "type": "integer"
                                                     }
                                                 },
+                                                "has": {
+                                                    "description": "Check if an array contains some value.",
+                                                    "type": "object"
+                                                },
+                                                "notHas": {
+                                                    "description": "Check if an array not contains some value.",
+                                                    "type": "object"
+                                                },
                                                 "hasAny": {
                                                     "description": "Check if an array contains some value of list.",
                                                     "type": "array",
@@ -2408,6 +2416,14 @@
                                                     "items": {
                                                         "type": "integer"
                                                     }
+                                                },
+                                                "has": {
+                                                    "description": "Check if an array contains some value.",
+                                                    "type": "object"
+                                                },
+                                                "notHas": {
+                                                    "description": "Check if an array not contains some value.",
+                                                    "type": "object"
                                                 },
                                                 "hasAny": {
                                                     "description": "Check if an array contains some value of list.",
@@ -3776,6 +3792,14 @@
                                 "type": "integer"
                             }
                         },
+                        "has": {
+                            "description": "Check if an array contains some value.",
+                            "type": "object"
+                        },
+                        "notHas": {
+                            "description": "Check if an array not contains some value.",
+                            "type": "object"
+                        },
                         "hasAny": {
                             "description": "Check if an array contains some value of list.",
                             "type": "array",
@@ -4266,10 +4290,18 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "file": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Relative path to changelog file"
+                },
+                "tags": {
+                    "type": "object",
+                    "description": "Tags parsing options"
                 }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "required": [
+                "tags"
+            ]
         },
         "notifications_channel_telegram_bot": {
             "properties": {

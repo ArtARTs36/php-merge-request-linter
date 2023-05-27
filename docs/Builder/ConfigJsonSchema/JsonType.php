@@ -29,6 +29,10 @@ class JsonType
             return self::MAP[$type];
         }
 
+        if (class_exists($type)) {
+            return self::OBJECT;
+        }
+
         return null;
     }
 }

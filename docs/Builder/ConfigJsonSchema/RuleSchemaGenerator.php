@@ -140,4 +140,9 @@ class RuleSchemaGenerator
 
         return $schema;
     }
+
+    private function createRuleDefinition(string $rule)
+    {
+
+    }
 }

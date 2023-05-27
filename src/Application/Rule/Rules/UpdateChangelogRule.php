@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
 /**
  * Changelog must be contained new tag.
@@ -23,7 +24,9 @@ class UpdateChangelogRule extends NamedRule implements Rule
     ];
 
     public function __construct(
+        #[Description('Relative path to changelog file')]
         private readonly ?string $file,
+        #[Description('Tags parsing options')]
         private readonly Tags $tags,
     ) {
         //
