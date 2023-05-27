@@ -11,7 +11,6 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 class MapResolverTest extends TestCase
 {
-
     public function providerForTestCanResolve(): array
     {
         return [

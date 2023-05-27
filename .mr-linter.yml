@@ -38,16 +38,6 @@ rules:
             - '[Tests]'
             - '[Docs]'
 
-    - changes:
-        - file: "CHANGELOG.md"
-      when:
-        targetBranch:
-          equals: "master"
-        title:
-          notStartsAny:
-            - '[Tests]'
-            - '[Docs]'
-
   custom:
     - definition: "Branch must be in kebab-case"
       rules:
