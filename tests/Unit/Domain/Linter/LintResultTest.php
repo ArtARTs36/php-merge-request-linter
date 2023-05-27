@@ -10,20 +10,6 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class LintResultTest extends TestCase
 {
-    public function providerForTestIsFail(): array
-    {
-        return [
-            [
-                LintResult::fail(new EmptyNote(), new Duration(0.12)),
-                true,
-            ],
-            [
-                LintResult::successWithNote(new EmptyNote(), new Duration(0.13)),
-                false,
-            ],
-        ];
-    }
-
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult::successWithNote
      * @covers \ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult::__construct
@@ -33,5 +19,15 @@ final class LintResultTest extends TestCase
         $result = LintResult::successWithNote(new EmptyNote(), new Duration(0.12));
 
         self::assertEquals(LintState::Success, $result->state);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult::fail
+     */
+    public function testFail(): void
+    {
+        $result = LintResult::fail(new EmptyNote(), new Duration(1));
+
+        self::assertEquals(LintState::Fail, $result->state);
     }
 }

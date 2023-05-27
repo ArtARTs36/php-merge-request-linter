@@ -35,10 +35,10 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Length
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\MatchEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotEndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\NotStartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\StartsEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Domain\Note\Notes;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
@@ -72,6 +72,7 @@ class OperatorSchemaArrayGenerator
             IsKebabCaseEvaluator::class,
             LinesMaxEvaluator::class,
             ContainsLineEvaluator::class,
+            NotStartsAnyEvaluator::class,
         ],
         Str::class => [
             EqualsEvaluator::class,
@@ -94,6 +95,7 @@ class OperatorSchemaArrayGenerator
             IsKebabCaseEvaluator::class,
             LinesMaxEvaluator::class,
             ContainsLineEvaluator::class,
+            NotStartsAnyEvaluator::class,
         ],
         Set::class => [
             CountMinEvaluator::class,

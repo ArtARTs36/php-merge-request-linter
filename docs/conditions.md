@@ -8,6 +8,7 @@ Currently is available that operators:
 | = | Check if value are equal. | string / integer / number / boolean |
 | starts | Check if a string contains a prefix. | string |
 | notStarts | Check if a string not contains a prefix. | string |
+| notStartsAny | Check if a string not contains a prefixes. | array of strings |
 | has | Check if an array contains some value. | string / integer / number / boolean |
 | ends | Check if a string contains a suffix. | string |
 | notEnds | Check if a string not contains a suffix. | string |
