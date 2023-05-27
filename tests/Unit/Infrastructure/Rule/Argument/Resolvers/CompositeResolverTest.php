@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\Composit
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class CompositeResolverTest extends TestCase
@@ -45,5 +46,47 @@ final class CompositeResolverTest extends TestCase
         ]);
 
         self::assertEquals('test-value', $resolver->resolve(new Type(TypeName::String), ''));
+    }
+
+    public function providerForTestCanResolve(): array
+    {
+        return [
+            [
+                [],
+                new Type(TypeName::String),
+                null,
+                false,
+            ],
+            [
+                [
+                    TypeName::String->value => new MockArgumentResolver(false),
+                ],
+                new Type(TypeName::String),
+                null,
+                false,
+            ],
+            [
+                [
+                    TypeName::String->value => new MockArgumentResolver(true),
+                ],
+                new Type(TypeName::String),
+                null,
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver::canResolve
+     * @dataProvider providerForTestCanResolve
+     */
+    public function testCanResolve(array $subResolvers, Type $type, mixed $value, bool $expected): void
+    {
+        $resolver = new CompositeResolver($subResolvers);
+
+        self::assertEquals(
+            $expected,
+            $resolver->canResolve($type, $value),
+        );
     }
 }
