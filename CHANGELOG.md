@@ -6,6 +6,17 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.14.1 (2023-05-27)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.14.0..0.14.1)
+
+### Added
+* Add Evaluator "Not starts any"
+* Turn on forgotten rule "@mr-linter/forbid_changes"
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.14.1)
+
+
+-----------------------------------------------------------------
+
 ## [v0.14.0 (2023-05-27)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.13.1..0.14.0)
 
 ## Added
