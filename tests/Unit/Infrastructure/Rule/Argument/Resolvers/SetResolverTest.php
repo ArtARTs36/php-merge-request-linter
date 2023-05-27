@@ -11,6 +11,36 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class SetResolverTest extends TestCase
 {
+    public function providerForTestCanResolve(): array
+    {
+        return [
+            [
+                new Type(TypeName::Object, Set::class),
+                [],
+                true,
+            ],
+            [
+                new Type(TypeName::Object),
+                [],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\SetResolver::canResolve
+     * @dataProvider providerForTestCanResolve
+     */
+    public function testCanResolve(Type $type, mixed $value, bool $expected): void
+    {
+        $resolver = new SetResolver();
+
+        self::assertEquals(
+            $expected,
+            $resolver->canResolve($type, $value),
+        );
+    }
+
     public function providerForTestResolve(): array
     {
         return [
