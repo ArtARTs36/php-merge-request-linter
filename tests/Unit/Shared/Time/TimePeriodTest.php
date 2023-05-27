@@ -49,6 +49,16 @@ final class TimePeriodTest extends TestCase
         );
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::make
+     */
+    public function testMakeOnException(): void
+    {
+        self::expectExceptionMessage('Value must be follows mask "hh:mm - hh:mm"');
+
+        TimePeriod::make('1234:1234 1234:1234');
+    }
+
     public function providerForTestInput(): array
     {
         return [
