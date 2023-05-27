@@ -18,4 +18,14 @@ final class AsIsResolverTest extends TestCase
 
         self::assertEquals('value', $resolver->resolve(new Type(TypeName::String), 'value'));
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver::canResolve
+     */
+    public function testCanResolve(): void
+    {
+        $resolver = new AsIsResolver();
+
+        self::assertTrue($resolver->canResolve(new Type(TypeName::String), 'value'));
+    }
 }
