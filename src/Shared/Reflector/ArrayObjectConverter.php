@@ -37,7 +37,14 @@ class ArrayObjectConverter
         foreach ($constructor->getParameters() as $parameter) {
             $type = $parameter->getType();
 
-            if (! isset($params[$parameter->name])) {
+            if (isset($params[$parameter->name])) {
+                if (enum_exists($type->getName())) {
+                    /** @var class-string<\BackedEnum> $enum */
+                    $enum = $type->getName();
+
+                    $params[$parameter->name] = $enum::from($params[$parameter->name]);
+                }
+            } else {
                 if ($parameter->isDefaultValueAvailable()) {
                     $params[$parameter->name] = $parameter->getDefaultValue();
                 } elseif ($type !== null && $type->allowsNull()) {

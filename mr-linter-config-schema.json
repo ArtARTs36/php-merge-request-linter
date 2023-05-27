@@ -4301,7 +4301,15 @@
                             "type": "object",
                             "properties": {
                                 "level": {
-                                    "type": "integer",
+                                    "type": "string",
+                                    "enum": [
+                                        1,
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        6
+                                    ],
                                     "description": "Markdown heading level for tags"
                                 },
                                 "regex": {

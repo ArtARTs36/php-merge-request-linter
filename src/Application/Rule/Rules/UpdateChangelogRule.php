@@ -57,7 +57,7 @@ class UpdateChangelogRule extends NamedRule implements Rule
                 ->content
                 ->markdown()
                 ->headings(true)
-                ->filterByLevel($this->tags->heading->level);
+                ->filterByLevel($this->tags->heading->level->value);
 
             if ($headings->isEmpty()) {
                 continue;

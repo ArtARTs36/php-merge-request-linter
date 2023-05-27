@@ -114,6 +114,15 @@ class RuleSchemaGenerator
             return null;
         }
 
+        if ($param->type->class !== null && enum_exists($param->type->class)) {
+            /** @var \BackedEnum $enum */
+            $enum = $param->type->class;
+
+            $paramSchema['enum'] = array_map(function (\UnitEnum $unit) {
+                return $unit->value;
+            }, $enum::cases());
+        }
+
         if ($param->description !== '') {
             $paramSchema['description'] = $param->description;
         }
