@@ -11,6 +11,36 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ArrayeeResolverTest extends TestCase
 {
+    public function providerForTestCanResolve(): array
+    {
+        return [
+            [
+                new Type(TypeName::Object, Arrayee::class),
+                [],
+                true,
+            ],
+            [
+                new Type(TypeName::Object),
+                [],
+                false,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ArrayeeResolver::canResolve
+     * @dataProvider providerForTestCanResolve
+     */
+    public function testCanResolve(Type $type, mixed $value, bool $expected): void
+    {
+        $resolver = new ArrayeeResolver();
+
+        self::assertEquals(
+            $expected,
+            $resolver->canResolve($type, $value),
+        );
+    }
+
     public function providerForTestResolve(): array
     {
         return [
