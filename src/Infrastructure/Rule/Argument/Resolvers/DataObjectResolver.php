@@ -19,14 +19,14 @@ final class DataObjectResolver implements ArgumentResolver
 
     public function canResolve(Type $type, mixed $value): bool
     {
-        return $type->class !== null;
+        return $type->class !== null && (is_array($value) || $value === null);
     }
 
     public function resolve(Type $type, mixed $value): mixed
     {
         $class = $type->class;
 
-        if ($class === null || ! class_exists($class)) {
+        if ($class === null || ! class_exists($class) || (! is_array($value) && $value !== null)) {
             throw new ArgNotSupportedException(sprintf(
                 'Type with name "%s" not supported',
                 $type->name->value,

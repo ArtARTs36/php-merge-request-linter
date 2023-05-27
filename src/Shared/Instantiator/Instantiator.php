@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Shared\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Parameter;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 
 /**
  * Instantiator for class.
