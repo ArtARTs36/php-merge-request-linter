@@ -55,4 +55,14 @@ final class LocalClockTest extends TestCase
 
         self::assertEquals($tz, $date);
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock::on
+     */
+    public function testOnException(): void
+    {
+        self::expectExceptionMessage('TimeZone "test" invalid');
+
+        LocalClock::on('test');
+    }
 }
