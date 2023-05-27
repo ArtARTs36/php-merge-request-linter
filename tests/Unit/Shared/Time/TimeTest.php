@@ -36,6 +36,35 @@ final class TimeTest extends TestCase
         );
     }
 
+    public function providerForTestFromStringOnException(): array
+    {
+        return [
+            [
+                'time' => '01:01:01',
+                'exception' => 'Value must be follows mask "hh:mm"',
+            ],
+            [
+                'time' => 'k1:01',
+                'exception' => 'Value must be follows mask "hh:mm"',
+            ],
+            [
+                'time' => '01:k1',
+                'exception' => 'Value must be follows mask "hh:mm"',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::fromString
+     * @dataProvider providerForTestFromStringOnException
+     */
+    public function testFromStringOnException(string $timeString, string $exception): void
+    {
+        self::expectExceptionMessage($exception);
+
+        Time::fromString($timeString);
+    }
+
     public function providerForTestLte(): array
     {
         return [
@@ -88,7 +117,7 @@ final class TimeTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::lte
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::gte
      * @dataProvider providerForTestGte
      */
     public function testGte(string $time1Val, string $time2Val, bool $expected): void
