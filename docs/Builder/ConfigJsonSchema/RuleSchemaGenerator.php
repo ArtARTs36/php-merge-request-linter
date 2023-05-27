@@ -57,61 +57,20 @@ class RuleSchemaGenerator
             ];
 
             if (count($params) > 0) {
-                foreach ($constructor->params() as $paramName => $param) {
-                    $paramType = $param->type;
+                foreach ($constructor->params() as $param) {
+                    $paramSchema = $this->createRuleParamSchema(
+                        $rule,
+                        $param,
+                    );
 
-                    if (isset(self::OVERWRITE_PARAMS[$rule][$paramName])) {
-                        $typeSchema = self::OVERWRITE_PARAMS[$rule][$paramName];
-                    } else {
-                        $typeSchema = [
-                            'type' => JsonType::to($paramType->class ?? $paramType->name->value),
-                        ];
-
-                        if ($typeSchema['type'] === null) {
-                            continue;
-                        }
-
-                        if ($param->description !== '') {
-                            $typeSchema['description'] = $param->description;
-                        }
-
-                        if ($paramType->isGeneric()) {
-                            $generic = $paramType->getObjectGeneric();
-
-                            if ($generic !== null) {
-                                $genericProps = [];
-
-                                foreach (Reflector::mapProperties($generic) as $property) {
-                                    $genericProps[$property->name] = [
-                                        'type' => JsonType::to($property->type->class ?? $property->type->name->value),
-                                    ];
-                                }
-
-                                $typeSchema['items'] = [
-                                    'type' => 'object',
-                                    'properties' => $genericProps,
-                                    'additionalProperties' => false,
-                                ];
-                            } else {
-                                $item = [
-                                    'type' => $paramType->generic,
-                                ];
-
-                                if ($param->description !== '') {
-                                    $item['description'] = $param->description;
-                                }
-
-                                $typeSchema['items'] = [
-                                    $item,
-                                ];
-                            }
-                        }
+                    if ($paramSchema === null) {
+                        continue;
                     }
 
-                    $definition['properties'][$paramName] = $typeSchema;
+                    $definition['properties'][$param->name] = $paramSchema;
 
-                    if (! $paramType->nullable) {
-                        $definition['required'][] = $paramName;
+                    if (! $param->type->nullable) {
+                        $definition['required'][] = $param->name;
                     }
                 }
             }
@@ -141,8 +100,56 @@ class RuleSchemaGenerator
         return $schema;
     }
 
-    private function createRuleDefinition(string $rule)
+    private function createRuleParamSchema(string $ruleClass, \ArtARTs36\MergeRequestLinter\Shared\Reflector\Parameter $param): ?array
     {
+        if (isset(self::OVERWRITE_PARAMS[$ruleClass][$param->name])) {
+            return self::OVERWRITE_PARAMS[$ruleClass][$param->name];
+        }
 
+        $paramSchema = [
+            'type' => JsonType::to($param->type->class ?? $param->type->name->value),
+        ];
+
+        if ($paramSchema['type'] === null) {
+            return null;
+        }
+
+        if ($param->description !== '') {
+            $paramSchema['description'] = $param->description;
+        }
+
+        if ($param->type->isGeneric()) {
+            $generic = $param->type->getObjectGeneric();
+
+            if ($generic !== null) {
+                $genericProps = [];
+
+                foreach (Reflector::mapProperties($generic) as $property) {
+                    $genericProps[$property->name] = [
+                        'type' => JsonType::to($property->type->class ?? $property->type->name->value),
+                    ];
+                }
+
+                $paramSchema['items'] = [
+                    'type' => 'object',
+                    'properties' => $genericProps,
+                    'additionalProperties' => false,
+                ];
+            } else {
+                $item = [
+                    'type' => $param->type->generic,
+                ];
+
+                if ($param->description !== '') {
+                    $item['description'] = $param->description;
+                }
+
+                $paramSchema['items'] = [
+                    $item,
+                ];
+            }
+        }
+
+        return $paramSchema;
     }
 }
