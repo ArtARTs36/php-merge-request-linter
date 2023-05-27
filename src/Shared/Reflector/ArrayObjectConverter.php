@@ -17,6 +17,7 @@ class ArrayObjectConverter
     }
 
     /**
+     * Map object param values.
      * @param \ReflectionClass<object> $reflector
      * @param array<string, mixed> $data
      * @return array<int, mixed>
@@ -49,7 +50,7 @@ class ArrayObjectConverter
                     $params[$parameter->name] = $parameter->getDefaultValue();
                 } elseif ($type !== null && $type->allowsNull()) {
                     $params[$parameter->name] = null;
-                } elseif ($type !== null && class_exists($type) && Reflector::canConstructWithoutParameters($type->getName())) {
+                } elseif ($type !== null && class_exists($type->getName()) && Reflector::canConstructWithoutParameters($type->getName())) {
                     $params[$parameter->name] = $this->convert([], $type->getName());
                 }
             }
