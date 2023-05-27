@@ -28,7 +28,7 @@ class MapResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ArrayeeResolver::canResolve
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\MapResolver::canResolve
      * @dataProvider providerForTestCanResolve
      */
     public function testCanResolve(Type $type, mixed $value, bool $expected): void

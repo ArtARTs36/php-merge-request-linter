@@ -31,4 +31,44 @@ final class ContainerResolverTest extends TestCase
         $resolver = new ContainerResolver(new MockContainer(...$container));
         $resolver->resolve($paramType, null);
     }
+
+    public function providerForTestCanResolve(): array
+    {
+        return [
+            [
+                false,
+                new Type(TypeName::Object),
+                '',
+                false,
+            ],
+            [
+                false,
+                new Type(TypeName::Object, \stdClass::class),
+                '',
+                false,
+            ],
+            [
+                true,
+                new Type(TypeName::Object, \stdClass::class),
+                '',
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ContainerResolver::canResolve
+     * @dataProvider providerForTestCanResolve
+     */
+    public function testCanResolve(bool $containerHas, Type $type, mixed $value, bool $expected): void
+    {
+        $resolver = new ContainerResolver(
+            new MockContainer(
+                null,
+                $containerHas,
+            ),
+        );
+
+        self::assertEquals($expected, $resolver->canResolve($type, $value));
+    }
 }
