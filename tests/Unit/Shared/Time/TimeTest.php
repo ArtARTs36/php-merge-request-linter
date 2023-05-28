@@ -182,6 +182,25 @@ final class TimeTest extends TestCase
     }
 
     /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::make
+     */
+    public function testMake(): void
+    {
+        $time = Time::make(12, 34);
+
+        self::assertEquals(
+            [
+                'hour' => 12,
+                'minute' => 34,
+            ],
+            [
+                'hour' => $time->hour,
+                'minute' => $time->minute,
+            ],
+        );
+    }
+
+    /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\Time::min
      */
     public function testMin(): void
