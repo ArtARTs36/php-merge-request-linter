@@ -166,7 +166,7 @@ class Reflector
 
             $type = $parameter->getType();
 
-            if ($type === null) {
+            if (! $type instanceof \ReflectionNamedType) {
                 continue;
             }
 
