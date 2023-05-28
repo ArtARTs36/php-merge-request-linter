@@ -20,7 +20,7 @@ class MapProxy implements Map
      * @param int<0, max>|null $count
      */
     public function __construct(
-        private \Closure $mapFetcher,
+        private readonly \Closure $mapFetcher,
         private readonly ?int $count = null,
     ) {
         //

@@ -25,12 +25,15 @@ final class MapProxyTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::count
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::containsAny
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::contains
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::containsAll
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::getIterator
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::get
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::isEmpty
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::keys
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::has
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::retrieveMap
      * @dataProvider providerForTestCallMethodWithForwardToMap
      */
     public function testCallMethodWithForwardToMap(string $methodName, array $args, int $expectedCalls): void
