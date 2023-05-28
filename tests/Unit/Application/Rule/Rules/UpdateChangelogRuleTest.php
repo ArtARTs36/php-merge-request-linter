@@ -68,6 +68,29 @@ final class UpdateChangelogRuleTest extends TestCase
                     'Changelog has changes, but hasn\'t new tag',
                 ],
             ],
+            'request has changes, but not contains new tag by default filename' => [
+                $this->makeMergeRequest([
+                    'changes' => [
+                        'CHANGELOG' => new Change('CHANGELOG', new Diff([
+                            new DiffLine(
+                                DiffType::NEW,
+                                Str::make('AB'),
+                            ),
+                        ]))
+                    ],
+                ]),
+                [
+                    null,
+                    new UpdateChangelogRule\Tags(
+                        new UpdateChangelogRule\TagsHeading(
+                            HeadingLevel::Level2,
+                        ),
+                    ),
+                ],
+                [
+                    'Changelog has changes, but hasn\'t new tag',
+                ],
+            ],
             'request contains new tag' => [
                 $this->makeMergeRequest([
                     'changes' => [
