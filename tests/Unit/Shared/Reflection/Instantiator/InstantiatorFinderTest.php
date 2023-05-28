@@ -84,7 +84,7 @@ class TestRuleForNativeConstructor extends TestRuleForEmptyConstructor
     }
 }
 
-class TestRuleForStaticConstructor extends \ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator\TestRuleForEmptyConstructor
+class TestRuleForStaticConstructor extends TestRuleForEmptyConstructor
 {
     public static function make(): self
     {
