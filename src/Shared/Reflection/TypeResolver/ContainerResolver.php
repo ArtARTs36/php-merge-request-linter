@@ -2,12 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
-final class ContainerResolver implements ArgumentResolver
+final class ContainerResolver implements TypeResolver
 {
     public const NAME = 'container';
 

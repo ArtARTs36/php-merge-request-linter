@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolver;
 
-final class MockArgumentResolver implements ArgumentResolver
+final class MockTypeResolver implements TypeResolver
 {
     public function __construct(
         private readonly bool $canResolve = true,

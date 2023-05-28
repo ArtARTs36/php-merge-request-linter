@@ -2,14 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
-final class GenericResolver implements ArgumentResolver
+final class GenericResolver implements TypeResolver
 {
     public function __construct(
-        private readonly ArgumentResolver $resolver,
+        private readonly TypeResolver         $resolver,
         private readonly ArrayObjectConverter $arrayObjectConverter = new ArrayObjectConverter(),
     ) {
         //

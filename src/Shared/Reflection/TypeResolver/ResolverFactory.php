@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter;
 use Psr\Container\ContainerInterface;
 
@@ -14,7 +13,7 @@ class ResolverFactory
         //
     }
 
-    public function create(): ArgumentResolver
+    public function create(): TypeResolver
     {
         $asIsResolver = new AsIsResolver();
         $arrayObjectConverter = new ArrayObjectConverter();

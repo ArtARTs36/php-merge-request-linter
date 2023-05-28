@@ -2,13 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
-final class CompositeResolver implements ArgumentResolver
+final class CompositeResolver implements TypeResolver
 {
     /**
-     * @param array<string, ArgumentResolver> $resolvers
+     * @param array<string, TypeResolver> $resolvers
      */
     public function __construct(
         private readonly array $resolvers,

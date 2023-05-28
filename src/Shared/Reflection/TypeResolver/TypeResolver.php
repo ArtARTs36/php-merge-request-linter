@@ -1,14 +1,13 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
 
 /**
  * Argument resolver.
  */
-interface ArgumentResolver
+interface TypeResolver
 {
     /**
      * Check can resolve object.

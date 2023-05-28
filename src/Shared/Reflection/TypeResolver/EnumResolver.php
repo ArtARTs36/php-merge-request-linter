@@ -2,11 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
-final class EnumResolver implements ArgumentResolver
+final class EnumResolver implements TypeResolver
 {
     public function canResolve(Type $type, mixed $value): bool
     {

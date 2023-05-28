@@ -2,11 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
-final class SetResolver implements ArgumentResolver
+final class SetResolver implements TypeResolver
 {
     public const SUPPORT_TYPE = Set::class;
 

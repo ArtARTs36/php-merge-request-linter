@@ -2,11 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
-final class ArrayeeResolver implements ArgumentResolver
+final class ArrayeeResolver implements TypeResolver
 {
     public const SUPPORT_TYPE = Arrayee::class;
 

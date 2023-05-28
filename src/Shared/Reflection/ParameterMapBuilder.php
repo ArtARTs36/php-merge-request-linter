@@ -2,20 +2,20 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection;
 
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Instantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolver;
 
 class ParameterMapBuilder
 {
     public function __construct(
-        private readonly ArgumentResolver $argResolver,
+        private readonly TypeResolver $argResolver,
     ) {
         //
     }
 
     /**
-     * @param Instantiator<Rule> $constructor
+     * @template T as object
+     * @param Instantiator<T> $constructor
      * @param array<string, mixed> $params
      * @return array<string, mixed>
      */

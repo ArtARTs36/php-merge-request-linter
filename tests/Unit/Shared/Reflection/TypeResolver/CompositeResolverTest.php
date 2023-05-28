@@ -2,12 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockArgumentResolver;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockTypeResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class CompositeResolverTest extends TestCase
@@ -32,7 +32,7 @@ final class CompositeResolverTest extends TestCase
     public function testResolveOk(): void
     {
         $resolver = new CompositeResolver([
-            TypeName::String->value => new class () implements ArgumentResolver {
+            TypeName::String->value => new class () implements TypeResolver {
                 public function canResolve(Type $type, mixed $value): bool
                 {
                     return true;
@@ -59,7 +59,7 @@ final class CompositeResolverTest extends TestCase
             ],
             [
                 [
-                    TypeName::String->value => new MockArgumentResolver(false),
+                    TypeName::String->value => new MockTypeResolver(false),
                 ],
                 new Type(TypeName::String),
                 null,
@@ -67,7 +67,7 @@ final class CompositeResolverTest extends TestCase
             ],
             [
                 [
-                    TypeName::String->value => new MockArgumentResolver(true),
+                    TypeName::String->value => new MockTypeResolver(true),
                 ],
                 new Type(TypeName::String),
                 null,
