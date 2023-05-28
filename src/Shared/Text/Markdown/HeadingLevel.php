@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Text\Markdown;
 
+/**
+ * @codeCoverageIgnore
+ */
 enum HeadingLevel: int
 {
     case Level1 = 1;
