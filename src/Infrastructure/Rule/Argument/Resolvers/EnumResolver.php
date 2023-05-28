@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
+use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
 
 final class EnumResolver implements ArgumentResolver
@@ -31,6 +32,14 @@ final class EnumResolver implements ArgumentResolver
 
         /** @var class-string<\BackedEnum> $enum */
         $enum = $type->class;
+
+        if (! is_string($value) && ! is_int($value)) {
+            throw new ArgNotSupportedException(sprintf(
+                'Value for enum %s must be %s',
+                $enum,
+                Reflector::valueTypeForEnum($enum),
+            ));
+        }
 
         try {
             return $enum::from($value);

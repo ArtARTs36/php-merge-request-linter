@@ -55,8 +55,13 @@ final class EnumResolverTest extends TestCase
                 'Type with name "non-enum" not supported',
             ],
             [
+                new Type(TypeName::String, TestEnum::class),
+                new \stdClass(),
+                'Value for enum '. TestEnum::class .' must be int',
+            ],
+            [
                 new Type(TypeName::Int, TestEnum::class),
-                '',
+                4,
                 'Enum "'. TestEnum::class .'" not resolved. Available values: [1, 2, 3]',
             ],
         ];

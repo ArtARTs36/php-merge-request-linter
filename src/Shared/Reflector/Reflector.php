@@ -179,4 +179,17 @@ class Reflector
 
         return true;
     }
+
+    /**
+     * @param class-string<\BackedEnum> $enum
+     * @return string
+     */
+    public static function valueTypeForEnum(string $enum): string
+    {
+        $reflector = new \ReflectionEnum($enum);
+
+        $type = $reflector->getBackingType();
+
+        return $type instanceof \ReflectionNamedType ? $type->getName() : '';
+    }
 }
