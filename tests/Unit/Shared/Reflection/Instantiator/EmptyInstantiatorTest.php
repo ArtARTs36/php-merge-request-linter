@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\EmptyInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;

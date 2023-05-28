@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
@@ -14,7 +14,7 @@ final class StaticMethodInstantiatorTest extends TestCase
     {
         return [
             [
-                ClassForTestOfStaticConstructor::class,
+                \ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator\ClassForTestOfStaticConstructor::class,
                 'make',
                 [
                     'name' => 'John',
@@ -28,7 +28,7 @@ final class StaticMethodInstantiatorTest extends TestCase
                 ],
             ],
             [
-                Class2ForTestOfStaticConstructor::class,
+                \ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator\Class2ForTestOfStaticConstructor::class,
                 'make',
                 [
                     'name' => 'John',

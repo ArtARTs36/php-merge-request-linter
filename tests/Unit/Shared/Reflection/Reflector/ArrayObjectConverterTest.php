@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflector;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Reflector;
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

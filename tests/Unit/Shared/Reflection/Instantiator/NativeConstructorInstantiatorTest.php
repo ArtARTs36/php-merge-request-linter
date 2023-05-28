@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
@@ -14,7 +14,7 @@ final class NativeConstructorInstantiatorTest extends TestCase
     {
         return [
             [
-                NativeConstructorTestObject1::class,
+                \ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator\NativeConstructorTestObject1::class,
                 [
                     'prop1' => '1',
                     'prop4' => 4.0,

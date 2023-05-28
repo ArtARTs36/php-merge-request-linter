@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Instantiator;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
@@ -84,7 +84,7 @@ class TestRuleForNativeConstructor extends TestRuleForEmptyConstructor
     }
 }
 
-class TestRuleForStaticConstructor extends TestRuleForEmptyConstructor
+class TestRuleForStaticConstructor extends \ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator\TestRuleForEmptyConstructor
 {
     public static function make(): self
     {
