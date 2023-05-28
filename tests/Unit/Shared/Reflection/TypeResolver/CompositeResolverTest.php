@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
@@ -88,5 +89,21 @@ final class CompositeResolverTest extends TestCase
             $expected,
             $resolver->canResolve($type, $value),
         );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::add
+     */
+    public function testAdd(): void
+    {
+        $resolver = new CompositeResolver();
+
+        $type = new Type(TypeName::String);
+
+        self::assertFalse($resolver->canResolve($type, null));
+
+        $resolver->add('string', new AsIsResolver());
+
+        self::assertTrue($resolver->canResolve($type, null));
     }
 }
