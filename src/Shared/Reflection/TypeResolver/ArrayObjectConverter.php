@@ -6,6 +6,12 @@ use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 
 class ArrayObjectConverter
 {
+    public function __construct(
+        private readonly TypeResolver $typeResolver,
+    ) {
+        //
+    }
+
     /**
      * @param array<string, mixed> $data
      * @param class-string $class
@@ -22,11 +28,10 @@ class ArrayObjectConverter
      * Map object param values.
      * @param \ReflectionClass<object> $reflector
      * @param array<string, mixed> $data
-     * @return array<int, mixed>
+     * @return array<string, mixed>
      */
     private function mapParams(\ReflectionClass $reflector, array $data): array
     {
-        $paramsArray = [];
         $params = $data;
 
         $constructor = $reflector->getConstructor();
@@ -35,51 +40,29 @@ class ArrayObjectConverter
             return [];
         }
 
-        $position = 0;
-
-        foreach ($constructor->getParameters() as $parameter) {
-            $type = $parameter->getType();
-            $typeName = $type instanceof \ReflectionNamedType ? $type->getName() : null;
-
+        foreach (Reflector::mapParamNameOnParam($constructor) as $parameter) {
             if (isset($params[$parameter->name])) {
-                if ($typeName !== null && enum_exists($typeName)) {
-                    /** @var class-string<\BackedEnum> $enum */
-                    $enum = $typeName;
+                $paramValue = $params[$parameter->name];
 
-                    $params[$parameter->name] = $this->createEnum($enum, $params[$parameter->name]);
+                if ($this->typeResolver->canResolve($parameter->type, $paramValue)) {
+                    $params[$parameter->name] = $this->typeResolver->resolve($parameter->type, $paramValue);
                 }
-            } else {
-                if ($parameter->isDefaultValueAvailable()) {
-                    $params[$parameter->name] = $parameter->getDefaultValue();
-                } elseif ($type !== null && $type->allowsNull()) {
-                    $params[$parameter->name] = null;
-                } elseif ($typeName && class_exists($typeName) && Reflector::canConstructWithoutParameters($typeName)) {
-                    $params[$parameter->name] = $this->convert([], $typeName);
-                }
+
+                continue;
             }
 
-            $paramsArray[$position] = $params[$parameter->name];
-
-            ++$position;
+            if ($parameter->hasDefaultValue) {
+                $params[$parameter->name] = $parameter->getDefaultValue();
+            } elseif ($parameter->type->class !== null &&
+                class_exists($parameter->type->class) &&
+                Reflector::canConstructWithoutParameters($parameter->type->class)
+            ) {
+                $params[$parameter->name] = $this->convert([], $parameter->type->class);
+            } elseif ($parameter->type->nullable !== null) {
+                $params[$parameter->name] = null;
+            }
         }
 
-        return $paramsArray;
-    }
-
-    /**
-     * @param class-string<\BackedEnum> $enum
-     * @throws \Exception
-     */
-    private function createEnum(string $enum, mixed $value): \BackedEnum
-    {
-        if (! is_string($value) && ! is_int($value)) {
-            throw new \Exception(sprintf(
-                'Value for enum %s must be %s',
-                $enum,
-                is_subclass_of($enum, 'IntBackedEnum') ? 'int' : 'string',
-            ));
-        }
-
-        return $enum::from($value);
+        return $params;
     }
 }

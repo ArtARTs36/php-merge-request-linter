@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Reflector;
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ArrayObjectConverterTest extends TestCase
@@ -41,7 +42,7 @@ final class ArrayObjectConverterTest extends TestCase
      */
     public function testConvert(array $data, string $class, array $expect): void
     {
-        $converter = new ArrayObjectConverter();
+        $converter = new ArrayObjectConverter(new AsIsResolver());
 
         $result = $converter->convert($data, $class);
 

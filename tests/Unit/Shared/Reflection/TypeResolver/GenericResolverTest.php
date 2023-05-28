@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\GenericResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -27,7 +28,7 @@ final class GenericResolverTest extends TestCase
      */
     public function testCanResolve(Type $type, mixed $value, bool $expected): void
     {
-        $resolver = new GenericResolver(new AsIsResolver());
+        $resolver = new GenericResolver($asIsResolver = new AsIsResolver(), new ArrayObjectConverter($asIsResolver));
 
         self::assertEquals(
             $expected,
@@ -64,7 +65,7 @@ final class GenericResolverTest extends TestCase
      */
     public function testResolve(Type $type, mixed $value, mixed $expected): void
     {
-        $resolver = new GenericResolver(new AsIsResolver());
+        $resolver = new GenericResolver($asIsResolver = new AsIsResolver(), new ArrayObjectConverter($asIsResolver));
 
         self::assertEquals($expected, $resolver->resolve($type, $value));
     }

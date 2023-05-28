@@ -8,7 +8,7 @@ final class GenericResolver implements TypeResolver
 {
     public function __construct(
         private readonly TypeResolver         $resolver,
-        private readonly ArrayObjectConverter $arrayObjectConverter = new ArrayObjectConverter(),
+        private readonly ArrayObjectConverter $arrayObjectConverter,
     ) {
         //
     }

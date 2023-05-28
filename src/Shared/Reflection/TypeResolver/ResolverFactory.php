@@ -14,8 +14,21 @@ class ResolverFactory
 
     public function create(): TypeResolver
     {
+        $composite = new CompositeResolver();
+
         $asIsResolver = new AsIsResolver();
-        $arrayObjectConverter = new ArrayObjectConverter();
+
+        // add primitive resolvers
+
+        $composite
+            ->add('int', $asIsResolver)
+            ->add('string', $asIsResolver)
+            ->add('float', $asIsResolver)
+            ->add('array', $asIsResolver);
+
+        // add object resolvers
+
+        $arrayObjectConverter = new ArrayObjectConverter($composite);
         $genericAsIsResolver = new GenericResolver($asIsResolver, $arrayObjectConverter);
         $objectResolvers = [
             new GenericResolver(new MapResolver(), $arrayObjectConverter),
@@ -26,15 +39,10 @@ class ResolverFactory
             new EnumResolver(),
         ];
 
-        $resolvers = [
-            'int' => $asIsResolver,
-            'string' => $asIsResolver,
-            'float' => $asIsResolver,
-            'array' => $genericAsIsResolver,
-            'object' => new ObjectCompositeResolver($objectResolvers),
-            'iterable' => $genericAsIsResolver,
-        ];
+        $composite
+            ->add('object', new ObjectCompositeResolver($objectResolvers))
+            ->add('iterable', $genericAsIsResolver);
 
-        return new CompositeResolver($resolvers);
+        return $composite;
     }
 }

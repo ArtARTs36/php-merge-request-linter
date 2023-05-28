@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\DataObjectResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -47,7 +48,7 @@ final class DataObjectResolverTest extends TestCase
      */
     public function testCanResolve(Type $type, mixed $value, bool $expected): void
     {
-        $resolver = new DataObjectResolver(new ArrayObjectConverter());
+        $resolver = new DataObjectResolver(new ArrayObjectConverter(new AsIsResolver()));
 
         self::assertEquals($expected, $resolver->canResolve($type, $value));
     }
@@ -83,7 +84,7 @@ final class DataObjectResolverTest extends TestCase
      */
     public function testResolveOnException(Type $type, mixed $value, string $expected): void
     {
-        $resolver = new DataObjectResolver(new ArrayObjectConverter());
+        $resolver = new DataObjectResolver(new ArrayObjectConverter(new AsIsResolver()));
 
         self::expectExceptionMessage($expected);
 
@@ -96,7 +97,7 @@ final class DataObjectResolverTest extends TestCase
      */
     public function testResolve(): void
     {
-        $resolver = new DataObjectResolver(new ArrayObjectConverter());
+        $resolver = new DataObjectResolver(new ArrayObjectConverter(new AsIsResolver()));
 
         $result = $resolver->resolve(new Type(TypeName::Object, TestDataObject::class), [
             'name' => '12',

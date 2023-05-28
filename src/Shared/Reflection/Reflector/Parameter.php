@@ -9,6 +9,7 @@ class Parameter
         public readonly string $description,
         public readonly Type $type,
         public readonly bool $hasDefaultValue = false,
+        private readonly ?\Closure $defaultValueGetter = null,
     ) {
         //
     }
@@ -16,5 +17,13 @@ class Parameter
     public function isRequired(): bool
     {
         return ! $this->type->nullable && ! $this->hasDefaultValue;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultValue(): mixed
+    {
+        return $this->defaultValueGetter === null ? null : ($this->defaultValueGetter)();
     }
 }

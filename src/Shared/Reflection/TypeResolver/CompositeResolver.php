@@ -10,9 +10,16 @@ final class CompositeResolver implements TypeResolver
      * @param array<string, TypeResolver> $resolvers
      */
     public function __construct(
-        private readonly array $resolvers,
+        private array $resolvers = [],
     ) {
         //
+    }
+
+    public function add(string $type, TypeResolver $typeResolver): self
+    {
+        $this->resolvers[$type] = $typeResolver;
+
+        return $this;
     }
 
     public function canResolve(Type $type, mixed $value): bool
