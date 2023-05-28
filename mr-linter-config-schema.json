@@ -4301,7 +4301,7 @@
                             "type": "object",
                             "properties": {
                                 "level": {
-                                    "type": "string",
+                                    "type": "int",
                                     "enum": [
                                         1,
                                         2,

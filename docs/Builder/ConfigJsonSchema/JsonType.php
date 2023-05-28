@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 use ArtARTs36\Str\Str;
 
 class JsonType
@@ -33,9 +34,7 @@ class JsonType
 
         if (class_exists($type)) {
             if (enum_exists($type)) {
-                return is_subclass_of($type, \IntBackedEnum::class, true) ?
-                    self::INTEGER :
-                    self::STRING;
+                return Reflector::valueTypeForEnum($type);
             }
 
             return self::OBJECT;
