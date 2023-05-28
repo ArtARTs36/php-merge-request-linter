@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\Text\Markdown\HeadingLevel;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use ArtARTs36\Str\Str;
 
@@ -21,11 +22,13 @@ final class UpdateChangelogRuleTest extends TestCase
                 [
                     'ch.md',
                     new UpdateChangelogRule\Tags(
-                        new UpdateChangelogRule\TagsHeading(2),
+                        new UpdateChangelogRule\TagsHeading(
+                            HeadingLevel::Level2,
+                        ),
                     ),
                 ],
                 [
-                    'Changelog must be contained new tag',
+                    'Changelog must be contained new tag with heading level 2',
                 ],
             ],
             'request not contains changes in changelog by default filenames' => [
@@ -33,11 +36,13 @@ final class UpdateChangelogRuleTest extends TestCase
                 [
                     null,
                     new UpdateChangelogRule\Tags(
-                        new UpdateChangelogRule\TagsHeading(2),
+                        new UpdateChangelogRule\TagsHeading(
+                            HeadingLevel::Level2,
+                        ),
                     ),
                 ],
                 [
-                    'Changelog must be contained new tag',
+                    'Changelog must be contained new tag with heading level 2',
                 ],
             ],
             'request has changes, but not contains new tag' => [
@@ -54,7 +59,9 @@ final class UpdateChangelogRuleTest extends TestCase
                 [
                     'ch.md',
                     new UpdateChangelogRule\Tags(
-                        new UpdateChangelogRule\TagsHeading(2),
+                        new UpdateChangelogRule\TagsHeading(
+                            HeadingLevel::Level2,
+                        ),
                     ),
                 ],
                 [
@@ -75,7 +82,9 @@ final class UpdateChangelogRuleTest extends TestCase
                 [
                     'ch.md',
                     new UpdateChangelogRule\Tags(
-                        new UpdateChangelogRule\TagsHeading(2),
+                        new UpdateChangelogRule\TagsHeading(
+                            HeadingLevel::Level2,
+                        ),
                     ),
                 ],
                 [],
