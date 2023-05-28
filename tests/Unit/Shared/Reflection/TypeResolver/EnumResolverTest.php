@@ -23,7 +23,7 @@ final class EnumResolverTest extends TestCase
                 false,
             ],
             [
-                new Type(TypeName::String, \ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestEnum::class),
+                new Type(TypeName::String, TestEnum::class),
                 '',
                 true,
             ],
@@ -55,14 +55,14 @@ final class EnumResolverTest extends TestCase
                 'Type with name "non-enum" not supported',
             ],
             [
-                new Type(TypeName::String, \ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestEnum::class),
+                new Type(TypeName::String, TestEnum::class),
                 new \stdClass(),
-                'Value for enum '. \ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestEnum::class .' must be int',
+                'Value for enum '. TestEnum::class .' must be int',
             ],
             [
-                new Type(TypeName::Int, \ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestEnum::class),
+                new Type(TypeName::Int, TestEnum::class),
                 4,
-                'Enum "'. \ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestEnum::class .'" not resolved. Available values: [1, 2, 3]',
+                'Enum "'. TestEnum::class .'" not resolved. Available values: [1, 2, 3]',
             ],
         ];
     }
@@ -87,8 +87,8 @@ final class EnumResolverTest extends TestCase
     {
         $resolver = new EnumResolver();
 
-        self::assertEquals(\ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestEnum::Val1, $resolver->resolve(
-            new Type(TypeName::Int, \ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestEnum::class),
+        self::assertEquals(TestEnum::Val1, $resolver->resolve(
+            new Type(TypeName::Int, TestEnum::class),
             1,
         ));
     }

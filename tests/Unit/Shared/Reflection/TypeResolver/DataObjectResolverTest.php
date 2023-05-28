@@ -98,11 +98,11 @@ final class DataObjectResolverTest extends TestCase
     {
         $resolver = new DataObjectResolver(new ArrayObjectConverter());
 
-        $result = $resolver->resolve(new Type(TypeName::Object, \ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestDataObject::class), [
+        $result = $resolver->resolve(new Type(TypeName::Object, TestDataObject::class), [
             'name' => '12',
         ]);
 
-        self::assertInstanceOf(\ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestDataObject::class, $result);
+        self::assertInstanceOf(TestDataObject::class, $result);
         self::assertEquals('12', $result->name);
     }
 }

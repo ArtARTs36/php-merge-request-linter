@@ -14,7 +14,7 @@ final class NativeConstructorInstantiatorTest extends TestCase
     {
         return [
             [
-                \ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator\NativeConstructorTestObject1::class,
+                NativeConstructorTestObject1::class,
                 [
                     'prop1' => '1',
                     'prop4' => 4.0,

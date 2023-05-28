@@ -14,7 +14,7 @@ final class StaticMethodInstantiatorTest extends TestCase
     {
         return [
             [
-                \ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator\ClassForTestOfStaticConstructor::class,
+                ClassForTestOfStaticConstructor::class,
                 'make',
                 [
                     'name' => 'John',
@@ -28,7 +28,7 @@ final class StaticMethodInstantiatorTest extends TestCase
                 ],
             ],
             [
-                \ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator\Class2ForTestOfStaticConstructor::class,
+                Class2ForTestOfStaticConstructor::class,
                 'make',
                 [
                     'name' => 'John',
