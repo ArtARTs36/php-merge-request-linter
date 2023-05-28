@@ -93,6 +93,7 @@ final class TimePeriodTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::day
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::make
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::__construct
      */
     public function testDay(): void
