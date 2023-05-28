@@ -1,11 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\GenericResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\GenericResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GenericResolverTest extends TestCase
@@ -22,7 +22,7 @@ final class GenericResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\GenericResolver::canResolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\GenericResolver::canResolve
      * @dataProvider providerForTestCanResolve
      */
     public function testCanResolve(Type $type, mixed $value, bool $expected): void
@@ -58,8 +58,8 @@ final class GenericResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\GenericResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\GenericResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\GenericResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\GenericResolver::__construct
      * @dataProvider providerForTestResolve
      */
     public function testResolve(Type $type, mixed $value, mixed $expected): void

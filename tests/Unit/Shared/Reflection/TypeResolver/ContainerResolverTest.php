@@ -1,10 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ContainerResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ContainerResolver;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockContainer;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -20,8 +20,8 @@ final class ContainerResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ContainerResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ContainerResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ContainerResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ContainerResolver::__construct
      * @dataProvider providerForTestResolveOnExceptions
      */
     public function testResolveOnExceptions(Type $paramType, array $container, string $expectException): void
@@ -57,7 +57,7 @@ final class ContainerResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ContainerResolver::canResolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ContainerResolver::canResolve
      * @dataProvider providerForTestCanResolve
      */
     public function testCanResolve(bool $containerHas, Type $type, mixed $value, bool $expected): void

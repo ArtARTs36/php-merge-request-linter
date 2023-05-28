@@ -1,11 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\DataObjectResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\DataObjectResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class DataObjectResolverTest extends TestCase
@@ -42,7 +42,7 @@ final class DataObjectResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\DataObjectResolver::canResolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\DataObjectResolver::canResolve
      * @dataProvider providerForTestCanResolve
      */
     public function testCanResolve(Type $type, mixed $value, bool $expected): void
@@ -78,7 +78,7 @@ final class DataObjectResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\DataObjectResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\DataObjectResolver::resolve
      * @dataProvider providerForTestResolveOnException
      */
     public function testResolveOnException(Type $type, mixed $value, string $expected): void
@@ -91,18 +91,18 @@ final class DataObjectResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\DataObjectResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\DataObjectResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\DataObjectResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\DataObjectResolver::__construct
      */
     public function testResolve(): void
     {
         $resolver = new DataObjectResolver(new ArrayObjectConverter());
 
-        $result = $resolver->resolve(new Type(TypeName::Object, TestDataObject::class), [
+        $result = $resolver->resolve(new Type(TypeName::Object, \ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestDataObject::class), [
             'name' => '12',
         ]);
 
-        self::assertInstanceOf(TestDataObject::class, $result);
+        self::assertInstanceOf(\ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers\TestDataObject::class, $result);
         self::assertEquals('12', $result->name);
     }
 }

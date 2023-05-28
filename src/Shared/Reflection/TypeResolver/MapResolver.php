@@ -1,15 +1,15 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
-final class SetResolver implements ArgumentResolver
+final class MapResolver implements ArgumentResolver
 {
-    public const SUPPORT_TYPE = Set::class;
+    public const SUPPORT_TYPE = ArrayMap::class;
 
     public function canResolve(Type $type, mixed $value): bool
     {
@@ -25,6 +25,6 @@ final class SetResolver implements ArgumentResolver
             ));
         }
 
-        return Set::fromList($value);
+        return new ArrayMap($value);
     }
 }

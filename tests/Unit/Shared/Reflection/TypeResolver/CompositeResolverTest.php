@@ -1,20 +1,20 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class CompositeResolverTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::__construct
      */
     public function testResolveOnResolverNotFound(): void
     {
@@ -26,8 +26,8 @@ final class CompositeResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::__construct
      */
     public function testResolveOk(): void
     {
@@ -77,7 +77,7 @@ final class CompositeResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver::canResolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::canResolve
      * @dataProvider providerForTestCanResolve
      */
     public function testCanResolve(array $subResolvers, Type $type, mixed $value, bool $expected): void

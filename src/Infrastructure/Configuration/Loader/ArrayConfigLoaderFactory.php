@@ -31,7 +31,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\FileTransfor
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
@@ -39,6 +38,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolverFactory;
 
 class ArrayConfigLoaderFactory
 {
@@ -48,12 +48,12 @@ class ArrayConfigLoaderFactory
     ];
 
     public function __construct(
-        private readonly FileSystem $fileSystem,
-        private readonly Environment $environment,
-        private readonly MetricManager $metrics,
-        private readonly ArgumentResolverFactory $argumentResolverFactory,
-        private readonly MapContainer $container,
-        private readonly DecoderFactory $decoderFactory = new DecoderFactory(),
+        private readonly FileSystem          $fileSystem,
+        private readonly Environment         $environment,
+        private readonly MetricManager       $metrics,
+        private readonly TypeResolverFactory $argumentResolverFactory,
+        private readonly MapContainer        $container,
+        private readonly DecoderFactory      $decoderFactory = new DecoderFactory(),
     ) {
         //
     }

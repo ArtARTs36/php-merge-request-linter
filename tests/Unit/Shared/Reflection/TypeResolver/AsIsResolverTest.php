@@ -1,16 +1,16 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\Resolvers;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class AsIsResolverTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver::resolve
      */
     public function testResolve(): void
     {
@@ -20,7 +20,7 @@ final class AsIsResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\AsIsResolver::canResolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver::canResolve
      */
     public function testCanResolve(): void
     {
