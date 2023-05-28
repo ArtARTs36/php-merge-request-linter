@@ -47,7 +47,7 @@ final class EnumResolver implements ArgumentResolver
                 sprintf(
                     'Enum "%s" not resolved. Available values: [%s]',
                     $enum,
-                    implode(', ', array_map(fn (\UnitEnum $unit) => $unit->value, $enum::cases())),
+                    implode(', ', array_map(fn (\BackedEnum $unit) => $unit->value, $enum::cases())),
                 ),
                 previous: $e,
             );
