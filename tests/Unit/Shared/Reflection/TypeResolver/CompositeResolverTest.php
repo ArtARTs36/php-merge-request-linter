@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -20,7 +20,7 @@ final class CompositeResolverTest extends TestCase
     {
         $resolver = new CompositeResolver([]);
 
-        self::expectException(ArgNotSupportedException::class);
+        self::expectException(ValueInvalidException::class);
 
         $resolver->resolve(new Type(TypeName::String), '');
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Instantiator;
 
-class Builder
+class ParameterMapBuilder
 {
     public function __construct(
         private readonly ArgumentResolver $argResolver,

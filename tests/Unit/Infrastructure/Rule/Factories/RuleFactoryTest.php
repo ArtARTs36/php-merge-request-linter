@@ -5,10 +5,10 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Factories;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\AbstractRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\ParameterMapBuilder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver;
@@ -25,7 +25,7 @@ final class RuleFactoryTest extends TestCase
     public function testCreate(): void
     {
         $factory = new RuleFactory(
-            new Builder(new CompositeResolver([
+            new ParameterMapBuilder(new CompositeResolver([
                 'string' => new AsIsResolver(),
                 'int' => new AsIsResolver(),
                 'float' => new AsIsResolver(),

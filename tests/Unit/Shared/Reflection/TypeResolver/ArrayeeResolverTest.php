@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayeeResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -69,7 +69,7 @@ final class ArrayeeResolverTest extends TestCase
     {
         $resolver = new ArrayeeResolver();
 
-        self::expectException(ArgNotSupportedException::class);
+        self::expectException(ValueInvalidException::class);
 
         $resolver->resolve(new Type(TypeName::Array), 'string');
     }

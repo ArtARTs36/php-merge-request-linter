@@ -31,12 +31,12 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\FileTransfor
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\ParameterMapBuilder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolverFactory;
 
@@ -69,7 +69,7 @@ class ArrayConfigLoaderFactory
         }
 
         $ruleFactory = new RuleFactory(
-            new Builder(
+            new ParameterMapBuilder(
                 $this->argumentResolverFactory->create(),
             ),
             new Finder(),

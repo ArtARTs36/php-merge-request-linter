@@ -3,14 +3,14 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\ParameterMapBuilder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
 
 class RuleFactory
 {
     public function __construct(
-        private readonly Builder            $argBuilder,
-        private readonly InstantiatorFinder $constructor,
+        private readonly ParameterMapBuilder $argBuilder,
+        private readonly InstantiatorFinder  $constructor,
     ) {
         //
     }

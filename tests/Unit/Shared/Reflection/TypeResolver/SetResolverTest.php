@@ -2,10 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\SetResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -72,7 +72,7 @@ final class SetResolverTest extends TestCase
     {
         $resolver = new SetResolver();
 
-        self::expectException(ArgNotSupportedException::class);
+        self::expectException(ValueInvalidException::class);
 
         $resolver->resolve(new Type(TypeName::Array), 1);
     }

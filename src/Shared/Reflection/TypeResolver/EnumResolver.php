@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
@@ -17,14 +16,14 @@ final class EnumResolver implements ArgumentResolver
     public function resolve(Type $type, mixed $value): mixed
     {
         if ($type->class === null) {
-            throw new ArgNotSupportedException(sprintf(
+            throw new ValueInvalidException(sprintf(
                 'Type with name "%s" not supported',
                 $type->name->value,
             ));
         }
 
         if (! enum_exists($type->class)) {
-            throw new ArgNotSupportedException(sprintf(
+            throw new ValueInvalidException(sprintf(
                 'Type with name "%s" not supported',
                 $type->class,
             ));
@@ -34,7 +33,7 @@ final class EnumResolver implements ArgumentResolver
         $enum = $type->class;
 
         if (! is_string($value) && ! is_int($value)) {
-            throw new ArgNotSupportedException(sprintf(
+            throw new ValueInvalidException(sprintf(
                 'Value for enum %s must be %s',
                 $enum,
                 Reflector::valueTypeForEnum($enum),
@@ -44,7 +43,7 @@ final class EnumResolver implements ArgumentResolver
         try {
             return $enum::from($value);
         } catch (\Throwable $e) {
-            throw new ArgNotSupportedException(
+            throw new ValueInvalidException(
                 sprintf(
                     'Enum "%s" not resolved. Available values: [%s]',
                     $enum,

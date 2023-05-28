@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
 
 /**
  * Argument resolver.
@@ -18,7 +18,7 @@ interface ArgumentResolver
     /**
      * Resolve argument.
      * @param mixed $value
-     * @throws ArgNotSupportedException
+     * @throws ValueInvalidException
      */
     public function resolve(Type $type, mixed $value): mixed;
 }

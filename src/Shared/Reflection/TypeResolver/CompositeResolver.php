@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
 final class CompositeResolver implements ArgumentResolver
@@ -26,7 +25,7 @@ final class CompositeResolver implements ArgumentResolver
     public function resolve(Type $type, mixed $value): mixed
     {
         if (! isset($this->resolvers[$type->name->value])) {
-            throw new ArgNotSupportedException(sprintf(
+            throw new ValueInvalidException(sprintf(
                 'Resolver for type "%s" not found',
                 $type->name->value,
             ));

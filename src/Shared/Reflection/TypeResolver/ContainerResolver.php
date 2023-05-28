@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -28,14 +27,14 @@ final class ContainerResolver implements ArgumentResolver
         $class = $type->class;
 
         if ($class === null || ! class_exists($class) && ! interface_exists($class)) {
-            throw new ArgNotSupportedException(sprintf(
+            throw new ValueInvalidException(sprintf(
                 'Type with name "%s" not supported',
                 $type->name->value,
             ));
         }
 
         if (! $this->container->has($class)) {
-            throw new ArgNotSupportedException(sprintf(
+            throw new ValueInvalidException(sprintf(
                 'Resolver for type "%s" not found',
                 $type->class,
             ));
@@ -44,7 +43,7 @@ final class ContainerResolver implements ArgumentResolver
         try {
             return $this->container->get($class);
         } catch (ContainerExceptionInterface $e) {
-            throw new ArgNotSupportedException(sprintf(
+            throw new ValueInvalidException(sprintf(
                 'Type "%s" didn\'t resolved: %s',
                 $type->class,
                 $e->getMessage(),
