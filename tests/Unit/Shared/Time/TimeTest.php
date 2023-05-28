@@ -144,7 +144,6 @@ final class TimeTest extends TestCase
         );
     }
 
-
     public function providerForTestMakeOnInvalidTimeValue(): array
     {
         return [
