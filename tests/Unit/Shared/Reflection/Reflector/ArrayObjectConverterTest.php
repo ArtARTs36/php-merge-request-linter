@@ -38,6 +38,7 @@ final class ArrayObjectConverterTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::convert
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::mapParams
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::__construct
      * @dataProvider providerForTestConvert
      */
     public function testConvert(array $data, string $class, array $expect): void

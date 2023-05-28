@@ -83,4 +83,16 @@ final class MapProxyTest extends TestCase
             $proxy->__debugInfo(),
         );
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::toArray
+     */
+    public function testToArray(): void
+    {
+        $proxy = new MapProxy(function () {
+            return new ArrayMap([1, 2]);
+        });
+
+        self::assertEquals([1, 2], $proxy->toArray());
+    }
 }
