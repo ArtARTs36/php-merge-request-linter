@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\DataObjectResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Reflector;
 
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ArrayObjectConverterTest extends TestCase
@@ -35,8 +35,8 @@ final class ArrayObjectConverterTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter::convert
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter::mapParams
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::convert
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::mapParams
      * @dataProvider providerForTestConvert
      */
     public function testConvert(array $data, string $class, array $expect): void

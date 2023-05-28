@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter;
 use Psr\Container\ContainerInterface;
 
 class ResolverFactory

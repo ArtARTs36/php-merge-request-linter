@@ -1,6 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
+
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 
 class ArrayObjectConverter
 {
