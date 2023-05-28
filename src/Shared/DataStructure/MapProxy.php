@@ -92,8 +92,8 @@ class MapProxy implements Map
     {
         if ($this->map === null) {
             return [
-                'count' => null,
-                'items' => 'Not loaded',
+                'count' => $this->count,
+                'items' => 'No loaded',
             ];
         }
 

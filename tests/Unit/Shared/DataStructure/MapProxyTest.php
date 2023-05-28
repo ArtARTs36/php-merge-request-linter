@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\DataStructure;
 
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -47,5 +48,39 @@ final class MapProxyTest extends TestCase
         call_user_func([$proxy, $methodName], ...$args);
 
         self::assertEquals($expectedCalls, $counter->counter, sprintf('Failed on method %s', $methodName));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::__debugInfo
+     */
+    public function testDebugInfoNoLoadedMap(): void
+    {
+        $proxy = new MapProxy(fn () => new ArrayMap([]), 12);
+
+        self::assertEquals(
+            [
+                'count' => 12,
+                'items' => 'No loaded',
+            ],
+            $proxy->__debugInfo(),
+        );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy::__debuginfo
+     */
+    public function testDebugInfoLoadedMap(): void
+    {
+        $proxy = new MapProxy(fn () => new ArrayMap([1, 2]));
+
+        $proxy->count();
+
+        self::assertEquals(
+            [
+                'count' => 2,
+                'items' => [1, 2],
+            ],
+            $proxy->__debugInfo(),
+        );
     }
 }
