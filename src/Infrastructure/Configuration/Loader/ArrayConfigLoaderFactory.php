@@ -38,7 +38,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\ParameterMapBuilder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolverFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ResolverFactory;
 
 class ArrayConfigLoaderFactory
 {
@@ -48,12 +48,12 @@ class ArrayConfigLoaderFactory
     ];
 
     public function __construct(
-        private readonly FileSystem          $fileSystem,
-        private readonly Environment         $environment,
-        private readonly MetricManager       $metrics,
-        private readonly TypeResolverFactory $argumentResolverFactory,
-        private readonly MapContainer        $container,
-        private readonly DecoderFactory      $decoderFactory = new DecoderFactory(),
+        private readonly FileSystem      $fileSystem,
+        private readonly Environment     $environment,
+        private readonly MetricManager   $metrics,
+        private readonly ResolverFactory $argumentResolverFactory,
+        private readonly MapContainer    $container,
+        private readonly DecoderFactory  $decoderFactory = new DecoderFactory(),
     ) {
         //
     }

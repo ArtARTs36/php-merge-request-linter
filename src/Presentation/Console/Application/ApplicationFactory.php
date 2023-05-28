@@ -50,7 +50,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolverFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ResolverFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use Psr\Clock\ClockInterface;
@@ -88,7 +88,7 @@ class ApplicationFactory
             $clock,
         );
 
-        $argResolverFactory = new TypeResolverFactory($this->container);
+        $argResolverFactory = new ResolverFactory($this->container);
 
         $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory(
             $filesystem,

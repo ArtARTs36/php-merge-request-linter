@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\Argument
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ArrayObjectConverter;
 use Psr\Container\ContainerInterface;
 
-class TypeResolverFactory
+class ResolverFactory
 {
     public function __construct(
         private readonly ContainerInterface $container,
