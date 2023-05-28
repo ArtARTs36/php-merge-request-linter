@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Instantiator;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator;
 
 /**
  * Instantiator Finder for class.

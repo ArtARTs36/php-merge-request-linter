@@ -5,10 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesCollectionType;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesSameType;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\DefaultEvaluators;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite\AnyEvaluator;
-use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 
 class OperatorMetadataLoader
 {

@@ -4,8 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
 final class EnumResolver implements ArgumentResolver
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Reflector;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;

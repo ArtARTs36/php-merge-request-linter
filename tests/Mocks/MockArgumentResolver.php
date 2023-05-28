@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
 final class MockArgumentResolver implements ArgumentResolver
 {

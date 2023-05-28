@@ -13,7 +13,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ObjectCo
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class RuleFactoryTest extends TestCase

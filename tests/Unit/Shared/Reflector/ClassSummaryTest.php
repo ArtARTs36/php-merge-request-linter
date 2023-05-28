@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflector;
 
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ClassSummary;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ClassSummaryTest extends TestCase
@@ -49,7 +49,7 @@ final class ClassSummaryTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary::findInPhpDocComment
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ClassSummary::findInPhpDocComment
      * @dataProvider providerForTestFindInPhpDocComment
      */
     public function testFindInPhpDocComment(string $comment, ?string $expected): void

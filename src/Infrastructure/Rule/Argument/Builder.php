@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Instantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Instantiator;
 
 class Builder
 {

@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\NativeConstructorInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class NativeConstructorInstantiatorTest extends TestCase
@@ -26,8 +26,8 @@ final class NativeConstructorInstantiatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator::instantiate
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\NativeConstructorInstantiator::instantiate
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\NativeConstructorInstantiator::__construct
      * @dataProvider providerForTestInstantiate
      */
     public function testInstantiate(string $class, array $args): void

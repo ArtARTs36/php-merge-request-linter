@@ -5,8 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\R
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ArrayeeResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ArrayeeResolverTest extends TestCase

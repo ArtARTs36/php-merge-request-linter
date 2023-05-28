@@ -5,9 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\InstantiatorFinder;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 use ArtARTs36\Str\Facade\Str;
 
 class RuleSchemaGenerator
@@ -102,7 +102,7 @@ class RuleSchemaGenerator
         return $schema;
     }
 
-    private function createRuleParamSchema(string $ruleClass, \ArtARTs36\MergeRequestLinter\Shared\Reflector\Parameter $param): ?array
+    private function createRuleParamSchema(string $ruleClass, \ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Parameter $param): ?array
     {
         if (isset(self::OVERWRITE_PARAMS[$ruleClass][$param->name])) {
             return self::OVERWRITE_PARAMS[$ruleClass][$param->name];

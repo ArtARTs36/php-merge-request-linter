@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\StaticMethodInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class StaticMethodInstantiatorTest extends TestCase
@@ -45,8 +45,8 @@ final class StaticMethodInstantiatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator::instantiate
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\StaticMethodInstantiator::instantiate
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\StaticMethodInstantiator::__construct
      * @dataProvider providerForTestInstantiate
      */
     public function testInstantiate(string $class, string $method, array $arts, array $expected): void

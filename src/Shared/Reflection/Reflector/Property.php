@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Reflector;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
 /**
  * @codeCoverageIgnore

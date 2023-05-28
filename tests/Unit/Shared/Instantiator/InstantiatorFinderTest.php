@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Instantiator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\EmptyInstantiator;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Instantiator;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\NativeConstructorInstantiator;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\StaticMethodInstantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\EmptyInstantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Instantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\NativeConstructorInstantiator;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\StaticMethodInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class InstantiatorFinderTest extends TestCase
@@ -33,7 +33,7 @@ final class InstantiatorFinderTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder::find
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder::find
      * @dataProvider providerForTestFind
      * @param class-string<Rule> $ruleClass
      * @param class-string<Instantiator> $expectedConstructorClass
@@ -46,7 +46,7 @@ final class InstantiatorFinderTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder::find
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder::find
      */
     public function testFindOnClassNonExists(): void
     {

@@ -5,8 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Rule\Argument\R
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\CompositeResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\ArgNotSupportedException;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Type;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\TypeName;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 

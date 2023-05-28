@@ -6,8 +6,7 @@ use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
 use ArtARTs36\MergeRequestLinter\DocBuilder\EventFinder;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 
 class Generator
 {

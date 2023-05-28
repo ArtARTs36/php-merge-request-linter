@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories;
 
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Builder;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\InstantiatorFinder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
 
 class RuleFactory
 {

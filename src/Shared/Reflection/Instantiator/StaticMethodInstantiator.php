@@ -1,8 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Instantiator;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator;
 
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 
 /**
  * @template T of object

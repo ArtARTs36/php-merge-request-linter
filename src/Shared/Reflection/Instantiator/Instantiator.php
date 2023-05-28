@@ -1,8 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Instantiator;
+namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator;
 
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Parameter;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Parameter;
 
 /**
  * Instantiator for class.
