@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\DataObjectResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\EnumResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflector\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ArgumentResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\Resolvers\ArrayeeResolver;
@@ -34,6 +35,7 @@ class ArgumentResolverFactory
             new GenericResolver(new ArrayeeResolver(), $arrayObjectConverter),
             new ContainerResolver($this->container),
             new DataObjectResolver($arrayObjectConverter),
+            new EnumResolver(),
         ];
 
         $resolvers = [
