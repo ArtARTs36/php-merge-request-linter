@@ -4311,19 +4311,6 @@
                                         6
                                     ],
                                     "description": "Markdown heading level for tags"
-                                },
-                                "regex": {
-                                    "type": "object",
-                                    "properties": {
-                                        "expression": {
-                                            "type": "string",
-                                            "description": "Regex expression for match tags"
-                                        },
-                                        "example": {
-                                            "type": "string",
-                                            "description": "Example for need tag title"
-                                        }
-                                    }
                                 }
                             }
                         }

@@ -63,35 +63,11 @@ class UpdateChangelogRule extends NamedRule implements Rule
                 continue;
             }
 
-            if ($this->tags->heading->regex !== null) {
-                foreach ($headings as $heading) {
-                    if ($heading->title->contains($this->tags->heading->regex->expression, true)) {
-                        $newTagFound = true;
-
-                        break;
-                    } else {
-                        $hasHeadingsWithoutRegexMatch = true;
-                    }
-                }
-
-                continue;
-            }
-
             $newTagFound = true;
         }
 
         if ($newTagFound) {
             return [];
-        }
-
-        if ($hasHeadingsWithoutRegexMatch && $this->tags->heading->regex?->example !== null) {
-            return [
-                new LintNote(sprintf(
-                    'Changelog has new headings, but no matched by regex "%s", example: "%s"',
-                    $this->tags->heading->regex->expression,
-                    $this->tags->heading->regex->example,
-                )),
-            ];
         }
 
         if ($hasChanges) {

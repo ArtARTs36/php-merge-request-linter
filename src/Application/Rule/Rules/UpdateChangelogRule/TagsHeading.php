@@ -13,7 +13,6 @@ class TagsHeading
     public function __construct(
         #[Description('Markdown heading level for tags')]
         public readonly HeadingLevel $level = HeadingLevel::Level2,
-        public readonly ?TagsHeadingRegex $regex = null,
     ) {
         //
     }
