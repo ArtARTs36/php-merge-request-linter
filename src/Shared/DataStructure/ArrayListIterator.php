@@ -2,12 +2,22 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
-class ArrayListIterator implements \Iterator
+/**
+ * @template V
+ * @template-implements \Iterator<int, V>
+ */
+final class ArrayListIterator implements \Iterator
 {
     private int $index = 0;
 
+    /**
+     * @var mixed|false
+     */
     private mixed $currentValue = false;
 
+    /**
+     * @param array<V> $items
+     */
     public function __construct(
         private array $items,
     ) {
