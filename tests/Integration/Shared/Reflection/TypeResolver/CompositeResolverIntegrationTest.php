@@ -25,6 +25,7 @@ final class CompositeResolverIntegrationTest extends TestCase
                     'contributors' => [
                         [
                             'name' => 'Artem',
+                            'birthAt' => '06-07-1999',
                             'likesGithub' => 'yes',
                             'repos' => [
                                 new TestRepo('merge-request-linter'),
@@ -39,6 +40,7 @@ final class CompositeResolverIntegrationTest extends TestCase
                     new Arrayee([
                         new TestContributor(
                             'Artem',
+                            new \DateTime('06-07-1999'),
                             LikesGithub::Yes,
                             new Arrayee([
                                 new TestRepo('merge-request-linter'),
@@ -86,6 +88,7 @@ class TestContributor
 {
     public function __construct(
         public readonly string $name,
+        public readonly \DateTimeInterface $birthAt,
         public readonly LikesGithub $likesGithub,
         #[Generic(Repo::class)]
         public readonly Arrayee $repos,

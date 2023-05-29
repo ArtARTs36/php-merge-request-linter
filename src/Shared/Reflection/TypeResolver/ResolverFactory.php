@@ -37,6 +37,7 @@ class ResolverFactory
             new ContainerResolver($this->container),
             new DataObjectResolver($arrayObjectConverter),
             new EnumResolver(),
+            new DateTimeResolver(),
         ];
 
         $composite
