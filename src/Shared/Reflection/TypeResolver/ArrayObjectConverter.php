@@ -55,11 +55,18 @@ class ArrayObjectConverter
                 $params[$parameter->name] = $parameter->getDefaultValue();
             } elseif ($parameter->type->class !== null &&
                 class_exists($parameter->type->class) &&
+                ! enum_exists($parameter->type->class) &&
+                ! interface_exists($parameter->type->class) &&
                 Reflector::canConstructWithoutParameters($parameter->type->class)
             ) {
                 $params[$parameter->name] = $this->convert([], $parameter->type->class);
-            } elseif ($parameter->type->nullable !== null) {
+            } elseif ($parameter->type->nullable) {
                 $params[$parameter->name] = null;
+            } else {
+                throw new ValueInvalidException(sprintf(
+                    'Required parameter "%s" is missing',
+                    $parameter->name,
+                ));
             }
         }
 
