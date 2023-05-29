@@ -97,7 +97,7 @@ final class Set implements Collection, HasDebugInfo, \JsonSerializable
      */
     public function getIterator(): \Traversable
     {
-        return new \ArrayIterator($this->items);
+        return new ArrayListIterator($this->items);
     }
 
     /**
