@@ -137,11 +137,6 @@ class ArrayMap implements Map
         return $this->items[array_key_first($this->items)] ?? null;
     }
 
-    public function implode(string $sep): string
-    {
-        return implode($sep, $this->items);
-    }
-
     /**
      * @return Arrayee<int, K>
      */

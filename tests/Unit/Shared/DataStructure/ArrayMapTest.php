@@ -215,4 +215,39 @@ final class ArrayMapTest extends TestCase
 
         self::assertEquals($expected, $map->contains($value));
     }
+
+    public function providerForTestEquals(): array
+    {
+        return [
+            [
+                ['k' => 'v'],
+                ['k1' => 'v1', 'k2' => 'v2'],
+                false,
+            ],
+            [
+                ['k2' => 'v2'],
+                ['k1' => 'v1'],
+                false,
+            ],
+            [
+                ['k1' => 'v2'],
+                ['k1' => 'v1'],
+                false,
+            ],
+            [
+                ['k1' => 'v1'],
+                ['k1' => 'v1'],
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::equals
+     * @dataProvider providerForTestEquals
+     */
+    public function testEquals(array $oneMap, array $twoMap, bool $expected): void
+    {
+        self::assertEquals($expected, (new ArrayMap($oneMap))->equals(new ArrayMap($twoMap)));
+    }
 }
