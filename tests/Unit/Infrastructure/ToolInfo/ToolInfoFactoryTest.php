@@ -11,6 +11,7 @@ final class ToolInfoFactoryTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory::__construct
      */
     public function testCreate(): void
     {
