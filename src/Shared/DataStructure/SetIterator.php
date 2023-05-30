@@ -6,7 +6,7 @@ namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
  * @template V
  * @template-implements \Iterator<int, V>
  */
-final class ArrayListIterator implements \Iterator
+final class SetIterator implements \Iterator
 {
     private int $index = 0;
 

@@ -93,13 +93,13 @@ final class Set implements Collection, HasDebugInfo, \JsonSerializable
     }
 
     /**
-     * Here, an ArrayListIterator is used so that the hashed keys are not available
+     * Here, an SetIterator is used so that the hashed keys are not available
      * when the Set is iterated, since they are of no practical use outside.
      * @return \Traversable<V>
      */
     public function getIterator(): \Traversable
     {
-        return new ArrayListIterator($this->items);
+        return new SetIterator($this->items);
     }
 
     /**
