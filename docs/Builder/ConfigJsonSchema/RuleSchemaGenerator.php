@@ -5,9 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\InstantiatorFinder;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 use ArtARTs36\Str\Facade\Str;
 
 class RuleSchemaGenerator
@@ -57,47 +57,23 @@ class RuleSchemaGenerator
             ];
 
             if (count($params) > 0) {
-                foreach ($constructor->params() as $paramName => $paramType) {
-                    if (isset(self::OVERWRITE_PARAMS[$rule][$paramName])) {
-                        $typeSchema = self::OVERWRITE_PARAMS[$rule][$paramName];
-                    } else {
-                        $typeSchema = [
-                            'type' => JsonType::to($paramType->class ?? $paramType->name->value),
-                        ];
+                foreach ($constructor->params() as $param) {
+                    $paramSchema = $this->createRuleParamSchema(
+                        $rule,
+                        $param,
+                    );
 
-                        if ($typeSchema['type'] === null) {
-                            continue;
-                        }
-
-                        if ($paramType->isGeneric()) {
-                            $generic = $paramType->getObjectGeneric();
-
-                            if ($generic !== null) {
-                                $genericProps = [];
-
-                                foreach (Reflector::mapProperties($generic) as $property) {
-                                    $genericProps[$property->name] = [
-                                        'type' => JsonType::to($property->type->class ?? $property->type->name->value),
-                                    ];
-                                }
-
-                                $typeSchema['items'] = [
-                                    'type' => 'object',
-                                    'properties' => $genericProps,
-                                    'additionalProperties' => false,
-                                ];
-                            } else {
-                                $typeSchema['items'] = [
-                                    [
-                                        'type' => $paramType->generic,
-                                    ],
-                                ];
-                            }
-                        }
+                    if ($paramSchema === null) {
+                        continue;
                     }
 
-                    $definition['properties'][$paramName] = $typeSchema;
-                    $definition['required'][] = $paramName;
+                    $definition['properties'][$param->name] = $paramSchema;
+
+                    if ($param->type->class !== null && Reflector::canConstructWithoutParameters($param->type->class)) {
+                        // skipped
+                    } else if ($param->isRequired()) {
+                        $definition['required'][] = $param->name;
+                    }
                 }
             }
 
@@ -124,5 +100,73 @@ class RuleSchemaGenerator
         }
 
         return $schema;
+    }
+
+    private function createRuleParamSchema(string $ruleClass, \ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Parameter $param): ?array
+    {
+        if (isset(self::OVERWRITE_PARAMS[$ruleClass][$param->name])) {
+            return self::OVERWRITE_PARAMS[$ruleClass][$param->name];
+        }
+
+        $paramSchema = [
+            'type' => JsonType::to($param->type->class ?? $param->type->name->value),
+        ];
+
+        if ($paramSchema['type'] === null) {
+            return null;
+        }
+
+        if ($param->type->class !== null && enum_exists($param->type->class)) {
+            /** @var \BackedEnum $enum */
+            $enum = $param->type->class;
+
+            $paramSchema['enum'] = array_map(function (\UnitEnum $unit) {
+                return $unit->value;
+            }, $enum::cases());
+        }
+
+        if ($param->description !== '') {
+            $paramSchema['description'] = $param->description;
+        }
+
+        if ($param->type->isGeneric()) {
+            $generic = $param->type->getObjectGeneric();
+
+            if ($generic !== null) {
+                $genericProps = [];
+
+                foreach (Reflector::mapProperties($generic) as $property) {
+                    $genericProps[$property->name] = [
+                        'type' => JsonType::to($property->type->class ?? $property->type->name->value),
+                    ];
+                }
+
+                $paramSchema['items'] = [
+                    'type' => 'object',
+                    'properties' => $genericProps,
+                    'additionalProperties' => false,
+                ];
+            } else {
+                $item = [
+                    'type' => $param->type->generic,
+                ];
+
+                if ($param->description !== '') {
+                    $item['description'] = $param->description;
+                }
+
+                $paramSchema['items'] = [
+                    $item,
+                ];
+            }
+        } else if ($param->type->class !== null) {
+            $subClassConstructor = $this->constructorFinder->find($param->type->class);
+
+            foreach ($subClassConstructor->params() as $subClassParam) {
+                $paramSchema['properties'][$subClassParam->name] = $this->createRuleParamSchema($ruleClass, $subClassParam);
+            }
+        }
+
+        return $paramSchema;
     }
 }

@@ -252,4 +252,36 @@ final class SetTest extends TestCase
             Set::fromList($items)->diff(Set::fromList($thatItems))->values(),
         );
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::getIterator
+     */
+    public function testGetIterator(): void
+    {
+        $set = Set::fromList([1, 3, 2, 3, 4, 4, 5]);
+
+        $result = [];
+
+        foreach ($set as $k => $v) {
+            $result[$k] = $v;
+        }
+
+        self::assertEquals([1, 3, 2, 4, 5], $result);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::__debugInfo
+     */
+    public function testDebugInfo(): void
+    {
+        $set = Set::fromList([1, 2]);
+
+        self::assertEquals(
+            [
+                'count' => 2,
+                'items' => [1, 2],
+            ],
+            $set->__debugInfo(),
+        );
+    }
 }

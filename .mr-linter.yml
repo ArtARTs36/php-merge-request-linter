@@ -17,20 +17,19 @@ rules:
 
   "@mr-linter/description_not_empty": {}
 
+  "@mr-linter/update_changelog":
+    when:
+      targetBranch:
+        equals: "master"
+      title:
+        notStartsAny:
+          - '[Tests]'
+          - '[Docs]'
+
   "@mr-linter/has_changes":
     - changes:
       - file: "src/Version.php"
         updatedPhpConstant: "VERSION"
-      when:
-        targetBranch:
-          equals: "master"
-        title:
-          notStartsAny:
-            - '[Tests]'
-            - '[Docs]'
-
-    - changes:
-        - file: "CHANGELOG.md"
       when:
         targetBranch:
           equals: "master"

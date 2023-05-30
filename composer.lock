@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a817862f7148230614c47c922a5ffcbc",
+    "content-hash": "1440294ab5f2b958807efaa5c7252f9e",
     "packages": [
         {
             "name": "artarts36/context-logger",
@@ -177,16 +177,16 @@
         },
         {
             "name": "artarts36/str",
-            "version": "2.3.0",
+            "version": "2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArtARTs36/str.git",
-                "reference": "67ffed47361c4f64f3547b718ee22f7caed9290e"
+                "reference": "52a4d292966245e6b95c6d18c0b565eab7d5a567"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ArtARTs36/str/zipball/67ffed47361c4f64f3547b718ee22f7caed9290e",
-                "reference": "67ffed47361c4f64f3547b718ee22f7caed9290e",
+                "url": "https://api.github.com/repos/ArtARTs36/str/zipball/52a4d292966245e6b95c6d18c0b565eab7d5a567",
+                "reference": "52a4d292966245e6b95c6d18c0b565eab7d5a567",
                 "shasum": ""
             },
             "require": {
@@ -218,9 +218,9 @@
             "description": "String Wrapper",
             "support": {
                 "issues": "https://github.com/ArtARTs36/str/issues",
-                "source": "https://github.com/ArtARTs36/str/tree/2.3.0"
+                "source": "https://github.com/ArtARTs36/str/tree/2.4.2"
             },
-            "time": "2023-03-30T00:02:20+00:00"
+            "time": "2023-05-22T21:30:17+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

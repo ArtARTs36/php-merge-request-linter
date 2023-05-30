@@ -100,7 +100,15 @@ class Arrayee implements Collection, HasDebugInfo, \JsonSerializable
      */
     public function filter(callable $filter): Arrayee
     {
-        return new Arrayee(array_filter($this->items, $filter));
+        $items = [];
+
+        foreach ($this->items as $item) {
+            if ($filter($item)) {
+                $items[] = $item;
+            }
+        }
+
+        return new Arrayee($items);
     }
 
     public function __debugInfo(): array

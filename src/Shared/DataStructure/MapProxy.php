@@ -20,7 +20,7 @@ class MapProxy implements Map
      * @param int<0, max>|null $count
      */
     public function __construct(
-        private \Closure $mapFetcher,
+        private readonly \Closure $mapFetcher,
         private readonly ?int $count = null,
     ) {
         //
@@ -92,8 +92,8 @@ class MapProxy implements Map
     {
         if ($this->map === null) {
             return [
-                'count' => null,
-                'items' => 'Not loaded',
+                'count' => $this->count,
+                'items' => 'No loaded',
             ];
         }
 

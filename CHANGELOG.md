@@ -6,6 +6,19 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.15.0 (2023-05-30)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.14.1..0.15.0)
+
+### Added
+* Added rule "Update changelog"
+
+### Internal
+* Resolving object config for rule
+* Refactored type resolvers
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.15.0)
+
+-----------------------------------------------------------------
+
 ## [v0.14.1 (2023-05-27)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.14.0..0.14.1)
 
 ### Added

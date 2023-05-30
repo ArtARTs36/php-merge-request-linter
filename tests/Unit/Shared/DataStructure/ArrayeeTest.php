@@ -212,4 +212,22 @@ final class ArrayeeTest extends TestCase
 
         self::assertEquals($items, $arrayee->jsonSerialize());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee::filter
+     */
+    public function testFilter(): void
+    {
+        $arrayee = new Arrayee([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        $result = $arrayee->filter(function (int $val) {
+            return $val > 5;
+        });
+
+        self::assertEquals(
+            [6, 7, 8, 9, 10],
+            $result->mapToArray(function (int $val) {
+                return $val;
+            }),
+        );
+    }
 }

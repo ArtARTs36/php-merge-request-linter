@@ -36,7 +36,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactor
 use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Argument\ArgumentResolverFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
@@ -51,6 +50,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ResolverFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use Psr\Clock\ClockInterface;
@@ -88,7 +88,7 @@ class ApplicationFactory
             $clock,
         );
 
-        $argResolverFactory = new ArgumentResolverFactory($this->container);
+        $argResolverFactory = new ResolverFactory($this->container);
 
         $arrayConfigLoaderFactory = new ArrayConfigLoaderFactory(
             $filesystem,

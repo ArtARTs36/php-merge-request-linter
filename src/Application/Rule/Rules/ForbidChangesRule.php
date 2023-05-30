@@ -6,9 +6,13 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 
+/**
+ * Forbid changes for files.
+ */
 class ForbidChangesRule extends NamedRule
 {
     public const NAME = '@mr-linter/forbid_changes';
@@ -17,6 +21,7 @@ class ForbidChangesRule extends NamedRule
      * @param Set<string> $files
      */
     public function __construct(
+        #[Description('A set of files forbidden to be changed.')]
         #[Generic(Generic::OF_STRING)]
         private readonly Set $files,
     ) {

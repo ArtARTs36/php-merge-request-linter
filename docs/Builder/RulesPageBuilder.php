@@ -7,9 +7,9 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\JsonType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\Finder;
-use ArtARTs36\MergeRequestLinter\Shared\Instantiator\InstantiatorFinder;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\ClassSummary;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ClassSummary;
 
 class RulesPageBuilder
 {
@@ -43,8 +43,8 @@ class RulesPageBuilder
             foreach ($this->ruleConstructorFinder->find($ruleClass)->params() as $paramName => $param) {
                 $params[] = [
                     'name' => $paramName,
-                    'type' => JsonType::to($param->name()),
-                    'generic' => $param->isGeneric() ? JsonType::to($param->generic) : null,
+                    'type' => JsonType::to($param->type->name()),
+                    'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                 ];
             }
 

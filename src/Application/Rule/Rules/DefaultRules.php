@@ -27,6 +27,7 @@ final class DefaultRules
         TitleStartsWithTaskNumberRule::NAME => TitleStartsWithTaskNumberRule::class,
         BranchStartsWithTaskNumberRule::NAME => BranchStartsWithTaskNumberRule::class,
         ForbidChangesRule::NAME => ForbidChangesRule::class,
+        UpdateChangelogRule::NAME => UpdateChangelogRule::class,
     ];
 
     /**

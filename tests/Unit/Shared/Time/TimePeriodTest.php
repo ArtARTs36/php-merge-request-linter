@@ -26,6 +26,7 @@ final class TimePeriodTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::make
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::__construct
      * @dataProvider providerForTestMake
      */
     public function testMake(string $value, Time $expectedFrom, Time $expectedTo): void
@@ -46,6 +47,16 @@ final class TimePeriodTest extends TestCase
                 'to_minute' => $resultPeriod->to->minute,
             ],
         );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::make
+     */
+    public function testMakeOnException(): void
+    {
+        self::expectExceptionMessage('Value must be follows mask "hh:mm - hh:mm"');
+
+        TimePeriod::make('1234:1234 1234:1234');
     }
 
     public function providerForTestInput(): array
@@ -78,5 +89,25 @@ final class TimePeriodTest extends TestCase
         $period = TimePeriod::make($periodValue);
 
         self::assertEquals($expected, $period->input(new \DateTimeImmutable($dateTime)));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::day
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::make
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod::__construct
+     */
+    public function testDay(): void
+    {
+        $period = TimePeriod::day();
+
+        self::assertEquals(
+            [0, 0, 23, 59],
+            [
+                $period->from->hour,
+                $period->from->minute,
+                $period->to->hour,
+                $period->to->minute,
+            ],
+        );
     }
 }

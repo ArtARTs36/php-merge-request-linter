@@ -43,8 +43,8 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Property;
-use ArtARTs36\MergeRequestLinter\Shared\Reflector\Reflector;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Property;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 use ArtARTs36\Str\Markdown;
 use ArtARTs36\Str\Str;
 
