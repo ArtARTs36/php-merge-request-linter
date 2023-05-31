@@ -244,6 +244,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/diff_limit": {
+                    "description": "The request must contain no more than {linesMax} changes.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_diff_limit"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_diff_limit"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -4318,6 +4333,26 @@
                 }
             },
             "additionalProperties": false
+        },
+        "rules_properties_@mr-linter_diff_limit": {
+            "type": "object",
+            "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "linesMax": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "linesMax"
+            ]
         },
         "notifications_channel_telegram_bot": {
             "properties": {
