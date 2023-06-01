@@ -15,7 +15,7 @@ final class DiffLimitRule extends NamedRule
     public const NAME = '@mr-linter/diff_limit';
 
     public function __construct(
-        private readonly int $linesMax,
+        private readonly ?int $linesMax,
         private readonly ?int $fileLinesMax,
     ) {
         //
@@ -39,7 +39,7 @@ final class DiffLimitRule extends NamedRule
                 ];
             }
 
-            if ($count >= $this->linesMax) {
+            if ($this->linesMax !== null && $count >= $this->linesMax) {
                 return [
                     new LintNote(sprintf(
                         'Your request contains too many changes. The request must contain no more than %d changes.',
