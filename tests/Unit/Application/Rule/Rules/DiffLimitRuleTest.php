@@ -18,11 +18,13 @@ final class DiffLimitRuleTest extends TestCase
         return [
             [
                 'linesMax' => 2,
+                'fileLinesMax' => null,
                 $this->makeMergeRequest(),
                 false,
             ],
             [
                 'linesMax' => 2,
+                'fileLinesMax' => null,
                 $this->makeMergeRequest([
                     'changes' => [
                         new Change('', new Diff([
@@ -35,18 +37,7 @@ final class DiffLimitRuleTest extends TestCase
             ],
             [
                 'linesMax' => 2,
-                $this->makeMergeRequest([
-                    'changes' => [
-                        new Change('', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
-                            new DiffLine(DiffType::NOT_CHANGES, Str::fromEmpty()),
-                        ])),
-                    ],
-                ]),
-                false,
-            ],
-            [
-                'linesMax' => 2,
+                'fileLinesMax' => null,
                 $this->makeMergeRequest([
                     'changes' => [
                         new Change('', new Diff([
@@ -59,6 +50,33 @@ final class DiffLimitRuleTest extends TestCase
             ],
             [
                 'linesMax' => 2,
+                'fileLinesMax' => null,
+                $this->makeMergeRequest([
+                    'changes' => [
+                        new Change('', new Diff([
+                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                            new DiffLine(DiffType::NOT_CHANGES, Str::fromEmpty()),
+                        ])),
+                    ],
+                ]),
+                false,
+            ],
+            [
+                'linesMax' => 2,
+                'fileLinesMax' => null,
+                $this->makeMergeRequest([
+                    'changes' => [
+                        new Change('', new Diff([
+                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        ])),
+                    ],
+                ]),
+                true,
+            ],
+            [
+                'linesMax' => 5,
+                'fileLinesMax' => 1,
                 $this->makeMergeRequest([
                     'changes' => [
                         new Change('', new Diff([
@@ -77,9 +95,9 @@ final class DiffLimitRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DiffLimitRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DiffLimitRule::__construct
      */
-    public function testLint(int $linesMax, MergeRequest $request, bool $hasNotes): void
+    public function testLint(int $linesMax, ?int $fileLinesMax, MergeRequest $request, bool $hasNotes): void
     {
-        $rule = new DiffLimitRule($linesMax);
+        $rule = new DiffLimitRule($linesMax, $fileLinesMax);
 
         self::assertHasNotes($request, $rule, $hasNotes);
     }

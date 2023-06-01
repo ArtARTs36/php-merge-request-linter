@@ -16,6 +16,7 @@ final class DiffLimitRule extends NamedRule
 
     public function __construct(
         private readonly int $linesMax,
+        private readonly ?int $fileLinesMax,
     ) {
         //
     }
@@ -25,12 +26,23 @@ final class DiffLimitRule extends NamedRule
         $count = 0;
 
         foreach ($request->changes as $change) {
-            $count += $change->diff->changesCount();
+            $changesCount = $change->diff->changesCount();
+            $count += $changesCount;
+
+            if ($this->fileLinesMax !== null && $changesCount >= $this->fileLinesMax) {
+                return [
+                    new LintNote(sprintf(
+                        'Your request contains too many changes. The changed file (%s) must contain no more than %d changes.',
+                        $change->file,
+                        $this->linesMax,
+                    )),
+                ];
+            }
 
             if ($count >= $this->linesMax) {
                 return [
                     new LintNote(sprintf(
-                        'Your request contains too many changes. The request must contain no more than %s changes.',
+                        'Your request contains too many changes. The request must contain no more than %d changes.',
                         $this->linesMax,
                     )),
                 ];
