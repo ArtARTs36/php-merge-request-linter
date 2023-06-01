@@ -4352,10 +4352,7 @@
                     "type": "integer"
                 }
             },
-            "additionalProperties": false,
-            "required": [
-                "linesMax"
-            ]
+            "additionalProperties": false
         },
         "notifications_channel_telegram_bot": {
             "properties": {

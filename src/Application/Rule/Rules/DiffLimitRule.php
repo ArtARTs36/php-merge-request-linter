@@ -26,15 +26,15 @@ final class DiffLimitRule extends NamedRule
         $count = 0;
 
         foreach ($request->changes as $change) {
-            $changesCount = $change->diff->changesCount();
-            $count += $changesCount;
+            $fileLinesCount = $change->diff->changesCount();
+            $count += $fileLinesCount;
 
-            if ($this->fileLinesMax !== null && $changesCount >= $this->fileLinesMax) {
+            if ($this->fileLinesMax !== null && $fileLinesCount >= $this->fileLinesMax) {
                 return [
                     new LintNote(sprintf(
-                        'Your request contains too many changes. The changed file (%s) must contain no more than %d changes.',
+                        'Your request contains too many changes. The changed file "%s" must contain no more than %d changes.',
                         $change->file,
-                        $this->linesMax,
+                        $this->fileLinesMax,
                     )),
                 ];
             }
