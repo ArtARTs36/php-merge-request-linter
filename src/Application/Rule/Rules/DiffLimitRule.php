@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
 /**
  * The request must contain no more than {linesMax} changes.
@@ -15,7 +16,9 @@ final class DiffLimitRule extends NamedRule
     public const NAME = '@mr-linter/diff_limit';
 
     public function __construct(
+        #[Description('Maximum allowed number of changed lines')]
         private readonly ?int $linesMax,
+        #[Description('Maximum allowed number of changed lines in a file')]
         private readonly ?int $fileLinesMax,
     ) {
         //

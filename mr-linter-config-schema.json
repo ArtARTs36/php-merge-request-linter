@@ -4346,10 +4346,12 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "linesMax": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Maximum allowed number of changed lines"
                 },
                 "fileLinesMax": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Maximum allowed number of changed lines in a file"
                 }
             },
             "additionalProperties": false
