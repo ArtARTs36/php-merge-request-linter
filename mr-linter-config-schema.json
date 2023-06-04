@@ -4238,7 +4238,8 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "projectName": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Project name"
                 }
             },
             "additionalProperties": false,
