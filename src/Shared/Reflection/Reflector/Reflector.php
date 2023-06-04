@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 
 class Reflector
@@ -33,6 +34,7 @@ class Reflector
             $params[$parameter->getName()] = new Parameter(
                 $parameter->getName(),
                 self::findDescription($parameter)?->description ?? '',
+                self::findExamples($parameter) ?? null,
                 self::createType(
                     $type->getName(),
                     $generic,
@@ -101,6 +103,16 @@ class Reflector
         $attributes = $reflector->getAttributes(Description::class);
 
         return count($attributes) > 0 ? $attributes[0]->newInstance() : null;
+    }
+
+    /**
+     * @return array<Example>
+     */
+    public static function findExamples(\ReflectionParameter|\ReflectionProperty $reflector): array
+    {
+        return array_map(function (\ReflectionAttribute $attr) {
+            return $attr->newInstance();
+        }, $reflector->getAttributes(Example::class));
     }
 
     public static function findParamByName(\ReflectionMethod $method, string $name): ?\ReflectionParameter

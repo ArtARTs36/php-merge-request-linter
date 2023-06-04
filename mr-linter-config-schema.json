@@ -4127,10 +4127,18 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "domain": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Domain hosting the YouTrack instance",
+                    "examples": [
+                        "yt.my-company.ru"
+                    ]
                 },
                 "projectCode": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Project code",
+                    "examples": [
+                        "PORTAL"
+                    ]
                 }
             },
             "additionalProperties": false,
