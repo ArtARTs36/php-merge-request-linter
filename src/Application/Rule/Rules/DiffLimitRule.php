@@ -55,10 +55,20 @@ final class DiffLimitRule extends NamedRule
 
     public function getDefinition(): RuleDefinition
     {
-        return new Definition(sprintf(
-            'The request must contain no more than %s changes.',
-            $this->linesMax,
-        ));
+        $definition = [];
+
+        if ($this->linesMax !== null) {
+            $definition[] = sprintf('The request must contain no more than %d changes.', $this->linesMax);
+        }
+
+        if ($this->fileLinesMax !== null) {
+            $definition[] = sprintf(
+                'The request must contain no more than %d changes in a file.',
+                $this->fileLinesMax,
+            );
+        }
+
+        return new Definition(implode(' ', $definition));
     }
 
     private function createNoteFileLinesLimitExceeded(Change $change): Note
