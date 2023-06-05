@@ -34,7 +34,7 @@ class Reflector
             $params[$parameter->getName()] = new Parameter(
                 $parameter->getName(),
                 self::findDescription($parameter)?->description ?? '',
-                self::findExamples($parameter) ?? null,
+                self::findExamples($parameter) ?? [],
                 self::createType(
                     $type->getName(),
                     $generic,
