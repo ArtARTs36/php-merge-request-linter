@@ -71,6 +71,7 @@ final class ArrayObjectConverterTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::convert
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::mapParams
      * @dataProvider providerForTestConvertOnPropertyIsMissing
      */
     public function testConvertOnPropertyIsMissing(array $data, string $class, string $expectedException): void
