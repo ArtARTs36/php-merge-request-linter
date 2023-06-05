@@ -83,6 +83,14 @@ final class DiffLimitRuleTest extends TestCase
                             new DiffLine(DiffType::NEW, Str::fromEmpty()),
                             new DiffLine(DiffType::NEW, Str::fromEmpty()),
                         ])),
+                        new Change('', new Diff([
+                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        ])),
+                        new Change('', new Diff([
+                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        ])),
                     ],
                 ]),
                 true,
@@ -93,6 +101,8 @@ final class DiffLimitRuleTest extends TestCase
     /**
      * @dataProvider providerForTestLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DiffLimitRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DiffLimitRule::createNoteLinesMaxLimitExceeded
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DiffLimitRule::createNoteFileLinesLimitExceeded
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DiffLimitRule::__construct
      */
     public function testLint(int $linesMax, ?int $fileLinesMax, MergeRequest $request, bool $hasNotes): void
