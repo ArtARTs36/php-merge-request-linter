@@ -68,7 +68,7 @@ class ArrayObjectConverter
                     throw new ValueInvalidException(sprintf(
                         'Required parameter "%s" is missing. Example values: [%s]',
                         $parameter->name,
-                        implode(', ', array_map(fn(Example $example) => $example->__toString(), $parameter->examples)),
+                        implode(', ', array_map(fn (Example $example) => $example->__toString(), $parameter->examples)),
                     ));
                 }
 

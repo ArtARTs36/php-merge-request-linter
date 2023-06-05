@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL;
 
 use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Change;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\ChangeSchema;
@@ -44,11 +45,25 @@ class Client implements GithubClient
     {
         $this->logger->info(sprintf('[GithubClient] Fetching Pull Request with id %d', $input->requestId));
 
-        $prResponse = $this->client->sendRequest($this->createGetPullRequest($input));
+        try {
+            $prResponse = $this->client->sendRequest($this->createGetPullRequest($input));
 
-        $pullRequest = $this->pullRequestSchema->createPullRequest(
-            $this->textDecoder->decode($prResponse->getBody()->getContents()),
-        );
+            $pullRequest = $this->pullRequestSchema->createPullRequest(
+                $this->textDecoder->decode($prResponse->getBody()->getContents()),
+            );
+        } catch (GivenInvalidPullRequestDataException $e) {
+            if ($e->isInvalidRootKey()) {
+                throw new MergeRequestNotFoundException(
+                    sprintf(
+                        'Pull Request with id %d not found',
+                        $input->requestId,
+                    ),
+                    previous: $e,
+                );
+            }
+
+            throw $e;
+        }
 
         $this->logger->info(sprintf('[GithubClient] Pull Request with id %d was fetched', $input->requestId));
         $this->logger->debug(sprintf('[GithubClient] Loading changes delayed until the first request'));
