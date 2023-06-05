@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 
 class ArrayObjectConverter
@@ -63,6 +64,14 @@ class ArrayObjectConverter
             } elseif ($parameter->type->nullable) {
                 $params[$parameter->name] = null;
             } else {
+                if ($parameter->hasExamples()) {
+                    throw new ValueInvalidException(sprintf(
+                        'Required parameter "%s" is missing. Example values: [%s]',
+                        $parameter->name,
+                        implode(', ', array_map(fn(Example $example) => $example->value, $parameter->examples)),
+                    ));
+                }
+
                 throw new ValueInvalidException(sprintf(
                     'Required parameter "%s" is missing',
                     $parameter->name,

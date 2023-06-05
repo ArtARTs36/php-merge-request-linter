@@ -130,7 +130,7 @@ class RuleSchemaGenerator
             $paramSchema['description'] = $param->description;
         }
 
-        if (count($param->examples) > 0) {
+        if ($param->hasExamples()) {
             $paramSchema['examples'] = array_map(fn (Example $ex) => $ex->value, $param->examples);
         }
 

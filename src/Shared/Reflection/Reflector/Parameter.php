@@ -32,4 +32,9 @@ class Parameter
     {
         return $this->defaultValueGetter === null ? null : ($this->defaultValueGetter)();
     }
+
+    public function hasExamples(): bool
+    {
+        return count($this->examples) > 0;
+    }
 }
