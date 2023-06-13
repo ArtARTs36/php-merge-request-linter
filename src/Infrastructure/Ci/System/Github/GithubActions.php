@@ -5,12 +5,14 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
@@ -95,5 +97,15 @@ class GithubActions implements CiSystem
 
             return new ArrayMap($changes);
         }, $request->changedFiles);
+    }
+
+    public function postCommentOnCurrentlyMergeRequest(Comment $comment): void
+    {
+        // TODO: Implement postCommentOnCurrentlyMergeRequest() method.
+    }
+
+    public function getCommentsOnCurrentlyMergeRequests(): Arrayee
+    {
+        // TODO: Implement getCommentsOnCurrentlyMergeRequests() method.
     }
 }

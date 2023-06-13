@@ -2,7 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\CI;
 
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
  * Continuous Integration System.
@@ -29,4 +31,11 @@ interface CiSystem
      * @throws GettingMergeRequestException
      */
     public function getCurrentlyMergeRequest(): MergeRequest;
+
+    /**
+     * @return Arrayee<Comment>
+     */
+    public function getCommentsOnCurrentlyMergeRequests(): Arrayee;
+
+    public function postCommentOnCurrentlyMergeRequest(Comment $comment): void;
 }
