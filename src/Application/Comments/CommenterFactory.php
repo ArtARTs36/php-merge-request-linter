@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Comments;
 
+use ArtARTs36\MergeRequestLinter\Application\Comments\Exceptions\CommenterNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 
 class CommenterFactory
@@ -15,6 +16,6 @@ class CommenterFactory
             return new NullCommenter();
         }
 
-        throw new \Exception(sprintf('Commenter for strategy %s not found', $strategy->value));
+        throw new CommenterNotFoundException(sprintf('Commenter for strategy %s not found', $strategy->value));
     }
 }
