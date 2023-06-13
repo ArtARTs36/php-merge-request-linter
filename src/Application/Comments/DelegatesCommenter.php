@@ -20,7 +20,7 @@ final class DelegatesCommenter implements Commenter
     public function postComment(MergeRequest $request, LintResult $result, CommentsConfig $config): void
     {
         $this->logger->info(sprintf(
-            'Sending comment on merge request "%s"',
+            '[DelegatesCommenter] Sending comment on merge request "%s"',
             $request->title,
         ));
 
@@ -31,12 +31,12 @@ final class DelegatesCommenter implements Commenter
                 ->postComment($request, $result, $config);
 
             $this->logger->info(sprintf(
-                'Comment on merge request "%s" was sent',
+                '[DelegatesCommenter] Comment on merge request "%s" was sent',
                 $request->title,
             ));
         } catch (SendCommentException $e) {
             $this->logger->error(sprintf(
-                'Comment on merge request "%s" didn\'t sent: %s',
+                '[DelegatesCommenter] Comment on merge request "%s" didn\'t sent: %s',
                 $request->title,
                 $e->getMessage(),
             ));

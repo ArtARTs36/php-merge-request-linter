@@ -6,6 +6,9 @@ use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
+use ArtARTs36\MergeRequestLinter\Application\Comments\CommenterFactory;
+use ArtARTs36\MergeRequestLinter\Application\Comments\DelegatesCommenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListener;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
@@ -16,6 +19,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\ArrayConfigLoaderFactory;
@@ -112,6 +116,7 @@ class ApplicationFactory
         $events = $this->registerEventDispatcher();
 
         $this->registerNotifications();
+        $this->registerComments();
 
         $application = new Application($metrics);
 
@@ -166,6 +171,28 @@ class ApplicationFactory
                 'registration notifications',
                 $notificationsListener,
             ));
+    }
+
+    private function registerComments(): void
+    {
+        $eventManager = $this->container->get(EventManager::class);
+
+        $listener = function (ConfigResolvedEvent $event) use ($eventManager) {
+            $lintFinishedListener = new LintFinishedListener(
+                new DelegatesCommenter(
+                    $this->container->get(ContextLogger::class),
+                    new CommenterFactory(),
+                ),
+                $event->config->config->getCommentsConfig(),
+            );
+
+            $eventManager->listen(LintFinishedEvent::class, $lintFinishedListener);
+        };
+
+        $eventManager->listen(ConfigResolvedEvent::class, new CallbackListener(
+            'register comments listener',
+            $listener,
+        ));
     }
 
     private function createNotificationsListenerRegistrar(Config $config): ListenerRegistrar
