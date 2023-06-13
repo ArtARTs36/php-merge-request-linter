@@ -96,7 +96,7 @@ class GitlabCi implements CiSystem
         return new ArrayMap($changes);
     }
 
-    public function postCommentOnCurrentlyMergeRequest(Comment $comment): void
+    public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void
     {
         // TODO: Implement postCommentOnCurrentlyMergeRequest() method.
     }

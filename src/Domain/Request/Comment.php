@@ -9,7 +9,6 @@ class Comment
 {
     public function __construct(
         public readonly string $message,
-        public readonly Author $author,
     ) {
         //
     }

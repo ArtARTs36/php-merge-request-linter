@@ -7,6 +7,8 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Change;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\ChangeSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment\AddCommentSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment\CommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
@@ -36,6 +38,7 @@ class Client implements GithubClient
         private readonly ContextLogger   $logger,
         private readonly TextDecoder       $textDecoder,
         private readonly ChangeSchema      $changeSchema,
+        private readonly AddCommentSchema $addCommentSchema = new AddCommentSchema(),
     ) {
         //
     }
@@ -133,6 +136,32 @@ class Client implements GithubClient
         $response = $this->client->sendRequest($request);
 
         return $this->hydrateTags($this->textDecoder->decode($response->getBody()->getContents()));
+    }
+
+    public function postCommentOnPullRequest(CommentInput $input): string
+    {
+        $mutation = $this->addCommentSchema->createMutation($input);
+
+        $query = json_encode([
+            'query' => $mutation->query,
+            'variables' => $mutation->variables,
+        ]);
+
+        $request = (new Request('POST', $input->graphqlUrl))
+            ->withBody(StreamBuilder::streamFor($query));
+
+        $request = $this->credentials->authenticate($request);
+
+        $resp = $this->client->sendRequest($request)->getBody()->getContents();
+        $comment = $this->addCommentSchema->decodeResponse($resp);
+
+        $this->logger->info(sprintf('Comment for PR with id "%s" was created', $input->subjectId), [
+            'pull_request_id' => $input->subjectId,
+            'comment_message' => $input->message,
+            'comment_id' => $comment->id,
+        ]);
+
+        return $comment->id;
     }
 
     private function createGetPullRequest(PullRequestInput $input): RequestInterface

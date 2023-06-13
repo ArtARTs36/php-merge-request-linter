@@ -37,5 +37,5 @@ interface CiSystem
      */
     public function getCommentsOnCurrentlyMergeRequests(): Arrayee;
 
-    public function postCommentOnCurrentlyMergeRequest(Comment $comment): void;
+    public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void;
 }

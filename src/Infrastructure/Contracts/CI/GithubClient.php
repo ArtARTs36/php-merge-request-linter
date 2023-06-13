@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment\CommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
@@ -21,4 +22,6 @@ interface GithubClient
      * Get tags from repository.
      */
     public function getTags(TagsInput $input): TagCollection;
+
+    public function postCommentOnPullRequest(CommentInput $input): string;
 }

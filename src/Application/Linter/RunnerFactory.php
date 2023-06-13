@@ -14,6 +14,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCiCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
@@ -35,6 +37,7 @@ class RunnerFactory implements LinterRunnerFactory
         protected MetricManager $metrics,
         protected ClientFactory $clientFactory,
         protected Clock    $clock,
+        protected MapContainer $container = new MapContainer(),
     ) {
         //
     }
@@ -60,6 +63,10 @@ class RunnerFactory implements LinterRunnerFactory
             BitbucketPipelines::NAME => new BitbucketPipelinesCreator($this->environment, $httpClient, $this->logger, $this->clock),
         ]);
 
-        return new SystemFactory($config, $creators);
+        $factory = new SystemFactory($config, $creators);
+
+        $this->container->set(CiSystemFactory::class, $factory);
+
+        return $factory;
     }
 }

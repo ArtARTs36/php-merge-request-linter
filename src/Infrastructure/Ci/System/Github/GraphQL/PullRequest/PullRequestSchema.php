@@ -34,6 +34,7 @@ class PullRequestSchema
         $pullRequest = $pullRequest['data']['repository']['pullRequest'];
 
         return new PullRequest(
+            $pullRequest['id'],
             $pullRequest['title'],
             $pullRequest['body'],
             $pullRequest['bodyText'],
@@ -54,6 +55,7 @@ class PullRequestSchema
         return "query { 
   repository(owner: \"$input->owner\", name: \"$input->repository\") {
     pullRequest(number: $input->requestId) {
+      id
       author {
         login
       }

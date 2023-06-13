@@ -50,7 +50,7 @@ final class MockCi implements CiSystem
         return $this->request;
     }
 
-    public function postCommentOnCurrentlyMergeRequest(Comment $comment): void
+    public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void
     {
         //
     }

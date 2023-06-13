@@ -124,8 +124,8 @@ class ArrayConfigHydrator
             }
 
             foreach ($config['messages'] as $i => $msg) {
-                if (! array_key_exists('template', $config)) {
-                    throw ConfigInvalidException::fromKey('comments.messages.' . $i . '.template');
+                if (! array_key_exists('template', $msg)) {
+                    throw ConfigInvalidException::keyNotSet('comments.messages.' . $i . '.template');
                 }
 
                 $messages[] = new CommentsMessage(

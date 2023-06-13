@@ -9,8 +9,10 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment\CommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
@@ -77,6 +79,7 @@ class GithubActions implements CiSystem
             $this->mapChanges($pullRequest),
             $pullRequest->createdAt,
             Str::make($pullRequest->uri),
+            $pullRequest->id,
         );
     }
 
@@ -99,9 +102,11 @@ class GithubActions implements CiSystem
         }, $request->changedFiles);
     }
 
-    public function postCommentOnCurrentlyMergeRequest(Comment $comment): void
+    public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void
     {
-        // TODO: Implement postCommentOnCurrentlyMergeRequest() method.
+        $id = $this->client->postCommentOnPullRequest(
+            new CommentInput($this->env->getGraphqlURL(), $request->id, $comment->message),
+        );
     }
 
     public function getCommentsOnCurrentlyMergeRequests(): Arrayee

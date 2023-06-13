@@ -6,4 +6,5 @@ enum CommentsPostStrategy: string
 {
     case Single = 'single';
     case Null = 'null';
+    case New = 'new';
 }

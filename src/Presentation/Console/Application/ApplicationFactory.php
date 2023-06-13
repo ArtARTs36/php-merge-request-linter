@@ -20,6 +20,7 @@ use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoH
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\CachedSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\ArrayConfigLoaderFactory;
@@ -29,9 +30,11 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\ConfigRes
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\MetricableConfigResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
@@ -90,6 +93,7 @@ class ApplicationFactory
             $metrics,
             $httpClientFactory,
             $clock,
+            $this->container,
         );
 
         $argResolverFactory = new ResolverFactory($this->container);
@@ -115,6 +119,7 @@ class ApplicationFactory
 
         $events = $this->registerEventDispatcher();
 
+        $this->registerTextRenderer();
         $this->registerNotifications();
         $this->registerComments();
 
@@ -181,7 +186,12 @@ class ApplicationFactory
             $lintFinishedListener = new LintFinishedListener(
                 new DelegatesCommenter(
                     $this->container->get(ContextLogger::class),
-                    new CommenterFactory(),
+                    new CommenterFactory(
+                        new CachedSystemFactory(fn () => $this->container->get(CiSystemFactory::class)->createCurrently()),
+                        $this->container->get(OperatorResolver::class),
+                        $this->container->get(TextRenderer::class),
+                        $this->container->get(LoggerInterface::class),
+                    ),
                 ),
                 $event->config->config->getCommentsConfig(),
             );
@@ -212,10 +222,17 @@ class ApplicationFactory
             new ListenerFactory(
                 $notifier,
                 $this->container->get(OperatorResolver::class),
-                new MessageCreator(TwigRenderer::create()),
+                new MessageCreator($this->container->get(TextRenderer::class)),
                 $logger,
             ),
         );
+    }
+
+    private function registerTextRenderer(): void
+    {
+        $renderer = TwigRenderer::create();
+
+        $this->container->set(TextRenderer::class, $renderer);
     }
 
     private function registerHttpClientFactory(): ClientFactory
