@@ -9,6 +9,7 @@ class CommentsConfig
 {
     public function __construct(
         public readonly CommentsPostStrategy $postStrategy,
+        public readonly string $template,
     ) {
     }
 }

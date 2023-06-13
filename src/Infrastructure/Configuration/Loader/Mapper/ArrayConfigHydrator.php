@@ -15,6 +15,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigI
 
 class ArrayConfigHydrator
 {
+    private const DEFAULT_COMMENT = 'MR Linter found {{ result.notes.length }} notes';
+
     public function __construct(
         private readonly CiSettingsMapper    $credentialMapper,
         private readonly RulesMapper         $rulesMapper,
@@ -113,8 +115,19 @@ class ArrayConfigHydrator
             $postStrategy = CommentsPostStrategy::Null;
         }
 
+        if (array_key_exists('template', $config)) {
+            if (! is_string($config['template'])) {
+                throw ConfigInvalidException::fromKey('comments.template');
+            }
+
+            $template = $config['template'];
+        } else {
+            $template = self::DEFAULT_COMMENT;
+        }
+
         return new CommentsConfig(
             $postStrategy,
+            $template,
         );
     }
 }
