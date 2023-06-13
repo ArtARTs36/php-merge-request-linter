@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests;
 
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
@@ -16,6 +18,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environmen
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\CounterLogger;
 use ArtARTs36\Str\Str;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -32,6 +35,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             new NotificationsConfig(new ArrayMap([]), new ArrayMap([])),
             new LinterConfig(
                 new LinterOptions(false),
+            ),
+            new CommentsConfig(
+                CommentsPostStrategy::Null,
             ),
         );
     }
@@ -76,5 +82,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function getPropertyValue(object $obj, string $prop): mixed
     {
         return (fn ($prop) => $this->$prop)->call($obj, $prop);
+    }
+
+    protected function mockLogger(): CounterLogger
+    {
+        return new CounterLogger();
     }
 }

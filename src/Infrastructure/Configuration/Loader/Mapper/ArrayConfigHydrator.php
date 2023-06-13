@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
@@ -60,7 +62,8 @@ class ArrayConfigHydrator
                 $data['http_client']['params'] ?? [],
             ),
             $notifications,
-            $this->createLinterConfig($data['linter'] ?? [])
+            $this->createLinterConfig($data['linter'] ?? []),
+            $this->createCommentsConfig($data['comments'] ?? []),
         );
     }
 
@@ -74,7 +77,7 @@ class ArrayConfigHydrator
 
         if (isset($config['options']) && is_array($config['options'])) {
             if (isset($config['options']['stop_on_failure'])) {
-                if (!is_bool($config['options']['stop_on_failure'])) {
+                if (! is_bool($config['options']['stop_on_failure'])) {
                     throw ConfigInvalidException::fromKey('linter.options.stop_on_failure');
                 }
 
@@ -82,7 +85,7 @@ class ArrayConfigHydrator
             }
 
             if (isset($config['options']['stop_on_warning'])) {
-                if (!is_bool($config['options']['stop_on_warning'])) {
+                if (! is_bool($config['options']['stop_on_warning'])) {
                     throw ConfigInvalidException::fromKey('linter.options.stop_on_warning');
                 }
 
@@ -92,6 +95,26 @@ class ArrayConfigHydrator
 
         return new LinterConfig(
             new LinterOptions($stopOnFailure, $stopOnWarning),
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function createCommentsConfig(array $config): CommentsConfig
+    {
+        if (array_key_exists('strategy', $config)) {
+            if (! is_string($config['strategy'])) {
+                throw ConfigInvalidException::fromKey('comments.strategy');
+            }
+
+            $postStrategy = CommentsPostStrategy::from($config['strategy']);
+        } else {
+            $postStrategy = CommentsPostStrategy::Null;
+        }
+
+        return new CommentsConfig(
+            $postStrategy,
         );
     }
 }

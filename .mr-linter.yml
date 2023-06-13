@@ -93,3 +93,6 @@ ci:
   github_actions:
     credentials:
       token: 'env(MR_LINTER_GITHUB_HTTP_TOKEN)'
+
+comments:
+  strategy: 'single'

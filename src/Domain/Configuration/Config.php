@@ -19,6 +19,7 @@ class Config
         private readonly HttpClientConfig    $httpClient,
         private readonly NotificationsConfig $notifications,
         private readonly LinterConfig $linterConfig,
+        private readonly CommentsConfig $commentsConfig,
     ) {
         //
     }
@@ -49,5 +50,10 @@ class Config
     public function getLinter(): LinterConfig
     {
         return $this->linterConfig;
+    }
+
+    public function getCommentsConfig(): CommentsConfig
+    {
+        return $this->commentsConfig;
     }
 }
