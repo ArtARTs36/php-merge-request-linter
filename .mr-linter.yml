@@ -97,4 +97,8 @@ ci:
 comments:
   strategy: 'new'
   messages:
-    - template: "AA"
+    - template: |
+        I found {{ result.notes.count }} notes in your Pull Request:
+        {% for note in result.notes %}
+        - {{ note.description }}
+        {% endfor %}
