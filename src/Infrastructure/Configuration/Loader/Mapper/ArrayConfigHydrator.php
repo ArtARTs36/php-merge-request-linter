@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsMessage;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
@@ -115,19 +116,28 @@ class ArrayConfigHydrator
             $postStrategy = CommentsPostStrategy::Null;
         }
 
-        if (array_key_exists('template', $config)) {
-            if (! is_string($config['template'])) {
-                throw ConfigInvalidException::fromKey('comments.template');
+        $messages = [];
+
+        if (array_key_exists('messages', $config)) {
+            if (! is_array($config['messages'])) {
+                throw ConfigInvalidException::fromKey('comments.messages');
             }
 
-            $template = $config['template'];
-        } else {
-            $template = self::DEFAULT_COMMENT;
+            foreach ($config['messages'] as $i => $msg) {
+                if (! array_key_exists('template', $config)) {
+                    throw ConfigInvalidException::fromKey('comments.messages.' . $i . '.template');
+                }
+
+                $messages[] = new CommentsMessage(
+                    $msg['template'],
+                    $msg['conditions'] ?? [],
+                );
+            }
         }
 
         return new CommentsConfig(
             $postStrategy,
-            $template,
+            $messages,
         );
     }
 }

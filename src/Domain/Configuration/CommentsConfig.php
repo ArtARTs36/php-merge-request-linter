@@ -7,9 +7,13 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
  */
 class CommentsConfig
 {
+    /**
+     * @param array<CommentsMessage> $messages
+     */
     public function __construct(
         public readonly CommentsPostStrategy $postStrategy,
-        public readonly string $template,
+        public readonly array $messages,
     ) {
+        //
     }
 }

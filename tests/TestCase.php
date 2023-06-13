@@ -38,6 +38,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             ),
             new CommentsConfig(
                 CommentsPostStrategy::Null,
+                [],
             ),
         );
     }

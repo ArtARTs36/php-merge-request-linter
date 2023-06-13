@@ -36,6 +36,7 @@ final class DelegatesCommenterTest extends TestCase
             new LintResult(LintState::Success, new Arrayee([]), new Duration(0)),
             new CommentsConfig(
                 CommentsPostStrategy::Null,
+                [],
             ),
         );
     }
