@@ -1,11 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Input;
 
 /**
  * @codeCoverageIgnore
  */
-class CommentInput
+class AddCommentInput
 {
     public function __construct(
         public readonly string $graphqlUrl,

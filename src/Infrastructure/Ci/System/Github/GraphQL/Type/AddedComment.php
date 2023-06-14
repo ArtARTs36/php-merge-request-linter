@@ -1,11 +1,11 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Type;
 
 /**
  * @codeCoverageIgnore
  */
-class CreatedComment
+class AddedComment
 {
     public function __construct(
         public readonly string $id,

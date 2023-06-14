@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Schema;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment\CommentInput;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment\CreatedComment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Query\Query;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Type\AddedComment;
 
 class AddCommentSchema
 {
@@ -18,7 +18,7 @@ class AddCommentSchema
   }
 }';
 
-    public function createMutation(CommentInput $input): Query
+    public function createMutation(AddCommentInput $input): Query
     {
         return new Query(
             self::QUERY,
@@ -29,11 +29,11 @@ class AddCommentSchema
         );
     }
 
-    public function decodeResponse(string $json): CreatedComment
+    public function decodeResponse(string $json): AddedComment
     {
         $data = json_decode($json, true);
 
-        return new CreatedComment(
+        return new AddedComment(
             $data['data']['addComment']['commentEdge']['node']['id'] ?? '',
         );
     }
