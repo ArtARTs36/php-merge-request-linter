@@ -16,8 +16,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigI
 
 class ArrayConfigHydrator
 {
-    private const DEFAULT_COMMENT = 'MR Linter found {{ result.notes.length }} notes';
-
     public function __construct(
         private readonly CiSettingsMapper    $credentialMapper,
         private readonly RulesMapper         $rulesMapper,
