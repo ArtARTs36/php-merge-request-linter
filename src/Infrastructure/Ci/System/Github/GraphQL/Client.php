@@ -144,20 +144,11 @@ class Client implements GithubClient
 
     public function postCommentOnPullRequest(AddCommentInput $input): string
     {
-        $mutation = $this->addCommentSchema->createMutation($input);
-
-        $query = json_encode([
-            'query' => $mutation->query,
-            'variables' => $mutation->variables,
-        ]);
-
-        $request = (new Request('POST', $input->graphqlUrl))
-            ->withBody(StreamBuilder::streamFor($query));
-
-        $request = $this->credentials->authenticate($request);
-
-        $resp = $this->client->sendRequest($request)->getBody()->getContents();
-        $comment = $this->addCommentSchema->decodeResponse($resp);
+        $comment = $this
+            ->addCommentSchema
+            ->createComment(
+                $this->runQuery($input->graphqlUrl, $this->addCommentSchema->createMutation($input)),
+            );
 
         $this->logger->info(sprintf('Comment for PR with id "%s" was created', $input->subjectId), [
             'pull_request_id' => $input->subjectId,

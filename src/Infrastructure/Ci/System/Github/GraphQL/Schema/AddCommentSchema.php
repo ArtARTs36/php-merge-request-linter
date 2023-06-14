@@ -29,12 +29,10 @@ class AddCommentSchema
         );
     }
 
-    public function decodeResponse(string $json): AddedComment
+    public function createComment(array $response): AddedComment
     {
-        $data = json_decode($json, true);
-
         return new AddedComment(
-            $data['data']['addComment']['commentEdge']['node']['id'] ?? '',
+            $response['data']['addComment']['commentEdge']['node']['id'] ?? '',
         );
     }
 }
