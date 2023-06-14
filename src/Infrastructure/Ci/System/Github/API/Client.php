@@ -17,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Change
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\FetchTagsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\Tag;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagCollection;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagsInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
@@ -43,6 +44,7 @@ class Client implements GithubClient
         private readonly ChangeSchema      $changeSchema,
         private readonly AddCommentSchema $addCommentSchema = new AddCommentSchema(),
         private readonly ViewerSchema      $viewerSchema = new ViewerSchema(),
+        private readonly TagHydrator $tagHydrator = new TagHydrator(),
     ) {
         //
     }
@@ -139,7 +141,9 @@ class Client implements GithubClient
 
         $response = $this->client->sendRequest($request);
 
-        return $this->hydrateTags($this->textDecoder->decode($response->getBody()->getContents()));
+        return $this->tagHydrator->hydrate(
+            $this->textDecoder->decode($response->getBody()->getContents()),
+        );
     }
 
     public function postCommentOnPullRequest(AddCommentInput $input): string
@@ -208,36 +212,5 @@ class Client implements GithubClient
         $request = new Request('GET', $url);
 
         return $this->credentials->authenticate($request);
-    }
-
-    /**
-     * @param array<mixed> $response
-     */
-    private function hydrateTags(array $response): TagCollection
-    {
-        $tags = [];
-
-        foreach ($response as $resp) {
-            if (! is_array($resp) || ! array_key_exists('name', $resp) || ! is_string($resp['name'])) {
-                throw new FetchTagsException('Tag name not found in response');
-            }
-
-            $name = Str::make($resp['name']);
-
-            if ($name->startsWith('v')) {
-                $name = $name->cut(null, 1);
-            }
-
-            [$major, $minor, $patch] = $name->explode('.')->toIntegers();
-
-            $tags[] = new Tag(
-                $resp['name'],
-                $major,
-                $minor,
-                $patch,
-            );
-        }
-
-        return new TagCollection($tags);
     }
 }
