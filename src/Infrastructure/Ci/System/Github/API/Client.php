@@ -53,11 +53,9 @@ class Client implements GithubClient
     {
         $this->logger->info(sprintf('[GithubClient] Fetching Pull Request with id %d', $input->requestId));
 
-        $prResponse = $this->client->sendRequest($this->createGetPullRequest($input));
+        $prResponse = $this->runQuery($input->graphqlUrl, $this->pullRequestSchema->createQuery($input));
 
-        $pullRequest = $this->pullRequestSchema->createPullRequest(
-            $this->textDecoder->decode($prResponse->getBody()->getContents()),
-        );
+        $pullRequest = $this->pullRequestSchema->createPullRequest($prResponse);
 
         $this->logger->info(sprintf('[GithubClient] Pull Request with id %d was fetched', $input->requestId));
         $this->logger->debug(sprintf('[GithubClient] Loading changes delayed until the first request'));
@@ -154,7 +152,7 @@ class Client implements GithubClient
                 $this->runQuery($input->graphqlUrl, $this->addCommentSchema->createMutation($input)),
             );
 
-        $this->logger->info(sprintf('Comment for PR with id "%s" was created', $input->subjectId), [
+        $this->logger->info(sprintf('Comment for PR with id "%s" was  d', $input->subjectId), [
             'pull_request_id' => $input->subjectId,
             'comment_message' => $input->message,
             'comment_id' => $comment->id,
@@ -185,18 +183,6 @@ class Client implements GithubClient
         return $this
             ->textDecoder
             ->decode($this->client->sendRequest($request)->getBody()->getContents());
-    }
-
-    private function createGetPullRequest(PullRequestInput $input): RequestInterface
-    {
-        $query = json_encode([
-            'query' => $this->pullRequestSchema->createQuery($input),
-        ]);
-
-        $request = (new Request('POST', $input->graphqlUrl))
-            ->withBody(StreamBuilder::streamFor($query));
-
-        return $this->credentials->authenticate($request);
     }
 
     private function createGetPullRequestFilesRequest(PullRequestInput $input, int $page): RequestInterface

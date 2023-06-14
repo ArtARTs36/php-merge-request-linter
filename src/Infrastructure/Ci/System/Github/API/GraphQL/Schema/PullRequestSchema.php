@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
@@ -52,9 +53,9 @@ class PullRequestSchema
         );
     }
 
-    public function createQuery(PullRequestInput $input): string
+    public function createQuery(PullRequestInput $input): Query
     {
-        return "query { 
+        $q = "query { 
   repository(owner: \"$input->owner\", name: \"$input->repository\") {
     pullRequest(number: $input->requestId) {
       id
@@ -80,5 +81,7 @@ class PullRequestSchema
     }
   }
 }";
+
+        return Query::withoutVariables($q);
     }
 }
