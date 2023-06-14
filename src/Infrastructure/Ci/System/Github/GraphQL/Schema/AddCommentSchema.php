@@ -1,6 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Schema;
+
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment\CommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment\CreatedComment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Query\Query;
 
 class AddCommentSchema
 {
@@ -14,9 +18,9 @@ class AddCommentSchema
   }
 }';
 
-    public function createMutation(CommentInput $input): AddCommentMutation
+    public function createMutation(CommentInput $input): Query
     {
-        return new AddCommentMutation(
+        return new Query(
             self::QUERY,
             [
                 'requestId' => $input->subjectId,
