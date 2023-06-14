@@ -6,8 +6,8 @@ use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
-use ArtARTs36\MergeRequestLinter\Application\Comments\CommenterFactory;
-use ArtARTs36\MergeRequestLinter\Application\Comments\DelegatesCommenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\DelegatesCommenter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListener;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
@@ -186,7 +186,7 @@ class ApplicationFactory
             $lintFinishedListener = new LintFinishedListener(
                 new DelegatesCommenter(
                     $this->container->get(ContextLogger::class),
-                    new CommenterFactory(
+                    new Factory(
                         new CachedSystemFactory(fn () => $this->container->get(CiSystemFactory::class)->createCurrently()),
                         $this->container->get(OperatorResolver::class),
                         $this->container->get(TextRenderer::class),

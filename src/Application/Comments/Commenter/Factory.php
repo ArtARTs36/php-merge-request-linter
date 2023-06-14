@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Comments;
+namespace ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
 
 use ArtARTs36\MergeRequestLinter\Application\Comments\Exceptions\CommenterNotFoundException;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator;
@@ -12,7 +12,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorReso
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
 use Psr\Log\LoggerInterface;
 
-class CommenterFactory
+final class Factory implements CommenterFactory
 {
     public function __construct(
         private readonly CiSystemFactory $ciSystem,

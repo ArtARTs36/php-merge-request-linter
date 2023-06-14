@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Listener;
 
-use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Commenter;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventListener;

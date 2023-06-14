@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments;
 
-use ArtARTs36\MergeRequestLinter\Application\Comments\CommenterFactory;
-use ArtARTs36\MergeRequestLinter\Application\Comments\NullCommenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NullCommenter;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
@@ -25,13 +25,13 @@ final class CommenterFactoryTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\CommenterFactory::create
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory::create
      *
      * @dataProvider providerForTestCreate
      */
     public function testCreate(CommentsPostStrategy $strategy, string $expectedClass): void
     {
-        $factory = new CommenterFactory(
+        $factory = new Factory(
             new MockCiSystemFactory(new MockCi([
                 'is_pull_request' => false,
             ])),
