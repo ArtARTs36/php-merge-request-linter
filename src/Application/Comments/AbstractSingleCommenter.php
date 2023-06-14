@@ -42,9 +42,21 @@ abstract class AbstractSingleCommenter extends CiCommenter
             $request->id,
         ));
 
+        $message = $this->createUpdatingMessage($firstComment, $comment);
+
+        if ($firstComment->message === $message) {
+            $this->logger->info(sprintf(
+                '[SingleCommenter] Updating comment with id "%s" for MR with id "%s" was skipped: messages identical',
+                $firstComment->id,
+                $request->id,
+            ));
+
+            return;
+        }
+
         $this->ci->updateComment(new Comment(
             $firstComment->id,
-            $this->createUpdatingMessage($firstComment, $comment),
+            $message,
         ));
 
         $this->logger->info(sprintf(
