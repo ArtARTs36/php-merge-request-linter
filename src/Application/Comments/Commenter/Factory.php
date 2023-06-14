@@ -3,9 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
 
 use ArtARTs36\MergeRequestLinter\Application\Comments\Exceptions\CommenterNotFoundException;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Message\AppendUpdatingMessageFormatter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageFormatter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Message\NewUpdatingMessageFormatter;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
@@ -50,14 +52,16 @@ final class Factory implements CommenterFactory
                 $this->ciSystem->createCurrently(),
                 $messageCreator,
                 $this->logger,
+                new NewUpdatingMessageFormatter(),
             );
         }
 
         if ($strategy === CommentsPostStrategy::SingleAppend) {
-            return new SingleAppendCommenter(
+            return new SingleCommenter(
                 $this->ciSystem->createCurrently(),
                 $messageCreator,
                 $this->logger,
+                new AppendUpdatingMessageFormatter(),
             );
         }
 
