@@ -53,6 +53,14 @@ class CommenterFactory
             );
         }
 
+        if ($strategy === CommentsPostStrategy::SingleAppend) {
+            return new SingleAppendCommenter(
+                $this->ciSystem->createCurrently(),
+                $messageCreator,
+                $this->logger,
+            );
+        }
+
         throw new CommenterNotFoundException(sprintf('Commenter for strategy %s not found', $strategy->value));
     }
 }
