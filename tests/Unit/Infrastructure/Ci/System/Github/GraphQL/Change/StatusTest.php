@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Github\GraphQL\Change;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Status;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Change\Status;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class StatusTest extends TestCase
@@ -16,7 +16,7 @@ final class StatusTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\Status::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Change\Status::create
      * @dataProvider providerForTestCreate
      */
     public function testCreate(string $value, Status $status): void

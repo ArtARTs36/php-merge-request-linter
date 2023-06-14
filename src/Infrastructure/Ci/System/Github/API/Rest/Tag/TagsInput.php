@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag;
 
 /**
  * @codeCoverageIgnore
