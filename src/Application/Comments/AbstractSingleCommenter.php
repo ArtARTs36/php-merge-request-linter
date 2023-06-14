@@ -9,7 +9,7 @@ abstract class AbstractSingleCommenter extends CiCommenter
 {
     abstract protected function createUpdatingMessage(Comment $comment, MakingComment $makingComment): string;
 
-    protected function doPostComment(MergeRequest $request, MakingComment $comment): void
+    final protected function doPostComment(MergeRequest $request, MakingComment $comment): void
     {
         $this->logger->info(sprintf(
             '[SingleCommenter] Fetching first comment for MR with id "%s" by current user',
