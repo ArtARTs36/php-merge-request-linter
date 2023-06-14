@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Inp
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\AddCommentSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\GetCommentsSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\ViewerSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
@@ -23,6 +24,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPul
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
@@ -45,6 +47,7 @@ class Client implements GithubClient
         private readonly AddCommentSchema $addCommentSchema = new AddCommentSchema(),
         private readonly ViewerSchema      $viewerSchema = new ViewerSchema(),
         private readonly TagHydrator $tagHydrator = new TagHydrator(),
+        private readonly GetCommentsSchema $getCommentsSchema = new GetCommentsSchema(),
     ) {
         //
     }
@@ -166,6 +169,13 @@ class Client implements GithubClient
         return $this
             ->viewerSchema
             ->createViewer($this->runQuery($graphqlUrl, $this->viewerSchema->createQuery()));
+    }
+
+    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri): Arrayee
+    {
+        return $this
+            ->getCommentsSchema
+            ->createComments($this->runQuery($graphqlUrl, $this->getCommentsSchema->createQuery($requestUri)));
     }
 
     private function runQuery(string $graphqlUrl, Query $query): array

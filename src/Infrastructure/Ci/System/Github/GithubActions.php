@@ -19,13 +19,13 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
 
-class GithubActions implements CiSystem
+final class GithubActions implements CiSystem
 {
     public const NAME = 'github_actions';
 
     public function __construct(
-        protected GithubEnvironment $env,
-        protected GithubClient $client,
+        private readonly GithubEnvironment $env,
+        private readonly GithubClient $client,
     ) {
         //
     }
@@ -107,11 +107,18 @@ class GithubActions implements CiSystem
         );
     }
 
-    public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): Comment
+    public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
         $user = $this->client->getCurrentUser($this->env->getGraphqlURL());
 
-        var_dump($user);
-        exit();
+        $gComment = $this
+            ->client
+            ->getCommentsOnPullRequest(
+                $this->env->getGraphqlURL(),
+                $request->uri,
+            )
+            ->firstFilter(fn (API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $user->login);
+
+        return $gComment === null ? null : new Comment($gComment->message);
     }
 }
