@@ -22,4 +22,9 @@ class UpdateCommentSchema
             'body' => $input->message,
         ]);
     }
+
+    public function check(array $response, string $commentId): bool
+    {
+        return $response['data']['updateIssueComment']['issueComment']['id'] === $commentId;
+    }
 }

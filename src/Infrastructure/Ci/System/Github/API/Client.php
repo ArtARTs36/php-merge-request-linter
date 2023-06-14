@@ -167,9 +167,16 @@ class Client implements GithubClient
         return $comment->id;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function updateComment(UpdateCommentInput $input): void
     {
-        var_dump($this->runQuery($input->graphqlUrl, $this->updateCommentSchema->createQuery($input)));
+        $response = $this->runQuery($input->graphqlUrl, $this->updateCommentSchema->createQuery($input));
+
+        if (! $this->updateCommentSchema->check($response, $input->commentId)) {
+            throw new \Exception('Comment no updated');
+        }
     }
 
     public function getCurrentUser(string $graphqlUrl): Viewer
