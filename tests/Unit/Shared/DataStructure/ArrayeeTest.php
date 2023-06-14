@@ -230,4 +230,37 @@ final class ArrayeeTest extends TestCase
             }),
         );
     }
+
+    public function providerForTestFirstFilter(): array
+    {
+        return [
+            [
+                [1, 2, 3, 4, 5],
+                fn (int $n) => $n > 3,
+                4,
+            ],
+            [
+                [1, 2, 3, 4, 5],
+                fn (int $n) => $n > 5,
+                null,
+            ],
+            [
+                [],
+                fn (int $n) => $n > 5,
+                null,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee::firstFilter
+     *
+     * @dataProvider providerForTestFirstFilter
+     */
+    public function testFirstFilter(array $items, callable $filter, mixed $expected): void
+    {
+        $arrayee = new Arrayee($items);
+
+        self::assertEquals($expected, $arrayee->firstFilter($filter));
+    }
 }
