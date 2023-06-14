@@ -113,7 +113,7 @@ class Arrayee implements Collection, HasDebugInfo, \JsonSerializable
 
     /**
      * @param callable(V): bool $filter
-     * @return V
+     * @return V|null
      */
     public function firstFilter(callable $filter): mixed
     {
