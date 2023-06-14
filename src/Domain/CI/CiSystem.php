@@ -32,5 +32,5 @@ interface CiSystem
      */
     public function getCurrentlyMergeRequest(): MergeRequest;
 
-    public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void;
+    public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void;
 }

@@ -106,7 +106,7 @@ class BitbucketPipelines implements CiSystem
         });
     }
 
-    public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void
+    public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
         // TODO: Implement postCommentOnCurrentlyMergeRequest() method.
     }

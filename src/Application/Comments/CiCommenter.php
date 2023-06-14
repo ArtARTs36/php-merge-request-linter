@@ -12,7 +12,7 @@ use Psr\Log\LoggerInterface;
 
 abstract class CiCommenter implements Commenter
 {
-    abstract protected function doPostComment(MergeRequest $request, Comment $comment): void;
+    abstract protected function doPostComment(MergeRequest $request, MakingComment $comment): void;
 
     public function __construct(
         protected readonly CiSystem $ci,
@@ -32,6 +32,6 @@ abstract class CiCommenter implements Commenter
             return;
         }
 
-        $this->doPostComment($request, new Comment($message));
+        $this->doPostComment($request, new MakingComment($message));
     }
 }

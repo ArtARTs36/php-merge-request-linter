@@ -100,10 +100,10 @@ final class GithubActions implements CiSystem
         }, $request->changedFiles);
     }
 
-    public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void
+    public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
         $this->client->postCommentOnPullRequest(
-            new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment->message),
+            new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment),
         );
     }
 
@@ -119,6 +119,9 @@ final class GithubActions implements CiSystem
             )
             ->firstFilter(fn (API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $user->login);
 
-        return $gComment === null ? null : new Comment($gComment->message);
+        return $gComment === null ? null : new Comment(
+            $gComment->id,
+            $gComment->message,
+        );
     }
 }

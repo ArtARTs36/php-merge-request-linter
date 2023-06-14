@@ -155,7 +155,7 @@ class Client implements GithubClient
                 $this->runQuery($input->graphqlUrl, $this->addCommentSchema->createMutation($input)),
             );
 
-        $this->logger->info(sprintf('Comment for PR with id "%s" was  d', $input->subjectId), [
+        $this->logger->info(sprintf('[GithubClient] Comment for PR with id "%s" was created', $input->subjectId), [
             'pull_request_id' => $input->subjectId,
             'comment_message' => $input->message,
             'comment_id' => $comment->id,
