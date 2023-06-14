@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
-use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;

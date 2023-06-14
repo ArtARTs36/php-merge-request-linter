@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Query\ViewerQuery;
 
 class ViewerSchema
 {

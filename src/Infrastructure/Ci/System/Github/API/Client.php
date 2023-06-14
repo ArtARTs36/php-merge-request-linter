@@ -17,8 +17,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Typ
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Change\Change;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Change\ChangeSchema;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\FetchTagsException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\Tag;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagsInput;
@@ -30,7 +28,6 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
-use ArtARTs36\Str\Str;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils as StreamBuilder;
 use Psr\Http\Message\RequestInterface;

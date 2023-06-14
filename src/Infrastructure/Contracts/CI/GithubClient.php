@@ -27,13 +27,23 @@ interface GithubClient
      */
     public function getTags(TagsInput $input): TagCollection;
 
+    /**
+     * Post comment.
+     */
     public function postComment(AddCommentInput $input): string;
 
+    /**
+     * Update comment.
+     */
     public function updateComment(UpdateCommentInput $input): void;
 
+    /**
+     * Get current user.
+     */
     public function getCurrentUser(string $graphqlUrl): Viewer;
 
     /**
+     * Get comments on pull request.
      * @return Arrayee<Comment>
      */
     public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri): Arrayee;
