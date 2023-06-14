@@ -55,8 +55,13 @@ final class MockCi implements CiSystem
         //
     }
 
-    public function getCommentsOnCurrentlyMergeRequests(): Arrayee
+    public function updateComment(Comment $comment): void
     {
-        return new Arrayee([]);
+        //
+    }
+
+    public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
+    {
+        return null;
     }
 }

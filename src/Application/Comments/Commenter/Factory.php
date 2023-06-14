@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
 
-use ArtARTs36\MergeRequestLinter\Application\Comments\Exceptions\CommenterNotFoundException;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\AppendUpdatingMessageFormatter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageFormatter;
@@ -25,9 +24,6 @@ final class Factory implements CommenterFactory
         //
     }
 
-    /**
-     * @throws \Exception
-     */
     public function create(CommentsPostStrategy $strategy): Commenter
     {
         if ($strategy === CommentsPostStrategy::Null) {
@@ -56,15 +52,11 @@ final class Factory implements CommenterFactory
             );
         }
 
-        if ($strategy === CommentsPostStrategy::SingleAppend) {
-            return new SingleCommenter(
-                $this->ciSystem->createCurrently(),
-                $messageCreator,
-                $this->logger,
-                new AppendUpdatingMessageFormatter(),
-            );
-        }
-
-        throw new CommenterNotFoundException(sprintf('Commenter for strategy %s not found', $strategy->value));
+        return new SingleCommenter(
+            $this->ciSystem->createCurrently(),
+            $messageCreator,
+            $this->logger,
+            new AppendUpdatingMessageFormatter(),
+        );
     }
 }

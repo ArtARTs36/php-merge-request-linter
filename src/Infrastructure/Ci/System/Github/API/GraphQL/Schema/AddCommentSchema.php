@@ -29,6 +29,9 @@ class AddCommentSchema
         );
     }
 
+    /**
+     * @param array<string, mixed> $response
+     */
     public function createComment(array $response): AddedComment
     {
         return new AddedComment(

@@ -26,6 +26,9 @@ class Viewer
         return $hidden . $login->lastSymbol();
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function __debugInfo(): array
     {
         return [

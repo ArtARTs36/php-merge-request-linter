@@ -44,7 +44,8 @@ interface GithubClient
 
     /**
      * Get comments on pull request.
-     * @return Arrayee<Comment>
+     *
+     * @return Arrayee<int, Comment>
      */
     public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri): Arrayee;
 }

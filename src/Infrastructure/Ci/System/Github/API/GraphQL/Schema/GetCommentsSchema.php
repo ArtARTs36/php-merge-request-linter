@@ -34,6 +34,10 @@ class GetCommentsSchema
         ]);
     }
 
+    /**
+     * @param array<string, mixed> $response
+     * @return Arrayee<int, Comment>
+     */
     public function createComments(array $response): Arrayee
     {
         $comments = [];
