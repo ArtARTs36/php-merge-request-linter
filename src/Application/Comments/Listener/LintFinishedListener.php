@@ -16,6 +16,9 @@ final class LintFinishedListener implements EventListener
         //
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function name(): string
     {
         return 'send comment';
