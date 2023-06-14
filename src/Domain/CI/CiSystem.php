@@ -32,10 +32,5 @@ interface CiSystem
      */
     public function getCurrentlyMergeRequest(): MergeRequest;
 
-    /**
-     * @return Arrayee<Comment>
-     */
-    public function getCommentsOnCurrentlyMergeRequests(): Arrayee;
-
     public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void;
 }

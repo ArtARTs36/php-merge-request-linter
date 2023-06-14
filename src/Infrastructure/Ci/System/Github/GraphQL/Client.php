@@ -12,10 +12,13 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Comment
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Query\Query;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Schema\ViewerSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\FetchTagsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\Tag;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
@@ -39,6 +42,7 @@ class Client implements GithubClient
         private readonly TextDecoder       $textDecoder,
         private readonly ChangeSchema      $changeSchema,
         private readonly AddCommentSchema $addCommentSchema = new AddCommentSchema(),
+        private readonly ViewerSchema      $viewerSchema = new ViewerSchema(),
     ) {
         //
     }
@@ -162,6 +166,30 @@ class Client implements GithubClient
         ]);
 
         return $comment->id;
+    }
+
+    public function getCurrentUser(string $graphqlUrl): Viewer
+    {
+        return $this
+            ->viewerSchema
+            ->createViewer($this->runQuery($graphqlUrl, $this->viewerSchema->createQuery()));
+    }
+
+    private function runQuery(string $graphqlUrl, Query $query): array
+    {
+        $body = json_encode([
+            'query' => $query->query,
+            'variables' => $query->variables,
+        ]);
+
+        $request = (new Request('POST', $graphqlUrl))
+            ->withBody(StreamBuilder::streamFor($body));
+
+        $request = $this->credentials->authenticate($request);
+
+        return $this
+            ->textDecoder
+            ->decode($this->client->sendRequest($request)->getBody()->getContents());
     }
 
     private function createGetPullRequest(PullRequestInput $input): RequestInterface

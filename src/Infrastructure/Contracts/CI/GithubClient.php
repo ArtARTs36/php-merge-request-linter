@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullReq
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\TagsInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Type\Viewer;
 
 /**
  * Client for GitHub.
@@ -24,4 +25,6 @@ interface GithubClient
     public function getTags(TagsInput $input): TagCollection;
 
     public function postCommentOnPullRequest(CommentInput $input): string;
+
+    public function getCurrentUser(string $graphqlUrl): Viewer;
 }

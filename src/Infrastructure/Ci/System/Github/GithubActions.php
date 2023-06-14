@@ -104,13 +104,16 @@ class GithubActions implements CiSystem
 
     public function postCommentOnMergeRequest(MergeRequest $request, Comment $comment): void
     {
-        $id = $this->client->postCommentOnPullRequest(
+        $this->client->postCommentOnPullRequest(
             new CommentInput($this->env->getGraphqlURL(), $request->id, $comment->message),
         );
     }
 
-    public function getCommentsOnCurrentlyMergeRequests(): Arrayee
+    public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): Comment
     {
-        // TODO: Implement getCommentsOnCurrentlyMergeRequests() method.
+        $user = $this->client->getCurrentUser($this->env->getGraphqlURL());
+
+        var_dump($user);
+        exit();
     }
 }
