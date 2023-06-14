@@ -19,49 +19,64 @@ abstract class AbstractSingleCommenter extends CiCommenter
         $firstComment = $this->ci->getFirstCommentOnMergeRequestByCurrentUser($request);
 
         if ($firstComment === null) {
-            $this->logger->info('[SingleCommenter] First comment by current user not found');
-
-            $this->logger->info(sprintf(
-                '[SingleCommenter] Creating comment for MR with id "%s"',
-                $request->id,
-            ));
-
-            $this->ci->postCommentOnMergeRequest($request, $comment->message);
-
-            $this->logger->info(sprintf(
-                '[SingleCommenter] Comment for MR with id "%s" was created',
-                $request->id,
-            ));
+            $this->createComment($request, $comment);
 
             return;
         }
 
+        $this->updateCommentIfHaveNewMessage($request->id, $firstComment, $comment);
+    }
+
+    private function createComment(MergeRequest $request, MakingComment $makingComment): void
+    {
+        $this->logger->info('[SingleCommenter] First comment by current user not found');
+
         $this->logger->info(sprintf(
-            '[SingleCommenter] Updating comment with id "%s" for MR with id "%s"',
-            $firstComment->id,
+            '[SingleCommenter] Creating comment for MR with id "%s"',
             $request->id,
         ));
 
-        $message = $this->createUpdatingMessage($firstComment, $comment);
+        $this->ci->postCommentOnMergeRequest($request, $makingComment->message);
+
+        $this->logger->info(sprintf(
+            '[SingleCommenter] Comment for MR with id "%s" was created',
+            $request->id,
+        ));
+    }
+
+    private function updateCommentIfHaveNewMessage(string $requestId, Comment $firstComment, MakingComment $makingComment): void
+    {
+        $this->logger->info(sprintf(
+            '[SingleCommenter] Updating comment with id "%s" for MR with id "%s"',
+            $firstComment->id,
+            $requestId,
+        ));
+
+        $message = $this->createUpdatingMessage($firstComment, $makingComment);
 
         if ($firstComment->message === $message) {
             $this->logger->info(sprintf(
                 '[SingleCommenter] Updating comment with id "%s" for MR with id "%s" was skipped: messages identical',
                 $firstComment->id,
-                $request->id,
+                $requestId,
             ));
 
             return;
         }
 
-        $this->ci->updateComment(new Comment(
+        $this->updateComment($requestId, new Comment(
             $firstComment->id,
             $message,
         ));
+    }
+
+    private function updateComment(string $requestId, Comment $comment): void
+    {
+        $this->ci->updateComment($comment);
 
         $this->logger->info(sprintf(
             '[SingleCommenter] Comment for MR with id "%s" was updated',
-            $request->id,
+            $requestId,
         ));
     }
 }
