@@ -6,5 +6,5 @@ use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
 
 final class CommenterNotFoundException extends MergeRequestLinterException
 {
-
+    //
 }
