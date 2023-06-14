@@ -95,7 +95,7 @@ ci:
       token: 'env(MR_LINTER_GITHUB_HTTP_TOKEN)'
 
 comments:
-  strategy: 'new'
+  strategy: 'single'
   messages:
     - template: |
         I found {{ result.notes.count }} notes in your Pull Request:

@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
@@ -102,8 +103,15 @@ final class GithubActions implements CiSystem
 
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
-        $this->client->postCommentOnPullRequest(
+        $this->client->postComment(
             new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment),
+        );
+    }
+
+    public function updateComment(Comment $comment): void
+    {
+        $this->client->updateComment(
+            new UpdateCommentInput($this->env->getGraphqlURL(), $comment->id, $comment->message),
         );
     }
 

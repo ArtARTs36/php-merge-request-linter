@@ -6,10 +6,12 @@ use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\AddCommentSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\GetCommentsSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\UpdateCommentSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\ViewerSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
@@ -48,6 +50,7 @@ class Client implements GithubClient
         private readonly ViewerSchema      $viewerSchema = new ViewerSchema(),
         private readonly TagHydrator $tagHydrator = new TagHydrator(),
         private readonly GetCommentsSchema $getCommentsSchema = new GetCommentsSchema(),
+        private readonly UpdateCommentSchema $updateCommentSchema = new UpdateCommentSchema(),
     ) {
         //
     }
@@ -147,7 +150,7 @@ class Client implements GithubClient
         );
     }
 
-    public function postCommentOnPullRequest(AddCommentInput $input): string
+    public function postComment(AddCommentInput $input): string
     {
         $comment = $this
             ->addCommentSchema
@@ -162,6 +165,11 @@ class Client implements GithubClient
         ]);
 
         return $comment->id;
+    }
+
+    public function updateComment(UpdateCommentInput $input): void
+    {
+        var_dump($this->runQuery($input->graphqlUrl, $this->updateCommentSchema->createQuery($input)));
     }
 
     public function getCurrentUser(string $graphqlUrl): Viewer
