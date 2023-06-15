@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
 
 use ArtARTs36\MergeRequestLinter\Application\Comments\MakingComment;
-use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\UpdatingMessageFormatter;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;

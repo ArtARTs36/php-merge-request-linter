@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Domain\CI;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 
 /**
  * Continuous Integration System.
@@ -38,7 +37,13 @@ interface CiSystem
      */
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void;
 
+    /**
+     * Update comment.
+     */
     public function updateComment(Comment $comment): void;
 
+    /**
+     * Get first comment on merge request by current user.
+     */
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment;
 }

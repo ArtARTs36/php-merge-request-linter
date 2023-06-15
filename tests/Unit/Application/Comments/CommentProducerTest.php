@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments;
 use ArtARTs36\MergeRequestLinter\Application\Comments\CommentProducer;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
-use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCommentMessageCreator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullCommenterFactory;

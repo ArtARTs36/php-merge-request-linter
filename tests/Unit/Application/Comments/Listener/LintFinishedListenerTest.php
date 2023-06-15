@@ -2,8 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments\Listener;
 
-use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NullCommenter;
-use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\Commenter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommentProducer;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListener;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
