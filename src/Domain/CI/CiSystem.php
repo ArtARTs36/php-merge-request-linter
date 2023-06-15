@@ -34,6 +34,7 @@ interface CiSystem
 
     /**
      * Post comment on merge request.
+     * @throws PostCommentException
      */
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void;
 

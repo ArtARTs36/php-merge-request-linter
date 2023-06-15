@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments;
 
-use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\CommenterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\DelegatesCommenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommenterFactory;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;

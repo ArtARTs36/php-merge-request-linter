@@ -2,8 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
 
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\Commenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommentMessageCreator;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Exceptions\SendCommentException;
 use ArtARTs36\MergeRequestLinter\Application\Comments\MakingComment;
-use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
@@ -12,11 +14,14 @@ use Psr\Log\LoggerInterface;
 
 abstract class CiCommenter implements Commenter
 {
+    /**
+     * @throws SendCommentException
+     */
     abstract protected function doPostComment(MergeRequest $request, MakingComment $comment): void;
 
     public function __construct(
         protected readonly CiSystem $ci,
-        private readonly MessageCreator $messageCreator,
+        private readonly CommentMessageCreator $messageCreator,
         protected readonly LoggerInterface $logger,
     ) {
         //

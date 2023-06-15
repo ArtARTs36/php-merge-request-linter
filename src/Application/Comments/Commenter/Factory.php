@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
 
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\Commenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommenterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\AppendUpdatingMessageFormatter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageFormatter;

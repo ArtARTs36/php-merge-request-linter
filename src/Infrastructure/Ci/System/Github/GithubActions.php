@@ -4,10 +4,12 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidResponseException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
@@ -103,9 +105,16 @@ final class GithubActions implements CiSystem
 
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
-        $this->client->postComment(
-            new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment),
-        );
+        try {
+            $this->client->postComment(
+                new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment),
+            );
+        } catch (InvalidResponseException $e) {
+            throw new PostCommentException(sprintf(
+                'Post comment was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
     }
 
     public function updateComment(Comment $comment): void

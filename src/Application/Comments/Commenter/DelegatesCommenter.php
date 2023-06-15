@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
 
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\Commenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommenterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Exceptions\SendCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;

@@ -1,29 +1,22 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Comments\Message;
+namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommentMessageCreator;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
-class MessageCreator implements CommentMessageCreator
+final class MockCommentMessageCreator implements CommentMessageCreator
 {
     public function __construct(
-        private readonly MessageSelector $selector,
-        private readonly MessageFormatter $formatter,
+        private readonly ?string $message,
     ) {
         //
     }
 
     public function create(MergeRequest $request, LintResult $result, CommentsConfig $config): ?string
     {
-        $message = $this->selector->select($config, $result);
-
-        if ($message === null) {
-            return null;
-        }
-
-        return $this->formatter->format($request, $result, $message);
+        return $this->message;
     }
 }

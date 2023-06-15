@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Comments\Commenter;
+namespace ArtARTs36\MergeRequestLinter\Application\Comments\Contracts;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 
