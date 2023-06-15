@@ -25,11 +25,9 @@ class ViewerSchema
      */
     public function createViewer(array $response): Viewer
     {
-        $login = RawArray::path($response, 'data.viewer.login');
+        $responseArray = new RawArray($response);
 
-        if (! is_string($login)) {
-            throw new \Exception('Viewer login must be string');
-        }
+        $login = $responseArray->string('data.viewer.login');
 
         return new Viewer(
             $login,

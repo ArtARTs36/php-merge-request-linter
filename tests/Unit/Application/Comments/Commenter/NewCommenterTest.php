@@ -3,10 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments\Commenter;
 
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NewCommenter;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
+use ArtARTs36\MergeRequestLinter\Application\Comments\MakingComment;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCommentMessageCreator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class NewCommenterTest extends TestCase
@@ -19,7 +17,6 @@ final class NewCommenterTest extends TestCase
     {
         $commenter = new NewCommenter(
             new MockCi(),
-            new MockCommentMessageCreator('test-message'),
             $logger = $this->mockLogger(),
         );
 
@@ -33,9 +30,6 @@ final class NewCommenterTest extends TestCase
         ]);
 
         $commenter
-            ->postComment($mergeRequest, $this->makeSuccessLintResult(), new CommentsConfig(
-                CommentsPostStrategy::New,
-                [],
-            ));
+            ->postComment($mergeRequest, new MakingComment('test-comment'));
     }
 }

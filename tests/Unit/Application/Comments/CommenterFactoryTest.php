@@ -5,10 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NullCommenter;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockOperatorResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use Psr\Log\NullLogger;
 
@@ -35,8 +33,6 @@ final class CommenterFactoryTest extends TestCase
             new MockCiSystemFactory(new MockCi([
                 'is_pull_request' => false,
             ])),
-            new MockOperatorResolver(),
-            TwigRenderer::create(),
             new NullLogger(),
         );
 

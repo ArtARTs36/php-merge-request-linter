@@ -8,6 +8,8 @@ use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\DelegatesCommenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\CommentProducer;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommenterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListener;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
@@ -182,16 +184,19 @@ class ApplicationFactory
     {
         $eventManager = $this->container->get(EventManager::class);
 
+        $this->container->set(CommenterFactory::class, function () {
+            return new Factory(
+                new CachedSystemFactory(fn () => $this->container->get(CiSystemFactory::class)->createCurrently()),
+                $this->container->get(OperatorResolver::class),
+            );
+        });
+
         $listener = function (ConfigResolvedEvent $event) use ($eventManager) {
             $lintFinishedListener = new LintFinishedListener(
-                new DelegatesCommenter(
+                new CommentProducer(
                     $this->container->get(ContextLogger::class),
-                    new Factory(
-                        new CachedSystemFactory(fn () => $this->container->get(CiSystemFactory::class)->createCurrently()),
-                        $this->container->get(OperatorResolver::class),
-                        $this->container->get(TextRenderer::class),
-                        $this->container->get(LoggerInterface::class),
-                    ),
+                    $this->container->get(LoggerInterface::class),
+                    $this->container->get(CommenterFactory::class),
                 ),
                 $event->config->config->getCommentsConfig(),
             );

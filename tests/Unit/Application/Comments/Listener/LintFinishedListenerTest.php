@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments\Listener;
 
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NullCommenter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\Commenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommentProducer;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListener;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
@@ -12,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullCommentProducer;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 
@@ -23,7 +25,7 @@ final class LintFinishedListenerTest extends TestCase
      */
     public function testCallEventNotSupported(): void
     {
-        $listener = new LintFinishedListener(new NullCommenter(), new CommentsConfig(CommentsPostStrategy::Null, []));
+        $listener = new LintFinishedListener(new NullCommentProducer(), new CommentsConfig(CommentsPostStrategy::Null, []));
 
         self::expectException(\LogicException::class);
 
@@ -36,10 +38,10 @@ final class LintFinishedListenerTest extends TestCase
      */
     public function testCall(): void
     {
-        $commenter = $this->createMock(Commenter::class);
+        $commenter = $this->createMock(CommentProducer::class);
         $commenter
             ->expects(new InvokedCount(1))
-            ->method('postComment');
+            ->method('produce');
 
         $listener = new LintFinishedListener($commenter, new CommentsConfig(CommentsPostStrategy::Null, []));
 

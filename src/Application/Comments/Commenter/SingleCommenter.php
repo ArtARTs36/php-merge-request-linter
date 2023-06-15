@@ -14,14 +14,13 @@ final class SingleCommenter extends CiCommenter
 {
     public function __construct(
         CiSystem $ci,
-        MessageCreator $messageCreator,
         LoggerInterface $logger,
         private readonly UpdatingMessageFormatter $updatingMessageFormatter,
     ) {
-        parent::__construct($ci, $messageCreator, $logger);
+        parent::__construct($ci, $logger);
     }
 
-    final protected function doPostComment(MergeRequest $request, MakingComment $comment): void
+    public function postComment(MergeRequest $request, MakingComment $comment): void
     {
         $this->logger->info(sprintf(
             '[SingleCommenter] Fetching first comment for MR with id "%s" by current user',

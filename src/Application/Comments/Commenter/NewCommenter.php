@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 final class NewCommenter extends CiCommenter
 {
-    protected function doPostComment(MergeRequest $request, MakingComment $comment): void
+    public function postComment(MergeRequest $request, MakingComment $comment): void
     {
         try {
             $this->logger->info(sprintf(

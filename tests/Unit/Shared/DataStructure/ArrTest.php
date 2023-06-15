@@ -42,6 +42,8 @@ final class ArrTest extends TestCase
      */
     public function testPath(array $array, string $path, mixed $expected): void
     {
-        self::assertEquals($expected, RawArray::path($array, $path));
+        $rawArray = new RawArray($array);
+
+        self::assertEquals($expected, $rawArray->path($path));
     }
 }

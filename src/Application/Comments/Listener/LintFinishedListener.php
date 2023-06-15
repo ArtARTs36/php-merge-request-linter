@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Listener;
 
-use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\Commenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommentProducer;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventListener;
@@ -10,8 +10,8 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\EventListener;
 final class LintFinishedListener implements EventListener
 {
     public function __construct(
-        private readonly Commenter $commenter,
-        private readonly CommentsConfig $config,
+        private readonly CommentProducer $commentProducer,
+        private readonly CommentsConfig  $config,
     ) {
         //
     }
@@ -33,6 +33,6 @@ final class LintFinishedListener implements EventListener
             ));
         }
 
-        $this->commenter->postComment($event->request, $event->result, $this->config);
+        $this->commentProducer->produce($event->request, $event->result, $this->config);
     }
 }

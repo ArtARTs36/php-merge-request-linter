@@ -19,8 +19,6 @@ final class Factory implements CommenterFactory
 {
     public function __construct(
         private readonly CiSystemFactory $ciSystem,
-        private readonly OperatorResolver $operatorResolver,
-        private readonly TextRenderer $textRenderer,
         private readonly LoggerInterface $logger,
     ) {
         //
@@ -32,15 +30,9 @@ final class Factory implements CommenterFactory
             return new NullCommenter();
         }
 
-        $messageCreator = new MessageCreator(
-            new MessageSelector($this->operatorResolver),
-            new MessageFormatter($this->textRenderer),
-        );
-
         if ($strategy === CommentsPostStrategy::New) {
             return new NewCommenter(
                 $this->ciSystem->createCurrently(),
-                $messageCreator,
                 $this->logger,
             );
         }
@@ -48,7 +40,6 @@ final class Factory implements CommenterFactory
         if ($strategy === CommentsPostStrategy::Single) {
             return new SingleCommenter(
                 $this->ciSystem->createCurrently(),
-                $messageCreator,
                 $this->logger,
                 new NewUpdatingMessageFormatter(),
             );
@@ -56,7 +47,6 @@ final class Factory implements CommenterFactory
 
         return new SingleCommenter(
             $this->ciSystem->createCurrently(),
-            $messageCreator,
             $this->logger,
             new AppendUpdatingMessageFormatter(),
         );
