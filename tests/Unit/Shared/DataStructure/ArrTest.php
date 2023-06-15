@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\DataStructure;
 
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arr;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ArrTest extends TestCase
@@ -36,12 +36,12 @@ final class ArrTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arr::path
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray::path
      *
      * @dataProvider providerForTestPath
      */
     public function testPath(array $array, string $path, mixed $expected): void
     {
-        self::assertEquals($expected, Arr::path($array, $path));
+        self::assertEquals($expected, RawArray::path($array, $path));
     }
 }

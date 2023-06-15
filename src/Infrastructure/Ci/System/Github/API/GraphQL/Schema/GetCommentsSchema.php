@@ -2,10 +2,12 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidResponseException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arr;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayPathInvalidException;
 
 class GetCommentsSchema
 {
@@ -38,16 +40,37 @@ class GetCommentsSchema
     /**
      * @param array<string, mixed> $response
      * @return Arrayee<int, Comment>
+     * @throws InvalidResponseException
      */
     public function createComments(array $response): Arrayee
     {
+        try {
+            return $this->doCreateComments($response);
+        } catch (ArrayPathInvalidException $e) {
+            throw InvalidResponseException::make($e->getMessage());
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $response
+     * @return Arrayee<int, Comment>
+     * @throws ArrayPathInvalidException
+     */
+    private function doCreateComments(array $response): Arrayee
+    {
+        $raw = new RawArray($response);
+
+        $data = $raw->array('data.resource.comments.nodes');
+
         $comments = [];
 
-        foreach (Arr::path($response, 'data.resource.comments.nodes') as $comment) {
+        foreach ($data->array as $comment) {
+            $c = new RawArray($comment);
+
             $comments[] = new Comment(
-                $comment['id'],
-                $comment['author']['login'],
-                $comment['body'],
+                $c->string('id'),
+                $c->string('author.login'),
+                $c->string('body'),
             );
         }
 
