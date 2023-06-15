@@ -4,6 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
 class Arr
 {
+    /**
+     * @param array<mixed> $array
+     * @param non-empty-string $separator
+     */
     public static function path(array $array, string $path, string $separator = '.'): mixed
     {
         $val = $array;

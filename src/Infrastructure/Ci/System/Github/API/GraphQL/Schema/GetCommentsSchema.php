@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arr;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 class GetCommentsSchema
@@ -42,7 +43,7 @@ class GetCommentsSchema
     {
         $comments = [];
 
-        foreach ($response['data']['resource']['comments']['nodes'] as $comment) {
+        foreach (Arr::path($response, 'data.resource.comments.nodes') as $comment) {
             $comments[] = new Comment(
                 $comment['id'],
                 $comment['author']['login'],
