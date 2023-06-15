@@ -38,6 +38,7 @@ final class CommenterFactoryTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory::create
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory::__construct
      *
      * @dataProvider providerForTestCreate
      */
