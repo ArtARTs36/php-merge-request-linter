@@ -3,7 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments;
 
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NewCommenter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NullCommenter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\SingleCommenter;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
@@ -18,6 +20,18 @@ final class CommenterFactoryTest extends TestCase
             [
                 CommentsPostStrategy::Null,
                 NullCommenter::class,
+            ],
+            [
+                CommentsPostStrategy::New,
+                NewCommenter::class,
+            ],
+            [
+                CommentsPostStrategy::Single,
+                SingleCommenter::class,
+            ],
+            [
+                CommentsPostStrategy::SingleAppend,
+                SingleCommenter::class,
             ],
         ];
     }
