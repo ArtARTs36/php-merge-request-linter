@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Comments\Message;
+namespace ArtARTs36\MergeRequestLinter\Application\Comments\Contracts;
 
 /**
  * Interface for UpdatingMessageFormatter.
