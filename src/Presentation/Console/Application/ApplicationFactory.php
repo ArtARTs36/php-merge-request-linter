@@ -9,7 +9,10 @@ use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\CommentProducer;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommenterFactory;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommentMessageCreator;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListener;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageFormatter;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
@@ -183,19 +186,22 @@ class ApplicationFactory
     {
         $eventManager = $this->container->get(EventManager::class);
 
-        $this->container->set(CommenterFactory::class, function () {
-            return new Factory(
-                new CachedSystemFactory(fn () => $this->container->get(CiSystemFactory::class)->createCurrently()),
-                $this->container->get(OperatorResolver::class),
-            );
-        });
-
         $listener = function (ConfigResolvedEvent $event) use ($eventManager) {
+            $commenterFactory = new Factory(
+                new CachedSystemFactory(fn () => $this->container->get(CiSystemFactory::class)->createCurrently()),
+                $this->container->get(LoggerInterface::class),
+            );
+
+            $msgCreator = new \ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator(
+                new MessageSelector($this->container->get(OperatorResolver::class)),
+                new MessageFormatter($this->container->get(TextRenderer::class)),
+            );
+
             $lintFinishedListener = new LintFinishedListener(
                 new CommentProducer(
-                    $this->container->get(ContextLogger::class),
+                    $msgCreator,
                     $this->container->get(LoggerInterface::class),
-                    $this->container->get(CommenterFactory::class),
+                    $commenterFactory,
                 ),
                 $event->config->config->getCommentsConfig(),
             );
