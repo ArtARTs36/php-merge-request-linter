@@ -61,7 +61,7 @@ class Client implements GithubClient
         $pullRequest = $this->pullRequestSchema->createPullRequest($prResponse);
 
         $this->logger->info(sprintf('[GithubClient] Pull Request with id %d was fetched', $input->requestId));
-        $this->logger->debug(sprintf('[GithubClient] Loading changes delayed until the first request'));
+        $this->logger->debug('[GithubClient] Loading changes delayed until the first request');
 
         $pullRequest->changes = new MapProxy(function () use ($input, $pullRequest) {
             return $this->fetchChanges($input, $pullRequest);

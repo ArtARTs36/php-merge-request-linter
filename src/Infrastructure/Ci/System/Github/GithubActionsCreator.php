@@ -36,6 +36,6 @@ final class GithubActionsCreator implements SystemCreator
             $this->logger,
             new NativeJsonDecoder(),
             new ChangeSchema(new DiffMapper()),
-        ));
+        ), $this->logger);
     }
 }

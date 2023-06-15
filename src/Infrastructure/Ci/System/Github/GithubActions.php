@@ -21,6 +21,8 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 final class GithubActions implements CiSystem
 {
@@ -29,6 +31,7 @@ final class GithubActions implements CiSystem
     public function __construct(
         private readonly GithubEnvironment $env,
         private readonly GithubClient $client,
+        private readonly LoggerInterface $logger = new NullLogger(),
     ) {
         //
     }
@@ -127,6 +130,11 @@ final class GithubActions implements CiSystem
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
         $user = $this->client->getCurrentUser($this->env->getGraphqlURL());
+
+        $this->logger->debug(sprintf(
+            '[GithubActions] Current user is "%s"',
+            $user->getHiddenLogin(),
+        ));
 
         $gComment = $this
             ->client
