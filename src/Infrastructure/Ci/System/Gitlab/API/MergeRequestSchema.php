@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Exceptions\GivenInvalidMergeRequestDataException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 
@@ -18,6 +19,22 @@ class MergeRequestSchema
      */
     public function createMergeRequest(array $response): MergeRequest
     {
+        if (! array_key_exists('id', $response)) {
+            throw GivenInvalidMergeRequestDataException::keyNotFound('id');
+        }
+
+        if (! is_int($response['id'])) {
+            throw GivenInvalidMergeRequestDataException::invalidType('id', 'int');
+        }
+
+        if (! array_key_exists('iid', $response)) {
+            throw GivenInvalidMergeRequestDataException::keyNotFound('iid');
+        }
+
+        if (! is_int($response['iid'])) {
+            throw GivenInvalidMergeRequestDataException::invalidType('iid', 'int');
+        }
+
         if (! array_key_exists('title', $response)) {
             throw GivenInvalidMergeRequestDataException::keyNotFound('title');
         }
@@ -127,6 +144,8 @@ class MergeRequestSchema
         }
 
         return new MergeRequest(
+            $response['id'],
+            $response['iid'],
             $response['title'],
             $response['description'],
             $response['labels'],

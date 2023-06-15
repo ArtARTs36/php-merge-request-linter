@@ -49,6 +49,7 @@ class MergeRequest
         public \DateTimeImmutable $createdAt,
         public Str $uri,
         public string $id = '',
+        public string $number = '',
     ) {
         //
     }

@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\CommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
@@ -43,7 +44,7 @@ class GitlabCi implements CiSystem
     public function isCurrentlyMergeRequest(): bool
     {
         try {
-            return $this->environment->getMergeRequestId() >= 0;
+            return $this->environment->getMergeRequestNumber() >= 0;
         } catch (EnvironmentVariableNotFoundException) {
             return false;
         }
@@ -55,7 +56,7 @@ class GitlabCi implements CiSystem
             new MergeRequestInput(
                 $this->environment->getGitlabServerUrl(),
                 $this->environment->getProjectId(),
-                $this->environment->getMergeRequestId(),
+                $this->environment->getMergeRequestNumber(),
             ),
         );
 
@@ -75,13 +76,15 @@ class GitlabCi implements CiSystem
             $this->mapChanges($request),
             $request->createdAt,
             Str::make($request->uri),
+            $request->id,
+            $request->number,
         );
     }
 
     /**
      * @return Map<string, Change>
      */
-    private function mapChanges(API\MergeRequest $request): Map
+    private function mapChanges(API\Objects\MergeRequest $request): Map
     {
         $changes = [];
 
@@ -97,7 +100,14 @@ class GitlabCi implements CiSystem
 
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
-        // TODO: Implement postCommentOnCurrentlyMergeRequest() method.
+        $this->client->postComment(
+            new CommentInput(
+                $this->environment->getGitlabServerUrl(),
+                $this->environment->getProjectId(),
+                $this->environment->getMergeRequestNumber(),
+                $comment,
+            ),
+        );
     }
 
     public function updateComment(Comment $comment): void

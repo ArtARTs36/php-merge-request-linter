@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects;
 
 class MergeRequest
 {
@@ -11,6 +11,8 @@ class MergeRequest
      * @param array<Change> $changes
      */
     public function __construct(
+        public readonly int $id,
+        public readonly int $number,
         public readonly string $title,
         public readonly string $description,
         public readonly array $labels,

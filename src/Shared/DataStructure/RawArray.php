@@ -76,4 +76,18 @@ class RawArray
 
         return $val;
     }
+
+    public function int(string $path): int
+    {
+        $val = $this->path($path);
+
+        if (! is_int($val)) {
+            throw new ArrayPathInvalidException(sprintf(
+                'Value by path %s must be string',
+                $path,
+            ), $path, $path);
+        }
+
+        return $val;
+    }
 }
