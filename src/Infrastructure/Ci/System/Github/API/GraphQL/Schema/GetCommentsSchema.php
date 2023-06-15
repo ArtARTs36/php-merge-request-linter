@@ -5,16 +5,17 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidResponseException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\CommentList;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayPathInvalidException;
 
 class GetCommentsSchema
 {
-    private const QUERY = 'query GetCommentsForPullRequest($url: URI!) {
+    private const QUERY = 'query GetCommentsForPullRequest($url: URI!, $after: String) {
   resource(url: $url) {
     ... on PullRequest {
-      comments(first: 10) {
+      comments(first: 1, after: $after) {
         nodes {
           id
           author {
@@ -23,6 +24,7 @@ class GetCommentsSchema
           body
         }
         pageInfo {
+          endCursor
           hasNextPage
         }
       }
@@ -30,19 +32,19 @@ class GetCommentsSchema
   }
 }';
 
-    public function createQuery(string $pullRequestUrl): Query
+    public function createQuery(string $pullRequestUrl, ?string $after = null): Query
     {
         return new Query(self::QUERY, [
             'url' => $pullRequestUrl,
+            'after' => null,
         ]);
     }
 
     /**
      * @param array<string, mixed> $response
-     * @return Arrayee<int, Comment>
      * @throws InvalidResponseException
      */
-    public function createComments(array $response): Arrayee
+    public function createCommentList(array $response): CommentList
     {
         try {
             return $this->doCreateComments($response);
@@ -56,15 +58,15 @@ class GetCommentsSchema
      * @return Arrayee<int, Comment>
      * @throws ArrayPathInvalidException
      */
-    private function doCreateComments(array $response): Arrayee
+    private function doCreateComments(array $response): CommentList
     {
         $raw = new RawArray($response);
 
-        $data = $raw->array('data.resource.comments.nodes');
+        $root = $raw->array('data.resource.comments');
 
         $comments = [];
 
-        foreach ($data->array as $comment) {
+        foreach ($root->array('nodes') as $comment) {
             $c = new RawArray($comment);
 
             $comments[] = new Comment(
@@ -74,6 +76,12 @@ class GetCommentsSchema
             );
         }
 
-        return new Arrayee($comments);
+        $pageInfo = $root->array('pageInfo');
+
+        return new CommentList(
+            new Arrayee($comments),
+            $pageInfo->bool('hasNextPage'),
+            $pageInfo->stringOrNull('endCursor'),
+        );
     }
 }

@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Sch
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\UpdateCommentSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\ViewerSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\CommentList;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Change\Change;
@@ -183,11 +184,11 @@ class Client implements GithubClient
             ->createViewer($this->runQuery($graphqlUrl, $this->viewerSchema->createQuery()));
     }
 
-    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri): Arrayee
+    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList
     {
         return $this
             ->getCommentsSchema
-            ->createComments($this->runQuery($graphqlUrl, $this->getCommentsSchema->createQuery($requestUri)));
+            ->createCommentList($this->runQuery($graphqlUrl, $this->getCommentsSchema->createQuery($requestUri, $after)));
     }
 
     private function runQuery(string $graphqlUrl, Query $query): array

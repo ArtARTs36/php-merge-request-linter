@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\ToolInfo\Tag;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\CommentList;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagCollection;
@@ -49,7 +50,7 @@ final class MockGithubClient implements GithubClient
         // TODO: Implement getCurrentUser() method.
     }
 
-    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri): Arrayee
+    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri): CommentList
     {
         // TODO: Implement getCommentsOnPullRequest() method.
     }

@@ -2,13 +2,13 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
-class RawArray
+class RawArray implements \IteratorAggregate
 {
     /**
-     * @param array<mixed> $array
+     * @param array<mixed> $value
      */
     public function __construct(
-        public readonly array $array,
+        private readonly array $value,
     ) {
         //
     }
@@ -20,7 +20,7 @@ class RawArray
      */
     public function path(string $path): mixed
     {
-        $val = $this->array;
+        $val = $this->value;
         $currPath = '';
 
         foreach (explode('.', $path) as $part) {
@@ -69,7 +69,39 @@ class RawArray
 
         if (! is_string($val)) {
             throw new ArrayPathInvalidException(sprintf(
-                'Value by path %s must be string',
+                'Value by path %s must be int',
+                $path,
+            ), $path, $path);
+        }
+
+        return $val;
+    }
+
+    public function stringOrNull(string $path): ?string
+    {
+        $val = $this->path($path);
+
+        if (is_null($val)) {
+            return null;
+        }
+
+        if (! is_string($val)) {
+            throw new ArrayPathInvalidException(sprintf(
+                'Value by path %s must be int',
+                $path,
+            ), $path, $path);
+        }
+
+        return $val;
+    }
+
+    public function bool(string $path): bool
+    {
+        $val = $this->path($path);
+
+        if (! is_bool($val)) {
+            throw new ArrayPathInvalidException(sprintf(
+                'Value by path %s must be bool',
                 $path,
             ), $path, $path);
         }
@@ -89,5 +121,10 @@ class RawArray
         }
 
         return $val;
+    }
+
+    public function getIterator(): \Traversable
+    {
+        return new \ArrayIterator($this->value);
     }
 }

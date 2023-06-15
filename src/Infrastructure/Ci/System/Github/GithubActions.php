@@ -15,6 +15,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Inp
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
@@ -136,17 +137,39 @@ final class GithubActions implements CiSystem
             $user->getHiddenLogin(),
         ));
 
-        $gComment = $this
-            ->client
-            ->getCommentsOnPullRequest(
-                $this->env->getGraphqlURL(),
-                $request->uri,
-            )
-            ->firstFilter(fn (API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $user->login);
+        $gComment = $this->findCommentByUser($request, $user->login);
 
         return $gComment === null ? null : new Comment(
             $gComment->id,
             $gComment->message,
         );
+    }
+
+    private function findCommentByUser(MergeRequest $request, string $userLogin): ?API\GraphQL\Type\Comment
+    {
+        $gComment = null;
+        $after = null;
+
+        while ($gComment === null) {
+            $commentList = $this
+                ->client
+                ->getCommentsOnPullRequest(
+                    $this->env->getGraphqlURL(),
+                    $request->uri,
+                    $after,
+                );
+
+            $gComment = $commentList
+                ->comments
+                ->firstFilter(fn(API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $userLogin);
+
+            if ($gComment !== null || ! $commentList->hasNextPage) {
+                break;
+            }
+
+            $after = $commentList->endCursor;
+        }
+
+        return $gComment;
     }
 }
