@@ -7,6 +7,8 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CreatedComment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\Schemas;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;

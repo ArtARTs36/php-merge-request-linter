@@ -1,7 +1,9 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestState;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Exceptions\GivenInvalidPullRequestDataException;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 use ArtARTs36\Str\Str;

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbucket\API;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestState;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\BitbucketPR;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -28,8 +28,8 @@ final class PullRequestTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest::canMerge
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest::canMerge
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest::__construct
      * @dataProvider providerForTestCanMerge
      */
     public function testCanMerge(PullRequest $pr, bool $expected): void
@@ -56,8 +56,8 @@ final class PullRequestTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest::isDraft
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest::isDraft
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest::__construct
      * @dataProvider providerForTestIsDraft
      */
     public function testIsDraft(PullRequest $pr, bool $expected): void
