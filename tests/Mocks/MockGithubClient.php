@@ -50,7 +50,7 @@ final class MockGithubClient implements GithubClient
         // TODO: Implement getCurrentUser() method.
     }
 
-    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri): CommentList
+    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList
     {
         // TODO: Implement getCommentsOnPullRequest() method.
     }

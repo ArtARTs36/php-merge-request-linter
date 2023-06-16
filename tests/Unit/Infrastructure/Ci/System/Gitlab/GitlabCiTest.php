@@ -2,11 +2,17 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Gitlab;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\CommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\GetCommentsInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\Input;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -67,6 +73,26 @@ final class GitlabCiTest extends TestCase
                 public function getMergeRequest(MergeRequestInput $input): MergeRequest
                 {
                     // TODO: Implement getMergeRequest() method.
+                }
+
+                public function postComment(CommentInput $input): void
+                {
+                    // TODO: Implement postComment() method.
+                }
+
+                public function getCurrentUser(Input $input): User
+                {
+                    // TODO: Implement getCurrentUser() method.
+                }
+
+                public function getCommentsOnMergeRequest(GetCommentsInput $input): Arrayee
+                {
+                    // TODO: Implement getCommentsOnMergeRequest() method.
+                }
+
+                public function updateComment(UpdateCommentInput $input): void
+                {
+                    // TODO: Implement updateComment() method.
                 }
             },
             new MockMarkdownCleaner(),
