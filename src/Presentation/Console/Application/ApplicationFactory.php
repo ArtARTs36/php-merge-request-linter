@@ -8,8 +8,6 @@ use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\CommentProducer;
-use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommenterFactory;
-use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommentMessageCreator;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListener;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageFormatter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector;

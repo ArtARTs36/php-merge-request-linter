@@ -15,7 +15,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Inp
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
@@ -161,7 +160,7 @@ final class GithubActions implements CiSystem
 
             $gComment = $commentList
                 ->comments
-                ->firstFilter(fn(API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $userLogin);
+                ->firstFilter(fn (API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $userLogin);
 
             if ($gComment !== null || ! $commentList->hasNextPage) {
                 break;

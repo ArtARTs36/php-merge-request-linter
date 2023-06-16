@@ -24,9 +24,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\Ta
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextProcessor;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;

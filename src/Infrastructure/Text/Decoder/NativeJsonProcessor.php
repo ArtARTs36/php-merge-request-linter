@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextProcessor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextDecodingException;
 

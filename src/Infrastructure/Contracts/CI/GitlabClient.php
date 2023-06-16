@@ -16,5 +16,8 @@ interface GitlabClient
      */
     public function getMergeRequest(MergeRequestInput $input): MergeRequest;
 
+    /**
+     * Post comment.
+     */
     public function postComment(CommentInput $input): void;
 }
