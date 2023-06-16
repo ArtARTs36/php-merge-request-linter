@@ -53,6 +53,7 @@ final class BitbucketPipelinesCreator implements SystemCreator
             new CompositeResolver([
                 new DescriptionLabelsResolver(),
             ]),
+            $this->logger,
         );
     }
 

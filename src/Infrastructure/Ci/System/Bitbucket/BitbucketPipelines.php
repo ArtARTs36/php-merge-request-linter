@@ -9,8 +9,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\LabelsResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
@@ -22,6 +23,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Markdown;
 use ArtARTs36\Str\Str;
+use Psr\Log\LoggerInterface;
 
 class BitbucketPipelines implements CiSystem
 {
@@ -33,6 +35,7 @@ class BitbucketPipelines implements CiSystem
         private readonly MarkdownCleaner $markdownCleaner,
         private readonly BitbucketPipelinesSettings $settings,
         private readonly LabelsResolver $labelsResolver,
+        private readonly LoggerInterface $logger,
     ) {
         //
     }
@@ -83,6 +86,8 @@ class BitbucketPipelines implements CiSystem
             $this->mapChanges($pr),
             $pr->createdAt,
             Str::make($pr->uri),
+            (string) $pr->id,
+            (string) $pr->id,
         );
     }
 
@@ -107,7 +112,21 @@ class BitbucketPipelines implements CiSystem
 
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
-        // TODO: Implement postCommentOnCurrentlyMergeRequest() method.
+        $repo = $this->environment->getRepo();
+        $prId = $this->environment->getPullRequestId();
+
+        $createdComment = $this->client->postComment(new CreateCommentInput(
+            $repo->workspace,
+            $repo->slug,
+            $prId,
+            $comment,
+        ));
+
+        $this->logger->info(sprintf(
+            '[BitbucketPipelines] Comment was created with id %d and url %s',
+            $createdComment->id,
+            $createdComment->url,
+        ));
     }
 
     public function updateComment(Comment $comment): void
