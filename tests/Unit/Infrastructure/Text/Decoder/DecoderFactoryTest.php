@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Text\Decoder;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\SymfonyYamlDecoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextDecoderNotFoundException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -14,7 +14,7 @@ final class DecoderFactoryTest extends TestCase
     {
         return [
             ['yaml', SymfonyYamlDecoder::class],
-            ['json', NativeJsonDecoder::class],
+            ['json', NativeJsonProcessor::class],
         ];
     }
 

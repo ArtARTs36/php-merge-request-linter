@@ -13,7 +13,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 
 final class GithubActionsCreator implements SystemCreator
@@ -34,7 +34,7 @@ final class GithubActionsCreator implements SystemCreator
             $settings->credentials,
             new PullRequestSchema($this->clock),
             $this->logger,
-            new NativeJsonDecoder(),
+            new NativeJsonProcessor(),
             new ChangeSchema(new DiffMapper()),
         ), $this->logger);
     }

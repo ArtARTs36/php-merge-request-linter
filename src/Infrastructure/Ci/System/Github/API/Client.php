@@ -25,6 +25,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPul
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
@@ -38,16 +39,16 @@ class Client implements GithubClient
     private const PAGE_ITEMS_LIMIT = 30;
 
     public function __construct(
-        private readonly HttpClient        $client,
-        private readonly Authenticator     $credentials,
-        private readonly PullRequestSchema $pullRequestSchema,
-        private readonly ContextLogger   $logger,
-        private readonly TextDecoder       $textDecoder,
-        private readonly ChangeSchema      $changeSchema,
-        private readonly AddCommentSchema $addCommentSchema = new AddCommentSchema(),
-        private readonly ViewerSchema      $viewerSchema = new ViewerSchema(),
-        private readonly TagHydrator $tagHydrator = new TagHydrator(),
-        private readonly GetCommentsSchema $getCommentsSchema = new GetCommentsSchema(),
+        private readonly HttpClient          $client,
+        private readonly Authenticator       $credentials,
+        private readonly PullRequestSchema   $pullRequestSchema,
+        private readonly ContextLogger       $logger,
+        private readonly TextProcessor       $textProcessor,
+        private readonly ChangeSchema        $changeSchema,
+        private readonly AddCommentSchema    $addCommentSchema = new AddCommentSchema(),
+        private readonly ViewerSchema        $viewerSchema = new ViewerSchema(),
+        private readonly TagHydrator         $tagHydrator = new TagHydrator(),
+        private readonly GetCommentsSchema   $getCommentsSchema = new GetCommentsSchema(),
         private readonly UpdateCommentSchema $updateCommentSchema = new UpdateCommentSchema(),
     ) {
         //
@@ -101,7 +102,7 @@ class Client implements GithubClient
         $index = 0;
 
         foreach ($changesResponses as $response) {
-            foreach ($this->textDecoder->decode($response->getBody()->getContents()) as $respChange) {
+            foreach ($this->textProcessor->decode($response->getBody()->getContents()) as $respChange) {
                 if (! is_array($respChange)) {
                     throw GivenInvalidPullRequestDataException::invalidType('changes.' . $index, 'array');
                 }
@@ -144,7 +145,7 @@ class Client implements GithubClient
         $response = $this->client->sendRequest($request);
 
         return $this->tagHydrator->hydrate(
-            $this->textDecoder->decode($response->getBody()->getContents()),
+            $this->textProcessor->decode($response->getBody()->getContents()),
         );
     }
 
@@ -193,7 +194,7 @@ class Client implements GithubClient
 
     private function runQuery(string $graphqlUrl, Query $query): array
     {
-        $body = json_encode([
+        $body = $this->textProcessor->encode([
             'query' => $query->query,
             'variables' => $query->variables,
         ]);
@@ -204,7 +205,7 @@ class Client implements GithubClient
         $request = $this->credentials->authenticate($request);
 
         return $this
-            ->textDecoder
+            ->textProcessor
             ->decode($this->client->sendRequest($request)->getBody()->getContents());
     }
 

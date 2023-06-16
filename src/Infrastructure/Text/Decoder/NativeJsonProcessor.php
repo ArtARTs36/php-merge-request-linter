@@ -3,10 +3,18 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextProcessor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextDecodingException;
 
-final class NativeJsonDecoder implements TextDecoder
+final class NativeJsonProcessor implements TextProcessor
 {
+    public function encode(array $data): string
+    {
+        $encoded = \json_encode($data);
+
+        return $encoded === false ? '' : $encoded;
+    }
+
     public function decode(string $content): array
     {
         $data = \json_decode($content, true);
