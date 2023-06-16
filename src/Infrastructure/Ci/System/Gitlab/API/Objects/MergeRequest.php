@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Change;
+
 class MergeRequest
 {
     private const MERGE_STATUS_CAN_BE_MERGED = 'can_be_merged';
