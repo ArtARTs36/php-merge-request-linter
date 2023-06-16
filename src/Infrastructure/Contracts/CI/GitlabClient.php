@@ -27,12 +27,19 @@ interface GitlabClient
      */
     public function postComment(CommentInput $input): void;
 
+    /**
+     * Get current user.
+     */
     public function getCurrentUser(Input $input): User;
 
     /**
+     * Get comments on merge request.
      * @return Arrayee<Comment>
      */
     public function getCommentsOnMergeRequest(GetCommentsInput $input): Arrayee;
 
+    /**
+     * Update comment.
+     */
     public function updateComment(UpdateCommentInput $input): void;
 }
