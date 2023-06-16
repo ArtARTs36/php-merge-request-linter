@@ -64,7 +64,7 @@ final class SingleCommenter extends CiCommenter
 
         $message = $this->updatingMessageFormatter->formatMessage($firstComment->message, $makingComment->message);
 
-        if ($firstComment->message === $message) {
+        if (trim($firstComment->message) === trim($message)) {
             $this->logger->info(sprintf(
                 '[SingleCommenter] Updating comment with id "%s" for MR with id "%s" was skipped: messages identical',
                 $firstComment->id,

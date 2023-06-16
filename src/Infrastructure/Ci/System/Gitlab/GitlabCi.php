@@ -9,6 +9,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\CommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\GetCommentsInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\Input;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
@@ -112,11 +115,35 @@ class GitlabCi implements CiSystem
 
     public function updateComment(Comment $comment): void
     {
-        // TODO: Implement updateComment() method.
+        $this->client->updateComment(
+            new UpdateCommentInput(
+                $this->environment->getGitlabServerUrl(),
+                $this->environment->getProjectId(),
+                $this->environment->getMergeRequestNumber(),
+                $comment->message,
+                $comment->id,
+            ),
+        );
     }
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
-        // TODO: Implement getFirstCommentOnMergeRequestByCurrentUser() method.
+        $user = $this->client->getCurrentUser(new Input(
+            $this->environment->getGitlabServerUrl(),
+        ));
+
+        $gitlabComment = $this
+            ->client
+            ->getCommentsOnMergeRequest(new GetCommentsInput(
+                $this->environment->getGitlabServerUrl(),
+                $this->environment->getProjectId(),
+                $request->number,
+            ))
+            ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
+
+        return $gitlabComment === null ? null : new Comment(
+            $gitlabComment->id,
+            $gitlabComment->body,
+        );
     }
 }
