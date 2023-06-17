@@ -32,6 +32,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
+      - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-suggest && composer dump-autoload -o
+
       - name: Review Pull Request
         env:
           MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
