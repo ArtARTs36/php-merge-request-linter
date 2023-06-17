@@ -133,7 +133,7 @@ final class GithubActions implements CiSystem
 
         $this->logger->debug(sprintf(
             '[GithubActions] Current user is "%s"',
-            $user->login,
+            $user->getHiddenLogin(),
         ));
 
         $gComment = $this->findCommentByUser($request, $user->login);
