@@ -15,7 +15,7 @@ class GetCommentsSchema
     private const QUERY = 'query GetCommentsForPullRequest($url: URI!, $after: String) {
   resource(url: $url) {
     ... on PullRequest {
-      comments(first: 1, after: $after) {
+      comments(first: 100, after: $after) {
         nodes {
           id
           author {
@@ -32,11 +32,11 @@ class GetCommentsSchema
   }
 }';
 
-    public function createQuery(string $pullRequestUrl, ?string $after = null): Query
+    public function createQuery(string $pullRequestUrl, ?int $after = null): Query
     {
         return new Query(self::QUERY, [
             'url' => $pullRequestUrl,
-            'after' => null,
+            'after' => $after,
         ]);
     }
 
@@ -46,6 +46,9 @@ class GetCommentsSchema
      */
     public function createCommentList(array $response): CommentList
     {
+        var_dump($response);
+        exit();
+
         try {
             return $this->doCreateComments($response);
         } catch (ArrayPathInvalidException $e) {
