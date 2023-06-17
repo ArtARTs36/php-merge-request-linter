@@ -136,6 +136,37 @@ class BitbucketPipelines implements CiSystem
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
-        return null;
+        $repo = $this->environment->getRepo();
+        $prId = $this->environment->getPullRequestId();
+
+        $user = $this->client->getCurrentUser();
+
+        $needComment = null;
+        $page = 0;
+
+        while ($needComment === null) {
+            $comments = $this
+                ->client
+                ->getComments(new PullRequestInput(
+                    $repo->workspace,
+                    $repo->slug,
+                    $prId,
+                ));
+
+            if ($comments->comments->isEmpty()) {
+                break;
+            }
+
+            $needComment = $comments
+                ->comments
+                ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorAccountId === $user->accountId);
+
+            ++$page;
+        }
+
+        return $needComment === null ? null : new Comment(
+            $needComment->id,
+            $needComment->content,
+        );
     }
 }

@@ -6,8 +6,10 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\PullRequestInput;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CreatedComment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\Comment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CommentList;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\Schemas;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextDecoder;
@@ -63,7 +65,45 @@ class Client
         return $pr;
     }
 
-    public function postComment(CreateCommentInput $input): CreatedComment
+    public function getCurrentUser(): User
+    {
+        $url = sprintf(
+            'https://api.bitbucket.org/2.0/user',
+        );
+
+        $request = new Request('GET', $url);
+        $request = $this->credentials->authenticate($request);
+
+        return $this
+            ->schemas
+            ->userGetCurrent
+            ->createResponse(
+                $this->textDecoder->decode($this->http->sendRequest($request)->getBody()->getContents()),
+            );
+    }
+
+    public function getComments(PullRequestInput $input): CommentList
+    {
+        $url = sprintf(
+            'https://api.bitbucket.org/2.0/repositories/%s/%s/pullrequests/%s/comments',
+            $input->projectKey,
+            $input->repoName,
+            $input->requestId,
+        );
+
+        $request = new Request('GET', $url);
+
+        $request = $this->credentials->authenticate($request);
+
+        $response = $this->http->sendRequest($request);
+
+        return $this
+            ->schemas
+            ->commentsGet
+            ->createResponse($this->textDecoder->decode($response->getBody()->getContents()));
+    }
+
+    public function postComment(CreateCommentInput $input): Comment
     {
         $url = sprintf(
             'https://api.bitbucket.org/2.0/repositories/%s/%s/pullrequests/%s/comments',

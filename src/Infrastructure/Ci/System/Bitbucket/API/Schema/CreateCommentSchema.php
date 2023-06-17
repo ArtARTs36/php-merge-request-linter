@@ -2,18 +2,20 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CreatedComment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\Comment;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 
 class CreateCommentSchema
 {
-    public function createResponse(array $data): CreatedComment
+    public function createResponse(array $data): Comment
     {
         $raw = new RawArray($data);
 
-        return new CreatedComment(
+        return new Comment(
             $raw->int('id'),
             $raw->string('links.self.href'),
+            $raw->string('content.raw'),
+            $raw->string('user.account_id'),
         );
     }
 }
