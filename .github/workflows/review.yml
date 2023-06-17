@@ -42,4 +42,4 @@ jobs:
           MR_LINTER_TELEGRAM_BOT_TOKEN: ${{ secrets.MR_LINTER_TELEGRAM_BOT_TOKEN }}
           MR_LINTER_TELEGRAM_CHAT_ID: ${{ secrets.MR_LINTER_TELEGRAM_CHAT_ID }}
           MR_LINTER_TIMEZONE: 'Europe/Moscow'
-        run: composer mr-lint --debug -vvv
+        run: composer mr-lint

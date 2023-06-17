@@ -166,10 +166,6 @@ final class GithubActions implements CiSystem
                 ->comments
                 ->firstFilter(fn (API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $userLogin);
 
-            foreach ($commentList->comments as $comment) {
-                var_dump($comment->authorLogin);
-            }
-
             if ($gComment !== null || ! $commentList->hasNextPage) {
                 break;
             }
