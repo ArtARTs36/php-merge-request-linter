@@ -15,7 +15,7 @@ class CommentList
     public function __construct(
         public readonly Arrayee $comments,
         public readonly bool $hasNextPage,
-        public readonly string $endCursor,
+        public readonly ?string $endCursor,
     ) {
         //
     }
