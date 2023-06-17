@@ -160,6 +160,10 @@ final class GithubActions implements CiSystem
                     $after,
                 );
 
+            if ($commentList->comments->isEmpty()) {
+                break;
+            }
+
             $gComment = $commentList
                 ->comments
                 ->firstFilter(fn (API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $userLogin);

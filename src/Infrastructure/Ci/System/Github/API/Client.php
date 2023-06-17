@@ -192,10 +192,10 @@ class Client implements GithubClient
         }
     }
 
-    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?int $after = null): CommentList
+    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList
     {
         $this->logger->info(sprintf(
-            '[GithubClient] Fetching comments on pull request with uri %s after %s',
+            '[GithubClient] Fetching comments on pull request with uri %s after %s items',
             $requestUri,
             $after === null ? 0 : $after,
         ));

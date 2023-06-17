@@ -52,5 +52,5 @@ interface GithubClient
      *
      * @return Arrayee<int, Comment>
      */
-    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?int $after = null): CommentList;
+    public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList;
 }

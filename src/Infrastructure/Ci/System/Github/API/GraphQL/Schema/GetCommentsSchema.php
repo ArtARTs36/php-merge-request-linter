@@ -46,9 +46,6 @@ class GetCommentsSchema
      */
     public function createCommentList(array $response): CommentList
     {
-        var_dump($response);
-        exit();
-
         try {
             return $this->doCreateComments($response);
         } catch (ArrayPathInvalidException $e) {
