@@ -136,6 +136,8 @@ final class GithubActions implements CiSystem
             $user->getHiddenLogin(),
         ));
 
+        var_dump($user->login);
+
         $gComment = $this->findCommentByUser($request, $user->login);
 
         return $gComment === null ? null : new Comment(
