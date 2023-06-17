@@ -12,6 +12,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Typ
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagsInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ServerUnexpectedResponseException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
@@ -42,6 +43,7 @@ interface GithubClient
 
     /**
      * Get current user.
+     * @throws ServerUnexpectedResponseException
      */
     public function getCurrentUser(string $graphqlUrl): Viewer;
 

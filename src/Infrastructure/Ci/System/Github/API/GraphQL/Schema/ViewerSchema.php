@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayPathInvalidException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 
 class ViewerSchema
@@ -21,6 +22,7 @@ class ViewerSchema
 
     /**
      * @param array<string, mixed> $response
+     * @throws ArrayPathInvalidException
      * @throws \Exception
      */
     public function createViewer(array $response): Viewer
