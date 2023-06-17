@@ -136,8 +136,6 @@ final class GithubActions implements CiSystem
             $user->getHiddenLogin(),
         ));
 
-        var_dump($user->login);
-
         $gComment = $this->findCommentByUser($request, $user->login);
 
         return $gComment === null ? null : new Comment(
@@ -167,6 +165,10 @@ final class GithubActions implements CiSystem
             $gComment = $commentList
                 ->comments
                 ->firstFilter(fn (API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $userLogin);
+
+            foreach ($commentList->comments as $comment) {
+                var_dump($comment->authorLogin);
+            }
 
             if ($gComment !== null || ! $commentList->hasNextPage) {
                 break;
