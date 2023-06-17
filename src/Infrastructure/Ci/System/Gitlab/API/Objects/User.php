@@ -11,8 +11,11 @@ class User
         //
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     public function __debugInfo(): ?array
     {
-        return [];
+        return null;
     }
 }

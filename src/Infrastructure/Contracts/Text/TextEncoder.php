@@ -9,6 +9,8 @@ interface TextEncoder
 {
     /**
      * Encode Text
+     *
+     * @param array<mixed> $data
      */
     public function encode(array $data): string;
 }

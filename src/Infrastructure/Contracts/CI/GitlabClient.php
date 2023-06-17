@@ -34,7 +34,7 @@ interface GitlabClient
 
     /**
      * Get comments on merge request.
-     * @return Arrayee<Comment>
+     * @return Arrayee<int, Comment>
      */
     public function getCommentsOnMergeRequest(GetCommentsInput $input): Arrayee;
 

@@ -14,8 +14,6 @@ class RawArray implements \IteratorAggregate
     }
 
     /**
-     * @param array<mixed> $array
-     * @param non-empty-string $separator
      * @throws ArrayPathInvalidException
      */
     public function path(string $path): mixed
@@ -46,9 +44,6 @@ class RawArray implements \IteratorAggregate
         return $val;
     }
 
-    /**
-     * @return array<mixed>
-     */
     public function array(string $path): RawArray
     {
         $val = $this->path($path);
