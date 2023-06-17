@@ -11,6 +11,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\LabelsResolver;
@@ -131,7 +132,16 @@ class BitbucketPipelines implements CiSystem
 
     public function updateComment(Comment $comment): void
     {
-        // TODO: Implement updateComment() method.
+        $repo = $this->environment->getRepo();
+        $prId = $this->environment->getPullRequestId();
+
+        $this->client->updateComment(new UpdateCommentInput(
+            $repo->workspace,
+            $repo->slug,
+            $prId,
+            $comment->id,
+            $comment->message,
+        ));
     }
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment

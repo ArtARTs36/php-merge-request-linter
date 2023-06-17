@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CommentList;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
@@ -101,6 +102,37 @@ class Client
             ->schemas
             ->commentsGet
             ->createResponse($this->textDecoder->decode($response->getBody()->getContents()));
+    }
+
+    public function updateComment(UpdateCommentInput $input): Comment
+    {
+        $url = sprintf(
+            'https://api.bitbucket.org/2.0/repositories/%s/%s/pullrequests/%s/comments/%s',
+            $input->projectKey,
+            $input->repoName,
+            $input->requestId,
+            $input->commentId,
+        );
+
+        $request = new Request('PUT', $url, [
+            'content-type' => 'application/json',
+        ]);
+
+        $request = $this->credentials->authenticate($request);
+        $request = $request->withBody(StreamBuilder::streamFor(json_encode([
+            'content' => [
+                'raw' => $input->comment,
+            ],
+        ])));
+
+        return $this
+            ->schemas
+            ->commentCreate
+            ->createResponse(
+                $this->textDecoder->decode(
+                    $this->http->sendRequest($request)->getBody()->getContents(),
+                ),
+            );
     }
 
     public function postComment(CreateCommentInput $input): Comment
