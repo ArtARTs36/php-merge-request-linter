@@ -31,8 +31,6 @@ class ViewerSchema
 
         $login = $responseArray->string('data.viewer.login');
 
-        return new Viewer(
-            $login,
-        );
+        return Viewer::make($login);
     }
 }

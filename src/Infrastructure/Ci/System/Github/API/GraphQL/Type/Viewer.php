@@ -6,10 +6,23 @@ use ArtARTs36\Str\Str;
 
 class Viewer
 {
-    public function __construct(
+    private const OVERWRITE_LOGINS = [
+        'github-actions[bot]' => 'github-actions',
+    ];
+
+    private function __construct(
         public readonly string $login
     ) {
         //
+    }
+
+    public static function make(string $login): self
+    {
+        if (isset(self::OVERWRITE_LOGINS[$login])) {
+            $login = self::OVERWRITE_LOGINS[$login];
+        }
+
+        return new self($login);
     }
 
     public function getHiddenLogin(): string
