@@ -7,7 +7,7 @@ class GetCommentsInput extends Input
     public function __construct(
         string $apiUrl,
         public readonly int $projectId,
-        public readonly int $requestNumber,
+        public readonly string $requestNumber,
     ) {
         parent::__construct($apiUrl);
     }

@@ -31,7 +31,7 @@ class CommentSchema
 
     /**
      * @param array<mixed> $response
-     * @return Arrayee<Comment>
+     * @return Arrayee<int, Comment>
      */
     public function createComments(array $response): Arrayee
     {

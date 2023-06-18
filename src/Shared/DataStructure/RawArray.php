@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\DataStructure;
 
+/**
+ * @template-implements \IteratorAggregate<mixed>
+ */
 class RawArray implements \IteratorAggregate
 {
     /**

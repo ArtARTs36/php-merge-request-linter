@@ -79,8 +79,8 @@ class GitlabCi implements CiSystem
             $this->mapChanges($request),
             $request->createdAt,
             Str::make($request->uri),
-            $request->id,
-            $request->number,
+            (string) $request->id,
+            (string) $request->number,
         );
     }
 
