@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\InvalidCommentException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\CommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\GetCommentsInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\Input;
@@ -115,13 +116,22 @@ class GitlabCi implements CiSystem
 
     public function updateComment(Comment $comment): void
     {
+        if (! is_numeric($comment->id)) {
+            throw new InvalidCommentException(sprintf(
+                'Comment id for GitLab CI must be integer. Given string: %s',
+                $comment->id,
+            ));
+        }
+
+        $commentId = (int) $comment->id;
+
         $this->client->updateComment(
             new UpdateCommentInput(
                 $this->environment->getGitlabServerUrl(),
                 $this->environment->getProjectId(),
                 $this->environment->getMergeRequestNumber(),
                 $comment->message,
-                $comment->id,
+                $commentId,
             ),
         );
     }
@@ -142,7 +152,7 @@ class GitlabCi implements CiSystem
             ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
 
         return $gitlabComment === null ? null : new Comment(
-            $gitlabComment->id,
+            (string) $gitlabComment->id,
             $gitlabComment->body,
         );
     }
