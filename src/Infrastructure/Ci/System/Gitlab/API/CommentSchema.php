@@ -32,12 +32,17 @@ class CommentSchema
     /**
      * @param array<mixed> $response
      * @return Arrayee<int, Comment>
+     * @throws \Exception
      */
     public function createComments(array $response): Arrayee
     {
         $comments = [];
 
-        foreach ($response as $item) {
+        foreach ($response as $index => $item) {
+            if (! is_array($item)) {
+                throw new \Exception(sprintf('Element with index %d must be array', $index));
+            }
+
             $comments[] = $this->createComment($item);
         }
 
