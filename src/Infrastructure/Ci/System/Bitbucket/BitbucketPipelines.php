@@ -175,7 +175,7 @@ class BitbucketPipelines implements CiSystem
         }
 
         return $needComment === null ? null : new Comment(
-            $needComment->id,
+            (string) $needComment->id,
             $needComment->content,
         );
     }
