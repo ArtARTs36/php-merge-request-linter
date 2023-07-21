@@ -205,6 +205,11 @@ class Client implements GithubClient
             ->createCommentList($this->runQuery($graphqlUrl, $this->getCommentsSchema->createQuery($requestUri, $after)));
     }
 
+    /**
+     * @return array<mixed>
+     * @throws \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\DecodingFailedException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
     private function runQuery(string $graphqlUrl, Query $query): array
     {
         $body = $this->textProcessor->encode([

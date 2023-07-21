@@ -55,7 +55,6 @@ class GetCommentsSchema
 
     /**
      * @param array<string, mixed> $response
-     * @return Arrayee<int, Comment>
      * @throws ArrayPathInvalidException
      */
     private function doCreateComments(array $response): CommentList
