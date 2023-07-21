@@ -67,6 +67,10 @@ class GetCommentsSchema
         $comments = [];
 
         foreach ($root->array('nodes') as $comment) {
+            if (! is_array($comment)) {
+                throw InvalidResponseException::make('data.resource.comments.nodes must be array');
+            }
+
             $c = new RawArray($comment);
 
             $comments[] = new Comment(
