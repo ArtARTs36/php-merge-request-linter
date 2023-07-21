@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\AddedComment;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 
 class AddCommentSchema
 {
@@ -34,8 +35,10 @@ class AddCommentSchema
      */
     public function createComment(array $response): AddedComment
     {
+        $r = new RawArray($response);
+
         return new AddedComment(
-            $response['data']['addComment']['commentEdge']['node']['id'] ?? '',
+            $r->string('data.addComment.commentEdge.node.id'),
         );
     }
 }
