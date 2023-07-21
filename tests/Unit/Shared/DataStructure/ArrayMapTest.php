@@ -250,4 +250,50 @@ final class ArrayMapTest extends TestCase
     {
         self::assertEquals($expected, (new ArrayMap($oneMap))->equals(new ArrayMap($twoMap)));
     }
+
+    public function providerForTestContainsAny(): array
+    {
+        return [
+            [
+                [1, 2, 3],
+                [0],
+                false,
+            ],
+            [
+                [1, 2, 3],
+                [],
+                false,
+            ],
+            [
+                [],
+                [],
+                false,
+            ],
+            [
+                [1, 2],
+                [],
+                false,
+            ],
+            [
+                [1, 2],
+                [1],
+                true,
+            ],
+            [
+                [1, 2],
+                [1, 2],
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::containsAny
+     *
+     * @dataProvider providerForTestContainsAny
+     */
+    public function testContainsAny(array $items, array $needle, bool $expected): void
+    {
+        self::assertEquals($expected, (new ArrayMap($items))->containsAny($needle));
+    }
 }
