@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 
 class UpdateCommentSchema
 {
@@ -23,8 +24,11 @@ class UpdateCommentSchema
         ]);
     }
 
+    /**
+     * @param array<mixed> $response
+     */
     public function check(array $response, string $commentId): bool
     {
-        return $response['data']['updateIssueComment']['issueComment']['id'] === $commentId;
+        return (new RawArray($response))->string('data.updateIssueComment.issueComment.id') === $commentId;
     }
 }
