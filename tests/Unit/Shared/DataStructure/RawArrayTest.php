@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\DataStructure;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class ArrTest extends TestCase
+final class RawArrayTest extends TestCase
 {
     public function providerForTestPath(): array
     {
@@ -37,6 +37,7 @@ final class ArrTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray::path
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray::__construct
      *
      * @dataProvider providerForTestPath
      */
