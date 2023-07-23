@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Domain\CI;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\InvalidCommentException;
 
 /**
  * Continuous Integration System.
