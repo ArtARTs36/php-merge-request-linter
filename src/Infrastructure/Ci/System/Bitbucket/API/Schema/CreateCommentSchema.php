@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 
 class CreateCommentSchema
 {
+    /**
+     * @param array<mixed> $data
+     */
     public function createResponse(array $data): Comment
     {
         $raw = new RawArray($data);

@@ -197,7 +197,7 @@ class Client implements GithubClient
         $this->logger->info(sprintf(
             '[GithubClient] Fetching comments on pull request with uri %s after %s items',
             $requestUri,
-            $after === null ? 0 : $after,
+            $after === null ? '0' : $after,
         ));
 
         return $this

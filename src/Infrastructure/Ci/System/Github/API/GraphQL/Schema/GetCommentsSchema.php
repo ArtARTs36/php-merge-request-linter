@@ -32,12 +32,17 @@ class GetCommentsSchema
   }
 }';
 
-    public function createQuery(string $pullRequestUrl, ?int $after = null): Query
+    public function createQuery(string $pullRequestUrl, ?string $after = null): Query
     {
-        return new Query(self::QUERY, [
+        $params = [
             'url' => $pullRequestUrl,
-            'after' => $after,
-        ]);
+        ];
+
+        if ($after !== null) {
+            $params['after'] = $after;
+        }
+
+        return new Query(self::QUERY, $params);
     }
 
     /**
