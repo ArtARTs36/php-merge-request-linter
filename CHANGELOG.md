@@ -6,6 +6,16 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.15.1 (2023-07-27)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.15.0..0.15.1)
+
+## Added
+* Added Rule "diff limit"
+* Added examples for params of rules
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.15.1)
+
+-----------------------------------------------------------------
+
 ## [v0.15.0 (2023-05-30)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.14.1..0.15.0)
 
 ### Added
