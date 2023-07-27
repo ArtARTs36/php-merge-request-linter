@@ -34,4 +34,17 @@ class Diff extends Arrayee
 
         return false;
     }
+
+    public function changesCount(): int
+    {
+        $count = 0;
+
+        foreach ($this->items as $item) {
+            if ($item->hasChanges()) {
+                ++$count;
+            }
+        }
+
+        return $count;
+    }
 }

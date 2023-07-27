@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
@@ -127,6 +128,10 @@ class RuleSchemaGenerator
 
         if ($param->description !== '') {
             $paramSchema['description'] = $param->description;
+        }
+
+        if ($param->hasExamples()) {
+            $paramSchema['examples'] = array_map(fn (Example $ex) => $ex->value, $param->examples);
         }
 
         if ($param->type->isGeneric()) {

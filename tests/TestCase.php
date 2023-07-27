@@ -26,7 +26,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function makeConfig(array $rules): Config
     {
         return new Config(
-            Rules::make($rules),
+            new Rules($rules),
             new ArrayMap([]),
             new HttpClientConfig(HttpClientConfig::TYPE_NULL, []),
             new NotificationsConfig(new ArrayMap([]), new ArrayMap([])),

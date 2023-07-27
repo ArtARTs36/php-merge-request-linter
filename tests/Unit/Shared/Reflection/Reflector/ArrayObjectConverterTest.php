@@ -2,8 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Reflector;
 
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockTypeResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class ArrayObjectConverterTest extends TestCase
@@ -50,6 +52,36 @@ final class ArrayObjectConverterTest extends TestCase
         self::assertInstanceOf($class, $result);
         self::assertEquals($expect, get_object_vars($result));
     }
+
+    public function providerForTestConvertOnPropertyIsMissing(): array
+    {
+        return [
+            [
+                [],
+                TestPeople::class,
+                'Required parameter "name" is missing',
+            ],
+            [
+                [],
+                ClassWithParamExample::class,
+                'Required parameter "name" is missing. Example values: ["Example name"]',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::convert
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayObjectConverter::mapParams
+     * @dataProvider providerForTestConvertOnPropertyIsMissing
+     */
+    public function testConvertOnPropertyIsMissing(array $data, string $class, string $expectedException): void
+    {
+        $converter = new ArrayObjectConverter(new MockTypeResolver());
+
+        self::expectExceptionMessage($expectedException);
+
+        $converter->convert($data, $class);
+    }
 }
 
 class WithoutConstructorClass
@@ -77,5 +109,15 @@ class TestCompany
         public readonly ?int $id,
         public readonly string $name = 'google',
     ) {
+    }
+}
+
+class ClassWithParamExample
+{
+    public function __construct(
+        #[Example('Example name')]
+        public readonly string $name,
+    ) {
+        //
     }
 }

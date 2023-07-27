@@ -2,11 +2,17 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
+
 class Parameter
 {
+    /**
+     * @param array<Example> $examples
+     */
     public function __construct(
         public readonly string $name,
         public readonly string $description,
+        public readonly array $examples,
         public readonly Type $type,
         public readonly bool $hasDefaultValue = false,
         private readonly ?\Closure $defaultValueGetter = null,
@@ -25,5 +31,10 @@ class Parameter
     public function getDefaultValue(): mixed
     {
         return $this->defaultValueGetter === null ? null : ($this->defaultValueGetter)();
+    }
+
+    public function hasExamples(): bool
+    {
+        return count($this->examples) > 0;
     }
 }

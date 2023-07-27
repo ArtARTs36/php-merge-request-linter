@@ -20,15 +20,15 @@ class PullRequestSchema
     public function createPullRequest(array $pullRequest): PullRequest
     {
         if (! array_key_exists('data', $pullRequest) || ! is_array($pullRequest['data'])) {
-            throw GivenInvalidPullRequestDataException::keyNotFound('data');
+            throw GivenInvalidPullRequestDataException::keyNotFound('data', true);
         }
 
         if (! array_key_exists('repository', $pullRequest['data']) || ! is_array($pullRequest['data']['repository'])) {
-            throw GivenInvalidPullRequestDataException::keyNotFound('data.repository');
+            throw GivenInvalidPullRequestDataException::keyNotFound('data.repository', true);
         }
 
         if (! array_key_exists('pullRequest', $pullRequest['data']['repository']) || ! is_array($pullRequest['data']['repository']['pullRequest'])) {
-            throw GivenInvalidPullRequestDataException::keyNotFound('data.repository.pullRequest');
+            throw GivenInvalidPullRequestDataException::keyNotFound('data.repository.pullRequest', true);
         }
 
         $pullRequest = $pullRequest['data']['repository']['pullRequest'];

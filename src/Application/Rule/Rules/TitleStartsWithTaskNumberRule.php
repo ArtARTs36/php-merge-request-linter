@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
 /**
  * Title must starts with task number of project {projectName}. Mask: {projectName}-number
@@ -14,6 +15,7 @@ class TitleStartsWithTaskNumberRule extends AbstractRule
     public const NAME = '@mr-linter/title_starts_with_task_number';
 
     public function __construct(
+        #[Description('Project name')]
         private readonly string $projectName,
     ) {
         //
