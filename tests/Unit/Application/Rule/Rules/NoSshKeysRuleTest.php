@@ -8,6 +8,8 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\CompositeKeyFinder;
+use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\RsaKeyFinder;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use ArtARTs36\Str\Str;
 
@@ -20,7 +22,9 @@ final class NoSshKeysRuleTest extends TestCase
      */
     public function testLint(MergeRequest $mergeRequest, bool $stopOnFirstFailure, array $expectedNotes): void
     {
-        $rule = new NoSshKeysRule($stopOnFirstFailure);
+        $rule = new NoSshKeysRule($stopOnFirstFailure, new CompositeKeyFinder([
+            new RsaKeyFinder(),
+        ]));
 
         $givenResult = $rule->lint($mergeRequest);
 

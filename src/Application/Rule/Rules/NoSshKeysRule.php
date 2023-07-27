@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\SshKeyFinder;
 
 final class NoSshKeysRule extends NamedRule
 {
@@ -17,6 +18,7 @@ final class NoSshKeysRule extends NamedRule
 
     public function __construct(
         private readonly bool $stopOnFirstFailure = false,
+        private readonly SshKeyFinder $sshKeyFinder,
     ) {
     }
 
@@ -25,19 +27,27 @@ final class NoSshKeysRule extends NamedRule
         $notes = [];
 
         foreach ($request->changes as $change) {
-            foreach (self::REGEXES as $keyType => $regex) {
-                foreach ($change->diff as $line) {
-                    if ($line->hasChanges() && $line->content->match($regex)->isNotEmpty()) {
-                        $notes[] = new LintNote(sprintf(
-                            'File "%s" contains ssh key (%s)',
-                            $change->file,
-                            $keyType,
-                        ));
+            foreach ($change->diff as $line) {
+                if (! $line->hasChanges()) {
+                    continue;
+                }
 
-                        if ($this->stopOnFirstFailure) {
-                            break 2;
-                        }
-                    }
+                $foundSshTypes = $this->sshKeyFinder->find($line->content, $this->stopOnFirstFailure);
+
+                if (count($foundSshTypes) === 0) {
+                    continue;
+                }
+
+                foreach ($foundSshTypes as $keyType) {
+                    $notes[] = new LintNote(sprintf(
+                        'File "%s" contains ssh key (%s)',
+                        $change->file,
+                        $keyType,
+                    ));
+                }
+
+                if ($this->stopOnFirstFailure) {
+                    break 2;
                 }
             }
         }
