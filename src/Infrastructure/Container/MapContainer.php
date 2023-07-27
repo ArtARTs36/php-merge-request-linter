@@ -4,8 +4,14 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Container;
 
 use Psr\Container\ContainerInterface;
 
+/**
+ * @phpstan-type Binder = callable(MapContainer): object
+ */
 class MapContainer implements ContainerInterface
 {
+    /** @var array<class-string, Binder> */
+    private array $binds;
+
     /**
      * @param array<class-string, object> $map
      */
@@ -22,12 +28,22 @@ class MapContainer implements ContainerInterface
      */
     public function get(string $id)
     {
-        if (! $this->has($id)) {
+        if (isset($this->map[$id])) {
+            // @phpstan-ignore-next-line
+            return $this->map[$id];
+        }
+
+        $binder = $this->binds[$id] ?? null;
+
+        if ($binder === null) {
             throw EntryNotFoundException::create($id);
         }
 
-        // @phpstan-ignore-next-line
-        return $this->map[$id];
+        $obj = $binder($this);
+
+        $this->set($id, $obj);
+
+        return $obj;
     }
 
     /**
@@ -35,7 +51,7 @@ class MapContainer implements ContainerInterface
      */
     public function has(string $id): bool
     {
-        return isset($this->map[$id]);
+        return isset($this->map[$id]) || isset($this->binds[$id]);
     }
 
     /**
@@ -46,5 +62,14 @@ class MapContainer implements ContainerInterface
     public function set(string $id, mixed $object): void
     {
         $this->map[$id] = $object;
+    }
+
+    /**
+     * @param class-string $id
+     * @param Binder $callback
+     */
+    public function bind(string $id, callable $callback): void
+    {
+        $this->binds[$id] = $callback;
     }
 }

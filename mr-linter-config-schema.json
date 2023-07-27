@@ -259,6 +259,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/no_ssh_rule": {
+                    "description": null,
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_rule"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_rule"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -4361,6 +4376,23 @@
                 "fileLinesMax": {
                     "type": "integer",
                     "description": "Maximum allowed number of changed lines in a file"
+                }
+            },
+            "additionalProperties": false
+        },
+        "rules_properties_@mr-linter_no_ssh_rule": {
+            "type": "object",
+            "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "stopOnFirstFailure": {
+                    "type": "boolean"
                 }
             },
             "additionalProperties": false

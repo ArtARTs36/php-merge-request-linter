@@ -24,7 +24,8 @@ class ResolverFactory
             ->add('int', $asIsResolver)
             ->add('string', $asIsResolver)
             ->add('float', $asIsResolver)
-            ->add('array', $asIsResolver);
+            ->add('array', $asIsResolver)
+            ->add('bool', $asIsResolver);
 
         // add object resolvers
 

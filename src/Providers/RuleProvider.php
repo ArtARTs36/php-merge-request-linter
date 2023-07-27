@@ -10,8 +10,10 @@ class RuleProvider extends Provider
 {
     public function provide(): void
     {
-        $this->container->set(SshKeyFinder::class, new CompositeKeyFinder([
-            new RsaKeyFinder(),
-        ]));
+        $this->container->bind(SshKeyFinder::class, static function () {
+            return new CompositeKeyFinder([
+                new RsaKeyFinder(),
+            ]);
+        });
     }
 }

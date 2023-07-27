@@ -20,3 +20,4 @@ Currently is available that rules:
 | @mr-linter/forbid_changes | Forbid changes for files. | `files` - array  of strings   <br/>  |
 | @mr-linter/update_changelog | Changelog must be contained new tag. | `file` - string   <br/>  `tags` - object   <br/>  |
 | @mr-linter/diff_limit | The request must contain no more than {linesMax} changes. | `linesMax` - integer   <br/>  `fileLinesMax` - integer   <br/>  |
+| @mr-linter/no_ssh_rule |  | `sshKeyFinder` -    <br/>  `stopOnFirstFailure` - boolean   <br/>  |
