@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application\Providers;
+namespace ArtARTs36\MergeRequestLinter\Providers;
 
 use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\CompositeKeyFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\RsaKeyFinder;

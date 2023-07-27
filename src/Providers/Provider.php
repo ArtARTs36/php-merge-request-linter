@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application\Providers;
+namespace ArtARTs36\MergeRequestLinter\Providers;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 
