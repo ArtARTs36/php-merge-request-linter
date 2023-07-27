@@ -12,13 +12,9 @@ final class NoSshKeysRule extends NamedRule
 {
     public const NAME = '@mr-linter/no_ssh_rule';
 
-    private const REGEXES = [
-        'ssh-rsa' => '/ssh-rsa AAAA[0-9A-Za-z+\/]+[=]{0,3} ([^@]+@[^@]+)/',
-    ];
-
     public function __construct(
-        private readonly bool $stopOnFirstFailure = false,
         private readonly SshKeyFinder $sshKeyFinder,
+        private readonly bool $stopOnFirstFailure = false,
     ) {
     }
 
