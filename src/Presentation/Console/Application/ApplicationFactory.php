@@ -36,10 +36,10 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\ApplicationNotCreatedException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
+use ArtARTs36\MergeRequestLinter\Providers\EventDispatcherProvider;
 use ArtARTs36\MergeRequestLinter\Providers\NotificationsProvider;
 use ArtARTs36\MergeRequestLinter\Providers\RuleProvider;
 use ArtARTs36\MergeRequestLinter\Providers\ServiceProvider;
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
@@ -54,6 +54,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ApplicationFactory
 {
     private const PROVIDERS = [
+        EventDispatcherProvider::class,
         NotificationsProvider::class,
         RuleProvider::class,
     ];
@@ -108,9 +109,9 @@ class ApplicationFactory
             $metrics,
         );
 
-        $events = $this->registerEventDispatcher();
-
         $this->runProviders();
+
+        $events = $this->container->get(EventManager::class);
 
         $application = new Application($metrics);
 
@@ -169,16 +170,6 @@ class ApplicationFactory
         $this->container->set(ClientFactory::class, $factory);
 
         return $factory;
-    }
-
-    private function registerEventDispatcher(): EventDispatcher
-    {
-        $ed = new EventDispatcher($this->container->get(ContextLogger::class));
-
-        $this->container->set(EventDispatcher::class, $ed);
-        $this->container->set(EventManager::class, $ed);
-
-        return $ed;
     }
 
     private function registerMetricManager(): MetricManager
