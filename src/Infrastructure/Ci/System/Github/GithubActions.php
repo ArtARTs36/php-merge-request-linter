@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
-use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
@@ -89,7 +88,7 @@ class GithubActions implements CiSystem
             foreach ($request->changes as $change) {
                 $changes[$change->filename] = new \ArtARTs36\MergeRequestLinter\Domain\Request\Change(
                     $change->filename,
-                    new Diff($change->diff),
+                    $change->diff,
                 );
             }
 

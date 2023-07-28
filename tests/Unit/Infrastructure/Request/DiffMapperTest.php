@@ -28,6 +28,24 @@ final class DiffMapperTest extends TestCase
                     ],
                 ],
             ],
+            [
+
+                "test1\ntest5\n-test2\n+test3\n+test4",
+                [
+                    [
+                        'type' => DiffType::NOT_CHANGES->value,
+                        'content' => "test1\ntest5",
+                    ],
+                    [
+                        'type' => DiffType::OLD->value,
+                        'content' => 'test2',
+                    ],
+                    [
+                        'type' => DiffType::NEW->value,
+                        'content' => "test3\ntest4",
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -41,10 +59,10 @@ final class DiffMapperTest extends TestCase
 
         $given = [];
 
-        foreach ($mapper->map($response) as $line) {
+        foreach ($mapper->map($response)->allFragments as $line) {
             $given[] = [
                 'type' => $line->type->value,
-                'content' => $line->content,
+                'content' => $line->content->__toString(),
             ];
         }
 

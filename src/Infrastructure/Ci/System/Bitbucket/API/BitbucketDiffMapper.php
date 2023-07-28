@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 use ArtARTs36\Str\Str;
 
@@ -19,7 +19,7 @@ class BitbucketDiffMapper
     }
 
     /**
-     * @return array<string, array<DiffLine>>
+     * @return array<string, Diff>
      */
     public function map(string $response): array
     {
@@ -44,16 +44,18 @@ class BitbucketDiffMapper
                 if ($newPath->startsWith(self::FILE_UNLESS_PREFIX)) {
                     $newPath = $newPath->cut(null, self::FILE_UNLESS_PREFIX_LENGTH);
                 }
-            } elseif ($change->isNotEmpty() && $line->startsWith(self::FILE_BREAK_LINE_START) || $index === $lastIndex) {
-                foreach ($this->mapper->map($change) as $diffLine) {
-                    $diff[(string) $newPath][] = $diffLine;
-                }
+            } elseif ($change->isNotEmpty() && $line->startsWith(self::FILE_BREAK_LINE_START)) {
+                $diff[(string) $newPath] = $this->mapper->map($change);
 
                 $change = Str::fromEmpty();
                 $newPath = null;
                 $oldPath = null;
             } elseif ($oldPath !== null && $newPath !== null) {
                 $change = $change->appendLine($line);
+
+                if ($index === $lastIndex) {
+                    $diff[(string) $newPath] = $this->mapper->map($change);
+                }
             }
         }
 

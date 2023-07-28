@@ -26,7 +26,7 @@ class Change implements \JsonSerializable
     {
         return [
             'file' => $this->file,
-            'diff' => $this->diff->firsts(2)->mapToArray(fn (DiffLine $l): string => $l->content),
+            'diff' => $this->diff->allFragments->firsts(2)->mapToArray(fn (DiffFragment $f): string => $f->content),
         ];
     }
 }

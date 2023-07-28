@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DiffLimitRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffFragment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -27,9 +27,9 @@ final class DiffLimitRuleTest extends TestCase
                 'fileLinesMax' => null,
                 $this->makeMergeRequest([
                     'changes' => [
-                        new Change('', new Diff([
-                            new DiffLine(DiffType::NOT_CHANGES, Str::fromEmpty()),
-                            new DiffLine(DiffType::NOT_CHANGES, Str::fromEmpty()),
+                        new Change('', Diff::fromList([
+                            new DiffFragment(DiffType::NOT_CHANGES, Str::fromEmpty()),
+                            new DiffFragment(DiffType::NOT_CHANGES, Str::fromEmpty()),
                         ])),
                     ],
                 ]),
@@ -40,9 +40,9 @@ final class DiffLimitRuleTest extends TestCase
                 'fileLinesMax' => null,
                 $this->makeMergeRequest([
                     'changes' => [
-                        new Change('', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
-                            new DiffLine(DiffType::NOT_CHANGES, Str::fromEmpty()),
+                        new Change('', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
+                            new DiffFragment(DiffType::NOT_CHANGES, Str::fromEmpty()),
                         ])),
                     ],
                 ]),
@@ -53,9 +53,9 @@ final class DiffLimitRuleTest extends TestCase
                 'fileLinesMax' => null,
                 $this->makeMergeRequest([
                     'changes' => [
-                        new Change('', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
-                            new DiffLine(DiffType::NOT_CHANGES, Str::fromEmpty()),
+                        new Change('', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
+                            new DiffFragment(DiffType::NOT_CHANGES, Str::fromEmpty()),
                         ])),
                     ],
                 ]),
@@ -66,9 +66,9 @@ final class DiffLimitRuleTest extends TestCase
                 'fileLinesMax' => null,
                 $this->makeMergeRequest([
                     'changes' => [
-                        new Change('', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        new Change('', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
                     ],
                 ]),
@@ -79,17 +79,17 @@ final class DiffLimitRuleTest extends TestCase
                 'fileLinesMax' => 1,
                 $this->makeMergeRequest([
                     'changes' => [
-                        new Change('', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        new Change('', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
-                        new Change('', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        new Change('', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
-                        new Change('', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        new Change('', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
                     ],
                 ]),

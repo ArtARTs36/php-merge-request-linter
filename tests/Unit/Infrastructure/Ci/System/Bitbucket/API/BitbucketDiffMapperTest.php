@@ -23,6 +23,13 @@ final class BitbucketDiffMapperTest extends TestCase
     {
         $mapper = new BitbucketDiffMapper();
 
-        self::assertEquals($expected, $mapper->map($response));
+        $result = $mapper->map($response);
+        $resultPrepared = [];
+
+        foreach ($result as $file => $diff) {
+            $resultPrepared[$file] = $diff->allFragments->mapToArray(fn ($item) => $item);
+        }
+
+        self::assertEquals($expected, $resultPrepared);
     }
 }

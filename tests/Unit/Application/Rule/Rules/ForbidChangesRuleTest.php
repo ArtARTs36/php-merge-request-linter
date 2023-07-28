@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ForbidChangesRule;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffFragment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
@@ -22,8 +22,8 @@ final class ForbidChangesRuleTest extends TestCase
                 ['file.txt'],
                 $this->makeMergeRequest([
                     'changes' => [
-                        'file.txt' => new Change('file.txt', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        'file.txt' => new Change('file.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
                     ],
                 ]),
@@ -36,8 +36,8 @@ final class ForbidChangesRuleTest extends TestCase
                 [],
                 $this->makeMergeRequest([
                     'changes' => [
-                        'file.txt' => new Change('file.txt', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        'file.txt' => new Change('file.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
                     ],
                 ]),
@@ -48,8 +48,8 @@ final class ForbidChangesRuleTest extends TestCase
                 ['file.txt', 'file2.txt'],
                 $this->makeMergeRequest([
                     'changes' => [
-                        'file.txt' => new Change('file.txt', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        'file.txt' => new Change('file.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
                     ],
                 ]),
@@ -62,11 +62,11 @@ final class ForbidChangesRuleTest extends TestCase
                 ['file.txt', 'file2.txt'],
                 $this->makeMergeRequest([
                     'changes' => [
-                        'file.txt' => new Change('file.txt', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        'file.txt' => new Change('file.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
-                        'file2.txt' => new Change('file2.txt', new Diff([
-                            new DiffLine(DiffType::NEW, Str::fromEmpty()),
+                        'file2.txt' => new Change('file2.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
                         ])),
                     ],
                 ]),
