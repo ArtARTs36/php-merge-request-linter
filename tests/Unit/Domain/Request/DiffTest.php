@@ -18,9 +18,10 @@ final class DiffTest extends TestCase
     {
         $diff = Diff::fromList([
             new DiffFragment(DiffType::NEW, Str::fromEmpty()),
+            new DiffFragment(DiffType::OLD, Str::fromEmpty()),
             new DiffFragment(DiffType::NOT_CHANGES, Str::fromEmpty()),
         ]);
 
-        self::assertEquals(1, $diff->changesCount());
+        self::assertEquals(2, $diff->changesCount());
     }
 }
