@@ -87,7 +87,7 @@ class GitlabCi implements CiSystem
         foreach ($request->changes as $change) {
             $changes[$change->newPath] = new Change(
                 $change->newPath,
-                new Diff($change->diff),
+                $change->diff,
             );
         }
 

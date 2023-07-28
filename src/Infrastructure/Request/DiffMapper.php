@@ -42,7 +42,7 @@ class DiffMapper
                 $fragmentContent = $respLine;
 
                 continue;
-            } else if ($prevType === $type) {
+            } elseif ($prevType === $type) {
                 $fragmentContent = $fragmentContent->appendLine($respLine);
             } else {
                 $fragment = new DiffFragment($prevType, $fragmentContent);

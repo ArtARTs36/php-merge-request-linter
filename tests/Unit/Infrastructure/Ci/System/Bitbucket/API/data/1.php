@@ -40,16 +40,19 @@ index 0000000..c66bfc1
         '.gitignore' => [
             new DiffFragment(
                 DiffType::NOT_CHANGES,
-                Str::make('
+                Str::make(
+                    '
 @@ -48,3 +48,5 @@ Thumbs.db
  *.mov
  *.wmv
  ',
-                )),
+                )
+            ),
             new DiffFragment(
                 DiffType::NEW,
                 Str::make('
-/vendor/')),
+/vendor/')
+            ),
         ],
         '.mr-linter.yml' => [
             new DiffFragment(
