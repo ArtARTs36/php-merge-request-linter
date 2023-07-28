@@ -22,9 +22,9 @@ final class NoSshKeysRuleTest extends TestCase
      */
     public function testLint(MergeRequest $mergeRequest, bool $stopOnFirstFailure, array $expectedNotes): void
     {
-        $rule = new NoSshKeysRule($stopOnFirstFailure, new CompositeKeyFinder([
+        $rule = new NoSshKeysRule(new CompositeKeyFinder([
             new RsaKeyFinder(),
-        ]));
+        ]), $stopOnFirstFailure);
 
         $givenResult = $rule->lint($mergeRequest);
 
