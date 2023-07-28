@@ -44,17 +44,15 @@ class DiffMapper
                 continue;
             } else if ($prevType === $type) {
                 $fragmentContent = $fragmentContent->appendLine($respLine);
+            } else {
+                $fragment = new DiffFragment($prevType, $fragmentContent);
 
-                continue;
+                $fragments[$prevType->value][] = $fragment;
+                $fragments['all'][] = $fragment;
+
+                $fragmentContent = $respLine;
+                $prevType = $type;
             }
-
-            $fragment = new DiffFragment($prevType, $fragmentContent);
-
-            $fragments[$prevType->value][] = $fragment;
-            $fragments['all'][] = $fragment;
-
-            $fragmentContent = $respLine;
-            $prevType = $type;
 
             if ($currentIndex === $lastLineIndex) {
                 $fragment = new DiffFragment($prevType, $fragmentContent);
