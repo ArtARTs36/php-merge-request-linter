@@ -149,6 +149,7 @@ test-e2e-docker: docker-build
 
 test-docker: docker-testing-build
 	docker run \
+		--volume ./:/app \
 		--env-file .env \
 		--entrypoint "composer" \
 		artarts36/merge-request-linter "test"

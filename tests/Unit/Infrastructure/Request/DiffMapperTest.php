@@ -41,10 +41,10 @@ final class DiffMapperTest extends TestCase
 
         $given = [];
 
-        foreach ($mapper->map($response) as $line) {
+        foreach ($mapper->map($response)->allFragments as $line) {
             $given[] = [
                 'type' => $line->type->value,
-                'content' => $line->content,
+                'content' => $line->content->__toString(),
             ];
         }
 
