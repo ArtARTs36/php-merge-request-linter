@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class EventDispatcherProvider extends Provider
 {
     public function provide(): void

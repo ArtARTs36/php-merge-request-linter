@@ -16,6 +16,9 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use Psr\Clock\ClockInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class NotificationsProvider extends Provider
 {
     public function provide(): void

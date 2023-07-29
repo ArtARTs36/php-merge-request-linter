@@ -7,6 +7,9 @@ use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\PrivateKeyFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\RsaKeyFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\SshKeyFinder;
 
+/**
+ * @codeCoverageIgnore
+ */
 class RuleProvider extends Provider
 {
     public function provide(): void
