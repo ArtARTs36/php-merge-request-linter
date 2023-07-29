@@ -43,7 +43,7 @@ notifications:
         📉 Notes: {{ result.notes.count }}
         
         {% for note in result.notes %}
-        - {{ note.description }}
+        - {{ note.description | raw }}
         {% endfor %}
 ```
 
@@ -72,7 +72,7 @@ notifications:
         📉 Notes: {{ result.notes.count }}
         
         {% for note in result.notes %}
-        - {{ note.description }}
+        - {{ note.description | raw }}
         {% endfor %}
 ```
 
