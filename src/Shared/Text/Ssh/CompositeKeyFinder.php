@@ -14,19 +14,28 @@ final class CompositeKeyFinder implements SshKeyFinder
     ) {
     }
 
-    public function find(Str $text, bool $stopOnFirst): array
+    public function findFirst(Str $text): ?string
+    {
+        foreach ($this->finders as $finder) {
+            $type = $finder->findFirst($text);
+
+            if ($type !== null) {
+                return $type;
+            }
+        }
+
+        return null;
+    }
+
+    public function findAll(Str $text): array
     {
         $typeList = [];
 
         foreach ($this->finders as $finder) {
-            $subTypeList = $finder->find($text, $stopOnFirst);
+            $subTypeList = $finder->findAll($text);
 
             if (count($subTypeList) > 0) {
                 array_push($typeList, ...$subTypeList);
-
-                if ($stopOnFirst) {
-                    break;
-                }
             }
         }
 

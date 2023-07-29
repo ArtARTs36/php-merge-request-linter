@@ -8,18 +8,19 @@ final class PrivateKeyFinder implements SshKeyFinder
 {
     private const REGEX = '/-----BEGIN ([A-Z\s]*) KEY-----\s+([a-zA-Z0-9\/+\s+]*)-----END ([A-Z\s]*) KEY-----/s';
 
-    public function find(Str $text, bool $stopOnFirst): array
+    public function findFirst(Str $text): ?string
     {
-        if ($stopOnFirst) {
-            $type = $text->match(self::REGEX);
+        $type = $text->match(self::REGEX);
 
-            if ($type->isNotEmpty()) {
-                return [$type->toLower()->__toString()];
-            }
-
-            return [];
+        if ($type->isNotEmpty()) {
+            return $type->toLower()->__toString();
         }
 
+        return null;
+    }
+
+    public function findAll(Str $text): array
+    {
         $types = [];
 
         $result = $text->globalMatch(self::REGEX);

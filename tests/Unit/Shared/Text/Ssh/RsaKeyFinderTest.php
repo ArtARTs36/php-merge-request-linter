@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str;
 final class RsaKeyFinderTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\RsaKeyFinder::find
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\RsaKeyFinder::findAll
      *
      * @dataProvider providerForTestFind
      */
@@ -17,7 +17,7 @@ final class RsaKeyFinderTest extends TestCase
     {
         $finder = new RsaKeyFinder();
 
-        self::assertEquals($expectedTypes, $finder->find(Str::make($text), $stopOnFirst));
+        self::assertEquals($expectedTypes, $finder->findAll(Str::make($text), $stopOnFirst));
     }
 
     public function providerForTestFind(): array

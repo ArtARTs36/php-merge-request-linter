@@ -15,7 +15,12 @@ final class SshKeyFinderMock implements SshKeyFinder
     ) {
     }
 
-    public function find(Str $text, bool $stopOnFirst): array
+    public function findFirst(Str $text): ?string
+    {
+        return $this->types[0] ?? null;
+    }
+
+    public function findAll(Str $text): array
     {
         return $this->types;
     }

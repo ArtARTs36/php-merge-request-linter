@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str;
 final class PrivateKeyFinderTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\PrivateKeyFinder::find
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\PrivateKeyFinder::findAll
      *
      * @dataProvider providerForTestFind
      */
@@ -19,7 +19,7 @@ final class PrivateKeyFinderTest extends TestCase
 
         self::assertEquals(
             $expectedTypes,
-            $finder->find(Str::make($text), $stopOnFirst),
+            $finder->findAll(Str::make($text), $stopOnFirst),
         );
     }
 

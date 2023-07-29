@@ -4,10 +4,18 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Text\Ssh;
 
 use ArtARTs36\Str\Str;
 
+/**
+ * @phpstan-type SshKeyType = string
+ */
 interface SshKeyFinder
 {
     /**
-     * @return list<string> key types
+     * @return SshKeyType|null
      */
-    public function find(Str $text, bool $stopOnFirst): array;
+    public function findFirst(Str $text): ?string;
+
+    /**
+     * @return list<SshKeyType> key types
+     */
+    public function findAll(Str $text): array;
 }
