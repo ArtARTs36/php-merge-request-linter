@@ -21,3 +21,4 @@ Currently is available that rules:
 | @mr-linter/update_changelog | Changelog must be contained new tag. | `file` - string   <br/>  `tags` - object   <br/>  |
 | @mr-linter/diff_limit | The request must contain no more than {linesMax} changes. | `linesMax` - integer   <br/>  `fileLinesMax` - integer   <br/>  |
 | @mr-linter/no_ssh_keys |  | `sshKeyFinder` -    <br/>  `stopOnFirstFailure` - boolean   <br/>  |
+| @mr-linter/disable_file_extensions |  | `extensions` - array  of strings   <br/>  |

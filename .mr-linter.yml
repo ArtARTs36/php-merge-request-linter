@@ -42,6 +42,11 @@ rules:
             - '[Tests]'
             - '[Docs]'
 
+  "@mr-linter/disable_file_extensions":
+    extensions:
+      - pem
+      - pub
+
   custom:
     - definition: "Branch must be in kebab-case"
       rules:
