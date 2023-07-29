@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NoSshKeysRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffFragment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SshKeyFinderMock;
@@ -37,8 +37,8 @@ final class NoSshKeysRuleTest extends TestCase
             [
                 $this->makeMergeRequest([
                     'changes' => [
-                        new Change('success.txt', new Diff([
-                            new DiffLine(DiffType::NEW, Str::make('ssh-rsa random-text')),
+                        new Change('success.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::make('ssh-rsa random-text')),
                         ])),
                     ],
                 ]),
@@ -49,8 +49,8 @@ final class NoSshKeysRuleTest extends TestCase
             [
                 $this->makeMergeRequest([
                     'changes' => [
-                        new Change('failed.txt', new Diff([
-                            new DiffLine(DiffType::NEW, Str::make('ssh-rsa')),
+                        new Change('failed.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::make('ssh-rsa')),
                         ])),
                     ],
                 ]),

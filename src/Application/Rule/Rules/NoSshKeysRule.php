@@ -23,7 +23,7 @@ final class NoSshKeysRule extends NamedRule
         $notes = [];
 
         foreach ($request->changes as $change) {
-            foreach ($change->diff as $line) {
+            foreach ($change->diff->newFragments as $line) {
                 if (! $line->hasChanges()) {
                     continue;
                 }
