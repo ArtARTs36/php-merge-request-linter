@@ -261,7 +261,7 @@
                     ]
                 },
                 "@mr-linter/no_ssh_keys": {
-                    "description": null,
+                    "description": "Prevent ssh keys from being included in the merge request.",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_keys"
@@ -276,7 +276,7 @@
                     ]
                 },
                 "@mr-linter/disable_file_extensions": {
-                    "description": null,
+                    "description": "Disable adding files of certain extensions.",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_disable_file_extensions"
@@ -4410,7 +4410,10 @@
                     "type": "boolean"
                 }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "required": [
+                "stopOnFirstFailure"
+            ]
         },
         "rules_properties_@mr-linter_disable_file_extensions": {
             "type": "object",
@@ -4425,6 +4428,11 @@
                 },
                 "extensions": {
                     "type": "array",
+                    "examples": [
+                        "pem",
+                        "pub",
+                        "php"
+                    ],
                     "items": [
                         {
                             "type": "string"

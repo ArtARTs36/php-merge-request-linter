@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\SshKeyFinder;
 use ArtARTs36\Str\Str;
 
 /**
+ * Prevent ssh keys from being included in the merge request.
  * @phpstan-import-type SshKeyType from SshKeyFinder
  */
 final class NoSshKeysRule extends NamedRule
@@ -18,7 +19,7 @@ final class NoSshKeysRule extends NamedRule
 
     public function __construct(
         private readonly SshKeyFinder $sshKeyFinder,
-        private readonly bool $stopOnFirstFailure = false,
+        private readonly bool $stopOnFirstFailure,
     ) {
     }
 

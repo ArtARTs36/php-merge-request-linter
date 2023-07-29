@@ -6,9 +6,13 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 
+/**
+ * Disable adding files of certain extensions.
+ */
 final class DisableFileExtensionsRule extends NamedRule
 {
     public const NAME = '@mr-linter/disable_file_extensions';
@@ -17,6 +21,9 @@ final class DisableFileExtensionsRule extends NamedRule
      * @param Set<string> $extensions
      */
     public function __construct(
+        #[Example('pem')]
+        #[Example('pub')]
+        #[Example('php')]
         #[Generic(Generic::OF_STRING)]
         private readonly Set $extensions,
     ) {
