@@ -27,7 +27,7 @@ rules:
           - '[Docs]'
 
   "@mr-linter/no_ssh_rule":
-    stopOnFirstFailure: true
+    stopOnFirstFailure: false
 
   "@mr-linter/has_changes":
     - changes:
