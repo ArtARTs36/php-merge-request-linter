@@ -26,6 +26,9 @@ rules:
           - '[Tests]'
           - '[Docs]'
 
+  "@mr-linter/no_ssh_keys":
+    critical: false
+
   "@mr-linter/has_changes":
     - changes:
       - file: "src/Version.php"
