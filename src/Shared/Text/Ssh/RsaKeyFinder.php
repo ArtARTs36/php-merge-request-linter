@@ -10,11 +10,16 @@ final class RsaKeyFinder implements SshKeyFinder
 
     public function findFirst(Str $text): ?string
     {
-        return $text->match(self::REGEX)->isNotEmpty() ? 'ssh-rsa' : null;
+        return $this->stringHasSshKey($text) ? 'ssh-rsa' : null;
     }
 
     public function findAll(Str $text): array
     {
-        return $text->match(self::REGEX)->isNotEmpty() ? ['ssh-rsa'] : [];
+        return $this->stringHasSshKey($text) ? ['ssh-rsa'] : [];
+    }
+
+    private function stringHasSshKey(Str $text): bool
+    {
+        return $text->match(self::REGEX)->isNotEmpty() ;
     }
 }
