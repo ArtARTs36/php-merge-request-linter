@@ -85,7 +85,8 @@ final class SingleCommenter extends CiCommenter
         $this->ci->updateComment($comment);
 
         $this->logger->info(sprintf(
-            '[SingleCommenter] Comment for MR with id "%s" was updated',
+            '[SingleCommenter] Comment #%s for MR #%s was updated',
+            $comment->id,
             $requestId,
         ));
     }
