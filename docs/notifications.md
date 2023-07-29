@@ -34,7 +34,7 @@ notifications:
     lint_finished:
       channel: 'dev'
       template: |
-        👀 Review on PR "{{ request.title }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
+        👀 Review on PR "{{ request.title | raw }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
         
         🌲 {{ request.sourceBranch }} ➡ {{ request.targetBranch }}
         
@@ -63,7 +63,7 @@ notifications:
         request.targetBranch:
           equals: "master"
       template: |
-        👀 Review on PR "{{ request.title }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
+        👀 Review on PR "{{ request.title | raw }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
         
         🌲 {{ request.sourceBranch }} ➡ {{ request.targetBranch }}
         
