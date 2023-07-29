@@ -48,11 +48,11 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\ApplicationNotCreatedException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
+use ArtARTs36\MergeRequestLinter\Providers\CommentProvider;
 use ArtARTs36\MergeRequestLinter\Providers\EventDispatcherProvider;
 use ArtARTs36\MergeRequestLinter\Providers\NotificationsProvider;
 use ArtARTs36\MergeRequestLinter\Providers\RuleProvider;
 use ArtARTs36\MergeRequestLinter\Providers\ServiceProvider;
-use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
@@ -70,6 +70,7 @@ class ApplicationFactory
         EventDispatcherProvider::class,
         NotificationsProvider::class,
         RuleProvider::class,
+        CommentProvider::class,
     ];
 
     public function __construct(
@@ -128,7 +129,6 @@ class ApplicationFactory
         $events = $this->container->get(EventManager::class);
 
         $this->registerTextRenderer();
-        $this->registerComments();
 
         $application = new Application($metrics);
 
@@ -174,39 +174,6 @@ class ApplicationFactory
         $this->container->set(Clock::class, $clock);
 
         return $clock;
-    }
-
-    private function registerComments(): void
-    {
-        $eventManager = $this->container->get(EventManager::class);
-
-        $listener = function (ConfigResolvedEvent $event) use ($eventManager) {
-            $commenterFactory = new Factory(
-                new CachedSystemFactory(fn () => $this->container->get(CiSystemFactory::class)->createCurrently()),
-                $this->container->get(LoggerInterface::class),
-            );
-
-            $msgCreator = new \ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator(
-                new MessageSelector($this->container->get(OperatorResolver::class)),
-                new MessageFormatter($this->container->get(TextRenderer::class)),
-            );
-
-            $lintFinishedListener = new LintFinishedListener(
-                new CommentProducer(
-                    $msgCreator,
-                    $this->container->get(LoggerInterface::class),
-                    $commenterFactory,
-                ),
-                $event->config->config->getCommentsConfig(),
-            );
-
-            $eventManager->listen(LintFinishedEvent::class, $lintFinishedListener);
-        };
-
-        $eventManager->listen(ConfigResolvedEvent::class, new CallbackListener(
-            'register comments listener',
-            $listener,
-        ));
     }
 
     private function registerTextRenderer(): void
