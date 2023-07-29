@@ -29,6 +29,13 @@ final class CompositeKeyFinderTest extends TestCase
                 ],
                 'ssh-rsa1',
             ],
+            [
+                [
+                    new SshKeyFinderMock([]),
+                    new SshKeyFinderMock(['ssh-rsa2']),
+                ],
+                'ssh-rsa2',
+            ],
         ];
     }
 
