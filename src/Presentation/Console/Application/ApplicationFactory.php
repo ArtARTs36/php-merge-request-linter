@@ -12,6 +12,7 @@ use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListe
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageFormatter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
+use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
@@ -39,6 +40,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEn
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\MetricableLogger;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
@@ -50,6 +52,7 @@ use ArtARTs36\MergeRequestLinter\Providers\EventDispatcherProvider;
 use ArtARTs36\MergeRequestLinter\Providers\NotificationsProvider;
 use ArtARTs36\MergeRequestLinter\Providers\RuleProvider;
 use ArtARTs36\MergeRequestLinter\Providers\ServiceProvider;
+use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
@@ -204,29 +207,6 @@ class ApplicationFactory
             'register comments listener',
             $listener,
         ));
-    }
-
-    private function createNotificationsListenerRegistrar(Config $config): ListenerRegistrar
-    {
-        $logger = $this->container->get(ContextLogger::class);
-
-        $notifier = (new NotifierFactory(
-            $this->container->get(HttpClientFactory::class)->create(
-                $config->getHttpClient()
-            ),
-            $this->container->get(ClockInterface::class),
-            $logger,
-        ))->create();
-
-        return new ListenerRegistrar(
-            $config->getNotifications(),
-            new ListenerFactory(
-                $notifier,
-                $this->container->get(OperatorResolver::class),
-                new MessageCreator($this->container->get(TextRenderer::class)),
-                $logger,
-            ),
-        );
     }
 
     private function registerTextRenderer(): void
