@@ -39,6 +39,7 @@ class MapContainer implements ContainerInterface
             throw EntryNotFoundException::create($id);
         }
 
+        /** @var T $obj */
         $obj = $binder($this);
 
         $this->set($id, $obj);

@@ -32,6 +32,6 @@ class Change implements \JsonSerializable
 
     public function fileExtension(): string
     {
-        return pathinfo($this->file,PATHINFO_EXTENSION);
+        return pathinfo($this->file, PATHINFO_EXTENSION);
     }
 }

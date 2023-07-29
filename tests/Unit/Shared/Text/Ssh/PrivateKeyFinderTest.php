@@ -76,7 +76,7 @@ BioGu40pXVfjiLqhEKVVVEoHpI32oMkojhCGJs8Oow4bAxkzQFCtuWB1
      *
      * @dataProvider providerForTestFindAll
      */
-    public function testFindAll(string $text,array $expectedTypes): void
+    public function testFindAll(string $text, array $expectedTypes): void
     {
         $finder = new PrivateKeyFinder();
 

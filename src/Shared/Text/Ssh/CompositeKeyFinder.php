@@ -6,7 +6,7 @@ use ArtARTs36\Str\Str;
 
 final class CompositeKeyFinder implements SshKeyFinder
 {
-    /***
+    /**
      * @param iterable<SshKeyFinder> $finders
      */
     public function __construct(
