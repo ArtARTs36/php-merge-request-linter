@@ -69,6 +69,11 @@ BioGu40pXVfjiLqhEKVVVEoHpI32oMkojhCGJs8Oow4bAxkzQFCtuWB1
                 false,
                 ['encrypted private', 'test private'],
             ],
+            [
+                'feferverfverefcverfvcervcercer',
+                false,
+                [],
+            ],
         ];
     }
 }

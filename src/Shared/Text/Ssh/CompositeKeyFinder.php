@@ -23,6 +23,10 @@ final class CompositeKeyFinder implements SshKeyFinder
 
             if (count($subTypeList) > 0) {
                 array_push($typeList, ...$subTypeList);
+
+                if ($stopOnFirst) {
+                    break;
+                }
             }
         }
 

@@ -11,7 +11,13 @@ final class PrivateKeyFinder implements SshKeyFinder
     public function find(Str $text, bool $stopOnFirst): array
     {
         if ($stopOnFirst) {
-            return [$text->match(self::REGEX)->toLower()->__toString()];
+            $type = $text->match(self::REGEX);
+
+            if ($type->isNotEmpty()) {
+                return [$type->toLower()->__toString()];
+            }
+
+            return [];
         }
 
         $types = [];
