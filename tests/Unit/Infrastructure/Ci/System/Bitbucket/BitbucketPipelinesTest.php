@@ -94,6 +94,7 @@ final class BitbucketPipelinesTest extends TestCase
             new MockMarkdownCleaner(),
             new BitbucketPipelinesSettings(new LabelsSettings(null)),
             new CompositeResolver([]),
+            new NullLogger(),
         );
     }
 }

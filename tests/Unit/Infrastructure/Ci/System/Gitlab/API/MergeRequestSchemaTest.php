@@ -13,59 +13,88 @@ final class MergeRequestSchemaTest extends TestCase
             #0
             [
                 [],
-                'Key "title" not found in response',
+                'Key "id" not found in response',
             ],
             #1
             [
                 [
-                    'title' => 1,
+                    'id' => 1,
                 ],
-                'Value of key "title" has invalid type. Expected type: string',
+                'Key "iid" not found in response',
             ],
             #2
             [
                 [
-                    'title' => 'Test-title',
+                    'id' => 1,
+                    'iid' => 1,
                 ],
-                'Key "description" not found in response',
+                'Key "title" not found in response',
             ],
             #3
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
+                    'title' => 1,
+                ],
+                'Value of key "title" has invalid type. Expected type: string',
+            ],
+            #4
+            [
+                [
+                    'id' => 1,
+                    'iid' => 1,
+                    'title' => 'Test-title',
+                ],
+                'Key "description" not found in response',
+            ],
+            #5
+            [
+                [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 1,
                 ],
                 'Value of key "description" has invalid type. Expected type: string',
             ],
-            #4
+            #6
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                 ],
                 'Key "labels" not found in response',
             ],
-            #5
+            #7
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => 1,
                 ],
                 'Value of key "labels" has invalid type. Expected type: array<string>',
             ],
-            #6
+            #8
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
                 ],
                 'Key "has_conflicts" not found in response',
             ],
-            #7
+            #9
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -73,9 +102,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Value of key "has_conflicts" has invalid type. Expected type: bool',
             ],
-            #8
+            #10
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -83,9 +114,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Key "source_branch" not found in response',
             ],
-            #9
+            #11
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -94,9 +127,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Value of key "source_branch" has invalid type. Expected type: string',
             ],
-            #9
+            #12
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -105,9 +140,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Key "target_branch" not found in response',
             ],
-            #9
+            #13
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -117,9 +154,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Value of key "target_branch" has invalid type. Expected type: string',
             ],
-            #10
+            #13
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -129,9 +168,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Key "author" not found in response',
             ],
-            #11
+            #14
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -142,9 +183,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Value of key "author" has invalid type. Expected type: array{username: string}',
             ],
-            #12
+            #15
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -155,9 +198,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Key "author.username" not found',
             ],
-            #13
+            #16
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -170,9 +215,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Value of key "author.username" has invalid type. Expected type: string',
             ],
-            #14
+            #17
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -185,9 +232,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Key "merge_status" not found in response',
             ],
-            #15
+            #18
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -201,9 +250,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Value of key "merge_status" has invalid type. Expected type: string',
             ],
-            #16
+            #19
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -217,9 +268,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Key "changes" not found in response',
             ],
-            #17
+            #20
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -234,9 +287,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Value of key "changes" has invalid type. Expected type: array',
             ],
-            #18
+            #21
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -251,9 +306,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Key "created_at" not found in response',
             ],
-            #18
+            #22
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
@@ -269,9 +326,11 @@ final class MergeRequestSchemaTest extends TestCase
                 ],
                 'Value of key "created_at" has invalid type. Expected type: string',
             ],
-            #19
+            #23
             [
                 [
+                    'id' => 1,
+                    'iid' => 1,
                     'title' => 'Test-title',
                     'description' => 'Test-description',
                     'labels' => [],
