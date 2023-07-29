@@ -7,14 +7,12 @@ use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\FileSystem\Contracts\FileSystem;
 use ArtARTs36\FileSystem\Local\LocalFileSystem;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
-use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\DefaultSystems;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Copier;
@@ -25,18 +23,12 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\ConfigRes
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\MetricableConfigResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\MetricableLogger;
-use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
@@ -44,8 +36,10 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\ApplicationNotCreatedException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
-use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
+use ArtARTs36\MergeRequestLinter\Providers\EventDispatcherProvider;
+use ArtARTs36\MergeRequestLinter\Providers\NotificationsProvider;
+use ArtARTs36\MergeRequestLinter\Providers\RuleProvider;
+use ArtARTs36\MergeRequestLinter\Providers\ServiceProvider;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
@@ -59,6 +53,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
 {
+    private const PROVIDERS = [
+        EventDispatcherProvider::class,
+        NotificationsProvider::class,
+        RuleProvider::class,
+    ];
+
     public function __construct(
         private readonly MapContainer $container = new MapContainer(),
         private readonly Environment $environment = new LocalEnvironment(),
@@ -109,9 +109,9 @@ class ApplicationFactory
             $metrics,
         );
 
-        $events = $this->registerEventDispatcher();
+        $this->runProviders();
 
-        $this->registerNotifications();
+        $events = $this->container->get(EventManager::class);
 
         $application = new Application($metrics);
 
@@ -126,6 +126,14 @@ class ApplicationFactory
         $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory($clock))));
 
         return $application;
+    }
+
+    private function runProviders(): void
+    {
+        /** @var class-string<ServiceProvider> $providerClass */
+        foreach (self::PROVIDERS as $providerClass) {
+            (new $providerClass($this->container))->provide();
+        }
     }
 
     /**
@@ -151,46 +159,6 @@ class ApplicationFactory
         return $clock;
     }
 
-    private function registerNotifications(): void
-    {
-        $notificationsListener = function (ConfigResolvedEvent $event) {
-            $this
-                ->createNotificationsListenerRegistrar($event->config->config)
-                ->register($this->container->get(EventManager::class));
-        };
-
-        $this
-            ->container
-            ->get(EventManager::class)
-            ->listen(ConfigResolvedEvent::class, new CallbackListener(
-                'registration notifications',
-                $notificationsListener,
-            ));
-    }
-
-    private function createNotificationsListenerRegistrar(Config $config): ListenerRegistrar
-    {
-        $logger = $this->container->get(ContextLogger::class);
-
-        $notifier = (new NotifierFactory(
-            $this->container->get(HttpClientFactory::class)->create(
-                $config->getHttpClient()
-            ),
-            $this->container->get(ClockInterface::class),
-            $logger,
-        ))->create();
-
-        return new ListenerRegistrar(
-            $config->getNotifications(),
-            new ListenerFactory(
-                $notifier,
-                $this->container->get(OperatorResolver::class),
-                new MessageCreator(TwigRenderer::create()),
-                $logger,
-            ),
-        );
-    }
-
     private function registerHttpClientFactory(): ClientFactory
     {
         $factory = new ClientFactory(
@@ -202,16 +170,6 @@ class ApplicationFactory
         $this->container->set(ClientFactory::class, $factory);
 
         return $factory;
-    }
-
-    private function registerEventDispatcher(): EventDispatcher
-    {
-        $ed = new EventDispatcher($this->container->get(ContextLogger::class));
-
-        $this->container->set(EventDispatcher::class, $ed);
-        $this->container->set(EventManager::class, $ed);
-
-        return $ed;
     }
 
     private function registerMetricManager(): MetricManager

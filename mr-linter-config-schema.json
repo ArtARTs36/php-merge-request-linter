@@ -259,6 +259,36 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/no_ssh_keys": {
+                    "description": "Prevent ssh keys from being included in the merge request.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_keys"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_keys"
+                            },
+                            "minItems": 1
+                        }
+                    ]
+                },
+                "@mr-linter/disable_file_extensions": {
+                    "description": "Disable adding files of certain extensions.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_disable_file_extensions"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_disable_file_extensions"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -4364,6 +4394,56 @@
                 }
             },
             "additionalProperties": false
+        },
+        "rules_properties_@mr-linter_no_ssh_keys": {
+            "type": "object",
+            "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "stopOnFirstFailure": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "stopOnFirstFailure"
+            ]
+        },
+        "rules_properties_@mr-linter_disable_file_extensions": {
+            "type": "object",
+            "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "extensions": {
+                    "type": "array",
+                    "examples": [
+                        "pem",
+                        "pub",
+                        "php"
+                    ],
+                    "items": [
+                        {
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "extensions"
+            ]
         },
         "notifications_channel_telegram_bot": {
             "properties": {

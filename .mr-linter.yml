@@ -26,6 +26,10 @@ rules:
           - '[Tests]'
           - '[Docs]'
 
+  "@mr-linter/no_ssh_keys":
+    stopOnFirstFailure: true
+    critical: false
+
   "@mr-linter/has_changes":
     - changes:
       - file: "src/Version.php"
@@ -37,6 +41,11 @@ rules:
           notStartsAny:
             - '[Tests]'
             - '[Docs]'
+
+  "@mr-linter/disable_file_extensions":
+    extensions:
+      - pem
+      - pub
 
   custom:
     - definition: "Branch must be in kebab-case"
@@ -77,7 +86,7 @@ notifications:
     lint_finished:
       channel: 'dev'
       template: |
-        👀 Review on PR "{{ request.title }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
+        👀 Review on PR "{{ request.title | raw }}" by {{ request.author.login }} at {{ request.createdAt.format('Y-m-d H:i') }}
         
         🌲 {{ request.sourceBranch }} ➡ {{ request.targetBranch }}
         
@@ -86,7 +95,7 @@ notifications:
         📉 Notes: {{ result.notes.count }}
         
         {% for note in result.notes %}
-        - {{ note.description }}
+        - {{ note.description | raw }}
         {% endfor %}
 
 ci:

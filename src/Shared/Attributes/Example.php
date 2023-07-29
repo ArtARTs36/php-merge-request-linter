@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Attributes;
 
-#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_PARAMETER)]
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_PARAMETER | \Attribute::IS_REPEATABLE)]
 class Example
 {
     public function __construct(

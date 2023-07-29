@@ -29,4 +29,9 @@ class Change implements \JsonSerializable
             'diff' => $this->diff->allFragments->firsts(2)->mapToArray(fn (DiffFragment $f): string => $f->content),
         ];
     }
+
+    public function fileExtension(): string
+    {
+        return pathinfo($this->file, PATHINFO_EXTENSION);
+    }
 }

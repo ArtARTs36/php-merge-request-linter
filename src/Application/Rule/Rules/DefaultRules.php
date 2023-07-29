@@ -29,6 +29,8 @@ final class DefaultRules
         ForbidChangesRule::NAME => ForbidChangesRule::class,
         UpdateChangelogRule::NAME => UpdateChangelogRule::class,
         DiffLimitRule::NAME => DiffLimitRule::class,
+        NoSshKeysRule::NAME => NoSshKeysRule::class,
+        DisableFileExtensionsRule::NAME => DisableFileExtensionsRule::class,
     ];
 
     /**

@@ -60,4 +60,28 @@ final class ChangeTest extends TestCase
 
         self::assertEquals($expected, $change->jsonSerialize());
     }
+
+    public function providerForTestFileExtension(): array
+    {
+        return [
+            ['a.php', 'php'],
+            ['/a.php', 'php'],
+            ['.gitignore', 'gitignore'],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Request\Change::fileExtension
+     *
+     * @dataProvider providerForTestFileExtension
+     */
+    public function testFileExtension(string $path, string $expectedExtension): void
+    {
+        $change = new Change(
+            $path,
+            Diff::empty(),
+        );
+
+        self::assertEquals($expectedExtension, $change->fileExtension());
+    }
 }
