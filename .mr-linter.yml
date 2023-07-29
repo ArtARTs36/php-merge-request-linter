@@ -26,9 +26,6 @@ rules:
           - '[Tests]'
           - '[Docs]'
 
-  "@mr-linter/no_ssh_rule":
-    stopOnFirstFailure: true
-
   "@mr-linter/has_changes":
     - changes:
       - file: "src/Version.php"

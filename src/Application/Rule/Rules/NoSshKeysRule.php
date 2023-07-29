@@ -14,7 +14,7 @@ use ArtARTs36\Str\Str;
  */
 final class NoSshKeysRule extends NamedRule
 {
-    public const NAME = '@mr-linter/no_ssh_rule';
+    public const NAME = '@mr-linter/no_ssh_keys';
 
     public function __construct(
         private readonly SshKeyFinder $sshKeyFinder,

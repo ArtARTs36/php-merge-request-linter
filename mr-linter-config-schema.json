@@ -260,16 +260,16 @@
                         }
                     ]
                 },
-                "@mr-linter/no_ssh_rule": {
+                "@mr-linter/no_ssh_keys": {
                     "description": null,
                     "oneOf": [
                         {
-                            "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_rule"
+                            "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_keys"
                         },
                         {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_rule"
+                                "$ref": "#/definitions/rules_properties_@mr-linter_no_ssh_keys"
                             },
                             "minItems": 1
                         }
@@ -4380,7 +4380,7 @@
             },
             "additionalProperties": false
         },
-        "rules_properties_@mr-linter_no_ssh_rule": {
+        "rules_properties_@mr-linter_no_ssh_keys": {
             "type": "object",
             "properties": {
                 "critical": {
