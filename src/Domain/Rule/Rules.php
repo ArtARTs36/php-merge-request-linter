@@ -9,20 +9,6 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
  */
 class Rules extends Arrayee
 {
-    /**
-     * @param iterable<Rule> $rules
-     */
-    public static function make(iterable $rules): self
-    {
-        $instance = new self([]);
-
-        foreach ($rules as $rule) {
-            $instance->add($rule);
-        }
-
-        return $instance;
-    }
-
     public function add(Rule $rule): self
     {
         $this->items[] = $rule;

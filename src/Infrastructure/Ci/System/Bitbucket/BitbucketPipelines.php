@@ -103,7 +103,7 @@ class BitbucketPipelines implements CiSystem
             foreach ($request->changes as $filename => $diff) {
                 $changes[$filename] = new \ArtARTs36\MergeRequestLinter\Domain\Request\Change(
                     $filename,
-                    new Diff($diff),
+                    $diff,
                 );
             }
 

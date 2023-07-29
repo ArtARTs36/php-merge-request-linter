@@ -28,6 +28,7 @@ interface CiSystem
     /**
      * Get current merge request.
      * @throws GettingMergeRequestException
+     * @throws MergeRequestNotFoundException
      */
     public function getCurrentlyMergeRequest(): MergeRequest;
 

@@ -136,7 +136,7 @@ class NotificationsMapper
                     $sound = TimePeriod::make($channel['sound_at']);
                 } catch (\Exception $e) {
                     throw new ConfigInvalidException(sprintf(
-                        'Config[notifications.channels.%s] invalid: %s',
+                        'Config[notifications.channels.%s.sound_at] invalid: %s',
                         $name,
                         $e->getMessage(),
                     ));

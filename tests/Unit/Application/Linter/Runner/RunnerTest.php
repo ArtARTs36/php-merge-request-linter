@@ -112,7 +112,7 @@ final class RunnerTest extends TestCase
     private function createLinter(array $rules = []): Linter
     {
         return new Linter(
-            Rules::make($rules),
+            new Rules($rules),
             new LinterOptions(false),
             new NullEventDispatcher(),
             new NullMetricManager(),

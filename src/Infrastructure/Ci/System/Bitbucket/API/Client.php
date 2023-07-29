@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\UpdateCommentInput;
@@ -166,7 +166,7 @@ class Client
     }
 
     /**
-     * @return array<string, array<DiffLine>>
+     * @return array<string, Diff>
      */
     private function fetchChanges(string $url): array
     {

@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Domain\Request;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffFragment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use ArtARTs36\Str\Str;
@@ -17,7 +17,7 @@ final class ChangeTest extends TestCase
      */
     public function testToString(): void
     {
-        $change = new Change('file.txt', new Diff([]));
+        $change = new Change('file.txt', Diff::empty());
 
         self::assertEquals('file.txt', $change->__toString());
     }
@@ -27,7 +27,7 @@ final class ChangeTest extends TestCase
         return [
             [
                 'file.txt',
-                new Diff([]),
+                Diff::empty(),
                 [
                     'file' => 'file.txt',
                     'diff' => [],
@@ -35,10 +35,10 @@ final class ChangeTest extends TestCase
             ],
             [
                 'file.txt',
-                new Diff([
-                    new DiffLine(DiffType::NEW, Str::make('test1')),
-                    new DiffLine(DiffType::NEW, Str::make('test2')),
-                    new DiffLine(DiffType::NEW, Str::make('test3')),
+                Diff::fromList([
+                    new DiffFragment(DiffType::NEW, Str::make('test1')),
+                    new DiffFragment(DiffType::NEW, Str::make('test2')),
+                    new DiffFragment(DiffType::NEW, Str::make('test3')),
                 ]),
                 [
                     'file' => 'file.txt',
@@ -59,5 +59,29 @@ final class ChangeTest extends TestCase
         $change = new Change($file, $diff);
 
         self::assertEquals($expected, $change->jsonSerialize());
+    }
+
+    public function providerForTestFileExtension(): array
+    {
+        return [
+            ['a.php', 'php'],
+            ['/a.php', 'php'],
+            ['.gitignore', 'gitignore'],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Request\Change::fileExtension
+     *
+     * @dataProvider providerForTestFileExtension
+     */
+    public function testFileExtension(string $path, string $expectedExtension): void
+    {
+        $change = new Change(
+            $path,
+            Diff::empty(),
+        );
+
+        self::assertEquals($expectedExtension, $change->fileExtension());
     }
 }

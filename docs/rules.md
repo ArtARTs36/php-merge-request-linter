@@ -19,3 +19,6 @@ Currently is available that rules:
 | @mr-linter/branch_starts_with_task_number | Source branch must starts with task number of project {projectName}. Mask: {projectName}-number | `projectName` - string   <br/>  |
 | @mr-linter/forbid_changes | Forbid changes for files. | `files` - array  of strings   <br/>  |
 | @mr-linter/update_changelog | Changelog must be contained new tag. | `file` - string   <br/>  `tags` - object   <br/>  |
+| @mr-linter/diff_limit | The request must contain no more than {linesMax} changes. | `linesMax` - integer   <br/>  `fileLinesMax` - integer   <br/>  |
+| @mr-linter/no_ssh_keys | Prevent ssh keys from being included in the merge request. | `sshKeyFinder` -    <br/>  `stopOnFirstFailure` - boolean   <br/>  |
+| @mr-linter/disable_file_extensions | Disable adding files of certain extensions. | `extensions` - array  of strings   <br/>  |

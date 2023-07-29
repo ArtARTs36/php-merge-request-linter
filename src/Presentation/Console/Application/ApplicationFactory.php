@@ -12,14 +12,12 @@ use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListe
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageFormatter;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector;
 use ArtARTs36\MergeRequestLinter\Application\Configuration\Handlers\CreateConfigTaskHandler;
-use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\RunnerFactory as LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers\DumpTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\ToolInfo\TaskHandlers\ShowToolInfoHandler;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\CachedSystemFactory;
@@ -41,11 +39,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEn
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\MetricableLogger;
-use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\NotifierFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
@@ -53,8 +46,10 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\ApplicationNotCreatedException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
-use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
-use ArtARTs36\MergeRequestLinter\Shared\Events\EventDispatcher;
+use ArtARTs36\MergeRequestLinter\Providers\EventDispatcherProvider;
+use ArtARTs36\MergeRequestLinter\Providers\NotificationsProvider;
+use ArtARTs36\MergeRequestLinter\Providers\RuleProvider;
+use ArtARTs36\MergeRequestLinter\Providers\ServiceProvider;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
@@ -68,6 +63,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationFactory
 {
+    private const PROVIDERS = [
+        EventDispatcherProvider::class,
+        NotificationsProvider::class,
+        RuleProvider::class,
+    ];
+
     public function __construct(
         private readonly MapContainer $container = new MapContainer(),
         private readonly Environment $environment = new LocalEnvironment(),
@@ -119,10 +120,11 @@ class ApplicationFactory
             $metrics,
         );
 
-        $events = $this->registerEventDispatcher();
+        $this->runProviders();
+
+        $events = $this->container->get(EventManager::class);
 
         $this->registerTextRenderer();
-        $this->registerNotifications();
         $this->registerComments();
 
         $application = new Application($metrics);
@@ -138,6 +140,14 @@ class ApplicationFactory
         $application->add(new InfoCommand(new ShowToolInfoHandler(new ToolInfoFactory($clock))));
 
         return $application;
+    }
+
+    private function runProviders(): void
+    {
+        /** @var class-string<ServiceProvider> $providerClass */
+        foreach (self::PROVIDERS as $providerClass) {
+            (new $providerClass($this->container))->provide();
+        }
     }
 
     /**
@@ -161,23 +171,6 @@ class ApplicationFactory
         $this->container->set(Clock::class, $clock);
 
         return $clock;
-    }
-
-    private function registerNotifications(): void
-    {
-        $notificationsListener = function (ConfigResolvedEvent $event) {
-            $this
-                ->createNotificationsListenerRegistrar($event->config->config)
-                ->register($this->container->get(EventManager::class));
-        };
-
-        $this
-            ->container
-            ->get(EventManager::class)
-            ->listen(ConfigResolvedEvent::class, new CallbackListener(
-                'registration notifications',
-                $notificationsListener,
-            ));
     }
 
     private function registerComments(): void
@@ -254,16 +247,6 @@ class ApplicationFactory
         $this->container->set(ClientFactory::class, $factory);
 
         return $factory;
-    }
-
-    private function registerEventDispatcher(): EventDispatcher
-    {
-        $ed = new EventDispatcher($this->container->get(ContextLogger::class));
-
-        $this->container->set(EventDispatcher::class, $ed);
-        $this->container->set(EventManager::class, $ed);
-
-        return $ed;
     }
 
     private function registerMetricManager(): MetricManager

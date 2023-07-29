@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Change;
 
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GivenInvalidPullRequestDataException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
 
@@ -21,26 +21,25 @@ class ChangeSchema
     {
         return new Change(
             $this->getString($data, $index, 'filename'),
-            $this->getDiff($data, $index),
+            $this->getDiff($data),
             Status::create($this->getString($data, $index, 'status')),
         );
     }
 
     /**
      * @param array<mixed> $data
-     * @return array<DiffLine>
      */
-    private function getDiff(array $data, int $index): array
+    private function getDiff(array $data): Diff
     {
         if (! array_key_exists('patch', $data)) {
-            return [];
+            return Diff::empty();
         }
 
         if (is_string($data['patch'])) {
             return $this->diffMapper->map($data['patch']);
         }
 
-        return [];
+        return Diff::empty();
     }
 
     /**

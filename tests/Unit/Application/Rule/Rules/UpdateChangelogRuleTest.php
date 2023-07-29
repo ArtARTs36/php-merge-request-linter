@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\UpdateChangelogRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\DiffFragment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\Text\Markdown\HeadingLevel;
@@ -48,8 +48,8 @@ final class UpdateChangelogRuleTest extends TestCase
             'request has changes, but not contains new tag' => [
                 $this->makeMergeRequest([
                     'changes' => [
-                        'ch.md' => new Change('ch.md', new Diff([
-                            new DiffLine(
+                        'ch.md' => new Change('ch.md', Diff::fromList([
+                            new DiffFragment(
                                 DiffType::NEW,
                                 Str::make('AB'),
                             ),
@@ -71,12 +71,12 @@ final class UpdateChangelogRuleTest extends TestCase
             'request has changes, but not contains new tag by default filename' => [
                 $this->makeMergeRequest([
                     'changes' => [
-                        'CHANGELOG' => new Change('CHANGELOG', new Diff([
-                            new DiffLine(
+                        'CHANGELOG' => new Change('CHANGELOG', Diff::fromList([
+                            new DiffFragment(
                                 DiffType::NEW,
                                 Str::make('AB'),
                             ),
-                        ]))
+                        ])),
                     ],
                 ]),
                 [
@@ -94,10 +94,10 @@ final class UpdateChangelogRuleTest extends TestCase
             'request contains new tag' => [
                 $this->makeMergeRequest([
                     'changes' => [
-                        'ch.md' => new Change('ch.md', new Diff([
-                            new DiffLine(
+                        'ch.md' => new Change('ch.md', Diff::fromList([
+                            new DiffFragment(
                                 DiffType::NEW,
-                                Str::make('## 0.2.0'),
+                                Str::make("## 0.2.0\nAA\nBB"),
                             ),
                         ]))
                     ],

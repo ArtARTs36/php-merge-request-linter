@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects;
 
-use ArtARTs36\MergeRequestLinter\Domain\Request\DiffLine;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\Str\Facade\Str;
@@ -10,7 +10,7 @@ use ArtARTs36\Str\Facade\Str;
 class PullRequest
 {
     /**
-     * @param Map<string, array<DiffLine>> $changes
+     * @param Map<string, Diff> $changes
      */
     public function __construct(
         public readonly int                $id,

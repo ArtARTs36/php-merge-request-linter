@@ -98,7 +98,7 @@ final class GithubActions implements CiSystem
             foreach ($request->changes as $change) {
                 $changes[$change->filename] = new \ArtARTs36\MergeRequestLinter\Domain\Request\Change(
                     $change->filename,
-                    new Diff($change->diff),
+                    $change->diff,
                 );
             }
 
