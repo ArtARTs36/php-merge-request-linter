@@ -34,16 +34,11 @@ class ArrayConfigHydrator
         $rules = $this->rulesMapper->map($data['rules']);
 
         $ciSettings = new MapProxy(function () use ($data) {
-            // For save compatibility. Will be removed in next version.
-            $settings = $data['ci'] ?? [];
-
-            if (empty($settings) && ! empty($data['credentials'])) {
-                foreach ($data['credentials'] as $ciName => $token) {
-                    $settings[$ciName]['credentials']['token'] = $token;
-                }
+            if (! isset($data['ci'])) {
+                throw ConfigInvalidException::fromKey('ci');
             }
 
-            return $this->credentialMapper->map($settings);
+            return $this->credentialMapper->map($data['ci']);
         });
 
         if (isset($data['notifications'])) {

@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
-use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
@@ -96,7 +95,7 @@ class BitbucketPipelines implements CiSystem
             foreach ($request->changes as $filename => $diff) {
                 $changes[$filename] = new \ArtARTs36\MergeRequestLinter\Domain\Request\Change(
                     $filename,
-                    new Diff($diff),
+                    $diff,
                 );
             }
 

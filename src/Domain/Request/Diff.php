@@ -5,15 +5,62 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\Str\Exceptions\InvalidRegexException;
 
-/**
- * @template-extends Arrayee<int, DiffLine>
- */
-class Diff extends Arrayee
+class Diff
 {
+    /**
+     * @param Arrayee<int, DiffFragment> $oldFragments
+     * @param Arrayee<int, DiffFragment> $newFragments
+     * @param Arrayee<int, DiffFragment> $notChangedFragments
+     * @param Arrayee<int, DiffFragment> $allFragments
+     */
+    public function __construct(
+        public readonly Arrayee $oldFragments,
+        public readonly Arrayee $newFragments,
+        public readonly Arrayee $notChangedFragments,
+        public readonly Arrayee $allFragments,
+    ) {
+    }
+
+    public static function empty(): self
+    {
+        return self::fromList([]);
+    }
+
+    /**
+     * @param array<DiffFragment> $fragmentList
+     */
+    public static function fromList(array $fragmentList): self
+    {
+        $fragments = [
+            DiffType::OLD->value => [],
+            DiffType::NEW->value => [],
+            DiffType::NOT_CHANGES->value => [],
+            'all' => [],
+        ];
+
+        foreach ($fragmentList as $fragment) {
+            $fragments[$fragment->type->value][] = $fragment;
+            $fragments['all'][] = $fragment;
+        }
+
+        return new self(
+            new Arrayee($fragments[DiffType::OLD->value]),
+            new Arrayee($fragments[DiffType::NEW->value]),
+            new Arrayee($fragments[DiffType::NOT_CHANGES->value]),
+            new Arrayee($fragments['all']),
+        );
+    }
+
     public function hasChangeByContentContains(string $content): bool
     {
-        foreach ($this->items as $item) {
-            if ($item->hasChanges() && $item->content->contains($content)) {
+        foreach ($this->newFragments as $fragment) {
+            if ($fragment->content->contains($content)) {
+                return true;
+            }
+        }
+
+        foreach ($this->oldFragments as $fragment) {
+            if ($fragment->content->contains($content)) {
                 return true;
             }
         }
@@ -26,8 +73,14 @@ class Diff extends Arrayee
      */
     public function hasChangeByContentContainsByRegex(string $regex): bool
     {
-        foreach ($this->items as $item) {
-            if ($item->hasChanges() && $item->content->match($regex)->isNotEmpty()) {
+        foreach ($this->newFragments as $fragment) {
+            if ($fragment->content->match($regex)->isNotEmpty()) {
+                return true;
+            }
+        }
+
+        foreach ($this->oldFragments as $fragment) {
+            if ($fragment->content->match($regex)->isNotEmpty()) {
                 return true;
             }
         }
@@ -37,14 +90,6 @@ class Diff extends Arrayee
 
     public function changesCount(): int
     {
-        $count = 0;
-
-        foreach ($this->items as $item) {
-            if ($item->hasChanges()) {
-                ++$count;
-            }
-        }
-
-        return $count;
+        return $this->newFragments->count() + $this->oldFragments->count();
     }
 }

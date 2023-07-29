@@ -44,13 +44,8 @@ class UpdateChangelogRule extends NamedRule implements Rule
 
         $hasChanges = false;
         $newTagFound = false;
-        $hasHeadingsWithoutRegexMatch = false;
 
-        foreach ($change->diff as $line) {
-            if (! $line->hasChanges()) {
-                continue;
-            }
-
+        foreach ($change->diff->newFragments as $line) {
             $hasChanges = true;
 
             $headings = $line
