@@ -3,12 +3,16 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
-final class NullRenderer implements TextRenderer
+final class MockTextRenderer implements TextRenderer
 {
+    public function __construct(
+        private readonly string $rendered,
+    ) {
+    }
+
     public function render(string $text, array $data): string
     {
-        return $text;
+        return $this->rendered;
     }
 }

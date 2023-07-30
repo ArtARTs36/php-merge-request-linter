@@ -3,15 +3,16 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Message;
 
 use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\CommentMessageCreator;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\MessageRenderer;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
-class MessageCreator implements CommentMessageCreator
+final class MessageCreator implements CommentMessageCreator
 {
     public function __construct(
         private readonly MessageSelector $selector,
-        private readonly MessageFormatter $formatter,
+        private readonly MessageRenderer $renderer,
     ) {
         //
     }
@@ -24,6 +25,6 @@ class MessageCreator implements CommentMessageCreator
             return null;
         }
 
-        return $this->formatter->format($request, $result, $message);
+        return $this->renderer->render($request, $result, $message);
     }
 }
