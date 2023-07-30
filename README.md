@@ -23,6 +23,7 @@ Supported CI Systems: **GitHub Actions**, **Gitlab CI**, **Bitbucket Pipelines**
 * [Docker Image](https://hub.docker.com/repository/docker/artarts36/merge-request-linter)
 * [Config JSON Schema](mr-linter-config-schema.json)
 * [Notifications](docs/notifications.md)
+* [Comments](docs/comments.md)
 * [Run in Docker](docs/run-in-docker.md)
 * [Development](docs/development.md)
 * [Changelog](CHANGELOG.md)
