@@ -41,7 +41,7 @@ final class SingleCommenterTest extends TestCase
                 [
                     '[SingleCommenter] Fetching first comment for MR with id "PR_ID" by current user',
                     '[SingleCommenter] Updating comment with id "test-comment-id" for MR with id "PR_ID"',
-                    '[SingleCommenter] Comment for MR with id "PR_ID" was updated',
+                    '[SingleCommenter] Comment #test-comment-id for MR #PR_ID was updated',
                 ],
                 new MakingComment('test-comment'),
                 new Comment('test-comment-id', 'test-comment-2'),
