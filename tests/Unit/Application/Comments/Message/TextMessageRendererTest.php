@@ -11,6 +11,7 @@ final class TextMessageRendererTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Message\TextMessageRenderer::render
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Message\TextMessageRenderer::__construct
      */
     public function testRender(): void
     {

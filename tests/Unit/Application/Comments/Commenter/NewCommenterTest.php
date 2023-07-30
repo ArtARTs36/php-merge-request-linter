@@ -15,6 +15,7 @@ final class NewCommenterTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NewCommenter::postComment
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\NewCommenter::__construct
      */
     public function testPostComment(): void
     {
