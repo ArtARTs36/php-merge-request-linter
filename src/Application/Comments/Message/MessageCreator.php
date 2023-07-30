@@ -18,7 +18,7 @@ class MessageCreator implements CommentMessageCreator
 
     public function create(MergeRequest $request, LintResult $result, CommentsConfig $config): ?string
     {
-        $message = $this->selector->select($config, $result);
+        $message = $this->selector->select($request, $config, $result);
 
         if ($message === null) {
             return null;

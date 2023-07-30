@@ -46,9 +46,7 @@ class Generator
                             'template' => [
                                 'type' => 'string',
                             ],
-                            'when' => [
-                                '$ref' => $this->operatorSchemaArrayGenerator->generate(MessageConditions::class),
-                            ],
+                            'when' => $this->operatorSchemaArrayGenerator->generate(MessageConditions::class),
                         ],
                     ],
                 ],
