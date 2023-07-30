@@ -123,7 +123,7 @@ class ArrayConfigHydrator
 
                 $messages[] = new CommentsMessage(
                     $msg['template'],
-                    $msg['conditions'] ?? [],
+                    $msg['when'] ?? [],
                 );
             }
         }

@@ -2,8 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
+use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageConditions;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
 use ArtARTs36\MergeRequestLinter\DocBuilder\EventFinder;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
@@ -28,6 +30,30 @@ class Generator
             'properties' => $this->ruleSchemaGenerator->generate($schema),
             'additionalProperties' => false,
         ]);
+
+        $schema->addProperty('comments', [
+            'type' => 'object',
+            'properties' => [
+                'strategy' => [
+                    'type' => 'string',
+                    'enum' => array_map(fn (\BackedEnum $enum) => $enum->value, CommentsPostStrategy::cases()),
+                ],
+                'messages' => [
+                    'type' => 'array',
+                    'items' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'template' => [
+                                'type' => 'string',
+                            ],
+                            'when' => [
+                                '$ref' => $this->operatorSchemaArrayGenerator->generate(MessageConditions::class),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ], false);
 
         $schema->addProperty('ci', [
             'type' => 'object',

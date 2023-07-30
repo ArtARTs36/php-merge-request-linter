@@ -109,5 +109,5 @@ comments:
     - template: |
         I found {{ result.notes.count }} notes in your Pull Request:
         {% for note in result.notes %}
-        - {{ note.description }}
+        - {{ note.description | raw }}
         {% endfor %}

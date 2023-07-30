@@ -17,7 +17,9 @@ class MessageSelector
 
     public function select(CommentsConfig $config, LintResult $result): ?CommentsMessage
     {
-        $conditionObject = (object) ['result' => $result];
+        $conditionObject = new MessageConditions(
+            $result,
+        );
 
         foreach ($config->messages as $message) {
             if (count($message->conditions) === 0) {
