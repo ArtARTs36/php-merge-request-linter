@@ -2,13 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Comments\Message;
 
+use ArtARTs36\MergeRequestLinter\Application\Comments\Contracts\MessageSelector;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsMessage;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 
-class MessageSelector
+class OperatorMessageSelector implements MessageSelector
 {
     public function __construct(
         private readonly OperatorResolver $condition,

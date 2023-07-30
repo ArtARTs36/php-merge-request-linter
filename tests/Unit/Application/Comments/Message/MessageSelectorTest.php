@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Comments\Message;
 
-use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Message\OperatorMessageSelector;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsMessage;
@@ -60,8 +60,8 @@ final class MessageSelectorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector::select
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Message\OperatorMessageSelector::select
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Comments\Message\OperatorMessageSelector::__construct
      *
      * @dataProvider providerForTestSelect
      *
@@ -69,7 +69,7 @@ final class MessageSelectorTest extends TestCase
      */
     public function testSelect(?ConditionOperator $conditionOperator, array $commentsMessages, ?CommentsMessage $expectedCommentMessage): void
     {
-        $selector = new MessageSelector(new MockOperatorResolver($conditionOperator));
+        $selector = new OperatorMessageSelector(new MockOperatorResolver($conditionOperator));
 
         self::assertEquals(
             $expectedCommentMessage,

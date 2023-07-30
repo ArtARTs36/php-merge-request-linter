@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Comments\Commenter\Factory;
 use ArtARTs36\MergeRequestLinter\Application\Comments\CommentProducer;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Listener\LintFinishedListener;
 use ArtARTs36\MergeRequestLinter\Application\Comments\Message\TextMessageRenderer;
-use ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageSelector;
+use ArtARTs36\MergeRequestLinter\Application\Comments\Message\OperatorMessageSelector;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\CachedSystemFactory;
@@ -33,7 +33,7 @@ final class CommentProvider extends Provider
             );
 
             $msgCreator = new \ArtARTs36\MergeRequestLinter\Application\Comments\Message\MessageCreator(
-                new MessageSelector($this->container->get(OperatorResolver::class)),
+                new OperatorMessageSelector($this->container->get(OperatorResolver::class)),
                 new TextMessageRenderer($this->container->get(TextRenderer::class)),
             );
 
