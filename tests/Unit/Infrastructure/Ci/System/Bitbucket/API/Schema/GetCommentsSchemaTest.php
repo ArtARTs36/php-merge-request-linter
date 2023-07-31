@@ -9,12 +9,13 @@ final class GetCommentsSchemaTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\GetCommentsSchema::createCommentList
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\GetCommentsSchema::doCreateCommentList
      */
     public function testCreateCommentListOnValuesItemNotArray(): void
     {
         $schema = new GetCommentsSchema();
 
-        self::expectExceptionMessage('values must be array');
+        self::expectExceptionMessage('Creating comment list was failed: response[values] must be array');
 
         $schema->createCommentList([
             'values' => [
