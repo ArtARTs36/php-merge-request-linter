@@ -11,11 +11,11 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 class GetCommentsSchema
 {
     /**
-     * @param array<mixed> $data
+     * @param array<mixed> $response
      */
-    public function createResponse(array $data): CommentList
+    public function createCommentList(array $response): CommentList
     {
-        $raw = new RawArray($data);
+        $raw = new RawArray($response);
         $comments = [];
 
         foreach ($raw->array('values') as $item) {

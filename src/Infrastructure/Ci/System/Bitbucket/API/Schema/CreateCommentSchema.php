@@ -10,7 +10,7 @@ class CreateCommentSchema
     /**
      * @param array<mixed> $data
      */
-    public function createResponse(array $data): Comment
+    public function createComment(array $data): Comment
     {
         $raw = new RawArray($data);
 

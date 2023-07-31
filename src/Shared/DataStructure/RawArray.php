@@ -25,6 +25,7 @@ class RawArray implements \IteratorAggregate
         $currPath = '';
 
         foreach (explode('.', $path) as $part) {
+            $oldPath = $currPath;
             $currPath .= $part;
 
             if (! is_array($val)) {
@@ -36,7 +37,8 @@ class RawArray implements \IteratorAggregate
 
             if (! array_key_exists($part, $val)) {
                 throw new ArrayPathInvalidException(sprintf(
-                    'Array doesnt have path %s',
+                    'Array[%s] doesnt have path "%s"',
+                    $oldPath,
                     $part,
                 ), $part, $currPath);
             }
@@ -67,7 +69,7 @@ class RawArray implements \IteratorAggregate
 
         if (! is_string($val)) {
             throw new ArrayPathInvalidException(sprintf(
-                'Value by path %s must be int',
+                'Value by path %s must be string',
                 $path,
             ), $path, $path);
         }
@@ -85,7 +87,7 @@ class RawArray implements \IteratorAggregate
 
         if (! is_string($val)) {
             throw new ArrayPathInvalidException(sprintf(
-                'Value by path %s must be int',
+                'Value by path %s must be string',
                 $path,
             ), $path, $path);
         }
@@ -113,7 +115,7 @@ class RawArray implements \IteratorAggregate
 
         if (! is_int($val)) {
             throw new ArrayPathInvalidException(sprintf(
-                'Value by path %s must be string',
+                'Value by path %s must be int',
                 $path,
             ), $path, $path);
         }

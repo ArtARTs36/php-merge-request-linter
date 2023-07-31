@@ -101,7 +101,7 @@ class Client
         return $this
             ->schemas
             ->commentsGet
-            ->createResponse($this->textDecoder->decode($response->getBody()->getContents()));
+            ->createCommentList($this->textDecoder->decode($response->getBody()->getContents()));
     }
 
     public function updateComment(UpdateCommentInput $input): Comment
@@ -128,7 +128,7 @@ class Client
         return $this
             ->schemas
             ->commentCreate
-            ->createResponse(
+            ->createComment(
                 $this->textDecoder->decode(
                     $this->http->sendRequest($request)->getBody()->getContents(),
                 ),
@@ -158,7 +158,7 @@ class Client
         return $this
             ->schemas
             ->commentCreate
-            ->createResponse(
+            ->createComment(
                 $this->textDecoder->decode(
                     $this->http->sendRequest($request)->getBody()->getContents(),
                 ),
