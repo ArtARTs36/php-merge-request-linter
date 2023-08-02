@@ -42,6 +42,7 @@ final class PullRequestSchemaTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema::createPullRequest
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema::getInt
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema::getString
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema::__construct
      * @dataProvider providerForCreatePullRequestFailed
      */
     public function testCreatePullRequestFailed(array $data, string $exception): void
