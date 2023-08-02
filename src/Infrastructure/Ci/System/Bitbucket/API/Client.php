@@ -78,7 +78,7 @@ class Client
         return $this
             ->schemas
             ->userGetCurrent
-            ->createResponse(
+            ->createUser(
                 $this->textDecoder->decode($this->http->sendRequest($request)->getBody()->getContents()),
             );
     }

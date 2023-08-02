@@ -40,6 +40,9 @@ class BitbucketPipelines implements CiSystem
         //
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getName(): string
     {
         return self::NAME;

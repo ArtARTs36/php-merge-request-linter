@@ -8,11 +8,11 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 class GetCurrentUserSchema
 {
     /**
-     * @param array<mixed> $data
+     * @param array<mixed> $response
      */
-    public function createResponse(array $data): User
+    public function createUser(array $response): User
     {
-        $raw = new RawArray($data);
+        $raw = new RawArray($response);
 
         return new User(
             $raw->string('display_name'),
