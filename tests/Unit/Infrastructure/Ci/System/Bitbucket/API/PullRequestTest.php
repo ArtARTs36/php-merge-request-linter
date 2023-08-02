@@ -13,15 +13,15 @@ final class PullRequestTest extends TestCase
     {
         return [
             [
-                BitbucketPR::create(
-                    state: PullRequestState::Open,
-                ),
+                [
+                    'state' => PullRequestState::Open,
+                ],
                 true,
             ],
             [
-                BitbucketPR::create(
-                    state: PullRequestState::Declined,
-                ),
+                [
+                    'state' => PullRequestState::Declined,
+                ],
                 false,
             ],
         ];
@@ -32,8 +32,10 @@ final class PullRequestTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest::__construct
      * @dataProvider providerForTestCanMerge
      */
-    public function testCanMerge(PullRequest $pr, bool $expected): void
+    public function testCanMerge(array $prData, bool $expected): void
     {
+        $pr = BitbucketPR::create(...$prData);
+
         self::assertEquals($expected, $pr->canMerge());
     }
 
