@@ -22,6 +22,8 @@ use Psr\Log\LoggerInterface;
 
 class Client
 {
+    public const URL_CURRENT_USER = 'https://api.bitbucket.org/2.0/user';
+
     public function __construct(
         private readonly Authenticator                                                      $credentials,
         private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client $http,
@@ -68,11 +70,7 @@ class Client
 
     public function getCurrentUser(): User
     {
-        $url = sprintf(
-            'https://api.bitbucket.org/2.0/user',
-        );
-
-        $request = new Request('GET', $url);
+        $request = new Request('GET', self::URL_CURRENT_USER);
         $request = $this->credentials->authenticate($request);
 
         return $this
