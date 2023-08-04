@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type;
 
+use ArtARTs36\MergeRequestLinter\Shared\Text\Sensitive\Scrubber;
 use ArtARTs36\Str\Str;
 
 class Viewer
@@ -27,16 +28,7 @@ class Viewer
 
     public function getHiddenLogin(): string
     {
-        $login = Str::make($this->login);
-        $length = $login->length();
-
-        $hidden = $login->firstSymbol();
-
-        for ($i = 1; $i < $length - 1; $i++) {
-            $hidden .= '*';
-        }
-
-        return $hidden . $login->lastSymbol();
+        return Scrubber::scrub($this->login);
     }
 
     /**
