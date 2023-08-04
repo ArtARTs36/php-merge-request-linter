@@ -144,6 +144,11 @@ class BitbucketPipelines implements CiSystem
             $comment->id,
             $comment->message,
         ));
+
+        $this->logger->info(sprintf(
+            '[BitbucketPipelines] Comment with id "%s" was updated',
+            $comment->id,
+        ));
     }
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment

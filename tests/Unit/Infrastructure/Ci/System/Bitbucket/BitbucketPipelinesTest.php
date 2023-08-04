@@ -6,6 +6,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\Comment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CommentList;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
@@ -15,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\Bit
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
@@ -83,6 +86,9 @@ final class BitbucketPipelinesTest extends TestCase
         self::assertEquals($expected, $ci->isCurrentlyMergeRequest());
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::postCommentOnMergeRequest()
+     */
     public function testPostCommentOnMergeRequest(): void
     {
         $client = $this->createMock(Client::class);
@@ -100,6 +106,104 @@ final class BitbucketPipelinesTest extends TestCase
         $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
 
         $logger->assertPushedInfo('[BitbucketPipelines] Comment was created with id 1 and url https://site.ru');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::updateComment()
+     */
+    public function testUpdateComment(): void
+    {
+        $client = $this->createMock(Client::class);
+        $client
+            ->expects(new InvokedCount(1))
+            ->method('updateComment')
+            ->willReturn(new Comment('1', '', '', ''));
+
+        $ci = $this->createCi(
+            [
+                VarName::Workspace->value => 'owner',
+                VarName::RepoName->value => 'repo',
+                VarName::PullRequestId->value => 1,
+            ],
+            $client,
+            $logger = new MockLogger(),
+        );
+
+        $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment(
+            '1',
+            'test-comment',
+        ));
+
+        $logger->assertPushedInfo('[BitbucketPipelines] Comment with id "1" was updated');
+    }
+
+    public function providerForTestGetFirstCommentOnMergeRequestByCurrentUser(): array
+    {
+        return [
+            [
+                new User('test', '4'),
+                [
+                    new CommentList(new Arrayee([
+                        new Comment('1', '', 'test1', '2'),
+                        new Comment('2', '', 'test2', '1'),
+                        new Comment('3', '', 'test3', '1'),
+                        new Comment('4', '', 'test4', '3'),
+                    ]), 1),
+                    new CommentList(new Arrayee([]), 2),
+                ],
+                null,
+            ],
+            [
+                new User('test', '1'),
+                [
+                    new CommentList(new Arrayee([
+                        new Comment('1', '', 'test1', '2'),
+                        new Comment('2', '', 'test2', '1'), // expected comment
+                        new Comment('3', '', 'test3', '1'),
+                        new Comment('4', '', 'test4', '3'),
+                    ]), 1),
+                ],
+                new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('2', 'test2'),
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser()
+     *
+     * @dataProvider providerForTestGetFirstCommentOnMergeRequestByCurrentUser
+     *
+     * @param array<CommentList> $responseCommentLists
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUser(
+        User        $user,
+        array $responseCommentLists,
+        ?\ArtARTs36\MergeRequestLinter\Domain\Request\Comment    $expectedComment,
+    ): void {
+        $client = $this->createMock(Client::class);
+        $client
+            ->expects(new InvokedCount(1))
+            ->method('getCurrentUser')
+            ->willReturn($user);
+
+        $client
+            ->expects(new InvokedCount(count($responseCommentLists)))
+            ->method('getComments')
+            ->willReturn(...$responseCommentLists);
+
+        $ci = $this->createCi(
+            [
+                VarName::Workspace->value => 'owner',
+                VarName::RepoName->value => 'repo',
+                VarName::PullRequestId->value => 1,
+            ],
+            $client,
+        );
+
+        self::assertEquals(
+            $expectedComment,
+            $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest()),
+        );
     }
 
     /**
