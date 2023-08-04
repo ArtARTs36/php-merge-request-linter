@@ -36,4 +36,32 @@ final class ViewerTest extends TestCase
             $viewer->login,
         );
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer::getHiddenLogin
+     */
+    public function testGetHiddenLogin(): void
+    {
+        $viewer = Viewer::make('test');
+
+        self::assertEquals(
+            't**t',
+            $viewer->getHiddenLogin(),
+        );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer::__debugInfo
+     */
+    public function testDebugInfo(): void
+    {
+        $viewer = Viewer::make('test');
+
+        self::assertEquals(
+            [
+                'login' => 't**t',
+            ],
+            $viewer->__debugInfo(),
+        );
+    }
 }
