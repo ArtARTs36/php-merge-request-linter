@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbu
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
@@ -16,8 +18,11 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockLogger;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use PHPUnit\Framework\MockObject\Rule\InvokedCount;
+use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 final class BitbucketPipelinesTest extends TestCase
@@ -45,7 +50,7 @@ final class BitbucketPipelinesTest extends TestCase
      */
     public function testIsCurrentlyWorking(array $vars, bool $expected): void
     {
-        $ci = $this->mockCi($vars);
+        $ci = $this->createCi($vars);
 
         self::assertEquals($expected, $ci->isCurrentlyWorking());
     }
@@ -73,15 +78,37 @@ final class BitbucketPipelinesTest extends TestCase
      */
     public function testIsCurrentlyMergeRequest(array $vars, bool $expected): void
     {
-        $ci = $this->mockCi($vars);
+        $ci = $this->createCi($vars);
 
         self::assertEquals($expected, $ci->isCurrentlyMergeRequest());
     }
 
-    private function mockCi(array $env): BitbucketPipelines
+    public function testPostCommentOnMergeRequest(): void
+    {
+        $client = $this->createMock(Client::class);
+        $client
+            ->expects(new InvokedCount(1))
+            ->method('postComment')
+            ->willReturn(new Comment(1, 'https://site.ru', 'test-comment', '1234'));
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+            VarName::PullRequestId->value => 1,
+        ], $client, $logger = new MockLogger());
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
+
+        $logger->assertPushedInfo('[BitbucketPipelines] Comment was created with id 1 and url https://site.ru');
+    }
+
+    /**
+     * @param array<string, mixed> $env
+     */
+    private function createCi(array $env, ?Client $client = null, ?LoggerInterface $logger = null): BitbucketPipelines
     {
         return new BitbucketPipelines(
-            new Client(
+            $client ?? new HttpClient(
                 new NullAuthenticator(),
                 new MockClient(),
                 new NullLogger(),
@@ -94,7 +121,7 @@ final class BitbucketPipelinesTest extends TestCase
             new MockMarkdownCleaner(),
             new BitbucketPipelinesSettings(new LabelsSettings(null)),
             new CompositeResolver([]),
-            new NullLogger(),
+            $logger ?? new NullLogger(),
         );
     }
 }

@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbucket\API;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
@@ -16,13 +16,13 @@ use Psr\Log\NullLogger;
 final class ClientTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client::getCurrentUser
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient::getCurrentUser
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient::__construct
      */
     public function testGetCurrentUser(): void
     {
         $client = $this->createClient([
-            Client::URL_CURRENT_USER => [
+            HttpClient::URL_CURRENT_USER => [
                 'display_name' => 'test',
                 'account_id' => '1',
             ],
@@ -37,8 +37,8 @@ final class ClientTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client::postComment
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient::postComment
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient::__construct
      */
     public function testPostComment(): void
     {
@@ -73,7 +73,7 @@ final class ClientTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client::updateComment
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient::updateComment
      */
     public function testUpdateComment(): void
     {
@@ -111,9 +111,9 @@ final class ClientTest extends TestCase
     /**
      * @param array<string, array<mixed>> $responsesContents
      */
-    private function createClient(array $responsesContents): Client
+    private function createClient(array $responsesContents): HttpClient
     {
-        return new Client(
+        return new HttpClient(
             new NullAuthenticator(),
             MockClient::makeOfResponsesContents($responsesContents),
             new NullLogger(),

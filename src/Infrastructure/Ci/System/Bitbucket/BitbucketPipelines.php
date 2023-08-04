@@ -30,12 +30,12 @@ class BitbucketPipelines implements CiSystem
     public const NAME = 'bitbucket_pipelines';
 
     public function __construct(
-        private readonly Client $client,
-        private readonly BitbucketEnvironment $environment,
-        private readonly MarkdownCleaner $markdownCleaner,
+        private readonly Client                     $client,
+        private readonly BitbucketEnvironment       $environment,
+        private readonly MarkdownCleaner            $markdownCleaner,
         private readonly BitbucketPipelinesSettings $settings,
-        private readonly LabelsResolver $labelsResolver,
-        private readonly LoggerInterface $logger,
+        private readonly LabelsResolver             $labelsResolver,
+        private readonly LoggerInterface            $logger,
     ) {
         //
     }

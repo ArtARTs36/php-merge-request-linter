@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CiSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiInvalidParamsException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client as APIClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient as APIClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\CompositeResolver;

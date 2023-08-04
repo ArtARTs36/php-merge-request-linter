@@ -26,6 +26,7 @@ final class GetCommentsSchemaTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\GetCommentsSchema::createCommentList
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\GetCommentsSchema::doCreateCommentList
      */
     public function testCreateCommentList(): void
     {
