@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type;
 
 use ArtARTs36\MergeRequestLinter\Shared\Text\Sensitive\Scrubber;
-use ArtARTs36\Str\Str;
 
 class Viewer
 {
