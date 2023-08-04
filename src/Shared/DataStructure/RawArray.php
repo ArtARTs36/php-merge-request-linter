@@ -84,7 +84,7 @@ class RawArray implements \IteratorAggregate
     {
         $val = $this->path($path);
 
-        if (is_null($val)) {
+        if ($val === null) {
             return null;
         }
 
