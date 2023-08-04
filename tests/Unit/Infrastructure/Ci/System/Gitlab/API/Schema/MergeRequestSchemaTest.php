@@ -1,8 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Gitlab\API;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Gitlab\API\Schema;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Schema\MergeRequestSchema;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class MergeRequestSchemaTest extends TestCase
@@ -350,7 +350,7 @@ final class MergeRequestSchemaTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestSchema::createMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Schema\MergeRequestSchema::createMergeRequest
      * @dataProvider providerForTestCreateMergeRequestOnInvalid
      */
     public function testCreateMergeRequest(array $data, string $expectedException): void

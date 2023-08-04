@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\Updat
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Schema\GetCurrentUserSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Schema\MergeRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;

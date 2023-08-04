@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects;
 
+use ArtARTs36\MergeRequestLinter\Shared\Text\Sensitive\Scrubber;
+
 class User
 {
     public function __construct(
@@ -16,6 +18,8 @@ class User
      */
     public function __debugInfo(): ?array
     {
-        return null;
+        return [
+            'login' => Scrubber::scrub($this->login),
+        ];
     }
 }

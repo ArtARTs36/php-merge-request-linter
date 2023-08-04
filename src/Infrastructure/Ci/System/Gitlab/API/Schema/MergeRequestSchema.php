@@ -1,7 +1,8 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API;
+namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Schema;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Change;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Exceptions\GivenInvalidMergeRequestDataException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
