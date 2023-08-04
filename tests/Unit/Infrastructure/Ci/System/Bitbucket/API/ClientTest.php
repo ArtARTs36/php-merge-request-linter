@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbu
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
@@ -62,6 +63,42 @@ final class ClientTest extends TestCase
             'owner',
             'repo',
             1,
+            'test-comment',
+        ));
+
+        self::assertEquals(
+            [$id, $url, $content, $authorAccountId],
+            [$comment->id, $comment->url, $comment->content, $comment->authorAccountId],
+        );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client::updateComment
+     */
+    public function testUpdateComment(): void
+    {
+        $client = $this->createClient([
+            'https://api.bitbucket.org/2.0/repositories/owner/repo/pullrequests/1/comments/2' => [
+                'id' => $id = 2,
+                'links' => [
+                    'self' => [
+                        'href' => $url = 'http://url.url',
+                    ],
+                ],
+                'content' => [
+                    'raw' => $content = 'test-comment',
+                ],
+                'user' => [
+                    'account_id' => $authorAccountId = '2',
+                ],
+            ],
+        ]);
+
+        $comment = $client->updateComment(new UpdateCommentInput(
+            'owner',
+            'repo',
+            1,
+            '2',
             'test-comment',
         ));
 

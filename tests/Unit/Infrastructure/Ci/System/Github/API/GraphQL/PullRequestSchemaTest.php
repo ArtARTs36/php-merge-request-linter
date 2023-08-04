@@ -37,6 +37,7 @@ final class PullRequestSchemaTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\PullRequestSchema::createPullRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\PullRequestSchema::__construct
      * @dataProvider providerForTestCreatePullRequestOnInvalidData
      */
     public function testCreatePullRequestOnInvalidData(array $data, string $expectedException): void

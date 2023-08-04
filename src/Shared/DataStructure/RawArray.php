@@ -63,6 +63,9 @@ class RawArray implements \IteratorAggregate
         return new RawArray($val);
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayPathInvalidException
+     */
     public function string(string $path): string
     {
         $val = $this->path($path);

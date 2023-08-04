@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidResponseException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayPathInvalidException;
@@ -22,14 +23,20 @@ class ViewerSchema
 
     /**
      * @param array<string, mixed> $response
-     * @throws ArrayPathInvalidException
-     * @throws \Exception
+     * @throws InvalidResponseException
      */
     public function createViewer(array $response): Viewer
     {
         $responseArray = new RawArray($response);
 
-        $login = $responseArray->string('data.viewer.login');
+        try {
+            $login = $responseArray->string('data.viewer.login');
+        } catch (ArrayPathInvalidException $e) {
+            throw InvalidResponseException::make(
+                $e->getMessage(),
+                $e,
+            );
+        }
 
         return Viewer::make($login);
     }
