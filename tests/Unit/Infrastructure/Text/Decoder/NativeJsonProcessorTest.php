@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Text\Decoder;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class NativeJsonDecoderTest extends TestCase
+final class NativeJsonProcessorTest extends TestCase
 {
     public function providerForTestDecode(): array
     {
@@ -50,5 +50,18 @@ final class NativeJsonDecoderTest extends TestCase
         $decoder = new NativeJsonProcessor();
 
         $decoder->decode('null');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor::encode
+     */
+    public function testEncode(): void
+    {
+        $processor = new NativeJsonProcessor();
+
+        self::assertEquals(
+            '[1,2]',
+            $processor->encode([1, 2]),
+        );
     }
 }

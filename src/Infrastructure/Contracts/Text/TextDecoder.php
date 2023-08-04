@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text;
 
 /**
- * Interface for decoding text.
+ * Interface for text decoding.
  */
 interface TextDecoder
 {
