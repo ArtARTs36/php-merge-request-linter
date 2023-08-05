@@ -35,6 +35,9 @@ final class GithubActions implements CiSystem
         //
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getName(): string
     {
         return self::NAME;

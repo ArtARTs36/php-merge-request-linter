@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Github;
 
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
@@ -28,6 +29,7 @@ final class GithubActionsTest extends TestCase
     /**
      * @dataProvider providerForTestIs
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::isCurrentlyWorking
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::__construct
      */
     public function testIsCurrentlyWorking(array $env, bool $expected): void
     {
@@ -51,10 +53,31 @@ final class GithubActionsTest extends TestCase
     /**
      * @dataProvider providerForTestIsMergeRequest
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::isCurrentlyMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::__construct
      */
     public function testIsCurrentlyMergeRequest(array $env, bool $expected): void
     {
         self::assertEquals($expected, $this->makeCi($env)->isCurrentlyMergeRequest());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::updateComment
+     */
+    public function testUpdateComment(): void
+    {
+        $ci = $this->makeCi([]);
+
+        $ci->updateComment(new Comment('', ''));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::postCommentOnMergeRequest
+     */
+    public function testPostCommentOnMergeRequest(): void
+    {
+        $ci = $this->makeCi([]);
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test');
     }
 
     private function makeCi(array $env): GithubActions
