@@ -37,7 +37,7 @@ final class MockGithubClient implements GithubClient
 
     public function postComment(AddCommentInput $input): string
     {
-        // TODO: Implement postComment() method.
+        return '1';
     }
 
     public function updateComment(UpdateCommentInput $input): void

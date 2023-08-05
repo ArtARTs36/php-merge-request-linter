@@ -65,9 +65,14 @@ final class GithubActionsTest extends TestCase
      */
     public function testUpdateComment(): void
     {
-        $ci = $this->makeCi([]);
+        $ci = $this->makeCi([
+            'GITHUB_REF_NAME' => '1/merge',
+            'GITHUB_GRAPHQL_URL' => '',
+        ]);
 
         $ci->updateComment(new Comment('', ''));
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -75,9 +80,14 @@ final class GithubActionsTest extends TestCase
      */
     public function testPostCommentOnMergeRequest(): void
     {
-        $ci = $this->makeCi([]);
+        $ci = $this->makeCi([
+            'GITHUB_REF_NAME' => '1/merge',
+            'GITHUB_GRAPHQL_URL' => '',
+        ]);
 
         $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test');
+
+        $this->addToAssertionCount(1);
     }
 
     private function makeCi(array $env): GithubActions
