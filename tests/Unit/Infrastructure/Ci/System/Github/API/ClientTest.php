@@ -111,6 +111,60 @@ final class ClientTest extends TestCase
     }
 
     /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Client::getCurrentUser
+     */
+    public function testGetCurrentUser(): void
+    {
+        $client = $this->createClient([
+            [
+                'data' => [
+                    'viewer' => [
+                        'login' => 'test',
+                    ],
+                ],
+            ],
+        ]);
+
+        $viewer = $client->getCurrentUser('');
+
+        self::assertEquals('test', $viewer->login);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Client::getCommentsOnPullRequest
+     */
+    public function testGetCommentsOnPullRequest(): void
+    {
+        $client = $this->createClient([
+            [
+                'data' => [
+                    'resource' => [
+                        'comments' => [
+                            'nodes' => [
+                                [
+                                    'id' => '12',
+                                    'author' => [
+                                        'login' => 'dev',
+                                    ],
+                                    'body' => 'test-comment',
+                                ],
+                            ],
+                            'pageInfo' => [
+                                'hasNextPage' => true,
+                                'endCursor' => null,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $commentList = $client->getCommentsOnPullRequest('', '');
+
+        self::assertCount(1, $commentList->comments);
+    }
+
+    /**
      * @param array<string, array<mixed>> $responsesContents
      */
     private function createClient(
