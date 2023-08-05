@@ -42,7 +42,7 @@ interface GithubClient
 
     /**
      * Get current user.
-     * @throws ServerUnexpectedResponseException
+     * @throws InvalidResponseException
      */
     public function getCurrentUser(string $graphqlUrl): Viewer;
 

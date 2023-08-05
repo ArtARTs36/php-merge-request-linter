@@ -177,16 +177,9 @@ class Client implements GithubClient
 
     public function getCurrentUser(string $graphqlUrl): Viewer
     {
-        try {
-            return $this
-                ->viewerSchema
-                ->createViewer($this->runQuery($graphqlUrl, $this->viewerSchema->createQuery()));
-        } catch (ArrayPathInvalidException $e) {
-            throw new ServerUnexpectedResponseException(sprintf(
-                'Failed to get current user information: %s',
-                $e->getMessage(),
-            ));
-        }
+        return $this
+            ->viewerSchema
+            ->createViewer($this->runQuery($graphqlUrl, $this->viewerSchema->createQuery()));
     }
 
     public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList
