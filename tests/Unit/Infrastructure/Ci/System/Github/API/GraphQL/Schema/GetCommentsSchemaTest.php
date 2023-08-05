@@ -76,30 +76,60 @@ final class GetCommentsSchemaTest extends TestCase
         self::assertCount(1, $commentList->comments);
     }
 
-    /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\GetCommentsSchema::createCommentList
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\GetCommentsSchema::doCreateComments
-     */
-    public function testCreateCommentListOnCommentItemNonArray(): void
+    public function providerForTestCreateCommentListOnResponseInvalid(): array
     {
-        $schema = new GetCommentsSchema();
-
-        self::expectExceptionMessage('Given invalid response: data.resource.comments.nodes must be array');
-
-        $schema->createCommentList([
-            'data' => [
-                'resource' => [
-                    'comments' => [
-                        'nodes' => [
-                            true,
-                        ],
-                        'pageInfo' => [
-                            'hasNextPage' => true,
-                            'endCursor' => null,
+        return [
+            [
+                'Given invalid response: data.resource.comments.nodes must be array',
+                [
+                    'data' => [
+                        'resource' => [
+                            'comments' => [
+                                'nodes' => [
+                                    true,
+                                ],
+                                'pageInfo' => [
+                                    'hasNextPage' => true,
+                                    'endCursor' => null,
+                                ],
+                            ],
                         ],
                     ],
                 ],
             ],
-        ]);
+            [
+                'Given invalid response: Array[data] doesnt have path "resource"',
+                [
+                    'data' => [
+                        '_resource' => [ // expected "resource"
+                            'comments' => [
+                                'nodes' => [
+                                    true,
+                                ],
+                                'pageInfo' => [
+                                    'hasNextPage' => true,
+                                    'endCursor' => null,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\GetCommentsSchema::createCommentList
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\GetCommentsSchema::doCreateComments
+     *
+     * @dataProvider providerForTestCreateCommentListOnResponseInvalid
+     */
+    public function testCreateCommentListOnResponseInvalid(string $expectedExceptionMessage, array $response): void
+    {
+        $schema = new GetCommentsSchema();
+
+        self::expectExceptionMessage($expectedExceptionMessage);
+
+        $schema->createCommentList($response);
     }
 }

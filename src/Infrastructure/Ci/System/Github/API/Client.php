@@ -166,9 +166,6 @@ class Client implements GithubClient
         return $comment->id;
     }
 
-    /**
-     * @throws \Exception
-     */
     public function updateComment(UpdateCommentInput $input): void
     {
         $response = $this->runQuery($input->graphqlUrl, $this->updateCommentSchema->createQuery($input));

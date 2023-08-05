@@ -29,7 +29,7 @@ final class GithubActionsTest extends TestCase
      * @dataProvider providerForTestIs
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::isCurrentlyWorking
      */
-    public function testIs(array $env, bool $expected): void
+    public function testIsCurrentlyWorking(array $env, bool $expected): void
     {
         self::assertEquals($expected, $this->makeCi($env)->isCurrentlyWorking());
     }
@@ -52,7 +52,7 @@ final class GithubActionsTest extends TestCase
      * @dataProvider providerForTestIsMergeRequest
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::isCurrentlyMergeRequest
      */
-    public function testIsMergeRequest(array $env, bool $expected): void
+    public function testIsCurrentlyMergeRequest(array $env, bool $expected): void
     {
         self::assertEquals($expected, $this->makeCi($env)->isCurrentlyMergeRequest());
     }
