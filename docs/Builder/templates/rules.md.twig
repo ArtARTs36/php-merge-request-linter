@@ -12,12 +12,10 @@ Currently is available that rules:
 {% for rule in rules %}
 <tr>
 <td rowspan="{{ max(rule.params.count, 1) }}">{{ rule.name }}</td>
-<td>{{ rule.description }}</td>
 {% if rule.params.isEmpty %}
-<td></td>
-<td></td>
-<td></td>
+<td colspan="4">{{ rule.description }}</td>
 {% else %}
+<td>{{ rule.description }}</td>
 <td>{{ rule.params.first.name }}</td>
 <td>{{ rule.params.first.description }}</td>
 <td>{{ rule.params.first.type }}{% if rule.params.first.generic %} of {{ rule.params.first.generic }}s {% endif %}</td>

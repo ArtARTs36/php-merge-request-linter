@@ -32,10 +32,7 @@ Currently is available that rules:
 </tr>
 <tr>
 <td rowspan="1">@mr-linter/description_not_empty</td>
-<td>The description must be filled.</td>
-<td></td>
-<td></td>
-<td></td>
+<td colspan="4">The description must be filled.</td>
 </tr>
 <tr>
 <td rowspan="1">@mr-linter/has_all_labels</td>
@@ -46,10 +43,7 @@ Currently is available that rules:
 </tr>
 <tr>
 <td rowspan="1">@mr-linter/has_any_labels</td>
-<td>Merge Request must have any labels.</td>
-<td></td>
-<td></td>
-<td></td>
+<td colspan="4">Merge Request must have any labels.</td>
 </tr>
 <tr>
 <td rowspan="1">@mr-linter/has_any_labels_of</td>
