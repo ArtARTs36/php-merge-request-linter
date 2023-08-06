@@ -21,6 +21,8 @@ final class MockGithubClient implements GithubClient
      */
     public function __construct(
         private array $tags = [],
+        private ?Viewer $user = null,
+        private ?CommentList $comments = null,
     ) {
         //
     }
@@ -47,11 +49,11 @@ final class MockGithubClient implements GithubClient
 
     public function getCurrentUser(string $graphqlUrl): Viewer
     {
-        // TODO: Implement getCurrentUser() method.
+        return $this->user;
     }
 
     public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList
     {
-        // TODO: Implement getCommentsOnPullRequest() method.
+        return $this->comments;
     }
 }

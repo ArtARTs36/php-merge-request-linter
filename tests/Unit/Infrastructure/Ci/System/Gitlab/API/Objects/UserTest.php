@@ -9,6 +9,7 @@ final class UserTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\User::__debugInfo
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\User::__construct
      */
     public function testDebugInfo(): void
     {

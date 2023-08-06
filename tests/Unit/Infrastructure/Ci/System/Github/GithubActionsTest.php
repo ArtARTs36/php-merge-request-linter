@@ -3,9 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Github;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\CommentList;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockGithubClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -90,11 +94,88 @@ final class GithubActionsTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    private function makeCi(array $env): GithubActions
+    public function providerForTestGetFirstCommentOnMergeRequestByCurrentUser(): array
+    {
+        return [
+            [
+                Viewer::make('test4'),
+                new CommentList(
+                    new Arrayee([
+                        new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment(
+                            '1',
+                            'test1',
+                            'test-message-1',
+                        ),
+                        new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment(
+                            '2',
+                            'test2',
+                            'test-message-2',
+                        ),
+                        new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment(
+                            '3',
+                            'test3',
+                            'test-message-3',
+                        ),
+                    ]),
+                    false,
+                    '1',
+                ),
+                null,
+            ],
+            [
+                Viewer::make('test2'),
+                new CommentList(
+                    new Arrayee([
+                        new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment(
+                            '1',
+                            'test1',
+                            'test-message-1',
+                        ),
+                        new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment(
+                            '2',
+                            'test2',
+                            'test-message-2',
+                        ),
+                        new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Comment(
+                            '3',
+                            'test3',
+                            'test-message-3',
+                        ),
+                    ]),
+                    true,
+                    '1',
+                ),
+                new Comment('2', 'test-message-2'),
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::getFirstCommentOnMergeRequestByCurrentUser
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::findCommentByUser
+     *
+     * @dataProvider providerForTestGetFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUser(Viewer $user, CommentList $commentList, ?Comment $expectedComment): void
+    {
+        $ci = $this->makeCi([
+            'GITHUB_REF_NAME' => '1/merge',
+            'GITHUB_GRAPHQL_URL' => '',
+        ], new MockGithubClient(
+            user: $user,
+            comments: $commentList,
+        ));
+
+        $comment = $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+
+        self::assertEquals($expectedComment, $comment);
+    }
+
+    private function makeCi(array $env, ?GithubClient $githubClient = null): GithubActions
     {
         return new GithubActions(
             new GithubEnvironment(new MapEnvironment(new ArrayMap($env))),
-            new MockGithubClient(),
+            $githubClient ?? new MockGithubClient(),
         );
     }
 }

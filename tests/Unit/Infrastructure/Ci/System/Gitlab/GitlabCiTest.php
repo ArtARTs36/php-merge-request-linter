@@ -65,6 +65,22 @@ final class GitlabCiTest extends TestCase
         self::assertEquals($expected, $this->makeCi($env)->isCurrentlyMergeRequest());
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::postCommentOnMergeRequest
+     */
+    public function testPostCommentOnMergeRequest(): void
+    {
+        $ci = $this->makeCi([
+            'CI_MERGE_REQUEST_IID' => 1,
+            'CI_SERVER_URL' => 'https://gitlab.com',
+            'CI_MERGE_REQUEST_PROJECT_ID' => 1,
+        ]);
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
+
+        $this->addToAssertionCount(1);
+    }
+
     private function makeCi(array $env): GitlabCi
     {
         return new GitlabCi(
