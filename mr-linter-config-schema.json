@@ -6534,11 +6534,11 @@
                 },
                 "extensions": {
                     "type": "array",
-                    "description": "array of file extensions",
+                    "description": "Array of file extensions",
                     "items": [
                         {
                             "type": "string",
-                            "description": "array of file extensions",
+                            "description": "Array of file extensions",
                             "examples": [
                                 "pem",
                                 "pub",

@@ -146,7 +146,7 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/disable_file_extensions</td>
 <td rowspan="1">Disable adding files of certain extensions.</td>
 <td>extensions</td>
-<td>array of file extensions <br/> Examples:  &quot;pem&quot;,  &quot;pub&quot;,  &quot;php&quot; </td>
+<td>Array of file extensions <br/> Examples:  &quot;pem&quot;,  &quot;pub&quot;,  &quot;php&quot; </td>
 <td>array of strings </td>
 </tr>
 </tbody>

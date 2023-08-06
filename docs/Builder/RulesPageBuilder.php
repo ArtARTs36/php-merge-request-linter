@@ -48,6 +48,11 @@ class RulesPageBuilder
                     continue;
                 }
 
+                if ($paramName === 'changes') {
+                    var_dump($param);
+                    exit();
+                }
+
                 $params[] = [
                     'name' => $paramName,
                     'type' => $paramType,
