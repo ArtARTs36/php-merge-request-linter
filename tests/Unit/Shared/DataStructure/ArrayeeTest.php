@@ -263,4 +263,32 @@ final class ArrayeeTest extends TestCase
 
         self::assertEquals($expected, $arrayee->firstFilter($filter));
     }
+
+    public function providerForTestSkip(): array
+    {
+        return [
+            [
+                [],
+                5,
+                [],
+            ],
+            [
+                [1, 2, 3, 4, 5],
+                2,
+                [3, 4, 5],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee::skip
+     *
+     * @dataProvider providerForTestSkip
+     */
+    public function testSkip(array $items, int $offset, array $expected): void
+    {
+        $arrayee = new Arrayee($items);
+
+        self::assertEquals($expected, $arrayee->skip($offset)->mapToArray(fn (mixed $item): mixed => $item));
+    }
 }

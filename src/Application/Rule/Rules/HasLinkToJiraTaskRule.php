@@ -5,16 +5,24 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 
 /**
  * The description must have a link to Jira on a {domain} with {projectCode}.
  */
-class HasLinkToJiraTaskRule extends AbstractRule
+final class HasLinkToJiraTaskRule extends AbstractRule
 {
     public const NAME = '@mr-linter/jira/has_issue_link';
 
-    public function __construct(protected string $domain, protected string $projectCode)
-    {
+    public function __construct(
+        #[Description('Domain of Jira instance')]
+        private readonly string $domain,
+        #[Description('Project code')]
+        #[Example('VIP')]
+        #[Example('SBD')]
+        private readonly string $projectCode,
+    ) {
         //
     }
 

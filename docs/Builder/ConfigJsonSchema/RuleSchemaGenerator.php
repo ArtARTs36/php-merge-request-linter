@@ -130,17 +130,17 @@ class RuleSchemaGenerator
             $paramSchema['description'] = $param->description;
         }
 
-        if ($param->hasExamples()) {
+        if ($param->hasExamples() && ! $param->type->isGeneric()) {
             $paramSchema['examples'] = array_map(fn (Example $ex) => $ex->value, $param->examples);
         }
 
         if ($param->type->isGeneric()) {
-            $generic = $param->type->getObjectGeneric();
+            $objGeneric = $param->type->getObjectGeneric();
 
-            if ($generic !== null) {
+            if ($objGeneric !== null) {
                 $genericProps = [];
 
-                foreach (Reflector::mapProperties($generic) as $property) {
+                foreach (Reflector::mapProperties($objGeneric) as $property) {
                     $genericProps[$property->name] = [
                         'type' => JsonType::to($property->type->class ?? $property->type->name->value),
                     ];
@@ -158,6 +158,10 @@ class RuleSchemaGenerator
 
                 if ($param->description !== '') {
                     $item['description'] = $param->description;
+                }
+
+                if ($param->hasExamples()) {
+                    $item['examples'] = array_map(fn (Example $ex) => $ex->value, $param->examples);
                 }
 
                 $paramSchema['items'] = [

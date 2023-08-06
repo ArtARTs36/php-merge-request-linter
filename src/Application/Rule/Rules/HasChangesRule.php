@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\ContainsR
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\DiffChecker;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\NeedFileChange;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasChangesRule\UpdatedPhpConstantChecker;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
@@ -27,6 +28,7 @@ class HasChangesRule implements Rule
      * @param Arrayee<int, NeedFileChange> $changes
      */
     public function __construct(
+        #[Description('Array of need changes')]
         private readonly Arrayee $changes,
         private readonly DiffChecker $diffChecker,
     ) {
@@ -36,8 +38,11 @@ class HasChangesRule implements Rule
     /**
      * @param Arrayee<int, NeedFileChange> $changes
      */
-    public static function make(#[Generic(NeedFileChange::class)] Arrayee $changes): self
-    {
+    public static function make(
+        #[Generic(NeedFileChange::class)]
+        #[Description('Array of need changes')]
+        Arrayee $changes,
+    ): self {
         return new self($changes, new CompositeChecker([
             new ContainsChecker(),
             new ContainsRegexChecker(),

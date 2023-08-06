@@ -111,3 +111,12 @@ comments:
         {% for note in result.notes %}
         - {{ note.description | raw }}
         {% endfor %}
+      when:
+        result.notes:
+          isEmpty: false
+
+    - template: |
+        I didn't find any notes in your Pull Request.
+      when:
+        result.notes:
+          isEmpty: true

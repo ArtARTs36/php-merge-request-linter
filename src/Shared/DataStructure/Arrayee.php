@@ -68,6 +68,14 @@ class Arrayee implements Collection, HasDebugInfo, \JsonSerializable
         return new Arrayee(array_slice($this->items, 0, $count));
     }
 
+    /**
+     * @return Arrayee<K, V>
+     */
+    public function skip(int $offset): Arrayee
+    {
+        return new Arrayee(array_slice($this->items, $offset));
+    }
+
     public function implode(string $sep): string
     {
         return implode($sep, $this->items);

@@ -81,6 +81,7 @@ final class DisableFileExtensionsRuleTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DisableFileExtensionsRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DisableFileExtensionsRule::__construct
      * @dataProvider providerForTestLint
      *
      * @param array<string> $disabledExtensions

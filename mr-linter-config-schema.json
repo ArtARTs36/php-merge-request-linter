@@ -6069,7 +6069,8 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "limit": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Number of maximum possible changes"
                 }
             },
             "additionalProperties": false,
@@ -6090,9 +6091,11 @@
                 },
                 "domains": {
                     "type": "array",
+                    "description": "Array of domains",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of domains"
                         }
                     ]
                 }
@@ -6115,9 +6118,11 @@
                 },
                 "domains": {
                     "type": "array",
+                    "description": "Array of domains",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of domains"
                         }
                     ]
                 }
@@ -6154,9 +6159,11 @@
                 },
                 "labels": {
                     "type": "array",
+                    "description": "Array of labels",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of labels"
                         }
                     ]
                 }
@@ -6193,9 +6200,11 @@
                 },
                 "labels": {
                     "type": "array",
+                    "description": "Array of labels",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of labels"
                         }
                     ]
                 }
@@ -6217,10 +6226,16 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "domain": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Domain of Jira instance"
                 },
                 "projectCode": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Project code",
+                    "examples": [
+                        "VIP",
+                        "SBD"
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -6274,9 +6289,11 @@
                 },
                 "prefixes": {
                     "type": "array",
+                    "description": "Array of prefixes",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of prefixes"
                         }
                     ]
                 }
@@ -6299,6 +6316,7 @@
                 },
                 "changes": {
                     "type": "array",
+                    "description": "Array of need changes",
                     "items": {
                         "type": "object",
                         "properties": {
@@ -6381,7 +6399,11 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "projectName": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Project name",
+                    "examples": [
+                        "VIP"
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -6491,7 +6513,8 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "stopOnFirstFailure": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "When the value is true, the search will stop after the first found key"
                 }
             },
             "additionalProperties": false,
@@ -6512,14 +6535,16 @@
                 },
                 "extensions": {
                     "type": "array",
-                    "examples": [
-                        "pem",
-                        "pub",
-                        "php"
-                    ],
+                    "description": "Array of file extensions",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of file extensions",
+                            "examples": [
+                                "pem",
+                                "pub",
+                                "php"
+                            ]
                         }
                     ]
                 }
