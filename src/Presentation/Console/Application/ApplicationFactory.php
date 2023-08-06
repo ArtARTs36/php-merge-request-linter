@@ -25,10 +25,12 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\PathResol
 use ArtARTs36\MergeRequestLinter\Infrastructure\Container\MapContainer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\TextRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\LocalEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\CompositeLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Logger\MetricableLogger;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfoFactory;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\DumpCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InfoCommand;
@@ -36,6 +38,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\InstallCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Exceptions\ApplicationNotCreatedException;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
+use ArtARTs36\MergeRequestLinter\Providers\CommentProvider;
 use ArtARTs36\MergeRequestLinter\Providers\EventDispatcherProvider;
 use ArtARTs36\MergeRequestLinter\Providers\NotificationsProvider;
 use ArtARTs36\MergeRequestLinter\Providers\RuleProvider;
@@ -57,6 +60,7 @@ class ApplicationFactory
         EventDispatcherProvider::class,
         NotificationsProvider::class,
         RuleProvider::class,
+        CommentProvider::class,
     ];
 
     public function __construct(
@@ -86,6 +90,7 @@ class ApplicationFactory
             $metrics,
             $httpClientFactory,
             $clock,
+            $this->container,
         );
 
         $argResolverFactory = new ResolverFactory($this->container);
@@ -112,6 +117,8 @@ class ApplicationFactory
         $this->runProviders();
 
         $events = $this->container->get(EventManager::class);
+
+        $this->registerTextRenderer();
 
         $application = new Application($metrics);
 
@@ -157,6 +164,13 @@ class ApplicationFactory
         $this->container->set(Clock::class, $clock);
 
         return $clock;
+    }
+
+    private function registerTextRenderer(): void
+    {
+        $renderer = TwigRenderer::create();
+
+        $this->container->set(TextRenderer::class, $renderer);
     }
 
     private function registerHttpClientFactory(): ClientFactory

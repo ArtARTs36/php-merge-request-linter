@@ -16,6 +16,7 @@ final class BitbucketPipelinesCreatorTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelinesCreator::create
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelinesCreator::createLabelsOfDescriptionSettings
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelinesCreator::__construct
      */
     public function testCreate(): void

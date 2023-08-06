@@ -38,10 +38,10 @@ try-gitlab:
 
 # usage as `make try-bitbucket MR_ID=2`
 try-bitbucket:
-	BITBUCKET_PROJECT_KEY=aukrainsky \
-	BITBUCKET_PR_ID=6 \
-	BITBUCKET_WORKSPACE=aukrainsky \
-	BITBUCKET_REPO_SLUG=a1 \
+	BITBUCKET_PROJECT_KEY=ArtARTs36 \
+	BITBUCKET_PR_ID=${MR_ID} \
+	BITBUCKET_WORKSPACE=ArtARTs36 \
+	BITBUCKET_REPO_SLUG=test-repo \
  	./bin/mr-linter lint --debug --metrics
 
 docker-build:
@@ -149,7 +149,7 @@ test-e2e-docker: docker-build
 
 test-docker: docker-testing-build
 	docker run \
-		--volume ./:/app \
+		--volume ./:/app/ \
 		--env-file .env \
 		--entrypoint "composer" \
 		artarts36/merge-request-linter "test"

@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\ToolInfo;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Tag\Tag;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\Tag;
 use ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo\ToolInfo;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockGithubClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;

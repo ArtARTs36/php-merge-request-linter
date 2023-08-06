@@ -4,29 +4,40 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidResponseException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-class GithubActions implements CiSystem
+final class GithubActions implements CiSystem
 {
     public const NAME = 'github_actions';
 
     public function __construct(
-        protected GithubEnvironment $env,
-        protected GithubClient $client,
+        private readonly GithubEnvironment $env,
+        private readonly GithubClient $client,
+        private readonly LoggerInterface $logger = new NullLogger(),
     ) {
         //
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getName(): string
     {
         return self::NAME;
@@ -74,6 +85,7 @@ class GithubActions implements CiSystem
             $this->mapChanges($pullRequest),
             $pullRequest->createdAt,
             Str::make($pullRequest->uri),
+            $pullRequest->id,
         );
     }
 
@@ -94,5 +106,75 @@ class GithubActions implements CiSystem
 
             return new ArrayMap($changes);
         }, $request->changedFiles);
+    }
+
+    public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
+    {
+        try {
+            $this->client->postComment(
+                new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment),
+            );
+        } catch (InvalidResponseException $e) {
+            throw new PostCommentException(sprintf(
+                'Post comment was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
+    }
+
+    public function updateComment(Comment $comment): void
+    {
+        $this->client->updateComment(
+            new UpdateCommentInput($this->env->getGraphqlURL(), $comment->id, $comment->message),
+        );
+    }
+
+    public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
+    {
+        $user = $this->client->getCurrentUser($this->env->getGraphqlURL());
+
+        $this->logger->debug(sprintf(
+            '[GithubActions] Current user is "%s"',
+            $user->getHiddenLogin(),
+        ));
+
+        $gComment = $this->findCommentByUser($request, $user->login);
+
+        return $gComment === null ? null : new Comment(
+            $gComment->id,
+            $gComment->message,
+        );
+    }
+
+    private function findCommentByUser(MergeRequest $request, string $userLogin): ?API\GraphQL\Type\Comment
+    {
+        $gComment = null;
+        $after = null;
+
+        while ($gComment === null) {
+            $commentList = $this
+                ->client
+                ->getCommentsOnPullRequest(
+                    $this->env->getGraphqlURL(),
+                    $request->uri,
+                    $after,
+                );
+
+            if ($commentList->comments->isEmpty()) {
+                break;
+            }
+
+            $gComment = $commentList
+                ->comments
+                ->firstFilter(fn (API\GraphQL\Type\Comment $comment) => $comment->authorLogin === $userLogin);
+
+            if ($gComment !== null || ! $commentList->hasNextPage) {
+                break;
+            }
+
+            $after = $commentList->endCursor;
+        }
+
+        return $gComment;
     }
 }

@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextDecoderNotFo
 class DecoderFactory
 {
     private const MAP = [
-        'json' => NativeJsonDecoder::class,
+        'json' => NativeJsonProcessor::class,
         'yaml' => SymfonyYamlDecoder::class,
     ];
 

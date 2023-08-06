@@ -58,9 +58,9 @@ class RulesPageBuilder
 
         return TwigRenderer::create()->render(
             file_get_contents(__DIR__ . '/templates/rules.md.twig'),
-            new ArrayMap([
+            [
                 'rules' => $rules,
-            ])
+            ],
         );
     }
 }

@@ -5,8 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CiSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiInvalidParamsException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client as APIClient;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient as APIClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\CompositeResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\DescriptionLabelsResolver;
@@ -17,7 +17,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\SystemCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Cleaner\LeagueMarkdownCleaner;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 use League\CommonMark\CommonMarkConverter;
 use Psr\Log\LoggerInterface;
@@ -44,7 +44,7 @@ final class BitbucketPipelinesCreator implements SystemCreator
                 $settings->credentials,
                 $this->httpClient,
                 $this->logger,
-                new NativeJsonDecoder(),
+                new NativeJsonProcessor(),
                 new PullRequestSchema($this->clock),
             ),
             new BitbucketEnvironment($this->environment),
@@ -53,6 +53,7 @@ final class BitbucketPipelinesCreator implements SystemCreator
             new CompositeResolver([
                 new DescriptionLabelsResolver(),
             ]),
+            $this->logger,
         );
     }
 

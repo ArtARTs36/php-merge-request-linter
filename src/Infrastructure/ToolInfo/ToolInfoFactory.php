@@ -4,12 +4,12 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\ToolInfo;
 
 use ArtARTs36\ContextLogger\LoggerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Change\ChangeSchema;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\Client;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GraphQL\PullRequest\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\PullRequestSchema;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Change\ChangeSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientGuzzleWrapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Request\DiffMapper;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonDecoder;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 use Psr\Log\NullLogger;
 
@@ -29,7 +29,7 @@ class ToolInfoFactory
                 new NullAuthenticator(),
                 new PullRequestSchema($this->clock),
                 LoggerFactory::null(),
-                new NativeJsonDecoder(),
+                new NativeJsonProcessor(),
                 new ChangeSchema(new DiffMapper()),
             ),
         );

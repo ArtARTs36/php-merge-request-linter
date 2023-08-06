@@ -18,9 +18,9 @@ try {
 
 file_put_contents(__DIR__ . '/../config-schema.md', TwigRenderer::create()->render(
     file_get_contents(__DIR__ . '/templates/config-schema.md.twig'),
-    new \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap([
+    [
         'schema' => $json,
-    ]),
+    ],
 ));
 
 $updated = $prevHash !== md5($json);

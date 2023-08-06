@@ -48,6 +48,8 @@ class MergeRequest
         public Map  $changes,
         public \DateTimeImmutable $createdAt,
         public Str $uri,
+        public string $id = '',
+        public string $number = '',
     ) {
         //
     }

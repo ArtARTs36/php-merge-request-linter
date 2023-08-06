@@ -7,7 +7,6 @@ use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Contracts\Notifier;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Notifier\MessageCreator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Exceptions\TextRenderingFailedException;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 
 class NotifyListener implements Listener
 {
@@ -25,7 +24,7 @@ class NotifyListener implements Listener
         try {
             $message = $this->messageCreator->create(
                 $this->message->template,
-                new ArrayMap(get_object_vars($event)),
+                get_object_vars($event),
             );
         } catch (TextRenderingFailedException $e) {
             throw new NotifyFailedException(sprintf(

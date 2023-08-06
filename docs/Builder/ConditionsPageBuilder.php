@@ -21,9 +21,9 @@ class ConditionsPageBuilder
         return TwigRenderer::create()
             ->render(
                 file_get_contents(__DIR__ . '/templates/conditions.md.twig'),
-                new ArrayMap([
+                [
                     'operators' => $operators,
-                ]),
+                ],
             );
     }
 }

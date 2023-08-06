@@ -3,9 +3,15 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Domain\CI\InvalidCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\CommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\GetCommentsInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\Input;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
@@ -41,7 +47,7 @@ class GitlabCi implements CiSystem
     public function isCurrentlyMergeRequest(): bool
     {
         try {
-            return $this->environment->getMergeRequestId() >= 0;
+            return $this->environment->getMergeRequestNumber() >= 0;
         } catch (EnvironmentVariableNotFoundException) {
             return false;
         }
@@ -53,7 +59,7 @@ class GitlabCi implements CiSystem
             new MergeRequestInput(
                 $this->environment->getGitlabServerUrl(),
                 $this->environment->getProjectId(),
-                $this->environment->getMergeRequestId(),
+                $this->environment->getMergeRequestNumber(),
             ),
         );
 
@@ -73,13 +79,15 @@ class GitlabCi implements CiSystem
             $this->mapChanges($request),
             $request->createdAt,
             Str::make($request->uri),
+            (string) $request->id,
+            (string) $request->number,
         );
     }
 
     /**
      * @return Map<string, Change>
      */
-    private function mapChanges(API\MergeRequest $request): Map
+    private function mapChanges(API\Objects\MergeRequest $request): Map
     {
         $changes = [];
 
@@ -91,5 +99,60 @@ class GitlabCi implements CiSystem
         }
 
         return new ArrayMap($changes);
+    }
+
+    public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
+    {
+        $this->client->postComment(
+            new CommentInput(
+                $this->environment->getGitlabServerUrl(),
+                $this->environment->getProjectId(),
+                $this->environment->getMergeRequestNumber(),
+                $comment,
+            ),
+        );
+    }
+
+    public function updateComment(Comment $comment): void
+    {
+        if (! is_numeric($comment->id)) {
+            throw new InvalidCommentException(sprintf(
+                'Comment id for GitLab CI must be integer. Given string: %s',
+                $comment->id,
+            ));
+        }
+
+        $commentId = (int) $comment->id;
+
+        $this->client->updateComment(
+            new UpdateCommentInput(
+                $this->environment->getGitlabServerUrl(),
+                $this->environment->getProjectId(),
+                $this->environment->getMergeRequestNumber(),
+                $comment->message,
+                $commentId,
+            ),
+        );
+    }
+
+    public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
+    {
+        $user = $this->client->getCurrentUser(new Input(
+            $this->environment->getGitlabServerUrl(),
+        ));
+
+        $gitlabComment = $this
+            ->client
+            ->getCommentsOnMergeRequest(new GetCommentsInput(
+                $this->environment->getGitlabServerUrl(),
+                $this->environment->getProjectId(),
+                $request->number,
+            ))
+            ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
+
+        return $gitlabComment === null ? null : new Comment(
+            (string) $gitlabComment->id,
+            $gitlabComment->body,
+        );
     }
 }

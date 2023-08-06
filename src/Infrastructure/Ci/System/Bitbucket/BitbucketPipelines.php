@@ -5,10 +5,13 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\CreateCommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\PullRequestInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Input\UpdateCommentInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\LabelsResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
@@ -20,21 +23,26 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Markdown;
 use ArtARTs36\Str\Str;
+use Psr\Log\LoggerInterface;
 
 class BitbucketPipelines implements CiSystem
 {
     public const NAME = 'bitbucket_pipelines';
 
     public function __construct(
-        private readonly Client $client,
-        private readonly BitbucketEnvironment $environment,
-        private readonly MarkdownCleaner $markdownCleaner,
+        private readonly Client                     $client,
+        private readonly BitbucketEnvironment       $environment,
+        private readonly MarkdownCleaner            $markdownCleaner,
         private readonly BitbucketPipelinesSettings $settings,
-        private readonly LabelsResolver $labelsResolver,
+        private readonly LabelsResolver             $labelsResolver,
+        private readonly LoggerInterface            $logger,
     ) {
         //
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getName(): string
     {
         return self::NAME;
@@ -81,6 +89,8 @@ class BitbucketPipelines implements CiSystem
             $this->mapChanges($pr),
             $pr->createdAt,
             Str::make($pr->uri),
+            (string) $pr->id,
+            (string) $pr->id,
         );
     }
 
@@ -101,5 +111,79 @@ class BitbucketPipelines implements CiSystem
 
             return new ArrayMap($changes);
         });
+    }
+
+    public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
+    {
+        $repo = $this->environment->getRepo();
+        $prId = $this->environment->getPullRequestId();
+
+        $createdComment = $this->client->postComment(new CreateCommentInput(
+            $repo->workspace,
+            $repo->slug,
+            $prId,
+            $comment,
+        ));
+
+        $this->logger->info(sprintf(
+            '[BitbucketPipelines] Comment was created with id %d and url %s',
+            $createdComment->id,
+            $createdComment->url,
+        ));
+    }
+
+    public function updateComment(Comment $comment): void
+    {
+        $repo = $this->environment->getRepo();
+        $prId = $this->environment->getPullRequestId();
+
+        $this->client->updateComment(new UpdateCommentInput(
+            $repo->workspace,
+            $repo->slug,
+            $prId,
+            $comment->id,
+            $comment->message,
+        ));
+
+        $this->logger->info(sprintf(
+            '[BitbucketPipelines] Comment with id "%s" was updated',
+            $comment->id,
+        ));
+    }
+
+    public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
+    {
+        $repo = $this->environment->getRepo();
+        $prId = $this->environment->getPullRequestId();
+
+        $user = $this->client->getCurrentUser();
+
+        $needComment = null;
+        $page = 0;
+
+        while ($needComment === null) {
+            $comments = $this
+                ->client
+                ->getComments(new PullRequestInput(
+                    $repo->workspace,
+                    $repo->slug,
+                    $prId,
+                ));
+
+            if ($comments->comments->isEmpty()) {
+                break;
+            }
+
+            $needComment = $comments
+                ->comments
+                ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorAccountId === $user->accountId);
+
+            ++$page;
+        }
+
+        return $needComment === null ? null : new Comment(
+            (string) $needComment->id,
+            $needComment->content,
+        );
     }
 }

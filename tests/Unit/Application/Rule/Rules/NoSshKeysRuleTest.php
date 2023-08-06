@@ -16,6 +16,8 @@ final class NoSshKeysRuleTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NoSshKeysRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NoSshKeysRule::findSshKeysTypes
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NoSshKeysRule::__construct
      *
      * @dataProvider providerForTestLint
      */

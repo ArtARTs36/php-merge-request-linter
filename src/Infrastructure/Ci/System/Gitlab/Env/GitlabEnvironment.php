@@ -37,8 +37,8 @@ class GitlabEnvironment
     /**
      * @throws EnvironmentVariableNotFoundException
      */
-    public function getMergeRequestId(): int
+    public function getMergeRequestNumber(): int
     {
-        return $this->environment->getInt(VarName::RequestID->value);
+        return $this->environment->getInt(VarName::RequestNumber->value);
     }
 }

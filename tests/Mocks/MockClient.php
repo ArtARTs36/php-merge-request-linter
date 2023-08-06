@@ -12,6 +12,32 @@ class MockClient implements Client
     /** @var array<RequestInterface> */
     private array $requests = [];
 
+    /**
+     * @param array<string, ResponseInterface> $responses
+     */
+    public function __construct(
+        private array $responses = [],
+    ) {
+    }
+
+    /**
+     * @param array<string, array<mixed>> $contents
+     */
+    public static function makeOfResponsesContents(array $contents): self
+    {
+        $responses = [];
+
+        foreach ($contents as $url => $content) {
+            $responses[$url] = new Response(
+                200,
+                [],
+                json_encode($content),
+            );
+        }
+
+        return new self($responses);
+    }
+
     public function lastRequest(): ?RequestInterface
     {
         return end($this->requests);
@@ -29,7 +55,7 @@ class MockClient implements Client
     {
         $this->requests[] = $request;
 
-        return new Response();
+        return count($this->responses) > 0 ? array_shift($this->responses) : new Response();
     }
 
     public function sendAsyncRequests(array $requests): array
@@ -38,6 +64,6 @@ class MockClient implements Client
             $this->requests[] = $request;
         }
 
-        return [];
+        return $this->responses;
     }
 }

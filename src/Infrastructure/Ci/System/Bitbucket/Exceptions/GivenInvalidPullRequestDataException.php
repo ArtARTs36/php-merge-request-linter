@@ -4,6 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Except
 
 use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class GivenInvalidPullRequestDataException extends MergeRequestLinterException
 {
     public static function keyNotFound(string $key): self

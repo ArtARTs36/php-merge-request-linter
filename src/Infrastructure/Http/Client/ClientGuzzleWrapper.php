@@ -86,7 +86,7 @@ class ClientGuzzleWrapper implements Client
 
         if ($response->getStatusCode() === 401 || $response->getStatusCode() === 403) {
             throw InvalidCredentialsException::fromResponse($host, $response->getBody()->getContents());
-        } elseif ($response->getStatusCode() !== 200) {
+        } elseif ($response->getStatusCode() !== 200 && $response->getStatusCode() !== 201) {
             throw ServerUnexpectedResponseException::create(
                 $host,
                 $response->getStatusCode(),

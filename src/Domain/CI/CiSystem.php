@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\CI;
 
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 
 /**
@@ -30,4 +31,21 @@ interface CiSystem
      * @throws MergeRequestNotFoundException
      */
     public function getCurrentlyMergeRequest(): MergeRequest;
+
+    /**
+     * Post comment on merge request.
+     * @throws PostCommentException
+     */
+    public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void;
+
+    /**
+     * Update comment.
+     * @throws InvalidCommentException
+     */
+    public function updateComment(Comment $comment): void;
+
+    /**
+     * Get first comment on merge request by current user.
+     */
+    public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment;
 }

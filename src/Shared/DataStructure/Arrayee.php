@@ -111,6 +111,21 @@ class Arrayee implements Collection, HasDebugInfo, \JsonSerializable
         return new Arrayee($items);
     }
 
+    /**
+     * @param callable(V): bool $filter
+     * @return V|null
+     */
+    public function firstFilter(callable $filter): mixed
+    {
+        foreach ($this->items as $item) {
+            if ($filter($item)) {
+                return $item;
+            }
+        }
+
+        return null;
+    }
+
     public function __debugInfo(): array
     {
         return [

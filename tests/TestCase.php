@@ -2,11 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests;
 
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
@@ -14,8 +18,11 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\CounterLogger;
 use ArtARTs36\Str\Str;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -32,6 +39,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             new NotificationsConfig(new ArrayMap([]), new ArrayMap([])),
             new LinterConfig(
                 new LinterOptions(false),
+            ),
+            new CommentsConfig(
+                CommentsPostStrategy::Null,
+                [],
             ),
         );
     }
@@ -52,7 +63,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             new ArrayMap($request['changes'] ?? []),
             new \DateTimeImmutable(),
             Str::fromEmpty(),
+            $request['id'] ?? '',
         );
+    }
+
+    protected function makeSuccessLintResult(): LintResult
+    {
+        return new LintResult(LintState::Success, new Arrayee([]), new Duration(1));
     }
 
     protected function makeEnvironment(array $env): Environment
@@ -76,5 +93,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function getPropertyValue(object $obj, string $prop): mixed
     {
         return (fn ($prop) => $this->$prop)->call($obj, $prop);
+    }
+
+    protected function mockLogger(): CounterLogger
+    {
+        return new CounterLogger();
     }
 }
