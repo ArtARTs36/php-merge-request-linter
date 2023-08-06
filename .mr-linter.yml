@@ -114,6 +114,7 @@ comments:
       when:
         result.notes:
           isEmpty: false
+
     - template: |
         I didn't find any notes in your Pull Request.
       when:
