@@ -101,7 +101,7 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/branch_starts_with_task_number</td>
 <td rowspan="1">Source branch must starts with task number of project {projectName}. Mask: {projectName}-number</td>
 <td>projectName</td>
-<td></td>
+<td>Project name</td>
 <td>string</td>
 </tr>
 <tr>

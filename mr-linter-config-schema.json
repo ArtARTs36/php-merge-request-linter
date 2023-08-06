@@ -6383,6 +6383,7 @@
                 },
                 "projectName": {
                     "type": "string",
+                    "description": "Project name",
                     "examples": [
                         "VIP"
                     ]
