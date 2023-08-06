@@ -6091,9 +6091,11 @@
                 },
                 "domains": {
                     "type": "array",
+                    "description": "Array of domains",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of domains"
                         }
                     ]
                 }
@@ -6116,9 +6118,11 @@
                 },
                 "domains": {
                     "type": "array",
+                    "description": "Array of domains",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of domains"
                         }
                     ]
                 }
@@ -6155,9 +6159,11 @@
                 },
                 "labels": {
                     "type": "array",
+                    "description": "Array of labels",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of labels"
                         }
                     ]
                 }
@@ -6194,9 +6200,11 @@
                 },
                 "labels": {
                     "type": "array",
+                    "description": "Array of labels",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of labels"
                         }
                     ]
                 }
@@ -6218,10 +6226,16 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "domain": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Domain of Jira instance"
                 },
                 "projectCode": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Project code",
+                    "examples": [
+                        "VIP",
+                        "SBD"
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -6275,9 +6289,11 @@
                 },
                 "prefixes": {
                     "type": "array",
+                    "description": "Array of prefixes",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Array of prefixes"
                         }
                     ]
                 }

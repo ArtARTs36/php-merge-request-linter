@@ -6,12 +6,13 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 
 /**
  * The title must starts with any {prefixes}
  */
-class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
+final class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
 {
     public const NAME = '@mr-linter/title_must_starts_with_any_prefix';
 
@@ -20,7 +21,8 @@ class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
      */
     public function __construct(
         #[Generic(Generic::OF_STRING)]
-        protected array $prefixes,
+        #[Description('Array of prefixes')]
+        private readonly array $prefixes,
     ) {
         //
     }

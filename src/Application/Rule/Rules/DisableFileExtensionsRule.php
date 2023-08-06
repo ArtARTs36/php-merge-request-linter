@@ -26,7 +26,7 @@ final class DisableFileExtensionsRule extends NamedRule
         #[Example('pub')]
         #[Example('php')]
         #[Generic(Generic::OF_STRING)]
-        #[Description('array of file extensions')]
+        #[Description('Array of file extensions')]
         private readonly Set $extensions,
     ) {
     }

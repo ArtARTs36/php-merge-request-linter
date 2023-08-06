@@ -20,14 +20,14 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/description_contains_links_of_any_domains</td>
 <td rowspan="1">Merge Request must contain links of any {domains}.</td>
 <td>domains</td>
-<td> </td>
+<td>Array of domains </td>
 <td>array of strings </td>
 </tr>
 <tr>
 <td rowspan="1">@mr-linter/description_contains_links_of_all_domains</td>
 <td rowspan="1">Merge Request must contain links of all {domains}.</td>
 <td>domains</td>
-<td> </td>
+<td>Array of domains </td>
 <td>array of strings </td>
 </tr>
 <tr>
@@ -38,7 +38,7 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/has_all_labels</td>
 <td rowspan="1">Merge Request must have all {labels}</td>
 <td>labels</td>
-<td> </td>
+<td>Array of labels </td>
 <td>array of strings </td>
 </tr>
 <tr>
@@ -49,19 +49,19 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/has_any_labels_of</td>
 <td rowspan="1">Merge Request must have any {labels}.</td>
 <td>labels</td>
-<td> </td>
+<td>Array of labels </td>
 <td>array of strings </td>
 </tr>
 <tr>
 <td rowspan="2">@mr-linter/jira/has_issue_link</td>
 <td rowspan="2">The description must have a link to Jira on a {domain} with {projectCode}.</td>
 <td>domain</td>
-<td> </td>
+<td>Domain of Jira instance </td>
 <td>string</td>
 </tr>
 <tr>
     <td>projectCode</td>
-    <td> </td>
+    <td>Project code </td>
     <td>string</td>
 </tr>
 <tr>
@@ -80,7 +80,7 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/title_must_starts_with_any_prefix</td>
 <td rowspan="1">The title must starts with any {prefixes}</td>
 <td>prefixes</td>
-<td> </td>
+<td>Array of prefixes </td>
 <td>array of strings </td>
 </tr>
 <tr>
