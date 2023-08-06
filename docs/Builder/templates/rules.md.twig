@@ -11,7 +11,8 @@ Currently is available that rules:
 		</tr>
 {% for rule in rules %}
 <tr>
-<td colspan="2" rowspan="{{ max(rule.params.count, 1) }}">{{ rule.name }}</td>
+<td rowspan="{{ max(rule.params.count, 1) }}">{{ rule.name }}</td>
+<td>{{ rule.description }}</td>
 {% if rule.params.isEmpty %}
 <td></td>
 <td></td>

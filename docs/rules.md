@@ -10,49 +10,57 @@ Currently is available that rules:
 			<td colspan="3">Parameters</td>
 		</tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/changed_files_limit</td>
+<td rowspan="1">@mr-linter/changed_files_limit</td>
+<td>Check count changed files on a {limit}.</td>
 <td>limit</td>
 <td>Number of maximum possible changes</td>
 <td>integer</td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/description_contains_links_of_any_domains</td>
+<td rowspan="1">@mr-linter/description_contains_links_of_any_domains</td>
+<td>Merge Request must contain links of any {domains}.</td>
 <td>domains</td>
 <td></td>
 <td>array of strings </td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/description_contains_links_of_all_domains</td>
+<td rowspan="1">@mr-linter/description_contains_links_of_all_domains</td>
+<td>Merge Request must contain links of all {domains}.</td>
 <td>domains</td>
 <td></td>
 <td>array of strings </td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/description_not_empty</td>
+<td rowspan="1">@mr-linter/description_not_empty</td>
+<td>The description must be filled.</td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/has_all_labels</td>
+<td rowspan="1">@mr-linter/has_all_labels</td>
+<td>Merge Request must have all {labels}</td>
 <td>labels</td>
 <td></td>
 <td>array of strings </td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/has_any_labels</td>
+<td rowspan="1">@mr-linter/has_any_labels</td>
+<td>Merge Request must have any labels.</td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/has_any_labels_of</td>
+<td rowspan="1">@mr-linter/has_any_labels_of</td>
+<td>Merge Request must have any {labels}.</td>
 <td>labels</td>
 <td></td>
 <td>array of strings </td>
 </tr>
 <tr>
-<td colspan="2" rowspan="2">@mr-linter/jira/has_issue_link</td>
+<td rowspan="2">@mr-linter/jira/has_issue_link</td>
+<td>The description must have a link to Jira on a {domain} with {projectCode}.</td>
 <td>domain</td>
 <td></td>
 <td>string</td>
@@ -63,7 +71,8 @@ Currently is available that rules:
     <td>string</td>
 </tr>
 <tr>
-<td colspan="2" rowspan="2">@mr-linter/youtrack/has_issue_link</td>
+<td rowspan="2">@mr-linter/youtrack/has_issue_link</td>
+<td>The description must have a link to YouTrack issue on a {domain} with {projectCode}.</td>
 <td>domain</td>
 <td>Domain hosting the YouTrack instance</td>
 <td>string</td>
@@ -74,37 +83,43 @@ Currently is available that rules:
     <td>string</td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/title_must_starts_with_any_prefix</td>
+<td rowspan="1">@mr-linter/title_must_starts_with_any_prefix</td>
+<td>The title must starts with any {prefixes}</td>
 <td>prefixes</td>
 <td></td>
 <td>array of strings </td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/has_changes</td>
+<td rowspan="1">@mr-linter/has_changes</td>
+<td>Merge Request must have changes in {files}.</td>
 <td>changes</td>
 <td></td>
 <td>array of objects </td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/title_starts_with_task_number</td>
+<td rowspan="1">@mr-linter/title_starts_with_task_number</td>
+<td>Title must starts with task number of project {projectName}. Mask: {projectName}-number</td>
 <td>projectName</td>
 <td>Project name</td>
 <td>string</td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/branch_starts_with_task_number</td>
+<td rowspan="1">@mr-linter/branch_starts_with_task_number</td>
+<td>Source branch must starts with task number of project {projectName}. Mask: {projectName}-number</td>
 <td>projectName</td>
 <td></td>
 <td>string</td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/forbid_changes</td>
+<td rowspan="1">@mr-linter/forbid_changes</td>
+<td>Forbid changes for files.</td>
 <td>files</td>
 <td>A set of files forbidden to be changed.</td>
 <td>array of strings </td>
 </tr>
 <tr>
-<td colspan="2" rowspan="2">@mr-linter/update_changelog</td>
+<td rowspan="2">@mr-linter/update_changelog</td>
+<td>Changelog must be contained new tag.</td>
 <td>file</td>
 <td>Relative path to changelog file</td>
 <td>string</td>
@@ -115,7 +130,8 @@ Currently is available that rules:
     <td>object</td>
 </tr>
 <tr>
-<td colspan="2" rowspan="2">@mr-linter/diff_limit</td>
+<td rowspan="2">@mr-linter/diff_limit</td>
+<td>The request must contain no more than {linesMax} changes.</td>
 <td>linesMax</td>
 <td>Maximum allowed number of changed lines</td>
 <td>integer</td>
@@ -126,13 +142,15 @@ Currently is available that rules:
     <td>integer</td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/no_ssh_keys</td>
+<td rowspan="1">@mr-linter/no_ssh_keys</td>
+<td>Prevent ssh keys from being included in the merge request.</td>
 <td>stopOnFirstFailure</td>
 <td></td>
 <td>boolean</td>
 </tr>
 <tr>
-<td colspan="2" rowspan="1">@mr-linter/disable_file_extensions</td>
+<td rowspan="1">@mr-linter/disable_file_extensions</td>
+<td>Disable adding files of certain extensions.</td>
 <td>extensions</td>
 <td>array of file extensions</td>
 <td>array of strings </td>
