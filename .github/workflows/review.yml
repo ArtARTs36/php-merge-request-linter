@@ -38,7 +38,7 @@ jobs:
 
       - name: Review Pull Request
         env:
-          MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MR_LINTER_GITHUB_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
           MR_LINTER_TELEGRAM_BOT_TOKEN: ${{ secrets.MR_LINTER_TELEGRAM_BOT_TOKEN }}
           MR_LINTER_TELEGRAM_CHAT_ID: ${{ secrets.MR_LINTER_TELEGRAM_CHAT_ID }}
           MR_LINTER_TIMEZONE: 'Europe/Moscow'
