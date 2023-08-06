@@ -139,7 +139,7 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/no_ssh_keys</td>
 <td rowspan="1">Prevent ssh keys from being included in the merge request.</td>
 <td>stopOnFirstFailure</td>
-<td></td>
+<td>When the value is true, the search will stop after the first found key</td>
 <td>boolean</td>
 </tr>
 <tr>

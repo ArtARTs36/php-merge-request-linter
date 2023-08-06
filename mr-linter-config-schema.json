@@ -6495,7 +6495,8 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "stopOnFirstFailure": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "When the value is true, the search will stop after the first found key"
                 }
             },
             "additionalProperties": false,

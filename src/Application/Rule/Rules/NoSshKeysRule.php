@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\SshKeyFinder;
 use ArtARTs36\Str\Str;
 
@@ -19,6 +20,7 @@ final class NoSshKeysRule extends NamedRule
 
     public function __construct(
         private readonly SshKeyFinder $sshKeyFinder,
+        #[Description('When the value is true, the search will stop after the first found key')]
         private readonly bool $stopOnFirstFailure,
     ) {
     }
