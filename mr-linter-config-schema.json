@@ -6381,7 +6381,10 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "projectName": {
-                    "type": "string"
+                    "type": "string",
+                    "examples": [
+                        "VIP"
+                    ]
                 }
             },
             "additionalProperties": false,
