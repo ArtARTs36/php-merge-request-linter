@@ -6512,14 +6512,16 @@
                 },
                 "extensions": {
                     "type": "array",
-                    "examples": [
-                        "pem",
-                        "pub",
-                        "php"
-                    ],
+                    "description": "array of file extensions",
                     "items": [
                         {
-                            "type": "string"
+                            "type": "string",
+                            "description": "array of file extensions",
+                            "examples": [
+                                "pem",
+                                "pub",
+                                "php"
+                            ]
                         }
                     ]
                 }

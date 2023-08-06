@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
@@ -25,6 +26,7 @@ final class DisableFileExtensionsRule extends NamedRule
         #[Example('pub')]
         #[Example('php')]
         #[Generic(Generic::OF_STRING)]
+        #[Description('array of file extensions')]
         private readonly Set $extensions,
     ) {
     }
