@@ -15,7 +15,7 @@ Currently is available that rules:
 {% if rule.params.isEmpty %}
 <td colspan="4">{{ rule.description }}</td>
 {% else %}
-<td>{{ rule.description }}</td>
+<td rowspan="{{ max(rule.params.count, 1) }}">{{ rule.description }}</td>
 <td>{{ rule.params.first.name }}</td>
 <td>{{ rule.params.first.description }}</td>
 <td>{{ rule.params.first.type }}{% if rule.params.first.generic %} of {{ rule.params.first.generic }}s {% endif %}</td>
