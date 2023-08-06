@@ -6069,7 +6069,8 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "limit": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Number of maximum possible changes"
                 }
             },
             "additionalProperties": false,

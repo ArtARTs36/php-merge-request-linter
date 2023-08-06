@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\JsonType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
@@ -41,16 +42,23 @@ class RulesPageBuilder
             $params = [];
 
             foreach ($this->ruleConstructorFinder->find($ruleClass)->params() as $paramName => $param) {
+                $paramType = JsonType::to($param->type->name());
+
+                if ($paramType === null) {
+                    continue;
+                }
+
                 $params[] = [
                     'name' => $paramName,
-                    'type' => JsonType::to($param->type->name()),
+                    'type' => $paramType,
                     'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
+                    'description' => $param->description,
                 ];
             }
 
             $rules[] = [
                 'name' => $ruleName,
-                'params' => $params,
+                'params' => new Arrayee($params),
                 'description' => $comment,
                 'path' => $path,
             ];
@@ -59,7 +67,7 @@ class RulesPageBuilder
         return TwigRenderer::create()->render(
             file_get_contents(__DIR__ . '/templates/rules.md.twig'),
             [
-                'rules' => $rules,
+                'rules' => new Arrayee($rules),
             ],
         );
     }

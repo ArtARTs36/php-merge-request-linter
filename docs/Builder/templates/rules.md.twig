@@ -2,9 +2,33 @@
 
 Currently is available that rules:
 
-| Name | Description | Parameters |
-| ------------ | ------------ | ------------ |
+<table class="iksweb">
+	<tbody>
+		<tr>
+			<td>Rule</td>
+			<td>Description</td>
+			<td colspan="3">Parameters</td>
+		</tr>
 {% for rule in rules %}
-| {{ rule.name }} | {{ rule.description }} |{% if rule.params|length == 0 %} None {% endif %}
-{% for param in rule.params%} `{{ param.name }}` - {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %}  <br/> {% endfor%} |
+<tr>
+<td colspan="2" rowspan="{{ max(rule.params.count, 1) }}">{{ rule.name }}</td>
+{% if rule.params.isEmpty %}
+<td></td>
+<td></td>
+<td></td>
+{% else %}
+<td>{{ rule.params.first.name }}</td>
+<td>{{ rule.params.first.description }}</td>
+<td>{{ rule.params.first.type }}</td>
+{% endif %}
+</tr>
+{% for param in rule.params.skip(1) %}
+<tr>
+    <td>{{ param.name }}</td>
+    <td>{{ param.description }}</td>
+    <td>{{ param.type }}</td>
+</tr>
 {% endfor %}
+{% endfor %}
+</tbody>
+</table>
