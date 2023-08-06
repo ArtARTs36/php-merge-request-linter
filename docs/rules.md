@@ -19,13 +19,13 @@ Currently is available that rules:
 <td colspan="2" rowspan="1">@mr-linter/description_contains_links_of_any_domains</td>
 <td>domains</td>
 <td></td>
-<td>array</td>
+<td>array of strings </td>
 </tr>
 <tr>
 <td colspan="2" rowspan="1">@mr-linter/description_contains_links_of_all_domains</td>
 <td>domains</td>
 <td></td>
-<td>array</td>
+<td>array of strings </td>
 </tr>
 <tr>
 <td colspan="2" rowspan="1">@mr-linter/description_not_empty</td>
@@ -37,7 +37,7 @@ Currently is available that rules:
 <td colspan="2" rowspan="1">@mr-linter/has_all_labels</td>
 <td>labels</td>
 <td></td>
-<td>array</td>
+<td>array of strings </td>
 </tr>
 <tr>
 <td colspan="2" rowspan="1">@mr-linter/has_any_labels</td>
@@ -49,7 +49,7 @@ Currently is available that rules:
 <td colspan="2" rowspan="1">@mr-linter/has_any_labels_of</td>
 <td>labels</td>
 <td></td>
-<td>array</td>
+<td>array of strings </td>
 </tr>
 <tr>
 <td colspan="2" rowspan="2">@mr-linter/jira/has_issue_link</td>
@@ -77,13 +77,13 @@ Currently is available that rules:
 <td colspan="2" rowspan="1">@mr-linter/title_must_starts_with_any_prefix</td>
 <td>prefixes</td>
 <td></td>
-<td>array</td>
+<td>array of strings </td>
 </tr>
 <tr>
 <td colspan="2" rowspan="1">@mr-linter/has_changes</td>
 <td>changes</td>
 <td></td>
-<td>array</td>
+<td>array of objects </td>
 </tr>
 <tr>
 <td colspan="2" rowspan="1">@mr-linter/title_starts_with_task_number</td>
@@ -101,7 +101,7 @@ Currently is available that rules:
 <td colspan="2" rowspan="1">@mr-linter/forbid_changes</td>
 <td>files</td>
 <td>A set of files forbidden to be changed.</td>
-<td>array</td>
+<td>array of strings </td>
 </tr>
 <tr>
 <td colspan="2" rowspan="2">@mr-linter/update_changelog</td>
@@ -135,7 +135,7 @@ Currently is available that rules:
 <td colspan="2" rowspan="1">@mr-linter/disable_file_extensions</td>
 <td>extensions</td>
 <td>array of file extensions</td>
-<td>array</td>
+<td>array of strings </td>
 </tr>
 </tbody>
 </table>
