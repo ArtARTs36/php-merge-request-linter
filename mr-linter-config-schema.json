@@ -6316,6 +6316,7 @@
                 },
                 "changes": {
                     "type": "array",
+                    "description": "Array of need changes",
                     "items": {
                         "type": "object",
                         "properties": {

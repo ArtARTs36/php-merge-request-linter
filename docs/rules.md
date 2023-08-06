@@ -87,7 +87,7 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/has_changes</td>
 <td rowspan="1">Merge Request must have changes in {files}.</td>
 <td>changes</td>
-<td> </td>
+<td>Array of need changes </td>
 <td>array of objects </td>
 </tr>
 <tr>

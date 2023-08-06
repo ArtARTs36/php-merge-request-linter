@@ -38,8 +38,11 @@ class HasChangesRule implements Rule
     /**
      * @param Arrayee<int, NeedFileChange> $changes
      */
-    public static function make(#[Generic(NeedFileChange::class)] Arrayee $changes): self
-    {
+    public static function make(
+        #[Generic(NeedFileChange::class)]
+        #[Description('Array of need changes')]
+        Arrayee $changes,
+    ): self {
         return new self($changes, new CompositeChecker([
             new ContainsChecker(),
             new ContainsRegexChecker(),
