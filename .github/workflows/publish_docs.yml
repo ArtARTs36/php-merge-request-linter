@@ -37,4 +37,4 @@ jobs:
       - name: Push docs to site
         run: make push-docs
         env:
-          DOCS_RETRIEVER_HTTP_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
+          DOCS_RETRIEVER_HTTP_TOKEN: ${{ secrets.DOCS_RETRIEVER_GITHUB_HTTP_TOKEN }}
