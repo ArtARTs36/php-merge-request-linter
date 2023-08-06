@@ -2,7 +2,7 @@
 
 Currently is available that rules:
 
-<table class="iksweb">
+<table>
 	<tbody>
 		<tr>
 			<td>Rule</td>
