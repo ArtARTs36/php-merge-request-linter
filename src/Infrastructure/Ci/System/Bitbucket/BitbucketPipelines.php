@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
@@ -65,7 +66,12 @@ class BitbucketPipelines implements CiSystem
     public function getCurrentlyMergeRequest(): MergeRequest
     {
         $repo = $this->environment->getRepo();
-        $prId = $this->environment->getPullRequestId();
+
+        try {
+            $prId = $this->environment->getPullRequestId();
+        } catch (EnvironmentVariableNotFoundException) {
+            throw new CurrentlyNotMergeRequestException();
+        }
 
         $pr = $this->client->getPullRequest(new PullRequestInput(
             $repo->workspace,
