@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API;
 
 use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\GraphqlException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
@@ -58,7 +60,25 @@ class Client implements GithubClient
     {
         $this->logger->info(sprintf('[GithubClient] Fetching Pull Request with id %d', $input->requestId));
 
-        $prResponse = $this->runQuery($input->graphqlUrl, $this->pullRequestSchema->createQuery($input));
+        try {
+            $prResponse = $this->runQuery($input->graphqlUrl, $this->pullRequestSchema->createQuery($input));
+        } catch (NotFoundException $e) {
+            $this->logger->warning(sprintf(
+                '[GithubClient] Pull Request with id %d not found: %s',
+                $input->requestId,
+                $e->getMessage(),
+            ));
+
+            throw $e;
+        } catch (GraphqlException $e) {
+            $this->logger->warning(sprintf(
+                '[GithubClient] Fetching Pull Request with id %d was failed: %s',
+                $input->requestId,
+                $e->getMessage(),
+            ));
+
+            throw $e;
+        }
 
         $pullRequest = $this->pullRequestSchema->createPullRequest($prResponse);
 
@@ -199,6 +219,7 @@ class Client implements GithubClient
      * @return array<mixed>
      * @throws \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\DecodingFailedException
      * @throws \Psr\Http\Client\ClientExceptionInterface
+     * @throws GraphqlException
      */
     private function runQuery(string $graphqlUrl, Query $query): array
     {
