@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Inp
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\QueryErrorProcessor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\AddCommentSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\GetCommentsSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\PullRequestSchema;
@@ -48,6 +49,7 @@ class Client implements GithubClient
         private readonly TagHydrator         $tagHydrator = new TagHydrator(),
         private readonly GetCommentsSchema   $getCommentsSchema = new GetCommentsSchema(),
         private readonly UpdateCommentSchema $updateCommentSchema = new UpdateCommentSchema(),
+        private readonly QueryErrorProcessor $queryPostProcessor = new QueryErrorProcessor(),
     ) {
         //
     }
@@ -211,8 +213,12 @@ class Client implements GithubClient
         $request = $this->credentials->authenticate($request);
 
         return $this
-            ->textProcessor
-            ->decode($this->client->sendRequest($request)->getBody()->getContents());
+            ->queryPostProcessor
+            ->processQuery(
+                $this
+                    ->textProcessor
+                    ->decode($this->client->sendRequest($request)->getBody()->getContents()),
+            );
     }
 
     private function createGetPullRequestFilesRequest(PullRequestInput $input, int $page): RequestInterface

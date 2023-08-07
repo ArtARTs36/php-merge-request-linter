@@ -4,11 +4,14 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidResponseException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\GraphqlException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
@@ -64,12 +67,16 @@ final class GithubActions implements CiSystem
         $graphqlUrl = $this->env->getGraphqlURL();
         $repo = $this->env->extractRepo();
 
-        $pullRequest = $this->client->getPullRequest(new PullRequestInput(
-            $graphqlUrl,
-            $repo->owner,
-            $repo->name,
-            $requestId,
-        ));
+        try {
+            $pullRequest = $this->client->getPullRequest(new PullRequestInput(
+                $graphqlUrl,
+                $repo->owner,
+                $repo->name,
+                $requestId,
+            ));
+        } catch (NotFoundException $e) {
+            throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
+        }
 
         return new MergeRequest(
             Str::make($pullRequest->title),
