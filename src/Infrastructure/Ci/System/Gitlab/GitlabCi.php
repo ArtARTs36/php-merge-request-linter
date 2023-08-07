@@ -3,7 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\InvalidCommentException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
@@ -21,6 +23,8 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Client\RequestExceptionInterface;
 
 class GitlabCi implements CiSystem
 {
@@ -55,13 +59,27 @@ class GitlabCi implements CiSystem
 
     public function getCurrentlyMergeRequest(): MergeRequest
     {
-        $request = $this->client->getMergeRequest(
-            new MergeRequestInput(
-                $this->environment->getGitlabServerUrl(),
-                $this->environment->getProjectId(),
-                $this->environment->getMergeRequestNumber(),
-            ),
-        );
+        try {
+            $requestNumber = $this->environment->getMergeRequestNumber();
+        } catch (EnvironmentVariableNotFoundException) {
+            throw new CurrentlyNotMergeRequestException();
+        }
+
+        try {
+            $request = $this->client->getMergeRequest(
+                new MergeRequestInput(
+                    $this->environment->getGitlabServerUrl(),
+                    $this->environment->getProjectId(),
+                    $requestNumber,
+                ),
+            );
+        } catch (RequestException $e) {
+            if ($e->getResponse()?->getStatusCode() === 404) {
+                throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
+            }
+
+            throw $e;
+        }
 
         $description = Str::make($request->description);
 

@@ -11,6 +11,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\Com
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use Psr\Http\Client\RequestExceptionInterface;
 
 /**
  * Interface for GitLab Client.
@@ -19,6 +20,7 @@ interface GitlabClient
 {
     /**
      * Get Merge Request.
+     * @throws RequestExceptionInterface
      */
     public function getMergeRequest(MergeRequestInput $input): MergeRequest;
 
