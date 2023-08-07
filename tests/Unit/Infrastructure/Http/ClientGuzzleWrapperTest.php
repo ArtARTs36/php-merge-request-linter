@@ -27,7 +27,6 @@ final class ClientGuzzleWrapperTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientGuzzleWrapper::sendRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientGuzzleWrapper::validateResponse
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientGuzzleWrapper::__construct
      * @dataProvider providerForTestSendRequestOnInvalidCredentialsException
      */

@@ -3,18 +3,20 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ServerUnexpectedResponseException;
 use GuzzleHttp\ClientInterface as GuzzleClient;
 use GuzzleHttp\Promise\Utils;
+use GuzzleHttp\RequestOptions;
 use Psr\Http\Client\ClientInterface as PsrClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
 
 class ClientGuzzleWrapper implements Client
 {
+    private const OPTIONS = [
+        RequestOptions::HTTP_ERRORS => true,
+    ];
+
     public function __construct(
         private readonly PsrClient&GuzzleClient $http,
         private readonly LoggerInterface $logger,
@@ -24,11 +26,7 @@ class ClientGuzzleWrapper implements Client
 
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
-        $response = $this->http->sendRequest($request);
-
-        $this->validateResponse($response, $request->getUri());
-
-        return $response;
+        return $this->http->send($request, self::OPTIONS);
     }
 
     public function sendAsyncRequests(array $requests): array
@@ -42,7 +40,7 @@ class ClientGuzzleWrapper implements Client
         );
 
         foreach ($requests as $key => $request) {
-            $promises[$key] = $this->http->sendAsync($request);
+            $promises[$key] = $this->http->sendAsync($request, self::OPTIONS);
         }
 
         $responses = Utils::settle($promises)->wait();
@@ -68,30 +66,9 @@ class ClientGuzzleWrapper implements Client
                 throw new \LogicException(sprintf('Failed send request: %s', var_export($response['value'], true)));
             }
 
-            $this->validateResponse($response['value'], $requests[$key]->getUri());
-
             $preparedResponses[$key] = $response['value'];
         }
 
         return $preparedResponses;
-    }
-
-    /**
-     * @throws InvalidCredentialsException
-     * @throws ServerUnexpectedResponseException
-     */
-    private function validateResponse(ResponseInterface $response, UriInterface $url): void
-    {
-        $host = $url->getHost();
-
-        if ($response->getStatusCode() === 401 || $response->getStatusCode() === 403) {
-            throw InvalidCredentialsException::fromResponse($host, $response->getBody()->getContents());
-        } elseif ($response->getStatusCode() !== 200 && $response->getStatusCode() !== 201) {
-            throw ServerUnexpectedResponseException::create(
-                $host,
-                $response->getStatusCode(),
-                $response->getBody()->getContents()
-            );
-        }
     }
 }
