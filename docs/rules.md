@@ -61,7 +61,7 @@ Currently is available that rules:
 </tr>
 <tr>
     <td>projectCode</td>
-    <td>Project code </td>
+    <td>Project code  </td>
     <td>string</td>
 </tr>
 <tr>
@@ -73,7 +73,7 @@ Currently is available that rules:
 </tr>
 <tr>
     <td>projectCode</td>
-    <td>Project code <br/> Examples:  &quot;yt.my-company.ru&quot; </td>
+    <td>Project code  <br/> Examples:  &quot;yt.my-company.ru&quot; </td>
     <td>string</td>
 </tr>
 <tr>
@@ -87,7 +87,7 @@ Currently is available that rules:
 <td rowspan="1">@mr-linter/has_changes</td>
 <td rowspan="1">Merge Request must have changes in {files}.</td>
 <td>changes</td>
-<td>Array of need changes </td>
+<td>Array of need changes  <br/> See details in Config JSON Schema</td>
 <td>array of objects </td>
 </tr>
 <tr>
@@ -120,7 +120,7 @@ Currently is available that rules:
 </tr>
 <tr>
     <td>tags</td>
-    <td>Tags parsing options </td>
+    <td>Tags parsing options  </td>
     <td>object</td>
 </tr>
 <tr>
@@ -132,7 +132,7 @@ Currently is available that rules:
 </tr>
 <tr>
     <td>fileLinesMax</td>
-    <td>Maximum allowed number of changed lines in a file </td>
+    <td>Maximum allowed number of changed lines in a file  </td>
     <td>integer</td>
 </tr>
 <tr>
@@ -150,4 +150,4 @@ Currently is available that rules:
 <td>array of strings </td>
 </tr>
 </tbody>
-</table>
+</t

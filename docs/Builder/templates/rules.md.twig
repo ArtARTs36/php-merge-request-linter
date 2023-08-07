@@ -17,14 +17,14 @@ Currently is available that rules:
 {% else %}
 <td rowspan="{{ max(rule.params.count, 1) }}">{{ rule.description }}</td>
 <td>{{ rule.params.first.name }}</td>
-<td>{{ rule.params.first.description }} {% if rule.params.first.examples.count > 0 %}<br/> Examples: {% for example in rule.params.first.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %}{% endif %}</td>
+<td>{{ rule.params.first.description }} {% if rule.params.first.isGenericObject %} <br/> See details in Config JSON Schema{% endif %}{% if rule.params.first.examples.count > 0 %}<br/> Examples: {% for example in rule.params.first.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %}{% endif %}</td>
 <td>{{ rule.params.first.type }}{% if rule.params.first.generic %} of {{ rule.params.first.generic }}s {% endif %}</td>
 {% endif %}
 </tr>
 {% for param in rule.params.skip(1) %}
 <tr>
     <td>{{ param.name }}</td>
-    <td>{{ param.description }} {% if rule.params.first.examples.count > 0 %}<br/> Examples: {% for example in rule.params.first.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %}{% endif %}</td>
+    <td>{{ param.description }} {% if rule.params.first.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} {% if rule.params.first.examples.count > 0 %}<br/> Examples: {% for example in rule.params.first.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %}{% endif %}</td>
     <td>{{ param.type }}{% if param.generic %} of {{ param.generic }}s {% endif %}</td>
 </tr>
 {% endfor %}

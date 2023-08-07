@@ -54,6 +54,7 @@ class RulesPageBuilder
                     'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                     'description' => $param->description,
                     'examples' => new Arrayee($param->examples),
+                    'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
                 ];
             }
 
