@@ -3,6 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\UnauthorizedException;
 use GuzzleHttp\ClientInterface as GuzzleClient;
 use GuzzleHttp\Promise\Utils;
 use GuzzleHttp\RequestOptions;
@@ -26,7 +29,15 @@ class ClientGuzzleWrapper implements Client
 
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
-        return $this->http->send($request, self::OPTIONS);
+        $response = $this->http->send($request);
+
+        $e = $this->createRequestException($request, $response);
+
+        if ($e !== null) {
+            throw $e;
+        }
+
+        return $response;
     }
 
     public function sendAsyncRequests(array $requests): array
@@ -70,5 +81,14 @@ class ClientGuzzleWrapper implements Client
         }
 
         return $preparedResponses;
+    }
+
+    private function createRequestException(RequestInterface $request, ResponseInterface $response): ?HttpRequestException
+    {
+        return match ($response->getStatusCode()) {
+            404 => new NotFoundException($request, $response),
+            401 => new UnauthorizedException($request, $response),
+            default => null,
+        };
     }
 }
