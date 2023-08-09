@@ -3,10 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
+use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class HttpRequestException extends \Exception implements RequestException
+class HttpRequestException extends MergeRequestLinterException implements RequestException
 {
     public function __construct(
         private readonly RequestInterface $request,
