@@ -14,6 +14,11 @@ use Psr\Http\Message\ResponseInterface;
 interface Client extends ClientInterface
 {
     /**
+     * @throws RequestException
+     */
+    public function sendRequest(RequestInterface $request): ResponseInterface;
+
+    /**
      * Send async requests.
      * @param array<string|int, RequestInterface> $requests
      * @return array<string|int, ResponseInterface>
