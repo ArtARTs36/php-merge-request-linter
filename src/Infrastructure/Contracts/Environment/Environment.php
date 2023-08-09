@@ -14,15 +14,13 @@ interface Environment
 
     /**
      * Get string value of Environment
-     * @throws EnvironmentVariableNotFoundException
-     * @throws EnvironmentVariableInvalidException
+     * @throws EnvironmentException
      */
     public function getString(string $key): string;
 
     /**
      * Get integer value of Environment
-     * @throws EnvironmentVariableNotFoundException
-     * @throws EnvironmentVariableInvalidException
+     * @throws EnvironmentException
      */
     public function getInt(string $key): int;
 }

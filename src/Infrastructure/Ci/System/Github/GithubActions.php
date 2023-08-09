@@ -4,11 +4,13 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidEnvironmentVariableValueException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidResponseException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\GraphqlException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException;
@@ -18,6 +20,9 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Inp
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
@@ -64,8 +69,12 @@ final class GithubActions implements CiSystem
             throw new CurrentlyNotMergeRequestException();
         }
 
-        $graphqlUrl = $this->env->getGraphqlURL();
-        $repo = $this->env->extractRepo();
+        try {
+            $graphqlUrl = $this->env->getGraphqlURL();
+            $repo = $this->env->extractRepo();
+        } catch (EnvironmentException|InvalidEnvironmentVariableValueException $e) {
+            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
+        }
 
         try {
             $pullRequest = $this->client->getPullRequest(new PullRequestInput(
@@ -76,6 +85,8 @@ final class GithubActions implements CiSystem
             ));
         } catch (NotFoundException $e) {
             throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
+        } catch (RequestException $e) {
+            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
         }
 
         return new MergeRequest(

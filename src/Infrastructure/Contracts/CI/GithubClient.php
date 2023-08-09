@@ -13,6 +13,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Typ
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagCollection;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\Tag\TagsInput;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 
 /**
  * Client for GitHub.
@@ -21,34 +22,40 @@ interface GithubClient
 {
     /**
      * Get Pull Request.
+     * @throws RequestException
      * @throws GraphqlException
      */
     public function getPullRequest(PullRequestInput $input): PullRequest;
 
     /**
      * Get tags from repository.
+     * @throws RequestException
      */
     public function getTags(TagsInput $input): TagCollection;
 
     /**
      * Post comment.
+     * @throws RequestException
      * @throws InvalidResponseException
      */
     public function postComment(AddCommentInput $input): string;
 
     /**
      * Update comment.
+     * @throws RequestException
      */
     public function updateComment(UpdateCommentInput $input): void;
 
     /**
      * Get current user.
+     * @throws RequestException
      * @throws InvalidResponseException
      */
     public function getCurrentUser(string $graphqlUrl): Viewer;
 
     /**
      * Get comments on pull request.
+     * @throws RequestException
      */
     public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList;
 }
