@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
@@ -18,6 +20,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\Label
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
@@ -73,11 +77,17 @@ class BitbucketPipelines implements CiSystem
             throw new CurrentlyNotMergeRequestException();
         }
 
-        $pr = $this->client->getPullRequest(new PullRequestInput(
-            $repo->workspace,
-            $repo->slug,
-            $prId,
-        ));
+        try {
+            $pr = $this->client->getPullRequest(new PullRequestInput(
+                $repo->workspace,
+                $repo->slug,
+                $prId,
+            ));
+        } catch (NotFoundException $e) {
+            throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
+        } catch (HttpRequestException $e) {
+            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
+        }
 
         $description = Str::make($pr->description);
 
