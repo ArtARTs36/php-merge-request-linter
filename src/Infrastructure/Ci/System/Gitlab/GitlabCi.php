@@ -4,8 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\InvalidCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
@@ -17,23 +19,26 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\Updat
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\MergeRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarHasDifferentTypeException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
-use GuzzleHttp\Exception\RequestException;
-use Psr\Http\Client\RequestExceptionInterface;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest as GitlabMergeRequest;
 
-class GitlabCi implements CiSystem
+final class GitlabCi implements CiSystem
 {
     public const NAME = 'gitlab_ci';
 
     public function __construct(
-        protected GitlabEnvironment     $environment,
-        protected GitlabClient          $client,
-        protected MarkdownCleaner $markdownCleaner,
+        private readonly GitlabEnvironment     $environment,
+        private readonly GitlabClient          $client,
+        private readonly MarkdownCleaner $markdownCleaner,
     ) {
         //
     }
@@ -52,7 +57,7 @@ class GitlabCi implements CiSystem
     {
         try {
             return $this->environment->getMergeRequestNumber() >= 0;
-        } catch (EnvironmentVariableNotFoundException) {
+        } catch (EnvironmentException) {
             return false;
         }
     }
@@ -61,24 +66,31 @@ class GitlabCi implements CiSystem
     {
         try {
             $requestNumber = $this->environment->getMergeRequestNumber();
-        } catch (EnvironmentVariableNotFoundException) {
-            throw new CurrentlyNotMergeRequestException();
+        } catch (EnvironmentVariableNotFoundException $e) {
+            throw new CurrentlyNotMergeRequestException(previous: $e);
+        } catch (VarHasDifferentTypeException $e) {
+            throw new CurrentlyNotMergeRequestException($e->getMessage(), previous: $e);
+        }
+
+        try {
+            $serverUrl = $this->environment->getGitlabServerUrl();
+            $projectId = $this->environment->getProjectId();
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
         }
 
         try {
             $request = $this->client->getMergeRequest(
                 new MergeRequestInput(
-                    $this->environment->getGitlabServerUrl(),
-                    $this->environment->getProjectId(),
+                    $serverUrl,
+                    $projectId,
                     $requestNumber,
                 ),
             );
+        } catch (NotFoundException $e) {
+            throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
         } catch (RequestException $e) {
-            if ($e->getResponse()?->getStatusCode() === 404) {
-                throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
-            }
-
-            throw $e;
+            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
         }
 
         $description = Str::make($request->description);
@@ -105,7 +117,7 @@ class GitlabCi implements CiSystem
     /**
      * @return Map<string, Change>
      */
-    private function mapChanges(API\Objects\MergeRequest $request): Map
+    private function mapChanges(GitlabMergeRequest $request): Map
     {
         $changes = [];
 
@@ -121,14 +133,21 @@ class GitlabCi implements CiSystem
 
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
-        $this->client->postComment(
-            new CommentInput(
-                $this->environment->getGitlabServerUrl(),
-                $this->environment->getProjectId(),
-                $this->environment->getMergeRequestNumber(),
-                $comment,
-            ),
-        );
+        try {
+            $this->client->postComment(
+                new CommentInput(
+                    $this->environment->getGitlabServerUrl(),
+                    $this->environment->getProjectId(),
+                    $this->environment->getMergeRequestNumber(),
+                    $comment,
+                ),
+            );
+        } catch (RequestException $e) {
+            throw new PostCommentException(sprintf(
+                'Post comment was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
     }
 
     public function updateComment(Comment $comment): void

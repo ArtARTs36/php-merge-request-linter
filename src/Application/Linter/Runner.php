@@ -12,6 +12,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\Linter;
+use ArtARTs36\Str\Facade\Str;
 
 final class Runner implements LinterRunner
 {
@@ -27,8 +28,14 @@ final class Runner implements LinterRunner
 
         try {
             return $linter->run($this->requestFetcher->fetch());
-        } catch (CurrentlyNotMergeRequestException) {
-            return LintResult::successWithNote(new LintNote('Currently is not merge request'), $timer->finish());
+        } catch (CurrentlyNotMergeRequestException $e) {
+            $message = 'Currently is not merge request';
+
+            if (($exMessage = $e->getMessage()) && Str::isNotEmpty($exMessage)) {
+                $message .= ': ' . $exMessage;
+            }
+
+            return LintResult::successWithNote(new LintNote($message), $timer->finish());
         } catch (GettingMergeRequestException|CiNotSupported $e) {
             return LintResult::fail(new ExceptionNote($e), $timer->finish());
         }
