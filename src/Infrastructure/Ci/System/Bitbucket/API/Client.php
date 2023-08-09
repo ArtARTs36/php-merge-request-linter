@@ -9,34 +9,40 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CommentList;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\User;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 
 /**
- * Interface for Client.
+ * Interface for Bitbucket Client.
  */
 interface Client
 {
     /**
      * Get pull request.
+     * @throws RequestException
      */
     public function getPullRequest(PullRequestInput $input): PullRequest;
 
     /**
      * Get current user.
+     * @throws RequestException
      */
     public function getCurrentUser(): User;
 
     /**
      * Get comments.
+     * @throws RequestException
      */
     public function getComments(PullRequestInput $input): CommentList;
 
     /**
      * Update comment.
+     * @throws RequestException
      */
     public function updateComment(UpdateCommentInput $input): Comment;
 
     /**
      * Post comment.
+     * @throws RequestException
      */
     public function postComment(CreateCommentInput $input): Comment;
 }
