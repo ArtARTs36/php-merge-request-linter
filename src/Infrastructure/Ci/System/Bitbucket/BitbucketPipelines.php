@@ -19,8 +19,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\Bitbucke
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\LabelsResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
@@ -85,7 +85,7 @@ class BitbucketPipelines implements CiSystem
             ));
         } catch (NotFoundException $e) {
             throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
-        } catch (HttpRequestException $e) {
+        } catch (RequestException $e) {
             throw new FetchMergeRequestException($e->getMessage(), previous: $e);
         }
 
