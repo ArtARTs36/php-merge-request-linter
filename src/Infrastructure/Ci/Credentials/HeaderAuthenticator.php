@@ -24,7 +24,7 @@ final class HeaderAuthenticator implements Authenticator
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, array<string, string>>
      */
     public function __debugInfo(): array
     {
