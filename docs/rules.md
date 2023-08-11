@@ -150,4 +150,4 @@ Currently is available that rules:
 <td>array of strings </td>
 </tr>
 </tbody>
-</t
+</table>
