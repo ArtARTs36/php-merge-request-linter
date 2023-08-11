@@ -27,7 +27,7 @@ class GitlabCredentialsMapper implements AuthenticatorMapper
         $header = null;
 
         foreach ($tokenFetchMap as $key => $headerName) {
-            if (! empty($credentials[$key]) || ! is_string($credentials[$key])) {
+            if (! empty($credentials[$key]) && is_string($credentials[$key])) {
                 $header = new Header(
                     $headerName,
                     $this->valueTransformer->tryTransform($credentials[$key]),
