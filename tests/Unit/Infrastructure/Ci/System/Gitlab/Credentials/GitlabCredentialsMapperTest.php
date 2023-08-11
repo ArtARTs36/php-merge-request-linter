@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Gitlab\Credentials;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials\GitlabCredentialsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\CompositeTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
@@ -18,7 +18,7 @@ final class GitlabCredentialsMapperTest extends TestCase
     {
         $mapper = new GitlabCredentialsMapper(new CompositeTransformer([]));
 
-        self::assertInstanceOf(TokenAuthenticator::class, $mapper->map([
+        self::assertInstanceOf(HeaderAuthenticator::class, $mapper->map([
             'token' => '12',
         ]));
     }

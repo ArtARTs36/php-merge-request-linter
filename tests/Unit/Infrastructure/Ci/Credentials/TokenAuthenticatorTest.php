@@ -2,19 +2,19 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\Credentials;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use GuzzleHttp\Psr7\Request;
 
 final class TokenAuthenticatorTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator::authenticate
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator::authenticate
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator::__construct
      */
     public function testAuthenticate(): void
     {
-        $token = new TokenAuthenticator('my-header', '123');
+        $token = new HeaderAuthenticator('my-header', '123');
 
         $req = new Request('GET', 'http://site.ru');
 
@@ -24,11 +24,11 @@ final class TokenAuthenticatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator::bearer
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator::bearer
      */
     public function testBearer(): void
     {
-        $token = TokenAuthenticator::bearer('123');
+        $token = HeaderAuthenticator::bearer('123');
 
         $req = $token->authenticate(new Request('GET', 'http://site.ru'));
 
@@ -36,12 +36,12 @@ final class TokenAuthenticatorTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator::__debugInfo
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator::__debugInfo
      */
     public function testDebugInfo(): void
     {
-        $info = TokenAuthenticator::bearer('123')->__debugInfo();
+        $info = HeaderAuthenticator::bearer('123')->__debugInfo();
 
-        self::assertNotEquals('123', $info['token']);
+        self::assertNotEquals('123', $info['header']['value']);
     }
 }
