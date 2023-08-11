@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\Credentials;
 
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\Header;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use GuzzleHttp\Psr7\Request;
@@ -14,7 +15,7 @@ final class TokenAuthenticatorTest extends TestCase
      */
     public function testAuthenticate(): void
     {
-        $token = new HeaderAuthenticator('my-header', '123');
+        $token = new HeaderAuthenticator(new Header('my-header', '123'));
 
         $req = new Request('GET', 'http://site.ru');
 
