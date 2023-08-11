@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticat
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use GuzzleHttp\Psr7\Request;
 
-final class TokenAuthenticatorTest extends TestCase
+final class HeaderAuthenticatorTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator::authenticate
