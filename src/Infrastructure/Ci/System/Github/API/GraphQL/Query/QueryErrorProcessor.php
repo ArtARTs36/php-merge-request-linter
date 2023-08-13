@@ -11,6 +11,7 @@ class QueryErrorProcessor
 
     /**
      * @param array<mixed> $response
+     * @return array<mixed>
      * @throws GraphqlException
      */
     public function processQuery(array $response): array

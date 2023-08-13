@@ -91,7 +91,7 @@ class BitbucketPipelines implements CiSystem
                 $prId,
             ));
         } catch (NotFoundException $e) {
-            throw MergeRequestNotFoundException::create($prId, $e->getMessage(), previous: $e);
+            throw MergeRequestNotFoundException::create((string) $prId, $e->getMessage(), previous: $e);
         } catch (RequestException $e) {
             throw new FetchMergeRequestException(
                 sprintf('Fetching pull request from bitbucket was failed: %s', $e->getMessage()),

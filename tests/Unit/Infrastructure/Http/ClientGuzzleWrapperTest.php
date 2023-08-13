@@ -13,7 +13,7 @@ use Psr\Log\NullLogger;
 
 final class ClientGuzzleWrapperTest extends TestCase
 {
-    public function providerForTestSendRequestOnInvalidCredentialsException(): array
+    public function providerForTestSendRequestOnStatusException(): array
     {
         return [
             [
@@ -28,9 +28,9 @@ final class ClientGuzzleWrapperTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientGuzzleWrapper::sendRequest
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientGuzzleWrapper::__construct
-     * @dataProvider providerForTestSendRequestOnInvalidCredentialsException
+     * @dataProvider providerForTestSendRequestOnStatusException
      */
-    public function testSendRequestOnInvalidCredentialsException(int $httpStatus): void
+    public function testSendRequestOnStatusException(int $httpStatus): void
     {
         $http = $this->createMock(Client::class);
 
