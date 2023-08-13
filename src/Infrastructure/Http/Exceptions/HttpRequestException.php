@@ -19,7 +19,7 @@ class HttpRequestException extends MergeRequestLinterException implements Reques
         parent::__construct($message, $code, $previous);
     }
 
-    public static function create(RequestInterface $request, ResponseInterface $response): static
+    final public static function create(RequestInterface $request, ResponseInterface $response): static
     {
         return new static(
             $request,

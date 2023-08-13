@@ -6,7 +6,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientGuzzleWrapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\BadRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\UnauthorizedException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
