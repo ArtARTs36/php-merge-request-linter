@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\BasicBase64Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\CompositeAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HostAuthenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Credentials\BitbucketCredentialsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\CompositeTransformer;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -21,7 +21,7 @@ final class BitbucketCredentialsMapperTest extends TestCase
                     'token' => '12',
                 ],
                 [
-                    TokenAuthenticator::class,
+                    HeaderAuthenticator::class,
                 ],
             ],
             [

@@ -65,7 +65,11 @@ class Generator
                             'properties' => [
                                 'token' => [
                                     'type' => 'string',
-                                    'description' => 'API Token',
+                                    'description' => 'Access Token',
+                                ],
+                                'job_token' => [
+                                    'type' => 'string',
+                                    'description' => 'Job Token',
                                 ],
                             ],
                         ],

@@ -2,8 +2,7 @@
   "require": {
     "php": "^8.0",
     "ergebnis/composer-normalize": "^2.15.0",
-    "humbug/box": "^3.8",
-    "humbug/php-scoper": "dev-main#0a4e329 as 0.14.2"
+    "humbug/box": "4.3.8"
   },
   "config": {
     "optimize-autoloader": true,
