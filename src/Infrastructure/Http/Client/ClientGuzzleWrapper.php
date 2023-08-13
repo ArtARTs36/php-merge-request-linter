@@ -3,6 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\BadRequestException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\UnauthorizedException;
@@ -86,9 +88,12 @@ class ClientGuzzleWrapper implements Client
     private function createRequestException(RequestInterface $request, ResponseInterface $response): ?HttpRequestException
     {
         return match ($response->getStatusCode()) {
-            404 => new NotFoundException($request, $response),
-            401 => new UnauthorizedException($request, $response),
-            default => null,
+            404 => NotFoundException::create($request, $response),
+            403 => ForbiddenException::create($request, $response),
+            401 => UnauthorizedException::create($request, $response),
+            400 => BadRequestException::create($request, $response),
+            200, 201 => null,
+            default => HttpRequestException::create($request, $response),
         };
     }
 }
