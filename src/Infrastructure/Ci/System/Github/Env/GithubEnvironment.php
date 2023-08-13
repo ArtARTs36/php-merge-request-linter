@@ -24,11 +24,14 @@ class GithubEnvironment
         return $this->environment->has(VarName::Identity->value);
     }
 
+    /**
+     * @throws InvalidEnvironmentVariableValueException
+     */
     public function getMergeRequestId(): ?int
     {
         try {
             $ref = $this->environment->getString(VarName::RefName->value);
-        } catch (EnvironmentVariableNotFoundException) {
+        } catch (EnvironmentException) {
             return null;
         }
 
@@ -52,7 +55,7 @@ class GithubEnvironment
     }
 
     /**
-     * @throws EnvironmentVariableNotFoundException
+     * @throws EnvironmentException
      */
     public function getGraphqlURL(): string
     {

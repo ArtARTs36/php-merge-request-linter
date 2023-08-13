@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbucket;
 
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient;
@@ -16,6 +18,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\Compo
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
@@ -204,6 +207,42 @@ final class BitbucketPipelinesTest extends TestCase
             $expectedComment,
             $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest()),
         );
+    }
+
+    public function providerForTestGetCurrentlyMergeRequestOnException(): array
+    {
+        return [
+            [
+                'env' => [],
+                'expectedExceptionClass' => FetchMergeRequestException::class,
+                'expectedExceptionMessage' => VarNotFoundException::class,
+            ],
+            [
+                'env' => [
+                    VarName::Workspace->value => 'owner',
+                    VarName::RepoName->value => 'repo',
+                ],
+                'expectedExceptionClass' => CurrentlyNotMergeRequestException::class,
+                'expectedExceptionMessage' => VarNotFoundException::class,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getCurrentlyMergeRequest
+     *
+     * @dataProvider providerForTestGetCurrentlyMergeRequestOnException
+     */
+    public function testGetCurrentlyMergeRequestOnException(array $env, string $expectedExceptionClass, ?string $expectedPreviousExceptionClass): void
+    {
+        $ci = $this->createCi($env);
+
+        try {
+            $ci->getCurrentlyMergeRequest();
+        } catch (\Throwable $e) {
+            self::assertInstanceOf($expectedExceptionClass, $e);
+            self::assertInstanceOf($expectedPreviousExceptionClass, $e->getPrevious());
+        }
     }
 
     /**

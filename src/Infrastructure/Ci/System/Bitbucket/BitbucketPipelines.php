@@ -18,6 +18,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\LabelsResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
@@ -62,19 +63,26 @@ class BitbucketPipelines implements CiSystem
     {
         try {
             return $this->environment->getPullRequestId() > 0;
-        } catch (EnvironmentVariableNotFoundException) {
+        } catch (EnvironmentException) {
             return false;
         }
     }
 
     public function getCurrentlyMergeRequest(): MergeRequest
     {
-        $repo = $this->environment->getRepo();
+        try {
+            $repo = $this->environment->getRepo();
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException(
+                sprintf('Fetching repo information (repository, slug) was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         try {
             $prId = $this->environment->getPullRequestId();
-        } catch (EnvironmentVariableNotFoundException) {
-            throw new CurrentlyNotMergeRequestException();
+        } catch (EnvironmentException $e) {
+            throw new CurrentlyNotMergeRequestException(previous: $e);
         }
 
         try {
@@ -84,9 +92,12 @@ class BitbucketPipelines implements CiSystem
                 $prId,
             ));
         } catch (NotFoundException $e) {
-            throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
+            throw MergeRequestNotFoundException::create($prId, $e->getMessage(), previous: $e);
         } catch (RequestException $e) {
-            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
+            throw new FetchMergeRequestException(
+                sprintf('Fetching pull request from bitbucket was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
         }
 
         $description = Str::make($pr->description);
