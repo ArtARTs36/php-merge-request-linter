@@ -42,8 +42,9 @@ class GithubEnvironment
 
         if (! $id->isDigit()) {
             throw new InvalidEnvironmentVariableValueException(sprintf(
-                'Var "%s" is invalid. Expected: {id}/merge',
+                'Var "%s" is invalid. Expected: {id}/merge, given: "%s"',
                 VarName::RefName->value,
+                $ref,
             ));
         }
 

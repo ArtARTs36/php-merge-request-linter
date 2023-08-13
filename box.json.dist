@@ -1,5 +1,5 @@
 {
-    "check-requirements": false,
+    "check-requirements": true,
     "dump-autoload": true,
     "compactors": [
         "KevinGH\\Box\\Compactor\\Json",

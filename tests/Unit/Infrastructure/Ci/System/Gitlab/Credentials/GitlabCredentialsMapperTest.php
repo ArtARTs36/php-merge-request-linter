@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Gitlab\Credentials;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\TokenAuthenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials\GitlabCredentialsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\CompositeTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
@@ -10,17 +10,38 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GitlabCredentialsMapperTest extends TestCase
 {
+    public function providerForTestMap(): array
+    {
+        return [
+            [
+                'credentials' => [
+                    'token' => '123',
+                ],
+                'expectedHeaderName' => 'PRIVATE-TOKEN',
+            ],
+            [
+                'credentials' => [
+                    'job_token' => '123',
+                ],
+                'expectedHeaderName' => 'JOB-TOKEN',
+            ],
+        ];
+    }
+
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials\GitlabCredentialsMapper::map
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials\GitlabCredentialsMapper::__construct
+     *
+     * @dataProvider providerForTestMap
      */
-    public function testMap(): void
+    public function testMap(array $credentials, string $expectedHeaderName): void
     {
         $mapper = new GitlabCredentialsMapper(new CompositeTransformer([]));
 
-        self::assertInstanceOf(TokenAuthenticator::class, $mapper->map([
-            'token' => '12',
-        ]));
+        $authenticator = $mapper->map($credentials);
+
+        self::assertInstanceOf(HeaderAuthenticator::class, $authenticator);
+        self::assertEquals($expectedHeaderName, $authenticator->__debugInfo()['header']['name']);
     }
 
     /**

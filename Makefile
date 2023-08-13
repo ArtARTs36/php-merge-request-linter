@@ -18,6 +18,14 @@ try:
 	GITHUB_REF_NAME=${MR_ID}/merge \
 	./bin/mr-linter lint --debug --metrics
 
+# usage as `make try-phar MR_ID=1`
+try-phar: build-phar
+	GITHUB_ACTIONS=1 \
+	GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
+	GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
+	GITHUB_REF_NAME=${MR_ID}/merge \
+	./bin/build/mr-linter.phar lint --debug --metrics
+
 # usage as `make try MR_ID=1`
 try-docker: docker-build
 	docker run \
@@ -161,3 +169,8 @@ deptrac-docker: docker-build
 		artarts36/merge-request-linter "deptrac"
 
 check-docker: lint-docker stat-analyse-docker test-docker deptrac-docker
+
+build-phar:
+	composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
+	cd dev/build/ && composer install
+	./dev/build/vendor/bin/box compile

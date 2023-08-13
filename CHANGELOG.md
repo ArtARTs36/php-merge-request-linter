@@ -6,6 +6,18 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.16.1 (2023-08-13)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.0..0.16.1)
+
+## Added
+* Support GitLab CI job token
+
+## Fixed
+* Fixed phar on "TwigTest not found"
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.1)
+
+-----------------------------------------------------------------
+
 ## [v0.16.0 (2023-08-06)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.15.3..0.16.0)
 
 ## Added
