@@ -58,7 +58,11 @@ final class GithubActions implements CiSystem
 
     public function isCurrentlyMergeRequest(): bool
     {
-        return $this->env->getMergeRequestId() !== null;
+        try {
+            return $this->env->getMergeRequestId() !== null;
+        } catch (EnvironmentException) {
+            return false;
+        }
     }
 
     public function getCurrentlyMergeRequest(): MergeRequest

@@ -26,14 +26,11 @@ class GithubEnvironment
 
     /**
      * @throws InvalidEnvironmentVariableValueException
+     * @throws EnvironmentException
      */
     public function getMergeRequestId(): ?int
     {
-        try {
-            $ref = $this->environment->getString(VarName::RefName->value);
-        } catch (EnvironmentException) {
-            return null;
-        }
+        $ref = $this->environment->getString(VarName::RefName->value);
 
         $refStr = Str::make($ref);
 
