@@ -9,12 +9,12 @@ Examples:
 
 Or generate **yaml** file with following command:
 ```shell
-docker run -v "${PWD}:/app/:rw" --user 1000:1000 -it artarts36/merge-request-linter:0.10.0 install
+docker run -v "${PWD}:/app/:rw" --user 1000:1000 -it artarts36/merge-request-linter:0.16.1 install
 ```
 
 Or generate **json** file with following command:
 ```shell
-docker run -v "${PWD}:/app/:rw" --user 1000:1000 -it artarts36/merge-request-linter:0.10.0 install --format=json
+docker run -v "${PWD}:/app/:rw" --user 1000:1000 -it artarts36/merge-request-linter:0.16.1 install --format=json
 ```
 
 When writing a config, look at [JSON Schema](config-schema.md).
@@ -60,7 +60,7 @@ build:
 3. Add new step into **.gitlab-ci.yml**
    ```yaml
    mr-lint:
-     image: artarts36/merge-request-linter:0.8.0
+     image: artarts36/merge-request-linter:0.16.1
      stage: test
      only:
        - merge_requests
@@ -83,7 +83,7 @@ Configs with `$CI_JOB_TOKEN`:
 * gitlab-ci.yaml
    ```yaml
    mr-lint:
-     image: artarts36/merge-request-linter:0.16.rc-2
+     image: artarts36/merge-request-linter:0.16.1
      stage: test
      only:
        - merge_requests
@@ -108,7 +108,7 @@ Configs with `$CI_JOB_TOKEN`:
      pull-requests:
        '**':
          - step:
-             image: "artarts36/merge-request-linter:0.11.0"
+             image: "artarts36/merge-request-linter:0.16.1"
              name: PR Review
              script:
                - mr-linter lint
