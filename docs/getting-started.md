@@ -68,6 +68,31 @@ build:
        - mr-linter lint
    ```
 
+You can also use `$CI_JOB_TOKEN` if you don't intend to use comments.
+
+Configs with `$CI_JOB_TOKEN`:
+
+* mr-linter.yaml:
+   ```yaml
+   ci:
+     gitlab_ci: 
+       credentials:
+         job_token: 'env(MR_LINTER_GITHUB_HTTP_TOKEN)'
+   ```
+
+* gitlab-ci.yaml
+   ```yaml
+   mr-lint:
+     image: artarts36/merge-request-linter:0.16.rc-2
+     stage: test
+     only:
+       - merge_requests
+     variables:
+       MR_LINTER_GITLAB_HTTP_TOKEN: $CI_JOB_TOKEN
+     script:
+       - mr-linter lint --debug
+   ```
+
 ## Usage with Bitbucket Pipelines
 
 1. Create App Password on `https://bitbucket.org/account/settings/app-passwords/new` with permissions: 
