@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class HttpRequestException extends MergeRequestLinterException implements RequestException
 {
-    public function __construct(
+    final public function __construct(
         private readonly RequestInterface $request,
         private readonly ?ResponseInterface $response = null,
         string $message = "",
@@ -19,7 +19,7 @@ class HttpRequestException extends MergeRequestLinterException implements Reques
         parent::__construct($message, $code, $previous);
     }
 
-    final public static function create(RequestInterface $request, ResponseInterface $response): static
+    public static function create(RequestInterface $request, ResponseInterface $response): static
     {
         return new static(
             $request,
