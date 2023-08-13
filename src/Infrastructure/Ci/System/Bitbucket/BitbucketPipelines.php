@@ -19,7 +19,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\Bitbucke
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\LabelsResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;

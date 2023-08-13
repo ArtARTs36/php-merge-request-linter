@@ -12,7 +12,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\Mer
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use Psr\Http\Client\RequestExceptionInterface;
 
 /**
  * Interface for GitLab Client.
