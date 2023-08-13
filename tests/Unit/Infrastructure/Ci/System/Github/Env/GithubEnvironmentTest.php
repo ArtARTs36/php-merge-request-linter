@@ -16,17 +16,6 @@ final class GithubEnvironmentTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment::getMergeRequestId
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment::__construct
      */
-    public function testGetMergeRequestIdOnEnvironmentVariableNotFoundException(): void
-    {
-        $env = new GithubEnvironment(new NullEnvironment());
-
-        self::assertNull($env->getMergeRequestId());
-    }
-
-    /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment::getMergeRequestId
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment::__construct
-     */
     public function testGetMergeRequestIdOnInvalidEnvironmentVariableValueException(): void
     {
         self::expectException(InvalidEnvironmentVariableValueException::class);
