@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 
 class QueryErrorProcessor
 {
-    private const ERROR_TYPE_NOT_FOUND = 'NOT_FOUND';
+    public const ERROR_TYPE_NOT_FOUND = 'NOT_FOUND';
 
     /**
      * @param array<mixed> $response
@@ -39,9 +39,10 @@ class QueryErrorProcessor
 
         $errorsBag = new RawArray($response['errors']);
 
+        /** @var string|int $index */
         foreach ($errorsBag as $index => $error) {
             if (! is_array($error)) {
-                throw new GraphqlException(sprintf('Value of "response.errors.%d" must be array', $index));
+                throw new GraphqlException(sprintf('Value of "response.errors.%s" must be array', $index));
             }
 
             $errorRaw = new RawArray($error);
