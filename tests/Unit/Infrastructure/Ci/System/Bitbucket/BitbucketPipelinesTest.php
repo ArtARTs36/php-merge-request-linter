@@ -4,11 +4,13 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbu
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CommentList;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
@@ -19,14 +21,18 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\Bit
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockBitbucketClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockLogger;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -212,17 +218,29 @@ final class BitbucketPipelinesTest extends TestCase
     public function providerForTestGetCurrentlyMergeRequestOnException(): array
     {
         return [
-            [
+            'Fetching repo information (repository, slug) was failed' => [
                 'env' => [],
+                'clientGetPullRequestResponse' => null,
                 'expectedExceptionClass' => FetchMergeRequestException::class,
                 'expectedExceptionMessage' => VarNotFoundException::class,
             ],
-            [
+            'CurrentlyNotMergeRequestException' => [
                 'env' => [
                     VarName::Workspace->value => 'owner',
                     VarName::RepoName->value => 'repo',
                 ],
+                'clientGetPullRequestResponse' => null,
                 'expectedExceptionClass' => CurrentlyNotMergeRequestException::class,
+                'expectedExceptionMessage' => VarNotFoundException::class,
+            ],
+            'Pull Request not found' => [
+                'env' => [
+                    VarName::Workspace->value => 'owner',
+                    VarName::RepoName->value => 'repo',
+                    VarName::PullRequestId->value => '1',
+                ],
+                'clientGetPullRequestResponse' => new NotFoundException(new Request('GET', 'http://google.com'), new Response()),
+                'expectedExceptionClass' => MergeRequestNotFoundException::class,
                 'expectedExceptionMessage' => VarNotFoundException::class,
             ],
         ];
@@ -233,9 +251,13 @@ final class BitbucketPipelinesTest extends TestCase
      *
      * @dataProvider providerForTestGetCurrentlyMergeRequestOnException
      */
-    public function testGetCurrentlyMergeRequestOnException(array $env, string $expectedExceptionClass, ?string $expectedPreviousExceptionClass): void
-    {
-        $ci = $this->createCi($env);
+    public function testGetCurrentlyMergeRequestOnException(
+        array $env,
+        PullRequest|\Throwable|null $clientGetPullRequestResponse,
+        string $expectedExceptionClass,
+        ?string $expectedPreviousExceptionClass,
+    ): void {
+        $ci = $this->createCi($env, new MockBitbucketClient(getPullRequest: $clientGetPullRequestResponse));
 
         try {
             $ci->getCurrentlyMergeRequest();
