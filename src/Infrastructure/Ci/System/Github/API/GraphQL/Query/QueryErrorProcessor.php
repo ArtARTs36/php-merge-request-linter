@@ -4,6 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\GraphqlException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayPathInvalidException;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\RawArray;
 
 class QueryErrorProcessor
 {
@@ -16,20 +18,45 @@ class QueryErrorProcessor
      */
     public function processQuery(array $response): array
     {
-        if (array_key_exists('errors', $response) && is_array($response['errors'])) {
-            foreach ($response['errors'] as $error) {
-                if (is_array($error) &&
-                    array_key_exists('type', $error) &&
-                    is_string($error['type']) &&
-                    array_key_exists('message', $error) &&
-                    is_string($error['message'])
-                ) {
-                    throw $this->createException($error);
-                }
-            }
-        }
+        $this->processErrors($response);
 
         return $response;
+    }
+
+    /**
+     * @param array<mixed> $response
+     * @throws GraphqlException
+     */
+    private function processErrors(array $response): void
+    {
+        if (! array_key_exists('errors', $response)) {
+            return;
+        }
+
+        if (! is_array($response['errors'])) {
+            throw new GraphqlException('Value of "response.errors" must be array');
+        }
+
+        $errorsBag = new RawArray($response['errors']);
+
+        foreach ($errorsBag as $index => $error) {
+            if (! is_array($error)) {
+                throw new GraphqlException(sprintf('Value of "response.errors.%d" must be array', $index));
+            }
+
+            $errorRaw = new RawArray($error);
+
+            try {
+                $errorData = [
+                    'type' => $errorRaw->string('type'),
+                    'message' => $errorRaw->string('message'),
+                ];
+            } catch (ArrayPathInvalidException $e) {
+                throw new GraphqlException(sprintf('Given invalid response: %s', $e->getMessage()), previous: $e);
+            }
+
+            throw $this->createException($errorData);
+        }
     }
 
     /**
