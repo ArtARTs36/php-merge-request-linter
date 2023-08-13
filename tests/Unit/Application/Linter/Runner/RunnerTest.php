@@ -12,7 +12,6 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
@@ -66,12 +65,12 @@ final class RunnerTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::run
      * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::__construct
      */
-    public function testRunOnInvalidCredentials(): void
+    public function testRunOnException(): void
     {
         $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
-                throw new InvalidCredentialsException();
+                throw new \Exception();
             }
         }, new NullMetricManager()));
 

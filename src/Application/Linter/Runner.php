@@ -36,7 +36,7 @@ final class Runner implements LinterRunner
             }
 
             return LintResult::successWithNote(new LintNote($message), $timer->finish());
-        } catch (GettingMergeRequestException|CiNotSupported $e) {
+        } catch (\Throwable $e) {
             return LintResult::fail(new ExceptionNote($e), $timer->finish());
         }
     }

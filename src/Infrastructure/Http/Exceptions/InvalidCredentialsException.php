@@ -7,8 +7,4 @@ use Psr\Http\Client\ClientExceptionInterface;
 
 final class InvalidCredentialsException extends MergeRequestLinterException implements ClientExceptionInterface
 {
-    public static function fromResponse(string $host, string $response): self
-    {
-        return new self(sprintf('Given invalid credentials for %s. Server returns: "%s"', $host, $response));
-    }
 }

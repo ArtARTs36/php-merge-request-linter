@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mappe
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CiSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\AuthenticatorProxy;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 
 class CiSettingsMapper
@@ -21,6 +22,7 @@ class CiSettingsMapper
     /**
      * @param array<string, array<string, array{credentials: array<string, mixed>}>> $settings
      * @return ArrayMap<string, CiSettings>
+     * @throws InvalidCredentialsException
      */
     public function map(array $settings): ArrayMap
     {
