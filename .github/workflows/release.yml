@@ -9,8 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.3.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: set MR-Linter version
-        run: echo "MR_LINTER_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        run: echo "MR_LINTER_VERSION=${{ steps.get_release.outputs.tag_name }}" >> $GITHUB_ENV
 
       - name: composer deps
         run: composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
@@ -26,11 +32,25 @@ jobs:
         with:
           args: gpg --command-fd 0 --pinentry-mode loopback -u temicska99@mail.ru --batch --detach-sign --output bin/build/mr-linter.phar.asc bin/build/mr-linter.phar
 
-      - name: release phar
-        uses: fnkr/github-action-ghr@v1
+      - name: Upload phar
+        uses: actions/upload-release-asset@v1
         env:
-          GHR_PATH: bin/build
-          GITHUB_TOKEN: ${{ secrets.MR_LINTER_GITHUB_HTTP_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/build/mr-linter.phar
+          asset_name: mr-linter.phar
+          asset_content_type: application/octet-stream
+
+      - name: Upload phar.asc
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./bin/build/mr-linter.phar.asc
+          asset_name: mr-linter.phar.asc
+          asset_content_type: application/octet-stream
 
       - name: build and publish Docker Image
         env:
