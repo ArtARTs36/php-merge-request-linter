@@ -16,14 +16,11 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockBitbucketClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockGithubClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 
 final class GithubActionsTest extends TestCase
 {

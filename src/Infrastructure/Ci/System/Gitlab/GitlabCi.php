@@ -23,7 +23,6 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environmen
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
@@ -78,9 +77,11 @@ final class GitlabCi implements CiSystem
         try {
             $serverUrl = $this->environment->getGitlabServerUrl();
         } catch (EnvironmentException $e) {
-            throw new FetchMergeRequestException(sprintf(
+            throw new FetchMergeRequestException(
+                sprintf(
                 'Failed to fetch gitlab server url: %s',
-                $e->getMessage()),
+                $e->getMessage()
+            ),
                 previous: $e,
             );
         }
