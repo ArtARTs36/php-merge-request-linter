@@ -65,7 +65,14 @@ final class GithubActions implements CiSystem
 
     public function getCurrentlyMergeRequest(): MergeRequest
     {
-        $requestId = $this->env->getMergeRequestId();
+        try {
+            $requestId = $this->env->getMergeRequestId();
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException(sprintf(
+                'Unable to fetch merge request id: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
 
         if ($requestId === null) {
             throw new CurrentlyNotMergeRequestException();
@@ -73,9 +80,20 @@ final class GithubActions implements CiSystem
 
         try {
             $graphqlUrl = $this->env->getGraphqlURL();
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException(sprintf(
+                'Getting GraphQL url was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
+
+        try {
             $repo = $this->env->extractRepo();
         } catch (EnvironmentException|InvalidEnvironmentVariableValueException $e) {
-            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
+            throw new FetchMergeRequestException(
+                sprintf('Fetching repo information (repository, slug) was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
         }
 
         try {

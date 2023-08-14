@@ -23,13 +23,22 @@ final class MockGithubClient implements GithubClient
         private array $tags = [],
         private ?Viewer $user = null,
         private ?CommentList $comments = null,
+        private PullRequest|\Throwable|null $getPullRequestResposne = null,
     ) {
         //
     }
 
     public function getPullRequest(PullRequestInput $input): PullRequest
     {
-        // TODO: Implement getPullRequest() method.
+        if ($this->getPullRequestResposne === null) {
+            throw new \Exception('Response not defined');
+        }
+
+        if ($this->getPullRequestResposne instanceof PullRequest) {
+            return $this->getPullRequestResposne;
+        }
+
+        throw $this->getPullRequestResposne;
     }
 
     public function getTags(TagsInput $input): TagCollection

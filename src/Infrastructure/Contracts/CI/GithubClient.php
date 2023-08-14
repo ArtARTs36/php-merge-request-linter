@@ -30,6 +30,7 @@ interface GithubClient
     /**
      * Get tags from repository.
      * @throws RequestException
+     * @throws GraphqlException
      */
     public function getTags(TagsInput $input): TagCollection;
 
@@ -37,12 +38,14 @@ interface GithubClient
      * Post comment.
      * @throws RequestException
      * @throws InvalidResponseException
+     * @throws GraphqlException
      */
     public function postComment(AddCommentInput $input): string;
 
     /**
      * Update comment.
      * @throws RequestException
+     * @throws GraphqlException
      */
     public function updateComment(UpdateCommentInput $input): void;
 
@@ -50,12 +53,14 @@ interface GithubClient
      * Get current user.
      * @throws RequestException
      * @throws InvalidResponseException
+     * @throws GraphqlException
      */
     public function getCurrentUser(string $graphqlUrl): Viewer;
 
     /**
      * Get comments on pull request.
      * @throws RequestException
+     * @throws GraphqlException
      */
     public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList;
 }

@@ -2,17 +2,28 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Github;
 
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\CommentList;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\Viewer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\VarName;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockBitbucketClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockGithubClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 final class GithubActionsTest extends TestCase
 {
@@ -169,6 +180,136 @@ final class GithubActionsTest extends TestCase
         $comment = $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
 
         self::assertEquals($expectedComment, $comment);
+    }
+
+    public function providerForTestGetCurrentlyMergeRequestOnException(): array
+    {
+        return [
+            'Fetching request id was failed' => [
+                'env' => [],
+                'clientGetPullRequestResponse' => null,
+                'expectedExceptionClass' => FetchMergeRequestException::class,
+                'expectedExceptionPrevious' => VarNotFoundException::class,
+            ],
+            'CurrentlyNotMergeRequestException' => [
+                'env' => [
+                    VarName::RefName->value => 'abcd',
+                ],
+                'clientGetPullRequestResponse' => null,
+                'expectedExceptionClass' => CurrentlyNotMergeRequestException::class,
+                'expectedExceptionPrevious' => null,
+            ],
+            'Getting graphql url was failed' => [
+                'env' => [
+                    VarName::RefName->value => '1/merge',
+                ],
+                'clientGetPullRequestResponse' => null,
+                'expectedExceptionClass' => FetchMergeRequestException::class,
+                'expectedExceptionPrevious' => VarNotFoundException::class,
+            ],
+            'Fetching repo information (repository, slug) was failed' => [
+                'env' => [
+                    VarName::RefName->value => '1/merge',
+                    VarName::GraphqlURL->value => 'http://google.com',
+                ],
+                'clientGetPullRequestResponse' => null,
+                'expectedExceptionClass' => FetchMergeRequestException::class,
+                'expectedExceptionPrevious' => VarNotFoundException::class,
+            ],
+            'Merge Request not found' => [
+                'env' => [
+                    VarName::RefName->value => '1/merge',
+                    VarName::GraphqlURL->value => 'http://google.com',
+                    VarName::Repository->value => 'artarts36/repo',
+                ],
+                'clientGetPullRequestResponse' => new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException(),
+                'expectedExceptionClass' => MergeRequestNotFoundException::class,
+                'expectedExceptionPrevious' => \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException::class,
+            ],
+            'Http Exceptions' => [
+                'env' => [
+                    VarName::RefName->value => '1/merge',
+                    VarName::GraphqlURL->value => 'http://google.com',
+                    VarName::Repository->value => 'artarts36/repo',
+                ],
+                'clientGetPullRequestResponse' => new ForbiddenException(new Request('GET', 'http://google.com')),
+                'expectedExceptionClass' => FetchMergeRequestException::class,
+                'expectedExceptionPrevious' => ForbiddenException::class,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::getCurrentlyMergeRequest
+     *
+     * @dataProvider providerForTestGetCurrentlyMergeRequestOnException
+     */
+    public function testGetCurrentlyMergeRequestOnException(
+        array $env,
+        PullRequest|\Throwable|null $clientGetPullRequestResponse,
+        string $expectedExceptionClass,
+        ?string $expectedPreviousExceptionClass,
+    ): void {
+        $ci = $this->makeCi($env, new MockGithubClient(getPullRequestResposne: $clientGetPullRequestResponse));
+
+        try {
+            $ci->getCurrentlyMergeRequest();
+        } catch (\Throwable $e) {
+            self::assertInstanceOf($expectedExceptionClass, $e);
+
+            if ($expectedPreviousExceptionClass !== null) {
+                self::assertInstanceOf(
+                    $expectedPreviousExceptionClass,
+                    $e->getPrevious(),
+                    $e->getPrevious() !== null ?
+                        sprintf('Previous exception is %s with message "%s"', get_class($e->getPrevious()), $e->getMessage()) :
+                        'Previous exception didn\'t set',
+                );
+            }
+        }
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::getCurrentlyMergeRequest
+     */
+    public function testGetCurrentlyMergeRequest(): void
+    {
+        $client = new MockGithubClient(
+            getPullRequestResposne: $pr = new PullRequest(
+                '1',
+                '2',
+                '',
+                '',
+                [],
+                true,
+                '',
+                '',
+                1,
+                '',
+                false,
+                new \DateTimeImmutable(),
+                'http://google.com',
+            ),
+        );
+
+        $ci = $this->makeCi([
+            VarName::RefName->value => '1/merge',
+            VarName::GraphqlURL->value => 'http://google.com',
+            VarName::Repository->value => 'artarts36/repo',
+        ], $client);
+
+        $mr = $ci->getCurrentlyMergeRequest();
+
+        self::assertEquals(
+            [
+                $pr->id,
+                $pr->title,
+            ],
+            [
+                $mr->id,
+                $mr->title,
+            ],
+        );
     }
 
     private function makeCi(array $env, ?GithubClient $githubClient = null): GithubActions
