@@ -77,13 +77,10 @@ final class GitlabCi implements CiSystem
         try {
             $serverUrl = $this->environment->getGitlabServerUrl();
         } catch (EnvironmentException $e) {
-            throw new FetchMergeRequestException(
-                sprintf(
+            throw new FetchMergeRequestException(sprintf(
                 'Failed to fetch gitlab server url: %s',
                 $e->getMessage()
-            ),
-                previous: $e,
-            );
+            ), previous: $e);
         }
 
         try {
