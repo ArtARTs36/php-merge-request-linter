@@ -15,7 +15,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 final class MockGitlabClient implements GitlabClient
 {
     public function __construct(
-        private readonly MergeRequest|\Throwable|null $getMergeRequestResponse = ull,
+        private readonly MergeRequest|\Throwable|null $getMergeRequestResponse = null,
     ) {
     }
 

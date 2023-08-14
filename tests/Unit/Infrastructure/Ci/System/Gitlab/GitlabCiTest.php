@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GitlabClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarHasDifferentTypeException;
@@ -95,7 +96,7 @@ final class GitlabCiTest extends TestCase
             ],
             'Fetching merge request number was failed' => [
                 'env' => [
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::RequestNumber->value => true,
+                    VarName::RequestNumber->value => true,
                 ],
                 'clientGetPullRequestResponse' => null,
                 'expectedExceptionClass' => FetchMergeRequestException::class,
@@ -103,7 +104,7 @@ final class GitlabCiTest extends TestCase
             ],
             'Failed to fetch gitlab server url' => [
                 'env' => [
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::RequestNumber->value => 1,
+                    VarName::RequestNumber->value => 1,
                 ],
                 'clientGetPullRequestResponse' => null,
                 'expectedExceptionClass' => FetchMergeRequestException::class,
@@ -111,8 +112,8 @@ final class GitlabCiTest extends TestCase
             ],
             'Failed to fetch gitlab project id' => [
                 'env' => [
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::RequestNumber->value => 1,
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::ApiURL->value => 'http://google.com',
+                    VarName::RequestNumber->value => 1,
+                    VarName::ApiURL->value => 'http://google.com',
                 ],
                 'clientGetPullRequestResponse' => null,
                 'expectedExceptionClass' => FetchMergeRequestException::class,
@@ -120,9 +121,9 @@ final class GitlabCiTest extends TestCase
             ],
             'Merge Request not found' => [
                 'env' => [
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::RequestNumber->value => 1,
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::ApiURL->value => 'http://google.com',
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::ProjectID->value => 1,
+                    VarName::RequestNumber->value => 1,
+                    VarName::ApiURL->value => 'http://google.com',
+                    VarName::ProjectID->value => 1,
                 ],
                 'clientGetPullRequestResponse' => new NotFoundException(new Request('GET', 'http://google.com')),
                 'expectedExceptionClass' => MergeRequestNotFoundException::class,
@@ -130,9 +131,9 @@ final class GitlabCiTest extends TestCase
             ],
             'Other http exceptions' => [
                 'env' => [
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::RequestNumber->value => 1,
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::ApiURL->value => 'http://google.com',
-                    \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::ProjectID->value => 1,
+                    VarName::RequestNumber->value => 1,
+                    VarName::ApiURL->value => 'http://google.com',
+                    VarName::ProjectID->value => 1,
                 ],
                 'clientGetPullRequestResponse' => new ForbiddenException(new Request('GET', 'http://google.com')),
                 'expectedExceptionClass' => FetchMergeRequestException::class,
@@ -196,9 +197,9 @@ final class GitlabCiTest extends TestCase
         );
 
         $ci = $this->makeCi([
-            \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::RequestNumber->value => 1,
-            \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::ApiURL->value => 'http://google.com',
-            \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName::ProjectID->value => 1,
+            VarName::RequestNumber->value => 1,
+            VarName::ApiURL->value => 'http://google.com',
+            VarName::ProjectID->value => 1,
         ], $client);
 
         $mr = $ci->getCurrentlyMergeRequest();
