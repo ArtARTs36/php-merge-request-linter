@@ -27,6 +27,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\BitbucketPR;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockBitbucketClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockLogger;
@@ -280,6 +281,37 @@ final class BitbucketPipelinesTest extends TestCase
                 sprintf('Previous exception is %s with message "%s"', get_class($e->getPrevious()), $e->getMessage()),
             );
         }
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getCurrentlyMergeRequest
+     */
+    public function testGetCurrentlyMergeRequest(): void
+    {
+        $client = $this->createMock(Client::class);
+        $client
+            ->expects(new InvokedCount(1))
+            ->method('getPullRequest')
+            ->willReturn($pr = BitbucketPR::create());
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+            VarName::PullRequestId->value => '1',
+        ], $client);
+
+        $mr = $ci->getCurrentlyMergeRequest();
+
+        self::assertEquals(
+            [
+                $pr->id,
+                $pr->title,
+            ],
+            [
+                $mr->id,
+                $mr->title,
+            ],
+        );
     }
 
     /**
