@@ -21,6 +21,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\Bit
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
@@ -222,7 +223,7 @@ final class BitbucketPipelinesTest extends TestCase
                 'env' => [],
                 'clientGetPullRequestResponse' => null,
                 'expectedExceptionClass' => FetchMergeRequestException::class,
-                'expectedExceptionMessage' => VarNotFoundException::class,
+                'expectedExceptionPrevious' => VarNotFoundException::class,
             ],
             'CurrentlyNotMergeRequestException' => [
                 'env' => [
@@ -231,7 +232,7 @@ final class BitbucketPipelinesTest extends TestCase
                 ],
                 'clientGetPullRequestResponse' => null,
                 'expectedExceptionClass' => CurrentlyNotMergeRequestException::class,
-                'expectedExceptionMessage' => VarNotFoundException::class,
+                'expectedExceptionPrevious' => VarNotFoundException::class,
             ],
             'Pull Request not found' => [
                 'env' => [
@@ -241,7 +242,17 @@ final class BitbucketPipelinesTest extends TestCase
                 ],
                 'clientGetPullRequestResponse' => new NotFoundException(new Request('GET', 'http://google.com'), new Response()),
                 'expectedExceptionClass' => MergeRequestNotFoundException::class,
-                'expectedExceptionMessage' => VarNotFoundException::class,
+                'expectedExceptionPrevious' => NotFoundException::class,
+            ],
+            'Other http exceptions' => [
+                'env' => [
+                    VarName::Workspace->value => 'owner',
+                    VarName::RepoName->value => 'repo',
+                    VarName::PullRequestId->value => '1',
+                ],
+                'clientGetPullRequestResponse' => new ForbiddenException(new Request('GET', 'http://google.com')),
+                'expectedExceptionClass' => FetchMergeRequestException::class,
+                'expectedExceptionPrevious' => ForbiddenException::class,
             ],
         ];
     }
@@ -263,7 +274,11 @@ final class BitbucketPipelinesTest extends TestCase
             $ci->getCurrentlyMergeRequest();
         } catch (\Throwable $e) {
             self::assertInstanceOf($expectedExceptionClass, $e);
-            self::assertInstanceOf($expectedPreviousExceptionClass, $e->getPrevious());
+            self::assertInstanceOf(
+                $expectedPreviousExceptionClass,
+                $e->getPrevious(),
+                sprintf('Previous exception is %s with message "%s"', get_class($e->getPrevious()), $e->getMessage()),
+            );
         }
     }
 
