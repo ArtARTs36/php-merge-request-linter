@@ -226,7 +226,7 @@ final class GithubActionsTest extends TestCase
                 'expectedExceptionClass' => MergeRequestNotFoundException::class,
                 'expectedExceptionPrevious' => \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException::class,
             ],
-            'Http Exceptions' => [
+            'Http exceptions' => [
                 'env' => [
                     VarName::RefName->value => '1/merge',
                     VarName::GraphqlURL->value => 'http://google.com',

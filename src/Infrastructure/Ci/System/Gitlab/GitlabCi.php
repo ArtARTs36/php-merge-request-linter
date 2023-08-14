@@ -68,15 +68,30 @@ final class GitlabCi implements CiSystem
             $requestNumber = $this->environment->getMergeRequestNumber();
         } catch (EnvironmentVariableNotFoundException $e) {
             throw new CurrentlyNotMergeRequestException(previous: $e);
-        } catch (VarHasDifferentTypeException $e) {
-            throw new CurrentlyNotMergeRequestException($e->getMessage(), previous: $e);
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException(
+                sprintf('Failed to fetch merge request number: %s', $e->getMessage()),
+                previous: $e,
+            );
         }
 
         try {
             $serverUrl = $this->environment->getGitlabServerUrl();
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException(sprintf(
+                'Failed to fetch gitlab server url: %s',
+                $e->getMessage()),
+                previous: $e,
+            );
+        }
+
+        try {
             $projectId = $this->environment->getProjectId();
         } catch (EnvironmentException $e) {
-            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
+            throw new FetchMergeRequestException(sprintf(
+                'Failed to fetch gitlab project id: %s',
+                $e->getMessage(),
+            ), previous: $e);
         }
 
         try {
