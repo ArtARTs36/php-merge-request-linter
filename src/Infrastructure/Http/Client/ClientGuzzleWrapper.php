@@ -31,13 +31,31 @@ class ClientGuzzleWrapper implements Client
 
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
+        $this->logger->info(sprintf(
+            '[HttpClient] Sending request to %s',
+            $request->getUri()->getPath(),
+        ));
+
         $response = $this->http->send($request);
 
         $e = $this->createRequestException($request, $response);
 
         if ($e !== null) {
+            $this->logger->warning(sprintf(
+                '[HttpClient] Request to %s was failed with status %d: %s',
+                $request->getUri()->getPath(),
+                $response->getStatusCode(),
+                $e->getMessage(),
+            ));
+
             throw $e;
         }
+
+        $this->logger->info(sprintf(
+            '[HttpClient] Request to %s was successful with status %d',
+            $request->getUri()->getPath(),
+            $response->getStatusCode(),
+        ));
 
         return $response;
     }
