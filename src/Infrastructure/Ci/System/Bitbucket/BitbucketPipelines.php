@@ -6,6 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
@@ -141,15 +142,28 @@ class BitbucketPipelines implements CiSystem
 
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
-        $repo = $this->environment->getRepo();
-        $prId = $this->environment->getPullRequestId();
+        try {
+            $repo = $this->environment->getRepo();
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(
+                sprintf('Fetch repository information was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
-        $createdComment = $this->client->postComment(new CreateCommentInput(
-            $repo->workspace,
-            $repo->slug,
-            $prId,
-            $comment,
-        ));
+        try {
+            $createdComment = $this->client->postComment(new CreateCommentInput(
+                $repo->workspace,
+                $repo->slug,
+                (int)$request->id,
+                $comment,
+            ));
+        } catch (RequestException $e) {
+            throw new PostCommentException(
+                sprintf('Post comment was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         $this->logger->info(sprintf(
             '[BitbucketPipelines] Comment was created with id %d and url %s',

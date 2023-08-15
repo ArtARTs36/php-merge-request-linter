@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbu
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient;
@@ -22,6 +23,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\Lab
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
@@ -117,6 +119,38 @@ final class BitbucketPipelinesTest extends TestCase
         $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
 
         $logger->assertPushedInfo('[BitbucketPipelines] Comment was created with id 1 and url https://site.ru');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::postCommentOnMergeRequest()
+     */
+    public function testPostCommentOnMergeRequestOnFetchRepositoryInformationWasFailed(): void
+    {
+        $ci = $this->createCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed: */i');
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), '');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::postCommentOnMergeRequest()
+     */
+    public function testPostCommentOnMergeRequestOnRequestException(): void
+    {
+        $client = new MockBitbucketClient(
+            postCommentResponse: new HttpRequestException(new Request('GET', 'http://google.com')),
+        );
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+            VarName::PullRequestId->value => 1,
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Post comment was failed: */i');
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), '');
     }
 
     /**

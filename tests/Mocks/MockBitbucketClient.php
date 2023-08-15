@@ -14,7 +14,8 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\
 final class MockBitbucketClient implements Client
 {
     public function __construct(
-        private readonly PullRequest|\Throwable|\Closure|null $getPullRequest,
+        private readonly PullRequest|\Throwable|\Closure|null $getPullRequest = null,
+        private readonly \Throwable|Comment|null $postCommentResponse = null,
     ) {
     }
 
@@ -48,6 +49,10 @@ final class MockBitbucketClient implements Client
 
     public function postComment(CreateCommentInput $input): Comment
     {
-        // TODO: Implement postComment() method.
+        if ($this->postCommentResponse instanceof \Throwable) {
+            throw $this->postCommentResponse;
+        }
+
+        return $this->postCommentResponse;
     }
 }
