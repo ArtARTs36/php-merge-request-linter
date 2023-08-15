@@ -19,15 +19,11 @@ class GithubActionsCredentialsMapper implements AuthenticatorMapper
     public function map(array $credentials): Authenticator
     {
         if (empty($credentials['token'])) {
-            throw new InvalidCredentialsException(sprintf(
-                'Github Actions supported only token',
-            ));
+            throw new InvalidCredentialsException('Github Actions supported only token');
         }
 
         if (! is_string($credentials['token'])) {
-            throw new InvalidCredentialsException(sprintf(
-                'Github Actions need token as string',
-            ));
+            throw new InvalidCredentialsException('Github Actions needs token as string');
         }
 
         return HeaderAuthenticator::bearer($this->value->tryTransform($credentials['token']));
