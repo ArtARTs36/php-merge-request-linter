@@ -75,7 +75,7 @@ final class GithubActions implements CiSystem
         }
 
         if ($requestId === null) {
-            throw new CurrentlyNotMergeRequestException();
+            throw CurrentlyNotMergeRequestException::create();
         }
 
         try {

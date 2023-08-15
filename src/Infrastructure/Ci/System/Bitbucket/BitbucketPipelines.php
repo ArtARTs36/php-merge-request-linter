@@ -81,7 +81,7 @@ class BitbucketPipelines implements CiSystem
         try {
             $prId = $this->environment->getPullRequestId();
         } catch (EnvironmentException $e) {
-            throw new CurrentlyNotMergeRequestException(previous: $e);
+            throw CurrentlyNotMergeRequestException::createFrom($e);
         }
 
         try {

@@ -58,7 +58,7 @@ final class RunnerTest extends TestCase
         $result = $runner->run($this->createLinter());
 
         self::assertEquals(LintState::Success, $result->state);
-        self::assertEquals('Currently is not merge request', $result->notes->first());
+        self::assertEquals('Currently is not merge request', $result->notes->first()->getDescription());
     }
 
     /**

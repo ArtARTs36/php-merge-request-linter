@@ -66,7 +66,7 @@ final class GitlabCi implements CiSystem
         try {
             $requestNumber = $this->environment->getMergeRequestNumber();
         } catch (EnvironmentVariableNotFoundException $e) {
-            throw new CurrentlyNotMergeRequestException(previous: $e);
+            throw CurrentlyNotMergeRequestException::createFrom($e);
         } catch (EnvironmentException $e) {
             throw new FetchMergeRequestException(
                 sprintf('Failed to fetch merge request number: %s', $e->getMessage()),
