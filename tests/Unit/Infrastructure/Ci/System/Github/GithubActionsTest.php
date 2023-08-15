@@ -99,7 +99,7 @@ final class GithubActionsTest extends TestCase
         );
 
         $ci = $this->makeCi([
-            'GITHUB_REF_NAME' => '1/merge',c
+            'GITHUB_REF_NAME' => '1/merge',
             'GITHUB_GRAPHQL_URL' => '',
         ], $client);
 
