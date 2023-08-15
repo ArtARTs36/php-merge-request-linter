@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Githu
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\CommentList;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
@@ -16,6 +17,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockGithubClient;
@@ -85,6 +87,25 @@ final class GithubActionsTest extends TestCase
         $ci->updateComment(new Comment('', ''));
 
         $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::updateComment
+     */
+    public function testUpdateCommentOnRequestException(): void
+    {
+        $client = new MockGithubClient(
+            updateCommentResponse: new HttpRequestException(new Request('GET', 'http://google.com')),
+        );
+
+        $ci = $this->makeCi([
+            'GITHUB_REF_NAME' => '1/merge',c
+            'GITHUB_GRAPHQL_URL' => '',
+        ], $client);
+
+        self::expectException(PostCommentException::class);
+
+        $ci->updateComment(new Comment('', ''));
     }
 
     /**

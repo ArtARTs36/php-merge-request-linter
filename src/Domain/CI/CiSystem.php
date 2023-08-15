@@ -40,6 +40,7 @@ interface CiSystem
     /**
      * Update comment.
      * @throws InvalidCommentException
+     * @throws PostCommentException
      */
     public function updateComment(Comment $comment): void;
 

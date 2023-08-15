@@ -24,6 +24,7 @@ final class MockGithubClient implements GithubClient
         private ?Viewer $user = null,
         private ?CommentList $comments = null,
         private PullRequest|\Throwable|null $getPullRequestResposne = null,
+        private ?\Throwable $updateCommentResponse = null,
     ) {
         //
     }
@@ -53,7 +54,9 @@ final class MockGithubClient implements GithubClient
 
     public function updateComment(UpdateCommentInput $input): void
     {
-        // TODO: Implement updateComment() method.
+        if ($this->updateCommentResponse instanceof \Exception) {
+            throw $this->updateCommentResponse;
+        }
     }
 
     public function getCurrentUser(string $graphqlUrl): Viewer

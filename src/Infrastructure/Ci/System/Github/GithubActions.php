@@ -152,7 +152,7 @@ final class GithubActions implements CiSystem
             $this->client->postComment(
                 new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment),
             );
-        } catch (InvalidResponseException $e) {
+        } catch (InvalidResponseException|RequestException|EnvironmentException $e) {
             throw new PostCommentException(sprintf(
                 'Post comment was failed: %s',
                 $e->getMessage(),
@@ -162,9 +162,16 @@ final class GithubActions implements CiSystem
 
     public function updateComment(Comment $comment): void
     {
-        $this->client->updateComment(
-            new UpdateCommentInput($this->env->getGraphqlURL(), $comment->id, $comment->message),
-        );
+        try {
+            $this->client->updateComment(
+                new UpdateCommentInput($this->env->getGraphqlURL(), $comment->id, $comment->message),
+            );
+        } catch (RequestException|EnvironmentException $e) {
+            throw new PostCommentException(sprintf(
+                'Update comment was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
     }
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
