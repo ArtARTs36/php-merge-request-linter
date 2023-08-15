@@ -5,8 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Credentia
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\TransformConfigValueException;
 
 class GithubActionsCredentialsMapper implements AuthenticatorMapper
 {
@@ -26,6 +27,13 @@ class GithubActionsCredentialsMapper implements AuthenticatorMapper
             throw new InvalidCredentialsException('Github Actions needs token as string');
         }
 
-        return HeaderAuthenticator::bearer($this->value->tryTransform($credentials['token']));
+        try {
+            return HeaderAuthenticator::bearer($this->value->tryTransform($credentials['token']));
+        } catch (TransformConfigValueException $e) {
+            throw new InvalidCredentialsException(sprintf(
+                'Failed to resolve github token: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
     }
 }

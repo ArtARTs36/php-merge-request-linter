@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
 /**
- * @phpstan-type Params array{base_uri: string, cookies: true, headers: array<string, string>}
+ * @phpstan-type Params = array{base_uri?: string, cookies?: true, headers?: array<string, string>}
  * @codeCoverageIgnore
  */
 class HttpClientConfig

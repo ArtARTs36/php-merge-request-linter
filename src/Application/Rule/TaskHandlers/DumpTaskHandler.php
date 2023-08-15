@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\TaskHandlers;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\DumpInfo;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Dumper\RuleDumper;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Tasks\DumpTask;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver;
 
@@ -21,7 +22,7 @@ class DumpTaskHandler
     {
         $config = $this
             ->config
-            ->resolve(new User($task->workingDirectory, $task->customConfigPath));
+            ->resolve(new User($task->workingDirectory, $task->customConfigPath), Config::SUBJECT_RULES);
 
         return new DumpInfo($config->path, $this->dumper->dump($config->config->getRules()));
     }

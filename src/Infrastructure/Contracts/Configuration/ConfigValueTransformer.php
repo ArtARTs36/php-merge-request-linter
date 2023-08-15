@@ -20,6 +20,7 @@ interface ConfigValueTransformer
 
     /**
      * Transform value or return same value.
+     * @throws TransformConfigValueException
      */
     public function tryTransform(string $value): string;
 }

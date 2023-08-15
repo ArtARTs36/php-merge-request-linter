@@ -3,9 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CiSettings;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\AuthenticatorProxy;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 
 class CiSettingsMapper
@@ -34,9 +33,7 @@ class CiSettingsMapper
             unset($params['credentials']);
 
             $mapped[$ciName] = new CiSettings(
-                new AuthenticatorProxy(function () use ($ciName, $bag) {
-                    return $this->authMappers[$ciName]->map($bag['credentials']);
-                }),
+                $this->authMappers[$ciName]->map($bag['credentials']),
                 $params,
             );
         }
