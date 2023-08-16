@@ -20,6 +20,6 @@ final class StaticLoader implements ConfigLoader
 
     public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config
     {
-        return $this->hydrator->hydrate($this->config);
+        return $this->hydrator->hydrate($this->config, $subjects);
     }
 }
