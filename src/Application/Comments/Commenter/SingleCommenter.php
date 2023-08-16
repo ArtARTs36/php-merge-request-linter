@@ -77,6 +77,7 @@ final class SingleCommenter extends CiCommenter
         $this->updateComment($requestId, new Comment(
             $firstComment->id,
             $message,
+            $requestId,
         ));
     }
 

@@ -194,6 +194,7 @@ final class GitlabCi implements CiSystem
         return $gitlabComment === null ? null : new Comment(
             (string) $gitlabComment->id,
             $gitlabComment->body,
+            $request->id,
         );
     }
 }

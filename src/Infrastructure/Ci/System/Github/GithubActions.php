@@ -179,6 +179,7 @@ final class GithubActions implements CiSystem
         return $gComment === null ? null : new Comment(
             $gComment->id,
             $gComment->message,
+            $request->id,
         );
     }
 

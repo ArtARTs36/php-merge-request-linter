@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbu
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient;
@@ -148,9 +149,54 @@ final class BitbucketPipelinesTest extends TestCase
         $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment(
             '1',
             'test-comment',
+            '1',
         ));
 
         $logger->assertPushedInfo('[BitbucketPipelines] Comment with id "1" was updated');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::updateComment
+     */
+    public function testUpdateCommentOnFetchRepositoryFailed(): void
+    {
+        $ci = $this->createCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed: */i');
+
+        $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('', '', ''));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::updateComment
+     */
+    public function testUpdateCommentOnMergeRequestIdNonNumeric(): void
+    {
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+        ]);
+
+        self::expectExceptionMessageMatches('/Merge request id for comment on Bitbucket must be integer/i');
+
+        $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('', '', ''));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::updateComment
+     */
+    public function testUpdateCommentOnSendFailed(): void
+    {
+        $client = new MockBitbucketClient(updateCommentResponse: $this->createHttpRequestException());
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+        ], $client);
+
+        self::expectException(PostCommentException::class);
+
+        $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('', '', '1'));
     }
 
     public function providerForTestGetFirstCommentOnMergeRequestByCurrentUser(): array
@@ -179,7 +225,7 @@ final class BitbucketPipelinesTest extends TestCase
                         new Comment('4', '', 'test4', '3'),
                     ]), 1),
                 ],
-                new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('2', 'test2'),
+                new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('2', 'test2', '1'),
             ],
         ];
     }

@@ -10,6 +10,7 @@ class Comment
     public function __construct(
         public readonly string $id,
         public readonly string $message,
+        public readonly string $mergeRequestId,
     ) {
         //
     }

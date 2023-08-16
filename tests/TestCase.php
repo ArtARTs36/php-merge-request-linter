@@ -17,13 +17,16 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\CounterLogger;
 use ArtARTs36\Str\Str;
+use GuzzleHttp\Psr7\Request;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -98,5 +101,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function mockLogger(): CounterLogger
     {
         return new CounterLogger();
+    }
+
+    protected function createHttpRequestException(): RequestException
+    {
+        return new HttpRequestException(new Request('GET', 'http://google.com'));
     }
 }

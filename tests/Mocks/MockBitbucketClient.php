@@ -16,6 +16,7 @@ final class MockBitbucketClient implements Client
     public function __construct(
         private readonly PullRequest|\Throwable|\Closure|null $getPullRequest = null,
         private readonly \Throwable|Comment|null $postCommentResponse = null,
+        private readonly \Throwable|Comment|null $updateCommentResponse = null,
     ) {
     }
 
@@ -44,7 +45,11 @@ final class MockBitbucketClient implements Client
 
     public function updateComment(UpdateCommentInput $input): Comment
     {
-        // TODO: Implement updateComment() method.
+        if ($this->updateCommentResponse instanceof \Throwable) {
+            throw $this->updateCommentResponse;
+        }
+
+        return $this->updateCommentResponse;
     }
 
     public function postComment(CreateCommentInput $input): Comment

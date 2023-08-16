@@ -60,7 +60,7 @@ final class GithubActionsTest extends TestCase
             'GITHUB_GRAPHQL_URL' => '',
         ]);
 
-        $ci->updateComment(new Comment('', ''));
+        $ci->updateComment(new Comment('', '', '1'));
 
         $this->addToAssertionCount(1);
     }
@@ -81,7 +81,7 @@ final class GithubActionsTest extends TestCase
 
         self::expectException(PostCommentException::class);
 
-        $ci->updateComment(new Comment('', ''));
+        $ci->updateComment(new Comment('', '', '1'));
     }
 
     /**
@@ -169,7 +169,7 @@ final class GithubActionsTest extends TestCase
                     true,
                     '1',
                 ),
-                new Comment('2', 'test-message-2'),
+                new Comment('2', 'test-message-2', '1'),
             ],
         ];
     }
