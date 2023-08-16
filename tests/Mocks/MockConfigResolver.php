@@ -15,7 +15,7 @@ final class MockConfigResolver implements ConfigResolver
         //
     }
 
-    public function resolve(User $user): ResolvedConfig
+    public function resolve(User $user, int $configSubjects = Config::SUBJECT_ALL): ResolvedConfig
     {
         return new ResolvedConfig($this->config, $user->workDirectory);
     }
