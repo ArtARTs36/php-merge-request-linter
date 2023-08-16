@@ -49,9 +49,7 @@ final class RunnerTest extends TestCase
         $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
-                return new MockCi([
-                    'is_pull_request' => false,
-                ]);
+                return new MockCi();
             }
         }, new NullMetricManager()));
 
@@ -97,7 +95,7 @@ final class RunnerTest extends TestCase
 
             public function createCurrently(): CiSystem
             {
-                return new MockCi(['is_pull_request' => true], $this->request);
+                return new MockCi($this->request);
             }
         }, new NullMetricManager()));
 

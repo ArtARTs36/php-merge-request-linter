@@ -52,15 +52,6 @@ final class GitlabCi implements CiSystem
         return $this->environment->isWorking();
     }
 
-    public function isCurrentlyMergeRequest(): bool
-    {
-        try {
-            return $this->environment->getMergeRequestNumber() >= 0;
-        } catch (EnvironmentException) {
-            return false;
-        }
-    }
-
     public function getCurrentlyMergeRequest(): MergeRequest
     {
         try {

@@ -45,30 +45,6 @@ final class GitlabCiTest extends TestCase
         self::assertEquals($expected, $this->makeCi($env)->isCurrentlyWorking());
     }
 
-    public function providerForTestIsMergeRequest(): array
-    {
-        return [
-            [
-                [],
-                false,
-            ],
-            [
-                ['CI_MERGE_REQUEST_IID' => 1],
-                true,
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider providerForTestIsMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::isCurrentlyMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::__construct
-     */
-    public function testIsMergeRequest(array $env, bool $expected): void
-    {
-        self::assertEquals($expected, $this->makeCi($env)->isCurrentlyMergeRequest());
-    }
-
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::postCommentOnMergeRequest
      */

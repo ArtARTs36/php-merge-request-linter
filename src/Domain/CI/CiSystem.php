@@ -21,11 +21,6 @@ interface CiSystem
     public function isCurrentlyWorking(): bool;
 
     /**
-     * Is Merge Request.
-     */
-    public function isCurrentlyMergeRequest(): bool;
-
-    /**
      * Get current merge request.
      * @throws GettingMergeRequestException
      */

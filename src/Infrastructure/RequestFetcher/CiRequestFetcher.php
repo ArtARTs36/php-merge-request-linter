@@ -23,10 +23,6 @@ class CiRequestFetcher implements MergeRequestFetcher
     {
         $ci = $this->systems->createCurrently();
 
-        if (! $ci->isCurrentlyMergeRequest()) {
-            throw CurrentlyNotMergeRequestException::create();
-        }
-
         $this->metrics->add(
             new MetricSubject('used_ci_system', '[CI] Used CI System'),
             new StringMetric($ci->getName()),

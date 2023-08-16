@@ -50,30 +50,6 @@ final class GithubActionsTest extends TestCase
         self::assertEquals($expected, $this->makeCi($env)->isCurrentlyWorking());
     }
 
-    public function providerForTestIsMergeRequest(): array
-    {
-        return [
-            [
-                [],
-                false,
-            ],
-            [
-                ['GITHUB_REF_NAME' => '1/merge'],
-                true,
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider providerForTestIsMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::isCurrentlyMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::__construct
-     */
-    public function testIsCurrentlyMergeRequest(array $env, bool $expected): void
-    {
-        self::assertEquals($expected, $this->makeCi($env)->isCurrentlyMergeRequest());
-    }
-
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::updateComment
      */

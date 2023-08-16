@@ -70,34 +70,6 @@ final class BitbucketPipelinesTest extends TestCase
         self::assertEquals($expected, $ci->isCurrentlyWorking());
     }
 
-    public function providerForTestIsCurrentlyMergeRequest(): array
-    {
-        return [
-            [
-                [
-                    VarName::PullRequestId->value => 1,
-                ],
-                true,
-            ],
-            [
-                [],
-                false,
-            ],
-        ];
-    }
-
-    /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::isCurrentlyMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::__construct
-     * @dataProvider providerForTestIsCurrentlyMergeRequest
-     */
-    public function testIsCurrentlyMergeRequest(array $vars, bool $expected): void
-    {
-        $ci = $this->createCi($vars);
-
-        self::assertEquals($expected, $ci->isCurrentlyMergeRequest());
-    }
-
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::postCommentOnMergeRequest()
      */
