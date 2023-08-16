@@ -146,9 +146,14 @@ final class GitlabCi implements CiSystem
                     $comment,
                 ),
             );
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(sprintf(
+                'Fetch repository information was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
         } catch (RequestException $e) {
             throw new PostCommentException(sprintf(
-                'Post comment was failed: %s',
+                'Send comment to GitLab was failed: %s',
                 $e->getMessage(),
             ), previous: $e);
         }
@@ -165,15 +170,27 @@ final class GitlabCi implements CiSystem
 
         $commentId = (int) $comment->id;
 
-        $this->client->updateComment(
-            new UpdateCommentInput(
-                $this->environment->getGitlabServerUrl(),
-                $this->environment->getProjectId(),
-                $this->environment->getMergeRequestNumber(),
-                $comment->message,
-                $commentId,
-            ),
-        );
+        try {
+            $this->client->updateComment(
+                new UpdateCommentInput(
+                    $this->environment->getGitlabServerUrl(),
+                    $this->environment->getProjectId(),
+                    $this->environment->getMergeRequestNumber(),
+                    $comment->message,
+                    $commentId,
+                ),
+            );
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(sprintf(
+                'Fetch repository information was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        } catch (RequestException $e) {
+            throw new PostCommentException(sprintf(
+                'Send comment to GitLab was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
     }
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
@@ -182,14 +199,21 @@ final class GitlabCi implements CiSystem
             $this->environment->getGitlabServerUrl(),
         ));
 
-        $gitlabComment = $this
-            ->client
-            ->getCommentsOnMergeRequest(new GetCommentsInput(
-                $this->environment->getGitlabServerUrl(),
-                $this->environment->getProjectId(),
-                $request->number,
-            ))
-            ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
+        try {
+            $gitlabComment = $this
+                ->client
+                ->getCommentsOnMergeRequest(new GetCommentsInput(
+                    $this->environment->getGitlabServerUrl(),
+                    $this->environment->getProjectId(),
+                    $request->number,
+                ))
+                ->firstFilter(fn(API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(sprintf(
+                'Fetch repository information was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
 
         return $gitlabComment === null ? null : new Comment(
             (string) $gitlabComment->id,

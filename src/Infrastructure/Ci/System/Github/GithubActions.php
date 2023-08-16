@@ -145,7 +145,7 @@ final class GithubActions implements CiSystem
             );
         } catch (InvalidResponseException|RequestException|EnvironmentException $e) {
             throw new PostCommentException(sprintf(
-                'Post comment was failed: %s',
+                'Send comment to Github was failed: %s',
                 $e->getMessage(),
             ), previous: $e);
         }
@@ -159,7 +159,7 @@ final class GithubActions implements CiSystem
             );
         } catch (RequestException|EnvironmentException $e) {
             throw new PostCommentException(sprintf(
-                'Update comment was failed: %s',
+                'Send comment to Github  was failed: %s',
                 $e->getMessage(),
             ), previous: $e);
         }

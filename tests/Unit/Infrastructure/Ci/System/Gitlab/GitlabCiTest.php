@@ -4,7 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Gitla
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\InvalidCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
@@ -59,6 +61,72 @@ final class GitlabCiTest extends TestCase
         $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
 
         $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::postCommentOnMergeRequest
+     */
+    public function testPostCommentOnFetchRepositoryFailed(): void
+    {
+        $ci = $this->makeCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed: */i');
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::postCommentOnMergeRequest
+     */
+    public function testPostCommentOnSendFailed(): void
+    {
+        $ci = $this->makeCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed: */i');
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::updateComment
+     */
+    public function testUpdateCommentOnCommentIdNonNumeric(): void
+    {
+        $ci = $this->makeCi([]);
+
+        self::expectException(InvalidCommentException::class);
+
+        $ci->updateComment(new Comment('', '', ''));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::updateComment
+     */
+    public function testUpdateCommentOnFetchRepositoryFailed(): void
+    {
+        $ci = $this->makeCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed/');
+
+        $ci->updateComment(new Comment('1', '', ''));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::updateComment
+     */
+    public function testUpdateCommentOnSendFailed(): void
+    {
+        $client = new MockGitlabClient(updateCommentResponse: $this->createHttpRequestException());
+
+        $ci = $this->makeCi([
+            VarName::RequestNumber->value => 1,
+            VarName::ApiURL->value => 'http://google.com',
+            VarName::ProjectID->value => 1,
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Send comment to GitLab was failed/');
+
+        $ci->updateComment(new Comment('1', '', ''));
     }
 
     public function providerForTestGetCurrentlyMergeRequestOnException(): array

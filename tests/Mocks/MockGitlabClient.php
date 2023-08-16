@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Mocks;
 
+use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\CommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\GetCommentsInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\Input;
@@ -16,6 +17,7 @@ final class MockGitlabClient implements GitlabClient
 {
     public function __construct(
         private readonly MergeRequest|\Throwable|null $getMergeRequestResponse = null,
+        private readonly \Throwable|null $updateCommentResponse = null,
     ) {
     }
 
@@ -49,6 +51,8 @@ final class MockGitlabClient implements GitlabClient
 
     public function updateComment(UpdateCommentInput $input): void
     {
-        // TODO: Implement updateComment() method.
+        if ($this->updateCommentResponse instanceof \Throwable) {
+            throw $this->updateCommentResponse;
+        }
     }
 }
