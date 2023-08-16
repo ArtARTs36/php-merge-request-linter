@@ -25,6 +25,7 @@ final class MockGithubClient implements GithubClient
         private ?CommentList $comments = null,
         private PullRequest|\Throwable|null $getPullRequestResposne = null,
         private ?\Throwable $updateCommentResponse = null,
+        private ?\Throwable $postCommentOnMergeRequestResponse = null,
     ) {
         //
     }
@@ -49,6 +50,10 @@ final class MockGithubClient implements GithubClient
 
     public function postComment(AddCommentInput $input): string
     {
+        if ($this->postCommentOnMergeRequestResponse instanceof \Exception) {
+            throw $this->postCommentOnMergeRequestResponse;
+        }
+
         return '1';
     }
 

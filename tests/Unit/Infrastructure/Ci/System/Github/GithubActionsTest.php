@@ -123,6 +123,25 @@ final class GithubActionsTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::postCommentOnMergeRequest
+     */
+    public function testPostCommentOnMergeRequestOnRequestException(): void
+    {
+        $client = new MockGithubClient(
+            postCommentOnMergeRequestResponse: new HttpRequestException(new Request('GET', 'http://google.com')),
+        );
+
+        $ci = $this->makeCi([
+            'GITHUB_REF_NAME' => '1/merge',
+            'GITHUB_GRAPHQL_URL' => '',
+        ], $client);
+
+        self::expectException(PostCommentException::class);
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test');
+    }
+
     public function providerForTestGetFirstCommentOnMergeRequestByCurrentUser(): array
     {
         return [
