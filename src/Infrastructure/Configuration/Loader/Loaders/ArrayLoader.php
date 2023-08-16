@@ -30,14 +30,11 @@ class ArrayLoader implements ConfigLoader
                 $subjects,
             );
         } catch (DecodingFailedException $e) {
-            throw new ConfigInvalidException(
-                sprintf(
+            throw new ConfigInvalidException(sprintf(
                 'Failed to read config "%s": %s',
                 pathinfo($path, PATHINFO_BASENAME),
-                $e->getMessage()
-            ),
-                previous: $e,
-            );
+                $e->getMessage(),
+            ), previous: $e);
         } catch (FileNotFound $e) {
             throw ConfigNotFound::fromPath($path, $e);
         }
