@@ -190,7 +190,9 @@ final class GithubActionsTest extends TestCase
             comments: $commentList,
         ));
 
-        $comment = $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+        $comment = $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => 1,
+        ]));
 
         self::assertEquals($expectedComment, $comment);
     }
