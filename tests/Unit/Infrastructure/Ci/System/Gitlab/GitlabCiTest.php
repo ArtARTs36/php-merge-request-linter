@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\GitlabEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env\VarName;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi;
@@ -17,6 +18,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarHasDif
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockGitlabClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -268,6 +270,94 @@ final class GitlabCiTest extends TestCase
                 $mr->title,
             ],
         );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchGitlabServerUrlFailed(): void
+    {
+        $ci = $this->makeCi([]);
+
+        self::expectExceptionMessageMatches('/Failed to fetch gitlab server url/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchProjectIdFailed(): void
+    {
+        $ci = $this->makeCi([
+            VarName::ApiURL->value => '',
+        ]);
+
+        self::expectExceptionMessageMatches('/Fetch project id was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchCurrentUserFailed(): void
+    {
+        $client = new MockGitlabClient(
+            getCurrentUserResponse: $this->createHttpRequestException(),
+        );
+
+        $ci = $this->makeCi([
+            VarName::ApiURL->value => '',
+            VarName::ProjectID->value => '1',
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Fetch current user was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchCommentListFailed(): void
+    {
+        $client = new MockGitlabClient(
+            getCurrentUserResponse: new User('1', ''),
+            getCommentsListResponse: $this->createHttpRequestException(),
+        );
+
+        $ci = $this->makeCi([
+            VarName::ApiURL->value => '',
+            VarName::ProjectID->value => '1',
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Fetch comment list from gitlab was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUser(): void
+    {
+        $client = new MockGitlabClient(
+            getCurrentUserResponse: new User('1', 'test'),
+            getCommentsListResponse: new Arrayee([
+                new \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\Comment('1', 'test-message', 'test')
+            ]),
+        );
+
+        $ci = $this->makeCi([
+            VarName::ApiURL->value => '',
+            VarName::ProjectID->value => '1',
+        ], $client);
+
+        $comment = $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+
+        self::assertNotNull($comment);
+        self::assertEquals('test-message', $comment->message);
     }
 
     private function makeCi(array $env, ?GitlabClient $client = null): GitlabCi

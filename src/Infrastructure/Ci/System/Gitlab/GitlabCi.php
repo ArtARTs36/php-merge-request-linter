@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FindCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\InvalidCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
@@ -195,22 +196,47 @@ final class GitlabCi implements CiSystem
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
-        $user = $this->client->getCurrentUser(new Input(
-            $this->environment->getGitlabServerUrl(),
-        ));
+        try {
+            $serverUrl = $this->environment->getGitlabServerUrl();
+        } catch (EnvironmentException $e) {
+            throw new FindCommentException(sprintf(
+                'Failed to fetch gitlab server url: %s',
+                $e->getMessage()
+            ), previous: $e);
+        }
+
+        try {
+            $projectId = $this->environment->getProjectId();
+        } catch (EnvironmentException $e) {
+            throw new FindCommentException(sprintf(
+                'Fetch project id was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
+
+        try {
+            $user = $this->client->getCurrentUser(new Input(
+                $serverUrl,
+            ));
+        } catch (RequestException $e) {
+            throw new FindCommentException(
+                sprintf('Fetch current user was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         try {
             $gitlabComment = $this
                 ->client
                 ->getCommentsOnMergeRequest(new GetCommentsInput(
-                    $this->environment->getGitlabServerUrl(),
-                    $this->environment->getProjectId(),
+                    $serverUrl,
+                    $projectId,
                     $request->number,
                 ))
-                ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
-        } catch (EnvironmentException $e) {
-            throw new PostCommentException(sprintf(
-                'Fetch repository information was failed: %s',
+                ->firstFilter(fn(API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
+        } catch (RequestException $e) {
+            throw new FindCommentException(sprintf(
+                'Fetch comment list from gitlab was failed: %s',
                 $e->getMessage(),
             ), previous: $e);
         }

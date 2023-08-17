@@ -370,7 +370,7 @@ final class GithubActionsTest extends TestCase
 
         self::expectExceptionMessageMatches('/Fetch graphql url was failed/');
 
-        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test');
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest(), 'test');
     }
 
     /**

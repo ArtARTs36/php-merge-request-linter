@@ -19,6 +19,8 @@ final class MockGitlabClient implements GitlabClient
         private readonly MergeRequest|\Throwable|null $getMergeRequestResponse = null,
         private readonly \Throwable|null $updateCommentResponse = null,
         private readonly \Throwable|null $postCommentResponse = null,
+        private readonly Arrayee|\Throwable|null $getCommentsListResponse = null,
+        private readonly User|\Throwable|null $getCurrentUserResponse = null,
     ) {
     }
 
@@ -44,12 +46,28 @@ final class MockGitlabClient implements GitlabClient
 
     public function getCurrentUser(Input $input): User
     {
-        // TODO: Implement getCurrentUser() method.
+        if ($this->getCurrentUserResponse instanceof \Throwable) {
+            throw $this->getCurrentUserResponse;
+        }
+
+        if ($this->getCurrentUserResponse instanceof User) {
+            return $this->getCurrentUserResponse;
+        }
+
+        throw new \Exception('Get current user response no defined');
     }
 
     public function getCommentsOnMergeRequest(GetCommentsInput $input): Arrayee
     {
-        // TODO: Implement getCommentsOnMergeRequest() method.
+        if ($this->getCommentsListResponse instanceof \Throwable) {
+            throw $this->getCommentsListResponse;
+        }
+
+        if ($this->getCommentsListResponse instanceof Arrayee) {
+            return $this->getCommentsListResponse;
+        }
+
+        throw new \Exception('Get merge request response no defined');
     }
 
     public function updateComment(UpdateCommentInput $input): void
