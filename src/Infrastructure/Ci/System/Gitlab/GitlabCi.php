@@ -233,7 +233,7 @@ final class GitlabCi implements CiSystem
                     $projectId,
                     $request->number,
                 ))
-                ->firstFilter(fn(API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
+                ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
         } catch (RequestException $e) {
             throw new FindCommentException(sprintf(
                 'Fetch comment list from gitlab was failed: %s',
