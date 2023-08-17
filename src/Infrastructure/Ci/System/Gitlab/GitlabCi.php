@@ -207,7 +207,7 @@ final class GitlabCi implements CiSystem
                     $this->environment->getProjectId(),
                     $request->number,
                 ))
-                ->firstFilter(fn(API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
+                ->firstFilter(fn (API\Objects\Comment $comment) => $comment->authorLogin === $user->login);
         } catch (EnvironmentException $e) {
             throw new PostCommentException(sprintf(
                 'Fetch repository information was failed: %s',
