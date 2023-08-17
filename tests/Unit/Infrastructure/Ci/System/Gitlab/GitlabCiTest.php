@@ -84,11 +84,16 @@ final class GitlabCiTest extends TestCase
             postCommentResponse: $this->createHttpRequestException(),
         );
 
-        $ci = $this->makeCi([], $client);
+        $ci = $this->makeCi([
+            VarName::ApiURL->value => 'http://google.com',
+            VarName::ProjectID->value => '1',
+        ], $client);
 
         self::expectExceptionMessageMatches('/Send comment to GitLab was failed: */i');
 
-        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest([
+            'number' => 1,
+        ]), 'test-comment');
     }
 
     /**

@@ -142,7 +142,7 @@ final class GitlabCi implements CiSystem
                 new CommentInput(
                     $this->environment->getGitlabServerUrl(),
                     $this->environment->getProjectId(),
-                    $this->environment->getMergeRequestNumber(),
+                    (int) $request->number,
                     $comment,
                 ),
             );
