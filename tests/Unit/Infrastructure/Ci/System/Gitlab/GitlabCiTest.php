@@ -80,9 +80,13 @@ final class GitlabCiTest extends TestCase
      */
     public function testPostCommentOnSendFailed(): void
     {
-        $ci = $this->makeCi([]);
+        $client = new MockGitlabClient(
+            postCommentResponse: $this->createHttpRequestException(),
+        );
 
-        self::expectExceptionMessageMatches('/Fetch repository information was failed: */i');
+        $ci = $this->makeCi([], $client);
+
+        self::expectExceptionMessageMatches('/Send comment to GitLab was failed: */i');
 
         $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
     }
@@ -113,6 +117,7 @@ final class GitlabCiTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::updateComment
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\GitlabCi::__construct
      */
     public function testUpdateCommentOnSendFailed(): void
     {

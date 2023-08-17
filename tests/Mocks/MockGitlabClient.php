@@ -18,6 +18,7 @@ final class MockGitlabClient implements GitlabClient
     public function __construct(
         private readonly MergeRequest|\Throwable|null $getMergeRequestResponse = null,
         private readonly \Throwable|null $updateCommentResponse = null,
+        private readonly \Throwable|null $postCommentResponse = null,
     ) {
     }
 
@@ -36,7 +37,9 @@ final class MockGitlabClient implements GitlabClient
 
     public function postComment(CommentInput $input): void
     {
-        // TODO: Implement postComment() method.
+        if ($this->postCommentResponse instanceof \Throwable) {
+            throw $this->postCommentResponse;
+        }
     }
 
     public function getCurrentUser(Input $input): User
