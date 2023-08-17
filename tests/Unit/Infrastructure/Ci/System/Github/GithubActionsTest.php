@@ -359,6 +359,58 @@ final class GithubActionsTest extends TestCase
         );
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchGraphqlUrlFailed(): void
+    {
+        $client = new MockGithubClient();
+
+        $ci = $this->makeCi([], $client);
+
+        self::expectExceptionMessageMatches('/Fetch graphql url was failed/');
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchCurrentUserFailed(): void
+    {
+        $client = new MockGithubClient(
+            user: $this->createHttpRequestException(),
+        );
+
+        $ci = $this->makeCi([
+            VarName::GraphqlURL->value => '',
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Fetch current user was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::getFirstCommentOnMergeRequestByCurrentUser
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::findCommentByUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnGetCommentListFailed(): void
+    {
+        $client = new MockGithubClient(
+            user: Viewer::make('test'),
+            comments: $this->createHttpRequestException(),
+        );
+
+        $ci = $this->makeCi([
+            VarName::GraphqlURL->value => '',
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Fetch comment list/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest());
+    }
+
     private function makeCi(array $env, ?GithubClient $githubClient = null): GithubActions
     {
         return new GithubActions(

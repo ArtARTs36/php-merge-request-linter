@@ -224,7 +224,10 @@ class BitbucketPipelines implements CiSystem
         try {
             $user = $this->client->getCurrentUser();
         } catch (RequestException $e) {
-            throw new FindCommentException(sprintf('Fetch current user was failed: %s', $e->getMessage()));
+            throw new FindCommentException(
+                sprintf('Fetch current user was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
         }
 
         $needComment = null;

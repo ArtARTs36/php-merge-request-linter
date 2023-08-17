@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FindCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
@@ -177,14 +178,30 @@ final class GithubActions implements CiSystem
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
-        $user = $this->client->getCurrentUser($this->env->getGraphqlURL());
+        try {
+            $graphqlUrl = $this->env->getGraphqlURL();
+        } catch (EnvironmentException $e) {
+            throw new FindCommentException(
+                sprintf('Fetch graphql url was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
+
+        try {
+            $user = $this->client->getCurrentUser($graphqlUrl);
+        } catch (RequestException $e) {
+            throw new FindCommentException(
+                sprintf('Fetch current user was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         $this->logger->debug(sprintf(
             '[GithubActions] Current user is "%s"',
             $user->getHiddenLogin(),
         ));
 
-        $gComment = $this->findCommentByUser($request, $user->login);
+        $gComment = $this->findCommentByUser($graphqlUrl, $request, $user->login);
 
         return $gComment === null ? null : new Comment(
             $gComment->id,
@@ -193,19 +210,31 @@ final class GithubActions implements CiSystem
         );
     }
 
-    private function findCommentByUser(MergeRequest $request, string $userLogin): ?API\GraphQL\Type\Comment
+    /**
+     * @throws FindCommentException
+     */
+    private function findCommentByUser(string $graphqlUrl, MergeRequest $request, string $userLogin): ?API\GraphQL\Type\Comment
     {
         $gComment = null;
         $after = null;
 
         while ($gComment === null) {
-            $commentList = $this
-                ->client
-                ->getCommentsOnPullRequest(
-                    $this->env->getGraphqlURL(),
-                    $request->uri,
-                    $after,
-                );
+            try {
+                $commentList = $this
+                    ->client
+                    ->getCommentsOnPullRequest(
+                        $graphqlUrl,
+                        $request->uri,
+                        $after,
+                    );
+            } catch (RequestException $e) {
+                throw new FindCommentException(sprintf(
+                    'Fetch comment list (after: %s) for merge request #%s from github was failed: %s',
+                    $after ?? '0',
+                    $request->id,
+                    $e->getMessage(),
+                ), previous: $e);
+            }
 
             if ($commentList->comments->isEmpty()) {
                 break;
