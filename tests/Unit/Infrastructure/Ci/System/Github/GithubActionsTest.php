@@ -134,6 +134,22 @@ final class GithubActionsTest extends TestCase
         $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test');
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\GithubActions::postCommentOnMergeRequest
+     */
+    public function testPostCommentOnFetchGraphqlUrlFailed(): void
+    {
+        $client = new MockGithubClient(
+            postCommentOnMergeRequestResponse: new HttpRequestException(new Request('GET', 'http://google.com')),
+        );
+
+        $ci = $this->makeCi([], $client);
+
+        self::expectExceptionMessageMatches('/Fetch graphql url was failed/');
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test');
+    }
+
     public function providerForTestGetFirstCommentOnMergeRequestByCurrentUser(): array
     {
         return [

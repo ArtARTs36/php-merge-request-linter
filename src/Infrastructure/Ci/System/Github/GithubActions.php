@@ -143,7 +143,12 @@ final class GithubActions implements CiSystem
             $this->client->postComment(
                 new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment),
             );
-        } catch (InvalidResponseException|RequestException|EnvironmentException $e) {
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(
+                sprintf('Fetch graphql url was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        } catch (InvalidResponseException|RequestException $e) {
             throw new PostCommentException(sprintf(
                 'Send comment to Github was failed: %s',
                 $e->getMessage(),
