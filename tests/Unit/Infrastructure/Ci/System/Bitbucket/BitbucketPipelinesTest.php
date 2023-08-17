@@ -264,8 +264,79 @@ final class BitbucketPipelinesTest extends TestCase
 
         self::assertEquals(
             $expectedComment,
-            $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest()),
+            $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+                'id' => 1,
+            ])),
         );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnMergeRequestIdNonNumeric(): void
+    {
+        $ci = $this->createCi([]);
+
+        self::expectExceptionMessage('Merge request id must be integer');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => '',
+        ]));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchRepositoryFailed(): void
+    {
+        $ci = $this->createCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => '1',
+        ]));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchCurrentUserFailed(): void
+    {
+        $client = new MockBitbucketClient(getCurrentUserResponse: $this->createHttpRequestException());
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Fetch current user was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => '1',
+        ]));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnRequestException(): void
+    {
+        $client = new MockBitbucketClient(
+            getCurrentUserResponse: new User('user', '1'),
+            getCommentsResponse: $this->createHttpRequestException(),
+        );
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Fetch comment list by page 0 was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => '1',
+        ]));
     }
 
     public function providerForTestGetCurrentlyMergeRequestOnException(): array

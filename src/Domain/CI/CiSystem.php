@@ -41,6 +41,7 @@ interface CiSystem
 
     /**
      * Get first comment on merge request by current user.
+     * @throws FindCommentException
      */
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment;
 }

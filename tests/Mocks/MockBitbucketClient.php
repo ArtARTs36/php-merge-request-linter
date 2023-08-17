@@ -17,6 +17,8 @@ final class MockBitbucketClient implements Client
         private readonly PullRequest|\Throwable|\Closure|null $getPullRequest = null,
         private readonly \Throwable|Comment|null $postCommentResponse = null,
         private readonly \Throwable|Comment|null $updateCommentResponse = null,
+        private readonly \Throwable|User|null $getCurrentUserResponse = null,
+        private readonly \Throwable|CommentList|null $getCommentsResponse = null,
     ) {
     }
 
@@ -35,12 +37,28 @@ final class MockBitbucketClient implements Client
 
     public function getCurrentUser(): User
     {
-        // TODO: Implement getCurrentUser() method.
+        if ($this->getCurrentUserResponse instanceof \Throwable) {
+            throw $this->getCurrentUserResponse;
+        }
+
+        if ($this->getCurrentUserResponse instanceof User) {
+            return $this->getCurrentUserResponse;
+        }
+
+        throw new \Exception('Get current user response didnt set');
     }
 
     public function getComments(PullRequestInput $input): CommentList
     {
-        // TODO: Implement getComments() method.
+        if ($this->getCommentsResponse instanceof \Throwable) {
+            throw $this->getCommentsResponse;
+        }
+
+        if ($this->getCommentsResponse instanceof CommentList) {
+            return $this->getCommentsResponse;
+        }
+
+        throw new \Exception('Get comment response no defined');
     }
 
     public function updateComment(UpdateCommentInput $input): Comment

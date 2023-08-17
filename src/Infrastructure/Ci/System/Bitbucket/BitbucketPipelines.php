@@ -5,6 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FindCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\InvalidCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
@@ -205,22 +206,46 @@ class BitbucketPipelines implements CiSystem
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
-        $repo = $this->environment->getRepo();
-        $prId = $request->id;
+        if (! is_numeric($request->id)) {
+            throw new FindCommentException('Merge request id must be integer');
+        }
 
-        $user = $this->client->getCurrentUser();
+        $prId = (int) $request->id;
+
+        try {
+            $repo = $this->environment->getRepo();
+        } catch (EnvironmentException $e) {
+            throw new FindCommentException(
+                sprintf('Fetch repository information was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
+
+        try {
+            $user = $this->client->getCurrentUser();
+        } catch (RequestException $e) {
+            throw new FindCommentException(sprintf('Fetch current user was failed: %s', $e->getMessage()));
+        }
 
         $needComment = null;
         $page = 0;
 
         while ($needComment === null) {
-            $comments = $this
-                ->client
-                ->getComments(new PullRequestInput(
-                    $repo->workspace,
-                    $repo->slug,
-                    $prId,
+            try {
+                $comments = $this
+                    ->client
+                    ->getComments(new PullRequestInput(
+                        $repo->workspace,
+                        $repo->slug,
+                        $prId,
+                    ));
+            } catch (RequestException $e) {
+                throw new FindCommentException(sprintf(
+                    'Fetch comment list by page %d was failed: %s',
+                    $page,
+                    $e->getMessage(),
                 ));
+            }
 
             if ($comments->comments->isEmpty()) {
                 break;
