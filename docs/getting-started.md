@@ -39,16 +39,16 @@ on:
          - edited
 
 jobs:
-build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Lint Pull Request
-        uses: mr-linter/mr-linter-ga@v0.2.0
-        env:
-          MR_LINTER_HTTP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   build:
+       runs-on: ubuntu-latest
+   
+       steps:
+         - uses: actions/checkout@v2
+   
+         - name: Lint Pull Request
+           uses: mr-linter/mr-linter-ga@v0.2.0
+           env:
+             MR_LINTER_HTTP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Usage with Gitlab CI
