@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
+use ArtARTs36\MergeRequestLinter\Domain\Note\NoteSeverity;
+use ArtARTs36\MergeRequestLinter\Shared\Exceptions\MergeRequestLinterException;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
@@ -27,6 +29,8 @@ final class Runner implements LinterRunner
             return $linter->run($this->requestFetcher->fetch());
         } catch (CurrentlyNotMergeRequestException $e) {
             return LintResult::successWithNote(new LintNote($e->getMessage()), $timer->finish());
+        } catch (MergeRequestLinterException $e) {
+            return LintResult::fail((new LintNote($e->getMessage()))->withSeverity(NoteSeverity::Fatal), $timer->finish());
         } catch (\Throwable $e) {
             return LintResult::fail(new ExceptionNote($e), $timer->finish());
         }

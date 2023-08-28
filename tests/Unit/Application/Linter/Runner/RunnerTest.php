@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
-use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
@@ -37,7 +37,7 @@ final class RunnerTest extends TestCase
         $result = $runner->run($this->createLinter());
 
         self::assertEquals(LintState::Fail, $result->state);
-        self::assertInstanceOf(ExceptionNote::class, $result->notes->first());
+        self::assertInstanceOf(LintNote::class, $result->notes->first());
     }
 
     /**
@@ -56,7 +56,10 @@ final class RunnerTest extends TestCase
         $result = $runner->run($this->createLinter());
 
         self::assertEquals(LintState::Success, $result->state);
-        self::assertEquals('Currently is not merge request', $result->notes->first()->getDescription());
+        self::assertEquals(
+            'Fetch current merge request from mock_ci was failed: Currently is not merge request',
+            $result->notes->first()->getDescription(),
+        );
     }
 
     /**

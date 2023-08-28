@@ -54,7 +54,7 @@ final class ClientGuzzleWrapperTest extends TestCase
 
         $http
             ->expects(new InvokedCount(1))
-            ->method('send')
+            ->method('sendRequest')
             ->willReturn(new Response($httpStatus));
 
         $wrapper = new ClientGuzzleWrapper($http, new NullLogger());

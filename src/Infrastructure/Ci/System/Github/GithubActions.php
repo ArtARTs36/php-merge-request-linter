@@ -96,9 +96,17 @@ final class GithubActions implements CiSystem
                 $requestId,
             ));
         } catch (NotFoundException $e) {
-            throw new MergeRequestNotFoundException($e->getMessage(), previous: $e);
+            throw new MergeRequestNotFoundException(sprintf(
+                'Merge request with id "%s" not found: %s',
+                $requestId,
+                $e->getMessage(),
+            ), previous: $e);
         } catch (RequestException $e) {
-            throw new FetchMergeRequestException($e->getMessage(), previous: $e);
+            throw new FetchMergeRequestException(sprintf(
+                'Fetch merge request #%s from Github was failed: %s',
+                $requestId,
+                $e->getMessage(),
+            ), previous: $e);
         }
 
         return new MergeRequest(

@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundExceptio
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\UnauthorizedException;
 use GuzzleHttp\ClientInterface as GuzzleClient;
 use GuzzleHttp\Promise\Utils;
-use GuzzleHttp\RequestOptions;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface as PsrClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -18,10 +18,6 @@ use Psr\Log\LoggerInterface;
 
 class ClientGuzzleWrapper implements Client
 {
-    private const OPTIONS = [
-        RequestOptions::HTTP_ERRORS => true,
-    ];
-
     public function __construct(
         private readonly PsrClient&GuzzleClient $http,
         private readonly LoggerInterface $logger,
@@ -33,17 +29,21 @@ class ClientGuzzleWrapper implements Client
     {
         $this->logger->info(sprintf(
             '[HttpClient] Sending request to %s',
-            $request->getUri()->getPath(),
+            $request->getUri(),
         ));
 
-        $response = $this->http->send($request);
+        try {
+            $response = $this->http->sendRequest($request);
+        } catch (ClientExceptionInterface $e) {
+            throw new HttpRequestException($request, message: $e->getMessage(), previous: $e);
+        }
 
         $e = $this->createRequestException($request, $response);
 
         if ($e !== null) {
             $this->logger->warning(sprintf(
                 '[HttpClient] Request to %s was failed with status %d: %s',
-                $request->getUri()->getPath(),
+                $request->getUri(),
                 $response->getStatusCode(),
                 $e->getMessage(),
             ));
@@ -53,7 +53,7 @@ class ClientGuzzleWrapper implements Client
 
         $this->logger->info(sprintf(
             '[HttpClient] Request to %s was successful with status %d',
-            $request->getUri()->getPath(),
+            $request->getUri(),
             $response->getStatusCode(),
         ));
 
@@ -71,13 +71,13 @@ class ClientGuzzleWrapper implements Client
         );
 
         foreach ($requests as $key => $request) {
-            $promises[$key] = $this->http->sendAsync($request, self::OPTIONS);
+            $promises[$key] = $this->http->sendAsync($request);
         }
 
         $responses = Utils::settle($promises)->wait();
 
         $this->logger->info(
-            sprintf('Responses for %d async requests was given', count($requests)),
+            sprintf('[HttpClient] Responses for %d async requests was given', count($requests)),
             $logContext,
         );
 
