@@ -2,32 +2,23 @@
 
 Currently is available that rules:
 
-<table>
-	<tbody>
-		<tr>
-			<td>Rule</td>
-			<td>Description</td>
-			<td colspan="3">Parameters</td>
-		</tr>
+| Name | Description |
+| ------------ | ------------ |
 {% for rule in rules %}
-<tr>
-<td rowspan="{{ max(rule.params.count, 1) }}">{{ rule.name }}</td>
-{% if rule.params.isEmpty %}
-<td colspan="4">{{ rule.description }}</td>
-{% else %}
-<td rowspan="{{ max(rule.params.count, 1) }}">{{ rule.description }}</td>
-<td>{{ rule.params.first.name }}</td>
-<td>{{ rule.params.first.description }} {% if rule.params.first.isGenericObject %} <br/> See details in Config JSON Schema{% endif %}{% if rule.params.first.examples.count > 0 %}<br/> Examples: {% for example in rule.params.first.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %}{% endif %}</td>
-<td>{{ rule.params.first.type }}{% if rule.params.first.generic %} of {{ rule.params.first.generic }}s {% endif %}</td>
+| {{ rule.name }} | {{ rule.description }} |
+{% endfor %}
+
+{% for rule in rules %}
+
+## {{ rule.name }}
+
+{{ rule.description }}
+{% if rule.params.isEmpty == false %}
+
+| Name | Description | Type | Examples |
+| ------------ | ------------ |------ | ------|
+{% for param in rule.params %}
+| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} {% if param.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} | {% for example in param.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %} |
+{% endfor %}
 {% endif %}
-</tr>
-{% for param in rule.params.skip(1) %}
-<tr>
-    <td>{{ param.name }}</td>
-    <td>{{ param.description }} {% if rule.params.first.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} {% if rule.params.first.examples.count > 0 %}<br/> Examples: {% for example in rule.params.first.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %}{% endif %}</td>
-    <td>{{ param.type }}{% if param.generic %} of {{ param.generic }}s {% endif %}</td>
-</tr>
 {% endfor %}
-{% endfor %}
-</tbody>
-</table>

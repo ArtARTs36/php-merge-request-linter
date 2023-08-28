@@ -6099,7 +6099,10 @@
                     "items": [
                         {
                             "type": "string",
-                            "description": "Array of domains"
+                            "description": "Array of domains",
+                            "examples": [
+                                "host.name"
+                            ]
                         }
                     ]
                 }
@@ -6126,7 +6129,10 @@
                     "items": [
                         {
                             "type": "string",
-                            "description": "Array of domains"
+                            "description": "Array of domains",
+                            "examples": [
+                                "host.name"
+                            ]
                         }
                     ]
                 }
@@ -6167,7 +6173,11 @@
                     "items": [
                         {
                             "type": "string",
-                            "description": "Array of labels"
+                            "description": "Array of labels",
+                            "examples": [
+                                "Feature",
+                                "Bug"
+                            ]
                         }
                     ]
                 }
@@ -6208,7 +6218,11 @@
                     "items": [
                         {
                             "type": "string",
-                            "description": "Array of labels"
+                            "description": "Array of labels",
+                            "examples": [
+                                "Feature",
+                                "Bug"
+                            ]
                         }
                     ]
                 }
@@ -6231,7 +6245,10 @@
                 },
                 "domain": {
                     "type": "string",
-                    "description": "Domain of Jira instance"
+                    "description": "Domain of Jira instance",
+                    "examples": [
+                        "jira.my-company.com"
+                    ]
                 },
                 "projectCode": {
                     "type": "string",

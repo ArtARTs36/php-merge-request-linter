@@ -17,6 +17,7 @@ final class HasLinkToJiraTaskRule extends AbstractRule
 
     public function __construct(
         #[Description('Domain of Jira instance')]
+        #[Example('jira.my-company.com')]
         private readonly string $domain,
         #[Description('Project code')]
         #[Example('VIP')]
