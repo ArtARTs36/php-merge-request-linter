@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver;
 
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
@@ -16,11 +17,11 @@ class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastr
         //
     }
 
-    public function resolve(User $user): ResolvedConfig
+    public function resolve(User $user, int $configSubjects = Config::SUBJECT_ALL): ResolvedConfig
     {
         $timer = Timer::start();
 
-        $config = $this->resolver->resolve($user);
+        $config = $this->resolver->resolve($user, $configSubjects);
 
         $this->metrics->add(
             new MetricSubject('config_resolving_time', '[Config] Duration of config resolving'),

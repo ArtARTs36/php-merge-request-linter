@@ -45,9 +45,7 @@ final class CommenterFactoryTest extends TestCase
     public function testCreate(CommentsPostStrategy $strategy, string $expectedClass): void
     {
         $factory = new Factory(
-            new MockCiSystemFactory(new MockCi([
-                'is_pull_request' => false,
-            ])),
+            new MockCiSystemFactory(new MockCi()),
             new NullLogger(),
         );
 

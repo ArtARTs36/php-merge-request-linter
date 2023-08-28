@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 
 /**
  * Interface for authenticator mappers

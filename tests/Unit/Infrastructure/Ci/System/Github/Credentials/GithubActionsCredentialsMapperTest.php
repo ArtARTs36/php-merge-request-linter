@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Githu
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Credentials\GithubActionsCredentialsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\CompositeTransformer;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GithubActionsCredentialsMapperTest extends TestCase

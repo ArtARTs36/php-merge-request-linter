@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 
-use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\GettingMergeRequestException;
 
 /**
  * Interface for request fetching.
@@ -11,7 +11,7 @@ interface MergeRequestFetcher
 {
     /**
      * Fetch Merge Request.
-     * @throws CurrentlyNotMergeRequestException
+     * @throws GettingMergeRequestException
      */
     public function fetch(): MergeRequest;
 }

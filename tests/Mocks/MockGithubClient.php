@@ -21,15 +21,26 @@ final class MockGithubClient implements GithubClient
      */
     public function __construct(
         private array $tags = [],
-        private ?Viewer $user = null,
-        private ?CommentList $comments = null,
+        private Viewer|\Throwable|null $user = null,
+        private CommentList|\Throwable|null $comments = null,
+        private PullRequest|\Throwable|null $getPullRequestResposne = null,
+        private ?\Throwable $updateCommentResponse = null,
+        private ?\Throwable $postCommentOnMergeRequestResponse = null,
     ) {
         //
     }
 
     public function getPullRequest(PullRequestInput $input): PullRequest
     {
-        // TODO: Implement getPullRequest() method.
+        if ($this->getPullRequestResposne === null) {
+            throw new \Exception('Response not defined');
+        }
+
+        if ($this->getPullRequestResposne instanceof PullRequest) {
+            return $this->getPullRequestResposne;
+        }
+
+        throw $this->getPullRequestResposne;
     }
 
     public function getTags(TagsInput $input): TagCollection
@@ -39,21 +50,43 @@ final class MockGithubClient implements GithubClient
 
     public function postComment(AddCommentInput $input): string
     {
+        if ($this->postCommentOnMergeRequestResponse instanceof \Exception) {
+            throw $this->postCommentOnMergeRequestResponse;
+        }
+
         return '1';
     }
 
     public function updateComment(UpdateCommentInput $input): void
     {
-        // TODO: Implement updateComment() method.
+        if ($this->updateCommentResponse instanceof \Exception) {
+            throw $this->updateCommentResponse;
+        }
     }
 
     public function getCurrentUser(string $graphqlUrl): Viewer
     {
-        return $this->user;
+        if ($this->user instanceof \Throwable) {
+            throw $this->user;
+        }
+
+        if ($this->user instanceof Viewer) {
+            return $this->user;
+        }
+
+        throw new \Exception('Get current user response no defined');
     }
 
     public function getCommentsOnPullRequest(string $graphqlUrl, string $requestUri, ?string $after = null): CommentList
     {
-        return $this->comments;
+        if ($this->comments instanceof \Throwable) {
+            throw $this->comments;
+        }
+
+        if ($this->comments instanceof CommentList) {
+            return $this->comments;
+        }
+
+        throw new \Exception('Get comment list response no defined');
     }
 }

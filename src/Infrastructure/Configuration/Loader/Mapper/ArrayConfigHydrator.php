@@ -5,14 +5,15 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mappe
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsMessage;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 
 class ArrayConfigHydrator
 {
@@ -28,35 +29,57 @@ class ArrayConfigHydrator
      * Hydrate raw array to Config object.
      * @param array<mixed> $data
      */
-    public function hydrate(array $data): Config
+    public function hydrate(array $data, int $subjects = Config::SUBJECT_ALL): Config
     {
-        if (! isset($data['rules']) || ! is_array($data['rules'])) {
-            throw ConfigInvalidException::fromKey('rules');
+        if (Config::SUBJECT_RULES === (Config::SUBJECT_RULES & $subjects)) {
+            if (! isset($data['rules']) || ! is_array($data['rules'])) {
+                throw ConfigInvalidException::fromKey('rules');
+            }
+
+            $rules = $this->rulesMapper->map($data['rules']);
+        } else {
+            $rules = new Rules([]);
         }
 
-        $rules = $this->rulesMapper->map($data['rules']);
-
-        $ciSettings = new MapProxy(function () use ($data) {
+        if (Config::SUBJECT_CI_SETTINGS === (Config::SUBJECT_CI_SETTINGS & $subjects)) {
             if (! isset($data['ci'])) {
                 throw ConfigInvalidException::fromKey('ci');
             }
 
-            return $this->credentialMapper->map($data['ci']);
-        });
+            try {
+                $ciSettings = $this->credentialMapper->map($data['ci']);
+            } catch (InvalidCredentialsException $e) {
+                throw new ConfigInvalidException(sprintf(
+                    'Config invalid: %s',
+                    $e->getMessage(),
+                ), previous: $e);
+            }
+        } else {
+            $ciSettings = new ArrayMap([]);
+        }
 
-        if (isset($data['notifications'])) {
+        if ((Config::SUBJECT_NOTIFICATIONS === (Config::SUBJECT_NOTIFICATIONS & $subjects)) && isset($data['notifications'])) {
             $notifications = $this->notificationsMapper->map($data['notifications']);
         } else {
             $notifications = new NotificationsConfig(new ArrayMap([]), new ArrayMap([]));
         }
 
+        if (Config::SUBJECT_HTTP_CLIENT === (Config::SUBJECT_HTTP_CLIENT & $subjects)) {
+            $httpClientConfig = new HttpClientConfig(
+                $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
+                $data['http_client']['params'] ?? [],
+            );
+        } else {
+            $httpClientConfig = new HttpClientConfig(
+                HttpClientConfig::TYPE_DEFAULT,
+                [],
+            );
+        }
+
         return new Config(
             $rules,
             $ciSettings,
-            new HttpClientConfig(
-                $data['http_client']['type'] ?? HttpClientConfig::TYPE_DEFAULT,
-                $data['http_client']['params'] ?? [],
-            ),
+            $httpClientConfig,
             $notifications,
             $this->createLinterConfig($data['linter'] ?? []),
             $this->createCommentsConfig($data['comments'] ?? []),

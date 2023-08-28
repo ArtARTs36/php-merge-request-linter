@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidEnvironmentVariableValueException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentException;
 use ArtARTs36\Str\Str;
 
 class GithubEnvironment
@@ -23,13 +23,13 @@ class GithubEnvironment
         return $this->environment->has(VarName::Identity->value);
     }
 
+    /**
+     * @throws InvalidEnvironmentVariableValueException
+     * @throws EnvironmentException
+     */
     public function getMergeRequestId(): ?int
     {
-        try {
-            $ref = $this->environment->getString(VarName::RefName->value);
-        } catch (EnvironmentVariableNotFoundException) {
-            return null;
-        }
+        $ref = $this->environment->getString(VarName::RefName->value);
 
         $refStr = Str::make($ref);
 
@@ -51,7 +51,7 @@ class GithubEnvironment
     }
 
     /**
-     * @throws EnvironmentVariableNotFoundException
+     * @throws EnvironmentException
      */
     public function getGraphqlURL(): string
     {
@@ -59,7 +59,8 @@ class GithubEnvironment
     }
 
     /**
-     * @throws EnvironmentVariableNotFoundException
+     * @throws EnvironmentException
+     * @throws InvalidEnvironmentVariableValueException
      */
     public function extractRepo(): Repo
     {

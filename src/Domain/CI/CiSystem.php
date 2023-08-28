@@ -21,14 +21,8 @@ interface CiSystem
     public function isCurrentlyWorking(): bool;
 
     /**
-     * Is Merge Request.
-     */
-    public function isCurrentlyMergeRequest(): bool;
-
-    /**
      * Get current merge request.
      * @throws GettingMergeRequestException
-     * @throws MergeRequestNotFoundException
      */
     public function getCurrentlyMergeRequest(): MergeRequest;
 
@@ -41,11 +35,13 @@ interface CiSystem
     /**
      * Update comment.
      * @throws InvalidCommentException
+     * @throws PostCommentException
      */
     public function updateComment(Comment $comment): void;
 
     /**
      * Get first comment on merge request by current user.
+     * @throws FindCommentException
      */
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment;
 }

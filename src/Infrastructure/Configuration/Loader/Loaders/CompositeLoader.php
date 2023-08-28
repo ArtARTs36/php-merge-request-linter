@@ -18,7 +18,7 @@ class CompositeLoader implements ConfigLoader
         //
     }
 
-    public function load(string $path): Config
+    public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config
     {
         $format = File::extension($path);
 
@@ -26,6 +26,6 @@ class CompositeLoader implements ConfigLoader
             throw new ConfigInvalidException(sprintf('Config format %s not supported', $format));
         }
 
-        return $this->loadersByFormat[$format]->load($path);
+        return $this->loadersByFormat[$format]->load($path, $subjects);
     }
 }

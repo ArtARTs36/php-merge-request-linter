@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Env;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\Environment;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentException;
 
 class GitlabEnvironment
 {
@@ -19,7 +19,7 @@ class GitlabEnvironment
     }
 
     /**
-     * @throws EnvironmentVariableNotFoundException
+     * @throws EnvironmentException
      */
     public function getProjectId(): int
     {
@@ -27,7 +27,7 @@ class GitlabEnvironment
     }
 
     /**
-     * @throws EnvironmentVariableNotFoundException
+     * @throws EnvironmentException
      */
     public function getGitlabServerUrl(): string
     {
@@ -35,7 +35,7 @@ class GitlabEnvironment
     }
 
     /**
-     * @throws EnvironmentVariableNotFoundException
+     * @throws EnvironmentException
      */
     public function getMergeRequestNumber(): int
     {

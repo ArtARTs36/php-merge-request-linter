@@ -18,9 +18,9 @@ final class Proxy implements ConfigLoader
         //
     }
 
-    public function load(string $path): Config
+    public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config
     {
-        return $this->retrieve()->load($path);
+        return $this->retrieve()->load($path, $subjects);
     }
 
     private function retrieve(): ConfigLoader

@@ -5,11 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Creden
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\BasicBase64Authenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\CompositeAuthenticator;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HostAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HostAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\TransformConfigValueException;
 
 class BitbucketCredentialsMapper implements AuthenticatorMapper
 {
@@ -53,7 +54,14 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
             throw new InvalidCredentialsException('Bitbucket token must be string');
         }
 
-        $token = $this->valueTransformer->tryTransform($credentials['token']);
+        try {
+            $token = $this->valueTransformer->tryTransform($credentials['token']);
+        } catch (TransformConfigValueException $e) {
+            throw new InvalidCredentialsException(sprintf(
+                'Failed to resolve github token: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
 
         if (empty($token)) {
             throw new InvalidCredentialsException('Given empty bitbucket token');
@@ -75,7 +83,14 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
             throw new InvalidCredentialsException('Bitbucket host must be string');
         }
 
-        $host = $this->valueTransformer->tryTransform($credentials['host']);
+        try {
+            $host = $this->valueTransformer->tryTransform($credentials['host']);
+        } catch (TransformConfigValueException $e) {
+            throw new InvalidCredentialsException(sprintf(
+                'Failed to resolve bitbucket host: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
 
         if (empty($host)) {
             throw new InvalidCredentialsException('Given empty bitbucket host');
@@ -119,7 +134,14 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
             throw new InvalidCredentialsException(sprintf('Value of key "app_password.%s" must be string', $subject));
         }
 
-        $v = $this->valueTransformer->tryTransform($v);
+        try {
+            $v = $this->valueTransformer->tryTransform($v);
+        } catch (TransformConfigValueException $e) {
+            throw new InvalidCredentialsException(sprintf(
+                'Failed to resolve bitbucket app password: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
 
         if (empty($v)) {
             throw new InvalidCredentialsException(sprintf('Given empty bitbucket app_password.%s', $subject));

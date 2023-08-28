@@ -3,6 +3,12 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FindCommentException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\InvalidCommentException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
@@ -15,8 +21,10 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env\BitbucketEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\LabelsResolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentVariableNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\MarkdownCleaner;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
@@ -53,25 +61,37 @@ class BitbucketPipelines implements CiSystem
         return $this->environment->isWorking();
     }
 
-    public function isCurrentlyMergeRequest(): bool
-    {
-        try {
-            return $this->environment->getPullRequestId() > 0;
-        } catch (EnvironmentVariableNotFoundException) {
-            return false;
-        }
-    }
-
     public function getCurrentlyMergeRequest(): MergeRequest
     {
-        $repo = $this->environment->getRepo();
-        $prId = $this->environment->getPullRequestId();
+        try {
+            $repo = $this->environment->getRepo();
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException(
+                sprintf('Fetching repo information (repository, slug) was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
-        $pr = $this->client->getPullRequest(new PullRequestInput(
-            $repo->workspace,
-            $repo->slug,
-            $prId,
-        ));
+        try {
+            $prId = $this->environment->getPullRequestId();
+        } catch (EnvironmentException $e) {
+            throw CurrentlyNotMergeRequestException::createFrom($e);
+        }
+
+        try {
+            $pr = $this->client->getPullRequest(new PullRequestInput(
+                $repo->workspace,
+                $repo->slug,
+                $prId,
+            ));
+        } catch (NotFoundException $e) {
+            throw MergeRequestNotFoundException::create((string) $prId, $e->getMessage(), previous: $e);
+        } catch (RequestException $e) {
+            throw new FetchMergeRequestException(
+                sprintf('Fetching pull request from bitbucket was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         $description = Str::make($pr->description);
 
@@ -115,15 +135,28 @@ class BitbucketPipelines implements CiSystem
 
     public function postCommentOnMergeRequest(MergeRequest $request, string $comment): void
     {
-        $repo = $this->environment->getRepo();
-        $prId = $this->environment->getPullRequestId();
+        try {
+            $repo = $this->environment->getRepo();
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(
+                sprintf('Fetch repository information was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
-        $createdComment = $this->client->postComment(new CreateCommentInput(
-            $repo->workspace,
-            $repo->slug,
-            $prId,
-            $comment,
-        ));
+        try {
+            $createdComment = $this->client->postComment(new CreateCommentInput(
+                $repo->workspace,
+                $repo->slug,
+                (int)$request->id,
+                $comment,
+            ));
+        } catch (RequestException $e) {
+            throw new PostCommentException(
+                sprintf('Post comment was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         $this->logger->info(sprintf(
             '[BitbucketPipelines] Comment was created with id %d and url %s',
@@ -134,16 +167,36 @@ class BitbucketPipelines implements CiSystem
 
     public function updateComment(Comment $comment): void
     {
-        $repo = $this->environment->getRepo();
-        $prId = $this->environment->getPullRequestId();
+        try {
+            $repo = $this->environment->getRepo();
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(
+                sprintf('Fetch repository information was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
-        $this->client->updateComment(new UpdateCommentInput(
-            $repo->workspace,
-            $repo->slug,
-            $prId,
-            $comment->id,
-            $comment->message,
-        ));
+        if (! is_numeric($comment->mergeRequestId)) {
+            throw new InvalidCommentException(sprintf(
+                'Merge request id for comment on Bitbucket must be integer. Given string: %s',
+                $comment->mergeRequestId,
+            ));
+        }
+
+        try {
+            $this->client->updateComment(new UpdateCommentInput(
+                $repo->workspace,
+                $repo->slug,
+                (int)$comment->mergeRequestId,
+                $comment->id,
+                $comment->message,
+            ));
+        } catch (RequestException $e) {
+            throw new PostCommentException(
+                sprintf('Send comment to BitBucket was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         $this->logger->info(sprintf(
             '[BitbucketPipelines] Comment with id "%s" was updated',
@@ -153,22 +206,49 @@ class BitbucketPipelines implements CiSystem
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
-        $repo = $this->environment->getRepo();
-        $prId = $this->environment->getPullRequestId();
+        if (! is_numeric($request->id)) {
+            throw new FindCommentException('Merge request id must be integer');
+        }
 
-        $user = $this->client->getCurrentUser();
+        $prId = (int) $request->id;
+
+        try {
+            $repo = $this->environment->getRepo();
+        } catch (EnvironmentException $e) {
+            throw new FindCommentException(
+                sprintf('Fetch repository information was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
+
+        try {
+            $user = $this->client->getCurrentUser();
+        } catch (RequestException $e) {
+            throw new FindCommentException(
+                sprintf('Fetch current user was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         $needComment = null;
         $page = 0;
 
         while ($needComment === null) {
-            $comments = $this
-                ->client
-                ->getComments(new PullRequestInput(
-                    $repo->workspace,
-                    $repo->slug,
-                    $prId,
+            try {
+                $comments = $this
+                    ->client
+                    ->getComments(new PullRequestInput(
+                        $repo->workspace,
+                        $repo->slug,
+                        $prId,
+                    ));
+            } catch (RequestException $e) {
+                throw new FindCommentException(sprintf(
+                    'Fetch comment list by page %d was failed: %s',
+                    $page,
+                    $e->getMessage(),
                 ));
+            }
 
             if ($comments->comments->isEmpty()) {
                 break;
@@ -184,6 +264,7 @@ class BitbucketPipelines implements CiSystem
         return $needComment === null ? null : new Comment(
             (string) $needComment->id,
             $needComment->content,
+            $request->id,
         );
     }
 }

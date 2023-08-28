@@ -14,5 +14,5 @@ interface ConfigLoader
      * Load config from path.
      * @throws ConfigException
      */
-    public function load(string $path): Config;
+    public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config;
 }

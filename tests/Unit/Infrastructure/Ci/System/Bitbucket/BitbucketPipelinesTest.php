@@ -2,11 +2,16 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Ci\System\Bitbucket;
 
+use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\NullAuthenticator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\HttpClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\Comment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\CommentList;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Objects\User;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Schema\PullRequestSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines;
@@ -16,14 +21,22 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Labels\Compo
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\BitbucketPipelinesSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settings\LabelsSettings;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Exceptions\VarNotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\NativeJsonProcessor;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\BitbucketPR;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockBitbucketClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockLogger;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockMarkdownCleaner;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -58,34 +71,6 @@ final class BitbucketPipelinesTest extends TestCase
         self::assertEquals($expected, $ci->isCurrentlyWorking());
     }
 
-    public function providerForTestIsCurrentlyMergeRequest(): array
-    {
-        return [
-            [
-                [
-                    VarName::PullRequestId->value => 1,
-                ],
-                true,
-            ],
-            [
-                [],
-                false,
-            ],
-        ];
-    }
-
-    /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::isCurrentlyMergeRequest
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::__construct
-     * @dataProvider providerForTestIsCurrentlyMergeRequest
-     */
-    public function testIsCurrentlyMergeRequest(array $vars, bool $expected): void
-    {
-        $ci = $this->createCi($vars);
-
-        self::assertEquals($expected, $ci->isCurrentlyMergeRequest());
-    }
-
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::postCommentOnMergeRequest()
      */
@@ -106,6 +91,38 @@ final class BitbucketPipelinesTest extends TestCase
         $ci->postCommentOnMergeRequest($this->makeMergeRequest(), 'test-comment');
 
         $logger->assertPushedInfo('[BitbucketPipelines] Comment was created with id 1 and url https://site.ru');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::postCommentOnMergeRequest()
+     */
+    public function testPostCommentOnMergeRequestOnFetchRepositoryInformationWasFailed(): void
+    {
+        $ci = $this->createCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed: */i');
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), '');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::postCommentOnMergeRequest()
+     */
+    public function testPostCommentOnMergeRequestOnRequestException(): void
+    {
+        $client = new MockBitbucketClient(
+            postCommentResponse: new HttpRequestException(new Request('GET', 'http://google.com')),
+        );
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+            VarName::PullRequestId->value => 1,
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Post comment was failed: */i');
+
+        $ci->postCommentOnMergeRequest($this->makeMergeRequest(), '');
     }
 
     /**
@@ -132,9 +149,54 @@ final class BitbucketPipelinesTest extends TestCase
         $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment(
             '1',
             'test-comment',
+            '1',
         ));
 
         $logger->assertPushedInfo('[BitbucketPipelines] Comment with id "1" was updated');
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::updateComment
+     */
+    public function testUpdateCommentOnFetchRepositoryFailed(): void
+    {
+        $ci = $this->createCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed: */i');
+
+        $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('', '', ''));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::updateComment
+     */
+    public function testUpdateCommentOnMergeRequestIdNonNumeric(): void
+    {
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+        ]);
+
+        self::expectExceptionMessageMatches('/Merge request id for comment on Bitbucket must be integer/i');
+
+        $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('', '', ''));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::updateComment
+     */
+    public function testUpdateCommentOnSendFailed(): void
+    {
+        $client = new MockBitbucketClient(updateCommentResponse: $this->createHttpRequestException());
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+        ], $client);
+
+        self::expectException(PostCommentException::class);
+
+        $ci->updateComment(new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('', '', '1'));
     }
 
     public function providerForTestGetFirstCommentOnMergeRequestByCurrentUser(): array
@@ -163,7 +225,7 @@ final class BitbucketPipelinesTest extends TestCase
                         new Comment('4', '', 'test4', '3'),
                     ]), 1),
                 ],
-                new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('2', 'test2'),
+                new \ArtARTs36\MergeRequestLinter\Domain\Request\Comment('2', 'test2', '1'),
             ],
         ];
     }
@@ -202,7 +264,175 @@ final class BitbucketPipelinesTest extends TestCase
 
         self::assertEquals(
             $expectedComment,
-            $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest()),
+            $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+                'id' => 1,
+            ])),
+        );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnMergeRequestIdNonNumeric(): void
+    {
+        $ci = $this->createCi([]);
+
+        self::expectExceptionMessage('Merge request id must be integer');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => '',
+        ]));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchRepositoryFailed(): void
+    {
+        $ci = $this->createCi([]);
+
+        self::expectExceptionMessageMatches('/Fetch repository information was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => '1',
+        ]));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnFetchCurrentUserFailed(): void
+    {
+        $client = new MockBitbucketClient(getCurrentUserResponse: $this->createHttpRequestException());
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Fetch current user was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => '1',
+        ]));
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getFirstCommentOnMergeRequestByCurrentUser
+     */
+    public function testGetFirstCommentOnMergeRequestByCurrentUserOnRequestException(): void
+    {
+        $client = new MockBitbucketClient(
+            getCurrentUserResponse: new User('user', '1'),
+            getCommentsResponse: $this->createHttpRequestException(),
+        );
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+        ], $client);
+
+        self::expectExceptionMessageMatches('/Fetch comment list by page 0 was failed/');
+
+        $ci->getFirstCommentOnMergeRequestByCurrentUser($this->makeMergeRequest([
+            'id' => '1',
+        ]));
+    }
+
+    public function providerForTestGetCurrentlyMergeRequestOnException(): array
+    {
+        return [
+            'Fetching repo information (repository, slug) was failed' => [
+                'env' => [],
+                'clientGetPullRequestResponse' => null,
+                'expectedExceptionClass' => FetchMergeRequestException::class,
+                'expectedExceptionPrevious' => VarNotFoundException::class,
+            ],
+            'CurrentlyNotMergeRequestException' => [
+                'env' => [
+                    VarName::Workspace->value => 'owner',
+                    VarName::RepoName->value => 'repo',
+                ],
+                'clientGetPullRequestResponse' => null,
+                'expectedExceptionClass' => CurrentlyNotMergeRequestException::class,
+                'expectedExceptionPrevious' => VarNotFoundException::class,
+            ],
+            'Pull Request not found' => [
+                'env' => [
+                    VarName::Workspace->value => 'owner',
+                    VarName::RepoName->value => 'repo',
+                    VarName::PullRequestId->value => '1',
+                ],
+                'clientGetPullRequestResponse' => new NotFoundException(new Request('GET', 'http://google.com'), new Response()),
+                'expectedExceptionClass' => MergeRequestNotFoundException::class,
+                'expectedExceptionPrevious' => NotFoundException::class,
+            ],
+            'Other http exceptions' => [
+                'env' => [
+                    VarName::Workspace->value => 'owner',
+                    VarName::RepoName->value => 'repo',
+                    VarName::PullRequestId->value => '1',
+                ],
+                'clientGetPullRequestResponse' => new ForbiddenException(new Request('GET', 'http://google.com')),
+                'expectedExceptionClass' => FetchMergeRequestException::class,
+                'expectedExceptionPrevious' => ForbiddenException::class,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getCurrentlyMergeRequest
+     *
+     * @dataProvider providerForTestGetCurrentlyMergeRequestOnException
+     */
+    public function testGetCurrentlyMergeRequestOnException(
+        array $env,
+        PullRequest|\Throwable|null $clientGetPullRequestResponse,
+        string $expectedExceptionClass,
+        ?string $expectedPreviousExceptionClass,
+    ): void {
+        $ci = $this->createCi($env, new MockBitbucketClient(getPullRequest: $clientGetPullRequestResponse));
+
+        try {
+            $ci->getCurrentlyMergeRequest();
+        } catch (\Throwable $e) {
+            self::assertInstanceOf($expectedExceptionClass, $e);
+            self::assertInstanceOf(
+                $expectedPreviousExceptionClass,
+                $e->getPrevious(),
+                sprintf('Previous exception is %s with message "%s"', get_class($e->getPrevious()), $e->getMessage()),
+            );
+        }
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\BitbucketPipelines::getCurrentlyMergeRequest
+     */
+    public function testGetCurrentlyMergeRequest(): void
+    {
+        $client = $this->createMock(Client::class);
+        $client
+            ->expects(new InvokedCount(1))
+            ->method('getPullRequest')
+            ->willReturn($pr = BitbucketPR::create());
+
+        $ci = $this->createCi([
+            VarName::Workspace->value => 'owner',
+            VarName::RepoName->value => 'repo',
+            VarName::PullRequestId->value => '1',
+        ], $client);
+
+        $mr = $ci->getCurrentlyMergeRequest();
+
+        self::assertEquals(
+            [
+                $pr->id,
+                $pr->title,
+            ],
+            [
+                $mr->id,
+                $mr->title,
+            ],
         );
     }
 

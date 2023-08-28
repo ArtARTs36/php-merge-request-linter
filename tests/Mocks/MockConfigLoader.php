@@ -12,7 +12,7 @@ final class MockConfigLoader implements ConfigLoader
         //
     }
 
-    public function load(string $path): Config
+    public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config
     {
         return $this->config;
     }

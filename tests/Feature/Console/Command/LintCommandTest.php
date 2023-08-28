@@ -33,7 +33,7 @@ final class LintCommandTest extends TestCase
                     new MockConfigResolver($this->makeConfig([new SuccessRule()])),
                     $events,
                     new LinterFactory($events, $metrics),
-                    new MockRunnerFactory(new MockCiSystemFactory(MockCi::fromMergeRequest($this->makeMergeRequest()))),
+                    new MockRunnerFactory(new MockCiSystemFactory(new MockCi(request: $this->makeMergeRequest()))),
                 ),
             )
         );

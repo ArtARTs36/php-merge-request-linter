@@ -4,17 +4,24 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FindCommentException;
+use ArtARTs36\MergeRequestLinter\Domain\CI\MergeRequestNotFoundException;
 use ArtARTs36\MergeRequestLinter\Domain\CI\PostCommentException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Author;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidEnvironmentVariableValueException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidResponseException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Type\PullRequest;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\GithubClient;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Environment\EnvironmentException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\RequestException;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\MapProxy;
@@ -48,28 +55,59 @@ final class GithubActions implements CiSystem
         return $this->env->isWorking();
     }
 
-    public function isCurrentlyMergeRequest(): bool
-    {
-        return $this->env->getMergeRequestId() !== null;
-    }
-
     public function getCurrentlyMergeRequest(): MergeRequest
     {
-        $requestId = $this->env->getMergeRequestId();
-
-        if ($requestId === null) {
-            throw new CurrentlyNotMergeRequestException();
+        try {
+            $requestId = $this->env->getMergeRequestId();
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException(sprintf(
+                'Unable to fetch merge request id: %s',
+                $e->getMessage(),
+            ), previous: $e);
         }
 
-        $graphqlUrl = $this->env->getGraphqlURL();
-        $repo = $this->env->extractRepo();
+        if ($requestId === null) {
+            throw CurrentlyNotMergeRequestException::create();
+        }
 
-        $pullRequest = $this->client->getPullRequest(new PullRequestInput(
-            $graphqlUrl,
-            $repo->owner,
-            $repo->name,
-            $requestId,
-        ));
+        try {
+            $graphqlUrl = $this->env->getGraphqlURL();
+        } catch (EnvironmentException $e) {
+            throw new FetchMergeRequestException(sprintf(
+                'Getting GraphQL url was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
+
+        try {
+            $repo = $this->env->extractRepo();
+        } catch (EnvironmentException|InvalidEnvironmentVariableValueException $e) {
+            throw new FetchMergeRequestException(
+                sprintf('Fetching repo information (repository, slug) was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
+
+        try {
+            $pullRequest = $this->client->getPullRequest(new PullRequestInput(
+                $graphqlUrl,
+                $repo->owner,
+                $repo->name,
+                $requestId,
+            ));
+        } catch (NotFoundException $e) {
+            throw new MergeRequestNotFoundException(sprintf(
+                'Merge request with id "%s" not found: %s',
+                $requestId,
+                $e->getMessage(),
+            ), previous: $e);
+        } catch (RequestException $e) {
+            throw new FetchMergeRequestException(sprintf(
+                'Fetch merge request #%s from Github was failed: %s',
+                $requestId,
+                $e->getMessage(),
+            ), previous: $e);
+        }
 
         return new MergeRequest(
             Str::make($pullRequest->title),
@@ -114,9 +152,14 @@ final class GithubActions implements CiSystem
             $this->client->postComment(
                 new AddCommentInput($this->env->getGraphqlURL(), $request->id, $comment),
             );
-        } catch (InvalidResponseException $e) {
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(
+                sprintf('Fetch graphql url was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        } catch (InvalidResponseException|RequestException $e) {
             throw new PostCommentException(sprintf(
-                'Post comment was failed: %s',
+                'Send comment to Github was failed: %s',
                 $e->getMessage(),
             ), previous: $e);
         }
@@ -124,41 +167,82 @@ final class GithubActions implements CiSystem
 
     public function updateComment(Comment $comment): void
     {
-        $this->client->updateComment(
-            new UpdateCommentInput($this->env->getGraphqlURL(), $comment->id, $comment->message),
-        );
+        try {
+            $this->client->updateComment(
+                new UpdateCommentInput($this->env->getGraphqlURL(), $comment->id, $comment->message),
+            );
+        } catch (EnvironmentException $e) {
+            throw new PostCommentException(
+                sprintf('Fetch graphql url was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        } catch (RequestException $e) {
+            throw new PostCommentException(sprintf(
+                'Send comment to Github was failed: %s',
+                $e->getMessage(),
+            ), previous: $e);
+        }
     }
 
     public function getFirstCommentOnMergeRequestByCurrentUser(MergeRequest $request): ?Comment
     {
-        $user = $this->client->getCurrentUser($this->env->getGraphqlURL());
+        try {
+            $graphqlUrl = $this->env->getGraphqlURL();
+        } catch (EnvironmentException $e) {
+            throw new FindCommentException(
+                sprintf('Fetch graphql url was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
+
+        try {
+            $user = $this->client->getCurrentUser($graphqlUrl);
+        } catch (RequestException $e) {
+            throw new FindCommentException(
+                sprintf('Fetch current user was failed: %s', $e->getMessage()),
+                previous: $e,
+            );
+        }
 
         $this->logger->debug(sprintf(
             '[GithubActions] Current user is "%s"',
             $user->getHiddenLogin(),
         ));
 
-        $gComment = $this->findCommentByUser($request, $user->login);
+        $gComment = $this->findCommentByUser($graphqlUrl, $request, $user->login);
 
         return $gComment === null ? null : new Comment(
             $gComment->id,
             $gComment->message,
+            $request->id,
         );
     }
 
-    private function findCommentByUser(MergeRequest $request, string $userLogin): ?API\GraphQL\Type\Comment
+    /**
+     * @throws FindCommentException
+     */
+    private function findCommentByUser(string $graphqlUrl, MergeRequest $request, string $userLogin): ?API\GraphQL\Type\Comment
     {
         $gComment = null;
         $after = null;
 
         while ($gComment === null) {
-            $commentList = $this
-                ->client
-                ->getCommentsOnPullRequest(
-                    $this->env->getGraphqlURL(),
-                    $request->uri,
-                    $after,
-                );
+            try {
+                $commentList = $this
+                    ->client
+                    ->getCommentsOnPullRequest(
+                        $graphqlUrl,
+                        $request->uri,
+                        $after,
+                    );
+            } catch (RequestException $e) {
+                throw new FindCommentException(sprintf(
+                    'Fetch comment list (after: %s) for merge request #%s from github was failed: %s',
+                    $after ?? '0',
+                    $request->id,
+                    $e->getMessage(),
+                ), previous: $e);
+            }
 
             if ($commentList->comments->isEmpty()) {
                 break;

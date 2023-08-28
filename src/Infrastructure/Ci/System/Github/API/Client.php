@@ -4,10 +4,13 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API;
 
 use ArtARTs36\ContextLogger\Contracts\ContextLogger;
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\GraphqlException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Exceptions\NotFoundException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\AddCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\PullRequestInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Input\UpdateCommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\Query;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Query\QueryErrorProcessor;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\AddCommentSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\GetCommentsSchema;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\GraphQL\Schema\PullRequestSchema;
@@ -48,6 +51,7 @@ class Client implements GithubClient
         private readonly TagHydrator         $tagHydrator = new TagHydrator(),
         private readonly GetCommentsSchema   $getCommentsSchema = new GetCommentsSchema(),
         private readonly UpdateCommentSchema $updateCommentSchema = new UpdateCommentSchema(),
+        private readonly QueryErrorProcessor $queryPostProcessor = new QueryErrorProcessor(),
     ) {
         //
     }
@@ -56,7 +60,25 @@ class Client implements GithubClient
     {
         $this->logger->info(sprintf('[GithubClient] Fetching Pull Request with id %d', $input->requestId));
 
-        $prResponse = $this->runQuery($input->graphqlUrl, $this->pullRequestSchema->createQuery($input));
+        try {
+            $prResponse = $this->runQuery($input->graphqlUrl, $this->pullRequestSchema->createQuery($input));
+        } catch (NotFoundException $e) {
+            $this->logger->warning(sprintf(
+                '[GithubClient] Pull Request with id %d not found: %s',
+                $input->requestId,
+                $e->getMessage(),
+            ));
+
+            throw $e;
+        } catch (GraphqlException $e) {
+            $this->logger->warning(sprintf(
+                '[GithubClient] Fetching Pull Request with id %d was failed: %s',
+                $input->requestId,
+                $e->getMessage(),
+            ));
+
+            throw $e;
+        }
 
         $pullRequest = $this->pullRequestSchema->createPullRequest($prResponse);
 
@@ -197,6 +219,7 @@ class Client implements GithubClient
      * @return array<mixed>
      * @throws \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Text\DecodingFailedException
      * @throws \Psr\Http\Client\ClientExceptionInterface
+     * @throws GraphqlException
      */
     private function runQuery(string $graphqlUrl, Query $query): array
     {
@@ -211,8 +234,12 @@ class Client implements GithubClient
         $request = $this->credentials->authenticate($request);
 
         return $this
-            ->textProcessor
-            ->decode($this->client->sendRequest($request)->getBody()->getContents());
+            ->queryPostProcessor
+            ->processQuery(
+                $this
+                    ->textProcessor
+                    ->decode($this->client->sendRequest($request)->getBody()->getContents()),
+            );
     }
 
     private function createGetPullRequestFilesRequest(PullRequestInput $input, int $page): RequestInterface

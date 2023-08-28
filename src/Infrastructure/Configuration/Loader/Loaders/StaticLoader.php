@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\ArrayConfigHydrator;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigLoader;
 
-class StaticLoader implements ConfigLoader
+final class StaticLoader implements ConfigLoader
 {
     /**
      * @param array<mixed> $config
@@ -18,8 +18,8 @@ class StaticLoader implements ConfigLoader
         //
     }
 
-    public function load(string $path): Config
+    public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config
     {
-        return $this->hydrator->hydrate($this->config);
+        return $this->hydrator->hydrate($this->config, $subjects);
     }
 }

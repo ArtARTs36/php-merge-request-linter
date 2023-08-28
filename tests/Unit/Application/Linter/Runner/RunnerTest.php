@@ -7,12 +7,11 @@ use ArtARTs36\MergeRequestLinter\Application\Linter\Runner;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
-use ArtARTs36\MergeRequestLinter\Domain\Note\ExceptionNote;
+use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
@@ -38,7 +37,7 @@ final class RunnerTest extends TestCase
         $result = $runner->run($this->createLinter());
 
         self::assertEquals(LintState::Fail, $result->state);
-        self::assertInstanceOf(ExceptionNote::class, $result->notes->first());
+        self::assertInstanceOf(LintNote::class, $result->notes->first());
     }
 
     /**
@@ -50,28 +49,29 @@ final class RunnerTest extends TestCase
         $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
-                return new MockCi([
-                    'is_pull_request' => false,
-                ]);
+                return new MockCi();
             }
         }, new NullMetricManager()));
 
         $result = $runner->run($this->createLinter());
 
         self::assertEquals(LintState::Success, $result->state);
-        self::assertEquals('Currently is not merge request', $result->notes->first());
+        self::assertEquals(
+            'Fetch current merge request from mock_ci was failed: Currently is not merge request',
+            $result->notes->first()->getDescription(),
+        );
     }
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::run
      * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Runner::__construct
      */
-    public function testRunOnInvalidCredentials(): void
+    public function testRunOnException(): void
     {
         $runner = new Runner(new CiRequestFetcher(new class () implements CiSystemFactory {
             public function createCurrently(): CiSystem
             {
-                throw new InvalidCredentialsException();
+                throw new \Exception();
             }
         }, new NullMetricManager()));
 
@@ -79,7 +79,7 @@ final class RunnerTest extends TestCase
 
         self::assertEquals(LintState::Fail, $result->state);
         self::assertEquals(
-            'Exception ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException',
+            'Exception Exception',
             $result->notes->first()->getDescription()
         );
     }
@@ -98,7 +98,7 @@ final class RunnerTest extends TestCase
 
             public function createCurrently(): CiSystem
             {
-                return new MockCi(['is_pull_request' => true], $this->request);
+                return new MockCi($this->request);
             }
         }, new NullMetricManager()));
 

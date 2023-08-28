@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http;
 
-use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Client\RequestExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -13,10 +13,16 @@ use Psr\Http\Message\ResponseInterface;
 interface Client extends ClientInterface
 {
     /**
+     * Send request.
+     * @throws RequestException
+     */
+    public function sendRequest(RequestInterface $request): ResponseInterface;
+
+    /**
      * Send async requests.
      * @param array<string|int, RequestInterface> $requests
      * @return array<string|int, ResponseInterface>
-     * @throws ClientExceptionInterface
+     * @throws RequestExceptionInterface
      */
     public function sendAsyncRequests(array $requests): array;
 }

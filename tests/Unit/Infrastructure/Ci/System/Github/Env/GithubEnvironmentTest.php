@@ -6,23 +6,11 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Exceptions\InvalidEnvi
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\VarName;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\MapEnvironment;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\NullEnvironment;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class GithubEnvironmentTest extends TestCase
 {
-    /**
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment::getMergeRequestId
-     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment::__construct
-     */
-    public function testGetMergeRequestIdOnEnvironmentVariableNotFoundException(): void
-    {
-        $env = new GithubEnvironment(new NullEnvironment());
-
-        self::assertNull($env->getMergeRequestId());
-    }
-
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment::getMergeRequestId
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env\GithubEnvironment::__construct

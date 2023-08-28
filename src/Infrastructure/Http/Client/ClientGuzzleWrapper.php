@@ -3,14 +3,17 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\InvalidCredentialsException;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ServerUnexpectedResponseException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\BadRequestException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\ForbiddenException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpRequestException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\NotFoundException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\UnauthorizedException;
 use GuzzleHttp\ClientInterface as GuzzleClient;
 use GuzzleHttp\Promise\Utils;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface as PsrClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
 
 class ClientGuzzleWrapper implements Client
@@ -24,9 +27,35 @@ class ClientGuzzleWrapper implements Client
 
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
-        $response = $this->http->sendRequest($request);
+        $this->logger->info(sprintf(
+            '[HttpClient] Sending request to %s',
+            $request->getUri(),
+        ));
 
-        $this->validateResponse($response, $request->getUri());
+        try {
+            $response = $this->http->sendRequest($request);
+        } catch (ClientExceptionInterface $e) {
+            throw new HttpRequestException($request, message: $e->getMessage(), previous: $e);
+        }
+
+        $e = $this->createRequestException($request, $response);
+
+        if ($e !== null) {
+            $this->logger->warning(sprintf(
+                '[HttpClient] Request to %s was failed with status %d: %s',
+                $request->getUri(),
+                $response->getStatusCode(),
+                $e->getMessage(),
+            ));
+
+            throw $e;
+        }
+
+        $this->logger->info(sprintf(
+            '[HttpClient] Request to %s was successful with status %d',
+            $request->getUri(),
+            $response->getStatusCode(),
+        ));
 
         return $response;
     }
@@ -48,7 +77,7 @@ class ClientGuzzleWrapper implements Client
         $responses = Utils::settle($promises)->wait();
 
         $this->logger->info(
-            sprintf('Responses for %d async requests was given', count($requests)),
+            sprintf('[HttpClient] Responses for %d async requests was given', count($requests)),
             $logContext,
         );
 
@@ -68,30 +97,21 @@ class ClientGuzzleWrapper implements Client
                 throw new \LogicException(sprintf('Failed send request: %s', var_export($response['value'], true)));
             }
 
-            $this->validateResponse($response['value'], $requests[$key]->getUri());
-
             $preparedResponses[$key] = $response['value'];
         }
 
         return $preparedResponses;
     }
 
-    /**
-     * @throws InvalidCredentialsException
-     * @throws ServerUnexpectedResponseException
-     */
-    private function validateResponse(ResponseInterface $response, UriInterface $url): void
+    private function createRequestException(RequestInterface $request, ResponseInterface $response): ?HttpRequestException
     {
-        $host = $url->getHost();
-
-        if ($response->getStatusCode() === 401 || $response->getStatusCode() === 403) {
-            throw InvalidCredentialsException::fromResponse($host, $response->getBody()->getContents());
-        } elseif ($response->getStatusCode() !== 200 && $response->getStatusCode() !== 201) {
-            throw ServerUnexpectedResponseException::create(
-                $host,
-                $response->getStatusCode(),
-                $response->getBody()->getContents()
-            );
-        }
+        return match ($response->getStatusCode()) {
+            404 => NotFoundException::create($request, $response),
+            403 => ForbiddenException::create($request, $response),
+            401 => UnauthorizedException::create($request, $response),
+            400 => BadRequestException::create($request, $response),
+            200, 201 => null,
+            default => HttpRequestException::create($request, $response),
+        };
     }
 }

@@ -34,7 +34,7 @@ final class SingleCommenterTest extends TestCase
                     '[SingleCommenter] Updating comment with id "test-comment-id" for MR with id "PR_ID" was skipped: messages identical',
                 ],
                 new MakingComment('test-comment'),
-                new Comment('test-comment-id', 'test-comment'),
+                new Comment('test-comment-id', 'test-comment', '1'),
             ],
             'update comment: ok' => [
                 'PR_ID',
@@ -44,7 +44,7 @@ final class SingleCommenterTest extends TestCase
                     '[SingleCommenter] Comment #test-comment-id for MR #PR_ID was updated',
                 ],
                 new MakingComment('test-comment'),
-                new Comment('test-comment-id', 'test-comment-2'),
+                new Comment('test-comment-id', 'test-comment-2', '1'),
             ],
         ];
     }
