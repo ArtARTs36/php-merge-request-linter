@@ -6,10 +6,13 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
+ * The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.
  * @link https://www.conventionalcommits.org/en/v1.0.0
  */
 final class TitleConventionalRule extends NamedRule
@@ -46,6 +49,18 @@ final class TitleConventionalRule extends NamedRule
      */
     public static function make(
         #[Generic(Generic::OF_STRING)]
+        #[Description('Commit types')]
+        #[Example('build')]
+        #[Example('chore')]
+        #[Example('ci')]
+        #[Example('docs')]
+        #[Example('feat')]
+        #[Example('fix')]
+        #[Example('perf')]
+        #[Example('refactor')]
+        #[Example('revert')]
+        #[Example('style')]
+        #[Example('test')]
         ?Arrayee $types = null,
     ): self {
         $types ??= new Arrayee(self::DEFAULT_TYPES);
