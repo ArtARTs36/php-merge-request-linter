@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\TransformConfigValueException;
+use ArtARTs36\Str\Facade\Str;
 
 class GithubActionsCredentialsMapper implements AuthenticatorMapper
 {
@@ -28,7 +29,13 @@ class GithubActionsCredentialsMapper implements AuthenticatorMapper
         }
 
         try {
-            return HeaderAuthenticator::bearer($this->value->tryTransform($credentials['token']));
+            $token = $this->value->tryTransform($credentials['token']);
+
+            if (Str::isEmpty($token)) {
+                throw new InvalidCredentialsException('Failed to resolve github token: token is empty');
+            }
+
+            return HeaderAuthenticator::bearer($token);
         } catch (TransformConfigValueException $e) {
             throw new InvalidCredentialsException(sprintf(
                 'Failed to resolve github token: %s',
