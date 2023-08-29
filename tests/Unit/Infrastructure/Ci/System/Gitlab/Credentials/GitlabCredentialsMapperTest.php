@@ -6,7 +6,9 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticat
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials\GitlabCredentialsMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Value\CompositeTransformer;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\InvalidCredentialsException;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 
 final class GitlabCredentialsMapperTest extends TestCase
 {
@@ -55,5 +57,25 @@ final class GitlabCredentialsMapperTest extends TestCase
         self::expectException(InvalidCredentialsException::class);
 
         $mapper->map([]);
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\Credentials\GitlabCredentialsMapper::map
+     */
+    public function testMapOnTransformReturnsEmptyValue(): void
+    {
+        $transformer = $this->createMock(ConfigValueTransformer::class);
+        $transformer
+            ->expects(new InvokedCount(1))
+            ->method('tryTransform')
+            ->willReturn('');
+
+        $mapper = new GitlabCredentialsMapper($transformer);
+
+        self::expectExceptionMessage('Failed to resolve gitlab token: value is empty');
+
+        $mapper->map([
+            'token' => '${}',
+        ]);
     }
 }

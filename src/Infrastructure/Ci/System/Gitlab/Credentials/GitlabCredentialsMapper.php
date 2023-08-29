@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials\HeaderAuthenticat
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\AuthenticatorMapper;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\InvalidCredentialsException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigValueTransformer;
+use ArtARTs36\Str\Facade\Str;
 
 class GitlabCredentialsMapper implements AuthenticatorMapper
 {
@@ -28,9 +29,18 @@ class GitlabCredentialsMapper implements AuthenticatorMapper
 
         foreach ($tokenFetchMap as $key => $headerName) {
             if (! empty($credentials[$key]) && is_string($credentials[$key])) {
+                $val = $this->valueTransformer->tryTransform($credentials[$key]);
+
+                if (Str::isEmpty($val)) {
+                    throw new InvalidCredentialsException(sprintf(
+                        'Failed to resolve gitlab %s: value is empty',
+                        $key,
+                    ));
+                }
+
                 $header = new Header(
                     $headerName,
-                    $this->valueTransformer->tryTransform($credentials[$key]),
+                    $val,
                 );
             }
         }
