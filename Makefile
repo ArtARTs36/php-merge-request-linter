@@ -55,10 +55,7 @@ try-bitbucket:
 docker-build:
 	docker build . -t artarts36/merge-request-linter
 
-docker-testing-build:
-	docker build . -f Dockerfile_testing -t artarts36/merge-request-linter-testing
-
-docker-lint: docker-testing-build
+docker-lint: docker-build
 	docker run artarts36/merge-request-linter lint
 
 # usage as `make docker-pub-build MR_LINTER_VERSION=0.2.0`
@@ -155,7 +152,7 @@ test-e2e-docker: docker-build
 		--entrypoint "composer" \
 		artarts36/merge-request-linter "test-e2e"
 
-test-docker: docker-testing-build
+test-docker: docker-build
 	docker run \
 		--volume ./:/app/ \
 		--env-file .env \

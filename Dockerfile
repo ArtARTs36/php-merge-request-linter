@@ -1,6 +1,8 @@
 FROM php:8.1-alpine
 
-RUN apk add --update git zip && rm -rf /var/cache/apk/*
+RUN apk add --update git zip gcc libc-dev autoconf make && rm -rf /var/cache/apk/*
+
+RUN pecl install pcov && docker-php-ext-enable pcov
 
 COPY --from=composer:2.4.0 /usr/bin/composer /usr/bin/composer
 
