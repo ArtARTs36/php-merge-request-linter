@@ -29,9 +29,9 @@ Currently is available that rules:
 
 Check count changed files on a {limit}.
 
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
-| limit | Number of maximum possible changes | integer   |  |
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+| limit | Number of maximum possible changes | integer   |
 
 ## @mr-linter/description_contains_links_of_any_domains
 
@@ -53,6 +53,7 @@ Merge Request must contain links of all {domains}.
 
 The description must be filled.
 
+
 ## @mr-linter/has_all_labels
 
 Merge Request must have all {labels}
@@ -64,6 +65,7 @@ Merge Request must have all {labels}
 ## @mr-linter/has_any_labels
 
 Merge Request must have any labels.
+
 
 ## @mr-linter/has_any_labels_of
 
@@ -95,25 +97,25 @@ The description must have a link to YouTrack issue on a {domain} with {projectCo
 
 The title must starts with any {prefixes}
 
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
-| prefixes | Array of prefixes | array  of strings   |  |
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+| prefixes | Array of prefixes | array  of strings   |
 
 ## @mr-linter/has_changes
 
 Merge Request must have changes in {files}.
 
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
-| changes | Array of need changes | array  of objects   <br/> See details in Config JSON Schema |  |
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+| changes | Array of need changes | array  of objects   <br/> See details in Config JSON Schema |
 
 ## @mr-linter/title_starts_with_task_number
 
 Title must starts with task number of project {projectName}. Mask: {projectName}-number
 
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
-| projectName | Project name | string   |  |
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+| projectName | Project name | string   |
 
 ## @mr-linter/branch_starts_with_task_number
 
@@ -127,35 +129,35 @@ Source branch must starts with task number of project {projectName}. Mask: {proj
 
 Forbid changes for files.
 
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
-| files | A set of files forbidden to be changed. | array  of strings   |  |
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+| files | A set of files forbidden to be changed. | array  of strings   |
 
 ## @mr-linter/update_changelog
 
 Changelog must be contained new tag.
 
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
-| file | Relative path to changelog file | string   |  |
-| tags | Tags parsing options | object   |  |
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+| file | Relative path to changelog file | string   |
+| tags | Tags parsing options | object   |
 
 ## @mr-linter/diff_limit
 
 The request must contain no more than {linesMax} changes.
 
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
-| linesMax | Maximum allowed number of changed lines | integer   |  |
-| fileLinesMax | Maximum allowed number of changed lines in a file | integer   |  |
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+| linesMax | Maximum allowed number of changed lines | integer   |
+| fileLinesMax | Maximum allowed number of changed lines in a file | integer   |
 
 ## @mr-linter/no_ssh_keys
 
 Prevent ssh keys from being included in the merge request.
 
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
-| stopOnFirstFailure | When the value is true, the search will stop after the first found key | boolean   |  |
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+| stopOnFirstFailure | When the value is true, the search will stop after the first found key | boolean   |
 
 ## @mr-linter/disable_file_extensions
 

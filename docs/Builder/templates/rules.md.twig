@@ -13,12 +13,20 @@ Currently is available that rules:
 ## {{ rule.name }}
 
 {{ rule.description }}
-{% if rule.params.isEmpty == false %}
 
+{% if rule.params.isEmpty == false %}
+{% if rule.has_params_examples %}
 | Name | Description | Type | Examples |
 | ------------ | ------------ |------ | ------|
 {% for param in rule.params %}
 | {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} {% if param.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} | {% for example in param.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %} |
 {% endfor %}
+{% else %}
+| Name | Description | Type |
+| ------------ | ------------ |------ |
+{% for param in rule.params %}
+| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} {% if param.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} |
+{% endfor %}
+{% endif %}
 {% endif %}
 {% endfor %}

@@ -41,6 +41,8 @@ class RulesPageBuilder
 
             $params = [];
 
+            $ruleHasParamsExamples = false;
+
             foreach ($this->ruleConstructorFinder->find($ruleClass)->params() as $paramName => $param) {
                 $paramType = JsonType::to($param->type->name());
 
@@ -48,12 +50,18 @@ class RulesPageBuilder
                     continue;
                 }
 
+                $examples = new Arrayee($param->examples);
+
+                if (! $examples->isEmpty()) {
+                    $ruleHasParamsExamples = true;
+                }
+
                 $params[] = [
                     'name' => $paramName,
                     'type' => $paramType,
                     'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                     'description' => $param->description,
-                    'examples' => new Arrayee($param->examples),
+                    'examples' => $examples,
                     'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
                 ];
             }
@@ -61,6 +69,7 @@ class RulesPageBuilder
             $rules[] = [
                 'name' => $ruleName,
                 'params' => new Arrayee($params),
+                'has_params_examples' => $ruleHasParamsExamples,
                 'description' => $comment,
                 'path' => $path,
             ];
