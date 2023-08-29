@@ -17,6 +17,10 @@ final class ArrayeeResolver implements TypeResolver
     public function resolve(Type $type, mixed $value): mixed
     {
         if (! is_array($value)) {
+            if ($type->nullable) {
+                return null;
+            }
+
             throw new ValueInvalidException(sprintf(
                 'Arg with type %s not supported. Expected type: array',
                 gettype($value),

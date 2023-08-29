@@ -44,7 +44,8 @@ final class ArrayeeResolverTest extends TestCase
     public function providerForTestResolve(): array
     {
         return [
-            [new Type(TypeName::Array), ['val1']],
+            [new Type(TypeName::Array), ['val1'], new Arrayee(['val1'])],
+            [new Type(TypeName::Array, nullable: true), null, null],
         ];
     }
 
@@ -52,14 +53,13 @@ final class ArrayeeResolverTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ArrayeeResolver::resolve
      * @dataProvider providerForTestResolve
      */
-    public function testResolve(Type $type, mixed $value): void
+    public function testResolve(Type $type, mixed $value, ?Arrayee $expectedVal): void
     {
         $resolver = new ArrayeeResolver();
 
         $result = $resolver->resolve($type, $value);
 
-        self::assertInstanceOf(Arrayee::class, $result);
-        self::assertEquals($value, $result->mapToArray(fn ($val) => $val));
+        self::assertEquals($expectedVal, $result);
     }
 
     /**
