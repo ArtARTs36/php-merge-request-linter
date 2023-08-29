@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Latest Version](https://img.shields.io/packagist/v/artarts36/merge-request-linter)
 ![Total Downloads](https://poser.pugx.org/artarts36/merge-request-linter/d/total.svg)
-![Docker Pulls](https://img.shields.io/docker/pulls/artarts36/merge-request-linter)
+[![Docker Pulls](https://img.shields.io/docker/pulls/artarts36/merge-request-linter)](https://hub.docker.com/r/artarts36/merge-request-linter)
 
 This project provides tools for validating merge/pull requests.
 
