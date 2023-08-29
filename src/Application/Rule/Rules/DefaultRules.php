@@ -31,6 +31,7 @@ final class DefaultRules
         DiffLimitRule::NAME => DiffLimitRule::class,
         NoSshKeysRule::NAME => NoSshKeysRule::class,
         DisableFileExtensionsRule::NAME => DisableFileExtensionsRule::class,
+        TitleConventionalRule::NAME => TitleConventionalRule::class,
     ];
 
     /**

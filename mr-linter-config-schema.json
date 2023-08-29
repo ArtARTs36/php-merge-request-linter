@@ -289,6 +289,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/title_conventional": {
+                    "description": "The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_title_conventional"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_title_conventional"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -6574,6 +6589,43 @@
             "required": [
                 "extensions"
             ]
+        },
+        "rules_properties_@mr-linter_title_conventional": {
+            "type": "object",
+            "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "types": {
+                    "type": "array",
+                    "description": "Commit types",
+                    "items": [
+                        {
+                            "type": "string",
+                            "description": "Commit types",
+                            "examples": [
+                                "build",
+                                "chore",
+                                "ci",
+                                "docs",
+                                "feat",
+                                "fix",
+                                "perf",
+                                "refactor",
+                                "revert",
+                                "style",
+                                "test"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false
         },
         "notifications_channel_telegram_bot": {
             "properties": {

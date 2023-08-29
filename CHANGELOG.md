@@ -6,12 +6,21 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.16.3 (2023-08-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.2..0.16.3)
+
+## Added
+* Added rule `title_conventional`
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.3)
+
+-----------------------------------------------------------------
+
 ## [v0.16.2 (2023-08-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.1..0.16.2)
 
 ## Optimized
 * Throw http exceptions and catch their in CI requests
 
-[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.1)
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.2)
 
 -----------------------------------------------------------------
 

@@ -22,6 +22,7 @@ Currently is available that rules:
 | @mr-linter/diff_limit | The request must contain no more than {linesMax} changes. |
 | @mr-linter/no_ssh_keys | Prevent ssh keys from being included in the merge request. |
 | @mr-linter/disable_file_extensions | Disable adding files of certain extensions. |
+| @mr-linter/title_conventional | The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0. |
 
 
 ## @mr-linter/changed_files_limit
@@ -163,3 +164,11 @@ Disable adding files of certain extensions.
 | Name | Description | Type | Examples |
 | ------------ | ------------ |------ | ------|
 | extensions | Array of file extensions | array  of strings   |  &quot;pem&quot;,  &quot;pub&quot;,  &quot;php&quot;  |
+
+## @mr-linter/title_conventional
+
+The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.
+
+| Name | Description | Type | Examples |
+| ------------ | ------------ |------ | ------|
+| types | Commit types | array  of strings   |  &quot;build&quot;,  &quot;chore&quot;,  &quot;ci&quot;,  &quot;docs&quot;,  &quot;feat&quot;,  &quot;fix&quot;,  &quot;perf&quot;,  &quot;refactor&quot;,  &quot;revert&quot;,  &quot;style&quot;,  &quot;test&quot;  |
