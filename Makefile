@@ -85,7 +85,7 @@ docker-pub-try:
 		-e GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
 		-e GITHUB_REF_NAME=${MR_ID}/merge \
 		-e MR_LINTER_GITHUB_HTTP_TOKEN=${TOKEN} \
-		-v "${PWD}/.mr-linter.json:/app/.mr-linter.json:ro" \
+		-v "${PWD}/.mr-linter.yml:/app/.mr-linter.yml:ro" \
 		artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
 
 docs:
