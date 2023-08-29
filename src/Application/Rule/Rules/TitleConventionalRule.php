@@ -59,7 +59,7 @@ final class TitleConventionalRule extends NamedRule
 
         preg_match(self::REGEX, $request->title, $matches);
 
-        if (! isset($matches[1]) || ! is_string($matches[1])) {
+        if (! array_key_exists(1, $matches) || ! is_string($matches[1])) {
             return [new LintNote('The title must matches with conventional commit')];
         }
 

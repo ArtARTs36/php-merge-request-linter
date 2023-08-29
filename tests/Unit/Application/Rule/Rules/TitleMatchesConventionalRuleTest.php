@@ -66,7 +66,7 @@ final class TitleMatchesConventionalRuleTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule::doLint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule::lint
      *
      * @dataProvider providerForTestLint
      */
