@@ -6,6 +6,25 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.16.4 (2023-08-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.3..0.16.4)
+
+## Added
+* Throw exception when github actions token is empty
+* Throw exception when gitlab token is empty
+
+## Optimized
+* Reduced docker image size
+
+## Docs
+* Updated rules doc page
+
+## Dependencies
+* Bump `guzzlehttp/psr7` from `2.4.3` to `2.4.5`
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.4)
+
+-----------------------------------------------------------------
+
 ## [v0.16.3 (2023-08-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.2..0.16.3)
 
 ## Added
