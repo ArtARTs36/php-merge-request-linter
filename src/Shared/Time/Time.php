@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 
-class Time
+readonly class Time
 {
     private function __construct(
-        public readonly int $hour,
-        public readonly int $minute,
+        public int $hour,
+        public int $minute,
     ) {
         //
     }

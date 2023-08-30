@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 
-class TimePeriod
+readonly class TimePeriod
 {
     public function __construct(
-        public readonly Time $from,
-        public readonly Time $to,
+        public Time $from,
+        public Time $to,
     ) {
         //
     }

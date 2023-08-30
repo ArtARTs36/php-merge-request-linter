@@ -12,16 +12,16 @@ use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
  * @phpstan-type Conditions array<Field, Condition>
  * @codeCoverageIgnore
  */
-class NotificationEventMessage
+readonly class NotificationEventMessage
 {
     /**
      * @param Conditions $conditions
      */
     public function __construct(
-        public readonly string $event,
-        public readonly Channel $channel,
-        public readonly string $template,
-        public readonly array $conditions = [],
+        public string  $event,
+        public Channel $channel,
+        public string  $template,
+        public array   $conditions = [],
     ) {
         //
     }
