@@ -5,13 +5,13 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\In
 /**
  * @codeCoverageIgnore
  */
-class CreateCommentInput
+readonly class CreateCommentInput
 {
     public function __construct(
-        public readonly string $projectKey,
-        public readonly string $repoName,
-        public readonly int    $requestId,
-        public readonly string $comment,
+        public string $projectKey,
+        public string $repoName,
+        public int    $requestId,
+        public string $comment,
     ) {
         //
     }

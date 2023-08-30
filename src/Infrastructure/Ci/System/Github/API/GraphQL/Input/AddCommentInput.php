@@ -5,12 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 /**
  * @codeCoverageIgnore
  */
-class AddCommentInput
+readonly class AddCommentInput
 {
     public function __construct(
-        public readonly string $graphqlUrl,
-        public readonly string $subjectId,
-        public readonly string $message,
+        public string $graphqlUrl,
+        public string $subjectId,
+        public string $message,
     ) {
         //
     }

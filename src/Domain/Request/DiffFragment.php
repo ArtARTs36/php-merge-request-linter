@@ -7,11 +7,11 @@ use ArtARTs36\Str\Str;
 /**
  * @codeCoverageIgnore
  */
-class DiffFragment
+readonly class DiffFragment
 {
     public function __construct(
-        public readonly DiffType $type,
-        public readonly Str $content,
+        public DiffType $type,
+        public Str      $content,
     ) {
     }
 

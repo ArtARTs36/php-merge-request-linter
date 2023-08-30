@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\In
 /**
  * @codeCoverageIgnore
  */
-class GetCommentsInput
+readonly class GetCommentsInput
 {
     public function __construct(
-        public readonly PullRequestInput $pullRequest,
-        public readonly int $page,
+        public PullRequestInput $pullRequest,
+        public int              $page,
     ) {
         //
     }

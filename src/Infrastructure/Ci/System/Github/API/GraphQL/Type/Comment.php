@@ -5,12 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Graph
 /**
  * @codeCoverageIgnore
  */
-class Comment
+readonly class Comment
 {
     public function __construct(
-        public readonly string $id,
-        public readonly string $authorLogin,
-        public readonly string $message,
+        public string $id,
+        public string $authorLogin,
+        public string $message,
     ) {
         //
     }

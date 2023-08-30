@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\API\Rest\
 /**
  * @codeCoverageIgnore
  */
-class TagsInput
+readonly class TagsInput
 {
     public function __construct(
-        public readonly string $owner,
-        public readonly string $repo,
+        public string $owner,
+        public string $repo,
     ) {
         //
     }

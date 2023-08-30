@@ -5,12 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objec
 /**
  * @codeCoverageIgnore
  */
-class Comment
+readonly class Comment
 {
     public function __construct(
-        public readonly int $id,
-        public readonly string $body,
-        public readonly string $authorLogin,
+        public int    $id,
+        public string $body,
+        public string $authorLogin,
     ) {
         //
     }

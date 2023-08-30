@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Ob
 /**
  * @codeCoverageIgnore
  */
-class User
+readonly class User
 {
     public function __construct(
-        public readonly string $displayName,
-        public readonly string $accountId,
+        public string $displayName,
+        public string $accountId,
     ) {
         //
     }

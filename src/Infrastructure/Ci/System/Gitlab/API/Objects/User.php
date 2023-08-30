@@ -4,11 +4,11 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objec
 
 use ArtARTs36\MergeRequestLinter\Shared\Text\Sensitive\Scrubber;
 
-class User
+readonly class User
 {
     public function __construct(
-        public readonly int $id,
-        public readonly string $login,
+        public int    $id,
+        public string $login,
     ) {
         //
     }

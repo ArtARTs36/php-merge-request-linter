@@ -5,10 +5,10 @@ namespace ArtARTs36\MergeRequestLinter\Application\Comments;
 /**
  * @codeCoverageIgnore
  */
-final class MakingComment
+final readonly class MakingComment
 {
     public function __construct(
-        public readonly string $message,
+        public string $message,
     ) {
         //
     }
