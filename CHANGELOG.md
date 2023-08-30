@@ -6,6 +6,16 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.16.5 (2023-08-30)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.4..0.16.5)
+
+## Optimized
+* Updated PHP to 8.2
+* Deleted unless dependency "jetbrains/phpstorm-attributes"
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.5)
+
+-----------------------------------------------------------------
+
 ## [v0.16.4 (2023-08-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.3..0.16.4)
 
 ## Added
