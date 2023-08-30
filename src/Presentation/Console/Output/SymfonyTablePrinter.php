@@ -5,10 +5,10 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\TablePrinter;
 use Symfony\Component\Console\Style\StyleInterface;
 
-class SymfonyTablePrinter implements TablePrinter
+readonly class SymfonyTablePrinter implements TablePrinter
 {
     public function __construct(
-        private readonly StyleInterface $output,
+        private StyleInterface $output,
     ) {
         //
     }
