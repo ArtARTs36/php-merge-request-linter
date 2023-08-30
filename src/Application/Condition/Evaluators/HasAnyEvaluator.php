@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 /**
  * Check if an array contains some value of list.
  */
-class HasAnyEvaluator extends Evaluator
+final class HasAnyEvaluator extends Evaluator
 {
     public const NAME = 'hasAny';
 

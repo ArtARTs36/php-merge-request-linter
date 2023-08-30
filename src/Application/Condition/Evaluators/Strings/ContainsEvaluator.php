@@ -8,7 +8,7 @@ use ArtARTs36\Str\Facade\Str;
 /**
  * Check if a string contains a substring.
  */
-class ContainsEvaluator extends StringEvaluator
+final class ContainsEvaluator extends StringEvaluator
 {
     public const NAME = 'contains';
 

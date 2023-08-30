@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 /**
  * True if any value of array matched conditions.
  */
-class AnyEvaluator extends CompositeEvaluator
+final class AnyEvaluator extends CompositeEvaluator
 {
     public const NAME = '$any';
 

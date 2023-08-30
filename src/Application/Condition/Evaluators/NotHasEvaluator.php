@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
  * Check if an array not contains some value.
  */
 #[EvaluatesCollectionType]
-class NotHasEvaluator extends ScalarEvaluator
+final class NotHasEvaluator extends ScalarEvaluator
 {
     public const NAME = 'notHas';
 

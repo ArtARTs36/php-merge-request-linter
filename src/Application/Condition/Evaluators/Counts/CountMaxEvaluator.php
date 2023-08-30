@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 /**
  * Check the maximum number of elements in a field.
  */
-class CountMaxEvaluator extends IntEvaluator
+final class CountMaxEvaluator extends IntEvaluator
 {
     public const NAME = 'countMax';
 

@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
  * Check if an array contains some value.
  */
 #[EvaluatesCollectionType]
-class HasEvaluator extends ScalarEvaluator
+final class HasEvaluator extends ScalarEvaluator
 {
     public const NAME = 'has';
 

@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 /**
  * Check count equals.
  */
-class CountEqualsEvaluator extends IntEvaluator
+final class CountEqualsEvaluator extends IntEvaluator
 {
     public const NAME = 'countEquals';
 

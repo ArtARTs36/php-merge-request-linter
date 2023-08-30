@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string is snake_case.
  */
-class IsSnakeCaseEvaluator extends BoolEvaluator
+final class IsSnakeCaseEvaluator extends BoolEvaluator
 {
     public const NAME = 'isSnakeCase';
 

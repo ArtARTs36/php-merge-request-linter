@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
  * Check if a number is greater than or less than.
  */
 #[EvaluatesSameType]
-class GteEvaluator extends NumberEvaluator
+final class GteEvaluator extends NumberEvaluator
 {
     public const NAME = 'gte';
     public const SYMBOL = '>=';

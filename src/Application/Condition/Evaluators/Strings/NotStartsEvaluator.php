@@ -8,7 +8,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string not contains a prefix.
  */
-class NotStartsEvaluator extends StringEvaluator
+final class NotStartsEvaluator extends StringEvaluator
 {
     public const NAME = 'notStarts';
 

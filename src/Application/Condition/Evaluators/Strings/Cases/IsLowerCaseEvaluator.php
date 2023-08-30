@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string is lower case.
  */
-class IsLowerCaseEvaluator extends BoolEvaluator
+final class IsLowerCaseEvaluator extends BoolEvaluator
 {
     public const NAME = 'isLowerCase';
 

@@ -8,7 +8,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string contains a suffix.
  */
-class EndsEvaluator extends StringEvaluator
+final class EndsEvaluator extends StringEvaluator
 {
     public const NAME = 'ends';
 

@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string is kebab-case.
  */
-class IsKebabCaseEvaluator extends BoolEvaluator
+final class IsKebabCaseEvaluator extends BoolEvaluator
 {
     public const NAME = 'isKebabCase';
 

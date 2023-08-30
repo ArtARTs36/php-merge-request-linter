@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Number;
  * Check number is equal to or less than.
  */
 #[EvaluatesSameType]
-class LteEvaluator extends NumberEvaluator
+final class LteEvaluator extends NumberEvaluator
 {
     public const NAME = 'lte';
     public const SYMBOL = '<=';

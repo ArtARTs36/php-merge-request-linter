@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
  * Check if value are not equal.
  */
 #[EvaluatesSameType]
-class NotEqualsEvaluator extends ScalarEvaluator
+final class NotEqualsEvaluator extends ScalarEvaluator
 {
     public const NAME = 'notEquals';
     public const SYMBOL = '!=';

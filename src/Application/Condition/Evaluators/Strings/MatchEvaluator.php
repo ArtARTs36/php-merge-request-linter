@@ -10,7 +10,7 @@ use ArtARTs36\Str\Facade\Str;
 /**
  * Check if a string match a regex.
  */
-class MatchEvaluator extends StringEvaluator
+final class MatchEvaluator extends StringEvaluator
 {
     public const NAME = 'match';
 

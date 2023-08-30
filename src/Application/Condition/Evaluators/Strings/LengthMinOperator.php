@@ -9,7 +9,7 @@ use ArtARTs36\Str\Facade\Str;
 /**
  * Check the minimum string length.
  */
-class LengthMinOperator extends IntEvaluator
+final class LengthMinOperator extends IntEvaluator
 {
     public const NAME = 'lengthMin';
 

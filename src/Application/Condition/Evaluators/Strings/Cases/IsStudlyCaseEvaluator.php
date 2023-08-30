@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string is StudlyCase.
  */
-class IsStudlyCaseEvaluator extends BoolEvaluator
+final class IsStudlyCaseEvaluator extends BoolEvaluator
 {
     public const NAME = 'isStudlyCase';
 
