@@ -12,6 +12,8 @@ interface CiSystem
 {
     /**
      * Get CI System Name.
+     *
+     * @return non-empty-string
      */
     public function getName(): string;
 
