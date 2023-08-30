@@ -43,6 +43,11 @@ class ShowToolInfoHandler
             new StringSubject('Current version', Version::VERSION),
             new StringSubject('Latest version', $toolInfo->getLatestVersion()?->digit() ?? 'undefined'),
             new CollectionSubject('Supported config formats', ConfigFormat::list()),
+            new StringSubject('Runtime', sprintf(
+                'PHP %s with extensions: [%s]',
+                PHP_VERSION,
+                implode(', ', get_loaded_extensions()),
+            )),
             new BoolSubject('Used as PHAR', $toolInfo->usedAsPhar()),
             new CollectionSubject('Supported CI Systems', DefaultSystems::map()->keys()),
             new CollectionSubject('Available rules', DefaultRules::map()->keys()),
