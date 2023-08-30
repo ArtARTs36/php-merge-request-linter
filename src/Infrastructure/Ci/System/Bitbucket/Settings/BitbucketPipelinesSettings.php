@@ -5,10 +5,10 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settin
 /**
  * @codeCoverageIgnore
  */
-class BitbucketPipelinesSettings
+readonly class BitbucketPipelinesSettings
 {
     public function __construct(
-        public readonly LabelsSettings $labels,
+        public LabelsSettings $labels,
     ) {
         //
     }

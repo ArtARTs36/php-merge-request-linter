@@ -2,17 +2,17 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
-class Type
+readonly class Type
 {
     /**
      * @param class-string|null $class
      * @param string|class-string|null $generic
      */
     public function __construct(
-        public readonly TypeName $name,
-        public readonly ?string  $class = null,
-        public readonly ?string  $generic = null,
-        public readonly bool $nullable = false,
+        public TypeName $name,
+        public ?string  $class = null,
+        public ?string  $generic = null,
+        public bool     $nullable = false,
     ) {
         //
     }

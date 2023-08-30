@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 /**
  * @codeCoverageIgnore
  */
-class LinterOptions
+readonly class LinterOptions
 {
     public function __construct(
-        public readonly bool $stopOnFailure = false,
-        public readonly bool $stopOnWarning = false,
+        public bool $stopOnFailure = false,
+        public bool $stopOnWarning = false,
     ) {
         //
     }

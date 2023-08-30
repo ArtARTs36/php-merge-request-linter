@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Value;
 /**
  * @codeCoverageIgnore
  */
-class MetricSubject
+readonly class MetricSubject
 {
     public function __construct(
-        public readonly string $key,
-        public readonly string $name,
+        public string $key,
+        public string $name,
     ) {
         //
     }

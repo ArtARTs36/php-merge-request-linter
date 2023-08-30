@@ -4,18 +4,18 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 
-class Parameter
+readonly class Parameter
 {
     /**
      * @param array<Example> $examples
      */
     public function __construct(
-        public readonly string $name,
-        public readonly string $description,
-        public readonly array $examples,
-        public readonly Type $type,
-        public readonly bool $hasDefaultValue = false,
-        private readonly ?\Closure $defaultValueGetter = null,
+        public string     $name,
+        public string     $description,
+        public array      $examples,
+        public Type       $type,
+        public bool       $hasDefaultValue = false,
+        private ?\Closure $defaultValueGetter = null,
     ) {
         //
     }

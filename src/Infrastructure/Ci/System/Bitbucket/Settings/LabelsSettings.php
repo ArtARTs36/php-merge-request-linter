@@ -5,10 +5,10 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Settin
 /**
  * @codeCoverageIgnore
  */
-class LabelsSettings
+readonly class LabelsSettings
 {
     public function __construct(
-        public readonly ?LabelsOfDescriptionSettings $ofDescription,
+        public ?LabelsOfDescriptionSettings $ofDescription,
     ) {
         //
     }

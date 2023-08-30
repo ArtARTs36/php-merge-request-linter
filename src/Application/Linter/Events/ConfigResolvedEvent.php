@@ -7,10 +7,10 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver\ResolvedC
 /**
  * @codeCoverageIgnore
  */
-class ConfigResolvedEvent
+readonly class ConfigResolvedEvent
 {
     public function __construct(
-        public readonly ResolvedConfig $config,
+        public ResolvedConfig $config,
     ) {
         //
     }

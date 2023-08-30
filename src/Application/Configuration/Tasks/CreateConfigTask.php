@@ -8,11 +8,11 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\ConfigFormat;
 /**
  * @codeCoverageIgnore
  */
-class CreateConfigTask
+readonly class CreateConfigTask
 {
     public function __construct(
-        public readonly ConfigFormat $format,
-        public readonly Directory $targetDir
+        public ConfigFormat $format,
+        public Directory    $targetDir
     ) {
         //
     }

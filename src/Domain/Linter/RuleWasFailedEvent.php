@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
  * The event is created at the moment when the linter rule was failed.
  * @codeCoverageIgnore
  */
-class RuleWasFailedEvent
+readonly class RuleWasFailedEvent
 {
     public const NAME = 'rule_was_failed';
 
@@ -16,8 +16,8 @@ class RuleWasFailedEvent
      * @param array<Note> $notes
      */
     public function __construct(
-        public readonly string $ruleName,
-        public readonly array $notes,
+        public string $ruleName,
+        public array  $notes,
     ) {
         //
     }

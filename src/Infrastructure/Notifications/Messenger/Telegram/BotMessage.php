@@ -5,13 +5,13 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Notifications\Messenger\Te
 /**
  * @codeCoverageIgnore
  */
-class BotMessage
+readonly class BotMessage
 {
     public function __construct(
-        public readonly string $token,
-        public readonly string $chatId,
-        public readonly string $message,
-        public readonly bool $background,
+        public string $token,
+        public string $chatId,
+        public string $message,
+        public bool   $background,
     ) {
         //
     }

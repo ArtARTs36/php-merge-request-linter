@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\Env;
 /**
  * @codeCoverageIgnore
  */
-class Repo
+readonly class Repo
 {
     public function __construct(
-        public readonly string $workspace,
-        public readonly string $slug,
+        public string $workspace,
+        public string $slug,
     ) {
         //
     }

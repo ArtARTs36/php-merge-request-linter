@@ -2,14 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 
-class Change implements \JsonSerializable
+readonly class Change implements \JsonSerializable
 {
     /**
      * @param string $file
      */
     public function __construct(
-        public readonly string $file,
-        public readonly Diff $diff,
+        public string $file,
+        public Diff   $diff,
     ) {
         //
     }
