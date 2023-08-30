@@ -6,8 +6,6 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CurrentlyNotMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Comment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use JetBrains\PhpStorm\ArrayShape;
 
 final class MockCi implements CiSystem
 {

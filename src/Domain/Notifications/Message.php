@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Notifications;
 /**
  * @codeCoverageIgnore
  */
-class Message
+readonly class Message
 {
     public function __construct(
-        public readonly string $text,
-        public readonly string $id,
+        public string $text,
+        public string $id,
     ) {
         //
     }

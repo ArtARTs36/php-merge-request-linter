@@ -9,7 +9,7 @@ use ArtARTs36\Str\Facade\Str;
 /**
  * Check the maximum string length.
  */
-class LengthMaxEvaluator extends IntEvaluator
+final class LengthMaxEvaluator extends IntEvaluator
 {
     public const NAME = 'lengthMax';
 

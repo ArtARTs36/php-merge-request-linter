@@ -5,12 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Dumper;
 /**
  * @codeCoverageIgnore
  */
-class RuleInfo
+readonly class RuleInfo
 {
     public function __construct(
-        public readonly string $name,
-        public readonly string $definition,
-        public readonly bool $critical = true,
+        public string $name,
+        public string $definition,
+        public bool   $critical = true,
     ) {
         //
     }

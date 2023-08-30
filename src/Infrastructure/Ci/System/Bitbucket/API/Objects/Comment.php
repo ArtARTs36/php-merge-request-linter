@@ -5,13 +5,13 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Ob
 /**
  * @codeCoverageIgnore
  */
-class Comment
+readonly class Comment
 {
     public function __construct(
-        public readonly int $id,
-        public readonly string $url,
-        public readonly string $content,
-        public readonly string $authorAccountId,
+        public int    $id,
+        public string $url,
+        public string $content,
+        public string $authorAccountId,
     ) {
         //
     }

@@ -8,10 +8,10 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ConsolePrinter implements Printer
+readonly class ConsolePrinter implements Printer
 {
     public function __construct(
-        private readonly OutputInterface $output,
+        private OutputInterface $output,
     ) {
         //
     }

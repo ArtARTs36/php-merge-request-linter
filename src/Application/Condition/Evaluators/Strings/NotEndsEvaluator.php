@@ -8,7 +8,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string not contains a suffix.
  */
-class NotEndsEvaluator extends StringEvaluator
+final class NotEndsEvaluator extends StringEvaluator
 {
     public const NAME = 'notEnds';
 

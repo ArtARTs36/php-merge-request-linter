@@ -7,14 +7,14 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
 /**
  * @codeCoverageIgnore
  */
-class CiSettings
+readonly class CiSettings
 {
     /**
      * @param array<string, mixed> $params
      */
     public function __construct(
-        public readonly Authenticator $credentials,
-        public readonly array $params,
+        public Authenticator $credentials,
+        public array         $params,
     ) {
         //
     }

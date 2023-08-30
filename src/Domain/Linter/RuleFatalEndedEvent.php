@@ -5,10 +5,10 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 /**
  * @codeCoverageIgnore
  */
-class RuleFatalEndedEvent
+readonly class RuleFatalEndedEvent
 {
     public function __construct(
-        public readonly string $ruleName,
+        public string $ruleName,
     ) {
         //
     }

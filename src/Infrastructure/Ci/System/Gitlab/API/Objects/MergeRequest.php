@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objec
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Change;
 
-class MergeRequest
+readonly class MergeRequest
 {
     private const MERGE_STATUS_CAN_BE_MERGED = 'can_be_merged';
 
@@ -13,20 +13,20 @@ class MergeRequest
      * @param array<Change> $changes
      */
     public function __construct(
-        public readonly int $id,
-        public readonly int $number,
-        public readonly string $title,
-        public readonly string $description,
-        public readonly array $labels,
-        public readonly bool $hasConflicts,
-        public readonly string $sourceBranch,
-        public readonly string $targetBranch,
-        public readonly string $authorLogin,
-        public readonly bool $isDraft,
-        public readonly string $mergeStatus,
-        public readonly array $changes,
-        public readonly \DateTimeImmutable $createdAt,
-        public readonly string $uri,
+        public int $id,
+        public int $number,
+        public string $title,
+        public string $description,
+        public array $labels,
+        public bool $hasConflicts,
+        public string $sourceBranch,
+        public string $targetBranch,
+        public string $authorLogin,
+        public bool $isDraft,
+        public string $mergeStatus,
+        public array $changes,
+        public \DateTimeImmutable $createdAt,
+        public string $uri,
     ) {
         //
     }

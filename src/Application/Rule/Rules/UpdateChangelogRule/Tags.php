@@ -5,10 +5,10 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\UpdateChangelogRul
 /**
  * @codeCoverageIgnore
  */
-class Tags
+readonly class Tags
 {
     public function __construct(
-        public readonly TagsHeading $heading,
+        public TagsHeading $heading,
     ) {
         //
     }

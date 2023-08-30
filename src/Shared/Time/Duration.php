@@ -4,10 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Metric;
 
-class Duration implements Metric
+readonly class Duration implements Metric
 {
     public function __construct(
-        public readonly float $seconds,
+        public float $seconds,
     ) {
         //
     }

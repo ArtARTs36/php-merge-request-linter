@@ -5,12 +5,12 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Bitbucket\API\Sc
 /**
  * @codeCoverageIgnore
  */
-class Schemas
+readonly class Schemas
 {
     public function __construct(
-        public readonly CreateCommentSchema $commentCreate = new CreateCommentSchema(),
-        public readonly GetCommentsSchema $commentsGet = new GetCommentsSchema(),
-        public readonly GetCurrentUserSchema $userGetCurrent = new GetCurrentUserSchema(),
+        public CreateCommentSchema  $commentCreate = new CreateCommentSchema(),
+        public GetCommentsSchema    $commentsGet = new GetCommentsSchema(),
+        public GetCurrentUserSchema $userGetCurrent = new GetCurrentUserSchema(),
     ) {
         //
     }

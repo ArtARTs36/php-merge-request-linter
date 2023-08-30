@@ -2,15 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Events;
 
-final class CallbackListener implements EventListener
+final readonly class CallbackListener implements EventListener
 {
     /**
      * @template E of object
      * @param \Closure(E): void $callback
      */
     public function __construct(
-        private readonly string $name,
-        private readonly \Closure $callback,
+        private string   $name,
+        private \Closure $callback,
     ) {
         //
     }

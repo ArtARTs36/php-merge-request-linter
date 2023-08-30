@@ -48,8 +48,8 @@ final class LintCommand extends Command
     {
         $this->addConfigFileOption();
 
-        $this->addOption('debug');
-        $this->addOption('metrics');
+        $this->addOption('debug', description: 'Run in debug mode with logs');
+        $this->addOption('metrics', description: 'Show full linter metrics');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

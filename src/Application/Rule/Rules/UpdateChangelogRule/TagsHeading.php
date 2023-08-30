@@ -8,11 +8,11 @@ use ArtARTs36\MergeRequestLinter\Shared\Text\Markdown\HeadingLevel;
 /**
  * @codeCoverageIgnore
  */
-class TagsHeading
+readonly class TagsHeading
 {
     public function __construct(
         #[Description('Markdown heading level for tags')]
-        public readonly HeadingLevel $level = HeadingLevel::Level2,
+        public HeadingLevel $level = HeadingLevel::Level2,
     ) {
         //
     }

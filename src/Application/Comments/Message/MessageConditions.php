@@ -8,11 +8,11 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 /**
  * @codeCoverageIgnore
  */
-class MessageConditions
+readonly class MessageConditions
 {
     public function __construct(
-        public readonly MergeRequest $request,
-        public readonly LintResult $result,
+        public MergeRequest $request,
+        public LintResult   $result,
     ) {
     }
 }

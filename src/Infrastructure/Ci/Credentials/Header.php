@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Credentials;
 /**
  * @codeCoverageIgnore
  */
-class Header
+readonly class Header
 {
     public function __construct(
-        public readonly string $name,
-        public readonly string $value,
+        public string $name,
+        public string $value,
     ) {
     }
 }

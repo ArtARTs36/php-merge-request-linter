@@ -9,7 +9,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 /**
  * Check the minimum number of elements in a field.
  */
-class CountMinEvaluator extends IntEvaluator
+final class CountMinEvaluator extends IntEvaluator
 {
     public const NAME = 'countMin';
 

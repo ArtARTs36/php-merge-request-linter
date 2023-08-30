@@ -4,10 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Output;
 
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Contracts\ProgressBar;
 
-final class SymfonyProgressBar implements ProgressBar
+final readonly class SymfonyProgressBar implements ProgressBar
 {
     public function __construct(
-        private readonly \Symfony\Component\Console\Helper\ProgressBar $bar,
+        private \Symfony\Component\Console\Helper\ProgressBar $bar,
     ) {
         //
     }

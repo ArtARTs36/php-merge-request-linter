@@ -7,12 +7,12 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 /**
  * @codeCoverageIgnore
  */
-class Change
+readonly class Change
 {
     public function __construct(
-        public readonly string $filename,
-        public readonly Diff $diff,
-        public readonly Status $status,
+        public string $filename,
+        public Diff   $diff,
+        public Status $status,
     ) {
         //
     }

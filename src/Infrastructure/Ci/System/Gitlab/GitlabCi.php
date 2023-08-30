@@ -31,14 +31,14 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 use ArtARTs36\Str\Str;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Objects\MergeRequest as GitlabMergeRequest;
 
-final class GitlabCi implements CiSystem
+final readonly class GitlabCi implements CiSystem
 {
     public const NAME = 'gitlab_ci';
 
     public function __construct(
-        private readonly GitlabEnvironment     $environment,
-        private readonly GitlabClient          $client,
-        private readonly MarkdownCleaner $markdownCleaner,
+        private GitlabEnvironment $environment,
+        private GitlabClient      $client,
+        private MarkdownCleaner   $markdownCleaner,
     ) {
         //
     }

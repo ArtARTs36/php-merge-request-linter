@@ -8,12 +8,12 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\PropertyNot
 use ArtARTs36\MergeRequestLinter\Infrastructure\Condition\Exceptions\ValueHasDifferentTypeException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\PropertyExtractor;
 
-class PropertyEvaluatingSubject implements EvaluatingSubject
+readonly class PropertyEvaluatingSubject implements EvaluatingSubject
 {
     public function __construct(
-        public readonly object $subject,
-        private readonly PropertyExtractor $propertyExtractor,
-        private readonly string $property,
+        public object             $subject,
+        private PropertyExtractor $propertyExtractor,
+        private string            $property,
     ) {
         //
     }

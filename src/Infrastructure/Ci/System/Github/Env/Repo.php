@@ -5,11 +5,11 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Github\Env;
 /**
  * @codeCoverageIgnore
  */
-class Repo
+readonly class Repo
 {
     public function __construct(
-        public readonly string $owner,
-        public readonly string $name,
+        public string $owner,
+        public string $name,
     ) {
         //
     }

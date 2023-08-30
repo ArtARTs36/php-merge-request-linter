@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Domain\Request;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\Str\Exceptions\InvalidRegexException;
 
-class Diff
+readonly class Diff
 {
     /**
      * @param Arrayee<int, DiffFragment> $oldFragments
@@ -14,10 +14,10 @@ class Diff
      * @param Arrayee<int, DiffFragment> $allFragments
      */
     public function __construct(
-        public readonly Arrayee $oldFragments,
-        public readonly Arrayee $newFragments,
-        public readonly Arrayee $notChangedFragments,
-        public readonly Arrayee $allFragments,
+        public Arrayee $oldFragments,
+        public Arrayee $newFragments,
+        public Arrayee $notChangedFragments,
+        public Arrayee $allFragments,
     ) {
     }
 

@@ -7,10 +7,10 @@ use ArtARTs36\Str\Str;
 /**
  * @codeCoverageIgnore
  */
-class Author
+readonly class Author
 {
     public function __construct(
-        public readonly Str $login,
+        public Str $login,
     ) {
         //
     }

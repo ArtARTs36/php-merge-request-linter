@@ -55,6 +55,10 @@ abstract class Command extends \Symfony\Component\Console\Command\Command
     {
         $this
             ->getDefinition()
-            ->addOption(new InputOption(WorkDirResolver::OPTION_NAME, mode: InputOption::VALUE_OPTIONAL));
+            ->addOption(new InputOption(
+                WorkDirResolver::OPTION_NAME,
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'Working directory',
+            ));
     }
 }

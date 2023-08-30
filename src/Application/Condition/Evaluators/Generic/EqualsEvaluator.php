@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
  * Check if value are equal.
  */
 #[EvaluatesSameType]
-class EqualsEvaluator extends ScalarEvaluator
+final class EqualsEvaluator extends ScalarEvaluator
 {
     public const NAME = 'equals';
     public const SYMBOL = '=';

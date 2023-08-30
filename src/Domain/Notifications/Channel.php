@@ -8,15 +8,15 @@ use ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod;
 /**
  * @codeCoverageIgnore
  */
-class Channel
+readonly class Channel
 {
     /**
      * @param Map<string, mixed> $params
      */
     public function __construct(
-        public readonly ChannelType $type,
-        public readonly Map         $params,
-        public readonly TimePeriod  $sound,
+        public ChannelType $type,
+        public Map         $params,
+        public TimePeriod  $sound,
     ) {
         //
     }

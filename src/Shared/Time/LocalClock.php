@@ -4,14 +4,17 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Time;
 
 use DateTimeImmutable;
 
-final class LocalClock implements Clock
+final readonly class LocalClock implements Clock
 {
     public function __construct(
-        private readonly \DateTimeZone $tz,
+        private \DateTimeZone $tz,
     ) {
         //
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function utc(): self
     {
         return self::on('UTC');

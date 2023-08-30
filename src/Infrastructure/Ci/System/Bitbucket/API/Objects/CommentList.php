@@ -7,14 +7,14 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 /**
  * @codeCoverageIgnore
  */
-class CommentList
+readonly class CommentList
 {
     /**
      * @param Arrayee<int, Comment> $comments
      */
     public function __construct(
-        public readonly Arrayee $comments,
-        public readonly int $page,
+        public Arrayee $comments,
+        public int     $page,
     ) {
         //
     }

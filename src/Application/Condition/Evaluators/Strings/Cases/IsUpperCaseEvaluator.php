@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string is upper case.
  */
-class IsUpperCaseEvaluator extends BoolEvaluator
+final class IsUpperCaseEvaluator extends BoolEvaluator
 {
     public const NAME = 'isUpperCase';
 

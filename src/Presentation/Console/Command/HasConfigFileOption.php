@@ -10,6 +10,6 @@ trait HasConfigFileOption
     {
         $this
             ->getDefinition()
-            ->addOption(new InputOption('config', mode: InputOption::VALUE_OPTIONAL));
+            ->addOption(new InputOption('config', mode: InputOption::VALUE_OPTIONAL, description: 'Path to config'));
     }
 }

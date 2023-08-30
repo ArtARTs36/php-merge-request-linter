@@ -12,7 +12,7 @@ class ConditionRule extends OneRuleDecoratorRule
 {
     public function __construct(
         Rule $rule,
-        private ConditionOperator $operator,
+        private readonly ConditionOperator $operator,
         private readonly Counter $skippedRules = new NullCounter(),
     ) {
         parent::__construct($rule);

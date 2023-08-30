@@ -9,7 +9,7 @@ use ArtARTs36\Str\Str;
 /**
  * Check if a string is camelCase.
  */
-class IsCamelCaseEvaluator extends BoolEvaluator
+final class IsCamelCaseEvaluator extends BoolEvaluator
 {
     public const NAME = 'isCamelCase';
 
