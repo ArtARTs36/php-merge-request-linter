@@ -8,7 +8,7 @@ This file contains changelogs.
 
 ## [v0.17.0 (2023-08-30)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.4..0.17.0)
 
-## Optimized
+### Optimized
 * Updated PHP to 8.2
 * Deleted unless dependency "jetbrains/phpstorm-attributes"
 
@@ -18,17 +18,17 @@ This file contains changelogs.
 
 ## [v0.16.4 (2023-08-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.3..0.16.4)
 
-## Added
+### Added
 * Throw exception when github actions token is empty
 * Throw exception when gitlab token is empty
 
-## Optimized
+### Optimized
 * Reduced docker image size
 
-## Docs
+### Docs
 * Updated rules doc page
 
-## Dependencies
+### Internal
 * Bump `guzzlehttp/psr7` from `2.4.3` to `2.4.5`
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.4)
@@ -37,7 +37,7 @@ This file contains changelogs.
 
 ## [v0.16.3 (2023-08-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.2..0.16.3)
 
-## Added
+### Added
 * Added rule `title_conventional`
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.3)
@@ -46,7 +46,7 @@ This file contains changelogs.
 
 ## [v0.16.2 (2023-08-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.1..0.16.2)
 
-## Optimized
+### Optimized
 * Throw http exceptions and catch their in CI requests
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.2)
@@ -55,10 +55,10 @@ This file contains changelogs.
 
 ## [v0.16.1 (2023-08-13)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.0..0.16.1)
 
-## Added
+### Added
 * Support GitLab CI job token
 
-## Fixed
+### Fixed
 * Fixed phar on "TwigTest not found"
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.1)
@@ -67,7 +67,7 @@ This file contains changelogs.
 
 ## [v0.16.0 (2023-08-06)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.15.3..0.16.0)
 
-## Added
+### Added
 * Added comments with lint result for merge requests
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.16.0)
@@ -76,7 +76,7 @@ This file contains changelogs.
 
 ## [v0.15.3 (2023-07-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.15.2..0.15.3)
 
-## Added
+### Added
 * Added "no ssh keys" rule to prevent ssh keys from being included in the merge request.
 * Added "disable file extensions" rule to disable adding files of certain extensions.
 
@@ -86,7 +86,7 @@ This file contains changelogs.
 
 ## [v0.15.2 (2023-07-29)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.15.1..0.15.2)
 
-## Optimization
+### Optimization
 * Add diff fragments for fast search in changes
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.15.2)
@@ -95,7 +95,7 @@ This file contains changelogs.
 
 ## [v0.15.1 (2023-07-27)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.15.0..0.15.1)
 
-## Added
+### Added
 * Added Rule "diff limit"
 * Added examples for params of rules
 
@@ -129,7 +129,7 @@ This file contains changelogs.
 
 ## [v0.14.0 (2023-05-27)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.13.1..0.14.0)
 
-## Added
+### Added
 * Suppress error on non-critical rules via rule option `critical: false`
 * Added option `stop_on_failure` for stop linter on first failure
 * Added option `stop_on_warning` for stop linter on first warning
@@ -180,7 +180,7 @@ This file contains changelogs.
 * Add logs for HTTP Client
 * Validate BitBucket PR data
 
-## Changed
+### Internal
 * Update PHPStan level to 9
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.12.0)
@@ -242,7 +242,7 @@ This file contains changelogs.
 ### Internal
 * Refactored condition evaluator resolving
 * 🚀 Up test coverage to 40.21%
-* Add dependency **psr/clock**
+* Added dependency **psr/clock**
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.9.0)
 
