@@ -6,6 +6,15 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.17.1 (2023-09-02)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.17.0..0.17.1)
+
+### Added
+* Added param `task` to `title_conventional` rule for checking if title contains task number
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.17.1)
+
+-----------------------------------------------------------------
+
 ## [v0.17.0 (2023-08-30)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.16.4..0.17.0)
 
 ### Optimized
