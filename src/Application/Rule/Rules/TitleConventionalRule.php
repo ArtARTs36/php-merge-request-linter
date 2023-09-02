@@ -19,7 +19,7 @@ final class TitleConventionalRule extends NamedRule
 {
     public const NAME = '@mr-linter/title_conventional';
 
-    private const REGEX = '/^([a-z]+){1}(\([\w\-\.]+\))?(!)?: ([\w ])+([\s\S]*)/mis';
+    private const REGEX = '/^([a-z]+){1}(\([\w\-\.]+\))?(!)?: (?<description>([\w ])+([\s\S]*))/mis';
 
     private const DEFAULT_TYPES = [
         'build',
