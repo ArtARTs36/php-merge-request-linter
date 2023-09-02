@@ -1,8 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
+namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Regex\ProjectCode;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NamedRule;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
@@ -119,9 +121,9 @@ final class TitleConventionalRule extends NamedRule
             return [];
         }
 
-        $projectCode = $description->match("/^(\w+)-\d+/");
+        $projectCode = ProjectCode::findInStart($description);
 
-        if ($projectCode->isEmpty()) {
+        if ($projectCode === null) {
             if (! $this->task->projectCodes->isEmpty()) {
                 return [new LintNote(
                     sprintf(

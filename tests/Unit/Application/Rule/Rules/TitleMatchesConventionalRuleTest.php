@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalTask;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule\TitleConventionalRule;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule\TitleConventionalTask;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -104,8 +104,8 @@ final class TitleMatchesConventionalRuleTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule::checkTask
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule\TitleConventionalRule::lint
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule\TitleConventionalRule::checkTask
      *
      * @dataProvider providerForTestLint
      */
