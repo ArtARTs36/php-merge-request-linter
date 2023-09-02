@@ -13,7 +13,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
- * Source branch must starts with task number of project {projectName}. Mask: {projectName}-number
+ * Source branch must starts with task number of project {projectCodes}. Mask: {projectCode}-number
  */
 final class BranchStartsWithTaskNumberRule extends NamedRule
 {
