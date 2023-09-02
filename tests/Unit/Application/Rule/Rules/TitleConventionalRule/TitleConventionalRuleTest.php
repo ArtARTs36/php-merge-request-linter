@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules\TitleConventionalRule;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule\TitleConventionalRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule\TitleConventionalTask;
@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class TitleMatchesConventionalRuleTest extends TestCase
+final class TitleConventionalRuleTest extends TestCase
 {
     public function providerForTestLint(): array
     {
