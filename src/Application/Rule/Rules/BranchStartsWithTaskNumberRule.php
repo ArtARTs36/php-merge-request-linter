@@ -19,6 +19,9 @@ final class BranchStartsWithTaskNumberRule extends NamedRule
 {
     public const NAME = '@mr-linter/branch_starts_with_task_number';
 
+    /**
+     * @param Arrayee<int, string> $projectCodes
+     */
     public function __construct(
         #[Example('ABC')]
         #[Generic(Generic::OF_STRING)]
