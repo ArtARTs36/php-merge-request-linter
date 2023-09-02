@@ -3,11 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\Schema\JsonSchema;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 use ArtARTs36\Str\Facade\Str;
 
@@ -22,25 +19,20 @@ class RuleSchemaGenerator
     ];
 
     public function __construct(
-        private InstantiatorFinder $constructorFinder = new Finder(),
+        private RulesMetadataLoader $rulesMetadataLoader = new RulesMetadataLoader(),
     ) {
         //
     }
 
     public function generate(JsonSchema $jsonSchema): array
     {
-        $rules = DefaultRules::map();
         $schema = [];
+        $ruleMetadata = $this->rulesMetadataLoader->load();
 
-        foreach ($rules as $ruleName => $rule) {
-            $ruleReflector = new \ReflectionClass($rule);
-
+        foreach ($ruleMetadata->rules as $ruleName => $rule) {
             $ruleSchema = [
-                'description' => Reflector::findPHPDocSummary($ruleReflector),
+                'description' => $rule->description,
             ];
-
-            $constructor = $this->constructorFinder->find($rule);
-            $params = $constructor->params();
 
             $definition = [
                 'type' => 'object',
@@ -57,10 +49,10 @@ class RuleSchemaGenerator
                 'additionalProperties' => false,
             ];
 
-            if (count($params) > 0) {
-                foreach ($constructor->params() as $param) {
+            if (count($rule->params) > 0) {
+                foreach ($rule->params as $param) {
                     $paramSchema = $this->createRuleParamSchema(
-                        $rule,
+                        $rule->class,
                         $param,
                     );
 
@@ -72,7 +64,7 @@ class RuleSchemaGenerator
 
                     if ($param->type->class !== null && Reflector::canConstructWithoutParameters($param->type->class)) {
                         // skipped
-                    } else if ($param->isRequired()) {
+                    } else if ($param->required) {
                         $definition['required'][] = $param->name;
                     }
                 }
@@ -103,34 +95,29 @@ class RuleSchemaGenerator
         return $schema;
     }
 
-    private function createRuleParamSchema(string $ruleClass, \ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Parameter $param): ?array
+    private function createRuleParamSchema(string $ruleClass, RuleParamMetadata $param): ?array
     {
         if (isset(self::OVERWRITE_PARAMS[$ruleClass][$param->name])) {
             return self::OVERWRITE_PARAMS[$ruleClass][$param->name];
         }
 
-        $paramSchema = [
-            'type' => JsonType::to($param->type->class ?? $param->type->name->value),
-        ];
-
-        if ($paramSchema['type'] === null) {
+        if ($param->jsonType === null) {
             return null;
         }
 
-        if ($param->type->class !== null && enum_exists($param->type->class)) {
-            /** @var \BackedEnum $enum */
-            $enum = $param->type->class;
+        $paramSchema = [
+            'type' => $param->jsonType,
+        ];
 
-            $paramSchema['enum'] = array_map(function (\UnitEnum $unit) {
-                return $unit->value;
-            }, $enum::cases());
+        if (count($param->enum) > 0) {
+            $paramSchema['enum'] = $param->enum;
         }
 
         if ($param->description !== '') {
             $paramSchema['description'] = $param->description;
         }
 
-        if ($param->hasExamples() && ! $param->type->isGeneric()) {
+        if (count($param->examples) > 0 && ! $param->type->isGeneric()) {
             $paramSchema['examples'] = array_map(fn (Example $ex) => $ex->value, $param->examples);
         }
 
@@ -160,7 +147,7 @@ class RuleSchemaGenerator
                     $item['description'] = $param->description;
                 }
 
-                if ($param->hasExamples()) {
+                if (count($param->examples) > 0) {
                     $item['examples'] = array_map(fn (Example $ex) => $ex->value, $param->examples);
                 }
 
@@ -168,11 +155,9 @@ class RuleSchemaGenerator
                     $item,
                 ];
             }
-        } else if ($param->type->class !== null) {
-            $subClassConstructor = $this->constructorFinder->find($param->type->class);
-
-            foreach ($subClassConstructor->params() as $subClassParam) {
-                $paramSchema['properties'][$subClassParam->name] = $this->createRuleParamSchema($ruleClass, $subClassParam);
+        } else if (count($param->nestedObjectParams) > 0) {
+            foreach ($param->nestedObjectParams as $nestedObjectParam) {
+                $paramSchema['properties'][$nestedObjectParam->name] = $this->createRuleParamSchema($ruleClass, $nestedObjectParam);
             }
         }
 

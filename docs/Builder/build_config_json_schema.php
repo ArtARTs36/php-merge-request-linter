@@ -12,7 +12,7 @@ $prevHash = md5_file($path);
 try {
     file_put_contents($path, $json = $jsonSchema->generate()->toJson());
 } catch (\Throwable $e) {
-    var_dump($e->getMessage());
+    var_dump('Failed to build config JSON schema: '. $e->getMessage());
     exit();
 }
 
