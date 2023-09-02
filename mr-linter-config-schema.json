@@ -6630,9 +6630,11 @@
                     "properties": {
                         "projectCodes": {
                             "type": "array",
+                            "description": "Project codes. Allowed empty list for any projects",
                             "items": [
                                 {
-                                    "type": "string"
+                                    "type": "string",
+                                    "description": "Project codes. Allowed empty list for any projects"
                                 }
                             ]
                         }
