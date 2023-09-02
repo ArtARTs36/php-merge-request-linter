@@ -19,7 +19,7 @@ final class TitleConventionalRule extends NamedRule
 {
     public const NAME = '@mr-linter/title_conventional';
 
-    private const REGEX = '/^([a-z]+){1}(\([\w\-\.]+\))?(!)?: (?<description>([\w ])+([\s\S]*))/mis';
+    private const REGEX = '/^(?<type>([a-z]+)){1}(?<module>\([\w\-\.]+\))?(!)?: (?<description>([\w ])+([\s\S]*))/mis';
 
     private const DEFAULT_TYPES = [
         'build',
@@ -74,11 +74,11 @@ final class TitleConventionalRule extends NamedRule
 
         preg_match(self::REGEX, $request->title, $matches);
 
-        if (! array_key_exists(1, $matches) || ! is_string($matches[1])) {
+        if (! array_key_exists('type', $matches) || ! is_string($matches['type'])) {
             return [new LintNote('The title must matches with conventional commit')];
         }
 
-        $type = $matches[1];
+        $type = $matches['type'];
 
         if (! $this->types->contains($type)) {
             return [new LintNote(sprintf('Title conventional: type "%s" is unknown', $type))];
