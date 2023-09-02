@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\NonCriticalRule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Exceptions\ConfigInvalidException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Rule\RuleResolver;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\CreatingRuleException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Exceptions\RuleNotFound;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
@@ -44,6 +45,7 @@ class Resolver implements RuleResolver
     /**
      * @param class-string<Rule> $ruleClass
      * @param array<int, array<string, mixed>> $params
+     * @throws CreatingRuleException
      */
     private function resolveRuleOnManyConfigurations(string $ruleName, string $ruleClass, array $params): Rule
     {
@@ -59,10 +61,19 @@ class Resolver implements RuleResolver
     /**
      * @param class-string<Rule> $ruleClass
      * @param array<string, mixed> $params
+     * @throws CreatingRuleException
      */
     private function resolveRule(string $ruleName, string $ruleClass, array $params): Rule
     {
-        $rule = $this->factory->create($ruleClass, $params);
+        try {
+            $rule = $this->factory->create($ruleClass, $params);
+        } catch (\Throwable $e) {
+            throw new CreatingRuleException(sprintf(
+                'Failed to create Rule with name "%s": %s',
+                $ruleName,
+                $e->getMessage(),
+            ));
+        }
 
         if (isset($params['critical']) && $params['critical'] === false) {
             $rule = new NonCriticalRule($rule);

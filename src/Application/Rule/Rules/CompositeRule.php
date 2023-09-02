@@ -24,7 +24,7 @@ final class CompositeRule implements RuleDecorator
     public static function make(array $rules): self
     {
         if (count($rules) === 0) {
-            throw new \InvalidArgumentException(sprintf('Argument "rules" must not be empty'));
+            throw new \InvalidArgumentException('Argument "rules" must not be empty');
         }
 
         return new self($rules);

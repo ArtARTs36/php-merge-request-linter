@@ -6628,13 +6628,13 @@
                     "type": "object",
                     "description": "Check if title contains task number",
                     "properties": {
-                        "projectName": {
-                            "type": "string",
-                            "properties": {
-                                "string": {
+                        "projectCodes": {
+                            "type": "array",
+                            "items": [
+                                {
                                     "type": "string"
                                 }
-                            }
+                            ]
                         }
                     }
                 }
