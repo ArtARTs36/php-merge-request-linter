@@ -115,7 +115,7 @@ Title must starts with task number of project {projectName}. Mask: {projectName}
 
 | Name | Description | Type |
 | ------------ | ------------ |------ |
-| projectName | Project name | string   |
+| projectCodes | Project codes. Empty list allowed for any projects | array  of strings   |
 
 ## @mr-linter/branch_starts_with_task_number
 

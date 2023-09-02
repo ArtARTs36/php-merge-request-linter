@@ -6413,15 +6413,18 @@
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
-                "projectName": {
-                    "type": "string",
-                    "description": "Project name"
+                "projectCodes": {
+                    "type": "array",
+                    "description": "Project codes. Empty list allowed for any projects",
+                    "items": [
+                        {
+                            "type": "string",
+                            "description": "Project codes. Empty list allowed for any projects"
+                        }
+                    ]
                 }
             },
-            "additionalProperties": false,
-            "required": [
-                "projectName"
-            ]
+            "additionalProperties": false
         },
         "rules_properties_@mr-linter_branch_starts_with_task_number": {
             "type": "object",

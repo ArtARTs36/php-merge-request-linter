@@ -121,7 +121,7 @@ final class TitleConventionalRule extends NamedRule
             return [];
         }
 
-        $projectCode = ProjectCode::findInStart($description);
+        $projectCode = ProjectCode::findInStartWithTaskNumber($description);
 
         if ($projectCode === null) {
             if (! $this->task->projectCodes->isEmpty()) {
