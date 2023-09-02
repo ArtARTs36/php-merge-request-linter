@@ -2,8 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule\TitleConventionalRule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 
 /**
  * @codeCoverageIgnore

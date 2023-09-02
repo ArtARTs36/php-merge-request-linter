@@ -174,3 +174,4 @@ The title must match conventional commit pattern https://www.conventionalcommits
 | Name | Description | Type | Examples |
 | ------------ | ------------ |------ | ------|
 | types | Commit types | array  of strings   |  &quot;build&quot;,  &quot;chore&quot;,  &quot;ci&quot;,  &quot;docs&quot;,  &quot;feat&quot;,  &quot;fix&quot;,  &quot;perf&quot;,  &quot;refactor&quot;,  &quot;revert&quot;,  &quot;style&quot;,  &quot;test&quot;  |
+| task | Check if title contains task number | object   |  |

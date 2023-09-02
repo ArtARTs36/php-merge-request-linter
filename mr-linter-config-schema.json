@@ -6623,6 +6623,22 @@
                             ]
                         }
                     ]
+                },
+                "task": {
+                    "type": "object",
+                    "description": "Check if title contains task number",
+                    "properties": {
+                        "projectCodes": {
+                            "type": "array",
+                            "description": "Project codes. Empty list allowed for any projects",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "description": "Project codes. Empty list allowed for any projects"
+                                }
+                            ]
+                        }
+                    }
                 }
             },
             "additionalProperties": false
