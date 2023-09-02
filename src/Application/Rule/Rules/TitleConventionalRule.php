@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\Str\Str;
 
 /**
  * The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.
@@ -41,6 +42,7 @@ final class TitleConventionalRule extends NamedRule
     public function __construct(
         #[Generic(Generic::OF_STRING)]
         private readonly Arrayee $types,
+        private readonly ?TitleConventionalTask $task,
     ) {
     }
 
@@ -62,10 +64,12 @@ final class TitleConventionalRule extends NamedRule
         #[Example('style')]
         #[Example('test')]
         ?Arrayee $types = null,
+        #[Description('Check if title contains task number')]
+        ?TitleConventionalTask $task = null,
     ): self {
         $types ??= new Arrayee(self::DEFAULT_TYPES);
 
-        return new self($types);
+        return new self($types, $task);
     }
 
     public function lint(MergeRequest $request): array
@@ -79,6 +83,13 @@ final class TitleConventionalRule extends NamedRule
         }
 
         $type = $matches['type'];
+        $description = Str::make($matches['description']);
+
+        if ($this->task !== null && $description->match("/^{$this->task->projectName}-\d+/")->isEmpty()) {
+            return [new LintNote(
+                sprintf('Description of title must starts with task number of project "%s"', $this->task->projectName)),
+            ];
+        }
 
         if (! $this->types->contains($type)) {
             return [new LintNote(sprintf('Title conventional: type "%s" is unknown', $type))];

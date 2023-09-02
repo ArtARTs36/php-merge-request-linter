@@ -3,9 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalRule;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalTask;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use ArtARTs36\Str\Str;
 
 final class TitleMatchesConventionalRuleTest extends TestCase
 {
@@ -59,6 +61,24 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                     'types' => new Arrayee([
                         'custom',
                     ]),
+                ],
+                true,
+            ],
+            'lint ok: commit message has task number' => [
+                $this->makeMergeRequest([
+                    'title' => 'feat(lang): ABC-123 add Polish language',
+                ]),
+                [
+                    'task' => new TitleConventionalTask(Str::make('ABC')),
+                ],
+                false,
+            ],
+            'lint failed: commit message no has task number' => [
+                $this->makeMergeRequest([
+                    'title' => 'feat(lang): add Polish language',
+                ]),
+                [
+                    'task' => new TitleConventionalTask(Str::make('ABC')),
                 ],
                 true,
             ],

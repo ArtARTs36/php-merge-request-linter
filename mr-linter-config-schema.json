@@ -6623,6 +6623,20 @@
                             ]
                         }
                     ]
+                },
+                "task": {
+                    "type": "object",
+                    "description": "Check if title contains task number",
+                    "properties": {
+                        "projectName": {
+                            "type": "string",
+                            "properties": {
+                                "string": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
                 }
             },
             "additionalProperties": false
