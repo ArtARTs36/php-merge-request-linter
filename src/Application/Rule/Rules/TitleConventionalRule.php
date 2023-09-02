@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
+use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
@@ -85,26 +86,8 @@ final class TitleConventionalRule extends NamedRule
         $type = $matches['type'];
         $description = Str::make($matches['description']);
 
-        if ($this->task !== null) {
-            $projectCode = $description->match("/^(\w+)-\d+/");
-
-            if ($projectCode->isEmpty()) {
-                if (! $this->task->projectCodes->isEmpty()) {
-                    return [new LintNote(
-                        sprintf(
-                            'Description of title must starts with task number of projects ["%s"]',
-                            $this->task->projectCodes->implode(', '),
-                        )),
-                    ];
-                }
-
-                return [new LintNote('Description of title must starts with task number')];
-            } else if (! $this->task->projectCodes->isEmpty() && ! $this->task->projectCodes->contains($projectCode->__toString())) {
-                return [new LintNote(sprintf(
-                    'The title contains unknown project code "%s"',
-                    $projectCode,
-                ))];
-            }
+        if ($this->task !== null && ($taskNotes = $this->checkTask($description)) && count($taskNotes) > 0) {
+            return $taskNotes;
         }
 
         if (! $this->types->contains($type)) {
@@ -123,5 +106,35 @@ final class TitleConventionalRule extends NamedRule
             'The title must matches with conventional commit with types: [%s]',
             $this->types->implode(', '),
         ));
+    }
+
+    /**
+     * @return array<Note>
+     */
+    private function checkTask(Str $description): array
+    {
+        $projectCode = $description->match("/^(\w+)-\d+/");
+
+        if ($projectCode->isEmpty()) {
+            if (! $this->task->projectCodes->isEmpty()) {
+                return [new LintNote(
+                    sprintf(
+                        'Description of title must starts with task number of projects ["%s"]',
+                        $this->task->projectCodes->implode(', '),
+                    )),
+                ];
+            }
+
+            return [new LintNote('Description of title must starts with task number')];
+        }
+
+        if (! $this->task->projectCodes->isEmpty() && ! $this->task->projectCodes->contains($projectCode->__toString())) {
+            return [new LintNote(sprintf(
+                'The title contains unknown project code "%s"',
+                $projectCode,
+            ))];
+        }
+
+        return [];
     }
 }
