@@ -5,6 +5,8 @@ namespace ArtARTs36\MergeRequestLinter\DocBuilder;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
 use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\JsonType;
+use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\RuleParamMetadata;
+use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\RulesMetadataLoader;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
@@ -20,6 +22,7 @@ class RulesPageBuilder
 
     public function __construct(
         private InstantiatorFinder $ruleConstructorFinder = new Finder(),
+        private RulesMetadataLoader $rulesMetadataLoader = new RulesMetadataLoader(),
     ) {
         //
     }
@@ -27,51 +30,21 @@ class RulesPageBuilder
     public function build(): string
     {
         $rules = [];
+        $metadata = $this->rulesMetadataLoader->load();
 
-        foreach (DefaultRules::map() as $ruleName => $ruleClass) {
-            if ($ruleClass === CustomRule::class) {
+        foreach ($metadata->rules as $rule) {
+            if ($rule->class === CustomRule::class) {
                 continue;
             }
 
-            $reflector = new \ReflectionClass($ruleClass);
-
-            $comment = ClassSummary::findInPhpDocComment($reflector->getDocComment());
-
-            $path = '..' . str_replace(dirname(__DIR__, 2), '', $reflector->getFileName());
-
-            $params = [];
-
             $ruleHasParamsExamples = false;
-
-            foreach ($this->ruleConstructorFinder->find($ruleClass)->params() as $paramName => $param) {
-                $paramType = JsonType::to($param->type->name());
-
-                if ($paramType === null) {
-                    continue;
-                }
-
-                $examples = new Arrayee($param->examples);
-
-                if (! $examples->isEmpty()) {
-                    $ruleHasParamsExamples = true;
-                }
-
-                $params[] = [
-                    'name' => $paramName,
-                    'type' => $paramType,
-                    'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
-                    'description' => $param->description,
-                    'examples' => $examples,
-                    'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
-                ];
-            }
+            $params = $this->buildParams($rule->params, $ruleHasParamsExamples);
 
             $rules[] = [
-                'name' => $ruleName,
+                'name' => $rule->name,
                 'params' => new Arrayee($params),
                 'has_params_examples' => $ruleHasParamsExamples,
-                'description' => $comment,
-                'path' => $path,
+                'description' => $rule->description,
             ];
         }
 
@@ -81,5 +54,38 @@ class RulesPageBuilder
                 'rules' => new Arrayee($rules),
             ],
         );
+    }
+
+    /**
+     * @param array<RuleParamMetadata> $metadataParams
+     */
+    private function buildParams(array $metadataParams, bool &$ruleHasParamsExamples): array
+    {
+        $params = [];
+
+        foreach ($metadataParams as $param) {
+            $paramType = JsonType::to($param->type->name());
+
+            if ($paramType === null) {
+                continue;
+            }
+
+            $examples = new Arrayee($param->examples);
+
+            if (! $examples->isEmpty()) {
+                $ruleHasParamsExamples = true;
+            }
+
+            $params[] = [
+                'name' => $param->name,
+                'type' => $paramType,
+                'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
+                'description' => $param->description,
+                'examples' => $examples,
+                'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
+            ];
+        }
+
+        return $params;
     }
 }
