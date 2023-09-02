@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
@@ -22,6 +23,7 @@ final class TitleStartsWithTaskNumberRule extends NamedRule
      * @param Arrayee<int, string> $projectCodes
      */
     public function __construct(
+        #[Example('ABC')]
         #[Generic(Generic::OF_STRING)]
         #[Description('Project codes. Empty list allowed for any projects')]
         private readonly Arrayee $projectCodes = new Arrayee([]),
@@ -36,7 +38,7 @@ final class TitleStartsWithTaskNumberRule extends NamedRule
         if ($projectCode === null) {
             return [
                 new LintNote(sprintf(
-                    'Description of title must starts with task number of projects [%s]',
+                    'Title must starts with task number of projects [%s]',
                     $this->projectCodes->implode(', '),
                 )),
             ];
@@ -45,7 +47,7 @@ final class TitleStartsWithTaskNumberRule extends NamedRule
         if (! $this->projectCodes->isEmpty() && ! $this->projectCodes->contains((string) $projectCode)) {
             return [
                 new LintNote(sprintf(
-                    'Description of title must starts with task number of unknown project "%s"',
+                    'Title starts with task number of unknown project "%s"',
                     $projectCode,
                 )),
             ];

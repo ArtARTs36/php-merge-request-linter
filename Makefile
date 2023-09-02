@@ -53,7 +53,7 @@ try-bitbucket:
  	./bin/mr-linter lint --debug --metrics
 
 docker-build:
-	docker build . -t artarts36/merge-request-linter
+	docker build . -t artarts36/merge-request-linter:testing
 
 docker-lint: docker-build
 	docker run artarts36/merge-request-linter lint
