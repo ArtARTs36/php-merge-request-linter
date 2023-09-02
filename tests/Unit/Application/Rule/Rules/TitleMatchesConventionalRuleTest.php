@@ -64,21 +64,30 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                 ],
                 true,
             ],
-            'lint ok: commit message has task number' => [
+            'lint ok: commit message has specified task number' => [
                 $this->makeMergeRequest([
                     'title' => 'feat(lang): ABC-123 add Polish language',
                 ]),
                 [
-                    'task' => new TitleConventionalTask(Str::make('ABC')),
+                    'task' => new TitleConventionalTask(['ABC']),
                 ],
                 false,
+            ],
+            'lint failed: commit message no has specified task number' => [
+                $this->makeMergeRequest([
+                    'title' => 'feat(lang): add Polish language',
+                ]),
+                [
+                    'task' => new TitleConventionalTask(['ABC']),
+                ],
+                true,
             ],
             'lint failed: commit message no has task number' => [
                 $this->makeMergeRequest([
                     'title' => 'feat(lang): add Polish language',
                 ]),
                 [
-                    'task' => new TitleConventionalTask(Str::make('ABC')),
+                    'task' => new TitleConventionalTask(['ABC']),
                 ],
                 true,
             ],
@@ -92,6 +101,8 @@ final class TitleMatchesConventionalRuleTest extends TestCase
      */
     public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
     {
+        var_dump(TitleConventionalRule::make(...$ruleParams)->lint($request));
+
         self::assertHasNotes($request, TitleConventionalRule::make(...$ruleParams), $hasNotes);
     }
 }

@@ -85,10 +85,26 @@ final class TitleConventionalRule extends NamedRule
         $type = $matches['type'];
         $description = Str::make($matches['description']);
 
-        if ($this->task !== null && $description->match("/^{$this->task->projectName}-\d+/")->isEmpty()) {
-            return [new LintNote(
-                sprintf('Description of title must starts with task number of project "%s"', $this->task->projectName)),
-            ];
+        if ($this->task !== null) {
+            $projectCode = $description->match("/^(\w+)-\d+/");
+
+            if ($projectCode->isEmpty()) {
+                if (count($this->task->projectCodes) > 0) {
+                    return [new LintNote(
+                        sprintf(
+                            'Description of title must starts with task number of projects ["%s"]',
+                            implode(', ', $this->task->projectCodes),
+                        )),
+                    ];
+                }
+
+                return [new LintNote('Description of title must starts with task number')];
+            } else if (count($this->task->projectCodes) > 0 && ! in_array($projectCode, $this->task->projectCodes)) {
+                return [new LintNote(sprintf(
+                    'The title contains unknown project code "%s"',
+                    $projectCode,
+                ))];
+            }
         }
 
         if (! $this->types->contains($type)) {
