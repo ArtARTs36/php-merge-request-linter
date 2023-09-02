@@ -86,15 +86,17 @@ final class TitleConventionalRule extends NamedRule
         $type = $matches['type'];
         $description = Str::make($matches['description']);
 
-        if ($this->task !== null && ($taskNotes = $this->checkTask($description)) && count($taskNotes) > 0) {
-            return $taskNotes;
+        $notes = [];
+
+        if (($taskNotes = $this->checkTask($description))) {
+            $notes = $taskNotes;
         }
 
         if (! $this->types->contains($type)) {
-            return [new LintNote(sprintf('Title conventional: type "%s" is unknown', $type))];
+            $notes[] = new LintNote(sprintf('Title conventional: type "%s" is unknown', $type));
         }
 
-        return [];
+        return $notes;
     }
 
     /**
@@ -113,6 +115,10 @@ final class TitleConventionalRule extends NamedRule
      */
     private function checkTask(Str $description): array
     {
+        if ($this->task === null) {
+            return [];
+        }
+
         $projectCode = $description->match("/^(\w+)-\d+/");
 
         if ($projectCode->isEmpty()) {
