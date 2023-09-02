@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
  * @codeCoverageIgnore
@@ -10,11 +11,11 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 readonly class TitleConventionalTask
 {
     /**
-     * @param array<string> $projectCodes
+     * @param Arrayee<int, string> $projectCodes
      */
     public function __construct(
         #[Generic(Generic::OF_STRING)]
-        public array $projectCodes = [],
+        public Arrayee $projectCodes = new Arrayee([]),
     ) {
     }
 }

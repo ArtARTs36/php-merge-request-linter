@@ -69,7 +69,7 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                     'title' => 'feat(lang): ABC-123 add Polish language',
                 ]),
                 [
-                    'task' => new TitleConventionalTask(['ABC']),
+                    'task' => new TitleConventionalTask(new Arrayee(['ABC'])),
                 ],
                 false,
             ],
@@ -78,7 +78,7 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                     'title' => 'feat(lang): add Polish language',
                 ]),
                 [
-                    'task' => new TitleConventionalTask(['ABC']),
+                    'task' => new TitleConventionalTask(new Arrayee(['ABC'])),
                 ],
                 true,
             ],
@@ -87,7 +87,7 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                     'title' => 'feat(lang): add Polish language',
                 ]),
                 [
-                    'task' => new TitleConventionalTask(['ABC']),
+                    'task' => new TitleConventionalTask(new Arrayee(['ABC'])),
                 ],
                 true,
             ],

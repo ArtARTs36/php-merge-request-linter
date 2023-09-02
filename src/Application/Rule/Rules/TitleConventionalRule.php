@@ -89,17 +89,17 @@ final class TitleConventionalRule extends NamedRule
             $projectCode = $description->match("/^(\w+)-\d+/");
 
             if ($projectCode->isEmpty()) {
-                if (count($this->task->projectCodes) > 0) {
+                if (! $this->task->projectCodes->isEmpty()) {
                     return [new LintNote(
                         sprintf(
                             'Description of title must starts with task number of projects ["%s"]',
-                            implode(', ', $this->task->projectCodes),
+                            $this->task->projectCodes->implode(', '),
                         )),
                     ];
                 }
 
                 return [new LintNote('Description of title must starts with task number')];
-            } else if (count($this->task->projectCodes) > 0 && ! in_array($projectCode, $this->task->projectCodes)) {
+            } else if (! $this->task->projectCodes->isEmpty() && ! $this->task->projectCodes->contains($projectCode->__toString())) {
                 return [new LintNote(sprintf(
                     'The title contains unknown project code "%s"',
                     $projectCode,
