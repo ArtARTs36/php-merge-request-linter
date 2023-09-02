@@ -19,28 +19,32 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                     'title' => 'Test',
                 ]),
                 [],
-                true,
+                'expectedNotes' => [
+                    'The title must matches with conventional commit',
+                ],
             ],
             'lint ok: title with no body' => [
                 $this->makeMergeRequest([
                     'title' => 'docs: correct spelling of CHANGELOG',
                 ]),
                 [],
-                false,
+                'expectedNotes' => [],
             ],
             'link ok: commit message with scope' => [
                 $this->makeMergeRequest([
                     'title' => 'feat(lang): add Polish language',
                 ]),
                 [],
-                false,
+                'expectedNotes' => [],
             ],
             'lint failed: commit message with scope and unknown type' => [
                 $this->makeMergeRequest([
                     'title' => 'unknown(lang): add Polish language',
                 ]),
                 [],
-                true,
+                'expectedNotes' => [
+                    'Title conventional: type "unknown" is unknown',
+                ],
             ],
             'lint ok: commit message with scope and custom type' => [
                 $this->makeMergeRequest([
@@ -51,7 +55,7 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                         'custom',
                     ]),
                 ],
-                false,
+                'expectedNotes' => [],
             ],
             'lint failed: commit message with scope, custom types, unknown type' => [
                 $this->makeMergeRequest([
@@ -62,7 +66,9 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                         'custom',
                     ]),
                 ],
-                true,
+                'expectedNotes' => [
+                    'Title conventional: type "unknown" is unknown',
+                ],
             ],
             'lint ok: commit message has specified task number' => [
                 $this->makeMergeRequest([
@@ -71,16 +77,18 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                 [
                     'task' => new TitleConventionalTask(new Arrayee(['ABC'])),
                 ],
-                false,
+                'expectedNotes' => [],
             ],
             'lint failed: commit message no has specified task number' => [
                 $this->makeMergeRequest([
                     'title' => 'feat(lang): add Polish language',
                 ]),
                 [
-                    'task' => new TitleConventionalTask(new Arrayee(['ABC'])),
+                    'task' => new TitleConventionalTask(new Arrayee([])),
                 ],
-                true,
+                'expectedNotes' => [
+                    'Description of title must starts with task number',
+                ],
             ],
             'lint failed: commit message no has task number' => [
                 $this->makeMergeRequest([
@@ -89,7 +97,9 @@ final class TitleMatchesConventionalRuleTest extends TestCase
                 [
                     'task' => new TitleConventionalTask(new Arrayee(['ABC'])),
                 ],
-                true,
+                'expectedNotes' => [
+                    'Description of title must starts with task number of projects ["ABC"]',
+                ],
             ],
         ];
     }
@@ -99,10 +109,13 @@ final class TitleMatchesConventionalRuleTest extends TestCase
      *
      * @dataProvider providerForTestLint
      */
-    public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
+    public function testLint(MergeRequest $request, array $ruleParams, array $expectedNotes): void
     {
-        var_dump(TitleConventionalRule::make(...$ruleParams)->lint($request));
+        $givenNotes = array_map('strval', TitleConventionalRule::make(...$ruleParams)->lint($request));
 
-        self::assertHasNotes($request, TitleConventionalRule::make(...$ruleParams), $hasNotes);
+        self::assertSame(
+            $expectedNotes,
+            $givenNotes,
+        );
     }
 }
