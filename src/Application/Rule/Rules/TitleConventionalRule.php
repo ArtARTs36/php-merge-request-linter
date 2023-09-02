@@ -121,7 +121,8 @@ final class TitleConventionalRule extends NamedRule
                     sprintf(
                         'Description of title must starts with task number of projects ["%s"]',
                         $this->task->projectCodes->implode(', '),
-                    )),
+                    )
+                ),
                 ];
             }
 

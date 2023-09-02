@@ -7,7 +7,6 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleConventionalTask;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
-use ArtARTs36\Str\Str;
 
 final class TitleMatchesConventionalRuleTest extends TestCase
 {
