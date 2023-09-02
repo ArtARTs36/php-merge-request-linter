@@ -186,7 +186,7 @@
                     ]
                 },
                 "@mr-linter/title_starts_with_task_number": {
-                    "description": "Title must starts with task number of project {projectName}. Mask: {projectName}-number",
+                    "description": "Title must starts with task number of project {projectCodes}. Mask: {projectCode}-number",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_title_starts_with_task_number"
@@ -201,7 +201,7 @@
                     ]
                 },
                 "@mr-linter/branch_starts_with_task_number": {
-                    "description": "Source branch must starts with task number of project {projectName}. Mask: {projectName}-number",
+                    "description": "Source branch must starts with task number of project {projectCodes}. Mask: {projectCode}-number",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_branch_starts_with_task_number"
@@ -6265,19 +6265,22 @@
                         "jira.my-company.com"
                     ]
                 },
-                "projectCode": {
-                    "type": "string",
+                "projectCodes": {
+                    "type": "array",
                     "description": "Project code",
                     "examples": [
-                        "VIP",
-                        "SBD"
-                    ]
+                        "ABC"
+                    ],
+                    "properties": {
+                        "items": {
+                            "type": "array"
+                        }
+                    }
                 }
             },
             "additionalProperties": false,
             "required": [
-                "domain",
-                "projectCode"
+                "domain"
             ]
         },
         "rules_properties_@mr-linter_youtrack_has_issue_link": {
@@ -6298,18 +6301,23 @@
                         "yt.my-company.ru"
                     ]
                 },
-                "projectCode": {
-                    "type": "string",
+                "projectCodes": {
+                    "type": "array",
                     "description": "Project code",
-                    "examples": [
-                        "PORTAL"
+                    "items": [
+                        {
+                            "type": "string",
+                            "description": "Project code",
+                            "examples": [
+                                "PORTAL"
+                            ]
+                        }
                     ]
                 }
             },
             "additionalProperties": false,
             "required": [
-                "domain",
-                "projectCode"
+                "domain"
             ]
         },
         "rules_properties_@mr-linter_title_must_starts_with_any_prefix": {
@@ -6419,7 +6427,10 @@
                     "items": [
                         {
                             "type": "string",
-                            "description": "Project codes. Empty list allowed for any projects"
+                            "description": "Project codes. Empty list allowed for any projects",
+                            "examples": [
+                                "ABC"
+                            ]
                         }
                     ]
                 }
@@ -6437,18 +6448,21 @@
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
                 },
-                "projectName": {
-                    "type": "string",
-                    "description": "Project name",
-                    "examples": [
-                        "VIP"
+                "projectCodes": {
+                    "type": "array",
+                    "description": "Project codes. Empty list allowed for any projects",
+                    "items": [
+                        {
+                            "type": "string",
+                            "description": "Project codes. Empty list allowed for any projects",
+                            "examples": [
+                                "ABC"
+                            ]
+                        }
                     ]
                 }
             },
-            "additionalProperties": false,
-            "required": [
-                "projectName"
-            ]
+            "additionalProperties": false
         },
         "rules_properties_@mr-linter_forbid_changes": {
             "type": "object",

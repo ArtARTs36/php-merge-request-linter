@@ -15,8 +15,8 @@ Currently is available that rules:
 | @mr-linter/youtrack/has_issue_link | The description must have a link to YouTrack issue on a {domain} with {projectCode}. |
 | @mr-linter/title_must_starts_with_any_prefix | The title must starts with any {prefixes} |
 | @mr-linter/has_changes | Merge Request must have changes in {files}. |
-| @mr-linter/title_starts_with_task_number | Title must starts with task number of project {projectName}. Mask: {projectName}-number |
-| @mr-linter/branch_starts_with_task_number | Source branch must starts with task number of project {projectName}. Mask: {projectName}-number |
+| @mr-linter/title_starts_with_task_number | Title must starts with task number of project {projectCodes}. Mask: {projectCode}-number |
+| @mr-linter/branch_starts_with_task_number | Source branch must starts with task number of project {projectCodes}. Mask: {projectCode}-number |
 | @mr-linter/forbid_changes | Forbid changes for files. |
 | @mr-linter/update_changelog | Changelog must be contained new tag. |
 | @mr-linter/diff_limit | The request must contain no more than {linesMax} changes. |
@@ -82,7 +82,7 @@ The description must have a link to Jira on a {domain} with {projectCode}.
 | Name | Description | Type | Examples |
 | ------------ | ------------ |------ | ------|
 | domain | Domain of Jira instance | string   |  &quot;jira.my-company.com&quot;  |
-| projectCode | Project code | string   |  &quot;VIP&quot;,  &quot;SBD&quot;  |
+| projectCodes | Project code | array   |  &quot;ABC&quot;  |
 
 ## @mr-linter/youtrack/has_issue_link
 
@@ -91,7 +91,7 @@ The description must have a link to YouTrack issue on a {domain} with {projectCo
 | Name | Description | Type | Examples |
 | ------------ | ------------ |------ | ------|
 | domain | Domain hosting the YouTrack instance | string   |  &quot;yt.my-company.ru&quot;  |
-| projectCode | Project code | string   |  &quot;PORTAL&quot;  |
+| projectCodes | Project code | array  of strings   |  &quot;PORTAL&quot;  |
 
 ## @mr-linter/title_must_starts_with_any_prefix
 
@@ -111,19 +111,19 @@ Merge Request must have changes in {files}.
 
 ## @mr-linter/title_starts_with_task_number
 
-Title must starts with task number of project {projectName}. Mask: {projectName}-number
-
-| Name | Description | Type |
-| ------------ | ------------ |------ |
-| projectCodes | Project codes. Empty list allowed for any projects | array  of strings   |
-
-## @mr-linter/branch_starts_with_task_number
-
-Source branch must starts with task number of project {projectName}. Mask: {projectName}-number
+Title must starts with task number of project {projectCodes}. Mask: {projectCode}-number
 
 | Name | Description | Type | Examples |
 | ------------ | ------------ |------ | ------|
-| projectName | Project name | string   |  &quot;VIP&quot;  |
+| projectCodes | Project codes. Empty list allowed for any projects | array  of strings   |  &quot;ABC&quot;  |
+
+## @mr-linter/branch_starts_with_task_number
+
+Source branch must starts with task number of project {projectCodes}. Mask: {projectCode}-number
+
+| Name | Description | Type | Examples |
+| ------------ | ------------ |------ | ------|
+| projectCodes | Project codes. Empty list allowed for any projects | array  of strings   |  &quot;ABC&quot;  |
 
 ## @mr-linter/forbid_changes
 
