@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DefaultRules;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
@@ -59,7 +60,9 @@ readonly class RulesMetadataLoader
                 }, $enum::cases());
             }
 
-            $nested = $param->type->isClass() ? $this->buildParams($param->type->class) : [];
+            $nested = $param->type->isClass() && ! is_a($param->type->class, Collection::class, true) ?
+                $this->buildParams($param->type->class) :
+                [];
 
             $metadataParams[$param->name] = new RuleParamMetadata(
                 $param->name,

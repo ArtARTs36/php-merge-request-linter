@@ -108,6 +108,7 @@ Merge Request must have changes in {files}.
 | Name | Description | Type |
 | ------------ | ------------ |------ |
 | changes | Array of need changes | array  of objects   <br/> See details in Config JSON Schema |
+| changes.* | Array of need changes | array  of objects   <br/> See details in Config JSON Schema |
 
 ## @mr-linter/title_starts_with_task_number
 
@@ -137,10 +138,12 @@ Forbid changes for files.
 
 Changelog must be contained new tag.
 
-| Name | Description | Type |
-| ------------ | ------------ |------ |
-| file | Relative path to changelog file | string   |
-| tags | Tags parsing options | object   |
+| Name | Description | Type | Examples |
+| ------------ | ------------ |------ | ------|
+| file | Relative path to changelog file | string   |  &quot;CHANGELOG.md&quot;  |
+| tags | Tags parsing options | object   |  |
+| tags.heading | Headings parse options | object   |  |
+| tags.heading.level | Markdown heading level for tags | int   |  1,  2,  3,  4,  5,  6  |
 
 ## @mr-linter/diff_limit
 
@@ -175,3 +178,4 @@ The title must match conventional commit pattern https://www.conventionalcommits
 | ------------ | ------------ |------ | ------|
 | types | Commit types | array  of strings   |  &quot;build&quot;,  &quot;chore&quot;,  &quot;ci&quot;,  &quot;docs&quot;,  &quot;feat&quot;,  &quot;fix&quot;,  &quot;perf&quot;,  &quot;refactor&quot;,  &quot;revert&quot;,  &quot;style&quot;,  &quot;test&quot;  |
 | task | Check if title contains task number | object   |  |
+| task.projectCodes | Project codes. Empty list allowed for any projects | array  of strings   |  &quot;ABC&quot;  |

@@ -6270,12 +6270,7 @@
                     "description": "Project code",
                     "examples": [
                         "ABC"
-                    ],
-                    "properties": {
-                        "items": {
-                            "type": "array"
-                        }
-                    }
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -6504,7 +6499,10 @@
                 },
                 "file": {
                     "type": "string",
-                    "description": "Relative path to changelog file"
+                    "description": "Relative path to changelog file",
+                    "examples": [
+                        "CHANGELOG.md"
+                    ]
                 },
                 "tags": {
                     "type": "object",
@@ -6512,6 +6510,7 @@
                     "properties": {
                         "heading": {
                             "type": "object",
+                            "description": "Headings parse options",
                             "properties": {
                                 "level": {
                                     "type": "int",
@@ -6651,7 +6650,10 @@
                             "items": [
                                 {
                                     "type": "string",
-                                    "description": "Project codes. Empty list allowed for any projects"
+                                    "description": "Project codes. Empty list allowed for any projects",
+                                    "examples": [
+                                        "ABC"
+                                    ]
                                 }
                             ]
                         }

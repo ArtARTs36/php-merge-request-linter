@@ -59,31 +59,66 @@ class RulesPageBuilder
     /**
      * @param array<RuleParamMetadata> $metadataParams
      */
-    private function buildParams(array $metadataParams, bool &$ruleHasParamsExamples): array
+    private function buildParams(array $metadataParams, bool &$ruleHasParamsExamples, string $prefix = ''): array
     {
         $params = [];
 
         foreach ($metadataParams as $param) {
-            $paramType = JsonType::to($param->type->name());
-
-            if ($paramType === null) {
+            if ($param->jsonType === null) {
                 continue;
             }
 
-            $examples = new Arrayee($param->examples);
+            if (count($param->enum) > 0) {
+                $examples = new Arrayee($param->enum);
+            } else {
+                $examples = new Arrayee($param->examples);
+            }
 
             if (! $examples->isEmpty()) {
                 $ruleHasParamsExamples = true;
             }
 
+            $name = $param->name;
+
+            if ($prefix !== '') {
+                $name = $prefix . '.' . $param->name;
+            }
+
             $params[] = [
-                'name' => $param->name,
-                'type' => $paramType,
+                'name' => $name,
+                'type' => $param->jsonType,
                 'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                 'description' => $param->description,
                 'examples' => $examples,
                 'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
             ];
+
+            if ($param->type->isGeneric()) {
+                $genericName = $name . '.*';
+
+                if ($prefix !== '') {
+                    $genericName = $name . '.' . $genericName;
+                }
+
+                $objGeneric = $param->type->getObjectGeneric();
+
+                if ($objGeneric !== null) {
+                    $params[] = [
+                        'name' => $genericName,
+                        'type' => $param->jsonType,
+                        'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
+                        'description' => $param->description,
+                        'examples' => $examples,
+                        'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
+                    ];
+                }
+            } else {
+                $params = array_merge($params, $this->buildParams(
+                    $param->nestedObjectParams,
+                    $ruleHasParamsExamples,
+                    $name,
+                ));
+            }
         }
 
         return $params;
