@@ -26,10 +26,10 @@ Currently is available that rules:
 
 ## Global parameters
 
-| Name     | Description                                                                                                                          | Type    |
-|----------|--------------------------------------------------------------------------------------------------------------------------------------|---------|
-| critical | when `critical = true` the pipeline will fall <br/> when `critical = false` the pipeline will not fall, the error will be suppressed | boolean |
-| when     | conditions for triggering the rule                                                                                                   | object  |
+| Name     | Description                                                                                                                          | Type    | Default value |
+|----------|--------------------------------------------------------------------------------------------------------------------------------------|---------|---------------|
+| critical | when `critical = true` the pipeline will fall <br/> when `critical = false` the pipeline will not fall, the error will be suppressed | boolean | false         |
+| when     | conditions for triggering the rule                                                                                                   | object  | none          |
 
 
 ## @mr-linter/changed_files_limit
