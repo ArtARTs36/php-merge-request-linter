@@ -100,6 +100,17 @@ final class TitleConventionalRuleTest extends TestCase
                     'Title conventional: description of title must starts with task number of projects ["ABC"]',
                 ],
             ],
+            'lint failed: commit message has task number from unknown project' => [
+                $this->makeMergeRequest([
+                    'title' => 'feat(lang): AB-123 add Polish language',
+                ]),
+                [
+                    'task' => new TitleConventionalTask(new Arrayee(['ABC'])),
+                ],
+                'expectedNotes' => [
+                    'Title conventional: the title contains unknown project code "AB"',
+                ],
+            ],
         ];
     }
 
