@@ -111,6 +111,12 @@ class RulesPageBuilder
                         'examples' => $examples,
                         'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
                     ];
+
+                    $params = array_merge($params, $this->buildParams(
+                        $param->genericObjectParams,
+                        $ruleHasParamsExamples,
+                        $genericName,
+                    ));
                 }
             } else {
                 $params = array_merge($params, $this->buildParams(

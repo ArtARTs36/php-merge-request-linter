@@ -24,6 +24,13 @@ Currently is available that rules:
 | @mr-linter/disable_file_extensions | Disable adding files of certain extensions. |
 | @mr-linter/title_conventional | The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0. |
 
+## Global parameters
+
+| Name     | Description                                                                                                                          | Type    |
+|----------|--------------------------------------------------------------------------------------------------------------------------------------|---------|
+| critical | when `critical = true` the pipeline will fall <br/> when `critical = false` the pipeline will not fall, the error will be suppressed | boolean |
+| when     | conditions for triggering the rule                                                                                                   | object  |
+
 
 ## @mr-linter/changed_files_limit
 
@@ -105,10 +112,14 @@ The title must starts with any {prefixes}
 
 Merge Request must have changes in {files}.
 
-| Name | Description | Type |
-| ------------ | ------------ |------ |
-| changes | Array of need changes | array  of objects   <br/> See details in Config JSON Schema |
-| changes.* | Array of need changes | array  of objects   <br/> See details in Config JSON Schema |
+| Name | Description | Type | Examples |
+| ------------ | ------------ |------ | ------|
+| changes | Array of need changes | array  of objects   <br/> See details in Config JSON Schema |  |
+| changes.* | Array of need changes | array  of objects   <br/> See details in Config JSON Schema |  |
+| changes.*.file | Relative path to file | string   |  &quot;file.txt&quot;  |
+| changes.*.contains | Check contains string | string   |  |
+| changes.*.containsRegex | Check contains by regex | string   |  |
+| changes.*.updatedPhpConstant | Check contains updated PHP constant | string   |  &quot;VERSION&quot;  |
 
 ## @mr-linter/title_starts_with_task_number
 

@@ -64,6 +64,12 @@ readonly class RulesMetadataLoader
                 $this->buildParams($param->type->class) :
                 [];
 
+            $genericObject = [];
+
+            if ($param->type->getObjectGeneric() !== null) {
+                $genericObject = $this->buildParams($param->type->getObjectGeneric());
+            }
+
             $metadataParams[$param->name] = new RuleParamMetadata(
                 $param->name,
                 $param->description,
@@ -73,6 +79,7 @@ readonly class RulesMetadataLoader
                 JsonType::to($param->type->class ?? $param->type->name->value),
                 $enumValues,
                 $nested,
+                $genericObject,
             );
         }
 

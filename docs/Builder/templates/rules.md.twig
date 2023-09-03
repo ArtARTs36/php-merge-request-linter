@@ -8,6 +8,13 @@ Currently is available that rules:
 | {{ rule.name }} | {{ rule.description }} |
 {% endfor %}
 
+## Global parameters
+
+| Name     | Description                                                                                                                          | Type    |
+|----------|--------------------------------------------------------------------------------------------------------------------------------------|---------|
+| critical | when `critical = true` the pipeline will fall <br/> when `critical = false` the pipeline will not fall, the error will be suppressed | boolean |
+| when     | conditions for triggering the rule                                                                                                   | object  |
+
 {% for rule in rules %}
 
 ## {{ rule.name }}

@@ -11,6 +11,7 @@ readonly class RuleParamMetadata
      * @param array<Example> $examples
      * @param array<string|int> $enum
      * @param array<RuleParamMetadata> $nestedObjectParams
+     * @param array<RuleParamMetadata> $genericObjectParams
      */
     public function __construct(
         public string             $name,
@@ -21,6 +22,7 @@ readonly class RuleParamMetadata
         public ?string            $jsonType,
         public array              $enum,
         public array $nestedObjectParams,
+        public array $genericObjectParams,
     ) {
     }
 }
