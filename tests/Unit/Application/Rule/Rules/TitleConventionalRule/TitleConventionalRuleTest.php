@@ -19,7 +19,7 @@ final class TitleConventionalRuleTest extends TestCase
                 ]),
                 [],
                 'expectedNotes' => [
-                    'The title must matches with conventional commit',
+                    'Title conventional: the title must matches with conventional commit',
                 ],
             ],
             'lint ok: title with no body' => [
@@ -86,7 +86,7 @@ final class TitleConventionalRuleTest extends TestCase
                     'task' => new TitleConventionalTask(new Arrayee([])),
                 ],
                 'expectedNotes' => [
-                    'Description of title must starts with task number',
+                    'Title conventional: description of title must starts with task number',
                 ],
             ],
             'lint failed: commit message no has task number' => [
@@ -97,7 +97,7 @@ final class TitleConventionalRuleTest extends TestCase
                     'task' => new TitleConventionalTask(new Arrayee(['ABC'])),
                 ],
                 'expectedNotes' => [
-                    'Description of title must starts with task number of projects ["ABC"]',
+                    'Title conventional: description of title must starts with task number of projects ["ABC"]',
                 ],
             ],
         ];
