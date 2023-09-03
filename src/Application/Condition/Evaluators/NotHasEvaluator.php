@@ -4,11 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Attribute\EvaluatesCollectionType;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 
-/**
- * Check if an array not contains some value.
- */
+#[Description('Check if an array not contains some value.')]
 #[EvaluatesCollectionType]
 final class NotHasEvaluator extends ScalarEvaluator
 {

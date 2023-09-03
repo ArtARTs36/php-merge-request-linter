@@ -11,9 +11,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 
-/**
- * Disable adding files of certain extensions.
- */
+#[Description('Disable adding files of certain extensions.')]
 final class DisableFileExtensionsRule extends NamedRule
 {
     public const NAME = '@mr-linter/disable_file_extensions';

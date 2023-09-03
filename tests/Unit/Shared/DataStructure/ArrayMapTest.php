@@ -296,4 +296,15 @@ final class ArrayMapTest extends TestCase
     {
         self::assertEquals($expected, (new ArrayMap($items))->containsAny($needle));
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::toArray
+     */
+    public function testToArray(): void
+    {
+        $arr = ['k1' => 1, 'k2' => 2];
+        $map = new ArrayMap($arr);
+
+        self::assertEquals($arr, $map->toArray());
+    }
 }

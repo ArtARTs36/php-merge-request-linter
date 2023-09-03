@@ -8,9 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
-/**
- * Check count changed files on a {limit}.
- */
+#[Description('Check count changed files on a {limit}.')]
 final class ChangedFilesLimitRule extends AbstractRule implements Rule
 {
     public const NAME = '@mr-linter/changed_files_limit';

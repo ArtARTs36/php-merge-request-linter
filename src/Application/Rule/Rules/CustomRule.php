@@ -6,15 +6,16 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\CustomRule\RulesExecutor;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
 /**
- * Custom Rule for Users.
  * @phpstan-import-type MergeRequestField from RulesExecutor
  * @phpstan-import-type EvaluatorName from RulesExecutor
  * @phpstan-import-type ConditionValue from RulesExecutor
  * @phpstan-import-type Condition from RulesExecutor
  */
-class CustomRule extends AbstractRule
+#[Description('Custom Rule for Users.')]
+final class CustomRule extends AbstractRule
 {
     public const NAME = 'custom';
 

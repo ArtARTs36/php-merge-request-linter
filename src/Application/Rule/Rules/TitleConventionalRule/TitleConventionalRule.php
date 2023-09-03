@@ -15,10 +15,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\Str\Str;
 
-/**
- * The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.
- * @link https://www.conventionalcommits.org/en/v1.0.0
- */
+#[Description('The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.')]
 final class TitleConventionalRule extends NamedRule
 {
     public const NAME = '@mr-linter/title_conventional';
@@ -82,7 +79,7 @@ final class TitleConventionalRule extends NamedRule
         preg_match(self::REGEX, $request->title, $matches);
 
         if (! array_key_exists('type', $matches) || ! is_string($matches['type'])) {
-            return [new LintNote('The title must matches with conventional commit')];
+            return [new LintNote('Title conventional: the title must matches with conventional commit')];
         }
 
         $type = $matches['type'];
@@ -121,25 +118,25 @@ final class TitleConventionalRule extends NamedRule
             return [];
         }
 
-        $projectCode = ProjectCode::findInStart($description);
+        $projectCode = ProjectCode::findInStartWithTaskNumber($description);
 
         if ($projectCode === null) {
             if (! $this->task->projectCodes->isEmpty()) {
                 return [new LintNote(
                     sprintf(
-                        'Description of title must starts with task number of projects ["%s"]',
+                        'Title conventional: description of title must starts with task number of projects ["%s"]',
                         $this->task->projectCodes->implode(', '),
                     )
                 ),
                 ];
             }
 
-            return [new LintNote('Description of title must starts with task number')];
+            return [new LintNote('Title conventional: description of title must starts with task number')];
         }
 
         if (! $this->task->projectCodes->isEmpty() && ! $this->task->projectCodes->contains($projectCode->__toString())) {
             return [new LintNote(sprintf(
-                'The title contains unknown project code "%s"',
+                'Title conventional: the title contains unknown project code "%s"',
                 $projectCode,
             ))];
         }

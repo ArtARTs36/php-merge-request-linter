@@ -27,7 +27,7 @@ final class ProjectCodeTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Regex\ProjectCode::findInStart
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Regex\ProjectCode::findInStartWithTaskNumber
      *
      * @dataProvider providerForFindInStart
      */
@@ -35,7 +35,7 @@ final class ProjectCodeTest extends TestCase
     {
         self::assertEquals(
             $expectedProjectCode,
-            ProjectCode::findInStart(Str::make($string)),
+            ProjectCode::findInStartWithTaskNumber(Str::make($string)),
         );
     }
 }

@@ -9,7 +9,7 @@ class ProjectCode
     /**
      * Find project code in string start.
      */
-    public static function findInStart(Str $str): ?Str
+    public static function findInStartWithTaskNumber(Str $str): ?Str
     {
         $code = $str->match("/^(\w+)-\d+/");
 

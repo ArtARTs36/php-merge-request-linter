@@ -3,12 +3,11 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 
-/**
- * Check if an array not contains values of list.
- */
+#[Description('Check if an array not contains values of list.')]
 final class NotHasAnyEvaluator extends Evaluator
 {
     public const NAME = 'notHasAny';

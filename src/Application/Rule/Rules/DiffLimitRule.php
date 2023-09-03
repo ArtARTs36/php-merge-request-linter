@@ -10,9 +10,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
-/**
- * The request must contain no more than {linesMax} changes.
- */
+#[Description('The request must contain no more than {linesMax} changes.')]
 final class DiffLimitRule extends NamedRule
 {
     public const NAME = '@mr-linter/diff_limit';

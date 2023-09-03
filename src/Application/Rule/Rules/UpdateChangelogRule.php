@@ -10,11 +10,10 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 
-/**
- * Changelog must be contained new tag.
- */
-class UpdateChangelogRule extends NamedRule implements Rule
+#[Description('Changelog must be contained new tag.')]
+final class UpdateChangelogRule extends NamedRule implements Rule
 {
     public const NAME = '@mr-linter/update_changelog';
 
@@ -25,6 +24,7 @@ class UpdateChangelogRule extends NamedRule implements Rule
 
     public function __construct(
         #[Description('Relative path to changelog file')]
+        #[Example('CHANGELOG.md')]
         private readonly ?string $file,
         #[Description('Tags parsing options')]
         private readonly Tags $tags,

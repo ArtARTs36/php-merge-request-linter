@@ -4,11 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\IntEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\Str\Facade\Str;
 
-/**
- * Check the maximum string length.
- */
+#[Description('Check the maximum string length.')]
 final class LengthMaxEvaluator extends IntEvaluator
 {
     public const NAME = 'lengthMax';

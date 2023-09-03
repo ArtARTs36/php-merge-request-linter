@@ -4,11 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\BoolEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\Str\Str;
 
-/**
- * Check if a string is upper case.
- */
+#[Description('Check if a string is upper case.')]
 final class IsUpperCaseEvaluator extends BoolEvaluator
 {
     public const NAME = 'isUpperCase';

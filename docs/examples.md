@@ -11,7 +11,8 @@ Then your configuration will be as follows:
 ```yaml
 rules:
   "@mr-linter/title_starts_with_task_number":
-    projectName: "WI"
+    projectCodes:
+      - "WI"
 ```
 
 ## Don't forget to include labels

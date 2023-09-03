@@ -98,7 +98,10 @@ class Reflector
         return $map;
     }
 
-    public static function findDescription(\ReflectionParameter|\ReflectionProperty $reflector): ?Description
+    /**
+     * @phpstan-ignore-next-line
+     */
+    public static function findDescription(\ReflectionClass|\ReflectionParameter|\ReflectionProperty $reflector): ?Description
     {
         $attributes = $reflector->getAttributes(Description::class);
 
@@ -133,20 +136,6 @@ class Reflector
     public static function hasAttribute(\ReflectionClass $reflector, string $attributeClass): bool
     {
         return count($reflector->getAttributes($attributeClass)) > 0;
-    }
-
-    /**
-     * @param \ReflectionClass<object> $reflector
-     */
-    public static function findPHPDocSummary(\ReflectionClass $reflector): ?string
-    {
-        $comment = $reflector->getDocComment();
-
-        if ($comment === false) {
-            return null;
-        }
-
-        return ClassSummary::findInPhpDocComment($comment);
     }
 
     /**

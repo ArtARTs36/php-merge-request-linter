@@ -34,7 +34,7 @@ class JsonType
 
         if (class_exists($type)) {
             if (enum_exists($type)) {
-                return Reflector::valueTypeForEnum($type);
+                return self::MAP[Reflector::valueTypeForEnum($type)] ?? null;
             }
 
             return self::OBJECT;

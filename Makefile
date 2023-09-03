@@ -34,7 +34,7 @@ try-docker: docker-build
 		--env GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
 		--env GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
 		--env GITHUB_REF_NAME=${MR_ID}/merge \
-		artarts36/merge-request-linter "lint" --debug --metrics
+		artarts36/merge-request-linter:testing "lint" --debug --metrics
 
 # usage as `make try-gitlab MR_ID=1`
 try-gitlab:
@@ -53,7 +53,7 @@ try-bitbucket:
  	./bin/mr-linter lint --debug --metrics
 
 docker-build:
-	docker build . -t artarts36/merge-request-linter
+	docker build . -t artarts36/merge-request-linter:testing
 
 docker-lint: docker-build
 	docker run artarts36/merge-request-linter lint
@@ -95,7 +95,7 @@ docs-docker: docker-build
 		--volume ./:/app \
 		--env-file .env \
 		--entrypoint "make" \
-		artarts36/merge-request-linter "docs"
+		artarts36/merge-request-linter:testing "docs"
 
 deps-check:
 	@test -f composer-require-checker.phar || wget \
@@ -119,7 +119,7 @@ dump-docker: docker-build
 	docker run \
 		--volume ./:/app \
 		--entrypoint "make" \
-		artarts36/merge-request-linter "dump"
+		artarts36/merge-request-linter:testing "dump"
 
 push-docs:
 	php ./vendor/bin/docs-retriever
@@ -128,20 +128,20 @@ lint-docker: docker-build
 	docker run \
 		--env-file .env \
 		--entrypoint "composer" \
-		artarts36/merge-request-linter "lint"
+		artarts36/merge-request-linter:testing "lint"
 
 lint-fix-docker: docker-build
 	docker run \
 		--volume ./:/app/ \
 		--env-file .env \
 		--entrypoint "composer" \
-		artarts36/merge-request-linter "lint-fix"
+		artarts36/merge-request-linter:testing "lint-fix"
 
 stat-analyse-docker: docker-build
 	docker run \
 		--env-file .env \
 		--entrypoint "composer" \
-		artarts36/merge-request-linter "stat-analyse"
+		artarts36/merge-request-linter:testing "stat-analyse"
 
 test-e2e:
 	composer test-e2e
@@ -150,20 +150,20 @@ test-e2e-docker: docker-build
 	docker run \
 		--env-file .env \
 		--entrypoint "composer" \
-		artarts36/merge-request-linter "test-e2e"
+		artarts36/merge-request-linter:testing "test-e2e"
 
 test-docker: docker-build
 	docker run \
 		--volume ./:/app/ \
 		--env-file .env \
 		--entrypoint "composer" \
-		artarts36/merge-request-linter "test"
+		artarts36/merge-request-linter:testing "test"
 
 deptrac-docker: docker-build
 	docker run \
 		--env-file .env \
 		--entrypoint "composer" \
-		artarts36/merge-request-linter "deptrac"
+		artarts36/merge-request-linter:testing "deptrac"
 
 check-docker: lint-docker stat-analyse-docker test-docker deptrac-docker
 

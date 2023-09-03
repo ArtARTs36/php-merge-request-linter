@@ -27,10 +27,23 @@ readonly class Parameter
 
     /**
      * @return mixed
+     * @throws \Exception
      */
     public function getDefaultValue(): mixed
     {
-        return $this->defaultValueGetter === null ? null : ($this->defaultValueGetter)();
+        try {
+            return $this->defaultValueGetter === null ? null : ($this->defaultValueGetter)();
+        } catch (\ReflectionException $e) {
+            throw new \Exception(
+                sprintf(
+                    'Failed to retrieve parameter "%s" with type "%s" %s',
+                    $this->name,
+                    $this->type->name->value,
+                    $e->getMessage(),
+                ),
+                previous: $e,
+            );
+        }
     }
 
     public function hasExamples(): bool

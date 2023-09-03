@@ -6,6 +6,24 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.18.0 (2023-09-03)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.17.1..0.18.0)
+
+### Added
+* Added parameter `projectCodes` for rules `@mr-linter/branch_starts_with_task_number`, `@mr-linter/jira/has_issue_link`, `@mr-linter/title_starts_with_task_number`, `@mr-linter/youtrack/has_issue_link` for allow many specified project codes and any project code if parameter 'projectCodes' is empty
+
+### Breaking changes
+* Rule **@mr-linter/branch_starts_with_task_number**: removed parameter `projectName`
+* Rule **@mr-linter/jira/has_issue_link**: removed parameter `projectCode`
+* Rule **@mr-linter/title_starts_with_task_number**: removed parameter `projectName`
+* Rule **@mr-linter/youtrack/has_issue_link**: removed parameter `projectCode`
+
+### Internal
+* Removed `ClassSummary`
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.18.0)
+
+-----------------------------------------------------------------
+
 ## [v0.17.1 (2023-09-02)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.17.0..0.17.1)
 
 ### Added

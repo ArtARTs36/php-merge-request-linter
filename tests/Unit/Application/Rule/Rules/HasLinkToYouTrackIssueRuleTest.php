@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYouTrackIssueRule;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class HasLinkToYouTrackIssueRuleTest extends TestCase
@@ -13,28 +14,49 @@ final class HasLinkToYouTrackIssueRuleTest extends TestCase
         return [
             [
                 $this->makeMergeRequest(),
-                ['yt.my-company.ru', 'MY-PROJECT'],
-                true,
+                'ruleParams' => [
+                    'domain' => 'yt.my-company.ru',
+                    'projectCodes' => new Arrayee(['PORTAL']),
+                ],
+                'expectedNotes' => ['Description must contains link with task number of projects [PORTAL]'],
             ],
             [
                 $this->makeMergeRequest([
-                    'description' => 'solve yt.my-company.ru/issue/MY-PROJECT-1',
+                    'description' => 'solve yt.my-company.ru/issue/PORTAL-1',
                 ]),
-                ['yt.my-company.ru', 'MY-PROJECT'],
-                false,
+                'ruleParams' => [
+                    'domain' => 'yt.my-company.ru',
+                    'projectCodes' => new Arrayee(['PORTAL']),
+                ],
+                'expectedNotes' => [],
+            ],
+            [
+                $this->makeMergeRequest([
+                    'description' => 'solve yt.my-company.ru/issue/PORTAL-1',
+                ]),
+                'ruleParams' => [
+                    'domain' => 'yt.my-company.ru',
+                    'projectCodes' => new Arrayee(['PORTALA']),
+                ],
+                'expectedNotes' => ['Description contains link with task number of unknown project "PORTAL"'],
             ],
         ];
     }
 
     /**
-     * @dataProvider providerForTestLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYoutrackIssueRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYoutrackIssueRule::doLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYoutrackIssueRule::__construct
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\HasLinkToYoutrackIssueRule::getDefinition
+     *
+     * @dataProvider providerForTestLint
      */
-    public function testLint(MergeRequest $request, array $ruleParams, bool $hasNotes): void
+    public function testLint(MergeRequest $request, array $ruleParams, array $expectedNotes): void
     {
-        self::assertHasNotes($request, new HasLinkToYouTrackIssueRule(...$ruleParams), $hasNotes);
+        $rule = new HasLinkToYouTrackIssueRule(...$ruleParams);
+
+        self::assertSame(
+            $expectedNotes,
+            array_map('strval', $rule->lint($request)),
+        );
     }
 }

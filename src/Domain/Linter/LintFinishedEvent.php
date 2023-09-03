@@ -3,11 +3,12 @@
 namespace ArtARTs36\MergeRequestLinter\Domain\Linter;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
 /**
- * The event is created at the moment when the linter has completed its work.
  * @codeCoverageIgnore
  */
+#[Description('The event is created at the moment when the linter has completed its work.')]
 readonly class LintFinishedEvent
 {
     public const NAME = 'lint_finished';

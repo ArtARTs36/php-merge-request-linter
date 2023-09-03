@@ -1,12 +1,19 @@
 # Validation rules
 
-Currently is available that rules:
+The following rules are available:
 
 | Name | Description |
 | ------------ | ------------ |
 {% for rule in rules %}
 | {{ rule.name }} | {{ rule.description }} |
 {% endfor %}
+
+## Global parameters
+
+| Name     | Description                                                                                                                          | Type    | Default value |
+|----------|--------------------------------------------------------------------------------------------------------------------------------------|---------|---------------|
+| critical | when `critical = true` the pipeline will fall <br/> when `critical = false` the pipeline will not fall, the error will be suppressed | boolean | false         |
+| when     | conditions for triggering the rule                                                                                                   | object  | null          |
 
 {% for rule in rules %}
 
@@ -15,17 +22,19 @@ Currently is available that rules:
 {{ rule.description }}
 
 {% if rule.params.isEmpty == false %}
+### Parameters
+
 {% if rule.has_params_examples %}
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
+| Name | Description | Type | Required | Default value | Examples |
+|------|-------------|------|----------|---------------|----------|
 {% for param in rule.params %}
-| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} {% if param.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} | {% for example in param.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %} |
+| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} | {{ param.required ? 'true' : 'false' }} | {{ param.defaultValue }} | {% for example in param.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %} |
 {% endfor %}
 {% else %}
-| Name | Description | Type |
-| ------------ | ------------ |------ |
+| Name | Description | Type | Required | Default value |
+|------|-------------|------|----------|---------------|
 {% for param in rule.params %}
-| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} {% if param.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} |
+| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} | {{ param.required ? 'true' : 'false' }} | {{ param.defaultValue }} |
 {% endfor %}
 {% endif %}
 {% endif %}
