@@ -4,11 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\BoolEvaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\Str\Str;
 
-/**
- * Check if a string is snake_case.
- */
+#[Description('Check if a string is snake_case.')]
 final class IsSnakeCaseEvaluator extends BoolEvaluator
 {
     public const NAME = 'isSnakeCase';

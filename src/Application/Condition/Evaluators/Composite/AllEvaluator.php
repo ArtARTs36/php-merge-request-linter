@@ -3,11 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Composite;
 
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 
-/**
- * True if all values of array matched conditions.
- */
+#[Description('True if all values of array matched conditions.')]
 final class AllEvaluator extends CompositeEvaluator
 {
     public const NAME = '$all';

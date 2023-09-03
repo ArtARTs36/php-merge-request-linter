@@ -4,11 +4,10 @@ namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Generic;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Evaluator;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 
-/**
- * Check if the field is equal to one of the values.
- */
+#[Description('Check if the field is equal to one of the values.')]
 final class EqualsAnyEvaluator extends Evaluator
 {
     public const NAME = 'equalsAny';

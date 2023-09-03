@@ -3,11 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
 
 use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\Str\Str;
 
-/**
- * Check the maximum string lines.
- */
+#[Description('Check the maximum string lines.')]
 final class LinesMaxEvaluator extends IntEvaluator
 {
     public const NAME = 'linesMax';
