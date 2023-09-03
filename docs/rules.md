@@ -82,7 +82,7 @@ The description must have a link to Jira on a {domain} with {projectCode}.
 | Name | Description | Type | Examples |
 | ------------ | ------------ |------ | ------|
 | domain | Domain of Jira instance | string   |  &quot;jira.my-company.com&quot;  |
-| projectCodes | Project code | array   |  &quot;ABC&quot;  |
+| projectCodes | Project code | array  of strings   |  &quot;ABC&quot;  |
 
 ## @mr-linter/youtrack/has_issue_link
 

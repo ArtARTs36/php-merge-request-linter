@@ -6268,8 +6268,14 @@
                 "projectCodes": {
                     "type": "array",
                     "description": "Project code",
-                    "examples": [
-                        "ABC"
+                    "items": [
+                        {
+                            "type": "string",
+                            "description": "Project code",
+                            "examples": [
+                                "ABC"
+                            ]
+                        }
                     ]
                 }
             },

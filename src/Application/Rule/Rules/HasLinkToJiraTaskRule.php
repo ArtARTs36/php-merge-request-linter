@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
 /**
@@ -24,6 +25,7 @@ final class HasLinkToJiraTaskRule extends NamedRule
         #[Description('Domain of Jira instance')]
         #[Example('jira.my-company.com')]
         private readonly string $domain,
+        #[Generic(Generic::OF_STRING)]
         #[Description('Project code')]
         #[Example('ABC')]
         private readonly Arrayee $projectCodes = new Arrayee([]),
