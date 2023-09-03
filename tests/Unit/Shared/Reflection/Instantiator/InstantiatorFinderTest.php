@@ -2,9 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Instantiator;
 
-use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\EmptyInstantiator;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Instantiator;
@@ -58,22 +56,8 @@ final class InstantiatorFinderTest extends TestCase
     }
 }
 
-class TestRuleForEmptyConstructor implements Rule
+class TestRuleForEmptyConstructor
 {
-    public function getName(): string
-    {
-        // TODO: Implement getName() method.
-    }
-
-    public function lint(MergeRequest $request): array
-    {
-        // TODO: Implement lint() method.
-    }
-
-    public function getDefinition(): RuleDefinition
-    {
-        // TODO: Implement getDefinition() method.
-    }
 }
 
 class TestRuleForNativeConstructor extends TestRuleForEmptyConstructor

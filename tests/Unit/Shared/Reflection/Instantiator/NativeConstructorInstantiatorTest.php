@@ -2,9 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Instantiator;
 
-use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\NativeConstructorInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -44,7 +41,7 @@ final class NativeConstructorInstantiatorTest extends TestCase
     }
 }
 
-class NativeConstructorTestObject1 implements Rule
+class NativeConstructorTestObject1
 {
     public function __construct(
         public string $prop1,
@@ -53,20 +50,5 @@ class NativeConstructorTestObject1 implements Rule
         public float $prop4,
     ) {
         //
-    }
-
-    public function getName(): string
-    {
-        // TODO: Implement getName() method.
-    }
-
-    public function lint(MergeRequest $request): array
-    {
-        // TODO: Implement lint() method.
-    }
-
-    public function getDefinition(): RuleDefinition
-    {
-        // TODO: Implement getDefinition() method.
     }
 }

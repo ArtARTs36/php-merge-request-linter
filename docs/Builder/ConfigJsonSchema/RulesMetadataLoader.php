@@ -28,7 +28,7 @@ readonly class RulesMetadataLoader
             $metadataRules[$ruleName] = new RuleMetadata(
                 $ruleName,
                 $ruleClass,
-                Reflector::findPHPDocSummary($ruleReflector),
+                Reflector::findDescription($ruleReflector)?->description ?? '',
                 $params,
             );
         }

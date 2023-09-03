@@ -136,20 +136,6 @@ class Reflector
     }
 
     /**
-     * @param \ReflectionClass<object> $reflector
-     */
-    public static function findPHPDocSummary(\ReflectionClass $reflector): ?string
-    {
-        $comment = $reflector->getDocComment();
-
-        if ($comment === false) {
-            return null;
-        }
-
-        return ClassSummary::findInPhpDocComment($comment);
-    }
-
-    /**
      * @param class-string $class
      */
     public static function canConstructWithoutParameters(string $class): bool

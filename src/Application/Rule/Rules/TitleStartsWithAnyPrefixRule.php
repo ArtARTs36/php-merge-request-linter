@@ -9,9 +9,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 
-/**
- * The title must starts with any {prefixes}
- */
+#[Description('The title must starts with any {prefixes}')]
 final class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
 {
     public const NAME = '@mr-linter/title_must_starts_with_any_prefix';

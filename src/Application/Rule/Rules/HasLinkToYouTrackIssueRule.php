@@ -11,9 +11,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
-/**
- * The description must have a link to YouTrack issue on a {domain} with {projectCode}.
- */
+#[Description('The description must have a link to YouTrack issue on a {domain} with {projectCode}.')]
 final class HasLinkToYouTrackIssueRule extends NamedRule
 {
     public const NAME = '@mr-linter/youtrack/has_issue_link';

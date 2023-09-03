@@ -11,9 +11,11 @@ use ArtARTs36\MergeRequestLinter\Shared\Text\Ssh\SshKeyFinder;
 use ArtARTs36\Str\Str;
 
 /**
- * Prevent ssh keys from being included in the merge request.
  * @phpstan-import-type SshKeyType from SshKeyFinder
  */
+#[Description(
+    'Prevent ssh keys from being included in the merge request.',
+)]
 final class NoSshKeysRule extends NamedRule
 {
     public const NAME = '@mr-linter/no_ssh_keys';

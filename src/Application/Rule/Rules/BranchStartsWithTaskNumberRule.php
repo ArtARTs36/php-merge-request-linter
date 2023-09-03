@@ -12,9 +12,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
-/**
- * Source branch must starts with task number of project {projectCodes}. Mask: {projectCode}-number
- */
+#[Description('Source branch must starts with task number of project {projectCodes}. Mask: {projectCode}-number')]
 final class BranchStartsWithTaskNumberRule extends NamedRule
 {
     public const NAME = '@mr-linter/branch_starts_with_task_number';

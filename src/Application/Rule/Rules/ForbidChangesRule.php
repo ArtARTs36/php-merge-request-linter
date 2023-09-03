@@ -10,10 +10,8 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 
-/**
- * Forbid changes for files.
- */
-class ForbidChangesRule extends NamedRule
+#[Description('Forbid changes for files.')]
+final class ForbidChangesRule extends NamedRule
 {
     public const NAME = '@mr-linter/forbid_changes';
 

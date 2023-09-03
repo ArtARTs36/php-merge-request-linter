@@ -6,10 +6,9 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
-/**
- * The description must be filled.
- */
+#[Description('The description must be filled.')]
 final class DescriptionNotEmptyRule extends AbstractRule implements Rule
 {
     public const NAME = '@mr-linter/description_not_empty';

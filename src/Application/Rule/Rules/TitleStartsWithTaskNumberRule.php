@@ -12,9 +12,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
-/**
- * Title must starts with task number of project {projectCodes}. Mask: {projectCode}-number
- */
+#[Description('Title must starts with task number of project {projectCodes}. Mask: {projectCode}-number')]
 final class TitleStartsWithTaskNumberRule extends NamedRule
 {
     public const NAME = '@mr-linter/title_starts_with_task_number';

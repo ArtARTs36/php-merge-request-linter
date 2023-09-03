@@ -15,10 +15,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\Str\Str;
 
-/**
- * The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.
- * @link https://www.conventionalcommits.org/en/v1.0.0
- */
+#[Description('The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.')]
 final class TitleConventionalRule extends NamedRule
 {
     public const NAME = '@mr-linter/title_conventional';

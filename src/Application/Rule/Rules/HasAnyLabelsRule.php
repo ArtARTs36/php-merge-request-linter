@@ -6,10 +6,9 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 
-/**
- * Merge Request must have any labels.
- */
+#[Description('Merge Request must have any labels.')]
 final class HasAnyLabelsRule extends AbstractRule implements Rule
 {
     public const NAME = '@mr-linter/has_any_labels';

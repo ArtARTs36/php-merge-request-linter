@@ -11,9 +11,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 
-/**
- * The description must have a link to Jira on a {domain} with {projectCode}.
- */
+#[Description('The description must have a link to Jira on a {domain} with {projectCode}.')]
 final class HasLinkToJiraTaskRule extends NamedRule
 {
     public const NAME = '@mr-linter/jira/has_issue_link';

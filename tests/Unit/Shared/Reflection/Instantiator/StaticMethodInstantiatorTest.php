@@ -2,9 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Reflection\Instantiator;
 
-use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\StaticMethodInstantiator;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -57,7 +54,7 @@ final class StaticMethodInstantiatorTest extends TestCase
     }
 }
 
-class ClassForTestOfStaticConstructor implements Rule
+class ClassForTestOfStaticConstructor
 {
     public function __construct(
         public readonly string $name,
@@ -74,24 +71,9 @@ class ClassForTestOfStaticConstructor implements Rule
     ): self {
         return new self($name, $age, $isDeveloper);
     }
-
-    public function getName(): string
-    {
-        // TODO: Implement getName() method.
-    }
-
-    public function lint(MergeRequest $request): array
-    {
-        // TODO: Implement lint() method.
-    }
-
-    public function getDefinition(): RuleDefinition
-    {
-        // TODO: Implement getDefinition() method.
-    }
 }
 
-class Class2ForTestOfStaticConstructor implements Rule
+class Class2ForTestOfStaticConstructor
 {
     public function __construct(
         public readonly string $name,
@@ -107,20 +89,5 @@ class Class2ForTestOfStaticConstructor implements Rule
         bool $isDeveloper,
     ): self {
         return new self($name . '-suffix', $age + 1, $isDeveloper);
-    }
-
-    public function getName(): string
-    {
-        // TODO: Implement getName() method.
-    }
-
-    public function lint(MergeRequest $request): array
-    {
-        // TODO: Implement lint() method.
-    }
-
-    public function getDefinition(): RuleDefinition
-    {
-        // TODO: Implement getDefinition() method.
     }
 }

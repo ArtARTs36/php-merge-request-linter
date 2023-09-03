@@ -12,10 +12,8 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 
-/**
- * Changelog must be contained new tag.
- */
-class UpdateChangelogRule extends NamedRule implements Rule
+#[Description('Changelog must be contained new tag.')]
+final class UpdateChangelogRule extends NamedRule implements Rule
 {
     public const NAME = '@mr-linter/update_changelog';
 
