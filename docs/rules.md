@@ -1,6 +1,6 @@
 # Validation rules
 
-Currently is available that rules:
+The following rules are available:
 
 | Name | Description |
 | ------------ | ------------ |
@@ -36,6 +36,8 @@ Currently is available that rules:
 
 Check count changed files on a {limit}.
 
+### Parameters
+
 | Name | Description | Type | Required | Default value |
 |------|-------------|------|----------|---------------|
 | limit | Number of maximum possible changes | integer  | true | none |
@@ -44,6 +46,8 @@ Check count changed files on a {limit}.
 
 Merge Request must contain links of any {domains}.
 
+### Parameters
+
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | domains | Array of domains | array  of strings  | true | none |  &quot;host.name&quot;  |
@@ -51,6 +55,8 @@ Merge Request must contain links of any {domains}.
 ## @mr-linter/description_contains_links_of_all_domains
 
 Merge Request must contain links of all {domains}.
+
+### Parameters
 
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
@@ -65,6 +71,8 @@ The description must be filled.
 
 Merge Request must have all {labels}
 
+### Parameters
+
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | labels | Array of labels | array  of strings  | true | none |  &quot;Feature&quot;,  &quot;Bug&quot;  |
@@ -78,6 +86,8 @@ Merge Request must have any labels.
 
 Merge Request must have any {labels}.
 
+### Parameters
+
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | labels | Array of labels | array  of strings  | true | none |  &quot;Feature&quot;,  &quot;Bug&quot;  |
@@ -85,6 +95,8 @@ Merge Request must have any {labels}.
 ## @mr-linter/jira/has_issue_link
 
 The description must have a link to Jira on a {domain} with {projectCode}.
+
+### Parameters
 
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
@@ -95,6 +107,8 @@ The description must have a link to Jira on a {domain} with {projectCode}.
 
 The description must have a link to YouTrack issue on a {domain} with {projectCode}.
 
+### Parameters
+
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | domain | Domain hosting the YouTrack instance | string  | true | none |  &quot;yt.my-company.ru&quot;  |
@@ -104,6 +118,8 @@ The description must have a link to YouTrack issue on a {domain} with {projectCo
 
 The title must starts with any {prefixes}
 
+### Parameters
+
 | Name | Description | Type | Required | Default value |
 |------|-------------|------|----------|---------------|
 | prefixes | Array of prefixes | array  of strings  | true | none |
@@ -111,6 +127,8 @@ The title must starts with any {prefixes}
 ## @mr-linter/has_changes
 
 Merge Request must have changes in {files}.
+
+### Parameters
 
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
@@ -125,6 +143,8 @@ Merge Request must have changes in {files}.
 
 Title must starts with task number of project {projectCodes}. Mask: {projectCode}-number
 
+### Parameters
+
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | projectCodes | Project codes. Empty list allowed for any projects | array  of strings  | false | none |  &quot;ABC&quot;  |
@@ -132,6 +152,8 @@ Title must starts with task number of project {projectCodes}. Mask: {projectCode
 ## @mr-linter/branch_starts_with_task_number
 
 Source branch must starts with task number of project {projectCodes}. Mask: {projectCode}-number
+
+### Parameters
 
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
@@ -141,6 +163,8 @@ Source branch must starts with task number of project {projectCodes}. Mask: {pro
 
 Forbid changes for files.
 
+### Parameters
+
 | Name | Description | Type | Required | Default value |
 |------|-------------|------|----------|---------------|
 | files | A set of files forbidden to be changed. | array  of strings  | true | none |
@@ -149,16 +173,20 @@ Forbid changes for files.
 
 Changelog must be contained new tag.
 
+### Parameters
+
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | file | Relative path to changelog file | string  | false | none |  &quot;CHANGELOG.md&quot;  |
 | tags | Tags parsing options | object  | true | none |  |
 | tags.heading | Headings parse options | object  | true | none |  |
-| tags.heading.level | Markdown heading level for tags | int  | false | 2 |  1,  2,  3,  4,  5,  6  |
+| tags.heading.level | Markdown heading level for tags | integer  | false | 2 |  1,  2,  3,  4,  5,  6  |
 
 ## @mr-linter/diff_limit
 
 The request must contain no more than {linesMax} changes.
+
+### Parameters
 
 | Name | Description | Type | Required | Default value |
 |------|-------------|------|----------|---------------|
@@ -169,6 +197,8 @@ The request must contain no more than {linesMax} changes.
 
 Prevent ssh keys from being included in the merge request.
 
+### Parameters
+
 | Name | Description | Type | Required | Default value |
 |------|-------------|------|----------|---------------|
 | stopOnFirstFailure | When the value is true, the search will stop after the first found key | boolean  | true | none |
@@ -177,6 +207,8 @@ Prevent ssh keys from being included in the merge request.
 
 Disable adding files of certain extensions.
 
+### Parameters
+
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | extensions | Array of file extensions | array  of strings  | true | none |  &quot;pem&quot;,  &quot;pub&quot;,  &quot;php&quot;  |
@@ -184,6 +216,8 @@ Disable adding files of certain extensions.
 ## @mr-linter/title_conventional
 
 The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0.
+
+### Parameters
 
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|

@@ -6519,7 +6519,7 @@
                             "description": "Headings parse options",
                             "properties": {
                                 "level": {
-                                    "type": "int",
+                                    "type": "integer",
                                     "enum": [
                                         1,
                                         2,
