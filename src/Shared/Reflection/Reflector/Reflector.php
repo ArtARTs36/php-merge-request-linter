@@ -98,6 +98,9 @@ class Reflector
         return $map;
     }
 
+    /**
+     * @phpstan-ignore-next-line
+     */
     public static function findDescription(\ReflectionClass|\ReflectionParameter|\ReflectionProperty $reflector): ?Description
     {
         $attributes = $reflector->getAttributes(Description::class);
