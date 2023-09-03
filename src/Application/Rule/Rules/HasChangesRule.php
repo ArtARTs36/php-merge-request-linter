@@ -17,7 +17,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 
-#[Description('Merge Request must have changes in {files}.')]
+#[Description('Merge Request must have {changes}.')]
 class HasChangesRule implements Rule
 {
     public const NAME = '@mr-linter/has_changes';

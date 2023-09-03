@@ -47,6 +47,13 @@ final class TitleStartsWithTaskNumberRuleTest extends TestCase
                 'projectCodes' => ['TASK'],
                 'expectedNotes' => ['Title must starts with task number of projects [TASK]'],
             ],
+            [
+                $this->makeMergeRequest([
+                    'title' => 'TASK-1 project',
+                ]),
+                'projectCodes' => ['TASKA'],
+                'expectedNotes' => ['Title starts with task number of unknown project "TASK"'],
+            ],
         ];
     }
 

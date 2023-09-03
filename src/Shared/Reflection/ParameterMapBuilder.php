@@ -24,7 +24,15 @@ class ParameterMapBuilder
         $args = [];
 
         foreach ($constructor->params() as $paramName => $param) {
-            $args[$paramName] = $this->argResolver->resolve($param->type, $params[$paramName] ?? null);
+            $val = null;
+
+            if (! array_key_exists($paramName, $params) && $param->hasDefaultValue) {
+                $val = $param->getDefaultValue();
+            } else {
+                $val = $this->argResolver->resolve($param->type, $params[$paramName] ?? null);
+            }
+
+            $args[$paramName] = $val;
         }
 
         return $args;
