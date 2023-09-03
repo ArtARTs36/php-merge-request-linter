@@ -233,10 +233,10 @@ class Generator
             ];
 
             $reflector = new \ReflectionClass($class);
-            $description = Reflector::findPHPDocSummary($reflector);
+            $description = Reflector::findDescription($reflector);
 
             if (! empty($description)) {
-                $map[$eventName]['description'] = $description;
+                $map[$eventName]['description'] = $description->description;
             }
         }
 

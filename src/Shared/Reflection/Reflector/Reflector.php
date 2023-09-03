@@ -98,7 +98,7 @@ class Reflector
         return $map;
     }
 
-    public static function findDescription(\ReflectionParameter|\ReflectionProperty $reflector): ?Description
+    public static function findDescription(\ReflectionClass|\ReflectionParameter|\ReflectionProperty $reflector): ?Description
     {
         $attributes = $reflector->getAttributes(Description::class);
 
