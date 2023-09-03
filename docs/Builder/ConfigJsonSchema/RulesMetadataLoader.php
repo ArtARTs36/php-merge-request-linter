@@ -80,6 +80,8 @@ readonly class RulesMetadataLoader
                 $enumValues,
                 $nested,
                 $genericObject,
+                $param->hasDefaultValue ? $param->getDefaultValue() : null,
+                $param->hasDefaultValue,
             );
         }
 

@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\RulesMetadataLoader
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\InstantiatorFinder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\ClassSummary;
@@ -87,10 +88,12 @@ class RulesPageBuilder
             $params[] = [
                 'name' => $name,
                 'type' => $param->jsonType,
+                'required' => $param->required,
                 'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                 'description' => $param->description,
                 'examples' => $examples,
                 'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
+                'defaultValue' => $this->resolveDefaultValue($param),
             ];
 
             if ($param->type->isGeneric()) {
@@ -106,10 +109,12 @@ class RulesPageBuilder
                     $params[] = [
                         'name' => $genericName,
                         'type' => $param->jsonType,
+                        'required' => $param->required,
                         'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                         'description' => $param->description,
                         'examples' => $examples,
                         'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
+                        'defaultValue' => $this->resolveDefaultValue($param),
                     ];
 
                     $params = array_merge($params, $this->buildParams(
@@ -128,5 +133,26 @@ class RulesPageBuilder
         }
 
         return $params;
+    }
+
+    private function resolveDefaultValue(RuleParamMetadata $param): mixed
+    {
+        if (! $param->hasDefaultValue) {
+            return 'none';
+        }
+
+        if ($param->type->class !== null) {
+            if (is_a($param->type->class, Collection::class, true)) {
+                return 'none';
+            }
+
+            if (enum_exists($param->type->class)) {
+                return $param->defaultValue->value;
+            }
+
+            return $param->defaultValue;
+        }
+
+        return $param->defaultValue;
     }
 }

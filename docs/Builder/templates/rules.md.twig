@@ -23,16 +23,16 @@ Currently is available that rules:
 
 {% if rule.params.isEmpty == false %}
 {% if rule.has_params_examples %}
-| Name | Description | Type | Examples |
-| ------------ | ------------ |------ | ------|
+| Name | Description | Type | Required | Default value | Examples |
+|------|-------------|------|----------|---------------|----------|
 {% for param in rule.params %}
-| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} {% if param.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} | {% for example in param.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %} |
+| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} | {{ param.required ? 'true' : 'false' }} | {{ param.defaultValue }} | {% for example in param.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %} |
 {% endfor %}
 {% else %}
-| Name | Description | Type |
-| ------------ | ------------ |------ |
+| Name | Description | Type | Required | Default value |
+|------|-------------|------|----------|---------------|
 {% for param in rule.params %}
-| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} {% if param.isGenericObject %} <br/> See details in Config JSON Schema{% endif %} |
+| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} | {{ param.required ? 'true' : 'false' }} | {{ param.defaultValue }} |
 {% endfor %}
 {% endif %}
 {% endif %}

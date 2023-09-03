@@ -23,6 +23,8 @@ readonly class RuleParamMetadata
         public array              $enum,
         public array $nestedObjectParams,
         public array $genericObjectParams,
+        public mixed $defaultValue,
+        public bool $hasDefaultValue,
     ) {
     }
 }
