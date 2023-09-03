@@ -38,21 +38,20 @@ final class TitleStartsWithTaskNumberRuleTest extends TestCase
                     'title' => 'TASK- project',
                 ]),
                 'projectCodes' => ['TASK'],
-                'expectedNotes' => ['Description of title must starts with task number of projects [TASK]'],
+                'expectedNotes' => ['Title must starts with task number of projects [TASK]'],
             ],
             [
                 $this->makeMergeRequest([
                     'title' => 'AB TASK-1 project',
                 ]),
                 'projectCodes' => ['TASK'],
-                'expectedNotes' => ['Description of title must starts with task number of projects [TASK]'],
+                'expectedNotes' => ['Title must starts with task number of projects [TASK]'],
             ],
         ];
     }
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::lint
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::doLint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::getDefinition
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\TitleStartsWithTaskNumberRule::__construct
      *
