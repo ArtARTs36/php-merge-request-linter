@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 
-readonly class Changes
+readonly class ChangesConfig
 {
     public const TYPE_ADDED = 'Added';
     public const TYPE_CHANGED = 'Changed';

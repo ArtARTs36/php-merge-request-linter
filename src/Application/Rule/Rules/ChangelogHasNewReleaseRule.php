@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\Changes;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ChangesConfig;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\Release;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseParser;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
@@ -27,9 +27,9 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
     public function __construct(
         #[Description('Relative path to changelog file')]
         #[Example('CHANGELOG.md')]
-        private readonly ?string $file,
+        private readonly ?string       $file,
         #[Description('Tags parsing options')]
-        private readonly Changes $changes,
+        private readonly ChangesConfig $changes,
         private readonly ReleaseParser $releaseParser,
     ) {
         //

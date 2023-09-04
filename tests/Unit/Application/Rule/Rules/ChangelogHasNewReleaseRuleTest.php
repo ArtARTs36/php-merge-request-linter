@@ -3,15 +3,13 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\Changes;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\Release;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ChangesConfig;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseParser;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffFragment;
 use ArtARTs36\MergeRequestLinter\Domain\Request\DiffType;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Shared\Text\Markdown\HeadingLevel;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use ArtARTs36\Str\Str;
 
@@ -24,7 +22,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 $this->makeMergeRequest(),
                 [
                     'file' => 'ch.md',
-                    'changes' => new Changes(),
+                    'changes' => new ChangesConfig(),
                 ],
                 [
                     'Changelog must be contained new release. Changelog not modified',
@@ -34,7 +32,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 $this->makeMergeRequest(),
                 [
                     'file' => null,
-                    'changes' => new Changes(),
+                    'changes' => new ChangesConfig(),
                 ],
                 [
                     'Changelog must be contained new release. Changelog not modified',
@@ -53,7 +51,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 ]),
                 [
                     'file' => 'ch.md',
-                    'changes' => new Changes(),
+                    'changes' => new ChangesConfig(),
                 ],
                 [
                     'Changelog was modified, but no has new release',
@@ -72,7 +70,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 ]),
                 [
                     'file' => null,
-                    'changes' => new Changes(),
+                    'changes' => new ChangesConfig(),
                 ],
                 [
                     'Changelog was modified, but no has new release',
@@ -91,7 +89,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 ]),
                 [
                     'file' => 'ch.md',
-                    'changes' => new Changes(),
+                    'changes' => new ChangesConfig(),
                 ],
                 [
                     'Changelog: release 0.2.0 not contains changes',
@@ -110,7 +108,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 ]),
                 [
                     'file' => 'ch.md',
-                    'changes' => new Changes(),
+                    'changes' => new ChangesConfig(),
                 ],
                 [
                     'Changelog: release 0.2.0 contains unknown change type "Unknown123"',
@@ -129,7 +127,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 ]),
                 [
                     'file' => 'ch.md',
-                    'changes' => new Changes(),
+                    'changes' => new ChangesConfig(),
                 ],
                 [],
             ],
