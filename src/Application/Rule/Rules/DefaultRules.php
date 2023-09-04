@@ -28,7 +28,7 @@ final class DefaultRules
         TitleStartsWithTaskNumberRule::NAME => TitleStartsWithTaskNumberRule::class,
         BranchStartsWithTaskNumberRule::NAME => BranchStartsWithTaskNumberRule::class,
         ForbidChangesRule::NAME => ForbidChangesRule::class,
-        UpdateChangelogRule::NAME => UpdateChangelogRule::class,
+        ChangelogHasNewReleaseRule::NAME => ChangelogHasNewReleaseRule::class,
         DiffLimitRule::NAME => DiffLimitRule::class,
         NoSshKeysRule::NAME => NoSshKeysRule::class,
         DisableFileExtensionsRule::NAME => DisableFileExtensionsRule::class,
