@@ -17,7 +17,7 @@ rules:
 
   "@mr-linter/description_not_empty": {}
 
-  "@mr-linter/update_changelog":
+  "@mr-linter/changelog_has_new_release":
     when:
       targetBranch:
         equals: "master"
