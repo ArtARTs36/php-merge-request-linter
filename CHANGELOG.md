@@ -6,6 +6,17 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.18.1 (2023-09-04)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.18.0..0.18.1)
+
+### Added
+* Resolve rule params with default value
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.18.1)
+
+-----------------------------------------------------------------
+
+-----------------------------------------------------------------
+
 ## [v0.18.0 (2023-09-03)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.17.1..0.18.0)
 
 ### Added
