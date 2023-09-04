@@ -14,11 +14,11 @@ The following rules are available:
 | @mr-linter/jira/has_issue_link | The description must have a link to Jira on a {domain} with {projectCode}. |
 | @mr-linter/youtrack/has_issue_link | The description must have a link to YouTrack issue on a {domain} with {projectCode}. |
 | @mr-linter/title_must_starts_with_any_prefix | The title must starts with any {prefixes} |
-| @mr-linter/has_changes | Merge Request must have changes in {files}. |
+| @mr-linter/has_changes | Merge Request must have {changes}. |
 | @mr-linter/title_starts_with_task_number | Title must starts with task number of project {projectCodes}. Mask: {projectCode}-number |
 | @mr-linter/branch_starts_with_task_number | Source branch must starts with task number of project {projectCodes}. Mask: {projectCode}-number |
 | @mr-linter/forbid_changes | Forbid changes for files. |
-| @mr-linter/update_changelog | Changelog must be contained new tag. |
+| @mr-linter/changelog_has_new_release | Changelog must be contained new release. |
 | @mr-linter/diff_limit | The request must contain no more than {linesMax} changes. |
 | @mr-linter/no_ssh_keys | Prevent ssh keys from being included in the merge request. |
 | @mr-linter/disable_file_extensions | Disable adding files of certain extensions. |
@@ -126,7 +126,7 @@ The title must starts with any {prefixes}
 
 ## @mr-linter/has_changes
 
-Merge Request must have changes in {files}.
+Merge Request must have {changes}.
 
 ### Parameters
 
@@ -169,18 +169,16 @@ Forbid changes for files.
 |------|-------------|------|----------|---------------|
 | files | A set of files forbidden to be changed. | array  of strings  | true | none |
 
-## @mr-linter/update_changelog
+## @mr-linter/changelog_has_new_release
 
-Changelog must be contained new tag.
+Changelog must be contained new release.
 
 ### Parameters
 
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | file | Relative path to changelog file | string  | false | none |  &quot;CHANGELOG.md&quot;  |
-| tags | Tags parsing options | object  | true | none |  |
-| tags.heading | Headings parse options | object  | true | none |  |
-| tags.heading.level | Markdown heading level for tags | integer  | false | 2 |  1,  2,  3,  4,  5,  6  |
+| changes | Tags parsing options | object  | true | none |  |
 
 ## @mr-linter/diff_limit
 

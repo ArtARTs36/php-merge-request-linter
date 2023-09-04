@@ -24,7 +24,9 @@ final class CustomRule extends AbstractRule
      */
     public function __construct(
         private readonly RulesExecutor $executor,
+        #[Description('Rules')]
         private readonly array $rules,
+        #[Description('Description about rule was failed')]
         private readonly string $definition,
     ) {
         //
