@@ -98,7 +98,7 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
         $notes = [];
 
         foreach ($release->changes as $changes) {
-            if (! in_array($changes->type, $this->changes->types)) {
+            if (! $this->changes->types->contains($changes->type)) {
                 $notes[] = new LintNote(sprintf(
                     'Changelog: release %s contains unknown change type "%s"',
                     $release->tag,
