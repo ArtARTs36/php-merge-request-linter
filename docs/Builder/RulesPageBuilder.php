@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\RulesMetadataLoader
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 
 class RulesPageBuilder
 {
@@ -79,15 +80,23 @@ class RulesPageBuilder
                 $name = $prefix . '.' . $param->name;
             }
 
+            $defaultValues = $this->resolveDefaultValues($param);
+
+            $isRequired = $param->required && count($defaultValues) === 0;
+
+            if ($isRequired && $param->type->isClass()) {
+                $isRequired = ! Reflector::canConstructWithoutParameters($param->type->class);
+            }
+
             $params[] = [
                 'name' => $name,
                 'type' => $param->jsonType,
-                'required' => $param->required,
+                'required' => $isRequired,
                 'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                 'description' => $param->description,
                 'examples' => $examples,
                 'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
-                'defaultValues' => $this->resolveDefaultValues($param),
+                'defaultValues' => $defaultValues,
             ];
 
             if ($param->type->isGeneric()) {

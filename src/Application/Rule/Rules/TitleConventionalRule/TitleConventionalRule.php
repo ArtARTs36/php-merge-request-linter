@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Note\Note;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\DefaultValue;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
@@ -63,6 +64,7 @@ final class TitleConventionalRule extends NamedRule
         #[Example('revert')]
         #[Example('style')]
         #[Example('test')]
+        #[DefaultValue(self::DEFAULT_TYPES)]
         ?Arrayee $types = null,
         #[Description('Check if title contains task number')]
         ?TitleConventionalTask $task = null,

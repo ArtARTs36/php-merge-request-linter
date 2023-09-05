@@ -178,7 +178,7 @@ Changelog must be contained new release.
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 | file | Relative path to changelog file | string  | false |  |  &quot;CHANGELOG.md&quot;  |
-| changes | Configuration for changes reading | object  | true |  |  |
+| changes | Configuration for changes reading | object  | false |  |  |
 | changes.types | Set of allowed change types | array  | false | `Added, Changed, Deprecated, Removed, Fixed, Security`  |  |
 
 ## @mr-linter/diff_limit
@@ -220,6 +220,6 @@ The title must match conventional commit pattern https://www.conventionalcommits
 
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
-| types | Commit types | array  of strings  | false |  |  &quot;build&quot;,  &quot;chore&quot;,  &quot;ci&quot;,  &quot;docs&quot;,  &quot;feat&quot;,  &quot;fix&quot;,  &quot;perf&quot;,  &quot;refactor&quot;,  &quot;revert&quot;,  &quot;style&quot;,  &quot;test&quot;  |
+| types | Commit types | array  of strings  | false | `build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test`  |  &quot;build&quot;,  &quot;chore&quot;,  &quot;ci&quot;,  &quot;docs&quot;,  &quot;feat&quot;,  &quot;fix&quot;,  &quot;perf&quot;,  &quot;refactor&quot;,  &quot;revert&quot;,  &quot;style&quot;,  &quot;test&quot;  |
 | task | Check if title contains task number | object  | false | ``  |  |
 | task.projectCodes | Project codes. Empty list allowed for any projects | array  of strings  | false |  |  &quot;ABC&quot;  |
