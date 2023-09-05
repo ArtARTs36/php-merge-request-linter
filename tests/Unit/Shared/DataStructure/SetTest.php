@@ -284,4 +284,28 @@ final class SetTest extends TestCase
             $set->__debugInfo(),
         );
     }
+
+    public static function providerForTestMerge(): array
+    {
+        return [
+            [
+                'source' => [1, 2, 3],
+                'merging' => [2, 4],
+                'expected' => [1, 2, 3, 4],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::merge
+     *
+     * @dataProvider providerForTestMerge
+     */
+    public function testMerge(array $source, array $merging, array $expected): void
+    {
+        self::assertEquals(
+            Set::fromList($expected),
+            Set::fromList($source)->merge($merging),
+        );
+    }
 }
