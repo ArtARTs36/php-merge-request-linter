@@ -19,6 +19,8 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
 {
     public const NAME = '@mr-linter/changelog_has_new_release';
 
+    private const MIN_CHANGED_LINES_COUNT_FOR_READING_RELEASE = 2;
+
     private const FILENAMES = [
         'CHANGELOG',
         'CHANGELOG.md',
@@ -48,6 +50,10 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
         $notes = [];
 
         foreach ($change->diff->newFragments as $diffFragment) {
+            if ($diffFragment->content->linesCount() < self::MIN_CHANGED_LINES_COUNT_FOR_READING_RELEASE) {
+                continue;
+            }
+
             $releases = $this->releaseParser->parse($diffFragment->content);
 
             foreach ($releases as $release) {
