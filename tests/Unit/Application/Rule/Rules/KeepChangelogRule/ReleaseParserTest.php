@@ -53,4 +53,31 @@ HTML,
             $parser->parse(Str::make($str)),
         );
     }
+
+    public static function providerForTestParseTags(): array
+    {
+        return [
+            [
+                'str' => "## v1.0.2 super release\n## v1.0.1 super release\n## v1.0.0 super release",
+                'expected' => [
+                    'v1.0.2',
+                    'v1.0.1',
+                    'v1.0.0',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseParser::parseTags
+     *
+     * @dataProvider providerForTestParseTags
+     */
+    public function testParseTags(string $str, array $expected): void
+    {
+        self::assertEquals(
+            $expected,
+            (new ReleaseParser())->parseTags(Str::make($str)),
+        );
+    }
 }
