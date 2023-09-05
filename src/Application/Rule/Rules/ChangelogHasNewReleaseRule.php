@@ -8,18 +8,18 @@ use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\Releas
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseParser;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
+use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 
 #[Description('Changelog must be contained new release.')]
 final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
 {
     public const NAME = '@mr-linter/changelog_has_new_release';
-
-    private const MIN_CHANGED_LINES_COUNT_FOR_READING_RELEASE = 2;
 
     private const FILENAMES = [
         'CHANGELOG',
@@ -48,15 +48,21 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
         }
 
         $notes = [];
+        $oldTags = $this->collectOldTagsSet($change->diff);
 
         foreach ($change->diff->newFragments as $diffFragment) {
-            if ($diffFragment->content->linesCount() < self::MIN_CHANGED_LINES_COUNT_FOR_READING_RELEASE) {
-                continue;
-            }
-
             $releases = $this->releaseParser->parse($diffFragment->content);
 
             foreach ($releases as $release) {
+                if ($oldTags->contains($release->tag)) {
+                    $notes[] = new LintNote(sprintf(
+                        'Changelog: old release %s was modified',
+                        $release->tag,
+                    ));
+
+                    continue;
+                }
+
                 if (count($release->changes) > 0) {
                     $releaseChangesNotes = $this->lintReleaseChanges($release);
 
@@ -114,6 +120,20 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
         }
 
         return $notes;
+    }
+
+    /**
+     * @return Set<string>
+     */
+    private function collectOldTagsSet(Diff $diff): Set
+    {
+        $tags = new Set([]);
+
+        foreach ($diff->oldFragments as $fragment) {
+            $tags = $tags->merge($this->releaseParser->parseTags($fragment->content));
+        }
+
+        return $tags;
     }
 
     private function getChangelog(MergeRequest $request): ?Change

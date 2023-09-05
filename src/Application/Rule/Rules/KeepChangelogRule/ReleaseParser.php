@@ -76,6 +76,25 @@ class ReleaseParser
     }
 
     /**
+     * @return array<string>
+     */
+    public function parseTags(Str $str): array
+    {
+        $headings = $str->markdown()->headings()->filterByLevel(HeadingLevel::Level2->value);
+        $tags = [];
+
+        foreach ($headings as $heading) {
+            $tag = $heading->title->match(self::TAG_REGEX);
+
+            if ($tag->isNotEmpty()) {
+                $tags[] = (string) $tag;
+            }
+        }
+
+        return $tags;
+    }
+
+    /**
      * @param array{
      *     title: Str,
      *     tag: Str,

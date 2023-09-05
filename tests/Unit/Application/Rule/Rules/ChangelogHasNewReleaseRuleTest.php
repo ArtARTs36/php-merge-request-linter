@@ -135,6 +135,54 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 ],
                 [],
             ],
+            'lint failed: old release was modified' => [
+                $this->makeMergeRequest([
+                    'changes' => [
+                        'ch.md' => new Change('ch.md', Diff::fromList([
+                            new DiffFragment(
+                                DiffType::NEW,
+                                Str::make("## 0.2.0 123"),
+                            ),
+                            new DiffFragment(
+                                DiffType::OLD,
+                                Str::make("## 0.2.0"),
+                            ),
+                        ])),
+                    ],
+                ]),
+                [
+                    'file' => 'ch.md',
+                    'changes' => new ChangesConfig(),
+                ],
+                [
+                    'Changelog: old release 0.2.0 was modified',
+                ],
+            ],
+            'lint ok: note "old release was modified" was suppressed' => [
+                $this->makeMergeRequest([
+                    'changes' => [
+                        'ch.md' => new Change('ch.md', Diff::fromList([
+                            new DiffFragment(
+                                DiffType::NEW,
+                                Str::make("## 0.2.1 \n### Added\n* item 1"),
+                            ),
+                            new DiffFragment(
+                                DiffType::NEW,
+                                Str::make("## 0.2.0 123"),
+                            ),
+                            new DiffFragment(
+                                DiffType::OLD,
+                                Str::make("## 0.2.0"),
+                            ),
+                        ])),
+                    ],
+                ]),
+                [
+                    'file' => 'ch.md',
+                    'changes' => new ChangesConfig(),
+                ],
+                [],
+            ],
         ];
     }
 

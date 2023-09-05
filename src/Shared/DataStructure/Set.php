@@ -126,6 +126,31 @@ final class Set implements Collection, HasDebugInfo, \JsonSerializable
         ];
     }
 
+    /**
+     * @param iterable<V> $values
+     * @return Set<V>
+     */
+    public function merge(iterable $values): self
+    {
+        $items = $this->items;
+        $count = $this->count();
+
+        foreach ($values as $value) {
+            if ($this->contains($value)) {
+                continue;
+            }
+
+            $items[self::hash($value)] = $value;
+
+            $count++;
+        }
+
+        $newSet = new self($items);
+        $newSet->count = $count;
+
+        return $newSet;
+    }
+
     private static function hash(mixed $value): string
     {
         if (is_string($value)) {
