@@ -122,6 +122,10 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                                 DiffType::NEW,
                                 Str::make("## 0.2.0\n### Added \n* Item 1\n* Item 2"),
                             ),
+                            new DiffFragment(
+                                DiffType::NEW,
+                                Str::make("* Item 2"),
+                            ), // ignored
                         ])),
                     ],
                 ]),
