@@ -28,7 +28,7 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
         #[Description('Relative path to changelog file')]
         #[Example('CHANGELOG.md')]
         private readonly ?string       $file,
-        #[Description('Tags parsing options')]
+        #[Description('Configuration for changes reading')]
         private readonly ChangesConfig $changes,
         private readonly ReleaseParser $releaseParser,
     ) {

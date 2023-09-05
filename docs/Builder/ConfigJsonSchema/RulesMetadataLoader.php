@@ -86,6 +86,7 @@ readonly class RulesMetadataLoader
                 $genericObject,
                 $param->hasDefaultValue ? $param->getDefaultValue() : null,
                 $param->hasDefaultValue,
+                $param->getVirtualDefaultValues(),
             );
         }
 

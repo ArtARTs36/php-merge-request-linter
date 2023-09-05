@@ -12,6 +12,7 @@ readonly class RuleParamMetadata
      * @param array<string|int> $enum
      * @param array<RuleParamMetadata> $nestedObjectParams
      * @param array<RuleParamMetadata> $genericObjectParams
+     * @param array<mixed> $virtualDefaultValues
      */
     public function __construct(
         public string             $name,
@@ -25,6 +26,7 @@ readonly class RuleParamMetadata
         public array $genericObjectParams,
         public mixed $defaultValue,
         public bool $hasDefaultValue,
+        public array $virtualDefaultValues,
     ) {
     }
 }

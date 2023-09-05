@@ -6513,7 +6513,13 @@
                 },
                 "changes": {
                     "type": "object",
-                    "description": "Tags parsing options"
+                    "description": "Configuration for changes reading",
+                    "properties": {
+                        "types": {
+                            "type": "array",
+                            "description": "Set of allowed change types"
+                        }
+                    }
                 }
             },
             "additionalProperties": false

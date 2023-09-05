@@ -28,13 +28,13 @@ The following rules are available:
 | Name | Description | Type | Required | Default value | Examples |
 |------|-------------|------|----------|---------------|----------|
 {% for param in rule.params %}
-| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} | {{ param.required ? 'true' : 'false' }} | {{ param.defaultValue }} | {% for example in param.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %} |
+| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} | {{ param.required ? 'true' : 'false' }} | {% if param.defaultValues.isEmpty %} none {% else %}{% for defValue in param.defaultValues %}{% if defValue is iterable %}`{{ defValue | join(', ') }}`{% else %}`{{ defValue }}`{% endif%} {% endfor %}{% endif %} | {% for example in param.examples %} {{ example }}{% if loop.last == false %},{% endif%} {% endfor %} |
 {% endfor %}
 {% else %}
 | Name | Description | Type | Required | Default value |
 |------|-------------|------|----------|---------------|
 {% for param in rule.params %}
-| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} | {{ param.required ? 'true' : 'false' }} | {{ param.defaultValue }} |
+| {{ param.name }} | {{ param.description }} | {{ param.type }} {% if param.generic %} of {{ param.generic }}s {% endif %} | {{ param.required ? 'true' : 'false' }} | {% if param.defaultValues.isEmpty %} none {% else %}{% for defValue in param.defaultValues %}{% if defValue is iterable %}`{{ defValue | join(', ') }}`{% else %}`{{ defValue }}`{% endif%} {% endfor %}{% endif %} |
 {% endfor %}
 {% endif %}
 {% endif %}

@@ -92,6 +92,7 @@ docs:
 
 docs-docker: docker-build
 	docker run \
+		--rm \
 		--volume ./:/app \
 		--env-file .env \
 		--entrypoint "make" \

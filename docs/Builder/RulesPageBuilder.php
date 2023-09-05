@@ -87,7 +87,7 @@ class RulesPageBuilder
                 'description' => $param->description,
                 'examples' => $examples,
                 'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
-                'defaultValue' => $this->resolveDefaultValue($param),
+                'defaultValues' => $this->resolveDefaultValues($param),
             ];
 
             if ($param->type->isGeneric()) {
@@ -107,8 +107,8 @@ class RulesPageBuilder
                         'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                         'description' => $param->description,
                         'examples' => $examples,
-                        'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
-                        'defaultValue' => $this->resolveDefaultValue($param),
+                        'isGenericObject' => true,
+                        'defaultValues' => new Arrayee($this->resolveDefaultValues($param)),
                     ];
 
                     $params = array_merge($params, $this->buildParams(
@@ -129,24 +129,28 @@ class RulesPageBuilder
         return $params;
     }
 
-    private function resolveDefaultValue(RuleParamMetadata $param): mixed
+    private function resolveDefaultValues(RuleParamMetadata $param): array
     {
+        if (count($param->virtualDefaultValues) > 0) {
+            return $param->virtualDefaultValues;
+        }
+
         if (! $param->hasDefaultValue) {
-            return 'none';
+            return [];
         }
 
         if ($param->type->class !== null) {
             if (is_a($param->type->class, Collection::class, true)) {
-                return 'none';
+                return [];
             }
 
             if (enum_exists($param->type->class)) {
-                return $param->defaultValue->value;
+                return [$param->defaultValue->value];
             }
 
-            return $param->defaultValue;
+            return [$param->defaultValue];
         }
 
-        return $param->defaultValue;
+        return [$param->defaultValue];
     }
 }

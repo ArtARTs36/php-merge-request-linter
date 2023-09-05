@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\DefaultValue;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 
 readonly class Parameter
@@ -16,6 +17,7 @@ readonly class Parameter
         public Type       $type,
         public bool       $hasDefaultValue = false,
         private ?\Closure $defaultValueGetter = null,
+        private ?\Closure $virtualDefaultValuesGetter = null,
     ) {
         //
     }
@@ -44,6 +46,11 @@ readonly class Parameter
                 previous: $e,
             );
         }
+    }
+
+    public function getVirtualDefaultValues(): array
+    {
+        return array_map(fn (DefaultValue $value) => $value->value, ($this->virtualDefaultValuesGetter)());
     }
 
     public function hasExamples(): bool

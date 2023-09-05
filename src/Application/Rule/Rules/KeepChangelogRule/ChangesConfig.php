@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule;
 
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\DefaultValue;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 
 readonly class ChangesConfig
@@ -20,6 +23,15 @@ readonly class ChangesConfig
      * @param Set<string>|null $types
      */
     public function __construct(
+        #[Description('Set of allowed change types')]
+        #[DefaultValue([
+            self::TYPE_ADDED,
+            self::TYPE_CHANGED,
+            self::TYPE_DEPRECATED,
+            self::TYPE_REMOVED,
+            self::TYPE_FIXED,
+            self::TYPE_SECURITY,
+        ])]
         ?Set $types = null,
     ) {
         $this->types = $types ?? Set::fromList([
