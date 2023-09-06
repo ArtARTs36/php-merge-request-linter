@@ -127,7 +127,7 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
      */
     private function collectOldTagsSet(Diff $diff): Set
     {
-        $tags = new Set([]);
+        $tags = Set::empty();
 
         foreach ($diff->oldFragments as $fragment) {
             $tags = $tags->merge($this->releaseParser->parseTags($fragment->content));

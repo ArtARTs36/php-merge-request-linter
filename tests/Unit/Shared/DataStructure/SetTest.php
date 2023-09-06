@@ -106,6 +106,14 @@ final class SetTest extends TestCase
         self::assertEquals($expected, $set->containsAll($values));
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::empty
+     */
+    public function testEmpty(): void
+    {
+        self::assertEquals([], Set::empty()->values());
+    }
+
     public function providerForTestFromList(): array
     {
         return [

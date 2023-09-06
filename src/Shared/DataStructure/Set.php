@@ -18,10 +18,17 @@ final class Set implements Collection, HasDebugInfo, \JsonSerializable
     /**
      * @param array<string, V> $items
      */
-    public function __construct(
+    private function __construct(
         private readonly array $items,
     ) {
-        //
+    }
+
+    /**
+     * @return self<V>
+     */
+    public static function empty(): self
+    {
+        return new self([]);
     }
 
     /**
