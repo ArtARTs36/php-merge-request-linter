@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule;
 
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\DefaultValue;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
-use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set;
 
 readonly class ChangesConfig

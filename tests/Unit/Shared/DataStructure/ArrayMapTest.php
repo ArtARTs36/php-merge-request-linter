@@ -307,4 +307,31 @@ final class ArrayMapTest extends TestCase
 
         self::assertEquals($arr, $map->toArray());
     }
+
+    public static function providerForTestKeys(): array
+    {
+        return [
+            [
+                'items' => [],
+                'expectedKeys' => [],
+            ],
+            [
+                'items' => ['k1' => 1, 'k2' => 2],
+                'expectedKeys' => ['k1', 'k2'],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::keys
+     *
+     * @dataProvider providerForTestKeys
+     */
+    public function testKeys(array $items, array $expectedKeys): void
+    {
+        self::assertEquals(
+            $expectedKeys,
+            (new ArrayMap($items))->keys()->mapToArray(fn ($item) => $item),
+        );
+    }
 }
