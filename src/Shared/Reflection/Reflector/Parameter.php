@@ -2,7 +2,6 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
-use ArtARTs36\MergeRequestLinter\Shared\Attributes\DefaultValue;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 
 readonly class Parameter
@@ -15,9 +14,9 @@ readonly class Parameter
         public string     $description,
         public array      $examples,
         public Type       $type,
-        public bool       $hasDefaultValue = false,
-        private ?\Closure $defaultValueGetter = null,
-        private ?\Closure $virtualDefaultValuesGetter = null,
+        public bool       $hasDefaultValue,
+        private \Closure $defaultValueGetter,
+        private \Closure $virtualDefaultValuesGetter,
     ) {
     }
 
@@ -33,7 +32,7 @@ readonly class Parameter
     public function getDefaultValue(): mixed
     {
         try {
-            return $this->defaultValueGetter === null ? null : ($this->defaultValueGetter)();
+            return $this->hasDefaultValue ? ($this->defaultValueGetter)() : null;
         } catch (\ReflectionException $e) {
             throw new \Exception(
                 sprintf(
@@ -47,9 +46,12 @@ readonly class Parameter
         }
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getVirtualDefaultValues(): array
     {
-        return array_map(fn (DefaultValue $value) => $value->value, ($this->virtualDefaultValuesGetter)());
+        return ($this->virtualDefaultValuesGetter)();
     }
 
     public function hasExamples(): bool

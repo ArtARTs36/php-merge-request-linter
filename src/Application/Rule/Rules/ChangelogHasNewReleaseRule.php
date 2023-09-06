@@ -126,6 +126,7 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
      */
     private function collectOldTagsSet(Diff $diff): Set
     {
+        /** @var Set<string> $tags */
         $tags = Set::empty();
 
         foreach ($diff->oldFragments as $fragment) {

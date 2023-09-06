@@ -43,7 +43,9 @@ class Reflector
                 ),
                 $parameter->isDefaultValueAvailable(),
                 fn () => $parameter->getDefaultValue(),
-                fn () => self::createAttributes($parameter, DefaultValue::class),
+                fn () => array_map(function (\ReflectionAttribute $attribute) {
+                    return $attribute->newInstance()->value;
+                }, $parameter->getAttributes(DefaultValue::class)),
             );
         }
 
@@ -115,9 +117,7 @@ class Reflector
      */
     public static function findExamples(\ReflectionParameter|\ReflectionProperty $reflector): array
     {
-        return array_map(function (\ReflectionAttribute $attr) {
-            return $attr->newInstance();
-        }, $reflector->getAttributes(Example::class));
+        return self::createAttributes($reflector, Example::class);
     }
 
     public static function findParamByName(\ReflectionMethod $method, string $name): ?\ReflectionParameter
