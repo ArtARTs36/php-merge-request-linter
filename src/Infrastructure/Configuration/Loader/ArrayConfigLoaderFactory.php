@@ -55,7 +55,6 @@ class ArrayConfigLoaderFactory
         private readonly MapContainer    $container,
         private readonly DecoderFactory  $decoderFactory = new DecoderFactory(),
     ) {
-        //
     }
 
     public function create(ConfigFormat $format): ConfigLoader

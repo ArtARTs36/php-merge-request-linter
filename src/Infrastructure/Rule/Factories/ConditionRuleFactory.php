@@ -19,7 +19,6 @@ class ConditionRuleFactory
         private readonly OperatorResolver $operatorResolver,
         private readonly Counter $skippedRulesCounter,
     ) {
-        //
     }
 
     public static function new(OperatorResolver $operatorResolver, MetricManager $metrics): self

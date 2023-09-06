@@ -15,7 +15,6 @@ class BitbucketDiffMapper
     public function __construct(
         private readonly DiffMapper $mapper = new DiffMapper(),
     ) {
-        //
     }
 
     /**

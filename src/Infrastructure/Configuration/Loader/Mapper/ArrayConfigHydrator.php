@@ -22,7 +22,6 @@ class ArrayConfigHydrator
         private readonly RulesMapper         $rulesMapper,
         private readonly NotificationsMapper $notificationsMapper,
     ) {
-        //
     }
 
     /**

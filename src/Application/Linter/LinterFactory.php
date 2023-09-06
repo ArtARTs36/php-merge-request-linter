@@ -13,7 +13,6 @@ class LinterFactory
         protected EventDispatcherInterface $events,
         private readonly MetricManager     $metrics,
     ) {
-        //
     }
 
     public function create(Config $config): Linter

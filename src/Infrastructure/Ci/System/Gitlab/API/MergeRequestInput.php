@@ -12,6 +12,5 @@ readonly class MergeRequestInput
         public int    $projectId,
         public int    $requestId,
     ) {
-        //
     }
 }

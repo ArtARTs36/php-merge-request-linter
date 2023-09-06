@@ -13,7 +13,6 @@ final class TextMessageRenderer implements MessageRenderer
     public function __construct(
         private readonly TextRenderer $renderer,
     ) {
-        //
     }
 
     public function render(MergeRequest $request, LintResult $result, CommentsMessage $config): string

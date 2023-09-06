@@ -32,7 +32,6 @@ class PullRequest
         public readonly string $uri,
         public Map $changes = new ArrayMap([]),
     ) {
-        //
     }
 
     public function hasConflicts(): bool

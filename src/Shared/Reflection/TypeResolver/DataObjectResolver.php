@@ -11,7 +11,6 @@ final class DataObjectResolver implements TypeResolver
     public function __construct(
         private readonly ArrayObjectConverter $converter,
     ) {
-        //
     }
 
     public function canResolve(Type $type, mixed $value): bool

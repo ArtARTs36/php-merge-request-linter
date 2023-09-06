@@ -12,6 +12,5 @@ final class Version
 
     private function __construct()
     {
-        //
     }
 }

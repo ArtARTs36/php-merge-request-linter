@@ -15,7 +15,6 @@ class DumpTaskHandler
         private readonly ConfigResolver $config,
         private readonly RuleDumper $dumper,
     ) {
-        //
     }
 
     public function handle(DumpTask $task): DumpInfo

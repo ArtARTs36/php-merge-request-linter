@@ -16,7 +16,6 @@ final class Factory implements CommenterFactory
         private readonly CiSystemFactory $ciSystem,
         private readonly LoggerInterface $logger,
     ) {
-        //
     }
 
     public function create(CommentsPostStrategy $strategy): Commenter

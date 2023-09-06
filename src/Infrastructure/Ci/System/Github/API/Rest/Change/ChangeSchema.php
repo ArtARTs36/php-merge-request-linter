@@ -11,7 +11,6 @@ class ChangeSchema
     public function __construct(
         private readonly DiffMapper $diffMapper,
     ) {
-        //
     }
 
     /**

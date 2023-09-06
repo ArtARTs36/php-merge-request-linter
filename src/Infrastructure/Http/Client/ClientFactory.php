@@ -16,7 +16,6 @@ class ClientFactory implements HttpClientFactory
         private readonly MetricManager $metrics,
         private readonly LoggerInterface $logger,
     ) {
-        //
     }
 
     public function create(HttpClientConfig $config): Client

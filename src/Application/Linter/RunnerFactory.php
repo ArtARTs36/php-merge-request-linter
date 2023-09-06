@@ -39,7 +39,6 @@ class RunnerFactory implements LinterRunnerFactory
         protected Clock    $clock,
         protected MapContainer $container = new MapContainer(),
     ) {
-        //
     }
 
     public function create(Config $config): LinterRunner

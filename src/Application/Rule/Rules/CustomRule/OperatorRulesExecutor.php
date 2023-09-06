@@ -10,7 +10,6 @@ class OperatorRulesExecutor implements RulesExecutor
     public function __construct(
         private readonly OperatorResolver $operator,
     ) {
-        //
     }
 
     public function execute(array $rules, MergeRequest $request): bool

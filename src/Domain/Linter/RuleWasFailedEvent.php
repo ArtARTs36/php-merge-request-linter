@@ -20,6 +20,5 @@ readonly class RuleWasFailedEvent
         public string $ruleName,
         public array  $notes,
     ) {
-        //
     }
 }

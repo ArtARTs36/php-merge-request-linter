@@ -23,7 +23,6 @@ final class ForbidChangesRule extends NamedRule
         #[Generic(Generic::OF_STRING)]
         private readonly Set $files,
     ) {
-        //
     }
 
     public function lint(MergeRequest $request): array

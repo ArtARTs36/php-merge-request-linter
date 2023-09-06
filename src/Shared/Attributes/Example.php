@@ -8,7 +8,6 @@ class Example
     public function __construct(
         public mixed $value,
     ) {
-        //
     }
 
     public function __toString(): string

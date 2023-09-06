@@ -10,6 +10,5 @@ class AddedComment
     public function __construct(
         public readonly string $id,
     ) {
-        //
     }
 }

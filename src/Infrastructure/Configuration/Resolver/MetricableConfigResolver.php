@@ -14,7 +14,6 @@ class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastr
         private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver $resolver,
         private readonly MetricManager                                                                       $metrics,
     ) {
-        //
     }
 
     public function resolve(User $user, int $configSubjects = Config::SUBJECT_ALL): ResolvedConfig

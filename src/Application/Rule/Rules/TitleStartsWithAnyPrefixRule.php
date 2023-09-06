@@ -22,7 +22,6 @@ final class TitleStartsWithAnyPrefixRule extends AbstractRule implements Rule
         #[Description('Array of prefixes')]
         private readonly array $prefixes,
     ) {
-        //
     }
 
     protected function doLint(MergeRequest $request): bool

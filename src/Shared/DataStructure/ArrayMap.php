@@ -21,7 +21,6 @@ class ArrayMap implements Map
     public function __construct(
         private readonly array $items,
     ) {
-        //
     }
 
     /**

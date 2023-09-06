@@ -10,7 +10,6 @@ readonly class SymfonyTablePrinter implements TablePrinter
     public function __construct(
         private StyleInterface $output,
     ) {
-        //
     }
 
     public function printTable(array $headers, array $rows): void

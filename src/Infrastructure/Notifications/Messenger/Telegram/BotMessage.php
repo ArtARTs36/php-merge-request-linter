@@ -13,6 +13,5 @@ readonly class BotMessage
         public string $message,
         public bool   $background,
     ) {
-        //
     }
 }

@@ -11,7 +11,6 @@ class Copier
     public function __construct(
         private readonly Directory $stubsDir,
     ) {
-        //
     }
 
     public function copy(ConfigFormat $format, Directory $targetDir): File

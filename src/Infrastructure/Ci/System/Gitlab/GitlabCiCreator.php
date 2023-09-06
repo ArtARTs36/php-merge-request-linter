@@ -23,7 +23,6 @@ class GitlabCiCreator implements SystemCreator
         private readonly HttpClient $httpClient,
         private readonly LoggerInterface $logger,
     ) {
-        //
     }
 
     public function create(CiSettings $settings): CiSystem

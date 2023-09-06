@@ -16,6 +16,5 @@ readonly class LintStartedEvent
     public function __construct(
         public MergeRequest $request,
     ) {
-        //
     }
 }

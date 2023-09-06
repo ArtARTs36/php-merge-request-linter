@@ -16,7 +16,6 @@ class NotifyListener implements Listener
         private readonly MessageCreator           $messageCreator,
         private readonly ContextLogger            $logger,
     ) {
-        //
     }
 
     public function handle(object $event): void

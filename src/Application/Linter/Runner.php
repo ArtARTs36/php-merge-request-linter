@@ -18,7 +18,6 @@ final class Runner implements LinterRunner
     public function __construct(
         private readonly MergeRequestFetcher $requestFetcher,
     ) {
-        //
     }
 
     public function run(Linter $linter): LintResult

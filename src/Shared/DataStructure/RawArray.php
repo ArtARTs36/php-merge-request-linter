@@ -13,7 +13,6 @@ class RawArray implements \IteratorAggregate
     public function __construct(
         private readonly array $value,
     ) {
-        //
     }
 
     /**

@@ -34,7 +34,6 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
         private readonly ChangesConfig $changes,
         private readonly ReleaseParser $releaseParser,
     ) {
-        //
     }
 
     public function lint(MergeRequest $request): array

@@ -13,7 +13,6 @@ class Number
     public function __construct(
         private readonly int|float $number,
     ) {
-        //
     }
 
     /**

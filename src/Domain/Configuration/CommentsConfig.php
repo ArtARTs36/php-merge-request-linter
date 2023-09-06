@@ -14,6 +14,5 @@ readonly class CommentsConfig
         public CommentsPostStrategy $postStrategy,
         public array                $messages,
     ) {
-        //
     }
 }

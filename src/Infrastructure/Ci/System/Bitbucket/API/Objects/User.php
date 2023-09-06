@@ -11,6 +11,5 @@ readonly class User
         public string $displayName,
         public string $accountId,
     ) {
-        //
     }
 }

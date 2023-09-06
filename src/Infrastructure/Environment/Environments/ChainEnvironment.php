@@ -13,7 +13,6 @@ final class ChainEnvironment implements Environment
     public function __construct(
         private readonly iterable $environments,
     ) {
-        //
     }
 
     public function has(string $key): bool

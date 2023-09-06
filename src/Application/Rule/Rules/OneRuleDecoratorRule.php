@@ -11,7 +11,6 @@ abstract class OneRuleDecoratorRule implements RuleDecorator
     public function __construct(
         protected readonly Rule $rule,
     ) {
-        //
     }
 
     public function getName(): string

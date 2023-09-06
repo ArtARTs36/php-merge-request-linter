@@ -19,7 +19,6 @@ final class MessengerNotifier implements Notifier
         private readonly Map $messengers,
         private readonly ClockInterface $clock,
     ) {
-        //
     }
 
     public function notify(Channel $channel, Message $message): void

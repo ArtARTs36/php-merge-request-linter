@@ -14,7 +14,6 @@ final class ObjectCompositeResolver implements TypeResolver
     public function __construct(
         private readonly array $resolvers,
     ) {
-        //
     }
 
     public function canResolve(Type $type, mixed $value): bool

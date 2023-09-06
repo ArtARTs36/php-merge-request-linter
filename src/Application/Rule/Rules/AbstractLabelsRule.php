@@ -20,6 +20,5 @@ abstract class AbstractLabelsRule extends AbstractRule implements Rule
         #[Example('Bug')]
         protected readonly Set $labels,
     ) {
-        //
     }
 }

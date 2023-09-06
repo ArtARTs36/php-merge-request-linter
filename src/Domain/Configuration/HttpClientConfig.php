@@ -19,6 +19,5 @@ readonly class HttpClientConfig
         public string $type,
         public array $params,
     ) {
-        //
     }
 }

@@ -16,7 +16,6 @@ final class MetricableLogger implements LoggerInterface
     public function __construct(
         private readonly Counter $logsCounter,
     ) {
-        //
     }
 
     public static function create(MetricManager $manager): self

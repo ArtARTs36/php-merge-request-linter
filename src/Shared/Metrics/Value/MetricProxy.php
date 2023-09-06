@@ -12,7 +12,6 @@ class MetricProxy implements Metric
     public function __construct(
         private readonly \Closure $callback,
     ) {
-        //
     }
 
     public function getMetricValue(): string

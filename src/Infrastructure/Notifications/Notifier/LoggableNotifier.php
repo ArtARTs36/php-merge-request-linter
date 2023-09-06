@@ -13,7 +13,6 @@ final class LoggableNotifier implements Notifier
         private readonly LoggerInterface $logger,
         private readonly Notifier $notifier,
     ) {
-        //
     }
 
     public function notify(Channel $channel, Message $message): void

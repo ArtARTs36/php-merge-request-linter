@@ -14,7 +14,6 @@ final class SimpleCreator implements EvaluatorCreator
     public function __construct(
         private readonly Map $evaluatorByType,
     ) {
-        //
     }
 
     public function create(string $type, mixed $value): ?ConditionEvaluator

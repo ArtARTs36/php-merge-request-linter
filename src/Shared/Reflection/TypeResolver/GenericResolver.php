@@ -10,7 +10,6 @@ final class GenericResolver implements TypeResolver
         private readonly TypeResolver         $resolver,
         private readonly ArrayObjectConverter $arrayObjectConverter,
     ) {
-        //
     }
 
     public function canResolve(Type $type, mixed $value): bool

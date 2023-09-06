@@ -16,6 +16,5 @@ readonly class CommentList
         public Arrayee $comments,
         public int     $page,
     ) {
-        //
     }
 }

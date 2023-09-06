@@ -11,6 +11,5 @@ readonly class LintTask
         public string  $workingDirectory,
         public ?string $customPath,
     ) {
-        //
     }
 }

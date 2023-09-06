@@ -14,7 +14,6 @@ final class EmptyInstantiator implements Instantiator
     public function __construct(
         private readonly string $class,
     ) {
-        //
     }
 
     public function params(): array

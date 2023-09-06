@@ -9,7 +9,6 @@ final readonly class SymfonyProgressBar implements ProgressBar
     public function __construct(
         private \Symfony\Component\Console\Helper\ProgressBar $bar,
     ) {
-        //
     }
 
     public function max(int $max): void

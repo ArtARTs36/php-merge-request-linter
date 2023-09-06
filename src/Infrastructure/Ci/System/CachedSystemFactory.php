@@ -15,7 +15,6 @@ final class CachedSystemFactory implements CiSystemFactory
     public function __construct(
         private readonly \Closure $creator,
     ) {
-        //
     }
 
     public function createCurrently(): CiSystem

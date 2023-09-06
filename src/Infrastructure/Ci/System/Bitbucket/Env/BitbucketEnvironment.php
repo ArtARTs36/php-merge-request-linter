@@ -10,7 +10,6 @@ class BitbucketEnvironment
     public function __construct(
         private readonly Environment $environment,
     ) {
-        //
     }
 
     public function isWorking(): bool

@@ -25,7 +25,6 @@ class PullRequest
         public readonly string            $diffUrl,
         public Map $changes = new ArrayMap([]),
     ) {
-        //
     }
 
     public function canMerge(): bool

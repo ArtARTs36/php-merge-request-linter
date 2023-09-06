@@ -33,7 +33,6 @@ class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Linter\Linter
         protected EventDispatcherInterface $events,
         private readonly MetricManager     $metrics,
     ) {
-        //
     }
 
     public function run(MergeRequest $request): LintResult

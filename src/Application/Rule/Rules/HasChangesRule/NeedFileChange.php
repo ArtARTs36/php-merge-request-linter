@@ -19,7 +19,6 @@ readonly class NeedFileChange
         #[Example('VERSION')]
         public ?string $updatedPhpConstant,
     ) {
-        //
     }
 
     public function hasConditions(): bool

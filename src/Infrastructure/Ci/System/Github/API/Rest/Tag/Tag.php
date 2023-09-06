@@ -10,7 +10,6 @@ class Tag implements \ArtARTs36\MergeRequestLinter\Domain\ToolInfo\Tag
         public readonly int $minor,
         public readonly int $patch,
     ) {
-        //
     }
 
     public function digit(): string

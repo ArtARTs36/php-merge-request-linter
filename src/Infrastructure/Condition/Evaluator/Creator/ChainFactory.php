@@ -17,7 +17,6 @@ class ChainFactory
         private readonly Map $evaluatorByType,
         private readonly EvaluatingSubjectFactory $subjectFactory,
     ) {
-        //
     }
 
     public function create(): EvaluatorCreator

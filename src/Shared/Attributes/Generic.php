@@ -14,6 +14,5 @@ class Generic
     public function __construct(
         public string $type,
     ) {
-        //
     }
 }

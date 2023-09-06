@@ -19,7 +19,6 @@ class MemoryMetricManager implements MetricManager
     public function __construct(
         private readonly ClockInterface $clock,
     ) {
-        //
     }
 
     public function add(MetricSubject $subject, Metric $value): self

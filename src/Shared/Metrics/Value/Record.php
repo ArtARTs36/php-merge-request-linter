@@ -9,7 +9,6 @@ readonly class Record
         private Metric            $value,
         public \DateTimeInterface $date,
     ) {
-        //
     }
 
     public function getValue(): string

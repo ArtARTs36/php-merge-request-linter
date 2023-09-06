@@ -15,7 +15,6 @@ final class MessageCreator implements CommentMessageCreator
         private readonly MessageSelector $selector,
         private readonly MessageRenderer         $renderer,
     ) {
-        //
     }
 
     public function create(MergeRequest $request, LintResult $result, CommentsConfig $config): ?string

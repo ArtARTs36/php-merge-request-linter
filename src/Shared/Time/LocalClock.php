@@ -9,7 +9,6 @@ final readonly class LocalClock implements Clock
     public function __construct(
         private \DateTimeZone $tz,
     ) {
-        //
     }
 
     /**

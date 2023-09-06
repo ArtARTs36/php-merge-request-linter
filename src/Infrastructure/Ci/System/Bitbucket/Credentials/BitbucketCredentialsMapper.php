@@ -17,7 +17,6 @@ class BitbucketCredentialsMapper implements AuthenticatorMapper
     public function __construct(
         private readonly ConfigValueTransformer $valueTransformer,
     ) {
-        //
     }
 
     public function map(array $credentials): Authenticator

@@ -10,7 +10,6 @@ class RulesMapper
     public function __construct(
         private readonly Resolver $ruleResolver,
     ) {
-        //
     }
 
     /**

@@ -12,7 +12,6 @@ class ConditionListener implements Listener
         private readonly OperatorResolver $operator,
         private readonly Listener $listener,
     ) {
-        //
     }
 
     public function handle(object $event): void

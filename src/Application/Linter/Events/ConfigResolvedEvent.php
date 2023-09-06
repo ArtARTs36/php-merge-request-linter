@@ -12,6 +12,5 @@ readonly class ConfigResolvedEvent
     public function __construct(
         public ResolvedConfig $config,
     ) {
-        //
     }
 }

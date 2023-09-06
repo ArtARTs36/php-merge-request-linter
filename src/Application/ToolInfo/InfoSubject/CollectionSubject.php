@@ -13,7 +13,6 @@ final class CollectionSubject implements InfoSubject
         private readonly string $theme,
         private readonly Arrayee $values,
     ) {
-        //
     }
 
     public function describe(): string

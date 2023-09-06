@@ -11,6 +11,5 @@ readonly class TagsInput
         public string $owner,
         public string $repo,
     ) {
-        //
     }
 }

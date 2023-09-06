@@ -21,7 +21,6 @@ final class SetIterator implements \Iterator
     public function __construct(
         private array $items,
     ) {
-        //
     }
 
     public function current(): mixed

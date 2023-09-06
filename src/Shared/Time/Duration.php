@@ -9,7 +9,6 @@ readonly class Duration implements Metric
     public function __construct(
         public float $seconds,
     ) {
-        //
     }
 
     public function __toString(): string

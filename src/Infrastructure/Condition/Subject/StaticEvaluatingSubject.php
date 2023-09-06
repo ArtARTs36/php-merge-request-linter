@@ -12,7 +12,6 @@ class StaticEvaluatingSubject implements EvaluatingSubject
         private readonly mixed $value,
         private readonly TypeCaster $caster = new TypeCaster(),
     ) {
-        //
     }
 
     public function scalar(): int|string|float|bool

@@ -14,6 +14,5 @@ readonly class UpdateCommentInput
         public string $commentId,
         public string $comment,
     ) {
-        //
     }
 }

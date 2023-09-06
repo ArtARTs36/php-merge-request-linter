@@ -11,6 +11,5 @@ class User
         public string $workDirectory,
         public ?string $customPath,
     ) {
-        //
     }
 }

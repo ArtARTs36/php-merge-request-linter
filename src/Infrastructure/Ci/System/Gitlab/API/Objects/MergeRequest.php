@@ -28,7 +28,6 @@ readonly class MergeRequest
         public \DateTimeImmutable $createdAt,
         public string $uri,
     ) {
-        //
     }
 
     public function canMerge(): bool

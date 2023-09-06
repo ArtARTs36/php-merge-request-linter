@@ -29,7 +29,6 @@ final class CustomRule extends AbstractRule
         #[Description('Description about rule was failed')]
         private readonly string $definition,
     ) {
-        //
     }
 
     protected function doLint(MergeRequest $request): bool

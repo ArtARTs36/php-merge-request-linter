@@ -15,6 +15,5 @@ readonly class RuleWasSuccessfulEvent
     public function __construct(
         public string $ruleName,
     ) {
-        //
     }
 }

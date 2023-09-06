@@ -13,6 +13,5 @@ final class NullCommenter implements Commenter
 {
     public function postComment(MergeRequest $request, MakingComment $comment): void
     {
-        //
     }
 }

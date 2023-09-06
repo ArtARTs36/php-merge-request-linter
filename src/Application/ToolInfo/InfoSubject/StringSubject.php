@@ -8,7 +8,6 @@ final class StringSubject implements InfoSubject
         private readonly string $theme,
         private readonly string $value,
     ) {
-        //
     }
 
     public function describe(): string

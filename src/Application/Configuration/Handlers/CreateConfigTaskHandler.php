@@ -11,7 +11,6 @@ class CreateConfigTaskHandler
     public function __construct(
         private readonly Copier $copier,
     ) {
-        //
     }
 
     public function handle(CreateConfigTask $task): File

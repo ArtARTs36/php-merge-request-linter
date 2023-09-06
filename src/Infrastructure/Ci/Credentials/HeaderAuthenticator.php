@@ -10,7 +10,6 @@ final class HeaderAuthenticator implements Authenticator
     public function __construct(
         private readonly Header $header,
     ) {
-        //
     }
 
     public static function bearer(string $token): self

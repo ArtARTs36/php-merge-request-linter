@@ -14,7 +14,6 @@ class OperatorMessageSelector implements MessageSelector
     public function __construct(
         private readonly OperatorResolver $condition,
     ) {
-        //
     }
 
     public function select(MergeRequest $request, CommentsConfig $config, LintResult $result): ?CommentsMessage

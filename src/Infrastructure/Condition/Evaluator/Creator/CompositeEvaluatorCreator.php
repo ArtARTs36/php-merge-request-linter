@@ -17,7 +17,6 @@ final class CompositeEvaluatorCreator implements EvaluatorCreator
         protected readonly EvaluatorCreator $chain,
         protected readonly string $compositeEvaluatorClass,
     ) {
-        //
     }
 
     public function create(string $type, mixed $value): ?ConditionEvaluator

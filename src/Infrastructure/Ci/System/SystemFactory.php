@@ -17,7 +17,6 @@ class SystemFactory implements CiSystemFactory
         private readonly Config $config,
         private readonly Map $creators,
     ) {
-        //
     }
 
     public function createCurrently(): CiSystem

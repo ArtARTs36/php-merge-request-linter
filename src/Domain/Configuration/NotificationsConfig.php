@@ -19,6 +19,5 @@ readonly class NotificationsConfig
         public Map $channels,
         public Map $on,
     ) {
-        //
     }
 }

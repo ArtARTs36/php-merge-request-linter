@@ -15,7 +15,6 @@ class CompositeLoader implements ConfigLoader
     public function __construct(
         private readonly array $loadersByFormat,
     ) {
-        //
     }
 
     public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config

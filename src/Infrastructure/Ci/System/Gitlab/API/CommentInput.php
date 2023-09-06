@@ -13,6 +13,5 @@ class CommentInput
         public readonly int $requestNumber,
         public readonly string $comment,
     ) {
-        //
     }
 }

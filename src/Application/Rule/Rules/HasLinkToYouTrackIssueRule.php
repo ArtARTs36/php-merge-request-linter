@@ -28,7 +28,6 @@ final class HasLinkToYouTrackIssueRule extends NamedRule
         #[Example('PORTAL')]
         private readonly Arrayee $projectCodes = new Arrayee([]),
     ) {
-        //
     }
 
     public function lint(MergeRequest $request): array

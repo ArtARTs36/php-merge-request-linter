@@ -22,7 +22,6 @@ final class ContainsHeadingEvaluator extends Evaluator
         private readonly string $value,
         private readonly int $level,
     ) {
-        //
     }
 
     protected function doEvaluate(EvaluatingSubject $subject): bool

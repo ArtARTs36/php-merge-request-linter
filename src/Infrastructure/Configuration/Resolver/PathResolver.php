@@ -14,7 +14,6 @@ class PathResolver
     public function __construct(
         private readonly FileSystem $files,
     ) {
-        //
     }
 
     /**

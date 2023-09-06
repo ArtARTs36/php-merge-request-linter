@@ -10,6 +10,5 @@ readonly class BitbucketPipelinesSettings
     public function __construct(
         public LabelsSettings $labels,
     ) {
-        //
     }
 }

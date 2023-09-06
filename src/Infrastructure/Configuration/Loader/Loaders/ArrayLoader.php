@@ -19,7 +19,6 @@ class ArrayLoader implements ConfigLoader
         private readonly TextDecoder         $text,
         private readonly ArrayConfigHydrator $hydrator,
     ) {
-        //
     }
 
     public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config

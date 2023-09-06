@@ -39,7 +39,6 @@ final class GithubActions implements CiSystem
         private readonly GithubClient $client,
         private readonly LoggerInterface $logger = new NullLogger(),
     ) {
-        //
     }
 
     /**

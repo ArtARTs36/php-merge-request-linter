@@ -23,7 +23,6 @@ class Resolver implements RuleResolver
         private readonly RuleFactory      $factory,
         private readonly ConditionRuleFactory $conditionRuleFactory,
     ) {
-        //
     }
 
     public function resolve(string $ruleName, array $params): Rule

@@ -18,7 +18,6 @@ class CiRequestFetcher implements MergeRequestFetcher
         private readonly CiSystemFactory $systems,
         private readonly MetricManager   $metrics,
     ) {
-        //
     }
 
     public function fetch(): MergeRequest

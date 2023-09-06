@@ -15,7 +15,6 @@ class HttpBot implements Bot
         private readonly Client $client,
         private readonly string $host = self::HOST,
     ) {
-        //
     }
 
     public function sendMessage(BotMessage $message): void

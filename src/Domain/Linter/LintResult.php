@@ -18,7 +18,6 @@ class LintResult
         public Arrayee $notes,
         public Duration $duration,
     ) {
-        //
     }
 
     public static function successWithNote(Note $note, Duration $duration): self

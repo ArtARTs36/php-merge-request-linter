@@ -25,7 +25,6 @@ class Arrayee implements Collection, HasDebugInfo, \JsonSerializable
     public function __construct(
         protected array $items,
     ) {
-        //
     }
 
     /**

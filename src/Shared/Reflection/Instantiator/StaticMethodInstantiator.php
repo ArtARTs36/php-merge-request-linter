@@ -17,7 +17,6 @@ class StaticMethodInstantiator implements Instantiator
         private readonly \ReflectionMethod $constructor,
         private readonly string $class,
     ) {
-        //
     }
 
     public function params(): array

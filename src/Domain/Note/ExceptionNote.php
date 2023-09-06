@@ -9,7 +9,6 @@ final class ExceptionNote extends AbstractNote implements Note
     public function __construct(
         private readonly \Throwable $exception,
     ) {
-        //
     }
 
     public function getDescription(): string

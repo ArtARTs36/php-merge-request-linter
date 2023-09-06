@@ -11,6 +11,5 @@ readonly class Message
         public string $text,
         public string $id,
     ) {
-        //
     }
 }

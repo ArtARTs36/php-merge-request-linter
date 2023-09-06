@@ -11,6 +11,5 @@ readonly class GetCommentsInput
         public PullRequestInput $pullRequest,
         public int              $page,
     ) {
-        //
     }
 }

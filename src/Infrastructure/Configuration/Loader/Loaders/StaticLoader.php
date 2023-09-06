@@ -15,7 +15,6 @@ final class StaticLoader implements ConfigLoader
         private readonly ArrayConfigHydrator $hydrator,
         private readonly array               $config,
     ) {
-        //
     }
 
     public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config

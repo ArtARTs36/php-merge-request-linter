@@ -12,7 +12,6 @@ final class MapEnvironment extends AbstractEnvironment
     public function __construct(
         private readonly Map $map,
     ) {
-        //
     }
 
     protected function get(string $key): mixed

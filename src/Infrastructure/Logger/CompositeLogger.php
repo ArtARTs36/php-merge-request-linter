@@ -15,7 +15,6 @@ final class CompositeLogger implements LoggerInterface
     public function __construct(
         private readonly iterable $loggers,
     ) {
-        //
     }
 
     public function log($level, \Stringable|string $message, array $context = []): void

@@ -24,7 +24,6 @@ final class GithubActionsCreator implements SystemCreator
         private readonly ContextLogger $logger,
         private readonly Clock    $clock,
     ) {
-        //
     }
 
     public function create(CiSettings $settings): CiSystem

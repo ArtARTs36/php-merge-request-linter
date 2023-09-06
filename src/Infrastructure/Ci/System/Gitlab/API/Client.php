@@ -29,7 +29,6 @@ class Client implements GitlabClient
         private readonly CommentSchema      $commentSchema = new CommentSchema(),
         private readonly GetCurrentUserSchema $currentUserSchema = new GetCurrentUserSchema(),
     ) {
-        //
     }
 
     public function getMergeRequest(MergeRequestInput $input): MergeRequest

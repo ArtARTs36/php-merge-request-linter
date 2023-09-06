@@ -17,7 +17,6 @@ final class ChangedFilesLimitRule extends AbstractRule implements Rule
         #[Description('Number of maximum possible changes')]
         private readonly int $limit,
     ) {
-        //
     }
 
     protected function doLint(MergeRequest $request): bool

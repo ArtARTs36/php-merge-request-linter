@@ -13,7 +13,6 @@ final class CompositeResolver implements LabelsResolver
     public function __construct(
         private readonly iterable $resolvers,
     ) {
-        //
     }
 
     public function resolve(PullRequest $pr, LabelsSettings $settings): array

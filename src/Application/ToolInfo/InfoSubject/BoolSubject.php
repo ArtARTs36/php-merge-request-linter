@@ -8,7 +8,6 @@ final class BoolSubject implements InfoSubject
         private readonly string $theme,
         private readonly bool $value,
     ) {
-        //
     }
 
     public function describe(): string

@@ -12,7 +12,6 @@ final class Chain implements EvaluatorCreator
     public function __construct(
         private array $creators = [],
     ) {
-        //
     }
 
     public function add(EvaluatorCreator $creator): self

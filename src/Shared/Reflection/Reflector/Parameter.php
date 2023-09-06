@@ -19,7 +19,6 @@ readonly class Parameter
         private ?\Closure $defaultValueGetter = null,
         private ?\Closure $virtualDefaultValuesGetter = null,
     ) {
-        //
     }
 
     public function isRequired(): bool

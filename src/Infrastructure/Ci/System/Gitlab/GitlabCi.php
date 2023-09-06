@@ -40,7 +40,6 @@ final readonly class GitlabCi implements CiSystem
         private GitlabClient      $client,
         private MarkdownCleaner   $markdownCleaner,
     ) {
-        //
     }
 
     public function getName(): string

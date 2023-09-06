@@ -13,7 +13,6 @@ readonly class ConsolePrinter implements Printer
     public function __construct(
         private OutputInterface $output,
     ) {
-        //
     }
 
     public function printTitle(string $title): void

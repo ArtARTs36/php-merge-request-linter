@@ -15,7 +15,6 @@ final class CompositeRule implements RuleDecorator
     private function __construct(
         private iterable $rules,
     ) {
-        //
     }
 
     /**

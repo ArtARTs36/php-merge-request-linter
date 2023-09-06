@@ -13,7 +13,6 @@ class OperatorFactory
         private readonly EvaluatingSubjectFactory $subjectFactory,
         private readonly EvaluatorFactory         $evaluatorFactory,
     ) {
-        //
     }
 
     /**

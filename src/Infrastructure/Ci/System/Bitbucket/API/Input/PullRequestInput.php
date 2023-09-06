@@ -12,6 +12,5 @@ readonly class PullRequestInput
         public string $repoName,
         public int    $requestId,
     ) {
-        //
     }
 }

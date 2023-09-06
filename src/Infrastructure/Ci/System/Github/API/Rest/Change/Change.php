@@ -14,6 +14,5 @@ readonly class Change
         public Diff   $diff,
         public Status $status,
     ) {
-        //
     }
 }

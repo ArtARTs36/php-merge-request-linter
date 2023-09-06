@@ -12,7 +12,6 @@ final readonly class CallbackListener implements EventListener
         private string   $name,
         private \Closure $callback,
     ) {
-        //
     }
 
     public function name(): string

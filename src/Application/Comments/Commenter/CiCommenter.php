@@ -12,6 +12,5 @@ abstract class CiCommenter implements Commenter
         protected readonly CiSystem $ci,
         protected readonly LoggerInterface $logger,
     ) {
-        //
     }
 }

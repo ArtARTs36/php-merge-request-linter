@@ -21,7 +21,6 @@ class NotifierFactory
         private readonly ClockInterface $clock,
         private readonly LoggerInterface $logger = new NullLogger(),
     ) {
-        //
     }
 
     public function create(): Notifier

@@ -12,7 +12,6 @@ class RuleFactory
         private readonly ParameterMapBuilder $argBuilder,
         private readonly InstantiatorFinder  $constructor,
     ) {
-        //
     }
 
     /**

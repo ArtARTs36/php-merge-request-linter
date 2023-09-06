@@ -11,6 +11,5 @@ readonly class Repo
         public string $workspace,
         public string $slug,
     ) {
-        //
     }
 }

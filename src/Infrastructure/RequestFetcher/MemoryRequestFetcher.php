@@ -10,7 +10,6 @@ final class MemoryRequestFetcher implements MergeRequestFetcher
     public function __construct(
         private MergeRequest $request,
     ) {
-        //
     }
 
     public function fetch(): MergeRequest
