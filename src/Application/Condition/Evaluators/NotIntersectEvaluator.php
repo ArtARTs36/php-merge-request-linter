@@ -1,0 +1,47 @@
+<?php
+
+namespace ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators;
+
+use ArtARTs36\MergeRequestLinter\Domain\Condition\EvaluatingSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
+
+#[Description('Check if an array contains only one value of list.')]
+final class NotIntersectEvaluator extends Evaluator
+{
+    public const NAME = 'notIntersect';
+
+    /**
+     * @param array<scalar> $value
+     */
+    public function __construct(
+        #[Generic(Generic::OF_STRING)]
+        private readonly array $value,
+    ) {
+    }
+
+    protected function doEvaluate(EvaluatingSubject $subject): bool
+    {
+        return ! $this->collectionContainsDifferentValues(
+            $subject->interface(Collection::class),
+        );
+    }
+
+    protected function collectionContainsDifferentValues(Collection $collection): bool
+    {
+        $matched = 0;
+
+        foreach ($this->value as $val) {
+            if ($collection->contains($val)) {
+                $matched++;
+
+                if ($matched === 2) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+}

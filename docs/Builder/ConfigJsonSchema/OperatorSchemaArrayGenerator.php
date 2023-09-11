@@ -21,6 +21,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LteEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotEqualsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasAnyEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotHasEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotIntersectEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsCamelCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsKebabCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsLowerCaseEvaluator;
@@ -110,6 +111,7 @@ class OperatorSchemaArrayGenerator
             IsEmptyEvaluator::class,
             AllEvaluator::class,
             AnyEvaluator::class,
+            NotIntersectEvaluator::class,
         ],
         Map::class => [
             CountMinEvaluator::class,
@@ -124,6 +126,7 @@ class OperatorSchemaArrayGenerator
             IsEmptyEvaluator::class,
             AllEvaluator::class,
             AnyEvaluator::class,
+            NotIntersectEvaluator::class,
         ],
         Arrayee::class => [
             CountMinEvaluator::class,
@@ -138,6 +141,7 @@ class OperatorSchemaArrayGenerator
             IsEmptyEvaluator::class,
             AllEvaluator::class,
             AnyEvaluator::class,
+            NotIntersectEvaluator::class,
         ],
         'bool' => [
             EqualsEvaluator::class,
