@@ -85,7 +85,7 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
             return $notes;
         }
 
-        if (! $change->diff->newFragments->isEmpty()) {
+        if ($change->diff->hasChanges()) {
             return [
                 new LintNote('Changelog was modified, but no has new release'),
             ];

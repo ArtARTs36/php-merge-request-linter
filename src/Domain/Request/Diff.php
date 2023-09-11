@@ -92,4 +92,9 @@ readonly class Diff
     {
         return $this->newFragments->count() + $this->oldFragments->count();
     }
+
+    public function hasChanges(): bool
+    {
+        return $this->changesCount() > 0;
+    }
 }

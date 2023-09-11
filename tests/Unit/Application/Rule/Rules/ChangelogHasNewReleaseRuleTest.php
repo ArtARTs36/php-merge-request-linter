@@ -183,6 +183,25 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                 ],
                 [],
             ],
+            'lint failed: diff has only not changed lines' => [
+                $this->makeMergeRequest([
+                    'changes' => [
+                        'ch.md' => new Change('ch.md', Diff::fromList([
+                            new DiffFragment(
+                                DiffType::NOT_CHANGES,
+                                Str::make("## 0.2.1 \n### Added\n* item 1"),
+                            ),
+                        ])),
+                    ],
+                ]),
+                [
+                    'file' => 'ch.md',
+                    'changes' => new ChangesConfig(),
+                ],
+                [
+                    'Changelog must be contained new release',
+                ],
+            ],
         ];
     }
 
@@ -191,6 +210,8 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule::lint
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule::getChangelog
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule::getDefinition
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule::lintReleaseChanges
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule::collectOldTagsSet
      * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule::__construct
      */
     public function testLint(MergeRequest $request, array $ruleParams, array $expectNotes): void
