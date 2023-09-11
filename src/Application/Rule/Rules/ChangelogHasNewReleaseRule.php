@@ -41,6 +41,15 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
         $change = $this->getChangelog($request);
 
         if ($change === null) {
+            if ($this->file !== null) {
+                return [
+                    new LintNote(sprintf(
+                        'Changelog(file: %s) must be contained new release. Changelog not modified',
+                        $this->file,
+                    )),
+                ];
+            }
+
             return [
                 new LintNote('Changelog must be contained new release. Changelog not modified'),
             ];
@@ -55,7 +64,8 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
             foreach ($releases as $release) {
                 if ($oldTags->contains($release->tag)) {
                     $notes[] = new LintNote(sprintf(
-                        'Changelog: old release %s was modified',
+                        'Changelog(file: %s): old release %s was modified',
+                        $change->file,
                         $release->tag,
                     ));
 
@@ -63,7 +73,7 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
                 }
 
                 if (count($release->changes) > 0) {
-                    $releaseChangesNotes = $this->lintReleaseChanges($release);
+                    $releaseChangesNotes = $this->lintReleaseChanges($release, $change);
 
                     if (count($releaseChangesNotes) === 0) {
                         return [];
@@ -75,7 +85,8 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
                 }
 
                 $notes[] = new LintNote(sprintf(
-                    'Changelog: release %s not contains changes',
+                    'Changelog(file: %s): release %s not contains changes',
+                    $change->file,
                     $release->tag,
                 ));
             }
@@ -87,12 +98,15 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
 
         if ($change->diff->hasChanges()) {
             return [
-                new LintNote('Changelog was modified, but no has new release'),
+                new LintNote(sprintf('Changelog(file: %s) was modified, but no has new release', $change->file)),
             ];
         }
 
         return [
-            new LintNote($this->getDefinition()->getDescription()),
+            new LintNote(sprintf(
+                'Changelog(file: %s) must be contained new release',
+                $change->file,
+            )),
         ];
     }
 
@@ -104,14 +118,15 @@ final class ChangelogHasNewReleaseRule extends NamedRule implements Rule
     /**
      * @return array<LintNote>
      */
-    private function lintReleaseChanges(Release $release): array
+    private function lintReleaseChanges(Release $release, Change $changelog): array
     {
         $notes = [];
 
         foreach ($release->changes as $changes) {
             if (! $this->changes->types->contains($changes->type)) {
                 $notes[] = new LintNote(sprintf(
-                    'Changelog: release %s contains unknown change type "%s"',
+                    'Changelog(file: %s): release %s contains unknown change type "%s"',
+                    $changelog->file,
                     $release->tag,
                     $changes->type,
                 ));

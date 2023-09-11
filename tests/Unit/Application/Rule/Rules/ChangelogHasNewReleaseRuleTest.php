@@ -25,7 +25,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                     'changes' => new ChangesConfig(),
                 ],
                 [
-                    'Changelog must be contained new release. Changelog not modified',
+                    'Changelog(file: ch.md) must be contained new release. Changelog not modified',
                 ],
             ],
             'request not contains changes in changelog by default filenames' => [
@@ -54,7 +54,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                     'changes' => new ChangesConfig(),
                 ],
                 [
-                    'Changelog was modified, but no has new release',
+                    'Changelog(file: ch.md) was modified, but no has new release',
                 ],
             ],
             'request has changes, but not contains new tag by default filename' => [
@@ -73,7 +73,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                     'changes' => new ChangesConfig(),
                 ],
                 [
-                    'Changelog was modified, but no has new release',
+                    'Changelog(file: CHANGELOG) was modified, but no has new release',
                 ],
             ],
             'lint failed: request contains new release without changes' => [
@@ -92,7 +92,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                     'changes' => new ChangesConfig(),
                 ],
                 [
-                    'Changelog: release 0.2.0 not contains changes',
+                    'Changelog(file: ch.md): release 0.2.0 not contains changes',
                 ],
             ],
             'lint failed: request contains new release with unknown change type' => [
@@ -111,7 +111,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                     'changes' => new ChangesConfig(),
                 ],
                 [
-                    'Changelog: release 0.2.0 contains unknown change type "Unknown123"',
+                    'Changelog(file: ch.md): release 0.2.0 contains unknown change type "Unknown123"',
                 ],
             ],
             'lint ok: request contains new release' => [
@@ -155,7 +155,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                     'changes' => new ChangesConfig(),
                 ],
                 [
-                    'Changelog: old release 0.2.0 was modified',
+                    'Changelog(file: ch.md): old release 0.2.0 was modified',
                 ],
             ],
             'lint ok: note "old release was modified" was suppressed' => [
@@ -199,7 +199,7 @@ final class ChangelogHasNewReleaseRuleTest extends TestCase
                     'changes' => new ChangesConfig(),
                 ],
                 [
-                    'Changelog must be contained new release',
+                    'Changelog(file: ch.md) must be contained new release',
                 ],
             ],
         ];
