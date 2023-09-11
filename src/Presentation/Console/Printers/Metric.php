@@ -8,6 +8,5 @@ readonly class Metric
         public string $name,
         public string $value,
     ) {
-        //
     }
 }

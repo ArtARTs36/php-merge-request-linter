@@ -9,7 +9,6 @@ class ResolverFactory
     public function __construct(
         private readonly ContainerInterface $container,
     ) {
-        //
     }
 
     public function create(): TypeResolver

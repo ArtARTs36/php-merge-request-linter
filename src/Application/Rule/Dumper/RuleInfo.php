@@ -12,6 +12,5 @@ readonly class RuleInfo
         public string $definition,
         public bool   $critical = true,
     ) {
-        //
     }
 }

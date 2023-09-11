@@ -13,6 +13,5 @@ class ResolvedConfig
         public Config $config,
         public string $path,
     ) {
-        //
     }
 }

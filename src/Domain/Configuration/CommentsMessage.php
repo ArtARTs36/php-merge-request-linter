@@ -19,6 +19,5 @@ readonly class CommentsMessage
         public string $template,
         public array  $conditions,
     ) {
-        //
     }
 }

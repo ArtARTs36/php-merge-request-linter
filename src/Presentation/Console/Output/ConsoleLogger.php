@@ -29,7 +29,6 @@ final class ConsoleLogger implements LoggerInterface
         private readonly OutputInterface $output,
         private readonly ClockInterface $clock,
     ) {
-        //
     }
 
     public function log($level, \Stringable|string $message, array $context = []): void

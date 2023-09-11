@@ -17,6 +17,5 @@ readonly class LintFinishedEvent
         public MergeRequest $request,
         public LintResult   $result,
     ) {
-        //
     }
 }

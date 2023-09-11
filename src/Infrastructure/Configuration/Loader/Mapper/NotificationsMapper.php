@@ -20,7 +20,6 @@ class NotificationsMapper
     public function __construct(
         private readonly iterable $valueTransformers,
     ) {
-        //
     }
 
     /**

@@ -11,7 +11,6 @@ class SubjectFactory implements EvaluatingSubjectFactory
     public function __construct(
         private readonly PropertyExtractor $propertyExtractor,
     ) {
-        //
     }
 
     public function createForValue(string $name, mixed $value): EvaluatingSubject

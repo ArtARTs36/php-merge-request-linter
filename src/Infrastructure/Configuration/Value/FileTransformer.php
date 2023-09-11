@@ -13,7 +13,6 @@ final class FileTransformer extends StringFuncTransformer
     public function __construct(
         private readonly FileSystem $files,
     ) {
-        //
     }
 
     protected function doTransform(string $preparedValue): string

@@ -20,7 +20,6 @@ final class CountEqualsAnyEvaluator extends Evaluator
         #[Generic(Generic::OF_INTEGER)]
         private readonly array $value,
     ) {
-        //
     }
 
     protected function doEvaluate(EvaluatingSubject $subject): bool

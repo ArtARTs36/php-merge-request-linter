@@ -12,6 +12,5 @@ readonly class Property
         public Type   $type,
         public string $description,
     ) {
-        //
     }
 }

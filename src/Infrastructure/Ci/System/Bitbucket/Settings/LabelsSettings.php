@@ -10,6 +10,5 @@ readonly class LabelsSettings
     public function __construct(
         public ?LabelsOfDescriptionSettings $ofDescription,
     ) {
-        //
     }
 }

@@ -30,7 +30,6 @@ class HasChangesRule implements Rule
         private readonly Arrayee $changes,
         private readonly DiffChecker $diffChecker,
     ) {
-        //
     }
 
     /**

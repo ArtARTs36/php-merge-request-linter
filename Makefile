@@ -92,6 +92,7 @@ docs:
 
 docs-docker: docker-build
 	docker run \
+		--rm \
 		--volume ./:/app \
 		--env-file .env \
 		--entrypoint "make" \
@@ -132,6 +133,7 @@ lint-docker: docker-build
 
 lint-fix-docker: docker-build
 	docker run \
+		--rm \
 		--volume ./:/app/ \
 		--env-file .env \
 		--entrypoint "composer" \

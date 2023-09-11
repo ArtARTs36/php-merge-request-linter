@@ -12,6 +12,5 @@ readonly class Author
     public function __construct(
         public Str $login,
     ) {
-        //
     }
 }

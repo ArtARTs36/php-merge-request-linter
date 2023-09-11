@@ -13,7 +13,6 @@ class PropertyOperator implements ConditionOperator
         private readonly EvaluatingSubjectFactory  $subjectFactory,
         private readonly string             $property,
     ) {
-        //
     }
 
     public function check(object $subject): bool

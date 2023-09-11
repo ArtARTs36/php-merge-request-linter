@@ -11,7 +11,6 @@ class OperatorResolver implements OperatorResolverContract
     public function __construct(
         private readonly OperatorFactory $operatorFactory,
     ) {
-        //
     }
 
     /**

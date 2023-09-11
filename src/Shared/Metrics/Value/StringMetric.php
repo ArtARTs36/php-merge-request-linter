@@ -7,7 +7,6 @@ final class StringMetric implements Metric
     public function __construct(
         private readonly string $value,
     ) {
-        //
     }
 
     public function getMetricValue(): string

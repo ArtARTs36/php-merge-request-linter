@@ -17,7 +17,6 @@ final class NativeConstructorInstantiator implements Instantiator
         private readonly \ReflectionClass  $classReflector,
         private readonly \ReflectionMethod $constructorReflector,
     ) {
-        //
     }
 
     public function params(): array

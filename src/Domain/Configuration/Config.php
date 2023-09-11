@@ -34,7 +34,6 @@ readonly class Config
         private LinterConfig        $linterConfig,
         private CommentsConfig      $commentsConfig,
     ) {
-        //
     }
 
     public function getRules(): Rules

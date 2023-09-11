@@ -18,6 +18,5 @@ readonly class Channel
         public Map         $params,
         public TimePeriod  $sound,
     ) {
-        //
     }
 }

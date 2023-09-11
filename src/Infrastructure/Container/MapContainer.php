@@ -18,7 +18,6 @@ class MapContainer implements ContainerInterface
     public function __construct(
         private array $map = [],
     ) {
-        //
     }
 
     /**

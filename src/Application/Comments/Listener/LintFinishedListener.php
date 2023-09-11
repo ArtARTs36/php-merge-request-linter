@@ -13,7 +13,6 @@ final class LintFinishedListener implements EventListener
         private readonly CommentProducer $commentProducer,
         private readonly CommentsConfig  $config,
     ) {
-        //
     }
 
     /**

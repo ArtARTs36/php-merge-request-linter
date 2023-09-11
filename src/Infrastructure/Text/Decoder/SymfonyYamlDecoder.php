@@ -12,7 +12,6 @@ final class SymfonyYamlDecoder implements TextDecoder
     public function __construct(
         private readonly Parser $parser = new Parser(),
     ) {
-        //
     }
 
     public function decode(string $content): array

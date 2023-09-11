@@ -10,7 +10,6 @@ class ArrayObjectConverter
     public function __construct(
         private readonly TypeResolver $typeResolver,
     ) {
-        //
     }
 
     /**

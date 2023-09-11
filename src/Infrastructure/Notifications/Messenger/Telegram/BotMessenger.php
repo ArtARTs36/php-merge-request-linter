@@ -11,7 +11,6 @@ class BotMessenger implements Messenger
     public function __construct(
         private readonly Bot $bot,
     ) {
-        //
     }
 
     public function send(Channel $channel, string $message, bool $withSound): void

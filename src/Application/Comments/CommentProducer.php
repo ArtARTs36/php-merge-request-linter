@@ -16,7 +16,6 @@ final class CommentProducer implements Contracts\CommentProducer
         private readonly LoggerInterface $logger,
         private readonly CommenterFactory $commenterFactory,
     ) {
-        //
     }
 
     public function produce(MergeRequest $request, LintResult $result, CommentsConfig $config): void

@@ -13,6 +13,5 @@ readonly class CreateCommentInput
         public int    $requestId,
         public string $comment,
     ) {
-        //
     }
 }

@@ -11,6 +11,5 @@ readonly class MetricSubject
         public string $key,
         public string $name,
     ) {
-        //
     }
 }

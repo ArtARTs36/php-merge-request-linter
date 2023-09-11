@@ -11,7 +11,6 @@ final class LeagueMarkdownCleaner implements MarkdownCleaner
     public function __construct(
         private readonly ConverterInterface $converter,
     ) {
-        //
     }
 
     public function clean(Str $str): Str

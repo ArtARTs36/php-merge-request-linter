@@ -33,7 +33,6 @@ class HttpClient implements Client
         private readonly BitbucketDiffMapper                                                $diffMapper = new BitbucketDiffMapper(),
         private readonly Schemas $schemas = new Schemas(),
     ) {
-        //
     }
 
     /**

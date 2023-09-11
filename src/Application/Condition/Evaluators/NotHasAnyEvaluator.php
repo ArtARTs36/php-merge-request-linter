@@ -19,7 +19,6 @@ final class NotHasAnyEvaluator extends Evaluator
         #[Generic(Generic::OF_STRING)]
         private readonly array $value,
     ) {
-        //
     }
 
     protected function doEvaluate(EvaluatingSubject $subject): bool

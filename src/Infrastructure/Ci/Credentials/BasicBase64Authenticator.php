@@ -11,7 +11,6 @@ final class BasicBase64Authenticator implements Authenticator
         private readonly string $user,
         private readonly string $password,
     ) {
-        //
     }
 
     public function authenticate(RequestInterface $request): RequestInterface

@@ -16,7 +16,6 @@ class MetricableClient implements Client
         private readonly Client $client,
         private readonly MetricManager $metrics,
     ) {
-        //
     }
 
     public function sendRequest(RequestInterface $request): ResponseInterface

@@ -15,7 +15,6 @@ readonly class PropertyEvaluatingSubject implements EvaluatingSubject
         private PropertyExtractor $propertyExtractor,
         private string            $property,
     ) {
-        //
     }
 
     /**

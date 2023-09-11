@@ -21,7 +21,6 @@ class LintTaskHandler
         private readonly LinterFactory $linterFactory,
         private readonly LinterRunnerFactory $runnerFactory,
     ) {
-        //
     }
 
     public function handle(LintTask $task): LintResult

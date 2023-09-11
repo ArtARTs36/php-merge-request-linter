@@ -11,6 +11,5 @@ readonly class LinterOptions
         public bool $stopOnFailure = false,
         public bool $stopOnWarning = false,
     ) {
-        //
     }
 }

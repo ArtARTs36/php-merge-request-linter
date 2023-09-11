@@ -14,10 +14,10 @@ readonly class Parameter
         public string     $description,
         public array      $examples,
         public Type       $type,
-        public bool       $hasDefaultValue = false,
-        private ?\Closure $defaultValueGetter = null,
+        public bool       $hasDefaultValue,
+        private \Closure $defaultValueGetter,
+        private \Closure $virtualDefaultValuesGetter,
     ) {
-        //
     }
 
     public function isRequired(): bool
@@ -32,7 +32,7 @@ readonly class Parameter
     public function getDefaultValue(): mixed
     {
         try {
-            return $this->defaultValueGetter === null ? null : ($this->defaultValueGetter)();
+            return $this->hasDefaultValue ? ($this->defaultValueGetter)() : null;
         } catch (\ReflectionException $e) {
             throw new \Exception(
                 sprintf(
@@ -44,6 +44,14 @@ readonly class Parameter
                 previous: $e,
             );
         }
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function getVirtualDefaultValues(): array
+    {
+        return ($this->virtualDefaultValuesGetter)();
     }
 
     public function hasExamples(): bool

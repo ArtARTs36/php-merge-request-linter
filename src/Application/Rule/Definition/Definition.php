@@ -9,7 +9,6 @@ final class Definition implements RuleDefinition
     public function __construct(
         private readonly string $description,
     ) {
-        //
     }
 
     public function getDescription(): string

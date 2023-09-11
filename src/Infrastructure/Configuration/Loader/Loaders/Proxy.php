@@ -15,7 +15,6 @@ final class Proxy implements ConfigLoader
     public function __construct(
         private \Closure $factory,
     ) {
-        //
     }
 
     public function load(string $path, int $subjects = Config::SUBJECT_ALL): Config

@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector;
 
+use ArtARTs36\MergeRequestLinter\Shared\Attributes\DefaultValue;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Example;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Generic;
@@ -42,6 +43,9 @@ class Reflector
                 ),
                 $parameter->isDefaultValueAvailable(),
                 fn () => $parameter->getDefaultValue(),
+                fn () => array_map(function (\ReflectionAttribute $attribute) {
+                    return $attribute->newInstance()->value;
+                }, $parameter->getAttributes(DefaultValue::class)),
             );
         }
 
@@ -113,9 +117,7 @@ class Reflector
      */
     public static function findExamples(\ReflectionParameter|\ReflectionProperty $reflector): array
     {
-        return array_map(function (\ReflectionAttribute $attr) {
-            return $attr->newInstance();
-        }, $reflector->getAttributes(Example::class));
+        return self::createAttributes($reflector, Example::class);
     }
 
     public static function findParamByName(\ReflectionMethod $method, string $name): ?\ReflectionParameter
@@ -193,5 +195,17 @@ class Reflector
         $type = $reflector->getBackingType();
 
         return $type instanceof \ReflectionNamedType ? $type->getName() : '';
+    }
+
+    /**
+     * @template T of object
+     * @param class-string<T> $class
+     * @return array<T>
+     */
+    private static function createAttributes(\ReflectionProperty | \ReflectionParameter $reflector, string $class): array
+    {
+        return array_map(function (\ReflectionAttribute $attribute) {
+            return $attribute->newInstance();
+        }, $reflector->getAttributes($class));
     }
 }

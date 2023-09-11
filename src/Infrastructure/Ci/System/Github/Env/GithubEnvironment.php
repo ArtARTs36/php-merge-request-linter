@@ -15,7 +15,6 @@ class GithubEnvironment
     public function __construct(
         private readonly Environment $environment,
     ) {
-        //
     }
 
     public function isWorking(): bool

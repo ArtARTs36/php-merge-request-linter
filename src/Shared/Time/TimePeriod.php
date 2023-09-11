@@ -8,7 +8,6 @@ readonly class TimePeriod
         public Time $from,
         public Time $to,
     ) {
-        //
     }
 
     public static function day(): self

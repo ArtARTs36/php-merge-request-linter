@@ -10,7 +10,6 @@ class CallbackPropertyExtractor implements PropertyExtractor
     public function __construct(
         private readonly TypeCaster $caster = new TypeCaster(),
     ) {
-        //
     }
 
     public function scalar(object $object, string $property): int|string|float|bool

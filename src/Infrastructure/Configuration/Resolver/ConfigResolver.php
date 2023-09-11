@@ -12,7 +12,6 @@ class ConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastructure\Con
         private PathResolver $path,
         private ConfigLoader $loader,
     ) {
-        //
     }
 
     public function resolve(User $user, int $configSubjects = Config::SUBJECT_ALL): ResolvedConfig

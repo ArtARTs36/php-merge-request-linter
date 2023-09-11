@@ -12,7 +12,6 @@ class MergeRequestSchema
     public function __construct(
         private readonly DiffMapper $diffMapper = new DiffMapper(),
     ) {
-        //
     }
 
     /**

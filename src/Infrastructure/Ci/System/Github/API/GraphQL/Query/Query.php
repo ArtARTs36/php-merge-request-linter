@@ -11,7 +11,6 @@ class Query
         public readonly string $query,
         public readonly array $variables,
     ) {
-        //
     }
 
     public static function withoutVariables(string $query): self

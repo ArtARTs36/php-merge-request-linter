@@ -7,7 +7,6 @@ class IncCounter implements Counter
     public function __construct(
         private int $count = 0,
     ) {
-        //
     }
 
     /**

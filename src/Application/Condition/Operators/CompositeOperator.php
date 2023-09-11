@@ -12,7 +12,6 @@ final class CompositeOperator implements ConditionOperator
     public function __construct(
         private readonly iterable $operators,
     ) {
-        //
     }
 
     public function check(object $subject): bool

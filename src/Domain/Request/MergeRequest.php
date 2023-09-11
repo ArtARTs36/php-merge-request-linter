@@ -51,6 +51,5 @@ class MergeRequest
         public string $id = '',
         public string $number = '',
     ) {
-        //
     }
 }

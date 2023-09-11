@@ -26,7 +26,6 @@ final class BranchStartsWithTaskNumberRule extends NamedRule
         #[Description('Project codes. Empty list allowed for any projects')]
         private readonly Arrayee $projectCodes = new Arrayee([]),
     ) {
-        //
     }
 
     public function lint(MergeRequest $request): array

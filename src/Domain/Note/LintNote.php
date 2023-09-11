@@ -7,7 +7,6 @@ final class LintNote extends AbstractNote implements Note
     public function __construct(
         private readonly string $description,
     ) {
-        //
     }
 
     public function getDescription(): string

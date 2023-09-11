@@ -13,6 +13,5 @@ readonly class Form
     public function __construct(
         public array $body,
     ) {
-        //
     }
 }

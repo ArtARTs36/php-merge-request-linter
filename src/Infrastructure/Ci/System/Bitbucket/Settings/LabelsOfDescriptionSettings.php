@@ -15,6 +15,5 @@ readonly class LabelsOfDescriptionSettings
         public string $lineStartsWith,
         public string $separator,
     ) {
-        //
     }
 }

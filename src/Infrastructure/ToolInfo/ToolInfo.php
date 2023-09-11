@@ -19,7 +19,6 @@ class ToolInfo implements \ArtARTs36\MergeRequestLinter\Domain\ToolInfo\ToolInfo
         private readonly GithubClient $github,
         private readonly string $dir = __DIR__
     ) {
-        //
     }
 
     public function getLatestVersion(): ?Tag

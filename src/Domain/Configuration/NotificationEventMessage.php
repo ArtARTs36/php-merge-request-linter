@@ -23,6 +23,5 @@ readonly class NotificationEventMessage
         public string  $template,
         public array   $conditions = [],
     ) {
-        //
     }
 }

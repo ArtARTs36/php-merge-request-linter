@@ -59,4 +59,19 @@ final class DiffTest extends TestCase
 
         self::assertEquals(2, $diff->changesCount());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Request\Diff::hasChanges
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Request\Diff::__construct
+     */
+    public function testHasChanges(): void
+    {
+        $diff = Diff::fromList([
+            new DiffFragment(DiffType::NEW, Str::fromEmpty()),
+            new DiffFragment(DiffType::OLD, Str::fromEmpty()),
+            new DiffFragment(DiffType::NOT_CHANGES, Str::fromEmpty()),
+        ]);
+
+        self::assertTrue($diff->hasChanges());
+    }
 }

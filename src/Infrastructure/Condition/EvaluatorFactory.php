@@ -14,7 +14,6 @@ class EvaluatorFactory
     public function __construct(
         private readonly EvaluatorCreator $creator,
     ) {
-        //
     }
 
     /**

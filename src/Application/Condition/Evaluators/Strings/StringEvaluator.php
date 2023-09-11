@@ -9,6 +9,5 @@ abstract class StringEvaluator extends Evaluator
     public function __construct(
         protected readonly string $value,
     ) {
-        //
     }
 }

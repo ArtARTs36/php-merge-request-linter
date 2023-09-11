@@ -10,7 +10,6 @@ readonly class User
         public int    $id,
         public string $login,
     ) {
-        //
     }
 
     /**

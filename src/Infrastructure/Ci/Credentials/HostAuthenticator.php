@@ -10,7 +10,6 @@ final class HostAuthenticator implements Authenticator
     public function __construct(
         private readonly string $host,
     ) {
-        //
     }
 
     public function authenticate(RequestInterface $request): RequestInterface

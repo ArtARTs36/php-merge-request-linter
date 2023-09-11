@@ -13,7 +13,6 @@ final class EnvTransformer extends StringFuncTransformer
     public function __construct(
         private readonly Environment $environment,
     ) {
-        //
     }
 
     protected function doTransform(string $preparedValue): string

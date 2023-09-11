@@ -8,7 +8,6 @@ readonly class Time
         public int $hour,
         public int $minute,
     ) {
-        //
     }
 
     public static function min(): self

@@ -45,7 +45,6 @@ class BitbucketPipelines implements CiSystem
         private readonly LabelsResolver             $labelsResolver,
         private readonly LoggerInterface            $logger,
     ) {
-        //
     }
 
     /**

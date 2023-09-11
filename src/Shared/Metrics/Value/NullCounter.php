@@ -14,6 +14,5 @@ final class NullCounter implements Counter
 
     public function inc(): void
     {
-        //
     }
 }

@@ -12,7 +12,6 @@ class CompositeChecker implements DiffChecker
     public function __construct(
         private readonly iterable $checkers,
     ) {
-        //
     }
 
     public function check(NeedFileChange $needChange, Change $change): array

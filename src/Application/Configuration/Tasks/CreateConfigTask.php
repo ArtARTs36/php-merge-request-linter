@@ -14,6 +14,5 @@ readonly class CreateConfigTask
         public ConfigFormat $format,
         public Directory    $targetDir
     ) {
-        //
     }
 }

@@ -13,7 +13,6 @@ class ListenerRegistrar
         private readonly NotificationsConfig $config,
         private readonly ListenerFactory $factory,
     ) {
-        //
     }
 
     public function register(EventManager $dispatcher): void

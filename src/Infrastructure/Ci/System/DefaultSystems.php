@@ -28,6 +28,5 @@ final class DefaultSystems
 
     private function __construct()
     {
-        //
     }
 }

@@ -13,7 +13,6 @@ class Viewer
     private function __construct(
         public readonly string $login
     ) {
-        //
     }
 
     public static function make(string $login): self

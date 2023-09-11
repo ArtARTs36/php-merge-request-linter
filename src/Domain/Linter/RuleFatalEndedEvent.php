@@ -10,6 +10,5 @@ readonly class RuleFatalEndedEvent
     public function __construct(
         public string $ruleName,
     ) {
-        //
     }
 }

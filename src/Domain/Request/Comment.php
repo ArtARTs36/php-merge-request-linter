@@ -12,6 +12,5 @@ readonly class Comment
         public string $message,
         public string $mergeRequestId,
     ) {
-        //
     }
 }

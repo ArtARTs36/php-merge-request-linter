@@ -10,6 +10,5 @@ final readonly class MakingComment
     public function __construct(
         public string $message,
     ) {
-        //
     }
 }

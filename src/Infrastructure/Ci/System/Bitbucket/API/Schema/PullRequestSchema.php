@@ -13,7 +13,6 @@ class PullRequestSchema
     public function __construct(
         private readonly Clock $clock,
     ) {
-        //
     }
 
     /**

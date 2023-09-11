@@ -16,7 +16,6 @@ class TwigRenderer implements TextRenderer
         private readonly Environment $environment,
         private readonly ArrayLoader $loader,
     ) {
-        //
     }
 
     public static function create(): self

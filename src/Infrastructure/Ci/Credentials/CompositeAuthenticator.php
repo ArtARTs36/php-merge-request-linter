@@ -13,7 +13,6 @@ final class CompositeAuthenticator implements Authenticator
     public function __construct(
         private readonly iterable $authenticators,
     ) {
-        //
     }
 
     public function authenticate(RequestInterface $request): RequestInterface

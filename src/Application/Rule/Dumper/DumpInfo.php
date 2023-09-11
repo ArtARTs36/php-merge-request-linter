@@ -14,6 +14,5 @@ readonly class DumpInfo
         public string $configPath,
         public array  $infos,
     ) {
-        //
     }
 }

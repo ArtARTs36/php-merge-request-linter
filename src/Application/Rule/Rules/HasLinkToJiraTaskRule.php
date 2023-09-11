@@ -28,7 +28,6 @@ final class HasLinkToJiraTaskRule extends NamedRule
         #[Example('ABC')]
         private readonly Arrayee $projectCodes = new Arrayee([]),
     ) {
-        //
     }
 
     public function lint(MergeRequest $request): array

@@ -12,6 +12,5 @@ readonly class AddCommentInput
         public string $subjectId,
         public string $message,
     ) {
-        //
     }
 }

@@ -21,7 +21,6 @@ final class DiffLimitRule extends NamedRule
         #[Description('Maximum allowed number of changed lines in a file')]
         private readonly ?int $fileLinesMax,
     ) {
-        //
     }
 
     public function lint(MergeRequest $request): array

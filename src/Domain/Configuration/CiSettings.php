@@ -16,6 +16,5 @@ readonly class CiSettings
         public Authenticator $credentials,
         public array         $params,
     ) {
-        //
     }
 }

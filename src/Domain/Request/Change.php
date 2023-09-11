@@ -11,7 +11,6 @@ readonly class Change implements \JsonSerializable
         public string $file,
         public Diff   $diff,
     ) {
-        //
     }
 
     public function __toString(): string

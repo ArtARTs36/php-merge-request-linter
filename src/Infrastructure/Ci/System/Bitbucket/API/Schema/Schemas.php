@@ -12,6 +12,5 @@ readonly class Schemas
         public GetCommentsSchema    $commentsGet = new GetCommentsSchema(),
         public GetCurrentUserSchema $userGetCurrent = new GetCurrentUserSchema(),
     ) {
-        //
     }
 }

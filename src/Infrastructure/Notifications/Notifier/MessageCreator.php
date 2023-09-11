@@ -11,7 +11,6 @@ class MessageCreator
     public function __construct(
         private readonly TextRenderer $renderer,
     ) {
-        //
     }
 
     /**

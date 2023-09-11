@@ -7,6 +7,5 @@ abstract class BoolEvaluator extends Evaluator
     public function __construct(
         protected readonly bool $value,
     ) {
-        //
     }
 }

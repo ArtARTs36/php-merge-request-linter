@@ -17,6 +17,5 @@ class CommentList
         public readonly bool $hasNextPage,
         public readonly ?string $endCursor,
     ) {
-        //
     }
 }

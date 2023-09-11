@@ -12,6 +12,5 @@ readonly class Comment
         public string $body,
         public string $authorLogin,
     ) {
-        //
     }
 }

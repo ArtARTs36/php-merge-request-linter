@@ -156,7 +156,7 @@
                     ]
                 },
                 "@mr-linter/has_changes": {
-                    "description": "Merge Request must have changes in {files}.",
+                    "description": "Merge Request must have {changes}.",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_has_changes"
@@ -230,16 +230,16 @@
                         }
                     ]
                 },
-                "@mr-linter/update_changelog": {
-                    "description": "Changelog must be contained new tag.",
+                "@mr-linter/changelog_has_new_release": {
+                    "description": "Changelog must be contained new release.",
                     "oneOf": [
                         {
-                            "$ref": "#/definitions/rules_properties_@mr-linter_update_changelog"
+                            "$ref": "#/definitions/rules_properties_@mr-linter_changelog_has_new_release"
                         },
                         {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/rules_properties_@mr-linter_update_changelog"
+                                "$ref": "#/definitions/rules_properties_@mr-linter_changelog_has_new_release"
                             },
                             "minItems": 1
                         }
@@ -6402,7 +6402,8 @@
                     "$ref": "#/definitions/rule_conditions"
                 },
                 "definition": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Description about rule was failed"
                 }
             },
             "additionalProperties": false,
@@ -6492,7 +6493,7 @@
                 "files"
             ]
         },
-        "rules_properties_@mr-linter_update_changelog": {
+        "rules_properties_@mr-linter_changelog_has_new_release": {
             "type": "object",
             "properties": {
                 "critical": {
@@ -6510,27 +6511,13 @@
                         "CHANGELOG.md"
                     ]
                 },
-                "tags": {
+                "changes": {
                     "type": "object",
-                    "description": "Tags parsing options",
+                    "description": "Configuration for changes reading",
                     "properties": {
-                        "heading": {
-                            "type": "object",
-                            "description": "Headings parse options",
-                            "properties": {
-                                "level": {
-                                    "type": "integer",
-                                    "enum": [
-                                        1,
-                                        2,
-                                        3,
-                                        4,
-                                        5,
-                                        6
-                                    ],
-                                    "description": "Markdown heading level for tags"
-                                }
-                            }
+                        "types": {
+                            "type": "array",
+                            "description": "Set of allowed change types"
                         }
                     }
                 }

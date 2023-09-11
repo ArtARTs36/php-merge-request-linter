@@ -13,6 +13,5 @@ readonly class Comment
         public string $content,
         public string $authorAccountId,
     ) {
-        //
     }
 }

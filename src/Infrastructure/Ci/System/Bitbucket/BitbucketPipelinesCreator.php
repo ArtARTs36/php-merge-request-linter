@@ -30,7 +30,6 @@ final class BitbucketPipelinesCreator implements SystemCreator
         private readonly LoggerInterface $logger,
         private readonly Clock $clock,
     ) {
-        //
     }
 
     public function create(CiSettings $settings): CiSystem

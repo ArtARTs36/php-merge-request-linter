@@ -22,7 +22,6 @@ class ClientGuzzleWrapper implements Client
         private readonly PsrClient&GuzzleClient $http,
         private readonly LoggerInterface $logger,
     ) {
-        //
     }
 
     public function sendRequest(RequestInterface $request): ResponseInterface

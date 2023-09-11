@@ -13,7 +13,6 @@ class CompositeTransformer implements ConfigValueTransformer
     public function __construct(
         private readonly iterable $transformers,
     ) {
-        //
     }
 
     public function supports(string $value): bool

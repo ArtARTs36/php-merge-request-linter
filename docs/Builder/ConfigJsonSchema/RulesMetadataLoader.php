@@ -49,6 +49,10 @@ readonly class RulesMetadataLoader
         $metadataParams = [];
 
         foreach ($params as $param) {
+            if ($param->description === '')  {
+                continue;
+            }
+
             $enumValues = [];
 
             if ($param->type->class !== null && enum_exists($param->type->class)) {
@@ -82,6 +86,7 @@ readonly class RulesMetadataLoader
                 $genericObject,
                 $param->hasDefaultValue ? $param->getDefaultValue() : null,
                 $param->hasDefaultValue,
+                $param->getVirtualDefaultValues(),
             );
         }
 

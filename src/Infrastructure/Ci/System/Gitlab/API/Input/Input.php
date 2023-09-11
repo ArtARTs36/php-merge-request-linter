@@ -10,6 +10,5 @@ class Input
     public function __construct(
         public readonly string $apiUrl,
     ) {
-        //
     }
 }

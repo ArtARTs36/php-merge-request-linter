@@ -18,7 +18,6 @@ class LintEventsSubscriber implements EventSubscriber
         private readonly Printer $printer,
         private readonly bool $isDebug,
     ) {
-        //
     }
 
     public function getSubscribedEvents(): array

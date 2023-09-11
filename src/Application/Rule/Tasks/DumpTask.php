@@ -11,6 +11,5 @@ readonly class DumpTask
         public string  $workingDirectory,
         public ?string $customConfigPath,
     ) {
-        //
     }
 }

@@ -12,7 +12,6 @@ final class CompositeResolver implements TypeResolver
     public function __construct(
         private array $resolvers = [],
     ) {
-        //
     }
 
     public function add(string $type, TypeResolver $typeResolver): self

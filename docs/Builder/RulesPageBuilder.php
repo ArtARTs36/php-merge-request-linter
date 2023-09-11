@@ -9,6 +9,7 @@ use ArtARTs36\MergeRequestLinter\DocBuilder\ConfigJsonSchema\RulesMetadataLoader
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Renderer\TwigRenderer;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Reflector;
 
 class RulesPageBuilder
 {
@@ -79,15 +80,23 @@ class RulesPageBuilder
                 $name = $prefix . '.' . $param->name;
             }
 
+            $defaultValues = $this->resolveDefaultValues($param);
+
+            $isRequired = $param->required && count($defaultValues) === 0;
+
+            if ($isRequired && $param->type->isClass()) {
+                $isRequired = ! Reflector::canConstructWithoutParameters($param->type->class);
+            }
+
             $params[] = [
                 'name' => $name,
                 'type' => $param->jsonType,
-                'required' => $param->required,
+                'required' => $isRequired,
                 'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                 'description' => $param->description,
                 'examples' => $examples,
                 'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
-                'defaultValue' => $this->resolveDefaultValue($param),
+                'defaultValues' => $defaultValues,
             ];
 
             if ($param->type->isGeneric()) {
@@ -107,8 +116,8 @@ class RulesPageBuilder
                         'generic' => $param->type->isGeneric() ? JsonType::to($param->type->generic) : null,
                         'description' => $param->description,
                         'examples' => $examples,
-                        'isGenericObject' => $param->type->generic && class_exists($param->type->generic),
-                        'defaultValue' => $this->resolveDefaultValue($param),
+                        'isGenericObject' => true,
+                        'defaultValues' => new Arrayee($this->resolveDefaultValues($param)),
                     ];
 
                     $params = array_merge($params, $this->buildParams(
@@ -129,24 +138,28 @@ class RulesPageBuilder
         return $params;
     }
 
-    private function resolveDefaultValue(RuleParamMetadata $param): mixed
+    private function resolveDefaultValues(RuleParamMetadata $param): array
     {
+        if (count($param->virtualDefaultValues) > 0) {
+            return $param->virtualDefaultValues;
+        }
+
         if (! $param->hasDefaultValue) {
-            return 'none';
+            return [];
         }
 
         if ($param->type->class !== null) {
             if (is_a($param->type->class, Collection::class, true)) {
-                return 'none';
+                return [];
             }
 
             if (enum_exists($param->type->class)) {
-                return $param->defaultValue->value;
+                return [$param->defaultValue->value];
             }
 
-            return $param->defaultValue;
+            return [$param->defaultValue];
         }
 
-        return $param->defaultValue;
+        return [$param->defaultValue];
     }
 }

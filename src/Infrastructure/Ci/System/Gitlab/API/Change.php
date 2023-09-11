@@ -14,6 +14,5 @@ readonly class Change
         public string $oldPath,
         public Diff   $diff,
     ) {
-        //
     }
 }

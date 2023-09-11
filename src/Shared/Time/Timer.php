@@ -7,7 +7,6 @@ readonly class Timer
     public function __construct(
         private float $started,
     ) {
-        //
     }
 
     public static function start(): self

@@ -23,7 +23,6 @@ class MapProxy implements Map
         private readonly \Closure $mapFetcher,
         private readonly ?int $count = null,
     ) {
-        //
     }
 
     /**

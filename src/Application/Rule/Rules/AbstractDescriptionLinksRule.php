@@ -19,6 +19,5 @@ abstract class AbstractDescriptionLinksRule extends AbstractRule implements Rule
         #[Example('host.name')]
         protected readonly Set $domains,
     ) {
-        //
     }
 }

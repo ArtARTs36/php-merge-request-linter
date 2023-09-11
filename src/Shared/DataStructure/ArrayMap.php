@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Traits\CountProxy;
  * @template V
  * @template-implements Map<K, V>
  */
-class ArrayMap implements Map
+final class ArrayMap implements Map
 {
     use CountProxy;
     use ContainsAll;
@@ -21,7 +21,6 @@ class ArrayMap implements Map
     public function __construct(
         private readonly array $items,
     ) {
-        //
     }
 
     /**

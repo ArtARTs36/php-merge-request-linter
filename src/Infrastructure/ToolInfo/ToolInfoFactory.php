@@ -18,7 +18,6 @@ class ToolInfoFactory
     public function __construct(
         private readonly Clock $clock,
     ) {
-        //
     }
 
     public function create(): \ArtARTs36\MergeRequestLinter\Domain\ToolInfo\ToolInfo

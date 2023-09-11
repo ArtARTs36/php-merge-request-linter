@@ -15,7 +15,6 @@ class CiSettingsMapper
     public function __construct(
         private readonly array $authMappers,
     ) {
-        //
     }
 
     /**

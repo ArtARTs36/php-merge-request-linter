@@ -106,6 +106,14 @@ final class SetTest extends TestCase
         self::assertEquals($expected, $set->containsAll($values));
     }
 
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::empty
+     */
+    public function testEmpty(): void
+    {
+        self::assertEquals([], Set::empty()->values());
+    }
+
     public function providerForTestFromList(): array
     {
         return [
@@ -282,6 +290,30 @@ final class SetTest extends TestCase
                 'items' => [1, 2],
             ],
             $set->__debugInfo(),
+        );
+    }
+
+    public static function providerForTestMerge(): array
+    {
+        return [
+            [
+                'source' => [1, 2, 3],
+                'merging' => [2, 4],
+                'expected' => [1, 2, 3, 4],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\Set::merge
+     *
+     * @dataProvider providerForTestMerge
+     */
+    public function testMerge(array $source, array $merging, array $expected): void
+    {
+        self::assertEquals(
+            Set::fromList($expected),
+            Set::fromList($source)->merge($merging),
         );
     }
 }

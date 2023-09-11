@@ -13,7 +13,6 @@ final class ContainerResolver implements TypeResolver
     public function __construct(
         private readonly ContainerInterface $container,
     ) {
-        //
     }
 
     public function canResolve(Type $type, mixed $value): bool

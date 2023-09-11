@@ -53,7 +53,6 @@ class Client implements GithubClient
         private readonly UpdateCommentSchema $updateCommentSchema = new UpdateCommentSchema(),
         private readonly QueryErrorProcessor $queryPostProcessor = new QueryErrorProcessor(),
     ) {
-        //
     }
 
     public function getPullRequest(PullRequestInput $input): PullRequest

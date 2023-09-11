@@ -10,7 +10,6 @@ class ParameterMapBuilder
     public function __construct(
         private readonly TypeResolver $argResolver,
     ) {
-        //
     }
 
     /**

@@ -7,7 +7,6 @@ class Directory
     public function __construct(
         private readonly string $directory,
     ) {
-        //
     }
 
     public function pathTo(string $filename): string

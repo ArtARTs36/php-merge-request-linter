@@ -12,6 +12,5 @@ readonly class LinterConfig
     public function __construct(
         public LinterOptions $options,
     ) {
-        //
     }
 }

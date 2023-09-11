@@ -14,6 +14,5 @@ abstract class CompositeEvaluator implements ConditionEvaluator
         protected readonly iterable $value,
         protected readonly EvaluatingSubjectFactory $subjectFactory,
     ) {
-        //
     }
 }

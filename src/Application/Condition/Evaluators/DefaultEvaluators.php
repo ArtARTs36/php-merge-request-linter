@@ -96,6 +96,5 @@ final class DefaultEvaluators
 
     private function __construct()
     {
-        //
     }
 }

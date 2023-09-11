@@ -14,7 +14,6 @@ readonly class Type
         public ?string  $generic = null,
         public bool     $nullable = false,
     ) {
-        //
     }
 
     public function name(): string

@@ -16,7 +16,6 @@ class ListenerFactory
         private readonly MessageCreator $messageCreator,
         private readonly ContextLogger $contextLogger,
     ) {
-        //
     }
 
     public function create(NotificationEventMessage $message): Listener

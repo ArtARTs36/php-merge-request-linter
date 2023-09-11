@@ -67,7 +67,6 @@ class ApplicationFactory
         private readonly MapContainer $container = new MapContainer(),
         private readonly Environment $environment = new LocalEnvironment(),
     ) {
-        //
     }
 
     /**
