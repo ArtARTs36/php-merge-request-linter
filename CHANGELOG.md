@@ -6,14 +6,24 @@ This file contains changelogs.
 
 -----------------------------------------------------------------
 
+## [v0.19.0 (2023-09-11)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.18.1..0.19.0)
+
+### Added
+* Added Rule `@mr-linter/changelog_has_new_release` on contains new release
+
+### Removed
+* Removed Rule `@mr-linter/update_changelog`
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.19.0)
+
+-----------------------------------------------------------------
+
 ## [v0.18.1 (2023-09-04)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.18.0..0.18.1)
 
 ### Added
 * Resolve rule params with default value
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.18.1)
-
------------------------------------------------------------------
 
 -----------------------------------------------------------------
 
