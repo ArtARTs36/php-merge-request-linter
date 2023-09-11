@@ -75,6 +75,13 @@ rules:
         labels:
           has: "Feature"
 
+    - definition: "Split feature / bug PR"
+      rules:
+        labels:
+          notIntersect:
+            - Feature
+            - Bug
+
 notifications:
   channels:
     dev:
