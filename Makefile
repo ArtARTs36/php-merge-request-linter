@@ -141,6 +141,7 @@ lint-fix-docker: docker-build
 
 stat-analyse-docker: docker-build
 	docker run \
+		--rm \
 		--env-file .env \
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "stat-analyse"
