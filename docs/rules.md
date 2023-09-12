@@ -9,8 +9,7 @@ The following rules are available:
 | @mr-linter/description_contains_links_of_all_domains | Merge Request must contain links of all {domains}. |
 | @mr-linter/description_not_empty | The description must be filled. |
 | @mr-linter/has_all_labels | Merge Request must have all {labels} |
-| @mr-linter/has_any_labels | Merge Request must have any labels. |
-| @mr-linter/has_any_labels_of | Merge Request must have any {labels}. |
+| @mr-linter/has_any_labels | Merge Request must have any {labels}. |
 | @mr-linter/jira/has_issue_link | The description must have a link to Jira on a {domain} with {projectCode}. |
 | @mr-linter/youtrack/has_issue_link | The description must have a link to YouTrack issue on a {domain} with {projectCode}. |
 | @mr-linter/title_must_starts_with_any_prefix | The title must starts with any {prefixes} |
@@ -79,11 +78,6 @@ Merge Request must have all {labels}
 | labels | Array of labels | array  of strings  | true |  |  &quot;Feature&quot;,  &quot;Bug&quot;  |
 
 ## @mr-linter/has_any_labels
-
-Merge Request must have any labels.
-
-
-## @mr-linter/has_any_labels_of
 
 Merge Request must have any {labels}.
 
