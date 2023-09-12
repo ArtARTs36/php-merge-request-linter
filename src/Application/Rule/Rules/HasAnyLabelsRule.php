@@ -14,6 +14,10 @@ final class HasAnyLabelsRule extends AbstractLabelsRule
 
     protected function doLint(MergeRequest $request): bool
     {
+        if ($this->labels->isEmpty()) {
+            return ! $request->labels->isEmpty();
+        }
+
         return ! $this->labels->diff($request->labels)->equalsCount($this->labels);
     }
 

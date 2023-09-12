@@ -35,6 +35,15 @@ final class HasAnyLabelsRuleTest extends TestCase
                 ['Feature', 'Backend'],
                 'hasNotes' => false,
             ],
+            [
+                $this->makeMergeRequest([
+                    'labels' => [
+                        'Feature',
+                    ],
+                ]),
+                [],
+                'hasNotes' => false,
+            ],
         ];
     }
 
