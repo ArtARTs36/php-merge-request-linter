@@ -22,7 +22,7 @@ rules:
         {text_multiline}
       when:
         labels:
-          has: "bug"
+          has: "Bug"
 
   "@mr-linter/title_must_starts_with_any_prefix":
     prefixes:
