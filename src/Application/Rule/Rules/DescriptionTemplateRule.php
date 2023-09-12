@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;
 use ArtARTs36\Str\Facade\Str;
 
+#[Description('The description must match defined template')]
 final class DescriptionTemplateRule extends AbstractRule
 {
     public const NAME = '@mr-linter/description_template';

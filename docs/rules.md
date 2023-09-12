@@ -22,7 +22,7 @@ The following rules are available:
 | @mr-linter/no_ssh_keys | Prevent ssh keys from being included in the merge request. |
 | @mr-linter/disable_file_extensions | Disable adding files of certain extensions. |
 | @mr-linter/title_conventional | The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0. |
-| @mr-linter/description_template |  |
+| @mr-linter/description_template | The description must match defined template |
 
 ## Global parameters
 
@@ -221,7 +221,7 @@ The title must match conventional commit pattern https://www.conventionalcommits
 
 ## @mr-linter/description_template
 
-
+The description must match defined template
 
 ### Parameters
 

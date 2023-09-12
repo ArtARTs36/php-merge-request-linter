@@ -291,7 +291,7 @@
                     ]
                 },
                 "@mr-linter/description_template": {
-                    "description": "",
+                    "description": "The description must match defined template",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_description_template"
