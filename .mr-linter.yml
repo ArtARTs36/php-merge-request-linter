@@ -7,6 +7,23 @@ rules:
       - Tests
       - Optimization
 
+  "@mr-linter/description_template":
+    - definition: description must have list of features
+      template: |
+        ## Added
+        {text_multiline}
+      when:
+        labels:
+          has: "Feature"
+
+    - definition: description must have list of fixed bugs
+      template: |
+        ## Fixed
+        {text_multiline}
+      when:
+        labels:
+          has: "bug"
+
   "@mr-linter/title_must_starts_with_any_prefix":
     prefixes:
       - '[Feature]'
@@ -52,28 +69,6 @@ rules:
       rules:
         sourceBranch:
           isKebabCase: true
-
-    - definition: "Labels must be in StudlyCase"
-      rules:
-        labels:
-          $all:
-            isStudlyCase: true
-
-    - definition: "Description must have list of fixed bugs"
-      rules:
-        descriptionMarkdown:
-          containsHeading2: "Fixed"
-      when:
-        labels:
-          has: "Bug"
-
-    - definition: "Description must have list of features"
-      rules:
-        descriptionMarkdown:
-          containsHeading2: "Added"
-      when:
-        labels:
-          has: "Feature"
 
     - definition: "Split feature / bug PR"
       rules:

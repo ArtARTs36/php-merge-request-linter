@@ -33,6 +33,7 @@ final class DefaultRules
         NoSshKeysRule::NAME => NoSshKeysRule::class,
         DisableFileExtensionsRule::NAME => DisableFileExtensionsRule::class,
         TitleConventionalRule::NAME => TitleConventionalRule::class,
+        DescriptionTemplateRule::NAME => DescriptionTemplateRule::class,
     ];
 
     /**

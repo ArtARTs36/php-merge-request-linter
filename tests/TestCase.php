@@ -93,6 +93,19 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         ));
     }
 
+    protected function assertRuleNotes(MergeRequest $request, Rule $rule, array $expectedNotes): void
+    {
+        $notes = $rule->lint($request);
+
+        self::assertEquals($expectedNotes, array_map('strval', $notes), sprintf(
+            'Given %d notes: %s',
+            count($notes),
+            implode(', ', array_map(function (Note $note) {
+                return $note->getDescription();
+            }, $notes)),
+        ));
+    }
+
     protected function getPropertyValue(object $obj, string $prop): mixed
     {
         return (fn ($prop) => $this->$prop)->call($obj, $prop);

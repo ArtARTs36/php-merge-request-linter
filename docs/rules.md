@@ -23,6 +23,7 @@ The following rules are available:
 | @mr-linter/no_ssh_keys | Prevent ssh keys from being included in the merge request. |
 | @mr-linter/disable_file_extensions | Disable adding files of certain extensions. |
 | @mr-linter/title_conventional | The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0. |
+| @mr-linter/description_template |  |
 
 ## Global parameters
 
@@ -223,3 +224,14 @@ The title must match conventional commit pattern https://www.conventionalcommits
 | types | Commit types | array  of strings  | false | `[build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test]`  |  &quot;build&quot;,  &quot;chore&quot;,  &quot;ci&quot;,  &quot;docs&quot;,  &quot;feat&quot;,  &quot;fix&quot;,  &quot;perf&quot;,  &quot;refactor&quot;,  &quot;revert&quot;,  &quot;style&quot;,  &quot;test&quot;  |
 | task | Check if title contains task number | object  | false | NULL  |  |
 | task.projectCodes | Project codes. Empty list allowed for any projects | array  of strings  | false |  |  &quot;ABC&quot;  |
+
+## @mr-linter/description_template
+
+
+
+### Parameters
+
+| Name | Description | Type | Required | Default value |
+|------|-------------|------|----------|---------------|
+| template | Template for description | string  | true |  |
+| definition | Custom definition | string  | false | NULL  |

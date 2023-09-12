@@ -91,7 +91,7 @@ docker-pub-try:
 		-v "${PWD}/.mr-linter.yml:/app/.mr-linter.yml:ro" \
 		artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
 
-docs: ## Build documentation
+docs: docker-build ## Build documentation
 	docker run \
 		--rm \
 		--volume ./:/app \

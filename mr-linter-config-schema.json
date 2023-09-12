@@ -304,6 +304,21 @@
                             "minItems": 1
                         }
                     ]
+                },
+                "@mr-linter/description_template": {
+                    "description": "",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_description_template"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_description_template"
+                            },
+                            "minItems": 1
+                        }
+                    ]
                 }
             },
             "additionalProperties": false
@@ -6724,6 +6739,31 @@
                 }
             },
             "additionalProperties": false
+        },
+        "rules_properties_@mr-linter_description_template": {
+            "type": "object",
+            "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "template": {
+                    "type": "string",
+                    "description": "Template for description"
+                },
+                "definition": {
+                    "type": "string",
+                    "description": "Custom definition"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "template"
+            ]
         },
         "notifications_channel_telegram_bot": {
             "properties": {
