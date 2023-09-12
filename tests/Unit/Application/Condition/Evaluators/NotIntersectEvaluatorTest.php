@@ -14,11 +14,6 @@ final class NotIntersectEvaluatorTest extends TestCase
     {
         return [
             [
-                [],
-                new Arrayee([]),
-                true,
-            ],
-            [
                 [1, 2],
                 new Arrayee([]),
                 true,
@@ -48,13 +43,23 @@ final class NotIntersectEvaluatorTest extends TestCase
                 new Arrayee([1, 2]),
                 false,
             ],
+            [
+                [1, 2, 3],
+                new Arrayee([1, 2, 3]),
+                false,
+            ],
+            [
+                [1, 2, 3],
+                new Arrayee([1, 2, 3, 4]),
+                false,
+            ],
         ];
     }
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotIntersectEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotIntersectEvaluator::doEvaluate
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotIntersectEvaluator::collectionContainsDifferentValues
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotIntersectEvaluator::collectionIsIntersectValues
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\NotIntersectEvaluator::__construct
      *
      * @dataProvider providerForTestEvaluate

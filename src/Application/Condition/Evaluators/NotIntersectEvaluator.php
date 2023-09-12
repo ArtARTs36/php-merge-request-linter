@@ -17,7 +17,7 @@ final class NotIntersectEvaluator extends Evaluator
     public const NAME = 'notIntersect';
 
     /**
-     * @param array<K, V> $value
+     * @param non-empty-array<K, V> $value
      */
     public function __construct(
         #[Generic(Generic::OF_STRING)]
@@ -27,7 +27,7 @@ final class NotIntersectEvaluator extends Evaluator
 
     protected function doEvaluate(EvaluatingSubject $subject): bool
     {
-        return ! $this->collectionContainsDifferentValues(
+        return ! $this->collectionIsIntersectValues(
             $subject->interface(Collection::class),
         );
     }
@@ -35,22 +35,14 @@ final class NotIntersectEvaluator extends Evaluator
     /**
      * @param Collection<K, V> $collection
      */
-    protected function collectionContainsDifferentValues(Collection $collection): bool
+    protected function collectionIsIntersectValues(Collection $collection): bool
     {
-        $matched = 0;
-
         foreach ($this->value as $val) {
             if (! $collection->contains($val)) {
-                continue;
-            }
-
-            $matched++;
-
-            if ($matched === 2) {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 }
