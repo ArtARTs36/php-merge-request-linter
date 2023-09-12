@@ -4,7 +4,14 @@ This file contains changelogs.
 
 [View all Releases](https://github.com/ArtARTs36/php-merge-request-linter/releases)
 
-## [Unreleased](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.1..master)
+## [Unreleased](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.1..master)
+
+## [v0.20.1 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.0..0.20.1)
+
+### Fixed
+* Fixed rule "@mr-linter/has_any_labels" on empty labels
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.20.1)
 
 ## [v0.20.0 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.1..0.20.0)
 
