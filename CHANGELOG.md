@@ -4,6 +4,13 @@ This file contains changelogs.
 
 [View all Releases](https://github.com/ArtARTs36/php-merge-request-linter/releases)
 
+## [v0.19.1 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.0..0.19.1)
+
+### Added
+* Added an Evaluator `notIntersect` to check that the array does not intersect with the user array.
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.19.1)
+
 -----------------------------------------------------------------
 
 ## [v0.19.0 (2023-09-11)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.18.1..0.19.0)
@@ -15,15 +22,6 @@ This file contains changelogs.
 * Removed Rule `@mr-linter/update_changelog`
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.19.0)
-
------------------------------------------------------------------
-
-## [v0.19.1 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.0..0.19.1)
-
-### Added
-* Added an Evaluator `notIntersect` to check that the array does not intersect with the user array.
-
-[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.19.1)
 
 -----------------------------------------------------------------
 
