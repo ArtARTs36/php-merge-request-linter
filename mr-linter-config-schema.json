@@ -291,7 +291,7 @@
                     ]
                 },
                 "@mr-linter/description_template": {
-                    "description": "The description must match defined template",
+                    "description": "The description must match defined template. Available placeholders: {text}, {text_multiline}, {number}, {word}, {release_tag}",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_description_template"
