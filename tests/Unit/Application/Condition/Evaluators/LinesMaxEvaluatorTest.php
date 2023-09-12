@@ -27,6 +27,7 @@ final class LinesMaxEvaluatorTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LinesMaxEvaluator::evaluate
      * @covers \ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\LinesMaxEvaluator::doEvaluate
+     *
      * @dataProvider providerForTestEvaluate
      */
     public function testEvaluate(string $str, int $value, bool $expected): void
