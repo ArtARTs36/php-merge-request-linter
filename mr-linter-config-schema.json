@@ -81,7 +81,7 @@
                     ]
                 },
                 "@mr-linter/has_any_labels": {
-                    "description": "Merge Request must have any labels.",
+                    "description": "Merge Request must have any {labels}.",
                     "oneOf": [
                         {
                             "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels"
@@ -90,21 +90,6 @@
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels"
-                            },
-                            "minItems": 1
-                        }
-                    ]
-                },
-                "@mr-linter/has_any_labels_of": {
-                    "description": "Merge Request must have any {labels}.",
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels_of"
-                        },
-                        {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/rules_properties_@mr-linter_has_any_labels_of"
                             },
                             "minItems": 1
                         }
@@ -300,6 +285,21 @@
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/rules_properties_@mr-linter_title_conventional"
+                            },
+                            "minItems": 1
+                        }
+                    ]
+                },
+                "@mr-linter/description_template": {
+                    "description": "The description must match defined template. Available placeholders: {text}, {text_multiline}, {number}, {word}, {release_tag}",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/rules_properties_@mr-linter_description_template"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/rules_properties_@mr-linter_description_template"
                             },
                             "minItems": 1
                         }
@@ -6282,20 +6282,6 @@
                 "when": {
                     "description": "Conditions that determine whether the rule should run.",
                     "$ref": "#/definitions/rule_conditions"
-                }
-            },
-            "additionalProperties": false
-        },
-        "rules_properties_@mr-linter_has_any_labels_of": {
-            "type": "object",
-            "properties": {
-                "critical": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "when": {
-                    "description": "Conditions that determine whether the rule should run.",
-                    "$ref": "#/definitions/rule_conditions"
                 },
                 "labels": {
                     "type": "array",
@@ -6724,6 +6710,31 @@
                 }
             },
             "additionalProperties": false
+        },
+        "rules_properties_@mr-linter_description_template": {
+            "type": "object",
+            "properties": {
+                "critical": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "when": {
+                    "description": "Conditions that determine whether the rule should run.",
+                    "$ref": "#/definitions/rule_conditions"
+                },
+                "template": {
+                    "type": "string",
+                    "description": "Template for description"
+                },
+                "definition": {
+                    "type": "string",
+                    "description": "Custom definition"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "template"
+            ]
         },
         "notifications_channel_telegram_bot": {
             "properties": {

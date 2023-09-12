@@ -9,8 +9,7 @@ The following rules are available:
 | @mr-linter/description_contains_links_of_all_domains | Merge Request must contain links of all {domains}. |
 | @mr-linter/description_not_empty | The description must be filled. |
 | @mr-linter/has_all_labels | Merge Request must have all {labels} |
-| @mr-linter/has_any_labels | Merge Request must have any labels. |
-| @mr-linter/has_any_labels_of | Merge Request must have any {labels}. |
+| @mr-linter/has_any_labels | Merge Request must have any {labels}. |
 | @mr-linter/jira/has_issue_link | The description must have a link to Jira on a {domain} with {projectCode}. |
 | @mr-linter/youtrack/has_issue_link | The description must have a link to YouTrack issue on a {domain} with {projectCode}. |
 | @mr-linter/title_must_starts_with_any_prefix | The title must starts with any {prefixes} |
@@ -23,6 +22,7 @@ The following rules are available:
 | @mr-linter/no_ssh_keys | Prevent ssh keys from being included in the merge request. |
 | @mr-linter/disable_file_extensions | Disable adding files of certain extensions. |
 | @mr-linter/title_conventional | The title must match conventional commit pattern https://www.conventionalcommits.org/en/v1.0.0. |
+| @mr-linter/description_template | The description must match defined template. Available placeholders: {text}, {text_multiline}, {number}, {word}, {release_tag} |
 
 ## Global parameters
 
@@ -78,11 +78,6 @@ Merge Request must have all {labels}
 | labels | Array of labels | array  of strings  | true |  |  &quot;Feature&quot;,  &quot;Bug&quot;  |
 
 ## @mr-linter/has_any_labels
-
-Merge Request must have any labels.
-
-
-## @mr-linter/has_any_labels_of
 
 Merge Request must have any {labels}.
 
@@ -223,3 +218,14 @@ The title must match conventional commit pattern https://www.conventionalcommits
 | types | Commit types | array  of strings  | false | `[build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test]`  |  &quot;build&quot;,  &quot;chore&quot;,  &quot;ci&quot;,  &quot;docs&quot;,  &quot;feat&quot;,  &quot;fix&quot;,  &quot;perf&quot;,  &quot;refactor&quot;,  &quot;revert&quot;,  &quot;style&quot;,  &quot;test&quot;  |
 | task | Check if title contains task number | object  | false | NULL  |  |
 | task.projectCodes | Project codes. Empty list allowed for any projects | array  of strings  | false |  |  &quot;ABC&quot;  |
+
+## @mr-linter/description_template
+
+The description must match defined template. Available placeholders: {text}, {text_multiline}, {number}, {word}, {release_tag}
+
+### Parameters
+
+| Name | Description | Type | Required | Default value |
+|------|-------------|------|----------|---------------|
+| template | Template for description | string  | true |  |
+| definition | Custom definition | string  | false | NULL  |

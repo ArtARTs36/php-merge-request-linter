@@ -22,7 +22,7 @@ index 0000000..c66bfc1
 +++ b/.mr-linter.yml
 @@ -0,0 +1,14 @@
 +rules:
-+  "@mr-linter/has_any_labels_of":
++  "@mr-linter/has_any_labels":
 +    labels:
 +      - Feature
 +      - Bug
@@ -63,7 +63,7 @@ index 0000000..c66bfc1
             new DiffFragment(
                 DiffType::NEW,
                 Str::make('rules:
-  "@mr-linter/has_any_labels_of":
+  "@mr-linter/has_any_labels":
     labels:
       - Feature
       - Bug

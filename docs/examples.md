@@ -28,7 +28,7 @@ You can also specify a list of allowed labels.
 
 ```yaml
 rules:
-  "@mr-linter/has_any_labels_of":
+  "@mr-linter/has_any_labels":
     labels:
       - Feature
       - Bug
