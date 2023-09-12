@@ -83,6 +83,9 @@
         ],
         "test-e2e": [
             "./vendor/bin/phpunit --filter testLint ./tests/E2E/LintE2ETest.php"
+        ],
+        "docs": [
+            "@php ./docs/builder/build.php"
         ]
     },
     "config": {
