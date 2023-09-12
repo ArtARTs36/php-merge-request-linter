@@ -6,6 +6,16 @@ This file contains changelogs.
 
 ## [Unreleased](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.1..master)
 
+## [v0.20.0 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.1..0.20.0)
+
+### Added
+* Added Rule `@mr-linter/description_template` for check description on defined template
+
+### Removed
+* Removed rule `@mr-linter/has_any_labels_of`
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.20.0)
+
 ## [v0.19.1 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.0..0.19.1)
 
 ### Added
@@ -180,7 +190,6 @@ This file contains changelogs.
 * Turn on forgotten rule "@mr-linter/forbid_changes"
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.14.1)
-
 
 -----------------------------------------------------------------
 
