@@ -4,31 +4,25 @@ ifneq ("$(wildcard .env)","")
 endif
 
 .PHONY: docs
+.DEFAULT_GOAL: help
 
-env:
+# Thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+help: ## Show this help
+	@printf "\033[33m%s:\033[0m\n" 'Available commands'
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {printf "  \033[32m%-18s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+env: ## Create environment file for local testing
 	echo "MR_LINTER_GITHUB_HTTP_TOKEN=token\nMR_LINTER_GITLAB_HTTP_TOKEN=token\n" > .env
 	echo "E2E_MR_LINTER_GITHUB_HTTP_TOKEN=token\nE2E_MR_LINTER_GITLAB_HTTP_TOKEN=token" >> .env
 	echo "E2E_MR_LINTER_BITBUCKET_APP_USER=token\nE2E_MR_LINTER_BITBUCKET_APP_PASSWORD=token\n" >> .env
 
-# usage as `make try MR_ID=1`
-try:
-	GITHUB_ACTIONS=1 \
-	GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
-	GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
-	GITHUB_REF_NAME=${MR_ID}/merge \
-	./bin/mr-linter lint --debug --metrics
+#######################################
+# Locally run of MR-Linter
+######################################
 
-# usage as `make try-phar MR_ID=1`
-try-phar: build-phar
-	GITHUB_ACTIONS=1 \
-	GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
-	GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
-	GITHUB_REF_NAME=${MR_ID}/merge \
-	./bin/build/mr-linter.phar lint --debug --metrics
-
-# usage as `make try MR_ID=1`
-try-docker: docker-build
+try: docker-build ## Try lint on docker with GitHub Actions: usage as `make try MR_ID=1`
 	docker run \
+		--rm \
 		--env-file .env \
 		--env GITHUB_ACTIONS=1 \
 		--env GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
@@ -36,27 +30,39 @@ try-docker: docker-build
 		--env GITHUB_REF_NAME=${MR_ID}/merge \
 		artarts36/merge-request-linter:testing "lint" --debug --metrics
 
-# usage as `make try-gitlab MR_ID=1`
-try-gitlab:
-	GITLAB_CI=1 \
-	CI_MERGE_REQUEST_IID=${MR_ID} \
-	CI_MERGE_REQUEST_PROJECT_ID=41749211 \
-	CI_SERVER_URL=https://gitlab.com \
- 	./bin/mr-linter lint --debug --metrics
+try-gitlab: ## Try lint on docker with Gitlab CI: usage as `make try-gitlab MR_ID=1`
+	docker run \
+		--rm \
+		--env-file .env \
+		--env GITLAB_CI=1 \
+		--env CI_MERGE_REQUEST_IID=${MR_ID} \
+		--env CI_MERGE_REQUEST_PROJECT_ID=41749211 \
+		--env CI_SERVER_URL=https://gitlab.com \
+		artarts36/merge-request-linter:testing "lint" --debug --metrics
 
-# usage as `make try-bitbucket MR_ID=2`
-try-bitbucket:
-	BITBUCKET_PROJECT_KEY=ArtARTs36 \
-	BITBUCKET_PR_ID=${MR_ID} \
-	BITBUCKET_WORKSPACE=ArtARTs36 \
-	BITBUCKET_REPO_SLUG=test-repo \
- 	./bin/mr-linter lint --debug --metrics
+try-bitbucket: ## Try lint on docker with Gitlab CI: usage as `make try-bitbucket MR_ID=1`
+	docker run \
+		--rm \
+		--env-file .env \
+		--env BITBUCKET_PROJECT_KEY=ArtARTs36 \
+		--env BITBUCKET_PR_ID=${MR_ID} \
+		--env BITBUCKET_WORKSPACE=ArtARTs36 \
+		--env BITBUCKET_REPO_SLUG=test-repo \
+		artarts36/merge-request-linter:testing "lint" --debug --metrics
 
-docker-build:
+try-phar: build-phar ## Try lint on PHAR: usage as `make try-phar MR_ID=1`
+	GITHUB_ACTIONS=1 \
+	GITHUB_REPOSITORY=artarts36/php-merge-request-linter \
+	GITHUB_GRAPHQL_URL=https://api.github.com/graphql \
+	GITHUB_REF_NAME=${MR_ID}/merge \
+	./bin/build/mr-linter.phar lint --debug --metrics
+
+#######################################
+# Build of MR-Linter
+######################################
+
+docker-build: ## Build docker image for local testing
 	docker build . -t artarts36/merge-request-linter:testing
-
-docker-lint: docker-build
-	docker run artarts36/merge-request-linter lint
 
 # usage as `make docker-pub-build MR_LINTER_VERSION=0.2.0`
 docker-pub-build:
@@ -85,12 +91,7 @@ docker-pub-try:
 		-v "${PWD}/.mr-linter.yml:/app/.mr-linter.yml:ro" \
 		artarts36/merge-request-linter:${MR_LINTER_VERSION} lint
 
-docs:
-	php docs/Builder/build_rules.php
-	php docs/Builder/build_config_json_schema.php
-	php docs/Builder/build_conditions.php
-
-docs-docker: docker-build
+docs: docker-build ## Build documentation
 	docker run \
 		--rm \
 		--volume ./:/app \
@@ -110,16 +111,18 @@ check: deps-check
 	composer deptrac
 	composer test
 
-info:
-	./bin/mr-linter info
-
-dump:
-	./bin/mr-linter dump
-
-dump-docker: docker-build
+info: ## Run "mr-linter info" on docker
 	docker run \
+		--rm \
 		--volume ./:/app \
-		--entrypoint "make" \
+		--env-file .env \
+		artarts36/merge-request-linter:testing "info"
+
+dump: ## Run "mr-linter dump" on docker
+	docker run \
+		--rm \
+		--volume ./:/app \
+		--env-file .env \
 		artarts36/merge-request-linter:testing "dump"
 
 push-docs:
@@ -139,38 +142,38 @@ lint-fix-docker: docker-build
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "lint-fix"
 
-stat-analyse-docker: docker-build
+stat-analyse: docker-build
 	docker run \
 		--rm \
 		--env-file .env \
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "stat-analyse"
 
-test-e2e:
-	composer test-e2e
-
-test-e2e-docker: docker-build
+test-e2e: docker-build
 	docker run \
+		--rm \
 		--env-file .env \
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "test-e2e"
 
-test-docker: docker-build
+test: docker-build ## Run tests
 	docker run \
+		--rm \
 		--volume ./:/app/ \
 		--env-file .env \
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "test"
 
-deptrac-docker: docker-build
+deptrac: docker-build ## Run deptrac
 	docker run \
+		--rm \
 		--env-file .env \
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "deptrac"
 
-check-docker: lint-docker stat-analyse-docker test-docker deptrac-docker
+check-docker: lint-docker stat-analyse test deptrac
 
-build-phar:
+build-phar: ## Build PHAR
 	composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
 	cd dev/build/ && composer install
 	./dev/build/vendor/bin/box compile
