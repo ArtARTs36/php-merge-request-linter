@@ -4,6 +4,8 @@ This file contains changelogs.
 
 [View all Releases](https://github.com/ArtARTs36/php-merge-request-linter/releases)
 
+## [Unreleased](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.1..master)
+
 ## [v0.19.1 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.0..0.19.1)
 
 ### Added
