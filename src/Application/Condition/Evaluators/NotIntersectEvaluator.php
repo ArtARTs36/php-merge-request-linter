@@ -11,7 +11,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Collection;
  * @template K of int|string
  * @template V
  */
-#[Description('Check if an array contains only one value of list.')]
+#[Description('Check that the array does not intersect with the user array.')]
 final class NotIntersectEvaluator extends Evaluator
 {
     public const NAME = 'notIntersect';

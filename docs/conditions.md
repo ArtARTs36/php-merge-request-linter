@@ -48,5 +48,5 @@ Currently is available that operators:
 | containsHeading4 | Check if a markdown-string contains a heading. | string |
 | containsHeading5 | Check if a markdown-string contains a heading. | string |
 | containsHeading6 | Check if a markdown-string contains a heading. | string |
-| notIntersect | Check if an array contains only one value of list. | array of strings |
+| notIntersect | Check that the array does not intersect with the user array. | array of strings |
 
