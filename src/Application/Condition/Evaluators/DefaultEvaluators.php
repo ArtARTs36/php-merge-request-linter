@@ -84,6 +84,7 @@ final class DefaultEvaluators
         ContainsHeadingEvaluator::NAME_HEADING_4 => ContainsHeadingEvaluator::class,
         ContainsHeadingEvaluator::NAME_HEADING_5 => ContainsHeadingEvaluator::class,
         ContainsHeadingEvaluator::NAME_HEADING_6 => ContainsHeadingEvaluator::class,
+        NotIntersectEvaluator::NAME              => NotIntersectEvaluator::class,
     ];
 
     /**

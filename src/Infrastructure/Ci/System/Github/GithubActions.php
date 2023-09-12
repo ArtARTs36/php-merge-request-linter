@@ -58,7 +58,7 @@ final class GithubActions implements CiSystem
     {
         try {
             $requestId = $this->env->getMergeRequestId();
-        } catch (EnvironmentException $e) {
+        } catch (EnvironmentException|InvalidEnvironmentVariableValueException $e) {
             throw new FetchMergeRequestException(sprintf(
                 'Unable to fetch merge request id: %s',
                 $e->getMessage(),

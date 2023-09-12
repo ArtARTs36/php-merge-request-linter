@@ -817,6 +817,13 @@
                                                     }
                                                 },
                                                 "additionalProperties": false
+                                            },
+                                            "notIntersect": {
+                                                "description": "Check that the array does not intersect with the user array.",
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
                                             }
                                         },
                                         "additionalProperties": false
@@ -1250,6 +1257,13 @@
                                             "isEmpty": {
                                                 "description": "Check if a value is empty.",
                                                 "type": "boolean"
+                                            },
+                                            "notIntersect": {
+                                                "description": "Check that the array does not intersect with the user array.",
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
                                             }
                                         },
                                         "additionalProperties": false
@@ -1718,6 +1732,13 @@
                                             "isEmpty": {
                                                 "description": "Check if a value is empty.",
                                                 "type": "boolean"
+                                            },
+                                            "notIntersect": {
+                                                "description": "Check that the array does not intersect with the user array.",
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
                                             }
                                         },
                                         "additionalProperties": false
@@ -2362,6 +2383,13 @@
                                                         }
                                                     },
                                                     "additionalProperties": false
+                                                },
+                                                "notIntersect": {
+                                                    "description": "Check that the array does not intersect with the user array.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2795,6 +2823,13 @@
                                                 "isEmpty": {
                                                     "description": "Check if a value is empty.",
                                                     "type": "boolean"
+                                                },
+                                                "notIntersect": {
+                                                    "description": "Check that the array does not intersect with the user array.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -3741,6 +3776,13 @@
                                                         }
                                                     },
                                                     "additionalProperties": false
+                                                },
+                                                "notIntersect": {
+                                                    "description": "Check that the array does not intersect with the user array.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4174,6 +4216,13 @@
                                                 "isEmpty": {
                                                     "description": "Check if a value is empty.",
                                                     "type": "boolean"
+                                                },
+                                                "notIntersect": {
+                                                    "description": "Check that the array does not intersect with the user array.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4642,6 +4691,13 @@
                                                 "isEmpty": {
                                                     "description": "Check if a value is empty.",
                                                     "type": "boolean"
+                                                },
+                                                "notIntersect": {
+                                                    "description": "Check that the array does not intersect with the user array.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
                                                 }
                                             },
                                             "additionalProperties": false
@@ -5324,6 +5380,13 @@
                                 }
                             },
                             "additionalProperties": false
+                        },
+                        "notIntersect": {
+                            "description": "Check that the array does not intersect with the user array.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": false
@@ -5757,6 +5820,13 @@
                         "isEmpty": {
                             "description": "Check if a value is empty.",
                             "type": "boolean"
+                        },
+                        "notIntersect": {
+                            "description": "Check that the array does not intersect with the user array.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     },
                     "additionalProperties": false
