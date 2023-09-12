@@ -19,7 +19,6 @@ final class DefaultRules
         DescriptionNotEmptyRule::NAME => DescriptionNotEmptyRule::class,
         HasAllLabelsOfRule::NAME => HasAllLabelsOfRule::class,
         HasAnyLabelsRule::NAME => HasAnyLabelsRule::class,
-        HasAnyLabelsOfRule::NAME => HasAnyLabelsOfRule::class,
         HasLinkToJiraTaskRule::NAME => HasLinkToJiraTaskRule::class,
         HasLinkToYouTrackIssueRule::NAME => HasLinkToYouTrackIssueRule::class,
         TitleStartsWithAnyPrefixRule::NAME => TitleStartsWithAnyPrefixRule::class,
