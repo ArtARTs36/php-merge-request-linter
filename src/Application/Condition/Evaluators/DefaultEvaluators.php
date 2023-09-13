@@ -20,6 +20,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\IsUpperCaseEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsLineEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsNumberEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\EndsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\IsNumberEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMaxEvaluator;
@@ -87,6 +88,7 @@ final class DefaultEvaluators
         ContainsHeadingEvaluator::NAME_HEADING_6 => ContainsHeadingEvaluator::class,
         NotIntersectEvaluator::NAME              => NotIntersectEvaluator::class,
         IsNumberEvaluator::NAME                  => IsNumberEvaluator::class,
+        ContainsNumberEvaluator::NAME            => ContainsNumberEvaluator::class,
     ];
 
     /**

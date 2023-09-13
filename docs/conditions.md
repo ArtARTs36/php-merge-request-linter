@@ -50,4 +50,5 @@ Currently is available that operators:
 | containsHeading6 | Check if a markdown-string contains a heading. | string |
 | notIntersect | Check that the array does not intersect with the user array. | array of strings |
 | isNumber | Check if value are number. | boolean |
+| containsNumber |  | boolean |
 

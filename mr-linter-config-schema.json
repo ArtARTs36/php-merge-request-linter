@@ -430,6 +430,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -564,6 +568,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -715,6 +723,10 @@
                                                     "notStartsAny": {
                                                         "description": "Check if a string not contains a prefixes.",
                                                         "type": "string"
+                                                    },
+                                                    "isNumber": {
+                                                        "description": "Check if value are number.",
+                                                        "type": "boolean"
                                                     }
                                                 },
                                                 "additionalProperties": false
@@ -814,6 +826,10 @@
                                                     "notStartsAny": {
                                                         "description": "Check if a string not contains a prefixes.",
                                                         "type": "string"
+                                                    },
+                                                    "isNumber": {
+                                                        "description": "Check if value are number.",
+                                                        "type": "boolean"
                                                     }
                                                 },
                                                 "additionalProperties": false
@@ -950,6 +966,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -1054,6 +1074,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -1158,6 +1182,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -1368,6 +1396,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -1472,6 +1504,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -1576,6 +1612,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -1680,6 +1720,10 @@
                                                 "items": {
                                                     "type": "string"
                                                 }
+                                            },
+                                            "isNumber": {
+                                                "description": "Check if value are number.",
+                                                "type": "boolean"
                                             }
                                         },
                                         "additionalProperties": false
@@ -1996,6 +2040,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2130,6 +2178,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2281,6 +2333,10 @@
                                                         "notStartsAny": {
                                                             "description": "Check if a string not contains a prefixes.",
                                                             "type": "string"
+                                                        },
+                                                        "isNumber": {
+                                                            "description": "Check if value are number.",
+                                                            "type": "boolean"
                                                         }
                                                     },
                                                     "additionalProperties": false
@@ -2380,6 +2436,10 @@
                                                         "notStartsAny": {
                                                             "description": "Check if a string not contains a prefixes.",
                                                             "type": "string"
+                                                        },
+                                                        "isNumber": {
+                                                            "description": "Check if value are number.",
+                                                            "type": "boolean"
                                                         }
                                                     },
                                                     "additionalProperties": false
@@ -2516,6 +2576,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2620,6 +2684,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2724,6 +2792,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -2934,6 +3006,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -3038,6 +3114,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -3142,6 +3222,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -3263,6 +3347,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -3389,6 +3477,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -3523,6 +3615,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -3674,6 +3770,10 @@
                                                         "notStartsAny": {
                                                             "description": "Check if a string not contains a prefixes.",
                                                             "type": "string"
+                                                        },
+                                                        "isNumber": {
+                                                            "description": "Check if value are number.",
+                                                            "type": "boolean"
                                                         }
                                                     },
                                                     "additionalProperties": false
@@ -3773,6 +3873,10 @@
                                                         "notStartsAny": {
                                                             "description": "Check if a string not contains a prefixes.",
                                                             "type": "string"
+                                                        },
+                                                        "isNumber": {
+                                                            "description": "Check if value are number.",
+                                                            "type": "boolean"
                                                         }
                                                     },
                                                     "additionalProperties": false
@@ -3909,6 +4013,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4013,6 +4121,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4117,6 +4229,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4327,6 +4443,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4431,6 +4551,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4535,6 +4659,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4639,6 +4767,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4857,6 +4989,10 @@
                                                     "items": {
                                                         "type": "string"
                                                     }
+                                                },
+                                                "isNumber": {
+                                                    "description": "Check if value are number.",
+                                                    "type": "boolean"
                                                 }
                                             },
                                             "additionalProperties": false
@@ -4993,6 +5129,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isNumber": {
+                            "description": "Check if value are number.",
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
@@ -5127,6 +5267,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isNumber": {
+                            "description": "Check if value are number.",
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
@@ -5278,6 +5422,10 @@
                                 "notStartsAny": {
                                     "description": "Check if a string not contains a prefixes.",
                                     "type": "string"
+                                },
+                                "isNumber": {
+                                    "description": "Check if value are number.",
+                                    "type": "boolean"
                                 }
                             },
                             "additionalProperties": false
@@ -5377,6 +5525,10 @@
                                 "notStartsAny": {
                                     "description": "Check if a string not contains a prefixes.",
                                     "type": "string"
+                                },
+                                "isNumber": {
+                                    "description": "Check if value are number.",
+                                    "type": "boolean"
                                 }
                             },
                             "additionalProperties": false
@@ -5513,6 +5665,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isNumber": {
+                            "description": "Check if value are number.",
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
@@ -5617,6 +5773,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isNumber": {
+                            "description": "Check if value are number.",
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
@@ -5721,6 +5881,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isNumber": {
+                            "description": "Check if value are number.",
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
@@ -5931,6 +6095,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isNumber": {
+                            "description": "Check if value are number.",
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
@@ -6035,6 +6203,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isNumber": {
+                            "description": "Check if value are number.",
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
@@ -6139,6 +6311,10 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "isNumber": {
+                            "description": "Check if value are number.",
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false
