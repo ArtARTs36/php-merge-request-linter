@@ -177,3 +177,6 @@ build-phar: ## Build PHAR
 	composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
 	cd dev/build/ && composer install
 	./dev/build/vendor/bin/box compile
+
+security-check: ## Check security
+	docker run --rm -it -w /app -v ./:/app pplotka/local-php-security-checker-github-actions --format=yaml
