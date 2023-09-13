@@ -15,26 +15,36 @@ final class CompositeKeyFinderTest extends TestCase
         return [
             [
                 [],
+                '',
                 null,
             ],
             [
                 [
                     new SshKeyFinderMock([]),
                 ],
+                '',
                 null,
             ],
             [
                 [
-                    new SshKeyFinderMock(['ssh-rsa1']),
-                    new SshKeyFinderMock(['ssh-rsa2']),
+                    new SshKeyFinderMock([
+                        'ssh-rsa1-text' => ['ssh-key-type-1'],
+                    ]),
+                    new SshKeyFinderMock([
+                        'ssh-rsa1-text' => ['ssh-key-type-2'],
+                    ]),
                 ],
-                'ssh-rsa1',
+                'ssh-rsa1-text',
+                'ssh-key-type-1',
             ],
             [
                 [
                     new SshKeyFinderMock([]),
-                    new SshKeyFinderMock(['ssh-rsa2']),
+                    new SshKeyFinderMock([
+                        'ssh-rsa1-text' => ['ssh-rsa2'],
+                    ]),
                 ],
+                'ssh-rsa1-text',
                 'ssh-rsa2',
             ],
         ];
@@ -46,11 +56,11 @@ final class CompositeKeyFinderTest extends TestCase
      *
      * @dataProvider providerForTestFindFirst
      */
-    public function testFindFirst(array $subFinders, ?string $expectedType): void
+    public function testFindFirst(array $subFinders, string $text, ?string $expectedType): void
     {
         $finder = new CompositeKeyFinder($subFinders);
 
-        self::assertEquals($expectedType, $finder->findFirst(Str::fromEmpty()));
+        self::assertEquals($expectedType, $finder->findFirst(Str::make($text)));
     }
 
     public function providerForTestFindAll(): array
@@ -58,15 +68,19 @@ final class CompositeKeyFinderTest extends TestCase
         return [
             [
                 [],
+                '',
                 [],
             ],
             [
                 [
                     new SshKeyFinderMock([
-                        'type1',
-                        'type2',
+                        'ssh-key-text' => [
+                            'type1',
+                            'type2',
+                        ],
                     ]),
                 ],
+                'ssh-key-text',
                 [
                     'type1',
                     'type2',
@@ -75,15 +89,20 @@ final class CompositeKeyFinderTest extends TestCase
             [
                 [
                     new SshKeyFinderMock([
-                        'type1',
-                        'type2',
+                        'ssh-key-text' => [
+                            'type1',
+                            'type2',
+                        ],
                     ]),
                     new SshKeyFinderMock([]),
                     new SshKeyFinderMock([
-                        'type3',
-                        'type4',
+                        'ssh-key-text' => [
+                            'type3',
+                            'type4',
+                        ],
                     ]),
                 ],
+                'ssh-key-text',
                 [
                     'type1',
                     'type2',
@@ -103,10 +122,10 @@ final class CompositeKeyFinderTest extends TestCase
      * @param array<SshKeyFinder> $subFolders
      * @param array<string> $expectedTypes
      */
-    public function testFindAll(array $subFolders, array $expectedTypes): void
+    public function testFindAll(array $subFolders, string $text, array $expectedTypes): void
     {
         $finder = new CompositeKeyFinder($subFolders);
 
-        self::assertEquals($expectedTypes, $finder->findAll(Str::fromEmpty()));
+        self::assertEquals($expectedTypes, $finder->findAll(Str::make($text)));
     }
 }
