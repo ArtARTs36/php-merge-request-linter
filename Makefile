@@ -134,7 +134,7 @@ lint-docker: docker-build
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "lint"
 
-lint-fix-docker: docker-build
+lint-fix: docker-build
 	docker run \
 		--rm \
 		--volume ./:/app/ \

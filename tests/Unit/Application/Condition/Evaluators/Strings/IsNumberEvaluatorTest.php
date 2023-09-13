@@ -23,12 +23,12 @@ final class IsNumberEvaluatorTest extends TestCase
                 'expected' => true,
             ],
             // string of integer
-            'check string of integer on number' =>[
+            'check string of integer on number' => [
                 'value' => true,
                 'propertyValue' => '1',
                 'expected' => true,
             ],
-            'check string of integer on no number' =>[
+            'check string of integer on no number' => [
                 'value' => false,
                 'propertyValue' => '1',
                 'expected' => false,

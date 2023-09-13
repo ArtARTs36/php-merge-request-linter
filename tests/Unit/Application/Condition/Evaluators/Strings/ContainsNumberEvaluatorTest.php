@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Condition\Evaluators\Strings;
 
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsNumberEvaluator;
-use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\IsNumberEvaluator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEvaluatingSubject;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -24,12 +23,12 @@ final class ContainsNumberEvaluatorTest extends TestCase
                 'expected' => true,
             ],
             // string of integer
-            'check string of integer on true' =>[
+            'check string of integer on true' => [
                 'value' => true,
                 'propertyValue' => '1',
                 'expected' => true,
             ],
-            'check string of integer on false' =>[
+            'check string of integer on false' => [
                 'value' => false,
                 'propertyValue' => '1',
                 'expected' => false,
