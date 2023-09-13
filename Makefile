@@ -110,6 +110,7 @@ check: deps-check
 	composer stat-analyse
 	composer deptrac
 	composer test
+	make security-check
 
 info: ## Run "mr-linter info" on docker
 	docker run \
@@ -134,7 +135,7 @@ lint-docker: docker-build
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "lint"
 
-lint-fix-docker: docker-build
+lint-fix: docker-build
 	docker run \
 		--rm \
 		--volume ./:/app/ \
@@ -171,9 +172,12 @@ deptrac: docker-build ## Run deptrac
 		--entrypoint "composer" \
 		artarts36/merge-request-linter:testing "deptrac"
 
-check-docker: lint-docker stat-analyse test deptrac
+check-docker: lint-docker stat-analyse test deptrac security-check
 
 build-phar: ## Build PHAR
 	composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
 	cd dev/build/ && composer install
 	./dev/build/vendor/bin/box compile
+
+security-check: ## Check security
+	docker run --rm -it -w /app -v ./:/app pplotka/local-php-security-checker-github-actions --format=ansi

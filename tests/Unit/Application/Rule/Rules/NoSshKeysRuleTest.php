@@ -52,13 +52,42 @@ final class NoSshKeysRuleTest extends TestCase
                 $this->makeMergeRequest([
                     'changes' => [
                         new Change('failed.txt', Diff::fromList([
-                            new DiffFragment(DiffType::NEW, Str::make('ssh-rsa')),
+                            new DiffFragment(DiffType::NEW, Str::make('ssh-rsa text')),
+                        ])),
+                        new Change('failed2.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::make('ssh-rsa2 text')),
                         ])),
                     ],
                 ]),
                 false,
-                ['ssh-rsa'],
-                ['File "failed.txt" contains ssh key (ssh-rsa)'],
+                [
+                    'ssh-rsa text' => ['ssh-rsa'],
+                    'ssh-rsa2 text' => ['ssh-rsa'],
+                ],
+                [
+                    'File "failed.txt" contains ssh key (ssh-rsa)',
+                    'File "failed2.txt" contains ssh key (ssh-rsa)',
+                ],
+            ],
+            [
+                $this->makeMergeRequest([
+                    'changes' => [
+                        new Change('failed.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::make('ssh-rsa text')),
+                        ])),
+                        new Change('failed2.txt', Diff::fromList([
+                            new DiffFragment(DiffType::NEW, Str::make('ssh-rsa2 text')),
+                        ])),
+                    ],
+                ]),
+                true,
+                [
+                    'ssh-rsa text' => ['ssh-rsa'],
+                    'ssh-rsa2 text' => ['ssh-rsa'],
+                ],
+                [
+                    'File "failed.txt" contains ssh key (ssh-rsa)',
+                ],
             ],
         ];
     }

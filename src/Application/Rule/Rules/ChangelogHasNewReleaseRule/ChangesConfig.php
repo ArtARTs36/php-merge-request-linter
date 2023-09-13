@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule;
+namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule;
 
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\DefaultValue;
 use ArtARTs36\MergeRequestLinter\Shared\Attributes\Description;

@@ -8,7 +8,7 @@ use ArtARTs36\Str\Str;
 final class SshKeyFinderMock implements SshKeyFinder
 {
     /**
-     * @param array<string> $types
+     * @param array<string, array<string>> $types
      */
     public function __construct(
         private readonly array $types,
@@ -17,11 +17,11 @@ final class SshKeyFinderMock implements SshKeyFinder
 
     public function findFirst(Str $text): ?string
     {
-        return $this->types[0] ?? null;
+        return $this->types[$text->__toString()][0] ?? null;
     }
 
     public function findAll(Str $text): array
     {
-        return $this->types;
+        return $this->types[$text->__toString()] ?? [];
     }
 }

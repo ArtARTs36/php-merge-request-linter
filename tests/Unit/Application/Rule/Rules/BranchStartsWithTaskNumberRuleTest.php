@@ -18,26 +18,43 @@ final class BranchStartsWithTaskNumberRuleTest extends TestCase
                 ]),
                 'projectCodes' => ['TASK'],
                 'expectedNotes' => [],
-            ],            [
+            ],
+            [
+                $this->makeMergeRequest([
+                    'source_branch' => 'TASK-1-super-feature',
+                ]),
+                'projectCodes' => [],
+                'expectedNotes' => [],
+            ],
+            [
+                $this->makeMergeRequest([
+                    'source_branch' => 'aaaa',
+                ]),
+                'projectCodes' => [],
+                'expectedNotes' => [
+                    'Source branch must starts with task number',
+                ],
+            ],
+            [
                 $this->makeMergeRequest([
                     'source_branch' => 'TASK-1-super-feature',
                 ]),
                 'projectCodes' => ['ABC'],
-                'expectedNotes' => ['Branch must starts with task number of unknown project "TASK"'],
+                'expectedNotes' => ['Source branch must starts with task number of unknown project "TASK"'],
             ],
             [
                 $this->makeMergeRequest([
                     'source_branch' => 'TASK- fix',
                 ]),
                 'projectCodes' => ['TASK'],
-                'expectedNotes' => ['Branch must starts with task number of projects [TASK]'],
+                'expectedNotes' => ['Source branch must starts with task number of projects [TASK]'],
             ],
             [
                 $this->makeMergeRequest([
                     'source_branch' => 'AB TASK-1 feature',
                 ]),
                 'projectCodes' => ['TASK'],
-                'expectedNotes' => ['Branch must starts with task number of projects [TASK]'],
+                'expectedNotes' => ['Source branch must starts with task number of projects [TASK]'],
             ],
         ];
     }

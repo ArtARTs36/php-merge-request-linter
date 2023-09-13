@@ -49,4 +49,6 @@ Currently is available that operators:
 | containsHeading5 | Check if a markdown-string contains a heading. | string |
 | containsHeading6 | Check if a markdown-string contains a heading. | string |
 | notIntersect | Check that the array does not intersect with the user array. | array of strings |
+| isNumber | Check if value are number. | boolean |
+| containsNumber | Check if value are contains number. | boolean |
 

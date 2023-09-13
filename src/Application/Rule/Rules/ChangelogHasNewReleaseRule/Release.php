@@ -1,7 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule;
+namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Release
 {
     /**
