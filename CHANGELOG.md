@@ -4,7 +4,17 @@ This file contains changelogs.
 
 [View all Releases](https://github.com/ArtARTs36/php-merge-request-linter/releases)
 
-## [Unreleased](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.1..master)
+## [Unreleased](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.2..master)
+
+## [v0.20.2 (2023-09-13)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.1..0.20.2)
+
+### Added
+* Added evaluator `isNumber`
+* Added evaluator `containsNumber`
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.20.2)
+
+-----------------------------------------------------------------
 
 ## [v0.20.1 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.0..0.20.1)
 
@@ -12,6 +22,8 @@ This file contains changelogs.
 * Fixed rule "@mr-linter/has_any_labels" on empty labels
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.20.1)
+
+-----------------------------------------------------------------
 
 ## [v0.20.0 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.1..0.20.0)
 
@@ -22,6 +34,8 @@ This file contains changelogs.
 * Removed rule `@mr-linter/has_any_labels_of`
 
 [💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.20.0)
+
+-----------------------------------------------------------------
 
 ## [v0.19.1 (2023-09-12)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.19.0..0.19.1)
 
