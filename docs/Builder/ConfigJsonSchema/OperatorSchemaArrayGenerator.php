@@ -31,6 +31,7 @@ use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Cases\
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\ContainsLineEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\EndsEvaluator;
+use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\IsNumberEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMaxEvaluator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\LengthMinOperator;
 use ArtARTs36\MergeRequestLinter\Application\Condition\Evaluators\Strings\Markdown\ContainsHeadingEvaluator;
@@ -74,6 +75,7 @@ class OperatorSchemaArrayGenerator
             LinesMaxEvaluator::class,
             ContainsLineEvaluator::class,
             NotStartsAnyEvaluator::class,
+            IsNumberEvaluator::class,
         ],
         Str::class => [
             EqualsEvaluator::class,
@@ -97,6 +99,7 @@ class OperatorSchemaArrayGenerator
             LinesMaxEvaluator::class,
             ContainsLineEvaluator::class,
             NotStartsAnyEvaluator::class,
+            IsNumberEvaluator::class,
         ],
         Set::class => [
             CountMinEvaluator::class,
