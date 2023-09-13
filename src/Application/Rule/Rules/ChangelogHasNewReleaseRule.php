@@ -3,9 +3,9 @@
 namespace ArtARTs36\MergeRequestLinter\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ChangesConfig;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\Release;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseParser;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\ChangesConfig;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\Release;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\ReleaseParser;
 use ArtARTs36\MergeRequestLinter\Domain\Note\LintNote;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Change;
 use ArtARTs36\MergeRequestLinter\Domain\Request\Diff;

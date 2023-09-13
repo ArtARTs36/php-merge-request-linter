@@ -34,17 +34,14 @@ final class BranchStartsWithTaskNumberRule extends NamedRule
 
         if ($projectCode === null) {
             return [
-                new LintNote(sprintf(
-                    'Branch must starts with task number of projects [%s]',
-                    $this->projectCodes->implode(', '),
-                )),
+                new LintNote($this->getDefinition()->getDescription()),
             ];
         }
 
         if (! $this->projectCodes->isEmpty() && ! $this->projectCodes->contains((string) $projectCode)) {
             return [
                 new LintNote(sprintf(
-                    'Branch must starts with task number of unknown project "%s"',
+                    'Source branch must starts with task number of unknown project "%s"',
                     $projectCode,
                 )),
             ];
@@ -55,6 +52,10 @@ final class BranchStartsWithTaskNumberRule extends NamedRule
 
     public function getDefinition(): RuleDefinition
     {
+        if ($this->projectCodes->isEmpty()) {
+            return new Definition('Source branch must starts with task number');
+        }
+
         return new Definition(sprintf(
             'Source branch must starts with task number of projects [%s]',
             $this->projectCodes->implode(', '),

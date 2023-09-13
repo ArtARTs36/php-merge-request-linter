@@ -1,10 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules\KeepChangelogRule;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules\ChangelogHasNewReleaseRule;
 
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\Release;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseChanges;
-use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseParser;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\Release;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\ReleaseChanges;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\ReleaseParser;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use ArtARTs36\Str\Str;
 
@@ -40,7 +40,8 @@ HTML,
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseParser::parse
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\ReleaseParser::parse
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\ReleaseParser::createRelease
      *
      * @dataProvider providerForTestParse
      */
@@ -69,7 +70,7 @@ HTML,
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\KeepChangelogRule\ReleaseParser::parseTags
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ChangelogHasNewReleaseRule\ReleaseParser::parseTags
      *
      * @dataProvider providerForTestParseTags
      */
