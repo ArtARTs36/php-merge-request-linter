@@ -12,13 +12,13 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod;
 
-class NotificationsMapper
+readonly class NotificationsMapper
 {
     /**
      * @param iterable<ConfigValueTransformer> $valueTransformers
      */
     public function __construct(
-        private readonly iterable $valueTransformers,
+        private iterable $valueTransformers,
     ) {
     }
 
@@ -128,7 +128,16 @@ class NotificationsMapper
         $channels = [];
 
         foreach ($data as $name => $channel) {
-            $type = ChannelType::from($channel['type']);
+            $type = ChannelType::tryFrom($channel['type']);
+
+            if ($type === null) {
+                throw new ConfigInvalidException(sprintf(
+                    'Config[notifications.channels.%s.type] contains unknown value: %s. Available values: [%s]',
+                    $name,
+                    $channel['type'],
+                    implode(', ', array_map(fn (\BackedEnum $enum) => $enum->value, ChannelType::cases())),
+                ));
+            }
 
             if (array_key_exists('sound_at', $channel) && $channel['sound_at'] !== '') {
                 try {
