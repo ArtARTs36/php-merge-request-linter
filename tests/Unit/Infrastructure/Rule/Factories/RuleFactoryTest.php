@@ -11,7 +11,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\ParameterMapBuilder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ObjectCompositeResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -25,7 +25,7 @@ final class RuleFactoryTest extends TestCase
     public function testCreate(): void
     {
         $factory = new RuleFactory(
-            new ParameterMapBuilder(new CompositeResolver([
+            new ParameterMapBuilder(new MapCompositeResolver([
                 'string' => new AsIsResolver(),
                 'int' => new AsIsResolver(),
                 'float' => new AsIsResolver(),

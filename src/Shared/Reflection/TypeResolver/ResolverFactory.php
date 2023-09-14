@@ -13,7 +13,7 @@ class ResolverFactory
 
     public function create(): TypeResolver
     {
-        $composite = new CompositeResolver();
+        $composite = new MapCompositeResolver();
 
         $asIsResolver = new AsIsResolver();
 
