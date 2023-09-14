@@ -12,11 +12,11 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\StringMetric;
 
-class CiRequestFetcher implements MergeRequestFetcher
+final readonly class CiRequestFetcher implements MergeRequestFetcher
 {
     public function __construct(
-        private readonly CiSystemFactory $systems,
-        private readonly MetricManager   $metrics,
+        private CiSystemFactory $systems,
+        private MetricManager   $metrics,
     ) {
     }
 

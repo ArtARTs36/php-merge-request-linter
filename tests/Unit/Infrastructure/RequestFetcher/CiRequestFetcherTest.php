@@ -2,12 +2,15 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\RequestFetcher;
 
+use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
+use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 
 final class CiRequestFetcherTest extends TestCase
 {
@@ -30,10 +33,31 @@ final class CiRequestFetcherTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher::fetch
      */
-    public function testFetchOnGettingMergeRequestException(): void
+    public function testFetchOnCurrentlyNotMergeRequestException(): void
     {
         $fetcher = new CiRequestFetcher(
             new MockCiSystemFactory(new MockCi()),
+            new MemoryMetricManager(LocalClock::utc()),
+        );
+
+        self::expectExceptionMessageMatches('/Fetch current merge request from (.*) was failed/i');
+
+        $fetcher->fetch();
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher::fetch
+     */
+    public function testFetchOnGettingMergeRequestException(): void
+    {
+        $ci = $this->createMock(CiSystem::class);
+        $ci
+            ->expects(new InvokedCount(1))
+            ->method('getCurrentlyMergeRequest')
+            ->willThrowException(new FetchMergeRequestException());
+
+        $fetcher = new CiRequestFetcher(
+            new MockCiSystemFactory($ci),
             new MemoryMetricManager(LocalClock::utc()),
         );
 
