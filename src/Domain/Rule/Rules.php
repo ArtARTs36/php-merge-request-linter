@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 /**
  * @template-extends Arrayee<int, Rule>
  */
-class Rules extends Arrayee
+final class Rules extends Arrayee
 {
     public function add(Rule $rule): self
     {
