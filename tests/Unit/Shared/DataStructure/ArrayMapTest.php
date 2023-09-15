@@ -334,4 +334,65 @@ final class ArrayMapTest extends TestCase
             (new ArrayMap($items))->keys()->mapToArray(fn ($item) => $item),
         );
     }
+
+    public static function providerForTestGroupKeysByValue(): array
+    {
+        return [
+            [
+                [],
+                [],
+            ],
+            [
+                [
+                    'k1' => 'v1',
+                    'k2' => 'v1',
+                    'k3' => 'v2',
+                ],
+                [
+                    'v1' => [
+                        'k1',
+                        'k2',
+                    ],
+                    'v2' => [
+                        'k3',
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::groupKeysByValue
+     *
+     * @dataProvider providerForTestGroupKeysByValue
+     */
+    public function testGroupKeysByValue(array $items, array $expected): void
+    {
+        self::assertEquals($expected, (new ArrayMap($items))->groupKeysByValue()->toArray());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::getIterator
+     */
+    public function testGetIterator(): void
+    {
+        $map = new ArrayMap($arr = ['k1' => 'v1']);
+
+        self::assertEquals($arr, $map->getIterator()->getArrayCopy());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap::__debugInfo
+     */
+    public function testDebugInfo(): void
+    {
+        $map = new ArrayMap(['k1' => 'v1']);
+
+        self::assertEquals([
+            'count' => 1,
+            'items' => [
+                'k1' => 'v1',
+            ],
+        ], $map->__debugInfo());
+    }
 }
