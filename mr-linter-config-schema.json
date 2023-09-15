@@ -65,21 +65,6 @@
                         }
                     ]
                 },
-                "@mr-linter/has_all_labels": {
-                    "description": "Merge Request must have all {labels}",
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/rules_properties_@mr-linter_has_all_labels"
-                        },
-                        {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/rules_properties_@mr-linter_has_all_labels"
-                            },
-                            "minItems": 1
-                        }
-                    ]
-                },
                 "@mr-linter/has_any_labels": {
                     "description": "Merge Request must have any {labels}.",
                     "oneOf": [
@@ -6592,37 +6577,6 @@
                 }
             },
             "additionalProperties": false
-        },
-        "rules_properties_@mr-linter_has_all_labels": {
-            "type": "object",
-            "properties": {
-                "critical": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "when": {
-                    "description": "Conditions that determine whether the rule should run.",
-                    "$ref": "#/definitions/rule_conditions"
-                },
-                "labels": {
-                    "type": "array",
-                    "description": "Array of labels",
-                    "items": [
-                        {
-                            "type": "string",
-                            "description": "Array of labels",
-                            "examples": [
-                                "Feature",
-                                "Bug"
-                            ]
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "labels"
-            ]
         },
         "rules_properties_@mr-linter_has_any_labels": {
             "type": "object",
