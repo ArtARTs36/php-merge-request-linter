@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter\TaskHandlers;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
-use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Tasks\LintTask;
