@@ -19,7 +19,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyNote;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\ExceptionRule;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\FailRule;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
@@ -115,6 +117,37 @@ final class LinterTest extends TestCase
                 new LintResult(LintState::Fail, new Arrayee([
                     new ExceptionNote(new \Exception('exception msg')),
                 ]), new Duration(1))
+            ],
+            'test stop on first warning' => [
+                'rules' => new Rules([
+                    new WarningRule('warning_note'),
+                    new WarningRule('warning_note2'),
+                    new SuccessRule(),
+                ]),
+                new LinterOptions(false, true),
+                [
+                    new RuleWasFailedEvent('warning_rule', [
+                        new WarningNote('warning_note'),
+                    ]),
+                ],
+                new LintResult(LintState::Success, new Arrayee([
+                    new WarningNote('warning_note'),
+                ]), new Duration(1)),
+            ],
+            'test stop on first failure' => [
+                'rules' => new Rules([
+                    new FailRule(),
+                    new FailRule(),
+                ]),
+                new LinterOptions(true),
+                [
+                    new RuleWasFailedEvent('fail_rule', [
+                        new EmptyNote(''),
+                    ]),
+                ],
+                new LintResult(LintState::Fail, new Arrayee([
+                    new EmptyNote(''),
+                ]), new Duration(1)),
             ],
         ];
     }
