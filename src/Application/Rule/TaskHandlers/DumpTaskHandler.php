@@ -23,6 +23,6 @@ class DumpTaskHandler
             ->config
             ->resolve(new User($task->workingDirectory, $task->customConfigPath), Config::SUBJECT_RULES);
 
-        return new DumpInfo($config->path, $this->dumper->dump($config->config->getRules()));
+        return new DumpInfo($config->path, $this->dumper->dump($config->config->rules));
     }
 }

@@ -18,8 +18,8 @@ class LinterFactory
     public function create(Config $config): Linter
     {
         return new \ArtARTs36\MergeRequestLinter\Application\Linter\Linter(
-            $config->getRules(),
-            $config->getLinter()->options,
+            $config->rules,
+            $config->linter->options,
             $this->events,
             $this->metrics,
         );

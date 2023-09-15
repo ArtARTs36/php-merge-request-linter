@@ -53,7 +53,7 @@ class RunnerFactory implements LinterRunnerFactory
 
     private function createSystemFactory(Config $config): SystemFactory
     {
-        $httpClient = $this->clientFactory->create($config->getHttpClient());
+        $httpClient = $this->clientFactory->create($config->httpClient);
 
         /** @var Map<string, SystemCreator> $creators */
         $creators = new ArrayMap([

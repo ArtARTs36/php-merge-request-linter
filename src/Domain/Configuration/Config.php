@@ -7,6 +7,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
 /**
  * @phpstan-type CiName = string
+ * @codeCoverageIgnore
  */
 readonly class Config
 {
@@ -27,45 +28,12 @@ readonly class Config
      * @param Map<CiName, CiSettings> $settings
      */
     public function __construct(
-        private Rules               $rules,
-        private Map                 $settings,
-        private HttpClientConfig    $httpClient,
-        private NotificationsConfig $notifications,
-        private LinterConfig        $linterConfig,
-        private CommentsConfig      $commentsConfig,
+        public Rules               $rules,
+        public Map                 $settings,
+        public HttpClientConfig    $httpClient,
+        public NotificationsConfig $notifications,
+        public LinterConfig        $linter,
+        public CommentsConfig      $comments,
     ) {
-    }
-
-    public function getRules(): Rules
-    {
-        return $this->rules;
-    }
-
-    /**
-     * @return Map<CiName, CiSettings>
-     */
-    public function getSettings(): Map
-    {
-        return $this->settings;
-    }
-
-    public function getHttpClient(): HttpClientConfig
-    {
-        return $this->httpClient;
-    }
-
-    public function getNotifications(): NotificationsConfig
-    {
-        return $this->notifications;
-    }
-
-    public function getLinter(): LinterConfig
-    {
-        return $this->linterConfig;
-    }
-
-    public function getCommentsConfig(): CommentsConfig
-    {
-        return $this->commentsConfig;
     }
 }

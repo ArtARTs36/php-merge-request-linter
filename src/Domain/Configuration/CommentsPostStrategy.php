@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Domain\Configuration;
 
+/**
+ * @codeCoverageIgnore
+ */
 enum CommentsPostStrategy: string
 {
     case Single = 'single';

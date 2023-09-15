@@ -101,7 +101,7 @@ final class DiffTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Domain\Request\Diff::hasChangeByContentContainsB
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Request\Diff::hasChangeByContentContains
      *
      * @dataProvider providerForTestHasChangeByContentContains
      */
