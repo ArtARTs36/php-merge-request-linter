@@ -73,4 +73,13 @@ class MockEventDispatcher implements EventManager
             $this->assertDispatchedObject($event);
         }
     }
+
+    public function getFirstListener(string $eventName): ?EventListener
+    {
+        if (! array_key_exists($eventName, $this->listeners)) {
+            return null;
+        }
+
+        return $this->listeners[$eventName][array_key_first($this->listeners[$eventName])] ?? null;
+    }
 }

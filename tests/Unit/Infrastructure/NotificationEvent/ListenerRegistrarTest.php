@@ -65,4 +65,51 @@ final class ListenerRegistrarTest extends TestCase
 
         self::assertCount($expectedListeners, $mockDispatcher->listeners);
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar::register
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\NotificationEvent\ListenerRegistrar::__construct
+     */
+    public function testRegisterRunCallback(): void
+    {
+        $callbackRan = false;
+
+        $registrar = new ListenerRegistrar(
+            new NotificationsConfig(
+                new ArrayMap([]),
+                new ArrayMap([
+                    'test-event' => [
+                        new NotificationEventMessage(
+                            'test-event',
+                            new Channel(ChannelType::TelegramBot, new ArrayMap([]), TimePeriod::day()),
+                            'test-template',
+                        ),
+                    ],
+                ]),
+            ),
+            new ListenerFactory(new class ($callbackRan) implements Notifier {
+                public function __construct(
+                    private bool &$callbackRan,
+                ) {
+                }
+
+                public function notify(Channel $channel, Message $message): void
+                {
+                    $this->callbackRan = true;
+                }
+            }, new MockOperatorResolver(), new MessageCreator(new NullRenderer()), LoggerFactory::null()),
+        );
+
+        $mockDispatcher = new MockEventDispatcher();
+
+        $registrar->register($mockDispatcher);
+
+        $gotListener = $mockDispatcher->getFirstListener('test-event');
+
+        self::assertNotNull($gotListener);
+
+        $gotListener->call(new \stdClass());
+
+        self::assertTrue($callbackRan);
+    }
 }
