@@ -2,6 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter;
 
+use ArtARTs36\MergeRequestLinter\Application\Condition\Exceptions\EvaluatorCrashedException;
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Definition\Definition;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
@@ -25,6 +26,8 @@ use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\WarningNote;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\WarningRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
+use PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
+use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 
 final class LinterTest extends TestCase
 {
@@ -148,5 +151,40 @@ final class LinterTest extends TestCase
                 'notes' => $result->notes,
             ],
         );
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Linter\Linter::run
+     */
+    public function testRunOnEvaluatorCrashedException(): void
+    {
+        $eventDispatcher = new MockEventDispatcher();
+
+        $evaluatorCrashedRule = $this->createMock(Rule::class);
+        $evaluatorCrashedRule
+            ->expects(new AnyInvokedCount())
+            ->method('getName')
+            ->willReturn('failed_rule');
+        $evaluatorCrashedRule
+            ->expects(new InvokedCount(1))
+            ->method('lint')
+            ->willThrowException(new EvaluatorCrashedException());
+
+        $linter = new Linter(
+            new Rules([
+                $evaluatorCrashedRule,
+            ]),
+            new LinterOptions(),
+            $eventDispatcher,
+            new NullMetricManager(),
+        );
+
+        $gotLintResult = $linter->run($this->makeMergeRequest());
+
+        $eventDispatcher->assertDispatchedObject(new RuleFatalEndedEvent('failed_rule'));
+
+        self::assertFalse($gotLintResult->notes->isEmpty());
+
+        self::assertStringContainsString('Invalid condition value', $gotLintResult->notes->first()->getDescription());
     }
 }
