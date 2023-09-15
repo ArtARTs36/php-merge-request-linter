@@ -3,6 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API;
 
 use ArtARTs36\MergeRequestLinter\Domain\CI\Authenticator;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\CommentInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\GetCommentsInput;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\Input;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Input\UpdateCommentInput;
