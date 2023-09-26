@@ -10,8 +10,8 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class LinterFactory
 {
     public function __construct(
-        protected EventDispatcherInterface $events,
-        private readonly MetricManager     $metrics,
+        private readonly EventDispatcherInterface $events,
+        private readonly MetricManager            $metrics,
     ) {
     }
 
