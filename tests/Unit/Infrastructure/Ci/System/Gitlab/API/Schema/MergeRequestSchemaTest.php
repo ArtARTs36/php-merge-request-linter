@@ -351,6 +351,7 @@ final class MergeRequestSchemaTest extends TestCase
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Schema\MergeRequestSchema::createMergeRequest
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Ci\System\Gitlab\API\Schema\MergeRequestSchema::__construct
      * @dataProvider providerForTestCreateMergeRequestOnInvalid
      */
     public function testCreateMergeRequest(array $data, string $expectedException): void

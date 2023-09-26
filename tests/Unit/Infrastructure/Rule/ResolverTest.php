@@ -101,8 +101,10 @@ final class ResolverTest extends TestCase
             new ArrayMap([
                 'success' => SuccessRule::class,
             ]),
-            new RuleFactory(new ParameterMapBuilder(
-                new MockTypeResolver()),
+            new RuleFactory(
+                new ParameterMapBuilder(
+                    new MockTypeResolver()
+                ),
                 new Finder(),
             ),
             new ConditionRuleFactory(new MockOperatorResolver(MockConditionOperator::true()), new NullCounter()),
@@ -127,8 +129,10 @@ final class ResolverTest extends TestCase
             new ArrayMap([
                 'success' => SuccessRule::class,
             ]),
-            new RuleFactory(new ParameterMapBuilder(
-                new MockTypeResolver()),
+            new RuleFactory(
+                new ParameterMapBuilder(
+                    new MockTypeResolver()
+                ),
                 new Finder(),
             ),
             new ConditionRuleFactory(new MockOperatorResolver(MockConditionOperator::true()), new NullCounter()),

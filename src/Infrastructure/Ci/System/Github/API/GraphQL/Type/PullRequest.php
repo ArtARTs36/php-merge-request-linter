@@ -8,8 +8,8 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
 class PullRequest
 {
-    private const MERGEABLE_STATE_CONFLICTING = 'CONFLICTING';
-    private const MERGEABLE_STATE_MERGEABLE = 'MERGEABLE';
+    public const MERGEABLE_STATE_CONFLICTING = 'CONFLICTING';
+    public const MERGEABLE_STATE_MERGEABLE = 'MERGEABLE';
 
     /**
      * @param array<string> $labels
