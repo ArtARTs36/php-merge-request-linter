@@ -13,7 +13,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFact
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
-class Resolver implements RuleResolver
+final class Resolver implements RuleResolver
 {
     /**
      * @param Map<string, class-string<Rule>> $nameClassRules
@@ -74,8 +74,17 @@ class Resolver implements RuleResolver
             ));
         }
 
-        if (isset($params['critical']) && $params['critical'] === false) {
-            $rule = new NonCriticalRule($rule);
+        if (isset($params['critical'])) {
+            if (! is_bool($params['critical'])) {
+                throw new ConfigInvalidException(sprintf(
+                    'Failed to create Rule with name "%s": param "critical" must be boolean',
+                    $ruleName,
+                ));
+            }
+
+            if ($params['critical'] === false) {
+                $rule = new NonCriticalRule($rule);
+            }
         }
 
         if (! isset($params['when'])) {
