@@ -6,20 +6,20 @@ use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\TypeName;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\AsIsResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\TypeResolver;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ValueInvalidException;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockTypeResolver;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
-final class CompositeResolverTest extends TestCase
+final class MapCompositeResolverTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver::__construct
      */
     public function testResolveOnResolverNotFound(): void
     {
-        $resolver = new CompositeResolver([]);
+        $resolver = new MapCompositeResolver([]);
 
         self::expectException(ValueInvalidException::class);
 
@@ -27,12 +27,12 @@ final class CompositeResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::resolve
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver::__construct
      */
     public function testResolveOk(): void
     {
-        $resolver = new CompositeResolver([
+        $resolver = new MapCompositeResolver([
             TypeName::String->value => new class () implements TypeResolver {
                 public function canResolve(Type $type, mixed $value): bool
                 {
@@ -78,12 +78,12 @@ final class CompositeResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::canResolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver::canResolve
      * @dataProvider providerForTestCanResolve
      */
     public function testCanResolve(array $subResolvers, Type $type, mixed $value, bool $expected): void
     {
-        $resolver = new CompositeResolver($subResolvers);
+        $resolver = new MapCompositeResolver($subResolvers);
 
         self::assertEquals(
             $expected,
@@ -92,11 +92,11 @@ final class CompositeResolverTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::add
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver::add
      */
     public function testAdd(): void
     {
-        $resolver = new CompositeResolver();
+        $resolver = new MapCompositeResolver();
 
         $type = new Type(TypeName::String);
 

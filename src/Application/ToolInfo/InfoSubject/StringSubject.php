@@ -2,11 +2,11 @@
 
 namespace ArtARTs36\MergeRequestLinter\Application\ToolInfo\InfoSubject;
 
-final class StringSubject implements InfoSubject
+final readonly class StringSubject implements InfoSubject
 {
     public function __construct(
-        private readonly string $theme,
-        private readonly string $value,
+        private string $theme,
+        private string $value,
     ) {
     }
 

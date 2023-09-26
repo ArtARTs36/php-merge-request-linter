@@ -17,7 +17,6 @@ final class DefaultRules
         DescriptionContainsLinkOfAnyDomainsRule::NAME => DescriptionContainsLinkOfAnyDomainsRule::class,
         DescriptionContainsLinksOfAllDomainsRule::NAME => DescriptionContainsLinksOfAllDomainsRule::class,
         DescriptionNotEmptyRule::NAME => DescriptionNotEmptyRule::class,
-        HasAllLabelsOfRule::NAME => HasAllLabelsOfRule::class,
         HasAnyLabelsRule::NAME => HasAnyLabelsRule::class,
         HasLinkToJiraTaskRule::NAME => HasLinkToJiraTaskRule::class,
         HasLinkToYouTrackIssueRule::NAME => HasLinkToYouTrackIssueRule::class,

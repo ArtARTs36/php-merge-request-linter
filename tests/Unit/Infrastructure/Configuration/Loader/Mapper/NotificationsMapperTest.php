@@ -8,6 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Notifications\Channel;
 use ArtARTs36\MergeRequestLinter\Domain\Notifications\ChannelType;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\Time\Time;
 use ArtARTs36\MergeRequestLinter\Shared\Time\TimePeriod;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -77,14 +78,49 @@ final class NotificationsMapperTest extends TestCase
                 ],
                 'Config[notifications.on.super_event.channel] invalid!',
             ],
+            [
+                [
+                    'channels' => [
+                        'tg_channel' => [
+                            'type' => 'non-exists-channel',
+                        ],
+                    ],
+                    'on' => [
+                        'super_event' => [
+                            'channel' => 'tg_channel',
+                            'template' => 'template',
+                        ],
+                    ],
+                ],
+                'Config[notifications.channels.tg_channel.type] contains unknown value: non-exists-channel. Available values: [telegram_bot]',
+            ],
+            [
+                [
+                    'channels' => [
+                        'tg_channel' => [
+                            'type' => 'telegram_bot',
+                            'sound_at' => '1111',
+                        ],
+                    ],
+                    'on' => [
+                        'super_event' => [
+                            'channel' => 'tg_channel',
+                            'template' => 'template',
+                        ],
+                    ],
+                ],
+                'Config[notifications.channels.tg_channel.sound_at] invalid: Value must be follows mask "hh:mm - hh:mm"',
+            ],
         ];
     }
 
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper::map
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper::mapChannels
+     * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper::transformValues
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper::mapNotifications
      * @covers \ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Loader\Mapper\NotificationsMapper::__construct
+     *
      * @dataProvider providerForTestMapOnExceptions
      */
     public function testMapOnExceptions(array $data, string $exception): void
@@ -109,6 +145,7 @@ final class NotificationsMapperTest extends TestCase
             'channels' => [
                 'tg_channel' => [
                     'type' => 'telegram_bot',
+                    'sound_at' => '18:00-23:00',
                 ],
             ],
             'on' => [
@@ -125,7 +162,10 @@ final class NotificationsMapperTest extends TestCase
                     'tg_channel' => $ch1 = new Channel(
                         ChannelType::TelegramBot,
                         new ArrayMap([]),
-                        TimePeriod::day(),
+                        new TimePeriod(
+                            Time::make(18, 00),
+                            Time::make(23, 00),
+                        ),
                     ),
                 ]),
                 new ArrayMap([

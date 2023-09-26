@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver;
 
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Reflector\Type;
 
-final class CompositeResolver implements TypeResolver
+final class MapCompositeResolver implements TypeResolver
 {
     /**
      * @param array<string, TypeResolver> $resolvers

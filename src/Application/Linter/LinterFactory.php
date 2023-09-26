@@ -10,16 +10,16 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class LinterFactory
 {
     public function __construct(
-        protected EventDispatcherInterface $events,
-        private readonly MetricManager     $metrics,
+        private readonly EventDispatcherInterface $events,
+        private readonly MetricManager            $metrics,
     ) {
     }
 
     public function create(Config $config): Linter
     {
         return new \ArtARTs36\MergeRequestLinter\Application\Linter\Linter(
-            $config->getRules(),
-            $config->getLinter()->options,
+            $config->rules,
+            $config->linter->options,
             $this->events,
             $this->metrics,
         );

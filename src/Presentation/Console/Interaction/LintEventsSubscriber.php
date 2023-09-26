@@ -58,14 +58,14 @@ class LintEventsSubscriber implements EventSubscriber
     {
         $this->printer->printInfoLine(sprintf('Config path: %s', $event->config->path));
 
-        $this->progressBar->max($event->config->config->getRules()->count());
+        $this->progressBar->max($event->config->config->rules->count());
 
         if ($this->isDebug) {
             $this->printer->line(2);
 
             $this->printer->printInfoLine(sprintf(
                 'Used rules: %s',
-                $event->config->config->getRules()->implodeNames(', '),
+                $event->config->config->rules->implodeNames(', '),
             ));
 
             $this->printer->line(2);

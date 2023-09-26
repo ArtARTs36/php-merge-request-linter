@@ -54,7 +54,7 @@ final class CompositeResolverIntegrationTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\CompositeResolver::resolve
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\MapCompositeResolver::resolve
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ResolverFactory::create
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ResolverFactory::__construct
      * @dataProvider providerForTestConvert

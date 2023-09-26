@@ -21,7 +21,7 @@ class SystemFactory implements CiSystemFactory
 
     public function createCurrently(): CiSystem
     {
-        foreach ($this->config->getSettings() as $ciName => $ciSettings) {
+        foreach ($this->config->settings as $ciName => $ciSettings) {
             $creator = $this->creators->get($ciName);
 
             if ($creator === null) {

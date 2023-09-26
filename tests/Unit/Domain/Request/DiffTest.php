@@ -74,4 +74,78 @@ final class DiffTest extends TestCase
 
         self::assertTrue($diff->hasChanges());
     }
+
+    public static function providerForTestHasChangeByContentContains(): array
+    {
+        return [
+            'empty content' => [
+                'fragments' => [],
+                'content' => '',
+                'expected' => false,
+            ],
+            'has change in new fragment' => [
+                'fragments' => [
+                    new DiffFragment(DiffType::NEW, Str::make('test'))
+                ],
+                'content' => 'test',
+                'expected' => true,
+            ],
+            'has change in old fragment' => [
+                'fragments' => [
+                    new DiffFragment(DiffType::OLD, Str::make('test'))
+                ],
+                'content' => 'test',
+                'expected' => true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Request\Diff::hasChangeByContentContains
+     *
+     * @dataProvider providerForTestHasChangeByContentContains
+     */
+    public function testHasChangeByContentContains(array $fragments, string $content, bool $expected): void
+    {
+        $diff = Diff::fromList($fragments);
+
+        self::assertEquals($expected, $diff->hasChangeByContentContains($content));
+    }
+
+    public static function providerForTestHasChangeByContentContainsByRegex(): array
+    {
+        return [
+            'empty content' => [
+                'fragments' => [],
+                'regex' => '/test/',
+                'expected' => false,
+            ],
+            'has change in new fragment' => [
+                'fragments' => [
+                    new DiffFragment(DiffType::NEW, Str::make('test'))
+                ],
+                'regex' => '/test/',
+                'expected' => true,
+            ],
+            'has change in old fragment' => [
+                'fragments' => [
+                    new DiffFragment(DiffType::OLD, Str::make('test'))
+                ],
+                'regex' => '/test/',
+                'expected' => true,
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Domain\Request\Diff::hasChangeByContentContainsByRegex
+     *
+     * @dataProvider providerForTestHasChangeByContentContainsByRegex
+     */
+    public function testHasChangeByContentContainsByRegex(array $fragments, string $regex, bool $expected): void
+    {
+        $diff = Diff::fromList($fragments);
+
+        self::assertEquals($expected, $diff->hasChangeByContentContainsByRegex($regex));
+    }
 }

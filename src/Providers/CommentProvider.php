@@ -43,7 +43,7 @@ final class CommentProvider extends Provider
                     $this->container->get(LoggerInterface::class),
                     $commenterFactory,
                 ),
-                $event->config->config->getCommentsConfig(),
+                $event->config->config->comments,
             );
 
             $eventManager->listen(LintFinishedEvent::class, $lintFinishedListener);

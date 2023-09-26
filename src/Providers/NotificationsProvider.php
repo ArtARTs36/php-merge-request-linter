@@ -44,14 +44,14 @@ final class NotificationsProvider extends Provider
 
         $notifier = (new NotifierFactory(
             $this->container->get(HttpClientFactory::class)->create(
-                $config->getHttpClient()
+                $config->httpClient,
             ),
             $this->container->get(ClockInterface::class),
             $logger,
         ))->create();
 
         return new ListenerRegistrar(
-            $config->getNotifications(),
+            $config->notifications,
             new ListenerFactory(
                 $notifier,
                 $this->container->get(OperatorResolver::class),

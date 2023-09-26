@@ -111,4 +111,43 @@ final class DiffLimitRuleTest extends TestCase
 
         self::assertHasNotes($request, $rule, $hasNotes);
     }
+
+    public static function providerForTestGetDefinition(): array
+    {
+        return [
+            [
+                'ruleParams' => [
+                    'linesMax' => 5,
+                    'fileLinesMax' => null,
+                ],
+                'expectedDefinition' => 'The request must contain no more than 5 changes.',
+            ],
+            [
+                'ruleParams' => [
+                    'linesMax' => null,
+                    'fileLinesMax' => 6,
+                ],
+                'expectedDefinition' => 'The request must contain no more than 6 changes in a file.',
+            ],
+            [
+                'ruleParams' => [
+                    'linesMax' => 5,
+                    'fileLinesMax' => 6,
+                ],
+                'expectedDefinition' => 'The request must contain no more than 5 changes. The request must contain no more than 6 changes in a file.',
+            ],
+        ];
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Application\Rule\Rules\DiffLimitRule::lint
+     *
+     * @dataProvider providerForTestGetDefinition
+     */
+    public function testGetDefinition(array $ruleParams, string $expectedDefinition): void
+    {
+        $rule = new DiffLimitRule(...$ruleParams);
+
+        self::assertEquals($expectedDefinition, $rule->getDefinition()->getDescription());
+    }
 }
