@@ -24,7 +24,12 @@ class HttpRequestException extends MergeRequestLinterException implements Reques
         return new static(
             $request,
             $response,
-            sprintf('%s returns response with status %d', $request->getUri()->getHost(), $response->getStatusCode()),
+            sprintf(
+                '%s returns response with status %d: %s',
+                $request->getUri()->getHost(),
+                $response->getStatusCode(),
+                $response->getBody()->getContents(),
+            ),
         );
     }
 

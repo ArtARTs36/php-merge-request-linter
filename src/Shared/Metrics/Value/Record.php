@@ -6,13 +6,8 @@ readonly class Record
 {
     public function __construct(
         public MetricSubject      $subject,
-        private Metric            $value,
+        public Metric             $value,
         public \DateTimeInterface $date,
     ) {
-    }
-
-    public function getValue(): string
-    {
-        return $this->value->getMetricValue();
     }
 }
