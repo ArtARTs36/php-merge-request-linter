@@ -6,7 +6,7 @@ This file contains changelogs.
 
 ## [Unreleased](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.2..master)
 
-## [v0.21.0 (2023-09-13)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.2..0.21.0)
+## [v0.21.0 (2023-09-26)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.2..0.21.0)
 
 ### Removed
 * Removed Rule `@mr-linter/has_all_labels`
