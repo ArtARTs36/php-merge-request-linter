@@ -6,6 +6,19 @@ This file contains changelogs.
 
 ## [Unreleased](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.2..master)
 
+## [v0.21.0 (2023-09-13)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.2..0.21.0)
+
+### Removed
+* Removed Rule `@mr-linter/has_all_labels`
+* Removed unnecessary polyfills
+
+### Changed
+* Catch exception on non-exists notification messenger
+
+[💾 Assets](https://github.com/ArtARTs36/php-merge-request-linter/releases/tag/0.21.0)
+
+-----------------------------------------------------------------
+
 ## [v0.20.2 (2023-09-13)](https://github.com/ArtARTs36/php-merge-request-linter/compare/0.20.1..0.20.2)
 
 ### Added
