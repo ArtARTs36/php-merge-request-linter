@@ -97,8 +97,9 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
     {
         $this->metrics->add(
             new MetricSubject(
-                'linter_used_rules',
-                '[Linter] Used rules',
+                'linter',
+                'used_rules',
+                'Used rules',
             ),
             IncCounter::create($this->rules),
         );

@@ -23,7 +23,7 @@ class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastr
         $config = $this->resolver->resolve($user, $configSubjects);
 
         $this->metrics->add(
-            new MetricSubject('config_resolving_time', '[Config] Duration of config resolving'),
+            new MetricSubject('config', 'resolving_time', 'Duration of config resolving'),
             $timer->finish(),
         );
 

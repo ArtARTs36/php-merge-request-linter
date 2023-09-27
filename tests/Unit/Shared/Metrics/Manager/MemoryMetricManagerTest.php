@@ -22,7 +22,7 @@ final class MemoryMetricManagerTest extends TestCase
 
         self::assertCount(0, $manager->describe());
 
-        $manager->add(new MetricSubject('', ''), new IncCounter());
+        $manager->add(new MetricSubject('', '', ''), new IncCounter());
 
         self::assertCount(1, $manager->describe());
     }
@@ -32,7 +32,7 @@ final class MemoryMetricManagerTest extends TestCase
         return [
             [
                 [
-                    [$subject1 = new MetricSubject('k', 'n'), $metric1 = new IncCounter()],
+                    [$subject1 = new MetricSubject('', 'k', 'n'), $metric1 = new IncCounter()],
                 ],
                 [
                     new Record($subject1, $metric1, new \DateTimeImmutable()),

@@ -116,9 +116,12 @@ final class LintCommand extends Command
 
         if ($fullMetrics) {
             $metrics = $metrics->merge(
-                $this->metrics->describe()->mapToArray(
-                    static fn (Record $record) => new Metric($record->subject->name, $record->value->getMetricValue()),
-                )
+                $this
+                    ->metrics
+                    ->describe()
+                    ->mapToArray(
+                        static fn (Record $record) => new Metric($record->subject->wrapTitle(), $record->value->getMetricValue()),
+                    ),
             );
         }
 

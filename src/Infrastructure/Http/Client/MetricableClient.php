@@ -25,8 +25,9 @@ class MetricableClient implements Client
         $response = $this->client->sendRequest($request);
 
         $this->metrics->add(new MetricSubject(
-            'http_send_request',
-            sprintf('[HTTP] Wait of response from %s', $request->getUri()->getHost()),
+            'http',
+            'send_request',
+            sprintf('Wait of response from %s', $request->getUri()->getHost()),
         ), $timer->finish());
 
         return $response;
@@ -41,8 +42,9 @@ class MetricableClient implements Client
         $hosts = $this->getHosts($requests)->implode(', ');
 
         $this->metrics->add(new MetricSubject(
-            'http_send_request',
-            sprintf('[HTTP] Wait of response from %s for %d async requests', $hosts, count($requests)),
+            'http',
+            'send_request',
+            sprintf('Wait of response from %s for %d async requests', $hosts, count($requests)),
         ), $timer->finish());
 
         return $responses;
