@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
+use Psr\Http\Client\ClientInterface as HttpClient;
 use GuzzleHttp\Psr7\Request;
 
 class Client
