@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Gauge;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
@@ -15,7 +15,7 @@ class MetricableClient implements Client
 {
     public function __construct(
         private readonly Client $client,
-        private readonly MetricManager $metrics,
+        private readonly MetricRegisterer $metrics,
     ) {
         $this->metrics->register(new MetricSubject(
             'http',

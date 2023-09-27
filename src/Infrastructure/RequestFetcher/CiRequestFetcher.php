@@ -8,15 +8,15 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\GettingMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 
 final readonly class CiRequestFetcher implements MergeRequestFetcher
 {
     public function __construct(
-        private CiSystemFactory $systems,
-        private MetricManager   $metrics,
+        private CiSystemFactory  $systems,
+        private MetricRegisterer $metrics,
     ) {
     }
 

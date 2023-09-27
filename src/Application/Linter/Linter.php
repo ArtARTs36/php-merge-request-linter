@@ -19,7 +19,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Gauge;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
@@ -31,7 +31,7 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
         private Rules                    $rules,
         private LinterOptions            $options,
         private EventDispatcherInterface $events,
-        private MetricManager            $metrics,
+        private MetricRegisterer         $metrics,
     ) {
     }
 

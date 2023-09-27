@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories;
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Counter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
@@ -21,7 +21,7 @@ class ConditionRuleFactory
     ) {
     }
 
-    public static function new(OperatorResolver $operatorResolver, MetricManager $metrics): self
+    public static function new(OperatorResolver $operatorResolver, MetricRegisterer $metrics): self
     {
         $counter = new IncCounter();
 

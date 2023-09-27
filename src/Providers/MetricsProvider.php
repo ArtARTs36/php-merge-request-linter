@@ -11,10 +11,6 @@ use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\MetricStorage;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\NullStorage;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\Client;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\PushGateway;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\Renderer;
 use Psr\Container\ContainerInterface;
 
 final class MetricsProvider extends Provider
