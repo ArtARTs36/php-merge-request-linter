@@ -17,12 +17,14 @@ readonly class Config
     public const SUBJECT_NOTIFICATIONS = 4;
     public const SUBJECT_LINTER = 5;
     public const SUBJECT_COMMENTS = 6;
+    public const SUBJECT_METRICS = 7;
     public const SUBJECT_ALL = self::SUBJECT_RULES |
         self::SUBJECT_CI_SETTINGS |
         self::SUBJECT_HTTP_CLIENT |
         self::SUBJECT_NOTIFICATIONS |
         self::SUBJECT_LINTER |
-        self::SUBJECT_COMMENTS;
+        self::SUBJECT_COMMENTS |
+        self::SUBJECT_METRICS;
 
     /**
      * @param Map<CiName, CiSettings> $settings
@@ -34,6 +36,7 @@ readonly class Config
         public NotificationsConfig $notifications,
         public LinterConfig        $linter,
         public CommentsConfig      $comments,
+        public MetricsConfig       $metrics,
     ) {
     }
 }

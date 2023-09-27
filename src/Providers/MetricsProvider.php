@@ -27,7 +27,7 @@ final class MetricsProvider extends Provider
                     $httpClient = $container->get(ClientFactory::class)->create($event->config->config->httpClient);
 
                     return new PushGateway(
-                        new Client($httpClient),
+                        new Client($httpClient, $event->config->config->metrics->storage->address),
                         new Renderer(),
                     );
                 });

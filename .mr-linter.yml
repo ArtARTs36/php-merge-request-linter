@@ -105,6 +105,11 @@ ci:
     credentials:
       token: 'env(MR_LINTER_GITHUB_HTTP_TOKEN)'
 
+metrics:
+  storage:
+    prometheusPushGateway:
+      address: http://host.docker.internal:9091
+
 comments:
   strategy: 'single'
   messages:

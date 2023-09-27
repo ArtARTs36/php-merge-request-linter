@@ -9,12 +9,13 @@ class Client
 {
     public function __construct(
         private readonly HttpClient $http,
+        private readonly string $address,
     ) {
     }
 
     public function replace(string $job, string $data): void
     {
-        $url = "http://host.docker.internal:9091/metrics/job/{$job}";
+        $url = sprintf("%s/metrics/job/%s", $this->address, $job);
 
         $this->http->sendRequest(new Request('POST', $url, body: $data));
     }

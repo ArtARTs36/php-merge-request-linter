@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGate
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\MetricStorage;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 
-class PushGateway implements MetricStorage
+final class PushGateway implements MetricStorage
 {
     public function __construct(
         private readonly Client   $client,

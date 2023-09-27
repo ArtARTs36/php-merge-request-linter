@@ -8,6 +8,8 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\MetricsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\MetricsStorageConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
@@ -82,6 +84,7 @@ class ArrayConfigHydrator
             $notifications,
             $this->createLinterConfig($data['linter'] ?? []),
             $this->createCommentsConfig($data['comments'] ?? []),
+            $this->createMetricsConfig($data),
         );
     }
 
@@ -154,5 +157,51 @@ class ArrayConfigHydrator
             $postStrategy,
             $messages,
         );
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function createMetricsConfig(array $config): MetricsConfig
+    {
+        if (! array_key_exists('metrics', $config)) {
+            return new MetricsConfig(new MetricsStorageConfig('null', 'null'));
+        }
+
+        if (! is_array($config['metrics'])) {
+            throw ConfigInvalidException::invalidType('metrics', 'array', gettype($config['metrics']));
+        }
+
+        if (! array_key_exists('storage', $config['metrics'])) {
+            throw ConfigInvalidException::keyNotSet('metrics.storage');
+        }
+
+        if (! is_array($config['metrics']['storage'])) {
+            throw ConfigInvalidException::invalidType(
+                'metrics.storage',
+                'array',
+                gettype($config['metrics']['storage']),
+            );
+        }
+
+        if (count($config['metrics']['storage']) === 0) {
+            throw new ConfigInvalidException('Config[metrics.storage] must be not empty');
+        }
+
+        $storageName = array_key_first($config['metrics']['storage']);
+        $storage = $config['metrics']['storage'][$storageName];
+
+        if (empty($storage['address'])) {
+            throw new ConfigInvalidException('Config[metrics.storage.address] must be not empty');
+        }
+
+        if (! is_string($storage['address'])) {
+            throw new ConfigInvalidException('Config[metrics.storage.address] must be string');
+        }
+
+        return new MetricsConfig(new MetricsStorageConfig(
+            $storageName,
+            $storage['address'],
+        ));
     }
 }
