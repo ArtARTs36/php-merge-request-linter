@@ -2,16 +2,22 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Value;
 
-class MetricProxy implements Metric
+class MetricSampleProxy extends AbstractMetricSample implements MetricSample
 {
-    private ?Metric $metric = null;
+    private ?MetricSample $metric = null;
 
     /**
-     * @param \Closure(): Metric $callback
+     * @param \Closure(): MetricSample $callback
      */
     public function __construct(
         private readonly \Closure $callback,
+        protected array $labels = [],
     ) {
+    }
+
+    public function getMetricType(): MetricType
+    {
+        return $this->retrieve()->getMetricType();
     }
 
     public function getMetricValue(): string
@@ -19,7 +25,7 @@ class MetricProxy implements Metric
         return $this->retrieve()->getMetricValue();
     }
 
-    private function retrieve(): Metric
+    private function retrieve(): MetricSample
     {
         if ($this->metric === null) {
             $this->metric = ($this->callback)();

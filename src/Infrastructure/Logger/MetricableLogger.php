@@ -22,7 +22,7 @@ final class MetricableLogger implements LoggerInterface
     {
         $counter = new IncCounter();
 
-        $manager->add(new MetricSubject('logger', 'logger_logs_count', 'Logs count'), $counter);
+        $manager->registerWithSample(new MetricSubject('logger', 'logs_count', 'Logs count'), $counter);
 
         return new self($counter);
     }

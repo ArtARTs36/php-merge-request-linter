@@ -2,8 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Gauge;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricProxy;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSampleProxy;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Version;
@@ -23,15 +24,15 @@ class Application extends \Symfony\Component\Console\Application
     {
         $timer = Timer::start();
 
-        $this->metrics->add(
+        $this->metrics->registerWithSample(
             new MetricSubject(
                 'console',
-                sprintf('time_execution_%s', $command->getName() ?? 'main'),
-                sprintf('Command "%s" execution', $command->getName()),
+                'execution_time',
+                'Command execution',
             ),
-            new MetricProxy(function () use ($timer) {
-                return $timer->finish();
-            }),
+            new MetricSampleProxy(function () use ($timer) {
+                return new Gauge($timer->finish());
+            }, ['command' => $command->getName() ?? 'main']),
         );
 
         return parent::doRunCommand($command, $input, $output);

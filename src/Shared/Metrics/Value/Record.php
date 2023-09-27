@@ -2,12 +2,14 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Value;
 
-readonly class Record
+class Record
 {
+    /**
+     * @param array<MetricSample> $samples
+     */
     public function __construct(
-        public MetricSubject      $subject,
-        public Metric             $value,
-        public \DateTimeInterface $date,
+        public readonly MetricSubject      $subject,
+        public array                       $samples,
     ) {
     }
 }

@@ -149,6 +149,21 @@ final class ArrayMap implements Map
         return $this->items;
     }
 
+    /**
+     * @param callable(K, V): mixed $mapper
+     * @return array<K, mixed>
+     */
+    public function mapToArray(callable $mapper): array
+    {
+        $items = [];
+
+        foreach ($this->items as $key => $value) {
+            $items[] = $mapper($key, $value);
+        }
+
+        return $items;
+    }
+
     public function __debugInfo(): array
     {
         return [

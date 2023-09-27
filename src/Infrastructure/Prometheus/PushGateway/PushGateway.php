@@ -2,6 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Prometheus\PushGateway;
 
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
+
 class PushGateway
 {
     public function __construct(
@@ -11,7 +13,7 @@ class PushGateway
     }
 
     /**
-     * @param iterable<Metric> $records
+     * @param iterable<Record> $records
      */
     public function push(string $job, iterable $records): void
     {

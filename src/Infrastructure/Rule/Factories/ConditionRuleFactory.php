@@ -25,7 +25,7 @@ class ConditionRuleFactory
     {
         $counter = new IncCounter();
 
-        $metrics->add(new MetricSubject(
+        $metrics->registerWithSample(new MetricSubject(
             'linter',
             'skipped_rules',
             'Skipped rules',

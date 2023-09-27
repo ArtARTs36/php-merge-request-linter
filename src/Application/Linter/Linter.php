@@ -19,6 +19,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Gauge;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
@@ -95,14 +96,12 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
 
     private function addMetricUsedRules(): void
     {
-        $this->metrics->add(
-            new MetricSubject(
-                'linter',
-                'used_rules',
-                'Used rules',
-            ),
-            IncCounter::create($this->rules),
-        );
+        $this
+            ->metrics
+            ->registerWithSample(
+                new MetricSubject('linter', 'used_rules', 'Used rules'),
+                new Gauge($this->rules->count()),
+            );
     }
 
     /**

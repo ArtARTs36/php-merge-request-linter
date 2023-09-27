@@ -4,6 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Gauge;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
@@ -16,6 +17,11 @@ class MetricableClient implements Client
         private readonly Client $client,
         private readonly MetricManager $metrics,
     ) {
+        $this->metrics->register(new MetricSubject(
+            'http',
+            'send_request',
+            'Wait of response'
+        ));
     }
 
     public function sendRequest(RequestInterface $request): ResponseInterface
@@ -24,11 +30,9 @@ class MetricableClient implements Client
 
         $response = $this->client->sendRequest($request);
 
-        $this->metrics->add(new MetricSubject(
-            'http',
-            'send_request',
-            sprintf('Wait of response from %s', $request->getUri()->getHost()),
-        ), $timer->finish());
+        $this->metrics->add('http_send_request', new Gauge($timer->finish(), [
+            'host' => $request->getUri()->getHost(),
+        ]));
 
         return $response;
     }
@@ -41,11 +45,7 @@ class MetricableClient implements Client
 
         $hosts = $this->getHosts($requests)->implode(', ');
 
-        $this->metrics->add(new MetricSubject(
-            'http',
-            'send_request',
-            sprintf('Wait of response from %s for %d async requests', $hosts, count($requests)),
-        ), $timer->finish());
+        $this->metrics->add('http_send_request', new Gauge($timer->finish()));
 
         return $responses;
     }

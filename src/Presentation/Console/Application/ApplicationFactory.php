@@ -189,7 +189,7 @@ class ApplicationFactory
 
     private function registerMetricManager(): MetricManager
     {
-        $metrics = new MemoryMetricManager($this->container->get(ClockInterface::class));
+        $metrics = new MemoryMetricManager();
 
         $this->container->set(MetricManager::class, $metrics);
 

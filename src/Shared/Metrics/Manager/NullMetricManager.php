@@ -3,7 +3,7 @@
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Metric;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 
@@ -12,7 +12,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
  */
 class NullMetricManager implements MetricManager
 {
-    public function add(MetricSubject $subject, Metric $value): MetricManager
+    public function add(MetricSubject $subject, MetricSample $value): MetricManager
     {
         return $this;
     }

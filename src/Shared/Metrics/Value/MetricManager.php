@@ -2,7 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Value;
 
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 
 /**
  * Interface for managing metrics (time execution, etc.).
@@ -10,14 +10,24 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 interface MetricManager
 {
     /**
-     * Add new metric.
+     * Register metric subject.
+     */
+    public function register(MetricSubject $subject): void;
+
+    /**
+     * Register metric subject with sample.
+     */
+    public function registerWithSample(MetricSubject $subject, MetricSample $sample): void;
+
+    /**
+     * Add new metric sample.
      * @return $this
      */
-    public function add(MetricSubject $subject, Metric $value): self;
+    public function add(string $subjectIdentity, MetricSample $value): self;
 
     /**
      * Describe metrics.
-     * @return Arrayee<int, Record>
+     * @return Map<string, Record>
      */
-    public function describe(): Arrayee;
+    public function describe(): Map;
 }

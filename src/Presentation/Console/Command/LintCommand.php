@@ -120,7 +120,7 @@ final class LintCommand extends Command
                     ->metrics
                     ->describe()
                     ->mapToArray(
-                        static fn (Record $record) => new Metric($record->subject->wrapTitle(), $record->value->getMetricValue()),
+                        static fn ($_, Record $record) => new Metric($record->subject->wrapTitle(), isset($record->samples[0]) ? $record->samples[0]->getMetricValue() : 'null'),
                     ),
             );
         }

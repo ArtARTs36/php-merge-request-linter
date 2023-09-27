@@ -2,40 +2,48 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Prometheus\PushGateway;
 
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
+use ArtARTs36\Str\Facade\Str;
+
 class Renderer
 {
     /**
-     * @param iterable<Metric> $records
+     * @param iterable<Record> $records
      */
     public function render(iterable $records): string
     {
-        $content = '';
+        $content = [];
 
         foreach ($records as $metric) {
-            $value = $metric->value;
+            if (! isset($metric->samples[0])) {
+                continue;
+            }
 
-            $labelsString = $this->collectLabels($metric);
+            $content[] = "# HELP {$metric->subject->identity()} The number of items in the queue.";
+            $content[] = "# TYPE {$metric->subject->identity()} {$metric->samples[0]->getMetricType()->value}";
+            $content[] = "\n";
 
-            $content .= <<<HTML
-# HELP {$metric->key} The number of items in the queue.
-# TYPE {$metric->key} {$metric->type}
+            foreach ($metric->samples as $sample) {
+                $labelsString = $this->collectLabels($sample);
 
-{$metric->key}{$labelsString} $value
+                $content[] = "{$metric->subject->identity()}{$labelsString} {$sample->getMetricValue()}";
+            }
 
-HTML;
+            $content[] = "\n";
         }
 
-        return $content;
+        return Str::implode("\n", $content);
     }
 
-    private function collectLabels(Metric $metric): string
+    private function collectLabels(MetricSample $metric): string
     {
-        if (count($metric->labels) === 0) {
+        if (count($metric->getMetricLabels()) === 0) {
             return '';
         }
 
         $labelsString = '{';
-        $labels = $metric->labels;
+        $labels = $metric->getMetricLabels();
 
         foreach ($labels as $labelKey => $labelValue) {
             $labelsString .= sprintf(
