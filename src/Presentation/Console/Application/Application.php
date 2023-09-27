@@ -2,8 +2,8 @@
 
 namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Gauge;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSampleProxy;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;

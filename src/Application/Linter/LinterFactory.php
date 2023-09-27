@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Application\Linter;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\Linter;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class LinterFactory

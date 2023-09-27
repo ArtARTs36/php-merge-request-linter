@@ -35,9 +35,9 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFact
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Text\Decoder\DecoderFactory;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Reflection\ParameterMapBuilder;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
+use ArtARTs36\MergeRequestLinter\Shared\Reflection\ParameterMapBuilder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ResolverFactory;
 
 class ArrayConfigLoaderFactory

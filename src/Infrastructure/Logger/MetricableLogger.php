@@ -2,9 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Logger;
 
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Counter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;

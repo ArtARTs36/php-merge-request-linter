@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Prometheus\PushGateway;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;

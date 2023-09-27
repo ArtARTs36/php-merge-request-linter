@@ -1,13 +1,13 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Prometheus\PushGateway;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 
 class PushGateway
 {
     public function __construct(
-        private readonly PushGatewayClient $client,
+        private readonly Client   $client,
         private readonly Renderer $renderer,
     ) {
     }

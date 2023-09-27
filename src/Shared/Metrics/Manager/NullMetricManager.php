@@ -4,7 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 
 /**

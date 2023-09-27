@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Application\Report\Reporter\ReporterFactory;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 

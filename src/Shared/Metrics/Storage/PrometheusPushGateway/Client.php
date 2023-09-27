@@ -1,14 +1,14 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Infrastructure\Prometheus\PushGateway;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway;
 
-use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client as HttpClient;
 use GuzzleHttp\Psr7\Request;
 
-class PushGatewayClient
+class Client
 {
     public function __construct(
-        private readonly Client $http,
+        private readonly HttpClient $http,
     ) {
     }
 

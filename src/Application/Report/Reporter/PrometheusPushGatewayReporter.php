@@ -4,8 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Application\Report\Reporter;
 
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintResult;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Infrastructure\Prometheus\PushGateway\PushGateway;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\PushGateway;
 
 class PrometheusPushGatewayReporter implements Reporter
 {
