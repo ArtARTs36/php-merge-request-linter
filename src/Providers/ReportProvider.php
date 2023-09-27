@@ -4,9 +4,9 @@ namespace ArtARTs36\MergeRequestLinter\Providers;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
 use ArtARTs36\MergeRequestLinter\Application\Metrics\MetricsFlushHandler;
-use ArtARTs36\MergeRequestLinter\Application\Metrics\RequestMetricsFlusher;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
+use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\RequestMetricFlusher;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
@@ -38,7 +38,7 @@ final class ReportProvider extends Provider
             ->container
             ->get(EventManager::class)
             ->listen(LintFinishedEvent::class, new CallbackListener('metrics_flush', function (LintFinishedEvent $event) {
-                $flusher = new RequestMetricsFlusher(
+                $flusher = new RequestMetricFlusher(
                     $this->container->get(MetricManager::class),
                     $this->container->get(MetricStorage::class),
                 );
