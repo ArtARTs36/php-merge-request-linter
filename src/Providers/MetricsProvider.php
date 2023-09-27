@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Providers;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
-use ArtARTs36\MergeRequestLinter\Application\Metrics\MetricsFlushHandler;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\RequestMetricFlusher;
@@ -16,7 +15,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\Pu
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\Renderer;
 use Psr\Container\ContainerInterface;
 
-final class ReportProvider extends Provider
+final class MetricsProvider extends Provider
 {
     public function provide(): void
     {

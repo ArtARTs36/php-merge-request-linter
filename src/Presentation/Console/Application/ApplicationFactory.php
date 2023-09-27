@@ -41,7 +41,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Output\ConsoleLogger;
 use ArtARTs36\MergeRequestLinter\Providers\CommentProvider;
 use ArtARTs36\MergeRequestLinter\Providers\EventDispatcherProvider;
 use ArtARTs36\MergeRequestLinter\Providers\NotificationsProvider;
-use ArtARTs36\MergeRequestLinter\Providers\ReportProvider;
+use ArtARTs36\MergeRequestLinter\Providers\MetricsProvider;
 use ArtARTs36\MergeRequestLinter\Providers\RuleProvider;
 use ArtARTs36\MergeRequestLinter\Providers\ServiceProvider;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
@@ -62,7 +62,7 @@ class ApplicationFactory
         NotificationsProvider::class,
         RuleProvider::class,
         CommentProvider::class,
-        ReportProvider::class,
+        MetricsProvider::class,
     ];
 
     public function __construct(
