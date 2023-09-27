@@ -33,9 +33,4 @@ interface MetricManager
      * @return Map<string, Record>
      */
     public function describe(): Map;
-
-    /**
-     * Flush records to persistent storage.
-     */
-    public function flush(string $id): void;
 }

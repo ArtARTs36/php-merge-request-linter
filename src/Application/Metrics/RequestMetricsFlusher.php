@@ -1,0 +1,23 @@
+<?php
+
+namespace ArtARTs36\MergeRequestLinter\Application\Metrics;
+
+use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\MetricStorage;
+
+class RequestMetricsFlusher
+{
+    public function __construct(
+        private readonly MetricManager $metrics,
+        private readonly MetricStorage $storage,
+    ) {
+    }
+
+    public function flush(MergeRequest $request): void
+    {
+        $transactionId = md5(sprintf('%s-%s', $request->uri, time()));
+
+        $this->storage->commit($transactionId, $this->metrics->describe()->toArray());
+    }
+}

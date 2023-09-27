@@ -4,8 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\MetricStorage;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\NullStorage;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
@@ -16,11 +14,6 @@ class MemoryMetricManager implements MetricManager
      * @var array<string, Record>
      */
     private array $records = [];
-
-    public function __construct(
-        private readonly MetricStorage $storage = new NullStorage(),
-    ) {
-    }
 
     public function register(MetricSubject $subject): void
     {
@@ -49,10 +42,5 @@ class MemoryMetricManager implements MetricManager
     public function describe(): Map
     {
         return new ArrayMap($this->records);
-    }
-
-    public function flush(string $id): void
-    {
-        $this->storage->commit($id, $this->records);
     }
 }
