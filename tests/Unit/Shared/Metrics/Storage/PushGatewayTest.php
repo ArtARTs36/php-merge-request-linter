@@ -12,6 +12,7 @@ final class PushGatewayTest extends TestCase
 {
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\PushGateway::commit
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\PushGateway::__construct
      */
     public function testCommit(): void
     {
