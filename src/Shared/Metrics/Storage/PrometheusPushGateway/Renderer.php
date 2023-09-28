@@ -53,7 +53,7 @@ class Renderer
             $labelsString .= sprintf(
                 '%s=%s',
                 $labelKey,
-                is_string($labelValue) ? ('"'. $labelValue .'"') : $labelValue,
+                is_numeric($labelValue) ? $labelValue : ('"'. $labelValue .'"'),
             );
 
             if (next($labels) !== false) {

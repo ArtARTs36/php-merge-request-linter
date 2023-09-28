@@ -21,13 +21,11 @@ final class MetricableClient implements Client
 
     public static function make(Client $client, MetricRegisterer $metrics): self
     {
-        $observer = $metrics->getOrRegister('http_send_request', static function () {
-            return new GaugeVector(new MetricSubject(
-                'http',
-                'send_request',
-                'Wait of response'
-            ));
-        });
+        $observer = $metrics->getOrRegister(new GaugeVector(new MetricSubject(
+            'http',
+            'send_request',
+            'Wait of response'
+        )));
 
         return new self($client, $observer);
     }

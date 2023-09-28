@@ -11,10 +11,10 @@ interface MetricRegisterer
 {
     /**
      * @template C of Collector
-     * @param callable(): C $collectorCreator
+     * @param C $collector
      * @return C
      */
-    public function getOrRegister(string $key, callable $collectorCreator): Collector;
+    public function getOrRegister(Collector $collector): Collector;
 
     /**
      * Register collector.

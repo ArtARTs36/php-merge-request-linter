@@ -13,13 +13,22 @@ final class MemoryMetricManager implements MetricManager
      */
     private array $collectors = [];
 
-    public function getOrRegister(string $key, callable $collectorCreator): Collector
+    public function getOrRegister(Collector $collector): Collector
     {
+        $key = $collector->getSubject()->identity();
+
         if (array_key_exists($key, $this->collectors)) {
+            if (get_class($this->collectors[$key]) !== get_class($collector)) {
+                throw new \LogicException(sprintf(
+                    'Already registered collector "%s" with type "%s". Expected type: %s',
+                    $key,
+                    $this->collectors[$key]::class,
+                    $collector::class,
+                ));
+            }
+
             return $this->collectors[$key];
         }
-
-        $collector = $collectorCreator();
 
         $this->register($collector);
 

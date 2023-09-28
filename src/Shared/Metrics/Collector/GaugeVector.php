@@ -2,6 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector;
 
+/**
+ * @template-extends AbstractVector<Gauge>
+ */
 final class GaugeVector extends AbstractVector
 {
     /**

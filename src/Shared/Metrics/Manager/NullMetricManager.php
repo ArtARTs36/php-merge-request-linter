@@ -2,22 +2,28 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
 
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
+use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 
 /**
  * @codeCoverageIgnore
  */
 class NullMetricManager implements MetricManager
 {
-    public function add(MetricSubject $subject, MetricSample $value): MetricManager
+    public function getOrRegister(Collector $collector): Collector
     {
-        return $this;
+        return $collector;
     }
 
-    public function describe(): Arrayee
+    public function register(Collector $collector): void
     {
-        return new Arrayee([]);
+        //
+    }
+
+    public function describe(): Map
+    {
+        return new ArrayMap([]);
     }
 }
