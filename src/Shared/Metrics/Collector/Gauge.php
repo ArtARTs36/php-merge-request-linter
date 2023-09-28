@@ -6,7 +6,7 @@ final class Gauge extends LabeledCollector
 {
     public function __construct(
         MetricSubject $subject,
-        array $labels,
+        array $labels = [],
         private float $value = 0,
     ) {
         parent::__construct($subject, $labels);

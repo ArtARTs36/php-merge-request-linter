@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 
 /**
- * Interface for managing metrics (time execution, etc.).
+ * Interface for managing collectors (time execution, etc.).
  */
 interface CollectorRegistry extends CollectorRegisterer
 {

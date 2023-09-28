@@ -19,7 +19,7 @@ final class MemoryRegistry implements CollectorRegistry
 
         if (array_key_exists($key, $this->collectors)) {
             if (get_class($this->collectors[$key]) !== get_class($collector)) {
-                throw new \LogicException(sprintf(
+                throw new CollectorAlreadyRegisteredException(sprintf(
                     'Already registered collector "%s" with type "%s". Expected type: %s',
                     $key,
                     $this->collectors[$key]::class,
@@ -40,7 +40,7 @@ final class MemoryRegistry implements CollectorRegistry
         $key = $collector->getSubject()->identity();
 
         if (array_key_exists($key, $this->collectors)) {
-            throw new \LogicException(sprintf(
+            throw new CollectorAlreadyRegisteredException(sprintf(
                 'Collector for metric with key "%s" already registered',
                 $key,
             ));
