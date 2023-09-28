@@ -10,6 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 interface CollectorRegisterer
 {
     /**
+     * Get or register.
      * @template C of Collector
      * @param C $collector
      * @return C

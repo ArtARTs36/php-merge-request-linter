@@ -19,7 +19,8 @@ use Psr\Container\ContainerInterface;
 final class MetricsProvider extends Provider
 {
     public function provide(): void
-    {;
+    {
+        ;
         $this
             ->container
             ->get(EventManager::class)

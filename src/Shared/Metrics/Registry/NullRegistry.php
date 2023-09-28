@@ -5,7 +5,6 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 
 /**
  * @codeCoverageIgnore

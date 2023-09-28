@@ -18,7 +18,6 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\NotePrinter;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;

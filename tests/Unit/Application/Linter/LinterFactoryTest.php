@@ -4,15 +4,6 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Linter;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Linter;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsConfig;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
-use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
-use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
-use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
-use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\NullRegistry;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
