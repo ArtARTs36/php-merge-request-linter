@@ -24,7 +24,8 @@ final class MetricableClient implements Client
         $observer = $metrics->getOrRegister(new GaugeVector(new MetricSubject(
             'http',
             'send_request',
-            'Wait of response'
+            'Wait of response',
+            'Wait of response :host:',
         )));
 
         return new self($client, $observer);

@@ -25,7 +25,7 @@ final readonly class CiRequestFetcher implements MergeRequestFetcher
         $ci = $this->systems->createCurrently();
 
         $metric = CounterVector::once(
-            new MetricSubject('ci', 'used_systems', 'Used CI System'),
+            new MetricSubject('ci', 'used_systems', 'Used CI systems', 'Used CI systems: :ci:'),
             ['ci' => $ci->getName()],
         );
 

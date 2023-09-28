@@ -13,6 +13,7 @@ readonly class MetricSubject
         public string $category,
         public string $key,
         public string $title,
+        public string $placeholder = '',
     ) {
     }
 
@@ -21,8 +22,27 @@ readonly class MetricSubject
         return sprintf('%s_%s', $this->category, $this->key);
     }
 
-    public function wrapTitle(): string
+    /**
+     * @param array<string, string> $labels
+     */
+    public function readableTitle(array $labels): string
     {
-        return sprintf('[%s] %s', Str::upFirstSymbol($this->category), $this->title);
+        if (Str::isEmpty($this->placeholder)) {
+            return sprintf('[%s] %s', Str::upFirstSymbol($this->category), $this->title);
+        }
+
+        $replacesKeys = [];
+        $replacesValues = [];
+
+        foreach ($labels as $key => $value) {
+            $replacesKeys[] = ':' . $key . ':';
+            $replacesValues[] = $value;
+        }
+
+        return sprintf(
+            '[%s] %s',
+            Str::upFirstSymbol($this->category),
+            str_replace($replacesKeys, $replacesValues, $this->placeholder),
+        );
     }
 }

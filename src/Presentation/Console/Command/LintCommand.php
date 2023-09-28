@@ -115,14 +115,28 @@ final class LintCommand extends Command
         ]);
 
         if ($fullMetrics) {
-            $metrics = $metrics->merge(
-                $this
-                    ->metrics
-                    ->describe()
-                    ->mapToArray(static function ($_, Collector $collector) {
-                        return new Metric($collector->getSubject()->wrapTitle(), isset($collector->getSamples()[0]) ? $collector->getSamples()[0]->value : 'null');
-                    }),
-            );
+            $readMetrics = [];
+
+            foreach ($this->metrics->describe() as $collector) {
+                if ($collector->getSubject()->key === 'rule_lint_state') {
+                    continue;
+                }
+
+                foreach ($collector->getSamples() as $sample) {
+                    $metric = new Metric(
+                        $collector->getSubject()->readableTitle($sample->labels),
+                        "$sample->value",
+                    );
+
+                    if ($collector->getSubject()->category === 'linter') {
+                        array_unshift($readMetrics, $metric);
+                    } else {
+                        $readMetrics[] = $metric;
+                    }
+                }
+            }
+
+            $metrics = $metrics->merge($readMetrics);
         }
 
         $this->metricPrinter->print(new SymfonyTablePrinter($style), $metrics);
