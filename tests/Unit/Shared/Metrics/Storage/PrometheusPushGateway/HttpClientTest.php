@@ -1,13 +1,10 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Storage;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Storage\PrometheusPushGateway;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway\HttpClient;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockClient;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
-use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\MockObject\Rule\InvokedCount;
-use Psr\Http\Client\ClientInterface;
 
 final class HttpClientTest extends TestCase
 {

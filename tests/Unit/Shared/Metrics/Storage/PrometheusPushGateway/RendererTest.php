@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Storage;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Storage\PrometheusPushGateway;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Counter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
