@@ -15,7 +15,7 @@ final class GaugeVectorTest extends TestCase
     {
         $vector = new GaugeVector($subject = new MetricSubject('test', 'collector', ''));
 
-        $createdGaugeFirst = $vector->add();
+        $createdGaugeFirst = $vector->add([]);
 
         self::assertEquals($subject, $createdGaugeFirst->getSubject());
     }
