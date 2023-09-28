@@ -34,8 +34,8 @@ abstract class AbstractVector extends AbstractCollector
     {
         $samples = [];
 
-        foreach ($this->collectors as $counter) {
-            foreach ($counter->getSamples() as $sample) {
+        foreach ($this->collectors as $collector) {
+            foreach ($collector->getSamples() as $sample) {
                 $samples[] = $sample;
             }
         }
