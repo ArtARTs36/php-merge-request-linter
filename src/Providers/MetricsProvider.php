@@ -3,7 +3,10 @@
 namespace ArtARTs36\MergeRequestLinter\Providers;
 
 use ArtARTs36\MergeRequestLinter\Application\Linter\Events\ConfigResolvedEvent;
+use ArtARTs36\MergeRequestLinter\Application\Rule\Metrics\RuleLintStateMetricHandler;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintFinishedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
+use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\MetricStorageFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\RequestMetricFlusher;
@@ -38,6 +41,24 @@ final class MetricsProvider extends Provider
                 );
 
                 $flusher->flush($event->request);
+            }));
+
+        $this->container->bind(RuleLintStateMetricHandler::class, static function (ContainerInterface $container) {
+            return RuleLintStateMetricHandler::make($container->get(MetricManager::class));
+        });
+
+        $this
+            ->container
+            ->get(EventManager::class)
+            ->listen(RuleWasSuccessfulEvent::class, new CallbackListener('rule_lint_successful_state_metric', function (RuleWasSuccessfulEvent $event) {
+                $this->container->get(RuleLintStateMetricHandler::class)->handle($event);
+            }));
+
+        $this
+            ->container
+            ->get(EventManager::class)
+            ->listen(RuleWasFailedEvent::class, new CallbackListener('rule_lint_failed_state_metric', function (RuleWasFailedEvent $event) {
+                $this->container->get(RuleLintStateMetricHandler::class)->handle($event);
             }));
     }
 }
