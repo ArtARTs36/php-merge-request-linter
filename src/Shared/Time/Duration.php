@@ -11,6 +11,6 @@ readonly class Duration
 
     public function __toString(): string
     {
-        return "$this->seconds";
+        return "{$this->seconds}s";
     }
 }

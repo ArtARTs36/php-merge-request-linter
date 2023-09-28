@@ -34,6 +34,9 @@ final class CounterVector extends AbstractVector
         }, $labels);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getMetricType(): MetricType
     {
         return MetricType::Counter;

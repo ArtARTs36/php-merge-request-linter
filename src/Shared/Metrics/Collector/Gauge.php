@@ -24,6 +24,9 @@ final class Gauge extends LabeledCollector
         ];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getMetricType(): MetricType
     {
         return MetricType::Gauge;

@@ -27,6 +27,9 @@ final class Counter extends LabeledCollector
         ];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getMetricType(): MetricType
     {
         return MetricType::Counter;

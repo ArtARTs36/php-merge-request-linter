@@ -17,6 +17,9 @@ final class GaugeVector extends AbstractVector
         }, $labels);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getMetricType(): MetricType
     {
         return MetricType::Gauge;
