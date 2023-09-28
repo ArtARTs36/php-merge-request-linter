@@ -189,6 +189,14 @@ class ArrayConfigHydrator
         }
 
         $storageName = array_key_first($config['metrics']['storage']);
+
+        if (! in_array($storageName, MetricsStorageConfig::NAMES, true)) {
+            throw new ConfigInvalidException(sprintf(
+                'Config[metrics.storage] name must be of [%s]',
+                implode(', ', MetricsStorageConfig::NAMES),
+            ));
+        }
+
         $storage = $config['metrics']['storage'][$storageName];
 
         if (empty($storage['address'])) {
