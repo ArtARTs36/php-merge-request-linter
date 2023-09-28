@@ -17,7 +17,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\RuleDefinition;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\NullRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Duration;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\EmptyNote;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\ExceptionRule;
@@ -45,7 +45,7 @@ final class LinterTest extends TestCase
             ]),
             new LinterOptions(false),
             new NullEventDispatcher(),
-            new NullMetricManager(),
+            new NullRegistry(),
         );
 
         $result = $linter->run($this->makeMergeRequest());
@@ -167,7 +167,7 @@ final class LinterTest extends TestCase
             $rules,
             $options,
             $eventDispatcher,
-            new NullMetricManager(),
+            new NullRegistry(),
         );
 
         $result = $linter->run($this->makeMergeRequest());
@@ -209,7 +209,7 @@ final class LinterTest extends TestCase
             ]),
             new LinterOptions(),
             $eventDispatcher,
-            new NullMetricManager(),
+            new NullRegistry(),
         );
 
         $gotLintResult = $linter->run($this->makeMergeRequest());

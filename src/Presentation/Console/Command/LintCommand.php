@@ -19,7 +19,7 @@ use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -35,10 +35,10 @@ final class LintCommand extends Command
     protected static $defaultDescription = 'Run lint to current merge request';
 
     public function __construct(
-        protected MetricManager $metrics,
-        protected EventManager $events,
+        protected CollectorRegistry      $metrics,
+        protected EventManager           $events,
         private readonly LintTaskHandler $handler,
-        protected readonly NotePrinter $notePrinter = new NotePrinter(),
+        protected readonly NotePrinter   $notePrinter = new NotePrinter(),
         protected readonly MetricPrinter $metricPrinter = new MetricPrinter(),
     ) {
         parent::__construct();

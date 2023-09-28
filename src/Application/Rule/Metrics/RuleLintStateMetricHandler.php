@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasFailedEvent;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\RuleWasSuccessfulEvent;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegisterer;
 
 class RuleLintStateMetricHandler
 {
@@ -15,7 +15,7 @@ class RuleLintStateMetricHandler
     ) {
     }
 
-    public static function make(MetricRegisterer $registerer): self
+    public static function make(CollectorRegisterer $registerer): self
     {
         $counter = new CounterVector(new MetricSubject(
             'linter',

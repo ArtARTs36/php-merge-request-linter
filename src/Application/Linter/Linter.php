@@ -21,7 +21,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Counter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegisterer;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -31,7 +31,7 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
         private Rules                    $rules,
         private LinterOptions            $options,
         private EventDispatcherInterface $events,
-        private MetricRegisterer         $metrics,
+        private CollectorRegisterer      $metrics,
     ) {
     }
 

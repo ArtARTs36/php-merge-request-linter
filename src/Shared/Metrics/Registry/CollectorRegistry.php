@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 /**
  * Interface for managing metrics (time execution, etc.).
  */
-interface MetricManager extends MetricRegisterer
+interface CollectorRegistry extends CollectorRegisterer
 {
     /**
      * Describe metrics.

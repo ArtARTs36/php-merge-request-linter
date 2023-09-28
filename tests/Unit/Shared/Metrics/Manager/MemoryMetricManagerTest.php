@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Manager;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
@@ -14,12 +14,12 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 final class MemoryMetricManagerTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager::register
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry::register
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry::__construct
      */
     public function testRegister(): void
     {
-        $manager = new MemoryMetricManager();
+        $manager = new MemoryRegistry();
 
         self::assertCount(0, $manager->describe());
 
@@ -43,13 +43,13 @@ final class MemoryMetricManagerTest extends TestCase
     }
 
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager::describe
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager::__construct
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry::describe
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry::__construct
      * @dataProvider providerForTestDescribe
      */
     public function testDescribe(array $adds, array $expected): void
     {
-        $manager = new MemoryMetricManager(
+        $manager = new MemoryRegistry(
             new QueueClock(array_map(fn (Record $record) => $record->date, $expected)),
         );
 

@@ -12,7 +12,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\MetricStorageFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Metrics\RequestMetricFlusher;
 use ArtARTs36\MergeRequestLinter\Shared\Events\CallbackListener;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\MetricStorage;
 use Psr\Container\ContainerInterface;
 
@@ -36,7 +36,7 @@ final class MetricsProvider extends Provider
             ->get(EventManager::class)
             ->listen(LintFinishedEvent::class, new CallbackListener('metrics_flush', function (LintFinishedEvent $event) {
                 $flusher = new RequestMetricFlusher(
-                    $this->container->get(MetricManager::class),
+                    $this->container->get(CollectorRegistry::class),
                     $this->container->get(MetricStorage::class),
                 );
 
@@ -44,7 +44,7 @@ final class MetricsProvider extends Provider
             }));
 
         $this->container->bind(RuleLintStateMetricHandler::class, static function (ContainerInterface $container) {
-            return RuleLintStateMetricHandler::make($container->get(MetricManager::class));
+            return RuleLintStateMetricHandler::make($container->get(CollectorRegistry::class));
         });
 
         $this

@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Application\Linter\RunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Environment\Environments\NullEnvironment;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\NullRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -25,8 +25,8 @@ final class RunnerFactoryTest extends TestCase
             new NullEnvironment(),
             new ArrayMap([]),
             LoggerFactory::null(),
-            new NullMetricManager(),
-            new ClientFactory(new NullMetricManager(), LoggerFactory::null()),
+            new NullRegistry(),
+            new ClientFactory(new NullRegistry(), LoggerFactory::null()),
             LocalClock::utc(),
         );
 

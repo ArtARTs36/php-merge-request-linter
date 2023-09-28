@@ -1,12 +1,12 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 
-final class MemoryMetricManager implements MetricManager
+final class MemoryRegistry implements CollectorRegistry
 {
     /**
      * @var array<string, Collector>

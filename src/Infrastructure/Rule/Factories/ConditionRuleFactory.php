@@ -7,7 +7,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Condition\OperatorResolver;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegisterer;
 
 /**
  * @phpstan-import-type Conditions from OperatorResolver
@@ -20,7 +20,7 @@ class ConditionRuleFactory
     ) {
     }
 
-    public static function new(OperatorResolver $operatorResolver, MetricRegisterer $metrics): self
+    public static function new(OperatorResolver $operatorResolver, CollectorRegisterer $metrics): self
     {
         $counter = new CounterVector(new MetricSubject(
             'linter',

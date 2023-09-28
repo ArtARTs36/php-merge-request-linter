@@ -3,14 +3,14 @@
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Metrics;
 
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\MetricStorage;
 
 class RequestMetricFlusher
 {
     public function __construct(
-        private readonly MetricManager $metrics,
-        private readonly MetricStorage $storage,
+        private readonly CollectorRegistry $metrics,
+        private readonly MetricStorage     $storage,
     ) {
     }
 

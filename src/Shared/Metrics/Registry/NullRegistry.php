@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 /**
  * @codeCoverageIgnore
  */
-class NullMetricManager implements MetricManager
+class NullRegistry implements CollectorRegistry
 {
     public function getOrRegister(Collector $collector): Collector
     {

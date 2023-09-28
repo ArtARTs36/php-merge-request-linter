@@ -8,7 +8,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterRunner;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Linter\LinterRunnerFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\NullRegistry;
 
 final class MockRunnerFactory implements LinterRunnerFactory
 {
@@ -19,6 +19,6 @@ final class MockRunnerFactory implements LinterRunnerFactory
 
     public function create(Config $config): LinterRunner
     {
-        return new Runner(new CiRequestFetcher($this->ciSystemFactory, new NullMetricManager()));
+        return new Runner(new CiRequestFetcher($this->ciSystemFactory, new NullRegistry()));
     }
 }

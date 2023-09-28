@@ -5,14 +5,14 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 
 class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver
 {
     public function __construct(
         private readonly \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver $resolver,
-        private readonly MetricManager                                                                       $metrics,
+        private readonly CollectorRegistry                                                                   $metrics,
     ) {
     }
 

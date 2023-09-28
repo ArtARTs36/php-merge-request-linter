@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Presentation\Console\Application;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\GaugeVector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use ArtARTs36\MergeRequestLinter\Version;
 use Symfony\Component\Console\Command\Command;
@@ -19,7 +19,7 @@ class Application extends \Symfony\Component\Console\Application
         parent::__construct('Merge Request Linter', Version::VERSION);
     }
 
-    public static function make(MetricManager $metrics): self
+    public static function make(CollectorRegistry $metrics): self
     {
         $observer = new GaugeVector(new MetricSubject(
             'console',

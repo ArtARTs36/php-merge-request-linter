@@ -10,13 +10,13 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegisterer;
 
 final readonly class CiRequestFetcher implements MergeRequestFetcher
 {
     public function __construct(
-        private CiSystemFactory  $systems,
-        private MetricRegisterer $metrics,
+        private CiSystemFactory     $systems,
+        private CollectorRegisterer $metrics,
     ) {
     }
 

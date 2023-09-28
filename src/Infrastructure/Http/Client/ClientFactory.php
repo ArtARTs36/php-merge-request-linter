@@ -6,15 +6,15 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\HttpClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Exceptions\HttpClientTypeNotSupported;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Log\LoggerInterface;
 
 class ClientFactory implements HttpClientFactory
 {
     public function __construct(
-        private readonly MetricManager $metrics,
-        private readonly LoggerInterface $logger,
+        private readonly CollectorRegistry $metrics,
+        private readonly LoggerInterface   $logger,
     ) {
     }
 

@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\Http;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\MetricableClient;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\NullClient;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 use GuzzleHttp\Psr7\Request;
@@ -17,7 +17,7 @@ final class MetricableClientTest extends TestCase
      */
     public function testSendRequest(): void
     {
-        $client = new MetricableClient(new NullClient(), $metrics = new MemoryMetricManager(LocalClock::utc()));
+        $client = new MetricableClient(new NullClient(), $metrics = new MemoryRegistry(LocalClock::utc()));
 
         $client->sendRequest(new Request('GET', 'http://site.ru'));
 
@@ -32,7 +32,7 @@ final class MetricableClientTest extends TestCase
      */
     public function testSendAsyncRequest(): void
     {
-        $client = new MetricableClient(new NullClient(), $metrics = new MemoryMetricManager(LocalClock::utc()));
+        $client = new MetricableClient(new NullClient(), $metrics = new MemoryRegistry(LocalClock::utc()));
 
         $client->sendAsyncRequests(['k' => new Request('GET', 'http://site.ru')]);
 

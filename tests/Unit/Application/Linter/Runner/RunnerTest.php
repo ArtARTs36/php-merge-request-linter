@@ -13,7 +13,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Ci\Exceptions\CiNotSupported;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\NullRegistry;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
@@ -32,7 +32,7 @@ final class RunnerTest extends TestCase
             {
                 throw new CiNotSupported();
             }
-        }, new NullMetricManager()));
+        }, new NullRegistry()));
 
         $result = $runner->run($this->createLinter());
 
@@ -51,7 +51,7 @@ final class RunnerTest extends TestCase
             {
                 return new MockCi();
             }
-        }, new NullMetricManager()));
+        }, new NullRegistry()));
 
         $result = $runner->run($this->createLinter());
 
@@ -73,7 +73,7 @@ final class RunnerTest extends TestCase
             {
                 throw new \Exception();
             }
-        }, new NullMetricManager()));
+        }, new NullRegistry()));
 
         $result = $runner->run($this->createLinter());
 
@@ -100,7 +100,7 @@ final class RunnerTest extends TestCase
             {
                 return new MockCi($this->request);
             }
-        }, new NullMetricManager()));
+        }, new NullRegistry()));
 
         $result = $runner->run($this->createLinter([
             new SuccessRule(),
@@ -115,7 +115,7 @@ final class RunnerTest extends TestCase
             new Rules($rules),
             new LinterOptions(false),
             new NullEventDispatcher(),
-            new NullMetricManager(),
+            new NullRegistry(),
         );
     }
 }

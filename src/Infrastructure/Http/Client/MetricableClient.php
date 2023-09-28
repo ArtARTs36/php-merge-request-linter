@@ -6,7 +6,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\GaugeVector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegisterer;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -19,7 +19,7 @@ final class MetricableClient implements Client
     ) {
     }
 
-    public static function make(Client $client, MetricRegisterer $metrics): self
+    public static function make(Client $client, CollectorRegisterer $metrics): self
     {
         $observer = $metrics->getOrRegister(new GaugeVector(new MetricSubject(
             'http',

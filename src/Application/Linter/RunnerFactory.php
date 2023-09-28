@@ -22,7 +22,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client\ClientFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 
 class RunnerFactory implements LinterRunnerFactory
@@ -31,13 +31,13 @@ class RunnerFactory implements LinterRunnerFactory
      * @param Map<string, class-string<CiSystem>> $ciSystems
      */
     public function __construct(
-        protected Environment   $environment,
-        protected Map           $ciSystems,
-        protected ContextLogger $logger,
-        protected MetricManager $metrics,
-        protected ClientFactory $clientFactory,
-        protected Clock    $clock,
-        protected MapContainer $container = new MapContainer(),
+        protected Environment       $environment,
+        protected Map               $ciSystems,
+        protected ContextLogger     $logger,
+        protected CollectorRegistry $metrics,
+        protected ClientFactory     $clientFactory,
+        protected Clock             $clock,
+        protected MapContainer      $container = new MapContainer(),
     ) {
     }
 

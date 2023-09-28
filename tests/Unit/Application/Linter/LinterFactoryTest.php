@@ -13,7 +13,7 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\NullRegistry;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\NullEventDispatcher;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
@@ -27,7 +27,7 @@ final class LinterFactoryTest extends TestCase
     {
         $factory = new LinterFactory(
             new NullEventDispatcher(),
-            new NullMetricManager(),
+            new NullRegistry(),
         );
 
         $gotLinter = $factory->create(new Config(

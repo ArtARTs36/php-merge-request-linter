@@ -46,8 +46,8 @@ use ArtARTs36\MergeRequestLinter\Providers\RuleProvider;
 use ArtARTs36\MergeRequestLinter\Providers\ServiceProvider;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Directory;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\TypeResolver\ResolverFactory;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Clock;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
@@ -177,7 +177,7 @@ class ApplicationFactory
     private function registerHttpClientFactory(): ClientFactory
     {
         $factory = new ClientFactory(
-            $this->container->get(MetricManager::class),
+            $this->container->get(CollectorRegistry::class),
             $this->container->get(LoggerInterface::class),
         );
 
@@ -187,11 +187,11 @@ class ApplicationFactory
         return $factory;
     }
 
-    private function registerMetricManager(): MetricManager
+    private function registerMetricManager(): CollectorRegistry
     {
-        $metrics = new MemoryMetricManager();
+        $metrics = new MemoryRegistry();
 
-        $this->container->set(MetricManager::class, $metrics);
+        $this->container->set(CollectorRegistry::class, $metrics);
 
         return $metrics;
     }
@@ -205,7 +205,7 @@ class ApplicationFactory
         return $fs;
     }
 
-    private function createLogger(OutputInterface $output, MetricManager $metricManager): ContextLogger
+    private function createLogger(OutputInterface $output, CollectorRegistry $metricManager): ContextLogger
     {
         $loggers = [
             MetricableLogger::create($metricManager),
