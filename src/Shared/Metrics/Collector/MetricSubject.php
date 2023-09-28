@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Value;
+namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector;
 
 use ArtARTs36\Str\Facade\Str;
 

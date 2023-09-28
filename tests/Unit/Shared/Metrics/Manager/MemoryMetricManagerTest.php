@@ -2,9 +2,10 @@
 
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Manager;
 
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\QueueClock;
@@ -13,16 +14,16 @@ use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 final class MemoryMetricManagerTest extends TestCase
 {
     /**
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager::add
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager::register
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager::__construct
      */
-    public function testAdd(): void
+    public function testRegister(): void
     {
-        $manager = new MemoryMetricManager(LocalClock::utc());
+        $manager = new MemoryMetricManager();
 
         self::assertCount(0, $manager->describe());
 
-        $manager->add(new MetricSubject('', '', ''), new IncCounter());
+        $manager->register(CounterVector::once(new MetricSubject('', '', ''), []));
 
         self::assertCount(1, $manager->describe());
     }

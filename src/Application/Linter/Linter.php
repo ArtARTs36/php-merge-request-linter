@@ -19,9 +19,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Counter;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Gauge;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -39,7 +39,7 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
     {
         $timer = Timer::start();
 
-        $this->addMetricUsedRules();
+        $this->addMetricUsedRules($request);
 
         $this->events->dispatch(new LintStartedEvent($request));
 
@@ -93,14 +93,17 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
         return $result;
     }
 
-    private function addMetricUsedRules(): void
+    private function addMetricUsedRules(MergeRequest $request): void
     {
         $this
             ->metrics
-            ->registerWithSample(
+            ->register(new Counter(
                 new MetricSubject('linter', 'used_rules', 'Used rules'),
-                new Gauge($this->rules->count()),
-            );
+                [
+                    'request' => (string) $request->uri,
+                ],
+                $this->rules->count(),
+            ));
     }
 
     /**

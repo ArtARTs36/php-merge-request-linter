@@ -121,7 +121,7 @@ class ApplicationFactory
 
         $this->registerTextRenderer();
 
-        $application = new Application($metrics);
+        $application = Application::make($metrics);
 
         $application->add(new LintCommand($metrics, $events, new LintTaskHandler(
             $configResolver,

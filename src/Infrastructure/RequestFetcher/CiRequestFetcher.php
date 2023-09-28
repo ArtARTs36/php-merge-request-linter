@@ -8,9 +8,9 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\GettingMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 
 final readonly class CiRequestFetcher implements MergeRequestFetcher
 {
@@ -24,10 +24,12 @@ final readonly class CiRequestFetcher implements MergeRequestFetcher
     {
         $ci = $this->systems->createCurrently();
 
-        $this->metrics->registerWithSample(
+        $metric = CounterVector::once(
             new MetricSubject('ci', 'used_systems', 'Used CI System'),
-            IncCounter::one(['ci' => $ci->getName()]),
+            ['ci' => $ci->getName()],
         );
+
+        $this->metrics->register($metric);
 
         try {
             return $ci->getCurrentlyMergeRequest();

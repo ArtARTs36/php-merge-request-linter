@@ -23,7 +23,7 @@ class ClientFactory implements HttpClientFactory
         if ($config->type === HttpClientConfig::TYPE_GUZZLE) {
             $wrapper = new ClientGuzzleWrapper(new GuzzleClient($config->params), $this->logger);
 
-            return new MetricableClient($wrapper, $this->metrics);
+            return MetricableClient::make($wrapper, $this->metrics);
         }
 
         if ($config->type === HttpClientConfig::TYPE_NULL) {

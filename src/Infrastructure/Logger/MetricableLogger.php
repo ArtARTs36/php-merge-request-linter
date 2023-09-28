@@ -2,10 +2,9 @@
 
 namespace ArtARTs36\MergeRequestLinter\Infrastructure\Logger;
 
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricRegisterer;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Counter;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Counter;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
 
@@ -20,9 +19,9 @@ final class MetricableLogger implements LoggerInterface
 
     public static function create(MetricRegisterer $metrics): self
     {
-        $counter = new IncCounter();
+        $counter = new Counter(new MetricSubject('logger', 'logs_count', 'Logs count'));
 
-        $metrics->registerWithSample(new MetricSubject('logger', 'logs_count', 'Logs count'), $counter);
+        $metrics->register($counter);
 
         return new self($counter);
     }

@@ -4,9 +4,8 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\Resolver;
 
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Configuration\User;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Gauge;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 
 class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Configuration\ConfigResolver
@@ -23,9 +22,12 @@ class MetricableConfigResolver implements \ArtARTs36\MergeRequestLinter\Infrastr
 
         $config = $this->resolver->resolve($user, $configSubjects);
 
-        $this->metrics->registerWithSample(
-            new MetricSubject('config', 'resolving_time', 'Duration of config resolving'),
-            new Gauge($timer->finish()),
+        $this->metrics->register(
+            new \ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Gauge(
+                new MetricSubject('config', 'resolving_time', 'Duration of config resolving'),
+                [],
+                $timer->finish()->seconds,
+            ),
         );
 
         return $config;

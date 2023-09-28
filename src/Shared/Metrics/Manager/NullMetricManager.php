@@ -3,8 +3,8 @@
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 
 /**
  * @codeCoverageIgnore

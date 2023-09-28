@@ -18,8 +18,8 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\NotePrinter;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -119,9 +119,9 @@ final class LintCommand extends Command
                 $this
                     ->metrics
                     ->describe()
-                    ->mapToArray(
-                        static fn ($_, Record $record) => new Metric($record->subject->wrapTitle(), isset($record->samples[0]) ? $record->samples[0]->getMetricValue() : 'null'),
-                    ),
+                    ->mapToArray(static function ($_, Collector $collector) {
+                        return new Metric($collector->getSubject()->wrapTitle(), isset($collector->getSamples()[0]) ? $collector->getSamples()[0]->value : 'null');
+                    }),
             );
         }
 

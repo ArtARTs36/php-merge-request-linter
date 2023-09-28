@@ -4,43 +4,44 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
 
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Map;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 
-class MemoryMetricManager implements MetricManager
+final class MemoryMetricManager implements MetricManager
 {
     /**
-     * @var array<string, Record>
+     * @var array<string, Collector>
      */
-    private array $records = [];
+    private array $collectors = [];
 
-    public function register(MetricSubject $subject): void
+    public function getOrRegister(string $key, callable $collectorCreator): Collector
     {
-        $this->records[$subject->identity()] = new Record($subject, []);
+        if (array_key_exists($key, $this->collectors)) {
+            return $this->collectors[$key];
+        }
+
+        $collector = $collectorCreator();
+
+        $this->register($collector);
+
+        return $collector;
     }
 
-    public function registerWithSample(MetricSubject $subject, MetricSample $sample): void
+    public function register(Collector $collector): void
     {
-        $this->records[$subject->identity()] = new Record($subject, [$sample]);
-    }
+        $key = $collector->getSubject()->identity();
 
-    public function add(string $subjectIdentity, MetricSample $value): self
-    {
-        if (! isset($this->records[$subjectIdentity])) {
+        if (array_key_exists($key, $this->collectors)) {
             throw new \LogicException(sprintf(
-                'Metric with subject identity "%s" not registered',
-                $subjectIdentity,
+                'Collector for metric with key "%s" already registered',
+                $key,
             ));
         }
 
-        $this->records[$subjectIdentity]->samples[] = $value;
-
-        return $this;
+        $this->collectors[$key] = $collector;
     }
 
     public function describe(): Map
     {
-        return new ArrayMap($this->records);
+        return new ArrayMap($this->collectors);
     }
 }

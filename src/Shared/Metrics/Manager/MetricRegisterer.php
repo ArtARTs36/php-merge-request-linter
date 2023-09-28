@@ -2,8 +2,7 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager;
 
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 
 /**
  * Interface for managing metrics (time execution, etc.).
@@ -11,18 +10,14 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
 interface MetricRegisterer
 {
     /**
-     * Register metric subject.
+     * @template C of Collector
+     * @param callable(): C $collectorCreator
+     * @return C
      */
-    public function register(MetricSubject $subject): void;
+    public function getOrRegister(string $key, callable $collectorCreator): Collector;
 
     /**
-     * Register metric subject with sample.
+     * Register collector.
      */
-    public function registerWithSample(MetricSubject $subject, MetricSample $sample): void;
-
-    /**
-     * Add new metric sample.
-     * @return $this
-     */
-    public function add(string $subjectIdentity, MetricSample $value): self;
+    public function register(Collector $collector): void;
 }

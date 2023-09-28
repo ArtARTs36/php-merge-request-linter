@@ -2,32 +2,36 @@
 
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway;
 
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSample;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Sample;
 use ArtARTs36\Str\Facade\Str;
 
 class Renderer
 {
     /**
-     * @param iterable<Record> $records
+     * @param iterable<Collector> $collectors
      */
-    public function render(iterable $records): string
+    public function render(iterable $collectors): string
     {
         $content = [];
 
-        foreach ($records as $metric) {
-            if (! isset($metric->samples[0])) {
+        foreach ($collectors as $collector) {
+            $samples = $collector->getSamples();
+
+            if (count($samples) === 0) {
                 continue;
             }
 
-            $content[] = "# HELP {$metric->subject->identity()} The number of items in the queue.";
-            $content[] = "# TYPE {$metric->subject->identity()} {$metric->samples[0]->getMetricType()->value}";
+            $key = $collector->getSubject()->identity();
+
+            $content[] = "# HELP $key The number of items in the queue.";
+            $content[] = "# TYPE $key {$collector->getMetricType()->value}";
             $content[] = "\n";
 
-            foreach ($metric->samples as $sample) {
+            foreach ($samples as $sample) {
                 $labelsString = $this->collectLabels($sample);
 
-                $content[] = "{$metric->subject->identity()}{$labelsString} {$sample->getMetricValue()}";
+                $content[] = "$key$labelsString $sample->value";
             }
 
             $content[] = "\n";
@@ -36,14 +40,14 @@ class Renderer
         return Str::implode("\n", $content);
     }
 
-    private function collectLabels(MetricSample $metric): string
+    private function collectLabels(Sample $metric): string
     {
-        if (count($metric->getMetricLabels()) === 0) {
+        if (count($metric->labels) === 0) {
             return '';
         }
 
         $labelsString = '{';
-        $labels = $metric->getMetricLabels();
+        $labels = $metric->labels;
 
         foreach ($labels as $labelKey => $labelValue) {
             $labelsString .= sprintf(

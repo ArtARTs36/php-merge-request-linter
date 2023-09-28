@@ -3,7 +3,6 @@
 namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\PrometheusPushGateway;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Storage\MetricStorage;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
 
 final class PushGateway implements MetricStorage
 {
@@ -13,12 +12,9 @@ final class PushGateway implements MetricStorage
     ) {
     }
 
-    /**
-     * @param iterable<Record> $records
-     */
-    public function commit(string $id, iterable $records): void
+    public function commit(string $id, iterable $collectors): void
     {
-        $data = $this->renderer->render($records);
+        $data = $this->renderer->render($collectors);
 
         $this->client->replace($id, $data);
     }
