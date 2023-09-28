@@ -10,7 +10,7 @@ final class GaugeVector extends AbstractVector
     /**
      * @param array<string, string> $labels
      */
-    public function add(array $labels): Gauge
+    public function add(array $labels = []): Gauge
     {
         return $this->attach(function (array $labels) {
             return new Gauge($this->getSubject(), $labels);
