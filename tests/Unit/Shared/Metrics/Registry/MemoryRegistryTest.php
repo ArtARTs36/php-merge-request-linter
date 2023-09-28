@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Manager;
+namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Registry;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Counter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Gauge;
