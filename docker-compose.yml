@@ -1,0 +1,16 @@
+services:
+  prometheus:
+    restart: always
+    image: bitnami/prometheus:latest
+    links:
+      - pushgateway
+    volumes:
+      - ./prom.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+    ports:
+      - 9092:9090
+
+  pushgateway:
+    restart: always
+    image: bitnami/pushgateway:latest
+    ports:
+      - 9091:9091

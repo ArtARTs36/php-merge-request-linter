@@ -11,7 +11,7 @@ use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\ConditionRuleFact
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Factories\RuleFactory;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Rule\Resolver;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\ArrayMap;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\NullCounter;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\Instantiator\Finder;
 use ArtARTs36\MergeRequestLinter\Shared\Reflection\ParameterMapBuilder;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConditionOperator;
@@ -31,7 +31,7 @@ final class ResolverTest extends TestCase
     {
         $resolver = new Resolver(new ArrayMap([
             'success' => SuccessRule::class,
-        ]), new RuleFactory(new ParameterMapBuilder(new MockTypeResolver()), new Finder()), new ConditionRuleFactory(new MockOperatorResolver(), new NullCounter()));
+        ]), new RuleFactory(new ParameterMapBuilder(new MockTypeResolver()), new Finder()), new ConditionRuleFactory(new MockOperatorResolver(), CounterVector::null()));
 
         self::expectException(RuleNotFound::class);
 
@@ -47,7 +47,7 @@ final class ResolverTest extends TestCase
     {
         $resolver = new Resolver(new ArrayMap([
             'success' => SuccessRule::class,
-        ]), new RuleFactory(new ParameterMapBuilder(new MockTypeResolver()), new Finder()), new ConditionRuleFactory(new MockOperatorResolver(), new NullCounter()));
+        ]), new RuleFactory(new ParameterMapBuilder(new MockTypeResolver()), new Finder()), new ConditionRuleFactory(new MockOperatorResolver(), CounterVector::null()));
 
         $gotRule = $resolver->resolve('success', [
             [
@@ -69,7 +69,7 @@ final class ResolverTest extends TestCase
     {
         $resolver = new Resolver(new ArrayMap([
             'success' => SuccessRule::class,
-        ]), new RuleFactory(new ParameterMapBuilder(new MockTypeResolver()), new Finder()), new ConditionRuleFactory(new MockOperatorResolver(), new NullCounter()));
+        ]), new RuleFactory(new ParameterMapBuilder(new MockTypeResolver()), new Finder()), new ConditionRuleFactory(new MockOperatorResolver(), CounterVector::null()));
 
         $gotRule = $resolver->resolve('success', ['critical' => false]);
 
@@ -84,7 +84,7 @@ final class ResolverTest extends TestCase
     {
         $resolver = new Resolver(new ArrayMap([
             'success' => SuccessRule::class,
-        ]), new RuleFactory(new ParameterMapBuilder(new MockTypeResolver()), new Finder()), new ConditionRuleFactory(new MockOperatorResolver(), new NullCounter()));
+        ]), new RuleFactory(new ParameterMapBuilder(new MockTypeResolver()), new Finder()), new ConditionRuleFactory(new MockOperatorResolver(), CounterVector::null()));
 
         self::expectExceptionMessage('Failed to create Rule with name "success": param "critical" must be boolean');
 
@@ -107,7 +107,7 @@ final class ResolverTest extends TestCase
                 ),
                 new Finder(),
             ),
-            new ConditionRuleFactory(new MockOperatorResolver(MockConditionOperator::true()), new NullCounter()),
+            new ConditionRuleFactory(new MockOperatorResolver(MockConditionOperator::true()), CounterVector::null()),
         );
 
         $gotRule = $resolver->resolve('success', ['when' => [
@@ -135,7 +135,7 @@ final class ResolverTest extends TestCase
                 ),
                 new Finder(),
             ),
-            new ConditionRuleFactory(new MockOperatorResolver(MockConditionOperator::true()), new NullCounter()),
+            new ConditionRuleFactory(new MockOperatorResolver(MockConditionOperator::true()), CounterVector::null()),
         );
 
         self::expectExceptionMessage('Config[rules.success.when] has invalid type. Expected type: array, actual: string');
@@ -160,7 +160,7 @@ final class ResolverTest extends TestCase
                 'success' => SuccessRule::class,
             ]),
             $ruleFactory,
-            new ConditionRuleFactory(new MockOperatorResolver(MockConditionOperator::true()), new NullCounter()),
+            new ConditionRuleFactory(new MockOperatorResolver(MockConditionOperator::true()), CounterVector::null()),
         );
 
         self::expectException(CreatingRuleException::class);

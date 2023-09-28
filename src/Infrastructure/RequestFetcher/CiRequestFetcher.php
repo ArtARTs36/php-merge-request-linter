@@ -8,15 +8,15 @@ use ArtARTs36\MergeRequestLinter\Domain\CI\GettingMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequestFetcher;
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\CI\CiSystemFactory;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\StringMetric;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegisterer;
 
 final readonly class CiRequestFetcher implements MergeRequestFetcher
 {
     public function __construct(
-        private CiSystemFactory $systems,
-        private MetricManager   $metrics,
+        private CiSystemFactory     $systems,
+        private CollectorRegisterer $metrics,
     ) {
     }
 
@@ -24,10 +24,12 @@ final readonly class CiRequestFetcher implements MergeRequestFetcher
     {
         $ci = $this->systems->createCurrently();
 
-        $this->metrics->add(
-            new MetricSubject('used_ci_system', '[CI] Used CI System'),
-            new StringMetric($ci->getName()),
+        $metric = CounterVector::once(
+            new MetricSubject('ci', 'used_systems', 'Used CI systems', 'Used CI systems: :ci:'),
+            ['ci' => $ci->getName()],
         );
+
+        $this->metrics->register($metric);
 
         try {
             return $ci->getCurrentlyMergeRequest();

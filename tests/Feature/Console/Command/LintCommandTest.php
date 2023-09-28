@@ -5,7 +5,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Feature\Console\Command;
 use ArtARTs36\MergeRequestLinter\Application\Linter\LinterFactory;
 use ArtARTs36\MergeRequestLinter\Application\Linter\TaskHandlers\LintTaskHandler;
 use ArtARTs36\MergeRequestLinter\Presentation\Console\Command\LintCommand;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\NullMetricManager;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\NullRegistry;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConfigResolver;
@@ -27,7 +27,7 @@ final class LintCommandTest extends TestCase
     {
         $tester = new CommandTester(
             new LintCommand(
-                $metrics = new NullMetricManager(),
+                $metrics = new NullRegistry(),
                 $events = new NullEventDispatcher(),
                 new LintTaskHandler(
                     new MockConfigResolver($this->makeConfig([new SuccessRule()])),

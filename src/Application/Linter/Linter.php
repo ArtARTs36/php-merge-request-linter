@@ -19,9 +19,9 @@ use ArtARTs36\MergeRequestLinter\Domain\Request\MergeRequest;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rule;
 use ArtARTs36\MergeRequestLinter\Domain\Rule\Rules;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Counter;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegisterer;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -31,7 +31,7 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
         private Rules                    $rules,
         private LinterOptions            $options,
         private EventDispatcherInterface $events,
-        private MetricManager            $metrics,
+        private CollectorRegisterer      $metrics,
     ) {
     }
 
@@ -39,7 +39,7 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
     {
         $timer = Timer::start();
 
-        $this->addMetricUsedRules();
+        $this->addMetricUsedRules($request);
 
         $this->events->dispatch(new LintStartedEvent($request));
 
@@ -93,15 +93,17 @@ final readonly class Linter implements \ArtARTs36\MergeRequestLinter\Domain\Lint
         return $result;
     }
 
-    private function addMetricUsedRules(): void
+    private function addMetricUsedRules(MergeRequest $request): void
     {
-        $this->metrics->add(
-            new MetricSubject(
-                'linter_used_rules',
-                '[Linter] Used rules',
-            ),
-            IncCounter::create($this->rules),
-        );
+        $this
+            ->metrics
+            ->register(new Counter(
+                new MetricSubject('linter', 'used_rules', 'Used rules'),
+                [
+                    'request' => (string) $request->uri,
+                ],
+                $this->rules->count(),
+            ));
     }
 
     /**

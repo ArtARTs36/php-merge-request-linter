@@ -4,18 +4,31 @@ namespace ArtARTs36\MergeRequestLinter\Infrastructure\Http\Client;
 
 use ArtARTs36\MergeRequestLinter\Infrastructure\Contracts\Http\Client;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\GaugeVector;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegisterer;
 use ArtARTs36\MergeRequestLinter\Shared\Time\Timer;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class MetricableClient implements Client
+final class MetricableClient implements Client
 {
     public function __construct(
-        private readonly Client $client,
-        private readonly MetricManager $metrics,
+        private readonly Client      $client,
+        private readonly GaugeVector $observer,
     ) {
+    }
+
+    public static function make(Client $client, CollectorRegisterer $metrics): self
+    {
+        $observer = $metrics->getOrRegister(new GaugeVector(new MetricSubject(
+            'http',
+            'send_request',
+            'Wait of response',
+            'Wait of response :host:',
+        )));
+
+        return new self($client, $observer);
     }
 
     public function sendRequest(RequestInterface $request): ResponseInterface
@@ -24,10 +37,12 @@ class MetricableClient implements Client
 
         $response = $this->client->sendRequest($request);
 
-        $this->metrics->add(new MetricSubject(
-            'http_send_request',
-            sprintf('[HTTP] Wait of response from %s', $request->getUri()->getHost()),
-        ), $timer->finish());
+        $this
+            ->observer
+            ->add([
+                'host' => $request->getUri()->getHost(),
+            ])
+            ->set($timer->finish()->seconds);
 
         return $response;
     }
@@ -38,12 +53,14 @@ class MetricableClient implements Client
 
         $responses = $this->client->sendAsyncRequests($requests);
 
-        $hosts = $this->getHosts($requests)->implode(', ');
+        $hosts = $this->getHosts($requests)->implode(',');
 
-        $this->metrics->add(new MetricSubject(
-            'http_send_request',
-            sprintf('[HTTP] Wait of response from %s for %d async requests', $hosts, count($requests)),
-        ), $timer->finish());
+        $this
+            ->observer
+            ->add([
+                'host' => $hosts,
+            ])
+            ->set($timer->finish()->seconds);
 
         return $responses;
     }

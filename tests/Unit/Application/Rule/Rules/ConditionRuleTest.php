@@ -4,7 +4,7 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Application\Rule\Rules;
 
 use ArtARTs36\MergeRequestLinter\Application\Rule\Rules\ConditionRule;
 use ArtARTs36\MergeRequestLinter\Domain\Condition\ConditionOperator;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\IncCounter;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockConditionOperator;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\SuccessRule;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -35,12 +35,12 @@ final class ConditionRuleTest extends TestCase
         $rule = new ConditionRule(
             new SuccessRule(),
             $operator,
-            $counter = new IncCounter(),
+            $counter = CounterVector::null(),
         );
 
         $rule->lint($this->makeMergeRequest());
 
-        self::assertEquals($expected, $counter->getMetricValue());
+        self::assertEquals($expected, $counter->getFirstSampleValue());
     }
 
     /**
@@ -52,6 +52,7 @@ final class ConditionRuleTest extends TestCase
         $rule = new ConditionRule(
             $subRule = new SuccessRule(),
             MockConditionOperator::true(),
+            CounterVector::null(),
         );
 
         self::assertEquals($subRule->getDefinition(), $rule->getDefinition());
@@ -66,6 +67,7 @@ final class ConditionRuleTest extends TestCase
         $rule = new ConditionRule(
             $subRule = new SuccessRule(),
             MockConditionOperator::true(),
+            CounterVector::null(),
         );
 
         self::assertEquals($subRule->getName(), $rule->getName());
@@ -80,6 +82,7 @@ final class ConditionRuleTest extends TestCase
         $rule = new ConditionRule(
             $subRule = new SuccessRule(),
             MockConditionOperator::true(),
+            CounterVector::null(),
         );
 
         self::assertEquals([$subRule], $rule->getDecoratedRules());

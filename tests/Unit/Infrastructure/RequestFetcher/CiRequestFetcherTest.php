@@ -5,8 +5,9 @@ namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Infrastructure\RequestFetcher;
 use ArtARTs36\MergeRequestLinter\Domain\CI\CiSystem;
 use ArtARTs36\MergeRequestLinter\Domain\CI\FetchMergeRequestException;
 use ArtARTs36\MergeRequestLinter\Infrastructure\RequestFetcher\CiRequestFetcher;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Manager\MemoryMetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Time\LocalClock;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Sample;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCi;
 use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCiSystemFactory;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
@@ -22,12 +23,17 @@ final class CiRequestFetcherTest extends TestCase
     {
         $fetcher = new CiRequestFetcher(
             new MockCiSystemFactory(new MockCi($this->makeMergeRequest())),
-            $metrics = new MemoryMetricManager(LocalClock::utc()),
+            $metrics = new MemoryRegistry(),
         );
 
         $fetcher->fetch();
 
-        self::assertEquals('used_ci_system', $metrics->describe()->first()->subject->key);
+        self::assertInstanceOf(CounterVector::class, $firstMetric = $metrics->describe()->first());
+        self::assertEquals([
+            new Sample(1, [
+                'ci' => 'mock_ci',
+            ]),
+        ], $firstMetric->getSamples());
     }
 
     /**
@@ -37,7 +43,7 @@ final class CiRequestFetcherTest extends TestCase
     {
         $fetcher = new CiRequestFetcher(
             new MockCiSystemFactory(new MockCi()),
-            new MemoryMetricManager(LocalClock::utc()),
+            new MemoryRegistry(),
         );
 
         self::expectExceptionMessageMatches('/Fetch current merge request from (.*) was failed/i');
@@ -58,7 +64,7 @@ final class CiRequestFetcherTest extends TestCase
 
         $fetcher = new CiRequestFetcher(
             new MockCiSystemFactory($ci),
-            new MemoryMetricManager(LocalClock::utc()),
+            new MemoryRegistry(),
         );
 
         self::expectExceptionMessageMatches('/Fetch current merge request from (.*) was failed/i');

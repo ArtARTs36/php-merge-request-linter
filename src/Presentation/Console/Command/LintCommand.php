@@ -18,8 +18,7 @@ use ArtARTs36\MergeRequestLinter\Presentation\Console\Printers\NotePrinter;
 use ArtARTs36\MergeRequestLinter\Shared\DataStructure\Arrayee;
 use ArtARTs36\MergeRequestLinter\Shared\Events\EventManager;
 use ArtARTs36\MergeRequestLinter\Shared\File\Bytes;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\MetricManager;
-use ArtARTs36\MergeRequestLinter\Shared\Metrics\Value\Record;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\CollectorRegistry;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -35,10 +34,10 @@ final class LintCommand extends Command
     protected static $defaultDescription = 'Run lint to current merge request';
 
     public function __construct(
-        protected MetricManager $metrics,
-        protected EventManager $events,
+        protected CollectorRegistry      $metrics,
+        protected EventManager           $events,
         private readonly LintTaskHandler $handler,
-        protected readonly NotePrinter $notePrinter = new NotePrinter(),
+        protected readonly NotePrinter   $notePrinter = new NotePrinter(),
         protected readonly MetricPrinter $metricPrinter = new MetricPrinter(),
     ) {
         parent::__construct();
@@ -115,11 +114,28 @@ final class LintCommand extends Command
         ]);
 
         if ($fullMetrics) {
-            $metrics = $metrics->merge(
-                $this->metrics->describe()->mapToArray(
-                    static fn (Record $record) => new Metric($record->subject->name, $record->getValue()),
-                )
-            );
+            $readMetrics = [];
+
+            foreach ($this->metrics->describe() as $collector) {
+                if ($collector->getSubject()->key === 'rule_lint_state') {
+                    continue;
+                }
+
+                foreach ($collector->getSamples() as $sample) {
+                    $metric = new Metric(
+                        $collector->getSubject()->readableTitle($sample->labels),
+                        "$sample->value",
+                    );
+
+                    if ($collector->getSubject()->category === 'linter') {
+                        array_unshift($readMetrics, $metric);
+                    } else {
+                        $readMetrics[] = $metric;
+                    }
+                }
+            }
+
+            $metrics = $metrics->merge($readMetrics);
         }
 
         $this->metricPrinter->print(new SymfonyTablePrinter($style), $metrics);
