@@ -19,4 +19,14 @@ final class CounterVectorTest extends TestCase
 
         self::assertEquals($subject, $createdCounter->getSubject());
     }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\CounterVector::null
+     */
+    public function testNull(): void
+    {
+        $vector = CounterVector::null();
+
+        self::assertEquals(new MetricSubject('', '', ''), $vector->getSubject());
+    }
 }
