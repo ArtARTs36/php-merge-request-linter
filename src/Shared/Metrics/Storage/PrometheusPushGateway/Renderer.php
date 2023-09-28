@@ -24,7 +24,7 @@ class Renderer
 
             $key = $collector->getSubject()->identity();
 
-            $content[] = "# HELP $key The number of items in the queue.";
+            $content[] = "# HELP $key {$collector->getSubject()->title}";
             $content[] = "# TYPE $key {$collector->getMetricType()->value}";
             $content[] = "\n";
 

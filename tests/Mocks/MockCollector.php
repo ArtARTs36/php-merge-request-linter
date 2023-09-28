@@ -8,9 +8,18 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricType;
 
 final class MockCollector implements Collector
 {
+    private readonly MetricSubject $metricSubject;
+
+    public function __construct(
+        ?MetricSubject $metricSubject = null,
+        private readonly array $samples = [],
+    ) {
+        $this->metricSubject = $metricSubject ?? new MetricSubject('mock', 'collector', 'Mock title');
+    }
+
     public function getSubject(): MetricSubject
     {
-        // TODO: Implement getSubject() method.
+        return $this->metricSubject;
     }
 
     public function getMetricType(): MetricType
@@ -20,6 +29,6 @@ final class MockCollector implements Collector
 
     public function getSamples(): array
     {
-        // TODO: Implement getSamples() method.
+        return $this->samples;
     }
 }

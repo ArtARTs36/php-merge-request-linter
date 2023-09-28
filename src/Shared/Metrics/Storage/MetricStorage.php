@@ -10,7 +10,7 @@ use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 interface MetricStorage
 {
     /**
-     * Commit metric records.
+     * Commit metric records to persistent storage.
      *
      * @param array<Collector> $collectors
      */
