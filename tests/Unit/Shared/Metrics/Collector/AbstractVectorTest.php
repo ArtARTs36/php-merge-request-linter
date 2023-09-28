@@ -62,7 +62,7 @@ final class AbstractVectorTest extends TestCase
      */
     public function testAttachExistsCollector(): void
     {
-        $vector = new class(new MetricSubject('', '', '')) extends AbstractVector {
+        $vector = new class (new MetricSubject('', '', '')) extends AbstractVector {
             public function add(array $labels): Collector
             {
                 return $this->attach(fn () => new MockCollector(), $labels);

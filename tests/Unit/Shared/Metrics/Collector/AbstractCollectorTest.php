@@ -52,7 +52,8 @@ final class AbstractCollectorTest extends TestCase
             }
 
             public function getMetricType(): MetricType
-            {}
+            {
+            }
         };
 
         self::assertEquals($expectedValue, $collector->getFirstSampleValue());
