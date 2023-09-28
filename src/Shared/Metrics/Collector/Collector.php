@@ -7,14 +7,14 @@ namespace ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector;
  */
 interface Collector
 {
-        /**
-         * Get subject.
-         */
+    /**
+     * Get metric subject.
+     */
     public function getSubject(): MetricSubject;
     
-        /**
-         * Get metric type.
-         */
+    /**
+     * Get metric type.
+     */
     public function getMetricType(): MetricType;
 
     /**
