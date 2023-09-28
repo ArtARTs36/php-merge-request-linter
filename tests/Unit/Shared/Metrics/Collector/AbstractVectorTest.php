@@ -3,10 +3,12 @@
 namespace ArtARTs36\MergeRequestLinter\Tests\Unit\Shared\Metrics\Collector;
 
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\AbstractVector;
+use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Collector;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Counter;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricSubject;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\MetricType;
 use ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\Sample;
+use ArtARTs36\MergeRequestLinter\Tests\Mocks\MockCollector;
 use ArtARTs36\MergeRequestLinter\Tests\TestCase;
 
 final class AbstractVectorTest extends TestCase
@@ -53,5 +55,27 @@ final class AbstractVectorTest extends TestCase
         };
 
         self::assertEquals($expectedSamples, $vector->getSamples());
+    }
+
+    /**
+     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Collector\AbstractVector::attach
+     */
+    public function testAttachExistsCollector(): void
+    {
+        $vector = new class(new MetricSubject('', '', '')) extends AbstractVector {
+            public function add(array $labels): Collector
+            {
+                return $this->attach(fn () => new MockCollector(), $labels);
+            }
+
+            public function getMetricType(): MetricType
+            {
+            }
+        };
+
+        $collectorOne = $vector->add(['k' => 'v']);
+        $collectorTwo = $vector->add(['k' => 'v']);
+
+        self::assertSame(spl_object_hash($collectorOne), spl_object_hash($collectorTwo));
     }
 }
