@@ -40,7 +40,7 @@ final class ConditionRuleTest extends TestCase
 
         $rule->lint($this->makeMergeRequest());
 
-        self::assertEquals($expected, $counter->getMetricValue());
+        self::assertEquals($expected, $counter->getFirstSampleValue());
     }
 
     /**

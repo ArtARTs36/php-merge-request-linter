@@ -32,7 +32,6 @@ final class MemoryRegistryTest extends TestCase
     /**
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry::register
      * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry::describe
-     * @covers \ArtARTs36\MergeRequestLinter\Shared\Metrics\Registry\MemoryRegistry::__construct
      * @dataProvider providerForTestDescribe
      */
     public function testDescribe(array $adds, array $expected): void

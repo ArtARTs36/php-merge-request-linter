@@ -11,6 +11,8 @@ use ArtARTs36\MergeRequestLinter\Domain\Configuration\CommentsPostStrategy;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\Config;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\HttpClientConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\LinterConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\MetricsConfig;
+use ArtARTs36\MergeRequestLinter\Domain\Configuration\MetricsStorageConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Configuration\NotificationsConfig;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LinterOptions;
 use ArtARTs36\MergeRequestLinter\Domain\Linter\LintState;
@@ -34,14 +36,7 @@ final class LintTaskHandlerTest extends TestCase
             ->expects(new InvokedCount(1))
             ->method('resolve')
             ->willReturn($config = new ResolvedConfig(
-                new Config(
-                    new Rules([]),
-                    new ArrayMap([]),
-                    new HttpClientConfig('', []),
-                    new NotificationsConfig(new ArrayMap([]), new ArrayMap([])),
-                    new LinterConfig(new LinterOptions()),
-                    new CommentsConfig(CommentsPostStrategy::New, []),
-                ),
+                $this->makeConfig([]),
                 '',
             ));
 

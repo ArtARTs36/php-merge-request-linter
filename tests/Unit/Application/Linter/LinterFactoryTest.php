@@ -30,14 +30,7 @@ final class LinterFactoryTest extends TestCase
             new NullRegistry(),
         );
 
-        $gotLinter = $factory->create(new Config(
-            new Rules([]),
-            new ArrayMap([]),
-            new HttpClientConfig(HttpClientConfig::TYPE_NULL, []),
-            new NotificationsConfig(new ArrayMap([]), new ArrayMap([])),
-            new LinterConfig(new LinterOptions()),
-            new CommentsConfig(CommentsPostStrategy::New, []),
-        ));
+        $gotLinter = $factory->create($this->makeConfig([]));
 
         self::assertInstanceOf(Linter::class, $gotLinter);
     }
